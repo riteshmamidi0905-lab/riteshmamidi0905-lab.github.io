@@ -32,7 +32,7 @@
   header p{color:var(--mut);max-width:620px;font-size:17px}
   .note{margin-top:16px;font-size:13.5px;color:var(--dim);display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--panel);padding:8px 14px;border-radius:100px}
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:24px 0 80px}
-  .card{display:flex;flex-direction:column;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:24px;transition:.25s;position:relative;overflow:hidden}
+  .card{display:flex;flex-direction:column;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:24px;transition:.25s;position:relative;overflow:hidden;cursor:pointer}
   .card::after{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.25s}
   .card:hover{transform:translateY(-4px);border-color:transparent}
   .card:hover::after{opacity:1}
@@ -63,61 +63,61 @@
 
 <div class="wrap"><div class="grid">
 
-  <a class="card" href="mlops-platform.html">
+  <div class="card" onclick="location.href='mlops-platform.html'">
     <span class="tag">MLOps</span>
     <h3>MLOps Platform — monitoring dashboard</h3>
     <p>Experiment comparison, model registry with stage promotion, and PSI/KS data-drift monitoring across the full train → deploy → monitor loop.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/mlops-platform" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="mlops-platform.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/mlops-platform" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
-  <a class="card" href="llm-eval-framework.html">
+  <div class="card" onclick="location.href='llm-eval-framework.html'">
     <span class="tag">GenAI · LLM</span>
     <h3>LLM Evaluation — RAG-QA benchmark</h3>
     <p>Rubric-driven scoring of LLM/RAG outputs on faithfulness, hallucination &amp; refusal — mean score, pass rate, per-criterion breakdown, and a case-by-case table.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="llm-eval-framework.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
-  <a class="card" href="ai-agent-toolkit.html">
+  <div class="card" onclick="location.href='ai-agent-toolkit.html'">
     <span class="tag">GenAI · Agents</span>
     <h3>AI Agent Toolkit — reasoning traces</h3>
     <p>A ReAct tool-using agent (calculator, unit-convert, knowledge base) with a 10/10 task benchmark and step-by-step reasoning traces you can inspect.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/ai-agent-toolkit" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="ai-agent-toolkit.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/ai-agent-toolkit" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
-  <a class="card" href="document-ocr-vision.html">
+  <div class="card" onclick="location.href='document-ocr-vision.html'">
     <span class="tag">Computer Vision</span>
     <h3>Document OCR &amp; Vision — extraction</h3>
     <p>An invoice pipeline: original → preprocessed → layout detection → Tesseract OCR → structured field extraction, with CER/WER quality metrics.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/document-ocr-vision" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="document-ocr-vision.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/document-ocr-vision" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
-  <a class="card" href="neural-machine-translation.html">
+  <div class="card" onclick="location.href='neural-machine-translation.html'">
     <span class="tag">NLP · Deep Learning</span>
     <h3>Neural Machine Translation — EN→FR</h3>
     <p>A GRU encoder–decoder with attention: training loss, a BLEU comparison vs a phrase-based baseline, an attention heatmap, and sample translations.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/neural-machine-translation" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="neural-machine-translation.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/neural-machine-translation" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
-  <a class="card" href="speech-intelligence.html">
+  <div class="card" onclick="location.href='speech-intelligence.html'">
     <span class="tag">Speech · DSP</span>
     <h3>Speech Intelligence — command recognition</h3>
     <p>Spoken-command recognition (MFCC + Random Forest) with waveform/spectrogram views, an MFCC feature map, and a confusion matrix at 100% held-out accuracy.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/speech-intelligence" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="speech-intelligence.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/speech-intelligence" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
-  <a class="card" href="video-intelligence.html">
+  <div class="card" onclick="location.href='video-intelligence.html'">
     <span class="tag">Computer Vision</span>
     <h3>Video Intelligence — motion &amp; shots</h3>
     <p>Shot-boundary detection, a motion timeline, and object tracking over a video — the scene-level intelligence pipeline visualized end to end.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/video-intelligence" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="video-intelligence.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/video-intelligence" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
-  <a class="card" href="nlp-text-intelligence.html">
+  <div class="card" onclick="location.href='nlp-text-intelligence.html'">
     <span class="tag">NLP</span>
     <h3>NLP Text Intelligence — one pipeline</h3>
     <p>Sentiment, entities, topic classification, and keyword extraction in a single pipeline — with model-accuracy tiles, a confusion matrix, and TF-IDF keywords.</p>
-    <div class="row"><span class="open">Open demo →</span><a class="repo" href="https://github.com/riteshmamidi0905-lab/nlp-text-intelligence" onclick="event.stopPropagation()">View code</a></div>
-  </a>
+    <div class="row"><a class="open" href="nlp-text-intelligence.html" onclick="event.stopPropagation()">Open demo →</a><a class="repo" href="https://github.com/riteshmamidi0905-lab/nlp-text-intelligence" target="_blank" rel="noopener" onclick="event.stopPropagation()">View code</a></div>
+  </div>
 
 </div></div>
 
