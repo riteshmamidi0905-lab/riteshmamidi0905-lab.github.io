@@ -133,7 +133,7 @@
   .fbtn.on{background:var(--tx);color:#0a0b12;border-color:var(--tx)}
   .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
   .proj{display:flex;flex-direction:column;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:.25s;position:relative;overflow:hidden}
-  .proj::after{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.25s}
+  .proj::after{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.25s;pointer-events:none}
   .proj:hover{transform:translateY(-4px);border-color:transparent}
   .proj:hover::after{opacity:1}
   .proj .cat{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--a2);font-family:"JetBrains Mono"}
