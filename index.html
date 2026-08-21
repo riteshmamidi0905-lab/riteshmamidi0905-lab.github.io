@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>/* progressive enhancement: reveal animations only run with working JS; failure-safe reveals content if app.js never initializes */
+(function(){var d=document.documentElement;d.classList.add('js');
+window.addEventListener('load',function(){setTimeout(function(){
+  if(!window.__enh){[].forEach.call(document.querySelectorAll('.rv'),function(e){e.classList.add('in');});}
+},1800);});})();</script>
 <title>Ritesh Mamidi — AI/ML Engineer · Data & Product</title>
 <meta name="description" content="Ritesh Mamidi — AI/ML Engineer and Product/Data Analyst in Austin, TX. I build data systems, AI systems, and the analytics that turn them into decisions: Spark & Kafka pipelines, LLM evaluation, RAG, MLOps, and product analytics. 20+ open-source projects.">
 <meta name="author" content="Ritesh Mamidi">
@@ -133,7 +138,7 @@ h1.big .l2 em{font-style:normal;color:#fff}
 @keyframes sd{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,11px)}}
 
 /* ---- REVEAL / MOTION ---- */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.16,.8,.24,1),transform .85s cubic-bezier(.16,.8,.24,1)}
+.js .rv{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.16,.8,.24,1),transform .85s cubic-bezier(.16,.8,.24,1)}
 .rv.in{opacity:1;transform:none}
 .rv.d1{transition-delay:.07s}.rv.d2{transition-delay:.14s}.rv.d3{transition-delay:.21s}.rv.d4{transition-delay:.28s}
 .hero-rise{opacity:0;transform:translateY(26px);animation:rise .9s cubic-bezier(.16,.8,.24,1) forwards}
@@ -181,9 +186,15 @@ h1.big .l2 em{font-style:normal;color:#fff}
 .flag-visual:hover{transform:scale(1.015);border-color:var(--line2)}
 .flag-visual svg{width:86%;height:auto;overflow:visible}
 /* case study */
-.cs-panel{overflow:hidden;max-height:0;transition:max-height .5s ease}
-.cs-panel.open{max-height:1600px}
-.cs-inner{padding:26px 0 4px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 40px}
+.cs-panel{margin-top:6px}
+.cs-summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--tx);padding:14px 0 2px;user-select:none;transition:color .2s}
+.cs-summary::-webkit-details-marker{display:none}
+.cs-summary::marker{content:""}
+.cs-summary:hover{color:var(--ac-x)}
+.cs-summary .caret{transition:transform .3s}
+details[open] .cs-summary .caret{transform:rotate(180deg)}
+.cs-inner{padding:14px 0 6px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 40px}
+.pcard.hide{display:none}
 .cs-block h4{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ac-x);margin-bottom:7px}
 .cs-block p{font-size:14.5px;color:var(--mut);line-height:1.58}
 .cs-block.arch{grid-column:1/-1}
@@ -377,7 +388,172 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     <div class="kicker rv">Selected Work</div>
     <h2 class="h1 rv">Systems, not repositories.</h2>
     <p class="lede rv">Six flagship builds across the data and AI lifecycle — designed around real engineering patterns, tested, documented, and public. Open a case study to see the problem, the architecture, and the decisions.</p>
-    <div id="flagships"></div>
+    <div id="flagships">
+    <article class="flagw rv">
+      <div class="flag">
+        <div class="flag-txt">
+          <span class="flag-num">01 / Flagship</span>
+          <h3>Real-Time Streaming Pipeline</h3>
+          <p class="one">Detect fraud on a live event stream — without waiting for a nightly batch.</p>
+          <div class="impact">&#9656; <span>Event-time windows & watermarks with a one-command Docker stack</span></div>
+          <div class="fstack">Kafka  &#183;  Spark Structured Streaming  &#183;  Cassandra  &#183;  Docker</div>
+          <div class="flinks">
+            <a class="gh" href="https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><path id="p1" d="M88 147 H120" fill="none" stroke="#7b8090" stroke-width="1.4" marker-end="url(#ar)" opacity=".5"/><path id="p2" d="M194 147 H226" fill="none" stroke="#7b8090" stroke-width="1.4" marker-end="url(#ar)" opacity=".5"/><path id="p3" d="M300 147 H320" fill="none" stroke="#7b8090" stroke-width="1.4" marker-end="url(#ar)" opacity=".5"/><rect x="128" y="128" width="58" height="6" rx="3" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width=".8"/><rect x="128" y="141" width="58" height="6" rx="3" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width=".8"/><rect x="128" y="154" width="58" height="6" rx="3" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width=".8"/><rect x="234" y="128" width="58" height="38" rx="6" fill="none" stroke="#12b98f" stroke-width="1.2" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.2s" repeatCount="indefinite"/></rect><g><rect x="14" y="120" width="74" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="51" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Sources</text><text x="51" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">events</text></g><g><rect x="120" y="120" width="74" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="157" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Kafka</text><text x="157" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">topics</text></g><g><rect x="226" y="120" width="74" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="263" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Spark</text><text x="263" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">window</text></g><g><rect x="320" y="120" width="66" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="353" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Store</text><text x="353" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">Cassandra</text></g><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.00s"><mpath href="#p1"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.90s"><mpath href="#p1"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.00s"><mpath href="#p2"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.90s"><mpath href="#p2"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.00s"><mpath href="#p3"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.90s"><mpath href="#p3"/></animateMotion></circle><circle cx="20" cy="128" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0s" repeatCount="indefinite"/></circle><circle cx="24" cy="139" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0.3s" repeatCount="indefinite"/></circle><circle cx="28" cy="150" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0.6s" repeatCount="indefinite"/></circle><circle cx="32" cy="161" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0.8999999999999999s" repeatCount="indefinite"/></circle><text x="200" y="215" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">event-time &#183; watermarks &#183; exactly-once intent</text></svg></div>
+      </div>
+      <details class="cs-panel">
+        <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="cs-inner">
+          <div class="cs-block"><h4>The problem</h4><p>Fraud signals decay in minutes; a nightly batch is far too slow to act on them.</p></div>
+          <div class="cs-block"><h4>My approach</h4><p>Event-time processing with watermarks handles late and out-of-order events correctly, while a Dockerized stack makes the whole system reproducible with a single command.</p></div>
+          <div class="cs-block arch"><h4>Architecture</h4><div class="cs-arch"><span class="b">Event sources</span><span class="ar">&#8594;</span><span class="b">Kafka</span><span class="ar">&#8594;</span><span class="b">Spark Streaming</span><span class="ar">&#8594;</span><span class="b">Windowing + ML</span><span class="ar">&#8594;</span><span class="b">Cassandra</span><span class="ar">&#8594;</span><span class="b">Alerts</span></div></div>
+          <div class="cs-block"><h4>Technology</h4><p>Kafka for durable ingestion, Spark Structured Streaming for stateful windowed aggregation, Cassandra for low-latency serving.</p></div>
+          <div class="cs-block"><h4>Result</h4><p>A continuously-running pipeline that scores events as they arrive and writes flagged transactions to a queryable store.</p></div>
+          <div class="cs-block"><h4>What I'd improve</h4><p>Watermark tuning is the real work — too tight drops valid late events, too loose balloons state. I'd add exactly-once sink guarantees next.</p></div>
+          <div class="cs-block"><h4>Inspect it</h4><p><a href="https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline" target="_blank" rel="noopener" style="color:var(--ac-x);font-weight:600">Repository &#8599;</a></p></div>
+        </div>
+      </details>
+    </article>
+    <article class="flagw rv">
+      <div class="flag rev">
+        <div class="flag-txt">
+          <span class="flag-num">02 / Flagship</span>
+          <h3>Spark Data Lakehouse</h3>
+          <p class="one">Turn 300K+ raw events into clean, query-ready marts with a medallion architecture.</p>
+          <div class="impact">&#9656; <span>Bronze → Silver → Gold with data-quality gates and AQE tuning</span></div>
+          <div class="fstack">PySpark  &#183;  Parquet  &#183;  AQE  &#183;  Medallion</div>
+          <div class="flinks">
+            <a class="gh" href="https://github.com/riteshmamidi0905-lab/spark-data-lakehouse" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><text x="30" y="62" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">Bronze</text><rect x="30" y="70" width="330" height="30" rx="7" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="70" width="0" height="30" rx="7" fill="#f4f0ec" stroke="#b06a3a" stroke-width="1.4"><animate attributeName="width" from="0" to="182" dur="1.4s" begin="0.20s" fill="freeze" calcMode="spline" keySplines=".2 .7 .2 1" keyTimes="0;1" values="0;182"/></rect><circle cx="34" cy="85" r="3.5" fill="#b06a3a"/><text x="30" y="120" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">Silver</text><rect x="30" y="128" width="330" height="30" rx="7" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="128" width="0" height="30" rx="7" fill="#f4f0ec" stroke="#9aa0aa" stroke-width="1.4"><animate attributeName="width" from="0" to="257" dur="1.4s" begin="0.55s" fill="freeze" calcMode="spline" keySplines=".2 .7 .2 1" keyTimes="0;1" values="0;257"/></rect><circle cx="34" cy="143" r="3.5" fill="#9aa0aa"/><text x="30" y="178" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">Gold</text><rect x="30" y="186" width="330" height="30" rx="7" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="186" width="0" height="30" rx="7" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1.4"><animate attributeName="width" from="0" to="317" dur="1.4s" begin="0.90s" fill="freeze" calcMode="spline" keySplines=".2 .7 .2 1" keyTimes="0;1" values="0;317"/></rect><circle cx="34" cy="201" r="3.5" fill="#12b98f"/><text x="30" y="248" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">&#10003; dedup &#10003; enrich &#10003; quality gates &#10003; partitioned Parquet</text></svg></div>
+      </div>
+      <details class="cs-panel">
+        <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="cs-inner">
+          <div class="cs-block"><h4>The problem</h4><p>Raw event data is duplicated, unenriched, and unqueryable — analysts can't trust or use it directly.</p></div>
+          <div class="cs-block"><h4>My approach</h4><p>A layered medallion design isolates ingestion, cleaning/enrichment, and business marts, with data-quality checks between layers so bad data never reaches the gold tier.</p></div>
+          <div class="cs-block arch"><h4>Architecture</h4><div class="cs-arch"><span class="b">Raw events</span><span class="ar">&#8594;</span><span class="b">Bronze</span><span class="ar">&#8594;</span><span class="b">Silver</span><span class="ar">&#8594;</span><span class="b">Gold marts</span><span class="ar">&#8594;</span><span class="b">BI / SQL</span></div></div>
+          <div class="cs-block"><h4>Technology</h4><p>PySpark with broadcast-join enrichment, partitioned Parquet output, and Adaptive Query Execution for skew handling.</p></div>
+          <div class="cs-block"><h4>Result</h4><p>Partitioned gold marts ready for BI, plus quality checks that fail loudly when inputs drift.</p></div>
+          <div class="cs-block"><h4>What I'd improve</h4><p>Deduplication belongs as early as possible. Next: automate the quality checks into a contract per layer.</p></div>
+          <div class="cs-block"><h4>Inspect it</h4><p><a href="https://github.com/riteshmamidi0905-lab/spark-data-lakehouse" target="_blank" rel="noopener" style="color:var(--ac-x);font-weight:600">Repository &#8599;</a></p></div>
+        </div>
+      </details>
+    </article>
+    <article class="flagw rv">
+      <div class="flag">
+        <div class="flag-txt">
+          <span class="flag-num">03 / Flagship</span>
+          <h3>LLM Evaluation Framework</h3>
+          <p class="one">Score LLM and agent outputs on faithfulness, hallucination, and refusal — automatically.</p>
+          <div class="impact">&#9656; <span>LLM-as-judge, REST API, and an interactive dashboard</span></div>
+          <div class="fstack">LLM Eval  &#183;  LLM-as-Judge  &#183;  FastAPI  &#183;  Dashboard</div>
+          <div class="flinks">
+            <a class="gh" href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="dm" href="demos/llm-eval-framework.html" target="_blank" rel="noopener">&#9654; Live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><text x="30" y="52" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">LLM-as-judge &#183; rubric scores</text><text x="30" y="72" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">Faithfulness</text><rect x="30" y="78" width="270" height="18" rx="9" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="78" width="0" height="18" rx="9" fill="#12b98f"><animate attributeName="width" from="0" to="248" dur="1.3s" begin="0.30s" fill="freeze"/></rect><text x="312" y="91" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12b98f">92</text><text x="30" y="118" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">Hallucination</text><rect x="30" y="124" width="270" height="18" rx="9" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="124" width="0" height="18" rx="9" fill="#c65b5b"><animate attributeName="width" from="0" to="22" dur="1.3s" begin="0.60s" fill="freeze"/></rect><text x="312" y="137" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#c65b5b">8</text><text x="30" y="164" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">Refusal</text><rect x="30" y="170" width="270" height="18" rx="9" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="170" width="0" height="18" rx="9" fill="#5b83c6"><animate attributeName="width" from="0" to="192" dur="1.3s" begin="0.90s" fill="freeze"/></rect><text x="312" y="183" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#5b83c6">71</text><circle cx="345" cy="70" r="26" fill="none" stroke="#c8ccd2" stroke-width="3"/><circle cx="345" cy="70" r="26" fill="none" stroke="#12b98f" stroke-width="3" stroke-linecap="round" stroke-dasharray="163" stroke-dashoffset="163" transform="rotate(-90 345 70)"><animate attributeName="stroke-dashoffset" from="163" to="41" dur="1.4s" begin=".4s" fill="freeze"/></circle><text x="345" y="66" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#12151b">A</text><text x="345" y="79" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#7b8090">GRADE</text><text x="30" y="242" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">REST API &#183; runs in CI &#183; interactive dashboard</text></svg></div>
+      </div>
+      <details class="cs-panel">
+        <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="cs-inner">
+          <div class="cs-block"><h4>The problem</h4><p>Teams ship LLM features without a repeatable way to measure whether answers are grounded or hallucinated.</p></div>
+          <div class="cs-block"><h4>My approach</h4><p>A rubric-driven LLM-as-judge scores each output across dimensions, exposed as a REST API so evaluation runs in CI, with a dashboard for humans to inspect failures.</p></div>
+          <div class="cs-block arch"><h4>Architecture</h4><div class="cs-arch"><span class="b">Test cases</span><span class="ar">&#8594;</span><span class="b">Model outputs</span><span class="ar">&#8594;</span><span class="b">Rubric judge</span><span class="ar">&#8594;</span><span class="b">Scores</span><span class="ar">&#8594;</span><span class="b">Dashboard</span></div></div>
+          <div class="cs-block"><h4>Technology</h4><p>FastAPI service, structured rubric prompts, and a self-contained interactive results dashboard.</p></div>
+          <div class="cs-block"><h4>Result</h4><p>A reusable harness that turns 'it seems fine' into per-criterion faithfulness, hallucination, and refusal scores.</p></div>
+          <div class="cs-block"><h4>What I'd improve</h4><p>Judge calibration matters as much as the rubric. I'd add human-agreement tracking to trust the judge.</p></div>
+          <div class="cs-block"><h4>Inspect it</h4><p><a href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" target="_blank" rel="noopener" style="color:var(--ac-x);font-weight:600">Repository &#8599;</a> &nbsp;&#183;&nbsp; <a href="demos/llm-eval-framework.html" target="_blank" rel="noopener" style="color:var(--tx);font-weight:600">Live demo &#8599;</a></p></div>
+        </div>
+      </details>
+    </article>
+    <article class="flagw rv">
+      <div class="flag rev">
+        <div class="flag-txt">
+          <span class="flag-num">04 / Flagship</span>
+          <h3>GenAI Document Assistant</h3>
+          <p class="one">Answer questions from your own documents — grounded, cited, and streamed.</p>
+          <div class="impact">&#9656; <span>Router-agent + swappable Claude / Gemini / OpenAI backends</span></div>
+          <div class="fstack">RAG  &#183;  Agents  &#183;  FastAPI  &#183;  Streaming</div>
+          <div class="flinks">
+            <a class="gh" href="https://github.com/riteshmamidi0905-lab/genai-doc-assistant" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><g><rect x="14" y="128" width="58" height="44" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="43" y="154" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Query</text></g><g><rect x="96" y="128" width="58" height="44" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="125" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Retrieve</text><text x="125" y="164" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">top-k</text></g><rect x="178" y="86" width="54" height="34" rx="7" fill="#f2f3f5" stroke="#c8ccd2" stroke-width="1"/><line x1="186" y1="98" x2="218" y2="98" stroke="#7b8090" stroke-width="1.4" opacity=".7"/><line x1="186" y1="106" x2="208" y2="106" stroke="#7b8090" stroke-width="1.4" opacity=".45"/><path id="rg0" d="M154 150 C168 150 168 103 178 103" fill="none" stroke="#c8ccd2" stroke-width="1.2" opacity=".4"/><rect x="178" y="128" width="54" height="34" rx="7" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1.5"/><line x1="186" y1="140" x2="218" y2="140" stroke="#12b98f" stroke-width="1.4" opacity=".7"/><line x1="186" y1="148" x2="208" y2="148" stroke="#12b98f" stroke-width="1.4" opacity=".45"/><path id="rg1" d="M154 150 C168 150 168 145 178 145" fill="none" stroke="#12b98f" stroke-width="1.2" opacity=".9"/><circle r="2.6" fill="#12b98f"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#rg1"/></animateMotion></circle><rect x="178" y="170" width="54" height="34" rx="7" fill="#f2f3f5" stroke="#c8ccd2" stroke-width="1"/><line x1="186" y1="182" x2="218" y2="182" stroke="#7b8090" stroke-width="1.4" opacity=".7"/><line x1="186" y1="190" x2="208" y2="190" stroke="#7b8090" stroke-width="1.4" opacity=".45"/><path id="rg2" d="M154 150 C168 150 168 187 178 187" fill="none" stroke="#c8ccd2" stroke-width="1.2" opacity=".4"/><g><rect x="258" y="128" width="52" height="44" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="284" y="154" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">LLM</text></g><path id="rgl" d="M232 150 H258" fill="none" stroke="#7b8090" stroke-width="1.3" marker-end="url(#ar)" opacity=".5"/><rect x="322" y="112" width="66" height="76" rx="8" fill="#fff" stroke="#12151b" stroke-width="1.5"/><line x1="330" y1="126" x2="330" y2="126" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animate attributeName="x2" from="330" to="378" dur=".7s" begin="1.00s" fill="freeze"/></line><line x1="330" y1="138" x2="330" y2="138" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animate attributeName="x2" from="330" to="370" dur=".7s" begin="1.35s" fill="freeze"/></line><line x1="330" y1="150" x2="330" y2="150" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animate attributeName="x2" from="330" to="362" dur=".7s" begin="1.70s" fill="freeze"/></line><rect x="330" y="168" width="30" height="12" rx="6" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1"/><text x="345" y="177" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#12b98f">[1]</text><path id="rga" d="M310 150 H322" fill="none" stroke="#7b8090" stroke-width="1.3" marker-end="url(#ar)" opacity=".5"/><text x="200" y="238" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">grounded &#183; cited &#183; streamed</text></svg></div>
+      </div>
+      <details class="cs-panel">
+        <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="cs-inner">
+          <div class="cs-block"><h4>The problem</h4><p>General chatbots hallucinate and can't cite; teams need answers grounded in their own corpus.</p></div>
+          <div class="cs-block"><h4>My approach</h4><p>Retrieval-augmented generation grounds every answer in retrieved passages, a tool-using router-agent decides when to search vs. answer, and responses stream token-by-token.</p></div>
+          <div class="cs-block arch"><h4>Architecture</h4><div class="cs-arch"><span class="b">Query</span><span class="ar">&#8594;</span><span class="b">Retriever</span><span class="ar">&#8594;</span><span class="b">Relevant chunks</span><span class="ar">&#8594;</span><span class="b">LLM</span><span class="ar">&#8594;</span><span class="b">Cited answer</span></div></div>
+          <div class="cs-block"><h4>Technology</h4><p>FastAPI backend, a chat UI, pluggable LLM backends, and citation-aware prompting.</p></div>
+          <div class="cs-block"><h4>Result</h4><p>A full-stack assistant that returns grounded, cited answers you can trace back to source.</p></div>
+          <div class="cs-block"><h4>What I'd improve</h4><p>Retrieval quality dominates output quality. Next: hybrid (keyword + vector) retrieval and re-ranking.</p></div>
+          <div class="cs-block"><h4>Inspect it</h4><p><a href="https://github.com/riteshmamidi0905-lab/genai-doc-assistant" target="_blank" rel="noopener" style="color:var(--ac-x);font-weight:600">Repository &#8599;</a></p></div>
+        </div>
+      </details>
+    </article>
+    <article class="flagw rv">
+      <div class="flag">
+        <div class="flag-txt">
+          <span class="flag-num">05 / Flagship</span>
+          <h3>MLOps Platform</h3>
+          <p class="one">The full model lifecycle — track, register, serve, and watch for drift.</p>
+          <div class="impact">&#9656; <span>Registry with stage promotion + PSI/KS drift monitoring</span></div>
+          <div class="fstack">Model Registry  &#183;  FastAPI  &#183;  PSI / KS  &#183;  Feature Store</div>
+          <div class="flinks">
+            <a class="gh" href="https://github.com/riteshmamidi0905-lab/mlops-platform" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="dm" href="demos/mlops-platform.html" target="_blank" rel="noopener">&#9654; Live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><circle cx="200" cy="140" r="78" fill="none" stroke="#c8ccd2" stroke-width="1.4" stroke-dasharray="3 5"/><circle cx="200.0" cy="62.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="200.0" y="66.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Train</text><circle cx="278.0" cy="140.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="278.0" y="144.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Registry</text><circle cx="200.0" cy="218.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="200.0" y="222.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Serve</text><circle cx="122.0" cy="140.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="122.0" y="144.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Monitor</text><circle r="5" fill="#12b98f"><animateMotion dur="5s" repeatCount="indefinite" path="M200 62 A 78 78 0 1 1 199.99 62 Z"/></circle><text x="200" y="134" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#7b8090">DRIFT (PSI)</text><path d="M174 154 A 26 26 0 0 1 226 154" fill="none" stroke="#c8ccd2" stroke-width="3"/><line x1="200" y1="154" x2="182" y2="136" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" values="0 200 154; 46 200 154; 12 200 154" dur="3.4s" repeatCount="indefinite"/></line><circle cx="200" cy="154" r="3" fill="#12151b"/></svg></div>
+      </div>
+      <details class="cs-panel">
+        <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="cs-inner">
+          <div class="cs-block"><h4>The problem</h4><p>Models get trained once and forgotten; nobody notices when live data drifts away from training data.</p></div>
+          <div class="cs-block"><h4>My approach</h4><p>Experiment tracking feeds a model registry with explicit stage promotion, FastAPI serves the promoted model, and PSI/KS statistics continuously compare live inputs to the training distribution.</p></div>
+          <div class="cs-block arch"><h4>Architecture</h4><div class="cs-arch"><span class="b">Feature store</span><span class="ar">&#8594;</span><span class="b">Experiments</span><span class="ar">&#8594;</span><span class="b">Registry</span><span class="ar">&#8594;</span><span class="b">Serving</span><span class="ar">&#8594;</span><span class="b">Drift monitor</span></div></div>
+          <div class="cs-block"><h4>Technology</h4><p>Feature store, experiment tracking, model registry, FastAPI serving, drift statistics, live dashboard.</p></div>
+          <div class="cs-block"><h4>Result</h4><p>An end-to-end platform where a model can go from experiment to monitored production with an audit trail.</p></div>
+          <div class="cs-block"><h4>What I'd improve</h4><p>Drift detection is easy; deciding the alert threshold is hard. Next: automated retraining triggers.</p></div>
+          <div class="cs-block"><h4>Inspect it</h4><p><a href="https://github.com/riteshmamidi0905-lab/mlops-platform" target="_blank" rel="noopener" style="color:var(--ac-x);font-weight:600">Repository &#8599;</a> &nbsp;&#183;&nbsp; <a href="demos/mlops-platform.html" target="_blank" rel="noopener" style="color:var(--tx);font-weight:600">Live demo &#8599;</a></p></div>
+        </div>
+      </details>
+    </article>
+    <article class="flagw rv">
+      <div class="flag rev">
+        <div class="flag-txt">
+          <span class="flag-num">06 / Flagship</span>
+          <h3>Experimentation Toolkit</h3>
+          <p class="one">Run A/B tests that survive scrutiny — from power analysis to a ship-or-kill call.</p>
+          <div class="impact">&#9656; <span>CUPED variance reduction, guardrails, FDR, and a scorecard</span></div>
+          <div class="fstack">A/B Testing  &#183;  CUPED  &#183;  Bootstrap  &#183;  Stats</div>
+          <div class="flinks">
+            <a class="gh" href="https://github.com/riteshmamidi0905-lab/experimentation-toolkit" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><text x="30" y="50" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">A / B &#183; CUPED-adjusted</text><line x1="40" y1="190" x2="360" y2="190" stroke="#c8ccd2" stroke-width="1"/><path d="M40 190 L40 189.8 L46 189.7 L52 189.4 L58 189.0 L64 188.3 L70 187.2 L76 185.6 L82 183.2 L88 180.0 L94 175.7 L100 170.1 L106 163.2 L112 155.1 L118 145.8 L124 135.9 L130 125.7 L136 116.0 L142 107.5 L148 100.8 L154 96.5 L160 95.0 L166 96.5 L172 100.8 L178 107.5 L184 116.0 L190 125.7 L196 135.9 L202 145.8 L208 155.1 L214 163.2 L220 170.1 L226 175.7 L232 180.0 L238 183.2 L244 185.6 L250 187.2 L256 188.3 L262 189.0 L268 189.4 L274 189.7 L280 189.8 L286 189.9 L292 190.0 L298 190.0 L304 190.0 L310 190.0 L316 190.0 L322 190.0 L328 190.0 L334 190.0 L340 190.0" fill="none" stroke="#7b8090" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/><path d="M40 190 L40 190.0 L46 190.0 L52 190.0 L58 190.0 L64 190.0 L70 190.0 L76 190.0 L82 190.0 L88 190.0 L94 190.0 L100 189.9 L106 189.9 L112 189.8 L118 189.6 L124 189.3 L130 188.8 L136 187.9 L142 186.7 L148 184.9 L154 182.3 L160 178.7 L166 173.9 L172 167.9 L178 160.6 L184 152.1 L190 142.6 L196 132.5 L202 122.4 L208 113.0 L214 105.0 L220 99.0 L226 95.7 L232 95.2 L238 97.6 L244 102.7 L250 110.1 L256 119.2 L262 129.1 L268 139.2 L274 149.0 L280 157.9 L286 165.6 L292 172.1 L298 177.2 L304 181.2 L310 184.1 L316 186.2 L322 187.6 L328 188.5 L334 189.1 L340 189.5" fill="none" stroke="#12b98f" stroke-width="2"  stroke-linecap="round"/><text x="120" y="205" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">control</text><text x="230" y="205" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#12b98f">variant &#10003;</text><rect x="286" y="60" width="80" height="52" rx="9" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1.3"/><text x="326" y="80" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#7b8090">DECISION</text><text x="326" y="98" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#12b98f">SHIP</text><text x="30" y="238" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">power &#183; guardrails &#183; FDR control</text></svg></div>
+      </div>
+      <details class="cs-panel">
+        <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="cs-inner">
+          <div class="cs-block"><h4>The problem</h4><p>Naïve A/B tests ship on noise — no power analysis, no variance reduction, no multiple-comparison control.</p></div>
+          <div class="cs-block"><h4>My approach</h4><p>The toolkit covers the full lifecycle: sample-size design up front, robust test statistics, CUPED to cut variance, guardrail metrics, and FDR control before a ship-or-kill scorecard.</p></div>
+          <div class="cs-block arch"><h4>Architecture</h4><div class="cs-arch"><span class="b">Design + power</span><span class="ar">&#8594;</span><span class="b">Assignment</span><span class="ar">&#8594;</span><span class="b">z / Welch / bootstrap</span><span class="ar">&#8594;</span><span class="b">CUPED + guardrails</span><span class="ar">&#8594;</span><span class="b">Scorecard</span></div></div>
+          <div class="cs-block"><h4>Technology</h4><p>Statistical test suite (z-test, Welch, bootstrap), CUPED, false-discovery-rate control.</p></div>
+          <div class="cs-block"><h4>Result</h4><p>An end-to-end analysis that turns a raw experiment into a defensible decision.</p></div>
+          <div class="cs-block"><h4>What I'd improve</h4><p>Guardrails catch the wins that quietly break something else. Next: sequential testing for early stopping.</p></div>
+          <div class="cs-block"><h4>Inspect it</h4><p><a href="https://github.com/riteshmamidi0905-lab/experimentation-toolkit" target="_blank" rel="noopener" style="color:var(--ac-x);font-weight:600">Repository &#8599;</a></p></div>
+        </div>
+      </details>
+    </article>
+    </div>
 
     <div class="mw-head">
       <div>
@@ -394,7 +570,162 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
       <button class="fbtn" data-f="analytics">Analytics</button>
       <button class="fbtn" data-f="vision">Vision · Speech · NLP</button>
     </div>
-    <div class="pgrid" id="pgrid"></div>
+    <div class="pgrid" id="pgrid">
+      <article class="pcard" data-cat="data">
+        <div class="cat">Data Engineering</div>
+        <h4>Spark Data Lakehouse</h4>
+        <p>End-to-end PySpark medallion (bronze→silver→gold) lakehouse on 300K+ events: dedup, broadcast-join enrichment, partitioned Parquet marts, AQE tuning, data-quality checks.</p>
+        <div class="tt"><span>PySpark</span><span>Parquet</span><span>AQE</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/spark-data-lakehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="data">
+        <div class="cat">Data Engineering</div>
+        <h4>Real-Time Streaming Pipeline</h4>
+        <p>Kafka → Spark Structured Streaming → Cassandra fraud detection with event-time windows, watermarks, and a one-command Dockerized stack.</p>
+        <div class="tt"><span>Kafka</span><span>Spark</span><span>Cassandra</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="data">
+        <div class="cat">Data Engineering</div>
+        <h4>SQL Analytics Warehouse</h4>
+        <p>Synthetic e-commerce warehouse plus a library of advanced SQL: CTEs, window functions, cohort retention, and RFM segmentation.</p>
+        <div class="tt"><span>SQL</span><span>Warehouse</span><span>RFM</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="genai">
+        <div class="cat">GenAI · LLM</div>
+        <h4>GenAI Document Assistant</h4>
+        <p>Full-stack RAG app: chat UI + FastAPI, grounded cited answers, a tool-using router-agent, streaming, and swappable Claude/Gemini/OpenAI backends.</p>
+        <div class="tt"><span>RAG</span><span>Agents</span><span>FastAPI</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/genai-doc-assistant" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="genai">
+        <div class="cat">GenAI · LLM</div>
+        <h4>LLM Evaluation Framework</h4>
+        <p>Rubric-driven platform scoring LLM/agent outputs on faithfulness, hallucination &amp; refusal — LLM-as-judge, REST API, and an interactive dashboard.</p>
+        <div class="tt"><span>LLM Eval</span><span>Judge</span><span>API</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/llm-eval-framework.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="genai">
+        <div class="cat">GenAI · LLM</div>
+        <h4>RAG Document Q&A</h4>
+        <p>Dependency-light retrieval-augmented Q&amp;A: sentence-aware chunking, from-scratch TF-IDF retrieval, grounded citable answers, FastAPI + Docker.</p>
+        <div class="tt"><span>RAG</span><span>TF-IDF</span><span>Docker</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/rag-doc-qa" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="genai">
+        <div class="cat">GenAI · LLM</div>
+        <h4>AI Agent Toolkit</h4>
+        <p>A toolkit for building tool-using AI agents — planning, tool routing, and structured execution over an extensible interface.</p>
+        <div class="tt"><span>Agents</span><span>Tools</span><span>LLM</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-agent-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/ai-agent-toolkit.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="genai">
+        <div class="cat">GenAI · LLM</div>
+        <h4>AI Skills Platform</h4>
+        <p>One unified API gateway exposing eight AI skills, with authentication and a live dashboard — an aggregation layer over multiple models.</p>
+        <div class="tt"><span>API Gateway</span><span>Auth</span><span>Dashboard</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-skills-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="mlops">
+        <div class="cat">MLOps</div>
+        <h4>MLOps Platform</h4>
+        <p>End-to-end ML platform: feature store, experiment tracking, model registry with stage promotion, FastAPI serving, and PSI/KS drift monitoring.</p>
+        <div class="tt"><span>Registry</span><span>Serving</span><span>Drift</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/mlops-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/mlops-platform.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="mlops">
+        <div class="cat">MLOps</div>
+        <h4>Vision Inference API</h4>
+        <p>Train &amp; serve a CNN image classifier with confidence-based human-in-the-loop review routing. PyTorch + FastAPI + Docker, offline dataset included.</p>
+        <div class="tt"><span>PyTorch</span><span>FastAPI</span><span>HITL</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/vision-inference-api" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="analytics">
+        <div class="cat">Analytics</div>
+        <h4>Product Analytics — Funnel &amp; Retention</h4>
+        <p>Funnel, retention &amp; cohort analysis for a consumer app with channel LTV and a self-contained HTML growth dashboard.</p>
+        <div class="tt"><span>Funnel</span><span>Cohorts</span><span>LTV</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="analytics">
+        <div class="cat">Analytics</div>
+        <h4>Experimentation Toolkit</h4>
+        <p>End-to-end A/B analysis: power &amp; sample-size design, z-test/Welch/bootstrap, CUPED variance reduction, guardrails, FDR, and a ship-or-kill scorecard.</p>
+        <div class="tt"><span>A/B</span><span>CUPED</span><span>Stats</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/experimentation-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="analytics">
+        <div class="cat">Analytics</div>
+        <h4>SaaS KPI Dashboard</h4>
+        <p>SaaS revenue analytics: MRR movement decomposition, NRR/GRR, churn, ARPA — with a self-contained executive KPI dashboard.</p>
+        <div class="tt"><span>MRR</span><span>NRR</span><span>KPI</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="analytics">
+        <div class="cat">Analytics</div>
+        <h4>Customer Churn Prediction</h4>
+        <p>Subscription churn prediction (logistic regression + random forest), driver analysis, KMeans segmentation, revenue-at-risk, and an HTML report.</p>
+        <div class="tt"><span>Churn</span><span>ML</span><span>Segmentation</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/customer-churn-prediction" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>Neural Machine Translation</h4>
+        <p>Seq2seq translator with attention (PyTorch), EN→FR, a from-scratch BLEU implementation, and attention heatmaps showing learned reordering.</p>
+        <div class="tt"><span>Seq2Seq</span><span>Attention</span><span>BLEU</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/neural-machine-translation" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/neural-machine-translation.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>Sign Language Recognition</h4>
+        <p>Web-based hand-gesture / sign-language recognition: a PyTorch CNN behind a Flask web app with an upload UI and JSON API.</p>
+        <div class="tt"><span>CNN</span><span>Flask</span><span>Vision</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sign-language-recognition" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>Video Intelligence</h4>
+        <p>Video understanding toolkit — frame analysis, detection, and scene-level intelligence over a clean processing pipeline.</p>
+        <div class="tt"><span>Video</span><span>Detection</span><span>CV</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/video-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/video-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>Speech Intelligence</h4>
+        <p>Speech processing toolkit — transcription, audio features, and signal analysis packaged as a reusable service.</p>
+        <div class="tt"><span>Speech</span><span>Audio</span><span>DSP</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/speech-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/speech-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>NLP Text Intelligence</h4>
+        <p>NLP toolkit for text — classification, extraction, and language features over a clean, testable API.</p>
+        <div class="tt"><span>NLP</span><span>Text</span><span>API</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/nlp-text-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/nlp-text-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>Document OCR &amp; Vision</h4>
+        <p>OCR + document-vision pipeline extracting structured data from invoices and documents to feed downstream reporting.</p>
+        <div class="tt"><span>OCR</span><span>Documents</span><span>Vision</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/document-ocr-vision" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/document-ocr-vision.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>Face Recognition Biometrics</h4>
+        <p>Face-recognition biometric pipeline: OpenCV Haar detection, Eigenfaces + LBPH recognizers, and an open-set 'not in database' gate.</p>
+        <div class="tt"><span>OpenCV</span><span>Biometrics</span><span>LBPH</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/face-recognition-biometrics" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      <article class="pcard" data-cat="vision">
+        <div class="cat">Vision · Speech · NLP</div>
+        <h4>Bird-Deterrent Signal Intelligence</h4>
+        <p>Crop-protection via signal intelligence: MFCC/spectral DSP, a bird detector, and a habituation-aware acoustic deterrent controller.</p>
+        <div class="tt"><span>DSP</span><span>MFCC</span><span>Detection</span></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/bird-deterrent-signal-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+      </article>
+      </div>
     <div style="margin-top:40px" class="rv">
       <a class="btn btn-p" href="demos/">▶ Open the live demos <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
@@ -551,107 +882,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 
 <div class="tocopy-toast" id="toast">Email copied to clipboard</div>
 
-<script>
-/* ============ DATA ============ */
-const GH="https://github.com/riteshmamidi0905-lab/";
-const CATLABEL={data:"Data Engineering",genai:"GenAI · LLM",mlops:"MLOps",analytics:"Analytics",vision:"Vision · Speech · NLP"};
-
-/* Flagship projects (the star) */
-const FLAG=[
-  {c:"data",num:"01",n:"Real-Time Streaming Pipeline",r:"realtime-streaming-pipeline",
-   one:"Detect fraud on a live event stream — without waiting for a nightly batch.",
-   impact:"Event-time windows & watermarks with a one-command Docker stack",
-   tech:["Kafka","Spark Structured Streaming","Cassandra","Docker"],
-   gfx:"stream",
-   cs:{problem:"Fraud signals decay in minutes; a nightly batch is far too slow to act on them.",
-       arch:["Event sources","Kafka","Spark Streaming","Windowing + ML","Cassandra","Alerts"],
-       approach:"Event-time processing with watermarks handles late and out-of-order events correctly, while a Dockerized stack makes the whole system reproducible with a single command.",
-       tech:"Kafka for durable ingestion, Spark Structured Streaming for stateful windowed aggregation, Cassandra for low-latency serving.",
-       result:"A continuously-running pipeline that scores events as they arrive and writes flagged transactions to a queryable store.",
-       lessons:"Watermark tuning is the real work — too tight drops valid late events, too loose balloons state. I'd add exactly-once sink guarantees next."}},
-  {c:"data",num:"02",n:"Spark Data Lakehouse",r:"spark-data-lakehouse",
-   one:"Turn 300K+ raw events into clean, query-ready marts with a medallion architecture.",
-   impact:"Bronze → Silver → Gold with data-quality gates and AQE tuning",
-   tech:["PySpark","Parquet","AQE","Medallion"],
-   gfx:"lake",
-   cs:{problem:"Raw event data is duplicated, unenriched, and unqueryable — analysts can't trust or use it directly.",
-       arch:["Raw events","Bronze","Silver","Gold marts","BI / SQL"],
-       approach:"A layered medallion design isolates ingestion, cleaning/enrichment, and business marts, with data-quality checks between layers so bad data never reaches the gold tier.",
-       tech:"PySpark with broadcast-join enrichment, partitioned Parquet output, and Adaptive Query Execution for skew handling.",
-       result:"Partitioned gold marts ready for BI, plus quality checks that fail loudly when inputs drift.",
-       lessons:"Deduplication belongs as early as possible. Next: automate the quality checks into a contract per layer."}},
-  {c:"genai",num:"03",n:"LLM Evaluation Framework",r:"llm-eval-framework",dm:"demos/llm-eval-framework.html",
-   one:"Score LLM and agent outputs on faithfulness, hallucination, and refusal — automatically.",
-   impact:"LLM-as-judge, REST API, and an interactive dashboard",
-   tech:["LLM Eval","LLM-as-Judge","FastAPI","Dashboard"],
-   gfx:"eval",
-   cs:{problem:"Teams ship LLM features without a repeatable way to measure whether answers are grounded or hallucinated.",
-       arch:["Test cases","Model outputs","Rubric judge","Scores","Dashboard"],
-       approach:"A rubric-driven LLM-as-judge scores each output across dimensions, exposed as a REST API so evaluation runs in CI, with a dashboard for humans to inspect failures.",
-       tech:"FastAPI service, structured rubric prompts, and a self-contained interactive results dashboard.",
-       result:"A reusable harness that turns 'it seems fine' into per-criterion faithfulness, hallucination, and refusal scores.",
-       lessons:"Judge calibration matters as much as the rubric. I'd add human-agreement tracking to trust the judge."}},
-  {c:"genai",num:"04",n:"GenAI Document Assistant",r:"genai-doc-assistant",
-   one:"Answer questions from your own documents — grounded, cited, and streamed.",
-   impact:"Router-agent + swappable Claude / Gemini / OpenAI backends",
-   tech:["RAG","Agents","FastAPI","Streaming"],
-   gfx:"rag",
-   cs:{problem:"General chatbots hallucinate and can't cite; teams need answers grounded in their own corpus.",
-       arch:["Query","Retriever","Relevant chunks","LLM","Cited answer"],
-       approach:"Retrieval-augmented generation grounds every answer in retrieved passages, a tool-using router-agent decides when to search vs. answer, and responses stream token-by-token.",
-       tech:"FastAPI backend, a chat UI, pluggable LLM backends, and citation-aware prompting.",
-       result:"A full-stack assistant that returns grounded, cited answers you can trace back to source.",
-       lessons:"Retrieval quality dominates output quality. Next: hybrid (keyword + vector) retrieval and re-ranking."}},
-  {c:"mlops",num:"05",n:"MLOps Platform",r:"mlops-platform",dm:"demos/mlops-platform.html",
-   one:"The full model lifecycle — track, register, serve, and watch for drift.",
-   impact:"Registry with stage promotion + PSI/KS drift monitoring",
-   tech:["Model Registry","FastAPI","PSI / KS","Feature Store"],
-   gfx:"mlops",
-   cs:{problem:"Models get trained once and forgotten; nobody notices when live data drifts away from training data.",
-       arch:["Feature store","Experiments","Registry","Serving","Drift monitor"],
-       approach:"Experiment tracking feeds a model registry with explicit stage promotion, FastAPI serves the promoted model, and PSI/KS statistics continuously compare live inputs to the training distribution.",
-       tech:"Feature store, experiment tracking, model registry, FastAPI serving, drift statistics, live dashboard.",
-       result:"An end-to-end platform where a model can go from experiment to monitored production with an audit trail.",
-       lessons:"Drift detection is easy; deciding the alert threshold is hard. Next: automated retraining triggers."}},
-  {c:"analytics",num:"06",n:"Experimentation Toolkit",r:"experimentation-toolkit",
-   one:"Run A/B tests that survive scrutiny — from power analysis to a ship-or-kill call.",
-   impact:"CUPED variance reduction, guardrails, FDR, and a scorecard",
-   tech:["A/B Testing","CUPED","Bootstrap","Stats"],
-   gfx:"exp",
-   cs:{problem:"Naïve A/B tests ship on noise — no power analysis, no variance reduction, no multiple-comparison control.",
-       arch:["Design + power","Assignment","z / Welch / bootstrap","CUPED + guardrails","Scorecard"],
-       approach:"The toolkit covers the full lifecycle: sample-size design up front, robust test statistics, CUPED to cut variance, guardrail metrics, and FDR control before a ship-or-kill scorecard.",
-       tech:"Statistical test suite (z-test, Welch, bootstrap), CUPED, false-discovery-rate control.",
-       result:"An end-to-end analysis that turns a raw experiment into a defensible decision.",
-       lessons:"Guardrails catch the wins that quietly break something else. Next: sequential testing for early stopping."}}
-];
-
-/* Full project shelf */
-const P=[
-  {c:"data",n:"Spark Data Lakehouse",r:"spark-data-lakehouse",d:"End-to-end PySpark medallion (bronze→silver→gold) lakehouse on 300K+ events: dedup, broadcast-join enrichment, partitioned Parquet marts, AQE tuning, data-quality checks.",t:["PySpark","Parquet","AQE"]},
-  {c:"data",n:"Real-Time Streaming Pipeline",r:"realtime-streaming-pipeline",d:"Kafka → Spark Structured Streaming → Cassandra fraud detection with event-time windows, watermarks, and a one-command Dockerized stack.",t:["Kafka","Spark","Cassandra"]},
-  {c:"data",n:"SQL Analytics Warehouse",r:"sql-analytics-warehouse",d:"Synthetic e-commerce warehouse plus a library of advanced SQL: CTEs, window functions, cohort retention, and RFM segmentation.",t:["SQL","Warehouse","RFM"]},
-  {c:"genai",n:"GenAI Document Assistant",r:"genai-doc-assistant",d:"Full-stack RAG app: chat UI + FastAPI, grounded cited answers, a tool-using router-agent, streaming, and swappable Claude/Gemini/OpenAI backends.",t:["RAG","Agents","FastAPI"]},
-  {c:"genai",n:"LLM Evaluation Framework",r:"llm-eval-framework",dm:"demos/llm-eval-framework.html",d:"Rubric-driven platform scoring LLM/agent outputs on faithfulness, hallucination &amp; refusal — LLM-as-judge, REST API, and an interactive dashboard.",t:["LLM Eval","Judge","API"]},
-  {c:"genai",n:"RAG Document Q&A",r:"rag-doc-qa",d:"Dependency-light retrieval-augmented Q&amp;A: sentence-aware chunking, from-scratch TF-IDF retrieval, grounded citable answers, FastAPI + Docker.",t:["RAG","TF-IDF","Docker"]},
-  {c:"genai",n:"AI Agent Toolkit",r:"ai-agent-toolkit",dm:"demos/ai-agent-toolkit.html",d:"A toolkit for building tool-using AI agents — planning, tool routing, and structured execution over an extensible interface.",t:["Agents","Tools","LLM"]},
-  {c:"genai",n:"AI Skills Platform",r:"ai-skills-platform",d:"One unified API gateway exposing eight AI skills, with authentication and a live dashboard — an aggregation layer over multiple models.",t:["API Gateway","Auth","Dashboard"]},
-  {c:"mlops",n:"MLOps Platform",r:"mlops-platform",dm:"demos/mlops-platform.html",d:"End-to-end ML platform: feature store, experiment tracking, model registry with stage promotion, FastAPI serving, and PSI/KS drift monitoring.",t:["Registry","Serving","Drift"]},
-  {c:"mlops",n:"Vision Inference API",r:"vision-inference-api",d:"Train &amp; serve a CNN image classifier with confidence-based human-in-the-loop review routing. PyTorch + FastAPI + Docker, offline dataset included.",t:["PyTorch","FastAPI","HITL"]},
-  {c:"analytics",n:"Product Analytics — Funnel &amp; Retention",r:"product-analytics-funnel-retention",d:"Funnel, retention &amp; cohort analysis for a consumer app with channel LTV and a self-contained HTML growth dashboard.",t:["Funnel","Cohorts","LTV"]},
-  {c:"analytics",n:"Experimentation Toolkit",r:"experimentation-toolkit",d:"End-to-end A/B analysis: power &amp; sample-size design, z-test/Welch/bootstrap, CUPED variance reduction, guardrails, FDR, and a ship-or-kill scorecard.",t:["A/B","CUPED","Stats"]},
-  {c:"analytics",n:"SaaS KPI Dashboard",r:"saas-kpi-dashboard",d:"SaaS revenue analytics: MRR movement decomposition, NRR/GRR, churn, ARPA — with a self-contained executive KPI dashboard.",t:["MRR","NRR","KPI"]},
-  {c:"analytics",n:"Customer Churn Prediction",r:"customer-churn-prediction",d:"Subscription churn prediction (logistic regression + random forest), driver analysis, KMeans segmentation, revenue-at-risk, and an HTML report.",t:["Churn","ML","Segmentation"]},
-  {c:"vision",n:"Neural Machine Translation",r:"neural-machine-translation",dm:"demos/neural-machine-translation.html",d:"Seq2seq translator with attention (PyTorch), EN→FR, a from-scratch BLEU implementation, and attention heatmaps showing learned reordering.",t:["Seq2Seq","Attention","BLEU"]},
-  {c:"vision",n:"Sign Language Recognition",r:"sign-language-recognition",d:"Web-based hand-gesture / sign-language recognition: a PyTorch CNN behind a Flask web app with an upload UI and JSON API.",t:["CNN","Flask","Vision"]},
-  {c:"vision",n:"Video Intelligence",r:"video-intelligence",dm:"demos/video-intelligence.html",d:"Video understanding toolkit — frame analysis, detection, and scene-level intelligence over a clean processing pipeline.",t:["Video","Detection","CV"]},
-  {c:"vision",n:"Speech Intelligence",r:"speech-intelligence",dm:"demos/speech-intelligence.html",d:"Speech processing toolkit — transcription, audio features, and signal analysis packaged as a reusable service.",t:["Speech","Audio","DSP"]},
-  {c:"vision",n:"NLP Text Intelligence",r:"nlp-text-intelligence",dm:"demos/nlp-text-intelligence.html",d:"NLP toolkit for text — classification, extraction, and language features over a clean, testable API.",t:["NLP","Text","API"]},
-  {c:"vision",n:"Document OCR &amp; Vision",r:"document-ocr-vision",dm:"demos/document-ocr-vision.html",d:"OCR + document-vision pipeline extracting structured data from invoices and documents to feed downstream reporting.",t:["OCR","Documents","Vision"]},
-  {c:"vision",n:"Face Recognition Biometrics",r:"face-recognition-biometrics",d:"Face-recognition biometric pipeline: OpenCV Haar detection, Eigenfaces + LBPH recognizers, and an open-set 'not in database' gate.",t:["OpenCV","Biometrics","LBPH"]},
-  {c:"vision",n:"Bird-Deterrent Signal Intelligence",r:"bird-deterrent-signal-intelligence",d:"Crop-protection via signal intelligence: MFCC/spectral DSP, a bird detector, and a habituation-aware acoustic deterrent controller.",t:["DSP","MFCC","Detection"]}
-];
-</script>
 <script src="app.js" defer></script>
 </body>
 </html>
