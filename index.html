@@ -154,9 +154,10 @@ h1.big .l2 em{font-style:normal;color:#fff}
 .stage.on .node{border-color:var(--ac);color:var(--ac);box-shadow:0 0 0 5px rgba(34,211,166,.1),0 0 18px rgba(34,211,166,.4)}
 .stage h3{font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.02em;transition:color .4s}
 .stage .desc{color:var(--mut);font-size:15px;margin-top:5px;max-width:520px}
-.stage .techs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.stage .techs span{font-family:var(--mono);font-size:12px;padding:5px 11px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--mut);transition:.4s}
-.stage.on .techs span{border-color:rgba(34,211,166,.3);color:#d6dbe4}
+.stage .techs{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.stage .techs span{transition:color .4s}
+.stage .techs span:not(:last-child)::after{content:"  ·  ";opacity:.5}
+.stage.on .techs span{color:#aeb6c4}
 
 /* ---- SELECTED WORK / FLAGSHIPS ---- */
 .flagw{border-top:1px solid var(--line);padding:clamp(48px,7vh,86px) 0}
@@ -167,8 +168,7 @@ h1.big .l2 em{font-style:normal;color:#fff}
 .flag .one{font-size:clamp(17px,1.9vw,20px);color:var(--mut);margin-top:16px;line-height:1.5}
 .flag .impact{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font-size:14px;color:var(--tx);font-weight:550}
 .flag .impact b{color:var(--ac-x)}
-.flag .ftech{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.flag .ftech span{font-family:var(--mono);font-size:12px;padding:6px 12px;border-radius:100px;border:1px solid var(--line2);color:var(--mut)}
+.flag .fstack{font-family:var(--mono);font-size:12.5px;letter-spacing:.01em;color:var(--dim);margin-top:20px}
 .flag .flinks{display:flex;gap:18px;align-items:center;margin-top:24px;flex-wrap:wrap}
 .flag .flinks a{font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:.2s}
 .flag .flinks a svg{transition:transform .2s}
@@ -280,7 +280,7 @@ h1.big .l2 em{font-style:normal;color:#fff}
 #contact .big{font-size:clamp(44px,8vw,110px);font-weight:800;letter-spacing:-.045em;line-height:.98}
 #contact .big .mut{color:var(--mut);display:block}
 #contact p{font-size:19px;color:var(--mut);margin:26px auto 0;max-width:560px}
-.copymail{display:inline-flex;align-items:center;gap:12px;margin-top:34px;font-family:var(--mono);font-size:clamp(15px,2vw,20px);color:#fff;border:1px solid var(--line2);background:rgba(255,255,255,.03);padding:14px 22px;border-radius:100px;cursor:pointer;transition:.2s}
+.copymail{display:inline-flex;align-items:center;gap:12px;margin-top:34px;font-family:var(--mono);font-size:clamp(15px,2vw,20px);color:#fff;border:1px solid var(--line2);background:rgba(255,255,255,.03);padding:14px 22px;border-radius:100px;cursor:pointer;transition:.2s;max-width:100%}
 .copymail:hover{border-color:var(--ac);background:rgba(34,211,166,.06)}
 .copymail .ico{color:var(--ac-x);display:inline-flex}
 .copymail .cp{font-size:11px;color:var(--dim);border-left:1px solid var(--line2);padding-left:12px}
@@ -311,6 +311,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   .pgrid{grid-template-columns:repeat(2,1fr)}
   .edu-grid{grid-template-columns:1fr}
 }
+@media(max-width:480px){
+  .copymail{font-size:13.5px;padding:12px 16px;gap:9px}
+  .copymail .cp{display:none}
+}
 @media(max-width:640px){
   .nlinks{position:fixed;inset:60px 0 auto 0;flex-direction:column;background:rgba(9,11,14,.98);backdrop-filter:blur(20px);padding:16px 22px 22px;gap:2px;transform:translateY(-120%);transition:transform .38s cubic-bezier(.2,.8,.2,1);border-bottom:1px solid var(--line);align-items:stretch}
   .nlinks.open{transform:translateY(0)}
@@ -335,7 +339,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   <div class="nlinks" id="nlinks">
     <a href="#work">Work</a>
     <a href="#experience">Experience</a>
-    <a href="#capabilities">Capabilities</a>
     <a href="#about">About</a>
     <a href="ritesh_mamidi_resume.pdf" target="_blank" rel="noopener">Résumé</a>
     <a href="#contact" class="ncta">Contact</a>
@@ -358,7 +361,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
       <a class="btn btn-o" href="https://linkedin.com/in/riteshmamidi0905" target="_blank" rel="noopener">LinkedIn</a>
     </div>
     <div class="hmeta hero-rise" style="animation-delay:.46s">
-      <div class="m"><div class="v" data-count="4" data-suffix="+">4+</div><div class="k">Years in AI/ML &amp; data</div></div>
+      <div class="m"><div class="v" data-count="4" data-suffix="+">4+</div><div class="k">Years across data &amp; analytics</div></div>
       <div class="m"><div class="v" id="repoCount" data-count="20" data-suffix="+">20+</div><div class="k">Open-source repos</div></div>
       <div class="m"><div class="v" data-count="2">2</div><div class="k">Graduate degrees</div></div>
       <div class="m"><div class="v" data-count="2">2</div><div class="k">Pro certifications</div></div>
@@ -367,32 +370,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   <div class="scue" aria-hidden="true"><div class="m"></div>SCROLL</div>
 </header>
 
-<!-- ============ THE SYSTEM ============ -->
-<section id="system" class="dark" aria-label="How I work">
-  <div class="wrap">
-    <div class="sys-head">
-      <div class="kicker rv" style="justify-content:center">The System</div>
-      <h2 class="h1 rv" style="margin-left:auto;margin-right:auto">One pipeline, end to end.</h2>
-      <p class="lede rv" style="margin:22px auto 0">Data becomes intelligence, intelligence becomes product, product becomes decisions. Every project I build lives somewhere on this line.</p>
-    </div>
-    <div class="sys-flow" id="sysflow">
-      <div class="sys-line"><div class="fill" id="sysfill"></div></div>
-      <div class="stage"><div class="node">01</div><h3>Data</h3><div class="desc">Model raw sources into clean, governed, queryable foundations.</div><div class="techs"><span>SQL</span><span>Snowflake</span><span>BigQuery</span><span>Dimensional modeling</span></div></div>
-      <div class="stage"><div class="node">02</div><h3>Pipelines</h3><div class="desc">Move it at scale — streaming and batch, tested and observable.</div><div class="techs"><span>Apache Spark</span><span>Kafka</span><span>Structured Streaming</span><span>ETL / ELT</span></div></div>
-      <div class="stage"><div class="node">03</div><h3>Models</h3><div class="desc">Teach systems to predict, classify, translate, and perceive.</div><div class="techs"><span>PyTorch</span><span>scikit-learn</span><span>TensorFlow</span><span>CNNs · Seq2Seq</span></div></div>
-      <div class="stage"><div class="node">04</div><h3>Intelligence</h3><div class="desc">Ground generative systems in real sources — and prove they're trustworthy.</div><div class="techs"><span>LLMs</span><span>RAG</span><span>Agents</span><span>LLM Evaluation</span></div></div>
-      <div class="stage"><div class="node">05</div><h3>Serving</h3><div class="desc">Ship models as reliable services and watch them for drift.</div><div class="techs"><span>FastAPI</span><span>Docker</span><span>Model Registry</span><span>Drift Monitoring</span></div></div>
-      <div class="stage"><div class="node">06</div><h3>Decisions</h3><div class="desc">Turn all of it into experiments, dashboards, and calls people can act on.</div><div class="techs"><span>Product Analytics</span><span>A/B Testing</span><span>Power BI</span><span>Forecasting</span></div></div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ SELECTED WORK ============ -->
 <section id="work" class="paper">
   <div class="wrap">
     <div class="kicker rv">Selected Work</div>
     <h2 class="h1 rv">Systems, not repositories.</h2>
-    <p class="lede rv">Six flagship builds across the pipeline — each production-shaped, tested, and public. Open a case study to see the problem, the architecture, and the decisions.</p>
+    <p class="lede rv">Six flagship builds across the data and AI lifecycle — designed around real engineering patterns, tested, documented, and public. Open a case study to see the problem, the architecture, and the decisions.</p>
     <div id="flagships"></div>
 
     <div class="mw-head">
@@ -417,17 +401,22 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   </div>
 </section>
 
-<!-- ============ CAPABILITIES ============ -->
-<section id="capabilities" class="dark">
+<!-- ============ THE SYSTEM ============ -->
+<section id="system" class="dark" aria-label="How I work">
   <div class="wrap">
-    <div class="kicker rv">What I build</div>
-    <h2 class="h1 rv">Four systems, one engineer.</h2>
-    <p class="lede rv">Organized around what they produce — not a wall of logos.</p>
-    <div class="cap-grid">
-      <div class="cap rv"><div class="cn">01</div><h3>Data Systems</h3><ul><li>Streaming pipelines</li><li>ETL / ELT</li><li>Apache Spark</li><li>Kafka</li><li>Data modeling</li><li>Lakehouse</li></ul></div>
-      <div class="cap rv d1"><div class="cn">02</div><h3>AI Systems</h3><ul><li>LLM evaluation</li><li>RAG</li><li>Agents</li><li>NLP</li><li>Machine learning</li><li>Computer vision</li></ul></div>
-      <div class="cap rv d2"><div class="cn">03</div><h3>ML Production</h3><ul><li>Model serving</li><li>FastAPI</li><li>Docker</li><li>Drift monitoring</li><li>CI / pytest</li><li>Model registry</li></ul></div>
-      <div class="cap rv d3"><div class="cn">04</div><h3>Decision Systems</h3><ul><li>Product analytics</li><li>Experimentation</li><li>Power BI</li><li>Forecasting</li><li>KPI design</li><li>A/B testing</li></ul></div>
+    <div class="sys-head">
+      <div class="kicker rv" style="justify-content:center">The System</div>
+      <h2 class="h1 rv" style="margin-left:auto;margin-right:auto">One pipeline, end to end.</h2>
+      <p class="lede rv" style="margin:22px auto 0">Data becomes intelligence, intelligence becomes product, product becomes decisions. Every project I build lives somewhere on this line.</p>
+    </div>
+    <div class="sys-flow" id="sysflow">
+      <div class="sys-line"><div class="fill" id="sysfill"></div></div>
+      <div class="stage"><div class="node">01</div><h3>Data</h3><div class="desc">Model raw sources into clean, governed, queryable foundations.</div><div class="techs"><span>SQL</span><span>Snowflake</span><span>BigQuery</span><span>Dimensional modeling</span></div></div>
+      <div class="stage"><div class="node">02</div><h3>Pipelines</h3><div class="desc">Move it at scale — streaming and batch, tested and observable.</div><div class="techs"><span>Apache Spark</span><span>Kafka</span><span>Structured Streaming</span><span>ETL / ELT</span></div></div>
+      <div class="stage"><div class="node">03</div><h3>Models</h3><div class="desc">Teach systems to predict, classify, translate, and perceive.</div><div class="techs"><span>PyTorch</span><span>scikit-learn</span><span>TensorFlow</span><span>CNNs · Seq2Seq</span></div></div>
+      <div class="stage"><div class="node">04</div><h3>Intelligence</h3><div class="desc">Ground generative systems in real sources — and prove they're trustworthy.</div><div class="techs"><span>LLMs</span><span>RAG</span><span>Agents</span><span>LLM Evaluation</span></div></div>
+      <div class="stage"><div class="node">05</div><h3>Serving</h3><div class="desc">Ship models as reliable services and watch them for drift.</div><div class="techs"><span>FastAPI</span><span>Docker</span><span>Model Registry</span><span>Drift Monitoring</span></div></div>
+      <div class="stage"><div class="node">06</div><h3>Decisions</h3><div class="desc">Turn all of it into experiments, dashboards, and calls people can act on.</div><div class="techs"><span>Product Analytics</span><span>A/B Testing</span><span>Power BI</span><span>Forecasting</span></div></div>
     </div>
   </div>
 </section>
@@ -436,7 +425,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 <section id="impact" class="dark">
   <div class="wrap">
     <div class="kicker rv">Impact</div>
-    <h2 class="h1 rv">Measured, not claimed.</h2>
+    <h2 class="h1 rv">Impact in numbers.</h2>
     <div class="imp-grid">
       <div class="imp rv"><div class="n"><span data-count="30">30</span><span class="u">%</span></div><div class="l">Fewer operational escalations at Apple Maps via QC frameworks</div></div>
       <div class="imp rv d1"><div class="n"><span data-count="18">18</span><span class="u">%</span></div><div class="l">Higher investigation efficiency from evaluation tooling</div></div>
@@ -457,9 +446,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="top"><h3>Data &amp; AI Analyst — Apple Maps <span class="badge">CURRENT</span></h3><span class="when">Sep 2025 – Present</span></div>
         <div class="org">Apple (client engagement) · Austin, TX</div>
         <ul>
-          <li>Design and maintain <b>automated data pipelines and data-quality frameworks</b> unifying model-quality, reviewer, and policy data into production reporting.</li>
-          <li>Evaluate <b>LLM &amp; ML model outputs</b> against published policy and quality rubrics; co-led a model-evaluation initiative surfacing systematic failure modes.</li>
-          <li>Ship Power BI dashboards and Python/LLM prototypes; cut operational escalations <b>30%</b> and improved investigation efficiency <b>18%</b> with QC frameworks.</li>
+          <li>Validate <b>LLM &amp; ML model outputs</b> against published policy and quality rubrics — investigating model-quality issues, edge cases, and systematic failure modes.</li>
+          <li>Build <b>QA/QC frameworks and operational reporting</b> (Python, SQL, Power BI), and use LLM-assisted analysis and prompt engineering to classify and extract signals.</li>
+          <li>Improved investigation efficiency <b>18%</b> and helped cut operational escalations <b>30%</b> through quality-control frameworks and process improvement.</li>
         </ul>
       </div>
       <div class="job rv">
@@ -500,9 +489,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         </div>
       </div>
       <div class="ab-txt rv d1">
-        <p class="ab-lead">I work where data engineering, machine learning, and product meet — building the pipelines that move data, the models that learn from it, and the evaluation that makes their output trustworthy.</p>
-        <p>Over 4+ years I've shipped automated data pipelines and KPI dashboards, evaluated LLM and ML model outputs against policy and quality rubrics, and built production-shaped systems end to end. On <b>Apple Maps</b> I drive data-quality and AI-evaluation work for a product used by hundreds of millions.</p>
-        <p>Outside of work I build in the open — Spark &amp; Kafka data platforms, RAG apps, MLOps tooling, and product-analytics toolkits, all on GitHub. I care about the boring things that make software real: <b>tests, data validation, reproducibility</b>, and interfaces people actually enjoy using.</p>
+        <p class="ab-lead">I work where data engineering, machine learning, and product meet.</p>
+        <p>My approach is the same whether the work is professional or open-source: move the data cleanly, make a model's output measurable, and turn the result into something a person can act on. On <b>Apple Maps</b> that means validating LLM and ML outputs against quality rubrics and building the QA and reporting that keep them honest.</p>
+        <p>I care more about the parts that make software real — <b>tests, data validation, and reproducibility</b> — than the parts that make a demo look good.</p>
       </div>
     </div>
   </div>

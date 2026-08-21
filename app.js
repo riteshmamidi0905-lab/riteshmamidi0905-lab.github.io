@@ -162,8 +162,8 @@ function renderFlagships(){
         <span class="flag-num">${f.num} / Flagship</span>
         <h3>${f.n}</h3>
         <p class="one">${f.one}</p>
-        <div class="impact">▸ <span><b>${f.impact}</b></span></div>
-        <div class="ftech">${f.tech.map(t=>`<span>${t}</span>`).join('')}</div>
+        <div class="impact">▸ <span>${f.impact}</span></div>
+        <div class="fstack">${f.tech.join('  ·  ')}</div>
         <div class="flinks">
           <a class="cs" href="#" data-cs="${csid}">Case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M6 9l6 6 6-6"/></svg></a>
           <a class="gh" href="${GH}${f.r}" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -243,7 +243,7 @@ function systemScroll(){
 
 /* ---------- NAV: scrolled + scrollspy + bar ---------- */
 const nav=$('#nav'), bar=$('#bar');
-const spy=['work','experience','capabilities','about','contact'];
+const spy=['work','system','impact','experience','about','contact'];
 function onScroll(){
   const y=scrollY, h=document.body.scrollHeight-innerHeight;
   bar.style.width=(h>0?y/h*100:0)+'%';
@@ -342,7 +342,6 @@ function init(){
   scan();
   const yr=$('#yr');if(yr)yr.textContent=new Date().getFullYear();
   tick();setInterval(tick,20000);
-  typewriter();
   heroField();
   watchCounts();
   ghData();
