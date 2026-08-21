@@ -100,6 +100,16 @@
   .eyebrow::before{content:"";width:26px;height:1px;background:var(--a2);opacity:.6}
   .sec-title{font-size:clamp(30px,5.4vw,54px);font-weight:700;margin:16px 0 0;letter-spacing:-.03em}
   .sec-sub{color:var(--mut);max-width:620px;margin-top:16px;font-size:16px}
+  /* signature pipeline */
+  #flow .pipe{margin-top:38px;max-width:1000px}
+  #flow svg{width:100%;height:auto;display:block;overflow:visible}
+  /* project 3D tilt */
+  .pgrid{perspective:1100px}
+  .proj{transform-style:preserve-3d;will-change:transform}
+  /* typing caret */
+  .hero-role.typing{border-right:2px solid var(--a2);padding-right:3px}
+  .hero-role.blink{animation:caret .85s steps(1) infinite}
+  @keyframes caret{50%{border-color:transparent}}
 
   .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:26px}
 
@@ -256,6 +266,51 @@
     <span>Apache Spark<span></span>Kafka<span></span>PySpark<span></span>LLM Evaluation<span></span>RAG<span></span>MLOps<span></span>PyTorch<span></span>FastAPI<span></span>Snowflake<span></span>Power BI<span></span>Python<span></span>SQL<span></span>Docker<span></span>Product Analytics</span>
   </div>
 </div>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="eyebrow reveal">The flow</div>
+    <h2 class="sec-title reveal">From raw data to products people trust.</h2>
+    <p class="sec-sub reveal">Every project I build follows the same arc — move the data, teach a model, ship something people can act on.</p>
+    <div class="pipe reveal">
+      <svg viewBox="0 0 1000 250" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Data to Model to Product pipeline">
+        <defs>
+          <linearGradient id="pg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#7c9cff"/><stop offset=".55" stop-color="#59e0c8"/><stop offset="1" stop-color="#c58bff"/>
+          </linearGradient>
+          <filter id="pglow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- connectors -->
+        <path id="c1" d="M208 118 H442" fill="none" stroke="url(#pg)" stroke-width="2" stroke-dasharray="5 9" opacity=".6">
+          <animate attributeName="stroke-dashoffset" from="0" to="-56" dur="1.5s" repeatCount="indefinite"/></path>
+        <path id="c2" d="M558 118 H792" fill="none" stroke="url(#pg)" stroke-width="2" stroke-dasharray="5 9" opacity=".6">
+          <animate attributeName="stroke-dashoffset" from="0" to="-56" dur="1.5s" repeatCount="indefinite"/></path>
+        <!-- flowing particles -->
+        <circle r="4.5" fill="#7c9cff"><animateMotion dur="2.1s" repeatCount="indefinite" begin="0s"><mpath xlink:href="#c1" href="#c1"/></animateMotion></circle>
+        <circle r="3" fill="#59e0c8"><animateMotion dur="2.1s" repeatCount="indefinite" begin=".7s"><mpath xlink:href="#c1" href="#c1"/></animateMotion></circle>
+        <circle r="3.5" fill="#c58bff"><animateMotion dur="2.1s" repeatCount="indefinite" begin="1.4s"><mpath xlink:href="#c1" href="#c1"/></animateMotion></circle>
+        <circle r="4.5" fill="#59e0c8"><animateMotion dur="2.1s" repeatCount="indefinite" begin=".35s"><mpath xlink:href="#c2" href="#c2"/></animateMotion></circle>
+        <circle r="3" fill="#c58bff"><animateMotion dur="2.1s" repeatCount="indefinite" begin="1.05s"><mpath xlink:href="#c2" href="#c2"/></animateMotion></circle>
+        <circle r="3.5" fill="#7c9cff"><animateMotion dur="2.1s" repeatCount="indefinite" begin="1.75s"><mpath xlink:href="#c2" href="#c2"/></animateMotion></circle>
+        <!-- nodes -->
+        <g><circle cx="150" cy="118" r="58" fill="#0f1220" stroke="url(#pg)" stroke-width="2" filter="url(#pglow)"/>
+          <text x="150" y="128" text-anchor="middle" font-size="34">🗄️</text>
+          <text x="150" y="210" text-anchor="middle" fill="#eef1f8" font-family="Space Grotesk,sans-serif" font-size="18" font-weight="700">Data</text>
+          <text x="150" y="232" text-anchor="middle" fill="#98a1ba" font-family="JetBrains Mono,monospace" font-size="11.5">Spark · Kafka · SQL</text></g>
+        <g><circle cx="500" cy="118" r="58" fill="#0f1220" stroke="url(#pg)" stroke-width="2" filter="url(#pglow)"/>
+          <text x="500" y="128" text-anchor="middle" font-size="34">🧠</text>
+          <text x="500" y="210" text-anchor="middle" fill="#eef1f8" font-family="Space Grotesk,sans-serif" font-size="18" font-weight="700">Models</text>
+          <text x="500" y="232" text-anchor="middle" fill="#98a1ba" font-family="JetBrains Mono,monospace" font-size="11.5">ML · LLMs · RAG</text></g>
+        <g><circle cx="850" cy="118" r="58" fill="#0f1220" stroke="url(#pg)" stroke-width="2" filter="url(#pglow)"/>
+          <text x="850" y="128" text-anchor="middle" font-size="34">🚀</text>
+          <text x="850" y="210" text-anchor="middle" fill="#eef1f8" font-family="Space Grotesk,sans-serif" font-size="18" font-weight="700">Products</text>
+          <text x="850" y="232" text-anchor="middle" fill="#98a1ba" font-family="JetBrains Mono,monospace" font-size="11.5">Analytics · MLOps · APIs</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
 
 <section id="about">
   <div class="wrap">
@@ -447,6 +502,15 @@ function render(f){
       <div class="tags">${p.t.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       <div class="plinks">${p.dm?`<a class="link demo" href="${p.dm}">▶ Live demo</a>`:''}<a class="link" href="${GH}${p.r}" target="_blank" rel="noopener">Code ${arrow}</a></div>
     </div>`).join('');
+  attachTilt();
+}
+function attachTilt(){
+  if(!matchMedia('(pointer:fine)').matches)return;
+  document.querySelectorAll('.proj').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const px=(e.clientX-r.left)/r.width-0.5,py=(e.clientY-r.top)/r.height-0.5;
+      card.style.transition='none';card.style.transform='perspective(1100px) rotateY('+(px*7).toFixed(2)+'deg) rotateX('+(-py*7).toFixed(2)+'deg) translateY(-6px)';});
+    card.addEventListener('mouseleave',()=>{card.style.transition='';card.style.transform='';});
+  });
 }
 render('all');
 document.querySelectorAll('.fbtn').forEach(b=>b.onclick=()=>{
@@ -463,11 +527,13 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const nav=document.getElementById('nav'),progress=document.getElementById('progress');
 const secs=[...document.querySelectorAll('section[id]')];
 const navA=[...document.querySelectorAll('.navlinks a[href^="#"]')];
+const hw=document.querySelector('#top .wrap');
 function onScroll(){
   const y=scrollY;
   nav.classList.toggle('scrolled',y>40);
   const h=document.documentElement.scrollHeight-innerHeight;
   progress.style.width=(h>0?(y/h*100):0)+'%';
+  if(hw){const hy=Math.min(y,640);hw.style.transform='translateY('+(hy*0.16).toFixed(1)+'px)';hw.style.opacity=String(Math.max(0,1-hy/560));}
   let cur='';
   secs.forEach(s=>{if(y>=s.offsetTop-140)cur=s.id;});
   navA.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
@@ -514,6 +580,15 @@ function tick(){
   }catch(e){}
 }
 tick();setInterval(tick,30000);
+
+/* ---------- role typewriter ---------- */
+(function(){
+  const el=document.querySelector('.hero-role'); if(!el)return;
+  const full=el.textContent.trim(); el.textContent=''; el.classList.add('typing','blink');
+  let i=0;
+  function type(){ if(i<=full.length){el.textContent=full.slice(0,i);i++;setTimeout(type,32);} else {el.classList.remove('typing');setTimeout(()=>el.classList.remove('blink'),1600);} }
+  setTimeout(type,760);
+})();
 
 /* ---------- live GitHub data ---------- */
 function ago(iso){const s=(Date.now()-new Date(iso))/1000;const d=Math.floor(s/86400);
