@@ -497,6 +497,11 @@ function countUp(el){const to=+el.dataset.to;let s=null;const dur=1300;
   requestAnimationFrame(step);}
 const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target)}}),{threshold:.6});
 document.querySelectorAll('.count').forEach(el=>cio.observe(el));
+// safety nets: guarantee counters + reveals resolve even if the main thread was busy at load
+setTimeout(()=>{
+  document.querySelectorAll('.count').forEach(el=>{if(el.textContent==='0'&&+el.dataset.to>0)el.textContent=el.dataset.to;});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight+40)el.classList.add('in');});
+},2400);
 
 /* ---------- live Austin clock + status ---------- */
 function tick(){
@@ -528,36 +533,35 @@ function ago(iso){const s=(Date.now()-new Date(iso))/1000;const d=Math.floor(s/8
 <style>@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}</style>
 
 <script>
-/* ---------- hero neural-network canvas ---------- */
+/* ---------- hero neural-network canvas (single guarded loop) ---------- */
 (function(){
   if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   const cv=document.getElementById('net'),ctx=cv.getContext('2d');
-  let w,h,dpr,pts,raf,mouse={x:-9999,y:-9999};
+  let w=0,h=0,dpr=1,pts=[],mouse={x:-9999,y:-9999},running=true,ticking=false;
   const COL=['124,156,255','89,224,200','197,139,255'];
   function size(){dpr=Math.min(devicePixelRatio||1,2);w=cv.clientWidth;h=cv.clientHeight;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
-    const n=Math.min(96,Math.floor(w*h/17000));pts=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,c:COL[Math.floor(Math.random()*3)]}));}
-  function frame(){
+    const n=Math.min(90,Math.floor(w*h/18000));
+    pts=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.32,vy:(Math.random()-.5)*.32,c:COL[Math.floor(Math.random()*3)]}));}
+  function draw(){
     ctx.clearRect(0,0,w,h);
     for(let i=0;i<pts.length;i++){const p=pts[i];
-      // mouse influence
-      const dx=p.x-mouse.x,dy=p.y-mouse.y,md=Math.hypot(dx,dy);
+      const dx=p.x-mouse.x,dy=p.y-mouse.y,md=Math.hypot(dx,dy)||1;
       if(md<130){const f=(130-md)/130*0.9;p.vx+=dx/md*f*.12;p.vy+=dy/md*f*.12;}
       p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.vy*=.99;
       if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
       p.x=Math.max(0,Math.min(w,p.x));p.y=Math.max(0,Math.min(h,p.y));
       for(let j=i+1;j<pts.length;j++){const q=pts[j];const d=Math.hypot(p.x-q.x,p.y-q.y);
-        if(d<138){ctx.strokeStyle='rgba('+p.c+','+(0.14*(1-d/138))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}
-      ctx.fillStyle='rgba('+p.c+',.9)';ctx.beginPath();ctx.arc(p.x,p.y,1.7,0,7);ctx.fill();
+        if(d<140){ctx.strokeStyle='rgba('+p.c+','+(0.16*(1-d/140))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}
+      ctx.fillStyle='rgba('+p.c+',.9)';ctx.beginPath();ctx.arc(p.x,p.y,1.8,0,7);ctx.fill();
     }
-    raf=requestAnimationFrame(frame);
   }
-  function start(){cancelAnimationFrame(raf);size();frame();}
-  addEventListener('resize',start);
+  function loop(){ if(!running){ticking=false;return;} draw(); requestAnimationFrame(loop); }
+  function ensure(){ if(!ticking && running){ticking=true; requestAnimationFrame(loop);} }
+  let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(size,180);});
   addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
   addEventListener('mouseout',()=>{mouse.x=-9999;mouse.y=-9999;});
-  // pause when hero off-screen
-  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){frame();}else{cancelAnimationFrame(raf);}}),{threshold:0}).observe(cv);
-  start();
+  new IntersectionObserver(es=>es.forEach(e=>{running=e.isIntersecting; ensure();}),{threshold:0}).observe(cv);
+  size(); running=true; ensure();
 })();
 </script>
 </body>
