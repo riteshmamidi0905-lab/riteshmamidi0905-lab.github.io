@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://riteshmamidi0905-lab.github.io/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/ritesh_mamidi_resume.pdf</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/mlops-platform.html</loc><priority>0.6</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/llm-eval-framework.html</loc><priority>0.6</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/ai-agent-toolkit.html</loc><priority>0.6</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/document-ocr-vision.html</loc><priority>0.6</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/neural-machine-translation.html</loc><priority>0.6</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/speech-intelligence.html</loc><priority>0.6</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/video-intelligence.html</loc><priority>0.6</priority></url>
+  <url><loc>https://riteshmamidi0905-lab.github.io/demos/nlp-text-intelligence.html</loc><priority>0.6</priority></url>
+</urlset>
