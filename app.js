@@ -31,6 +31,8 @@ function scan(){
   els.forEach(e=>io.observe(e));
 }
 function forceVisible(){$$('.rv:not(.in)').forEach(e=>{const r=e.getBoundingClientRect();if(r.top<innerHeight*.95&&r.bottom>0)e.classList.add('in');});}
+/* scroll-driven reveal — robust fallback so no section can stay hidden if the observer misses it */
+function revealInView(){if(RM)return;const vh=innerHeight;$$('.rv:not(.in)').forEach(e=>{const r=e.getBoundingClientRect();if(r.top<vh*.92&&r.bottom>0)e.classList.add('in');});}
 
 /* ---------- THE SYSTEM scroll activation ---------- */
 function systemScroll(){
@@ -64,6 +66,7 @@ function onScroll(){
   let cur=spy[0];
   for(const id of spy){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=innerHeight*.4)cur=id;}
   $$('#nlinks a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  revealInView();
   systemScroll();
 }
 
