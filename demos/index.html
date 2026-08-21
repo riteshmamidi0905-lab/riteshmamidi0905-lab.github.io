@@ -33,7 +33,7 @@
   .note{margin-top:16px;font-size:13.5px;color:var(--dim);display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--panel);padding:8px 14px;border-radius:100px}
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:24px 0 80px}
   .card{display:flex;flex-direction:column;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:24px;transition:.25s;position:relative;overflow:hidden;cursor:pointer}
-  .card::after{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.25s}
+  .card::after{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.25s;pointer-events:none}
   .card:hover{transform:translateY(-4px);border-color:transparent}
   .card:hover::after{opacity:1}
   .tag{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--a2);font-family:"JetBrains Mono"}
