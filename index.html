@@ -192,6 +192,9 @@
   /* reveal */
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
+  /* hero entrance: self-completing animation (never stays hidden) */
+  .rise{animation:rise .85s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 
   @media(max-width:900px){
     .about-grid,.skills-grid,.pgrid,.two,.demoband{grid-template-columns:1fr}
@@ -227,17 +230,17 @@
   <div class="heroglow"></div>
   <div class="herogrid"></div>
   <div class="wrap">
-    <div class="status reveal"><span class="dot"></span> <span id="statusText">Open to AI/ML · Data · Product roles</span></div>
-    <h1 class="hero reveal">Turning data &amp; models<span class="l2">into <span class="grad-tx">products people trust.</span></span></h1>
-    <div class="hero-role reveal">AI / ML Engineer &nbsp;·&nbsp; Product &amp; Data Analyst</div>
-    <p class="hero-lead reveal">I turn messy data and model outputs into things people rely on — from large-scale <b>Spark &amp; Kafka</b> pipelines to <b>LLM evaluation</b>, <b>MLOps</b>, and <b>product analytics</b>. Currently on Apple Maps.</p>
-    <div class="cta reveal">
+    <div class="status rise" style="animation-delay:.05s"><span class="dot"></span> <span id="statusText">Open to AI/ML · Data · Product roles</span></div>
+    <h1 class="hero rise" style="animation-delay:.13s">Turning data &amp; models<span class="l2">into <span class="grad-tx">products people trust.</span></span></h1>
+    <div class="hero-role rise" style="animation-delay:.22s">AI / ML Engineer &nbsp;·&nbsp; Product &amp; Data Analyst</div>
+    <p class="hero-lead rise" style="animation-delay:.30s">I turn messy data and model outputs into things people rely on — from large-scale <b>Spark &amp; Kafka</b> pipelines to <b>LLM evaluation</b>, <b>MLOps</b>, and <b>product analytics</b>. Currently on Apple Maps.</p>
+    <div class="cta rise" style="animation-delay:.38s">
       <a class="btn btn-p mag" href="#projects">Explore my work
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-g mag" href="demos/">▶ Live Demos</a>
       <a class="btn btn-g mag" href="#contact">Get in touch</a>
     </div>
-    <div class="hero-stats reveal">
+    <div class="hero-stats rise" style="animation-delay:.46s">
       <div class="hstat"><div class="n grad-tx"><span class="count" data-to="4">0</span>+</div><div class="l">Years in AI/ML &amp; data</div></div>
       <div class="hstat"><div class="n grad-tx"><span class="count" id="repoCount" data-to="20">0</span>+</div><div class="l">Open-source repos</div></div>
       <div class="hstat"><div class="n grad-tx"><span class="count" data-to="2">0</span></div><div class="l">Graduate degrees</div></div>
@@ -500,8 +503,8 @@ document.querySelectorAll('.count').forEach(el=>cio.observe(el));
 // safety nets: guarantee counters + reveals resolve even if the main thread was busy at load
 setTimeout(()=>{
   document.querySelectorAll('.count').forEach(el=>{if(el.textContent==='0'&&+el.dataset.to>0)el.textContent=el.dataset.to;});
-  document.querySelectorAll('.reveal:not(.in)').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight+40)el.classList.add('in');});
-},2400);
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight+40){el.style.transition='none';el.classList.add('in');}});
+},2200);
 
 /* ---------- live Austin clock + status ---------- */
 function tick(){
