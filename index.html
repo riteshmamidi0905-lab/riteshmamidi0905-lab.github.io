@@ -138,9 +138,11 @@ h1.big .l2 em{font-style:normal;color:#fff}
 @keyframes sd{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,11px)}}
 
 /* ---- REVEAL / MOTION ---- */
-.js .rv{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.16,.8,.24,1),transform .85s cubic-bezier(.16,.8,.24,1)}
-.js .rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.07s}.rv.d2{transition-delay:.14s}.rv.d3{transition-delay:.21s}.rv.d4{transition-delay:.28s}
+/* content is visible by default; .in plays a one-shot entrance animation.
+   if JS never adds .in (disabled/failed), everything simply stays visible. */
+.rv.in{animation:rvin .8s cubic-bezier(.16,.8,.24,1) both}
+@keyframes rvin{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+.rv.d1{animation-delay:.07s}.rv.d2{animation-delay:.14s}.rv.d3{animation-delay:.21s}.rv.d4{animation-delay:.28s}
 .hero-rise{opacity:0;transform:translateY(26px);animation:rise .9s cubic-bezier(.16,.8,.24,1) forwards}
 @keyframes rise{to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.rv,.hero-rise{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
