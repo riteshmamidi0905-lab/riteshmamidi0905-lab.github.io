@@ -153,10 +153,7 @@ function flagshipHTML(){
 function projectHTML(){
   return P.map(p=>{
     const demo=p.dm?`<a class="demo" href="${p.dm}" target="_blank" rel="noopener">&#9654; Demo</a>`:'';
-    const faceRepos=new Set(['llm-eval-framework','genai-doc-assistant','ai-agent-toolkit']);
-    const face=faceRepos.has(p.r)?`<img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy">`:'';
     return `<article class="pcard" data-cat="${p.c}">
-        <div class="pv"><img class="pv-art" src="project-visuals/${p.r}.svg" alt="${p.n} animated project visual" loading="lazy">${face}</div>
         <div class="cat">${CATLABEL[p.c]}</div>
         <h4>${p.n}</h4>
         <p>${p.d}</p>
