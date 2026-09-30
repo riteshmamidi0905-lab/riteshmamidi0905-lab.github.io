@@ -221,6 +221,8 @@ details[open] .cs-summary .caret{transform:rotate(180deg)}
 .pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;transition:transform .25s,border-color .25s;position:relative}
 .pcard:hover{transform:translateY(-4px);border-color:var(--line2)}
 .pv{position:relative;margin:-10px -10px 16px;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#081014;border:1px solid var(--line)}
+.pv picture{display:block;width:100%;height:100%}
+.pv picture img{width:100%;height:100%;object-fit:contain}
 .pv-inline{isolation:isolate;display:flex;align-items:center;padding:18px}
 .pv-grid{position:absolute;inset:0;z-index:-3;background-image:linear-gradient(rgba(73,224,184,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(73,224,184,.055) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,#000,transparent)}
 .pv-inline:after{content:"";position:absolute;width:45%;height:100%;right:-10%;top:0;background:radial-gradient(circle,rgba(40,221,170,.16),transparent 66%);z-index:-2;animation:pvGlow 4s ease-in-out infinite}
@@ -535,7 +537,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     <h2 class="h1 rv">Engineer's hands. Analyst's rigor.<br>Product mindset.</h2>
     <div class="ab-grid">
       <div class="ab-card rv">
-        <div class="avatar"><img src="<img src="linkedin-avatar.webp"" width="132" height="132" alt="Ritesh Mamidi" loading="lazy"></div>
+        <div class="avatar"><img src="linkedin-avatar.webp" width="132" height="132" alt="Ritesh Mamidi" loading="lazy"></div>
         <div class="pn">Ritesh Mamidi</div>
         <div class="pr">AI / ML Engineer · Product &amp; Data Analyst</div>
         <div class="quick">

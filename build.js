@@ -180,11 +180,18 @@ function projectHTML(){
       'bird-deterrent-signal-intelligence':['Signal','Detect','Respond']
     };
     const ns=flows[p.r]||['Input','Model','Output'];
-    const visual=`<div class="pv pv-inline pv-${p.r}" aria-label="${p.n} animated system visual">
+    const inlineVisual=`<div class="pv pv-inline pv-${p.r}" aria-label="${p.n} animated system visual">
       <div class="pv-grid"></div><div class="pv-scan"></div>
       <div class="pv-title">${CATLABEL[p.c]}</div>
       <div class="pv-flow">${ns.map((n,i)=>`<span class="pv-node">${n}</span>${i<ns.length-1?`<span class="pv-link"><i></i></span>`:''}`).join('')}</div>
       <div class="pv-live"><b></b> LIVE</div>${face}</div>`;
+    const visualDir=path.join(__dirname,'project-visuals');
+    const hasSVG=fs.existsSync(path.join(visualDir,`${p.r}.svg`));
+    const hasGIF=fs.existsSync(path.join(visualDir,`${p.r}.gif`));
+    const visual=hasSVG?`<div class="pv"><picture>
+      <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/${p.r}.svg">
+      <img src="project-visuals/${p.r}.${hasGIF?'gif':'svg'}" alt="${p.n} system visual" width="640" height="360" loading="lazy" decoding="async">
+    </picture></div>`:inlineVisual;
     return `<article class="pcard" data-cat="${p.c}">
         ${visual}
         <div class="cat">${CATLABEL[p.c]}</div>
