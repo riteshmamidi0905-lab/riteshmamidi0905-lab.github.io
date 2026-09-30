@@ -153,7 +153,40 @@ function flagshipHTML(){
 function projectHTML(){
   return P.map(p=>{
     const demo=p.dm?`<a class="demo" href="${p.dm}" target="_blank" rel="noopener">&#9654; Demo</a>`:'';
+    const faceRepos=new Set(['llm-eval-framework','genai-doc-assistant','ai-agent-toolkit']);
+    const face=faceRepos.has(p.r)?`<img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy">`:'';
+    const flows={
+      'spark-data-lakehouse':['Bronze','Silver','Gold'],
+      'realtime-streaming-pipeline':['Kafka','Spark','Cassandra'],
+      'sql-analytics-warehouse':['Raw','SQL','Insights'],
+      'genai-doc-assistant':['Docs','Retrieve','Cite'],
+      'llm-eval-framework':['Output','Judge','Score'],
+      'rag-doc-qa':['Chunk','Retrieve','Answer'],
+      'ai-agent-toolkit':['Plan','Tool','Act'],
+      'ai-skills-platform':['Gateway','Skills','Response'],
+      'mlops-platform':['Train','Serve','Monitor'],
+      'vision-inference-api':['Image','Model','HITL'],
+      'product-analytics-funnel-retention':['Acquire','Activate','Retain'],
+      'experimentation-toolkit':['A','Test','B'],
+      'saas-kpi-dashboard':['MRR','NRR','Churn'],
+      'customer-churn-prediction':['Users','Model','Risk'],
+      'neural-machine-translation':['Encode','Attend','Decode'],
+      'sign-language-recognition':['Gesture','CNN','Sign'],
+      'video-intelligence':['Frames','Detect','Scenes'],
+      'speech-intelligence':['Audio','Model','Intent'],
+      'nlp-text-intelligence':['Text','Model','Insight'],
+      'document-ocr-vision':['Scan','OCR','JSON'],
+      'face-recognition-biometrics':['Face','Embed','Match'],
+      'bird-deterrent-signal-intelligence':['Signal','Detect','Respond']
+    };
+    const ns=flows[p.r]||['Input','Model','Output'];
+    const visual=`<div class="pv pv-inline pv-${p.r}" aria-label="${p.n} animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">${CATLABEL[p.c]}</div>
+      <div class="pv-flow">${ns.map((n,i)=>`<span class="pv-node">${n}</span>${i<ns.length-1?`<span class="pv-link"><i></i></span>`:''}`).join('')}</div>
+      <div class="pv-live"><b></b> LIVE</div>${face}</div>`;
     return `<article class="pcard" data-cat="${p.c}">
+        ${visual}
         <div class="cat">${CATLABEL[p.c]}</div>
         <h4>${p.n}</h4>
         <p>${p.d}</p>

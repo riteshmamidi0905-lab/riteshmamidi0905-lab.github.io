@@ -220,9 +220,27 @@ details[open] .cs-summary .caret{transform:rotate(180deg)}
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
 .pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;transition:transform .25s,border-color .25s;position:relative}
 .pcard:hover{transform:translateY(-4px);border-color:var(--line2)}
-.pv{position:relative;margin:-10px -10px 16px;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#0b1014;border:1px solid var(--line)}
-.pv-art{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.7,.2,1),filter .45s}
-.pcard:hover .pv-art{transform:scale(1.025);filter:saturate(1.08)}
+.pv{position:relative;margin:-10px -10px 16px;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#081014;border:1px solid var(--line)}
+.pv-inline{isolation:isolate;display:flex;align-items:center;padding:18px}
+.pv-grid{position:absolute;inset:0;z-index:-3;background-image:linear-gradient(rgba(73,224,184,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(73,224,184,.055) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,#000,transparent)}
+.pv-inline:after{content:"";position:absolute;width:45%;height:100%;right:-10%;top:0;background:radial-gradient(circle,rgba(40,221,170,.16),transparent 66%);z-index:-2;animation:pvGlow 4s ease-in-out infinite}
+.pv-title{position:absolute;left:16px;top:14px;font:600 9px var(--mono);letter-spacing:.12em;color:var(--ac-x);opacity:.9}
+.pv-flow{display:flex;align-items:center;width:100%;gap:7px;margin-top:10px;position:relative;z-index:2}
+.pv-node{flex:1;min-width:0;text-align:center;padding:12px 5px;border:1px solid rgba(111,231,199,.22);border-radius:9px;background:rgba(17,30,35,.9);font:600 9px var(--mono);color:#dff8f1;box-shadow:0 8px 25px rgba(0,0,0,.18);animation:pvNode 3.2s ease-in-out infinite}
+.pv-node:nth-of-type(3){animation-delay:.35s}.pv-node:nth-of-type(5){animation-delay:.7s}
+.pv-link{height:2px;flex:.35;background:rgba(94,129,128,.45);position:relative;overflow:visible}
+.pv-link i{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--ac);top:-3px;left:-3px;box-shadow:0 0 12px var(--ac);animation:pvPacket 1.8s linear infinite}
+.pv-link:nth-of-type(4) i{animation-delay:.8s}
+.pv-live{position:absolute;left:16px;bottom:12px;font:600 8px var(--mono);letter-spacing:.12em;color:var(--dim);display:flex;align-items:center;gap:6px}
+.pv-live b{width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 9px var(--ac);animation:pvPulse 1.2s ease-in-out infinite}
+.pv-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(65,230,187,.42),transparent);top:20%;animation:pvScan 4.5s linear infinite;z-index:-1}
+@keyframes pvPacket{from{left:-3px}to{left:calc(100% - 3px)}}
+@keyframes pvPulse{50%{opacity:.35;transform:scale(.7)}}
+@keyframes pvNode{50%{border-color:rgba(71,224,183,.5);transform:translateY(-2px)}}
+@keyframes pvScan{from{top:18%}to{top:88%}}
+@keyframes pvGlow{50%{opacity:.45;transform:translateX(-8%)}}
+.pcard:hover .pv-inline .pv-node{border-color:rgba(71,224,183,.58)}
+@media(prefers-reduced-motion:reduce){.pv-inline *,.pv-inline:after{animation:none!important}}
 .pv-face{position:absolute;right:-4px;bottom:-2px;width:31%;max-height:88%;object-fit:cover;object-position:50% 22%;border-radius:18px 0 0 0;filter:drop-shadow(-10px 0 22px rgba(0,0,0,.5));opacity:.96;transition:transform .35s}
 .pcard:hover .pv-face{transform:translateY(-3px) scale(1.025)}
 .pcard .cat{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--ac-x);text-transform:uppercase;letter-spacing:.06em}
@@ -600,7 +618,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     </div>
     <div class="pgrid" id="pgrid">
       <article class="pcard" data-cat="data">
-        <div class="pv"><img class="pv-art" src="project-visuals/spark-data-lakehouse.gif" alt="Spark Data Lakehouse animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-spark-data-lakehouse" aria-label="Spark Data Lakehouse animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Data Engineering</div>
+      <div class="pv-flow"><span class="pv-node">Bronze</span><span class="pv-link"><i></i></span><span class="pv-node">Silver</span><span class="pv-link"><i></i></span><span class="pv-node">Gold</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Data Engineering</div>
         <h4>Spark Data Lakehouse</h4>
         <p>End-to-end PySpark medallion (bronze→silver→gold) lakehouse on 300K+ events: dedup, broadcast-join enrichment, partitioned Parquet marts, AQE tuning, data-quality checks.</p>
@@ -608,7 +630,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/spark-data-lakehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="data">
-        <div class="pv"><img class="pv-art" src="project-visuals/realtime-streaming-pipeline.gif" alt="Real-Time Streaming Pipeline animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-realtime-streaming-pipeline" aria-label="Real-Time Streaming Pipeline animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Data Engineering</div>
+      <div class="pv-flow"><span class="pv-node">Kafka</span><span class="pv-link"><i></i></span><span class="pv-node">Spark</span><span class="pv-link"><i></i></span><span class="pv-node">Cassandra</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Data Engineering</div>
         <h4>Real-Time Streaming Pipeline</h4>
         <p>Kafka → Spark Structured Streaming → Cassandra fraud detection with event-time windows, watermarks, and a one-command Dockerized stack.</p>
@@ -616,7 +642,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="data">
-        <div class="pv"><img class="pv-art" src="project-visuals/sql-analytics-warehouse.gif" alt="SQL Analytics Warehouse animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-sql-analytics-warehouse" aria-label="SQL Analytics Warehouse animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Data Engineering</div>
+      <div class="pv-flow"><span class="pv-node">Raw</span><span class="pv-link"><i></i></span><span class="pv-node">SQL</span><span class="pv-link"><i></i></span><span class="pv-node">Insights</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Data Engineering</div>
         <h4>SQL Analytics Warehouse</h4>
         <p>Synthetic e-commerce warehouse plus a library of advanced SQL: CTEs, window functions, cohort retention, and RFM segmentation.</p>
@@ -624,7 +654,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="genai">
-        <div class="pv"><img class="pv-art" src="project-visuals/genai-doc-assistant.gif" alt="GenAI Document Assistant animated project visual" loading="lazy"><img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy"></div>
+        <div class="pv pv-inline pv-genai-doc-assistant" aria-label="GenAI Document Assistant animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">GenAI · LLM</div>
+      <div class="pv-flow"><span class="pv-node">Docs</span><span class="pv-link"><i></i></span><span class="pv-node">Retrieve</span><span class="pv-link"><i></i></span><span class="pv-node">Cite</span></div>
+      <div class="pv-live"><b></b> LIVE</div><img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy"></div>
         <div class="cat">GenAI · LLM</div>
         <h4>GenAI Document Assistant</h4>
         <p>Full-stack RAG app: chat UI + FastAPI, grounded cited answers, a tool-using router-agent, streaming, and swappable Claude/Gemini/OpenAI backends.</p>
@@ -632,7 +666,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/genai-doc-assistant" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="genai">
-        <div class="pv"><img class="pv-art" src="project-visuals/llm-eval-framework.gif" alt="LLM Evaluation Framework animated project visual" loading="lazy"><img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy"></div>
+        <div class="pv pv-inline pv-llm-eval-framework" aria-label="LLM Evaluation Framework animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">GenAI · LLM</div>
+      <div class="pv-flow"><span class="pv-node">Output</span><span class="pv-link"><i></i></span><span class="pv-node">Judge</span><span class="pv-link"><i></i></span><span class="pv-node">Score</span></div>
+      <div class="pv-live"><b></b> LIVE</div><img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy"></div>
         <div class="cat">GenAI · LLM</div>
         <h4>LLM Evaluation Framework</h4>
         <p>Rubric-driven platform scoring LLM/agent outputs on faithfulness, hallucination &amp; refusal — LLM-as-judge, REST API, and an interactive dashboard.</p>
@@ -640,7 +678,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/llm-eval-framework.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="genai">
-        <div class="pv"><img class="pv-art" src="project-visuals/rag-doc-qa.gif" alt="RAG Document Q&A animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-rag-doc-qa" aria-label="RAG Document Q&A animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">GenAI · LLM</div>
+      <div class="pv-flow"><span class="pv-node">Chunk</span><span class="pv-link"><i></i></span><span class="pv-node">Retrieve</span><span class="pv-link"><i></i></span><span class="pv-node">Answer</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">GenAI · LLM</div>
         <h4>RAG Document Q&A</h4>
         <p>Dependency-light retrieval-augmented Q&amp;A: sentence-aware chunking, from-scratch TF-IDF retrieval, grounded citable answers, FastAPI + Docker.</p>
@@ -648,7 +690,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/rag-doc-qa" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="genai">
-        <div class="pv"><img class="pv-art" src="project-visuals/ai-agent-toolkit.gif" alt="AI Agent Toolkit animated project visual" loading="lazy"><img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy"></div>
+        <div class="pv pv-inline pv-ai-agent-toolkit" aria-label="AI Agent Toolkit animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">GenAI · LLM</div>
+      <div class="pv-flow"><span class="pv-node">Plan</span><span class="pv-link"><i></i></span><span class="pv-node">Tool</span><span class="pv-link"><i></i></span><span class="pv-node">Act</span></div>
+      <div class="pv-live"><b></b> LIVE</div><img class="pv-face" src="linkedin-avatar.webp" alt="" loading="lazy"></div>
         <div class="cat">GenAI · LLM</div>
         <h4>AI Agent Toolkit</h4>
         <p>A toolkit for building tool-using AI agents — planning, tool routing, and structured execution over an extensible interface.</p>
@@ -656,7 +702,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-agent-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/ai-agent-toolkit.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="genai">
-        <div class="pv"><img class="pv-art" src="project-visuals/ai-skills-platform.gif" alt="AI Skills Platform animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-ai-skills-platform" aria-label="AI Skills Platform animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">GenAI · LLM</div>
+      <div class="pv-flow"><span class="pv-node">Gateway</span><span class="pv-link"><i></i></span><span class="pv-node">Skills</span><span class="pv-link"><i></i></span><span class="pv-node">Response</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">GenAI · LLM</div>
         <h4>AI Skills Platform</h4>
         <p>One unified API gateway exposing eight AI skills, with authentication and a live dashboard — an aggregation layer over multiple models.</p>
@@ -664,7 +714,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-skills-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="mlops">
-        <div class="pv"><img class="pv-art" src="project-visuals/mlops-platform.gif" alt="MLOps Platform animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-mlops-platform" aria-label="MLOps Platform animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">MLOps</div>
+      <div class="pv-flow"><span class="pv-node">Train</span><span class="pv-link"><i></i></span><span class="pv-node">Serve</span><span class="pv-link"><i></i></span><span class="pv-node">Monitor</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">MLOps</div>
         <h4>MLOps Platform</h4>
         <p>End-to-end ML platform: feature store, experiment tracking, model registry with stage promotion, FastAPI serving, and PSI/KS drift monitoring.</p>
@@ -672,7 +726,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/mlops-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/mlops-platform.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="mlops">
-        <div class="pv"><img class="pv-art" src="project-visuals/vision-inference-api.gif" alt="Vision Inference API animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-vision-inference-api" aria-label="Vision Inference API animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">MLOps</div>
+      <div class="pv-flow"><span class="pv-node">Image</span><span class="pv-link"><i></i></span><span class="pv-node">Model</span><span class="pv-link"><i></i></span><span class="pv-node">HITL</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">MLOps</div>
         <h4>Vision Inference API</h4>
         <p>Train &amp; serve a CNN image classifier with confidence-based human-in-the-loop review routing. PyTorch + FastAPI + Docker, offline dataset included.</p>
@@ -680,7 +738,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/vision-inference-api" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="analytics">
-        <div class="pv"><img class="pv-art" src="project-visuals/product-analytics-funnel-retention.gif" alt="Product Analytics — Funnel &amp; Retention animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-product-analytics-funnel-retention" aria-label="Product Analytics — Funnel &amp; Retention animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Analytics</div>
+      <div class="pv-flow"><span class="pv-node">Acquire</span><span class="pv-link"><i></i></span><span class="pv-node">Activate</span><span class="pv-link"><i></i></span><span class="pv-node">Retain</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Analytics</div>
         <h4>Product Analytics — Funnel &amp; Retention</h4>
         <p>Funnel, retention &amp; cohort analysis for a consumer app with channel LTV and a self-contained HTML growth dashboard.</p>
@@ -688,7 +750,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="analytics">
-        <div class="pv"><img class="pv-art" src="project-visuals/experimentation-toolkit.gif" alt="Experimentation Toolkit animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-experimentation-toolkit" aria-label="Experimentation Toolkit animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Analytics</div>
+      <div class="pv-flow"><span class="pv-node">A</span><span class="pv-link"><i></i></span><span class="pv-node">Test</span><span class="pv-link"><i></i></span><span class="pv-node">B</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Analytics</div>
         <h4>Experimentation Toolkit</h4>
         <p>End-to-end A/B analysis: power &amp; sample-size design, z-test/Welch/bootstrap, CUPED variance reduction, guardrails, FDR, and a ship-or-kill scorecard.</p>
@@ -696,7 +762,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/experimentation-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="analytics">
-        <div class="pv"><img class="pv-art" src="project-visuals/saas-kpi-dashboard.gif" alt="SaaS KPI Dashboard animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-saas-kpi-dashboard" aria-label="SaaS KPI Dashboard animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Analytics</div>
+      <div class="pv-flow"><span class="pv-node">MRR</span><span class="pv-link"><i></i></span><span class="pv-node">NRR</span><span class="pv-link"><i></i></span><span class="pv-node">Churn</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Analytics</div>
         <h4>SaaS KPI Dashboard</h4>
         <p>SaaS revenue analytics: MRR movement decomposition, NRR/GRR, churn, ARPA — with a self-contained executive KPI dashboard.</p>
@@ -704,7 +774,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="analytics">
-        <div class="pv"><img class="pv-art" src="project-visuals/customer-churn-prediction.gif" alt="Customer Churn Prediction animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-customer-churn-prediction" aria-label="Customer Churn Prediction animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Analytics</div>
+      <div class="pv-flow"><span class="pv-node">Users</span><span class="pv-link"><i></i></span><span class="pv-node">Model</span><span class="pv-link"><i></i></span><span class="pv-node">Risk</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Analytics</div>
         <h4>Customer Churn Prediction</h4>
         <p>Subscription churn prediction (logistic regression + random forest), driver analysis, KMeans segmentation, revenue-at-risk, and an HTML report.</p>
@@ -712,7 +786,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/customer-churn-prediction" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/neural-machine-translation.gif" alt="Neural Machine Translation animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-neural-machine-translation" aria-label="Neural Machine Translation animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Encode</span><span class="pv-link"><i></i></span><span class="pv-node">Attend</span><span class="pv-link"><i></i></span><span class="pv-node">Decode</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>Neural Machine Translation</h4>
         <p>Seq2seq translator with attention (PyTorch), EN→FR, a from-scratch BLEU implementation, and attention heatmaps showing learned reordering.</p>
@@ -720,7 +798,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/neural-machine-translation" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/neural-machine-translation.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/sign-language-recognition.gif" alt="Sign Language Recognition animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-sign-language-recognition" aria-label="Sign Language Recognition animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Gesture</span><span class="pv-link"><i></i></span><span class="pv-node">CNN</span><span class="pv-link"><i></i></span><span class="pv-node">Sign</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>Sign Language Recognition</h4>
         <p>Web-based hand-gesture / sign-language recognition: a PyTorch CNN behind a Flask web app with an upload UI and JSON API.</p>
@@ -728,7 +810,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sign-language-recognition" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/video-intelligence.gif" alt="Video Intelligence animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-video-intelligence" aria-label="Video Intelligence animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Frames</span><span class="pv-link"><i></i></span><span class="pv-node">Detect</span><span class="pv-link"><i></i></span><span class="pv-node">Scenes</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>Video Intelligence</h4>
         <p>Video understanding toolkit — frame analysis, detection, and scene-level intelligence over a clean processing pipeline.</p>
@@ -736,7 +822,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/video-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/video-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/speech-intelligence.gif" alt="Speech Intelligence animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-speech-intelligence" aria-label="Speech Intelligence animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Audio</span><span class="pv-link"><i></i></span><span class="pv-node">Model</span><span class="pv-link"><i></i></span><span class="pv-node">Intent</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>Speech Intelligence</h4>
         <p>Speech processing toolkit — transcription, audio features, and signal analysis packaged as a reusable service.</p>
@@ -744,7 +834,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/speech-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/speech-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/nlp-text-intelligence.gif" alt="NLP Text Intelligence animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-nlp-text-intelligence" aria-label="NLP Text Intelligence animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Text</span><span class="pv-link"><i></i></span><span class="pv-node">Model</span><span class="pv-link"><i></i></span><span class="pv-node">Insight</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>NLP Text Intelligence</h4>
         <p>NLP toolkit for text — classification, extraction, and language features over a clean, testable API.</p>
@@ -752,7 +846,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/nlp-text-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/nlp-text-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/document-ocr-vision.gif" alt="Document OCR &amp; Vision animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-document-ocr-vision" aria-label="Document OCR &amp; Vision animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Scan</span><span class="pv-link"><i></i></span><span class="pv-node">OCR</span><span class="pv-link"><i></i></span><span class="pv-node">JSON</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>Document OCR &amp; Vision</h4>
         <p>OCR + document-vision pipeline extracting structured data from invoices and documents to feed downstream reporting.</p>
@@ -760,7 +858,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/document-ocr-vision" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/document-ocr-vision.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/face-recognition-biometrics.gif" alt="Face Recognition Biometrics animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-face-recognition-biometrics" aria-label="Face Recognition Biometrics animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Face</span><span class="pv-link"><i></i></span><span class="pv-node">Embed</span><span class="pv-link"><i></i></span><span class="pv-node">Match</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>Face Recognition Biometrics</h4>
         <p>Face-recognition biometric pipeline: OpenCV Haar detection, Eigenfaces + LBPH recognizers, and an open-set 'not in database' gate.</p>
@@ -768,7 +870,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
         <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/face-recognition-biometrics" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
       </article>
       <article class="pcard" data-cat="vision">
-        <div class="pv"><img class="pv-art" src="project-visuals/bird-deterrent-signal-intelligence.gif" alt="Bird-Deterrent Signal Intelligence animated project visual" loading="lazy"></div>
+        <div class="pv pv-inline pv-bird-deterrent-signal-intelligence" aria-label="Bird-Deterrent Signal Intelligence animated system visual">
+      <div class="pv-grid"></div><div class="pv-scan"></div>
+      <div class="pv-title">Vision · Speech · NLP</div>
+      <div class="pv-flow"><span class="pv-node">Signal</span><span class="pv-link"><i></i></span><span class="pv-node">Detect</span><span class="pv-link"><i></i></span><span class="pv-node">Respond</span></div>
+      <div class="pv-live"><b></b> LIVE</div></div>
         <div class="cat">Vision · Speech · NLP</div>
         <h4>Bird-Deterrent Signal Intelligence</h4>
         <p>Crop-protection via signal intelligence: MFCC/spectral DSP, a bird detector, and a habituation-aware acoustic deterrent controller.</p>

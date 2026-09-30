@@ -220,9 +220,27 @@ details[open] .cs-summary .caret{transform:rotate(180deg)}
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
 .pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;transition:transform .25s,border-color .25s;position:relative}
 .pcard:hover{transform:translateY(-4px);border-color:var(--line2)}
-.pv{position:relative;margin:-10px -10px 16px;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#0b1014;border:1px solid var(--line)}
-.pv-art{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.7,.2,1),filter .45s}
-.pcard:hover .pv-art{transform:scale(1.025);filter:saturate(1.08)}
+.pv{position:relative;margin:-10px -10px 16px;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#081014;border:1px solid var(--line)}
+.pv-inline{isolation:isolate;display:flex;align-items:center;padding:18px}
+.pv-grid{position:absolute;inset:0;z-index:-3;background-image:linear-gradient(rgba(73,224,184,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(73,224,184,.055) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,#000,transparent)}
+.pv-inline:after{content:"";position:absolute;width:45%;height:100%;right:-10%;top:0;background:radial-gradient(circle,rgba(40,221,170,.16),transparent 66%);z-index:-2;animation:pvGlow 4s ease-in-out infinite}
+.pv-title{position:absolute;left:16px;top:14px;font:600 9px var(--mono);letter-spacing:.12em;color:var(--ac-x);opacity:.9}
+.pv-flow{display:flex;align-items:center;width:100%;gap:7px;margin-top:10px;position:relative;z-index:2}
+.pv-node{flex:1;min-width:0;text-align:center;padding:12px 5px;border:1px solid rgba(111,231,199,.22);border-radius:9px;background:rgba(17,30,35,.9);font:600 9px var(--mono);color:#dff8f1;box-shadow:0 8px 25px rgba(0,0,0,.18);animation:pvNode 3.2s ease-in-out infinite}
+.pv-node:nth-of-type(3){animation-delay:.35s}.pv-node:nth-of-type(5){animation-delay:.7s}
+.pv-link{height:2px;flex:.35;background:rgba(94,129,128,.45);position:relative;overflow:visible}
+.pv-link i{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--ac);top:-3px;left:-3px;box-shadow:0 0 12px var(--ac);animation:pvPacket 1.8s linear infinite}
+.pv-link:nth-of-type(4) i{animation-delay:.8s}
+.pv-live{position:absolute;left:16px;bottom:12px;font:600 8px var(--mono);letter-spacing:.12em;color:var(--dim);display:flex;align-items:center;gap:6px}
+.pv-live b{width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 9px var(--ac);animation:pvPulse 1.2s ease-in-out infinite}
+.pv-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(65,230,187,.42),transparent);top:20%;animation:pvScan 4.5s linear infinite;z-index:-1}
+@keyframes pvPacket{from{left:-3px}to{left:calc(100% - 3px)}}
+@keyframes pvPulse{50%{opacity:.35;transform:scale(.7)}}
+@keyframes pvNode{50%{border-color:rgba(71,224,183,.5);transform:translateY(-2px)}}
+@keyframes pvScan{from{top:18%}to{top:88%}}
+@keyframes pvGlow{50%{opacity:.45;transform:translateX(-8%)}}
+.pcard:hover .pv-inline .pv-node{border-color:rgba(71,224,183,.58)}
+@media(prefers-reduced-motion:reduce){.pv-inline *,.pv-inline:after{animation:none!important}}
 .pv-face{position:absolute;right:-4px;bottom:-2px;width:31%;max-height:88%;object-fit:cover;object-position:50% 22%;border-radius:18px 0 0 0;filter:drop-shadow(-10px 0 22px rgba(0,0,0,.5));opacity:.96;transition:transform .35s}
 .pcard:hover .pv-face{transform:translateY(-3px) scale(1.025)}
 .pcard .cat{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--ac-x);text-transform:uppercase;letter-spacing:.06em}
