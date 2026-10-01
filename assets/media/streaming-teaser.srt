@@ -1,21 +1,19 @@
-WEBVTT
-
 1
-00:00:00.200 --> 00:00:03.336
+00:00:00,200 --> 00:00:03,336
 A nightly batch is too late for a streaming signal.
 
 2
-00:00:06.937 --> 00:00:13.670
+00:00:06,937 --> 00:00:13,670
 Kafka receives transactions. Spark parses the JSON and applies
 explainable fraud rules.
 
 3
-00:00:17.271 --> 00:00:23.094
+00:00:17,271 --> 00:00:23,094
 Event-time windows summarize merchants. Watermarks bound the
 state kept for late events.
 
 4
-00:00:26.695 --> 00:00:31.599
+00:00:26,695 --> 00:00:31,599
 Cassandra stores transaction verdicts and merchant metrics in
 separate tables.
 

@@ -1,42 +1,40 @@
-WEBVTT
-
 1
-00:00:00.200 --> 00:00:06.493
+00:00:00,200 --> 00:00:06,493
 The problem: quality guidelines are often prose, while releases
 need repeatable decisions.
 
 2
-00:00:09.499 --> 00:00:15.298
+00:00:09,499 --> 00:00:15,298
 Each case carries an input, an output and the reference or
 context needed to judge it.
 
 3
-00:00:18.305 --> 00:00:24.053
+00:00:18,305 --> 00:00:24,053
 JSON and YAML rubrics define criteria, weights and optional hard
 thresholds.
 
 4
-00:00:27.060 --> 00:00:33.463
+00:00:27,060 --> 00:00:33,463
 Deterministic metrics check overlap, exact matches, numbers,
 structure and other constraints.
 
 5
-00:00:36.470 --> 00:00:42.499
+00:00:36,470 --> 00:00:42,499
 An optional model judge uses a vendor-neutral chat interface for
 custom criteria.
 
 6
-00:00:45.506 --> 00:00:52.467
+00:00:45,506 --> 00:00:52,467
 The engine produces per-case breakdowns, JSON reports and an
 interactive HTML dashboard.
 
 7
-00:00:55.474 --> 00:01:02.509
+00:00:55,474 --> 00:01:02,509
 Token overlap is not semantic truth. A passing benchmark does
 not prove broad reliability.
 
 8
-00:01:05.516 --> 00:01:12.193
+00:01:05,516 --> 00:01:12,193
 The repository shows the scoring code, tests and benchmark.
 Explore it from my portfolio.
 

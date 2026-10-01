@@ -1,79 +1,77 @@
-WEBVTT
-
 1
-00:00:00.200 --> 00:00:11.790
+00:00:00,200 --> 00:00:11,790
 Start with the question: how do we answer from a document
 collection without inventing missing information? Walkthrough of
 the offline default path, not a live customer deployment.
 
 2
-00:00:15.226 --> 00:00:25.309
+00:00:15,226 --> 00:00:25,309
 The application connects a FastAPI backend with a browser chat
 interface. Separate services and interfaces keep each stage
 inspectable.
 
 3
-00:00:28.744 --> 00:00:39.437
+00:00:28,744 --> 00:00:39,437
 Ingestion splits documents into sentence-aware chunks instead of
 arbitrary character slices. Chunk boundaries affect what
 evidence retrieval can recover.
 
 4
-00:00:42.873 --> 00:00:51.608
+00:00:42,873 --> 00:00:51,608
 The default feature-hashing embedder works without downloading a
 model. Reproducible offline development. configurable
 embeddings.
 
 5
-00:00:55.043 --> 00:01:05.551
+00:00:55,043 --> 00:01:05,551
 A cosine vector store finds candidates. Re-ranking blends
 similarity with keyword overlap. Retrieval quality determines
 which evidence reaches the reader.
 
 6
-00:01:08.987 --> 00:01:20.497
+00:01:08,987 --> 00:01:20,497
 The extractive reader answers from retrieved context and
 abstains when the context is insufficient. The default is
 extractive, not unrestricted generative completion.
 
 7
-00:01:23.932 --> 00:01:32.469
+00:01:23,932 --> 00:01:32,469
 Source citations connect the answer to its originating chunk. A
 citation is useful only if the passage supports the claim.
 
 8
-00:01:35.905 --> 00:01:46.751
+00:01:35,905 --> 00:01:46,751
 A router sends arithmetic questions to a restricted AST
 calculator and other questions to RAG. Tool routing is explicit
 and returned to the interface.
 
 9
-00:01:50.187 --> 00:01:59.351
+00:01:50,187 --> 00:01:59,351
 Server-Sent Events stream responses through the chat endpoint.
 Streaming changes delivery; it does not itself improve factual
 quality.
 
 10
-00:02:02.787 --> 00:02:13.196
+00:02:02,787 --> 00:02:13,196
 The evaluation harness checks retrieval hit-rate, reciprocal
 rank, faithfulness and answer relevance. Sample-corpus
 thresholds are gated in CI.
 
 11
-00:02:16.632 --> 00:02:30.200
+00:02:16,632 --> 00:02:30,200
 Configuration can swap in sentence-transformers, pgvector,
 Ollama, Gemini or OpenAI backends. Optional integrations require
 their own runtime setup and evaluation.
 
 12
-00:02:33.636 --> 00:02:46.414
+00:02:33,636 --> 00:02:46,414
 The limitation: sample-corpus checks do not establish
 reliability across arbitrary documents. Broader corpora,
 adversarial missing-evidence cases and abstention tests come
 next.
 
 13
-00:02:49.850 --> 00:02:56.764
+00:02:49,850 --> 00:02:56,764
 Explore the backend, tests and evaluation code. The best
 evidence is the implementation itself.
 

@@ -1,22 +1,20 @@
-WEBVTT
-
 1
-00:00:00.200 --> 00:00:05.903
+00:00:00,200 --> 00:00:05,903
 Would you ship an answer that scores well overall, but fails a
 required grounding check?
 
 2
-00:00:10.016 --> 00:00:14.773
+00:00:10,016 --> 00:00:14,773
 My evaluator separates weighted rubric scores from hard
 thresholds.
 
 3
-00:00:18.886 --> 00:00:26.218
+00:00:18,886 --> 00:00:26,218
 Fourteen deterministic metrics run offline. Optional LLM judges
 score custom criteria.
 
 4
-00:00:30.330 --> 00:00:36.087
+00:00:30,330 --> 00:00:36,087
 Inspect per-case failures through the dashboard, REST API or
 command-line CI gate.
 

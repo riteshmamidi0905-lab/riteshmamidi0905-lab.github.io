@@ -34,8 +34,10 @@ The site remains compatible with GitHub Pages publishing from `main` at the repo
 
 ## Video production
 
-`python scripts/render-videos.py` requires Pillow, FFmpeg and DejaVu fonts. It renders diagram-led captioned films from verified repository descriptions. No cloned voice or generated footage of Ritesh is used. Videos load only when requested; the page does not autoplay them.
+`scripts/narrate-videos.py` uses kokoro-onnx 0.6.1 and the upstream Kokoro v1.0 stock `am_michael` voice. Set `KOKORO_MODEL`, `KOKORO_VOICES` and `NARRATION_CACHE` to local paths; models and intermediate WAVs are kept outside the repository. Then run `NARRATION_CACHE=/your/cache python scripts/render-videos.py` (Pillow, FFmpeg and DejaVu fonts required). It renders diagram-led films from verified descriptions, with speech-aligned captions and AAC narration normalized toward −16 LUFS / −1.5 dBTP. `content/video-timings.json` records the spoken script and segment boundaries. No paid API is required. No cloned voice or generated footage of Ritesh is used. Videos load only when requested; the page does not autoplay them.
 
 ## Credibility
 
 Professional results are reported from the existing résumé. Open-source demonstrations use synthetic or controlled inputs where noted. Research examples are explicitly labeled illustrative and do not imply measured model comparisons. Snapshot links let readers inspect the evidence supporting each featured project.
+
+Narrator provenance: [Kokoro model card](https://huggingface.co/hexgrad/Kokoro-82M) (Apache-2.0 weights) and [kokoro-onnx](https://github.com/thewh1teagle/kokoro-onnx). Stock synthetic narration is explicitly disclosed on the site. Runway speech tools required an upgrade during production; no credits were purchased.

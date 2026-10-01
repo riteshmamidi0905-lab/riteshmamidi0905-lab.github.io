@@ -2,13 +2,13 @@
 
 Status: DRAFT — no posts have been published. Each publication requires Ritesh’s specific approval.
 
-These films are diagram-led and captioned. They contain no synthesized presenter, voice clone or fabricated footage. Scene text is the narration/recording script; captions are burned into the image and also supplied as WebVTT.
+These films use diagram-led storytelling, a stock synthetic narrator (Kokoro am_michael), and synchronized English WebVTT captions. No personal voice is cloned and no presenter footage is fabricated. All diagrams are illustrative workflows, not live production telemetry. Final spoken scripts and timings are in `video-timings.json`. Runway sign-in was verified; its speech models require a paid upgrade, so narration was generated locally without charges.
 
 ## Catch the signal before the batch.
 
 Format: 35-second project teaser
 
-Video: [Preview](../assets/media/streaming-teaser.mp4)
+Video: [Preview](../assets/media/streaming-teaser.mp4) · [SRT captions](../assets/media/streaming-teaser.srt) · [Thumbnail](../assets/media/streaming-poster.webp)
 
 ### Proposed caption
 
@@ -43,7 +43,7 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 
 Format: 40-second project teaser
 
-Video: [Preview](../assets/media/evaluation-teaser.mp4)
+Video: [Preview](../assets/media/evaluation-teaser.mp4) · [SRT captions](../assets/media/evaluation-teaser.srt) · [Thumbnail](../assets/media/evaluation-poster.webp)
 
 ### Proposed caption
 
@@ -78,7 +78,7 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 
 Format: 40-second project teaser
 
-Video: [Preview](../assets/media/rag-teaser.mp4)
+Video: [Preview](../assets/media/rag-teaser.mp4) · [SRT captions](../assets/media/rag-teaser.srt) · [Thumbnail](../assets/media/rag-poster.webp)
 
 ### Proposed caption
 
@@ -113,7 +113,7 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 
 Format: 75-second technical explainer
 
-Video: [Preview](../assets/media/evaluation-explainer.mp4)
+Video: [Preview](../assets/media/evaluation-explainer.mp4) · [SRT captions](../assets/media/evaluation-explainer.srt) · [Thumbnail](../assets/media/evaluation-poster.webp)
 
 ### Proposed caption
 
@@ -160,7 +160,7 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 
 Format: 3-minute project walkthrough
 
-Video: [Preview](../assets/media/rag-walkthrough.mp4)
+Video: [Preview](../assets/media/rag-walkthrough.mp4) · [SRT captions](../assets/media/rag-walkthrough.srt) · [Thumbnail](../assets/media/rag-poster.webp)
 
 ### Proposed caption
 
@@ -229,3 +229,41 @@ The interactive portfolio explanation is illustrative, not experimental results.
 Explore the proposal: https://riteshmamidi0905-lab.github.io/#research
 
 #AgentEvaluation #LLMReliability #AIResearch
+
+
+## Portfolio launch — text draft
+
+I’ve rebuilt my portfolio around the questions I’d want answered when reviewing an AI or data project: what problem does it solve, how does the system work, and what evidence supports the claims?
+
+The site brings together 22 open-source projects, six detailed case studies, architecture animations and five short technical films. The work spans streaming data, lakehouses, RAG, model evaluation, MLOps and product experimentation.
+
+I’ve also added MAREF, my proposed framework for examining agent reliability across six dimensions. It’s research in progress, with illustrative explanations clearly separated from experimental results.
+
+I’m exploring AI/ML, data engineering and product analytics opportunities across the US. You can inspect the implementation and limitations behind each project here:
+
+https://riteshmamidi0905-lab.github.io/
+
+#AIEngineering #DataEngineering #ProductAnalytics
+
+Suggested visual: `assets/media/streaming-poster.webp` or the portfolio hero.
+
+Publication status: Awaiting specific approval; do not publish automatically.
+
+
+## AI/data engineering positioning — text draft
+
+The part of AI engineering I enjoy most is making a system inspectable.
+
+Across my open-source work, that means tracing an event through Kafka and Spark, following a retrieved passage into a cited answer, or examining the exact criterion that caused an evaluation gate to fail.
+
+My portfolio connects those engineering decisions with data and product questions: what should we measure, what can go wrong, and what evidence would justify the next decision?
+
+I’m interested in AI/ML, data engineering and product analytics roles where those questions matter. The code, case studies and limitations are available here:
+
+https://riteshmamidi0905-lab.github.io/#work
+
+#AIEngineering #LLMEvaluation #ProductAnalytics
+
+Suggested video: `evaluation-teaser.mp4`; synthetic narration with English captions.
+
+Publication status: Awaiting specific approval; do not publish automatically.

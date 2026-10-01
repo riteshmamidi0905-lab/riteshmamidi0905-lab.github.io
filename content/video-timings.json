@@ -1,0 +1,268 @@
+{
+  "streaming-teaser": {
+    "duration": 35,
+    "voice": "Kokoro stock am_michael",
+    "kind": "Synthetic narration; not Ritesh\u2019s voice",
+    "scenes": [
+      {
+        "start": 0.0,
+        "speechStart": 0.2,
+        "speechEnd": 3.336,
+        "end": 6.737,
+        "caption": "A nightly batch is too late for a streaming signal."
+      },
+      {
+        "start": 6.737,
+        "speechStart": 6.937,
+        "speechEnd": 13.67,
+        "end": 17.071,
+        "caption": "Kafka receives transactions. Spark parses the JSON and applies explainable fraud rules."
+      },
+      {
+        "start": 17.071,
+        "speechStart": 17.271,
+        "speechEnd": 23.094,
+        "end": 26.495,
+        "caption": "Event-time windows summarize merchants. Watermarks bound the state kept for late events."
+      },
+      {
+        "start": 26.495,
+        "speechStart": 26.695,
+        "speechEnd": 31.599,
+        "end": 35.0,
+        "caption": "Cassandra stores transaction verdicts and merchant metrics in separate tables."
+      }
+    ]
+  },
+  "evaluation-teaser": {
+    "duration": 40,
+    "voice": "Kokoro stock am_michael",
+    "kind": "Synthetic narration; not Ritesh\u2019s voice",
+    "scenes": [
+      {
+        "start": 0.0,
+        "speechStart": 0.2,
+        "speechEnd": 5.903,
+        "end": 9.816,
+        "caption": "Would you ship an answer that scores well overall, but fails a required grounding check?"
+      },
+      {
+        "start": 9.816,
+        "speechStart": 10.016,
+        "speechEnd": 14.773,
+        "end": 18.686,
+        "caption": "My evaluator separates weighted rubric scores from hard thresholds."
+      },
+      {
+        "start": 18.686,
+        "speechStart": 18.886,
+        "speechEnd": 26.218,
+        "end": 30.13,
+        "caption": "Fourteen deterministic metrics run offline. Optional LLM judges score custom criteria."
+      },
+      {
+        "start": 30.13,
+        "speechStart": 30.33,
+        "speechEnd": 36.087,
+        "end": 40.0,
+        "caption": "Inspect per-case failures through the dashboard, REST API or command-line CI gate."
+      }
+    ]
+  },
+  "rag-teaser": {
+    "duration": 40,
+    "voice": "Kokoro stock am_michael",
+    "kind": "Synthetic narration; not Ritesh\u2019s voice",
+    "scenes": [
+      {
+        "start": 0.0,
+        "speechStart": 0.2,
+        "speechEnd": 4.381,
+        "end": 8.742,
+        "caption": "A fluent answer is not enough. Can you trace it back to a source?"
+      },
+      {
+        "start": 8.742,
+        "speechStart": 8.942,
+        "speechEnd": 15.723,
+        "end": 20.084,
+        "caption": "Documents become sentence-aware chunks. Retrieval blends vector similarity with keyword overlap."
+      },
+      {
+        "start": 20.084,
+        "speechStart": 20.284,
+        "speechEnd": 26.118,
+        "end": 30.48,
+        "caption": "The default reader extracts from retrieved context and abstains when evidence is missing."
+      },
+      {
+        "start": 30.479,
+        "speechStart": 30.679,
+        "speechEnd": 35.639,
+        "end": 40.0,
+        "caption": "An evaluation harness checks retrieval and grounding on a sample corpus."
+      }
+    ]
+  },
+  "evaluation-explainer": {
+    "duration": 75,
+    "voice": "Kokoro stock am_michael",
+    "kind": "Synthetic narration; not Ritesh\u2019s voice",
+    "scenes": [
+      {
+        "start": 0.0,
+        "speechStart": 0.2,
+        "speechEnd": 6.493,
+        "end": 9.299,
+        "caption": "The problem: quality guidelines are often prose, while releases need repeatable decisions."
+      },
+      {
+        "start": 9.299,
+        "speechStart": 9.499,
+        "speechEnd": 15.298,
+        "end": 18.105,
+        "caption": "Each case carries an input, an output and the reference or context needed to judge it."
+      },
+      {
+        "start": 18.105,
+        "speechStart": 18.305,
+        "speechEnd": 24.053,
+        "end": 26.86,
+        "caption": "JSON and YAML rubrics define criteria, weights and optional hard thresholds."
+      },
+      {
+        "start": 26.86,
+        "speechStart": 27.06,
+        "speechEnd": 33.463,
+        "end": 36.27,
+        "caption": "Deterministic metrics check overlap, exact matches, numbers, structure and other constraints."
+      },
+      {
+        "start": 36.27,
+        "speechStart": 36.47,
+        "speechEnd": 42.499,
+        "end": 45.306,
+        "caption": "An optional model judge uses a vendor-neutral chat interface for custom criteria."
+      },
+      {
+        "start": 45.306,
+        "speechStart": 45.506,
+        "speechEnd": 52.467,
+        "end": 55.274,
+        "caption": "The engine produces per-case breakdowns, JSON reports and an interactive HTML dashboard."
+      },
+      {
+        "start": 55.274,
+        "speechStart": 55.474,
+        "speechEnd": 62.509,
+        "end": 65.316,
+        "caption": "Token overlap is not semantic truth. A passing benchmark does not prove broad reliability."
+      },
+      {
+        "start": 65.316,
+        "speechStart": 65.516,
+        "speechEnd": 72.193,
+        "end": 75.0,
+        "caption": "The repository shows the scoring code, tests and benchmark. Explore it from my portfolio."
+      }
+    ]
+  },
+  "rag-walkthrough": {
+    "duration": 180,
+    "voice": "Kokoro stock am_michael",
+    "kind": "Synthetic narration; not Ritesh\u2019s voice",
+    "scenes": [
+      {
+        "start": 0.0,
+        "speechStart": 0.2,
+        "speechEnd": 11.79,
+        "end": 15.026,
+        "caption": "Start with the question: how do we answer from a document collection without inventing missing information? Walkthrough of the offline default path, not a live customer deployment."
+      },
+      {
+        "start": 15.026,
+        "speechStart": 15.226,
+        "speechEnd": 25.309,
+        "end": 28.544,
+        "caption": "The application connects a FastAPI backend with a browser chat interface. Separate services and interfaces keep each stage inspectable."
+      },
+      {
+        "start": 28.544,
+        "speechStart": 28.744,
+        "speechEnd": 39.437,
+        "end": 42.673,
+        "caption": "Ingestion splits documents into sentence-aware chunks instead of arbitrary character slices. Chunk boundaries affect what evidence retrieval can recover."
+      },
+      {
+        "start": 42.673,
+        "speechStart": 42.873,
+        "speechEnd": 51.608,
+        "end": 54.843,
+        "caption": "The default feature-hashing embedder works without downloading a model. Reproducible offline development. configurable embeddings."
+      },
+      {
+        "start": 54.843,
+        "speechStart": 55.043,
+        "speechEnd": 65.551,
+        "end": 68.787,
+        "caption": "A cosine vector store finds candidates. Re-ranking blends similarity with keyword overlap. Retrieval quality determines which evidence reaches the reader."
+      },
+      {
+        "start": 68.787,
+        "speechStart": 68.987,
+        "speechEnd": 80.497,
+        "end": 83.732,
+        "caption": "The extractive reader answers from retrieved context and abstains when the context is insufficient. The default is extractive, not unrestricted generative completion."
+      },
+      {
+        "start": 83.732,
+        "speechStart": 83.932,
+        "speechEnd": 92.469,
+        "end": 95.705,
+        "caption": "Source citations connect the answer to its originating chunk. A citation is useful only if the passage supports the claim."
+      },
+      {
+        "start": 95.705,
+        "speechStart": 95.905,
+        "speechEnd": 106.751,
+        "end": 109.987,
+        "caption": "A router sends arithmetic questions to a restricted AST calculator and other questions to RAG. Tool routing is explicit and returned to the interface."
+      },
+      {
+        "start": 109.987,
+        "speechStart": 110.187,
+        "speechEnd": 119.351,
+        "end": 122.587,
+        "caption": "Server-Sent Events stream responses through the chat endpoint. Streaming changes delivery; it does not itself improve factual quality."
+      },
+      {
+        "start": 122.587,
+        "speechStart": 122.787,
+        "speechEnd": 133.196,
+        "end": 136.432,
+        "caption": "The evaluation harness checks retrieval hit-rate, reciprocal rank, faithfulness and answer relevance. Sample-corpus thresholds are gated in CI."
+      },
+      {
+        "start": 136.432,
+        "speechStart": 136.632,
+        "speechEnd": 150.2,
+        "end": 153.436,
+        "caption": "Configuration can swap in sentence-transformers, pgvector, Ollama, Gemini or OpenAI backends. Optional integrations require their own runtime setup and evaluation."
+      },
+      {
+        "start": 153.436,
+        "speechStart": 153.636,
+        "speechEnd": 166.414,
+        "end": 169.65,
+        "caption": "The limitation: sample-corpus checks do not establish reliability across arbitrary documents. Broader corpora, adversarial missing-evidence cases and abstention tests come next."
+      },
+      {
+        "start": 169.65,
+        "speechStart": 169.85,
+        "speechEnd": 176.764,
+        "end": 180.0,
+        "caption": "Explore the backend, tests and evaluation code. The best evidence is the implementation itself."
+      }
+    ]
+  }
+}

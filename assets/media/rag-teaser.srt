@@ -1,22 +1,20 @@
-WEBVTT
-
 1
-00:00:00.200 --> 00:00:04.381
+00:00:00,200 --> 00:00:04,381
 A fluent answer is not enough. Can you trace it back to a
 source?
 
 2
-00:00:08.942 --> 00:00:15.723
+00:00:08,942 --> 00:00:15,723
 Documents become sentence-aware chunks. Retrieval blends vector
 similarity with keyword overlap.
 
 3
-00:00:20.284 --> 00:00:26.118
+00:00:20,284 --> 00:00:26,118
 The default reader extracts from retrieved context and abstains
 when evidence is missing.
 
 4
-00:00:30.679 --> 00:00:35.639
+00:00:30,679 --> 00:00:35,639
 An evaluation harness checks retrieval and grounding on a sample
 corpus.
 
