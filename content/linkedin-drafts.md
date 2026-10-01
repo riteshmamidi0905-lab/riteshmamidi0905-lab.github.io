@@ -11,13 +11,13 @@ Media disclosure: stock synthetic narrator; no personal voice cloning or fabrica
 
 Suggested slot: day 0 relative to the approved launch date.
 
-I’ve rebuilt my portfolio around the questions I’d want answered when reviewing an AI or data project: what problem does it solve, how does the system work, and what evidence supports the claims?
+I’ve rebuilt my portfolio around three questions: what problem does a project solve, how does the system work, and what evidence supports its claims?
 
-The site brings together 22 open-source projects, six detailed case studies, architecture animations and five technical films. The work spans streaming data, lakehouses, RAG, model evaluation, MLOps and product experimentation.
+It brings together 22 open-source projects, six detailed case studies, architecture animations and five narrated technical films. The work spans AI/ML, streaming data, lakehouses, RAG, LLM evaluation, MLOps and product analytics.
 
-I’ve also added MAREF, my proposed framework for examining agent reliability across six dimensions. It’s research in progress, with illustrative explanations clearly separated from experimental results.
+There’s also MAREF, my proposed framework for examining agent reliability across six dimensions. It’s research in progress; the interactive examples are illustrative, not experimental findings.
 
-I’m exploring AI/ML, data engineering and product analytics opportunities across the US. You can inspect the implementation and limitations behind each project here:
+I’m exploring AI/ML, data engineering and product analytics opportunities across the US. The code, engineering decisions and limitations are here:
 
 https://riteshmamidi0905-lab.github.io/
 
