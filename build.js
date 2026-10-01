@@ -11,6 +11,8 @@
 const fs = require('fs');
 const path = require('path');
 const { GH, CATLABEL, FLAG, P } = require('./data.js');
+const { researchHTML, watchHTML } = require('./scripts/sections');
+const evidence = require('./content/project-evidence.json');
 
 /* ---------- SVG architecture visuals (presentation, generated from nothing but layout) ---------- */
 const INK='#12151b', GRY='#c8ccd2', SUB='#7b8090', AC='#12b98f', ACF='rgba(18,185,143,.12)';
@@ -34,7 +36,7 @@ const GFX={
     let lanes='';[0,1,2].forEach(i=>lanes+=`<rect x="128" y="${128+i*13}" width="58" height="6" rx="3" fill="${ACF}" stroke="${AC}" stroke-width=".8"/>`);
     const win=`<rect x="234" y="128" width="58" height="38" rx="6" fill="none" stroke="${AC}" stroke-width="1.2" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.2s" repeatCount="indefinite"/></rect>`;
     let ev='';[0,1,2,3].forEach(i=>ev+=`<circle cx="${20+i*4}" cy="${128+i*11}" r="2.4" fill="${INK}" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="${i*.3}s" repeatCount="indefinite"/></circle>`);
-    const cap=`<text x="200" y="215" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="${SUB}">event-time &#183; watermarks &#183; exactly-once intent</text>`;
+    const cap=`<text x="200" y="215" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="${SUB}">event-time &#183; watermarks &#183; checkpointed sinks</text>`;
     return svg(paths+lanes+win+s+dots+ev+cap);
   },
   lake(){
@@ -131,16 +133,20 @@ function flagshipHTML(){
             <a class="gh" href="${GH}${f.r}" target="_blank" rel="noopener">GitHub ${arrow}</a>${dm}
           </div>
         </div>
-        <div class="flag-visual" aria-hidden="true">${GFX[f.gfx]()}</div>
+        <div class="flag-visual" aria-hidden="true">${GFX[f.gfx]().replace(/id="([^"]+)"/g,`id="${f.r}-$1"`).replace(/href="#([^"]+)"/g,`href="#${f.r}-$1"`).replace(/url\(#([^)]*)\)/g,`url(#${f.r}-$1)`)}<div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
       <details class="cs-panel">
         <summary class="cs-summary">Case study ${caret}</summary>
         <div class="cs-inner">
+          <div class="cs-evidence"><a href="${GH}${f.r}/tree/${evidence[f.r]}">Reviewed code snapshot ↗</a><a href="${GH}${f.r}/tree/${evidence[f.r]}/tests">Inspect tests ↗</a></div>
           <div class="cs-block"><h4>The problem</h4><p>${f.cs.problem}</p></div>
           <div class="cs-block"><h4>My approach</h4><p>${f.cs.approach}</p></div>
           <div class="cs-block arch"><h4>Architecture</h4><div class="cs-arch">${arch}</div></div>
           <div class="cs-block"><h4>Technology</h4><p>${f.cs.tech}</p></div>
-          <div class="cs-block"><h4>Result</h4><p>${f.cs.result}</p></div>
+          <div class="cs-block"><h4>Evaluation</h4><p>${f.cs.evaluation}</p></div>
+          <div class="cs-block"><h4>Engineering decision</h4><p>${f.cs.decision}</p></div>
+          <div class="cs-block"><h4>Outcome</h4><p>${f.cs.result}</p></div>
+          <div class="cs-block"><h4>Scope &amp; limitations</h4><p>${f.cs.limit}</p></div>
           <div class="cs-block"><h4>What I'd improve</h4><p>${f.cs.lessons}</p></div>
           <div class="cs-block"><h4>Inspect it</h4><p><a href="${GH}${f.r}" target="_blank" rel="noopener" style="color:var(--ac-x);font-weight:600">Repository &#8599;</a>${demoInspect}</p></div>
         </div>
@@ -184,14 +190,14 @@ function projectHTML(){
       <div class="pv-grid"></div><div class="pv-scan"></div>
       <div class="pv-title">${CATLABEL[p.c]}</div>
       <div class="pv-flow">${ns.map((n,i)=>`<span class="pv-node">${n}</span>${i<ns.length-1?`<span class="pv-link"><i></i></span>`:''}`).join('')}</div>
-      <div class="pv-live"><b></b> LIVE</div>${face}</div>`;
+      <div class="pv-live"><b></b> DEMO</div>${face}</div>`;
     const visualDir=path.join(__dirname,'project-visuals');
     const hasSVG=fs.existsSync(path.join(visualDir,`${p.r}.svg`));
-    const hasGIF=fs.existsSync(path.join(visualDir,`${p.r}.gif`));
+    // SVG assets avoid decoding heavy animated GIFs on the project shelf.
     const visual=hasSVG?`<div class="pv"><picture>
-      <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/${p.r}.svg">
-      <img src="project-visuals/${p.r}.${hasGIF?'gif':'svg'}" alt="${p.n} system visual" width="640" height="360" loading="lazy" decoding="async">
-    </picture></div>`:inlineVisual;
+      <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/${p.r}-still.svg">
+      <img data-motion="${p.r}" src="project-visuals/${p.r}.svg" alt="${p.n} system visual" width="640" height="360" loading="lazy" decoding="async">
+    </picture><span class="demo-label">ILLUSTRATIVE WORKFLOW</span></div>`:inlineVisual;
     return `<article class="pcard" data-cat="${p.c}">
         ${visual}
         <div class="cat">${CATLABEL[p.c]}</div>
@@ -210,5 +216,7 @@ if(!tpl.includes('<div id="flagships"></div>')) throw new Error('flagships conta
 if(!tpl.includes('<div class="pgrid" id="pgrid"></div>')) throw new Error('pgrid container not found');
 tpl=tpl.replace('<div id="flagships"></div>', `<div id="flagships">\n    ${flagshipHTML()}\n    </div>`);
 tpl=tpl.replace('<div class="pgrid" id="pgrid"></div>', `<div class="pgrid" id="pgrid">\n      ${projectHTML()}\n      </div>`);
+tpl=tpl.replace('<div id="research-content"></div>',researchHTML());
+tpl=tpl.replace('<div id="watch-content"></div>',watchHTML());
 fs.writeFileSync(path.join(SITE,'index.html'),tpl);
 console.log(`Built index.html — ${FLAG.length} flagships, ${P.length} project cards, ${tpl.length} bytes.`);

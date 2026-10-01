@@ -1,0 +1,8 @@
+(function(){'use strict';
+const buttons=[...document.querySelectorAll('.dimension')],title=document.querySelector('#dimensionTitle'),detail=document.querySelector('#dimensionDetail');
+buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));title.textContent=b.dataset.name;detail.textContent=b.dataset.description;document.querySelectorAll('.dimension-flow span').forEach((el,i)=>el.textContent=b.dataset.flow.split('|')[i]);}));
+const toggle=document.querySelector('#motionToggle');
+if(toggle)toggle.addEventListener('click',()=>{const paused=document.documentElement.classList.toggle('motion-paused');toggle.setAttribute('aria-pressed',String(paused));document.dispatchEvent(new CustomEvent('portfolio-motion',{detail:{paused}}));toggle.textContent=paused?'Resume diagram motion':'Pause diagram motion';document.querySelectorAll('img[data-motion]').forEach(i=>{i.src='project-visuals/'+i.dataset.motion+(paused?'-still':'')+'.svg';});document.querySelectorAll('.flag-visual svg').forEach(s=>{if(paused&&s.pauseAnimations)s.pauseAnimations();else if(s.unpauseAnimations)s.unpauseAnimations();});});
+const filterStatus=document.querySelector('#filterStatus');document.querySelector('#filters')?.addEventListener('click',()=>{const active=document.querySelector('.fbtn.on');filterStatus.textContent=document.querySelectorAll('.pcard:not(.hide)').length+' projects · '+active.textContent;});
+if(matchMedia('(prefers-reduced-motion:reduce)').matches)document.querySelectorAll('.flag-visual svg').forEach(s=>{if(s.pauseAnimations)s.pauseAnimations();});
+})();

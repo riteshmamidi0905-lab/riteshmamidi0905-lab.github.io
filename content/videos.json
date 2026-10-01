@@ -1,0 +1,40 @@
+[
+ {"id":"streaming-teaser","poster":"streaming","duration":35,"title":"Catch the signal before the batch.","repo":"realtime-streaming-pipeline","format":"35-second project teaser","nodes":["Events","Kafka","Spark","Cassandra"],"scenes":[
+  {"text":"A nightly batch is too late for a streaming signal.","detail":"A reproducible, synthetic transaction pipeline"},
+  {"text":"Kafka receives transactions. Spark parses the JSON and applies explainable fraud rules.","detail":"High amount · high-risk country · non-positive amount"},
+  {"text":"Event-time windows summarize merchants. Watermarks bound the state kept for late events.","detail":"One-minute windows · two-minute watermark"},
+  {"text":"Cassandra stores transaction verdicts and merchant metrics in separate tables.","detail":"Inspect the transforms, tests and Docker stack on GitHub."}]},
+ {"id":"evaluation-teaser","poster":"evaluation","duration":40,"title":"A good average can hide a bad answer.","repo":"llm-eval-framework","format":"40-second project teaser","nodes":["Cases","Rubric","Metrics","Report"],"scenes":[
+  {"text":"Would you ship an answer that scores well overall, but fails a required grounding check?","detail":"Make the failure visible before release."},
+  {"text":"My evaluator separates weighted rubric scores from hard thresholds.","detail":"JSON/YAML criteria · normalized weights · explicit gates"},
+  {"text":"Fourteen deterministic metrics run offline. Optional LLM judges score custom criteria.","detail":"Heuristics and judges both have limitations."},
+  {"text":"Inspect per-case failures through the dashboard, REST API or command-line CI gate.","detail":"Explore the code and bundled RAG-QA benchmark."}]},
+ {"id":"rag-teaser","poster":"rag","duration":40,"title":"An answer needs a path back to evidence.","repo":"genai-doc-assistant","format":"40-second project teaser","nodes":["Documents","Chunks","Retrieve","Cite"],"scenes":[
+  {"text":"A fluent answer is not enough. Can you trace it back to a source?","detail":"GenAI Document Assistant · offline extractive mode"},
+  {"text":"Documents become sentence-aware chunks. Retrieval blends vector similarity with keyword overlap.","detail":"Feature hashing · cosine search · re-ranking"},
+  {"text":"The default reader extracts from retrieved context and abstains when evidence is missing.","detail":"Source citations · arithmetic routing · streamed responses"},
+  {"text":"An evaluation harness checks retrieval and grounding on a sample corpus.","detail":"Inspect the implementation and limitations on GitHub."}]},
+ {"id":"evaluation-explainer","poster":"evaluation","duration":75,"title":"How I evaluate model outputs.","repo":"llm-eval-framework","format":"75-second technical explainer","nodes":["Cases","Rubric","Evaluate","Inspect"],"scenes":[
+  {"text":"The problem: quality guidelines are often prose, while releases need repeatable decisions.","detail":"Turn the guideline into an inspectable evaluation contract."},
+  {"text":"Each case carries an input, an output and the reference or context needed to judge it.","detail":"The repository includes an 18-case RAG-QA benchmark."},
+  {"text":"JSON and YAML rubrics define criteria, weights and optional hard thresholds.","detail":"A hard gate can fail a case even when its weighted score is high."},
+  {"text":"Deterministic metrics check overlap, exact matches, numbers, structure and other constraints.","detail":"14 built-in metrics · no API key required for core evaluation"},
+  {"text":"An optional model judge uses a vendor-neutral chat interface for custom criteria.","detail":"Judge scores still need calibration and human review."},
+  {"text":"The engine produces per-case breakdowns, JSON reports and an interactive HTML dashboard.","detail":"CLI fail-under gates connect the evaluation to CI."},
+  {"text":"Token overlap is not semantic truth. A passing benchmark does not prove broad reliability.","detail":"Inspect failure cases and expand the test set before trusting a new use case."},
+  {"text":"The repository shows the scoring code, tests and benchmark. Explore it from my portfolio.","detail":"riteshmamidi0905-lab.github.io · LLM Evaluation Framework"}]},
+ {"id":"rag-walkthrough","poster":"rag","duration":180,"title":"Inside a grounded document assistant.","repo":"genai-doc-assistant","format":"3-minute project walkthrough","nodes":["Ingest","Retrieve","Answer","Evaluate"],"scenes":[
+  {"text":"Start with the question: how do we answer from a document collection without inventing missing information?","detail":"Walkthrough of the offline default path, not a live customer deployment."},
+  {"text":"The application connects a FastAPI backend with a browser chat interface.","detail":"Separate services and interfaces keep each stage inspectable."},
+  {"text":"Ingestion splits documents into sentence-aware chunks instead of arbitrary character slices.","detail":"Chunk boundaries affect what evidence retrieval can recover."},
+  {"text":"The default feature-hashing embedder works without downloading a model.","detail":"Reproducible offline development · configurable embeddings"},
+  {"text":"A cosine vector store finds candidates. Re-ranking blends similarity with keyword overlap.","detail":"Retrieval quality determines which evidence reaches the reader."},
+  {"text":"The extractive reader answers from retrieved context and abstains when the context is insufficient.","detail":"The default is extractive, not unrestricted generative completion."},
+  {"text":"Source citations connect the answer to its originating chunk.","detail":"A citation is useful only if the passage supports the claim."},
+  {"text":"A router sends arithmetic questions to a restricted AST calculator and other questions to RAG.","detail":"Tool routing is explicit and returned to the interface."},
+  {"text":"Server-Sent Events stream responses through the chat endpoint.","detail":"Streaming changes delivery; it does not itself improve factual quality."},
+  {"text":"The evaluation harness checks retrieval hit-rate, reciprocal rank, faithfulness and answer relevance.","detail":"Sample-corpus thresholds are gated in CI."},
+  {"text":"Configuration can swap in sentence-transformers, pgvector, Ollama, Gemini or OpenAI backends.","detail":"Optional integrations require their own runtime setup and evaluation."},
+  {"text":"The limitation: sample-corpus checks do not establish reliability across arbitrary documents.","detail":"Broader corpora, adversarial missing-evidence cases and abstention tests come next."},
+  {"text":"Explore the backend, tests and evaluation code. The best evidence is the implementation itself.","detail":"riteshmamidi0905-lab.github.io · GenAI Document Assistant"}]}
+]

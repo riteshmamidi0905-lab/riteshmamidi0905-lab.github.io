@@ -1,0 +1,18 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.000
+A fluent answer is not enough. Can you trace it back to a source?
+
+2
+00:00:10.000 --> 00:00:20.000
+Documents become sentence-aware chunks. Retrieval blends vector similarity with keyword overlap.
+
+3
+00:00:20.000 --> 00:00:30.000
+The default reader extracts from retrieved context and abstains when evidence is missing.
+
+4
+00:00:30.000 --> 00:00:40.000
+An evaluation harness checks retrieval and grounding on a sample corpus.
+

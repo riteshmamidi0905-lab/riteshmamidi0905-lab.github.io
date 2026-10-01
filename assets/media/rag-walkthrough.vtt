@@ -1,0 +1,54 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:13.846
+Start with the question: how do we answer from a document collection without inventing missing information?
+
+2
+00:00:13.846 --> 00:00:27.692
+The application connects a FastAPI backend with a browser chat interface.
+
+3
+00:00:27.692 --> 00:00:41.538
+Ingestion splits documents into sentence-aware chunks instead of arbitrary character slices.
+
+4
+00:00:41.538 --> 00:00:55.384
+The default feature-hashing embedder works without downloading a model.
+
+5
+00:00:55.384 --> 00:01:09.230
+A cosine vector store finds candidates. Re-ranking blends similarity with keyword overlap.
+
+6
+00:01:09.230 --> 00:01:23.076
+The extractive reader answers from retrieved context and abstains when the context is insufficient.
+
+7
+00:01:23.076 --> 00:01:36.923
+Source citations connect the answer to its originating chunk.
+
+8
+00:01:36.923 --> 00:01:50.769
+A router sends arithmetic questions to a restricted AST calculator and other questions to RAG.
+
+9
+00:01:50.769 --> 00:02:04.615
+Server-Sent Events stream responses through the chat endpoint.
+
+10
+00:02:04.615 --> 00:02:18.461
+The evaluation harness checks retrieval hit-rate, reciprocal rank, faithfulness and answer relevance.
+
+11
+00:02:18.461 --> 00:02:32.307
+Configuration can swap in sentence-transformers, pgvector, Ollama, Gemini or OpenAI backends.
+
+12
+00:02:32.307 --> 00:02:46.153
+The limitation: sample-corpus checks do not establish reliability across arbitrary documents.
+
+13
+00:02:46.153 --> 00:03:00.000
+Explore the backend, tests and evaluation code. The best evidence is the implementation itself.
+

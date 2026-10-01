@@ -1,0 +1,73 @@
+{
+  "status": "Proposed framework \u00b7 Research in progress",
+  "name": "MAREF",
+  "expansion": "Multi-Dimensional Agent Reliability Evaluation Framework",
+  "dimensions": [
+    {
+      "name": "Task Accuracy",
+      "question": "Is the answer correct?",
+      "method": "Compare the response with a task-specific reference or deterministic check.",
+      "example": "An answer can contain the right total while still inventing the evidence used to reach it.",
+      "flow": [
+        "Answer",
+        "Reference",
+        "Match"
+      ]
+    },
+    {
+      "name": "Groundedness",
+      "question": "Can each claim be traced to evidence?",
+      "method": "Inspect claim-to-source support and citation relevance, rather than rewarding citations alone.",
+      "example": "A cited paragraph must actually support the answer; attaching a source is not enough.",
+      "flow": [
+        "Claim",
+        "Source",
+        "Support"
+      ]
+    },
+    {
+      "name": "Hallucination Resistance",
+      "question": "Does the agent avoid unsupported information?",
+      "method": "Test missing-evidence cases and look for abstention instead of fabricated details.",
+      "example": "If the document never states a price, the agent should say the price is unavailable.",
+      "flow": [
+        "Missing evidence",
+        "Abstention",
+        "No invention"
+      ]
+    },
+    {
+      "name": "Instruction Adherence",
+      "question": "Did the agent respect the requirements?",
+      "method": "Check constraints such as output schema, scope, format and required steps.",
+      "example": "A correct explanation still fails a JSON-only instruction if it includes surrounding prose.",
+      "flow": [
+        "Requirements",
+        "Response",
+        "Constraints"
+      ]
+    },
+    {
+      "name": "Consistency",
+      "question": "Does behavior hold across repeated runs?",
+      "method": "Repeat a controlled task and inspect variations in answers, sources and tool decisions.",
+      "example": "Three retries should not quietly produce three incompatible facts.",
+      "flow": [
+        "Run one",
+        "Run two",
+        "Compare"
+      ]
+    },
+    {
+      "name": "Task Completion",
+      "question": "Were all required components finished?",
+      "method": "Compare the execution trace and final output against a checklist of task obligations.",
+      "example": "Finding a document is only one step when the task also asks for a comparison and a cited summary.",
+      "flow": [
+        "Subtasks",
+        "Trace",
+        "Checklist"
+      ]
+    }
+  ]
+}

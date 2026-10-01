@@ -54,14 +54,14 @@ function systemScroll(){
 
 /* ---------- NAV: scrolled + scrollspy + bar ---------- */
 const nav=$('#nav'), bar=$('#bar');
-const spy=['work','system','impact','experience','about','contact'];
+const spy=['work','research','watch','system','impact','experience','about','contact'];
 function onScroll(){
   const y=scrollY, h=document.body.scrollHeight-innerHeight;
   bar.style.width=(h>0?y/h*100:0)+'%';
   nav.classList.toggle('scrolled',y>36);
   // hero parallax
   const hw=$('#hero .wrap');
-  if(hw){const hy=Math.min(y,720);hw.style.transform=`translateY(${(hy*.12).toFixed(1)}px)`;hw.style.opacity=String(Math.max(0,1-hy/640));}
+  if(hw&&!RM){const hy=Math.min(y,720);hw.style.transform=`translateY(${(hy*.12).toFixed(1)}px)`;hw.style.opacity=String(Math.max(0,1-hy/640));}
   // scrollspy
   let cur=spy[0];
   for(const id of spy){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=innerHeight*.4)cur=id;}
@@ -76,7 +76,7 @@ function animateCounts(){
   $$('[data-count]').forEach(el=>{
     const to=+el.dataset.count, suf=el.dataset.suffix||'';
     let n=0; const steps=34, inc=Math.max(1,Math.ceil(to/steps));
-    el.textContent='0'+suf;
+    // Keep the readable final value until the short count animation starts.
     const iv=setInterval(()=>{n+=inc;if(n>=to){n=to;clearInterval(iv);}el.textContent=n+suf;},24);
   });
 }
@@ -106,7 +106,7 @@ const burger=$('#burger'),nlinks=$('#nlinks');
 if(burger) burger.addEventListener('click',()=>{
   const open=nlinks.classList.toggle('open');burger.classList.toggle('x',open);burger.setAttribute('aria-expanded',open);
 });
-$$('#nlinks a').forEach(a=>a.addEventListener('click',()=>{nlinks.classList.remove('open');burger.classList.remove('x');}));
+$$('#nlinks a').forEach(a=>a.addEventListener('click',()=>{nlinks.classList.remove('open');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');}));
 
 /* ---------- TYPEWRITER ---------- */
 function typewriter(){
@@ -144,7 +144,10 @@ function heroField(){
     raf=requestAnimationFrame(draw);}
   size();draw();
   let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(size,180);});
-  document.addEventListener('visibilitychange',()=>{run=!document.hidden;if(run&&!raf)draw();else{cancelAnimationFrame(raf);raf=null;}});
+  let inView=true,paused=false;function syncRun(){run=inView&&!document.hidden&&!paused;if(run&&!raf)draw();else if(!run){cancelAnimationFrame(raf);raf=null;}}
+  if('IntersectionObserver' in window)new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;syncRun();}).observe(cv);
+  document.addEventListener('portfolio-motion',e=>{paused=e.detail.paused;syncRun();});
+  document.addEventListener('visibilitychange',()=>{run=inView&&!document.hidden&&!paused;if(run&&!raf)draw();else{cancelAnimationFrame(raf);raf=null;}});
 }
 
 /* ---------- INIT ---------- */
