@@ -120,15 +120,6 @@ function typewriter(){
 /* ---------- LIVE CLOCK ---------- */
 function tick(){try{const t=new Date().toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit'});const el=$('#locClock');if(el)el.textContent='Austin · '+t;}catch(e){}}
 
-/* ---------- LIVE GITHUB ---------- */
-async function ghData(){
-  try{const r=await fetch('https://api.github.com/users/riteshmamidi0905-lab');
-    if(r.ok){const j=await r.json();if(j.public_repos){
-      const rc=$('#repoCount');if(rc){rc.dataset.count=j.public_repos;if(!counted)rc.textContent=j.public_repos+'+';}
-      const ln=$('#liveNote');if(ln)ln.textContent='● '+j.public_repos+' public repos · live from GitHub';
-    }}}catch(e){}
-}
-
 /* ---------- HERO FIELD (subtle embedding space) ---------- */
 function heroField(){
   const cv=$('#field'); if(!cv||RM)return;
@@ -159,7 +150,7 @@ function init(){
   tick();setInterval(tick,20000);
   heroField();
   watchCounts();
-  ghData();
+  const liveNote=$('#liveNote');if(liveNote)liveNote.textContent='22 project builds · Code & tests on GitHub';
   addEventListener('scroll',onScroll,{passive:true});
   onScroll();
   addEventListener('load',()=>{forceVisible();setTimeout(forceVisible,400);scan();});

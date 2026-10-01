@@ -1,0 +1,5 @@
+/* Serve real repository bytes through Playwright routing when this environment blocks loopback. */
+'use strict';const fs=require('fs'),path=require('path');
+const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.mp4':'video/mp4','.vtt':'text/vtt','.pdf':'application/pdf','.woff2':'font/woff2'};
+async function serveLocal(page){if(!process.env.TEST_FILE)return;await page.route('http://portfolio.test/**',async route=>{const uri=new URL(route.request().url()).pathname;const f=path.join(process.cwd(),uri==='/'?'index.html':decodeURIComponent(uri));if(!fs.existsSync(f)||fs.statSync(f).isDirectory())return route.fulfill({status:404,body:'Not found'});return route.fulfill({status:200,contentType:types[path.extname(f)]||'application/octet-stream',body:fs.readFileSync(f)});});}
+const base=process.env.TEST_FILE?'http://portfolio.test/':'http://127.0.0.1:'+(process.env.PORT||8000);module.exports={serveLocal,base};

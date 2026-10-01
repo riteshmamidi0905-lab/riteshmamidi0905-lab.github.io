@@ -1,3 +1,5 @@
+@font-face{font-family:Inter;font-style:normal;font-weight:100 900;font-display:swap;src:url(../fonts/inter-latin.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 800;font-display:swap;src:url(../fonts/jetbrains-mono-latin.woff2) format("woff2")}
 /* Portfolio identity: midnight, warm paper, mint signal. */
 :root{--ink:#080d13;--paper:#f2f1eb;--paper2:#fcfcf8;--ac:#79edc5;--ac-x:#087358}
 html{scroll-padding-top:100px}body{overflow-x:clip}.wrap{max-width:1240px}.skip{position:fixed;top:10px;left:12px;z-index:200;transform:translateY(-180%);background:var(--ac);color:var(--ink);padding:12px 18px;border-radius:10px}.skip:focus{transform:none}
