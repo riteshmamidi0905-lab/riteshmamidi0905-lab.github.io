@@ -1,45 +1,36 @@
-# LinkedIn approval package
+# LinkedIn launch campaign
 
-Status: DRAFT — no posts have been published. Each publication requires Ritesh’s specific approval.
+Status: prepared; no posts published. Post 1 awaits final publication confirmation. Posts 2–7 must remain unpublished until separately approved.
 
-These films use diagram-led storytelling, a stock synthetic narrator (Kokoro am_michael), and synchronized English WebVTT captions. No personal voice is cloned and no presenter footage is fabricated. All diagrams are illustrative workflows, not live production telemetry. Final spoken scripts and timings are in `video-timings.json`. Runway sign-in was verified; its speech models require a paid upgrade, so narration was generated locally without charges.
+Suggested cadence: publish Post 1 first, then one follow-up every 3–4 days. This is a recommendation, not an automatic schedule.
 
-## Catch the signal before the batch.
+Media disclosure: stock synthetic narrator; no personal voice cloning or fabricated presenter footage. Diagrams illustrate workflows, not production telemetry. No paid generation or promotion.
 
-Format: 35-second project teaser
 
-Video: [Preview](../assets/media/streaming-teaser.mp4) · [SRT captions](../assets/media/streaming-teaser.srt) · [Thumbnail](../assets/media/streaming-poster.webp)
+## Post 1 — Portfolio launch — text draft
 
-### Proposed caption
+Suggested slot: day 0 relative to the approved launch date.
 
-A streaming pipeline needs more than a fast broker.
+I’ve rebuilt my portfolio around the questions I’d want answered when reviewing an AI or data project: what problem does it solve, how does the system work, and what evidence supports the claims?
 
-In my Kafka → Spark → Cassandra project, the useful engineering decisions are event-time windows, bounded late-data state, explainable fraud rules, and sink schemas that match the query pattern.
+The site brings together 22 open-source projects, six detailed case studies, architecture animations and five technical films. The work spans streaming data, lakehouses, RAG, model evaluation, MLOps and product experimentation.
 
-The input is synthetic and the detector is rule-based. The point is to make the processing and failure modes inspectable. This short diagram film explains the flow.
+I’ve also added MAREF, my proposed framework for examining agent reliability across six dimensions. It’s research in progress, with illustrative explanations clearly separated from experimental results.
 
-Code and tests:
-https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline
+I’m exploring AI/ML, data engineering and product analytics opportunities across the US. You can inspect the implementation and limitations behind each project here:
 
-Portfolio: https://riteshmamidi0905-lab.github.io/
+https://riteshmamidi0905-lab.github.io/
 
-#DataEngineering #GenerativeAI #ProductAnalytics
+#AIEngineering #DataEngineering #ProductAnalytics
 
-### Script / on-screen captions
+Selected visual: the deployed portfolio hero screenshot, `assets/media/portfolio-launch-hero.jpg`.
 
-1. A nightly batch is too late for a streaming signal.
-   Visual note: A reproducible, synthetic transaction pipeline
+Publication status: prepared for final confirmation.
 
-2. Kafka receives transactions. Spark parses the JSON and applies explainable fraud rules.
-   Visual note: High amount · high-risk country · non-positive amount
 
-3. Event-time windows summarize merchants. Watermarks bound the state kept for late events.
-   Visual note: One-minute windows · two-minute watermark
+## Post 2 — A good average can hide a bad answer.
 
-4. Cassandra stores transaction verdicts and merchant metrics in separate tables.
-   Visual note: Inspect the transforms, tests and Docker stack on GitHub.
-
-## A good average can hide a bad answer.
+Suggested slot: day 4 relative to the approved launch date.
 
 Format: 40-second project teaser
 
@@ -74,7 +65,48 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 4. Inspect per-case failures through the dashboard, REST API or command-line CI gate.
    Visual note: Explore the code and bundled RAG-QA benchmark.
 
-## An answer needs a path back to evidence.
+
+## Post 3 — Catch the signal before the batch.
+
+Suggested slot: day 8 relative to the approved launch date.
+
+Format: 35-second project teaser
+
+Video: [Preview](../assets/media/streaming-teaser.mp4) · [SRT captions](../assets/media/streaming-teaser.srt) · [Thumbnail](../assets/media/streaming-poster.webp)
+
+### Proposed caption
+
+A streaming pipeline needs more than a fast broker.
+
+In my Kafka → Spark → Cassandra project, the useful engineering decisions are event-time windows, bounded late-data state, explainable fraud rules, and sink schemas that match the query pattern.
+
+The input is synthetic and the detector is rule-based. The point is to make the processing and failure modes inspectable. This short diagram film explains the flow.
+
+Code and tests:
+https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline
+
+Portfolio: https://riteshmamidi0905-lab.github.io/
+
+#DataEngineering #ApacheKafka #ApacheSpark
+
+### Script / on-screen captions
+
+1. A nightly batch is too late for a streaming signal.
+   Visual note: A reproducible, synthetic transaction pipeline
+
+2. Kafka receives transactions. Spark parses the JSON and applies explainable fraud rules.
+   Visual note: High amount · high-risk country · non-positive amount
+
+3. Event-time windows summarize merchants. Watermarks bound the state kept for late events.
+   Visual note: One-minute windows · two-minute watermark
+
+4. Cassandra stores transaction verdicts and merchant metrics in separate tables.
+   Visual note: Inspect the transforms, tests and Docker stack on GitHub.
+
+
+## Post 4 — An answer needs a path back to evidence.
+
+Suggested slot: day 12 relative to the approved launch date.
 
 Format: 40-second project teaser
 
@@ -109,7 +141,27 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 4. An evaluation harness checks retrieval and grounding on a sample corpus.
    Visual note: Inspect the implementation and limitations on GitHub.
 
-## How I evaluate model outputs.
+
+## Post 5 — Research post — text draft
+
+Suggested slot: day 16 relative to the approved launch date.
+
+An answer can be correct and still be unreliable.
+
+I’m developing MAREF, a proposed framework for evaluating agents across Task Accuracy, Groundedness, Hallucination Resistance, Instruction Adherence, Consistency and Task Completion. Separating those dimensions can make hidden failure modes easier to inspect.
+
+The interactive portfolio explanation is illustrative, not experimental results. Dataset design, rubric validation and agreement with human reviewers are still work to do.
+
+Explore the proposal: https://riteshmamidi0905-lab.github.io/#research
+
+#AgentEvaluation #LLMReliability #AIResearch
+
+Selected visual: the existing interactive Research / MAREF section. Capture its research-in-progress label alongside the six dimensions; never crop away the integrity disclosure.
+
+
+## Post 6 — How I evaluate model outputs.
+
+Suggested slot: day 20 relative to the approved launch date.
 
 Format: 75-second technical explainer
 
@@ -156,7 +208,10 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 8. The repository shows the scoring code, tests and benchmark. Explore it from my portfolio.
    Visual note: riteshmamidi0905-lab.github.io · LLM Evaluation Framework
 
-## Inside a grounded document assistant.
+
+## Post 7 — Inside a grounded document assistant.
+
+Suggested slot: day 24 relative to the approved launch date.
 
 Format: 3-minute project walkthrough
 
@@ -218,39 +273,8 @@ Portfolio: https://riteshmamidi0905-lab.github.io/
 13. Explore the backend, tests and evaluation code. The best evidence is the implementation itself.
    Visual note: riteshmamidi0905-lab.github.io · GenAI Document Assistant
 
-## Research post — text draft
+## Additional positioning draft (optional; outside the seven-post sequence)
 
-An answer can be correct and still be unreliable.
-
-I’m developing MAREF, a proposed framework for evaluating agents across Task Accuracy, Groundedness, Hallucination Resistance, Instruction Adherence, Consistency and Task Completion. Separating those dimensions can make hidden failure modes easier to inspect.
-
-The interactive portfolio explanation is illustrative, not experimental results. Dataset design, rubric validation and agreement with human reviewers are still work to do.
-
-Explore the proposal: https://riteshmamidi0905-lab.github.io/#research
-
-#AgentEvaluation #LLMReliability #AIResearch
-
-
-## Portfolio launch — text draft
-
-I’ve rebuilt my portfolio around the questions I’d want answered when reviewing an AI or data project: what problem does it solve, how does the system work, and what evidence supports the claims?
-
-The site brings together 22 open-source projects, six detailed case studies, architecture animations and five short technical films. The work spans streaming data, lakehouses, RAG, model evaluation, MLOps and product experimentation.
-
-I’ve also added MAREF, my proposed framework for examining agent reliability across six dimensions. It’s research in progress, with illustrative explanations clearly separated from experimental results.
-
-I’m exploring AI/ML, data engineering and product analytics opportunities across the US. You can inspect the implementation and limitations behind each project here:
-
-https://riteshmamidi0905-lab.github.io/
-
-#AIEngineering #DataEngineering #ProductAnalytics
-
-Suggested visual: `assets/media/streaming-poster.webp` or the portfolio hero.
-
-Publication status: Awaiting specific approval; do not publish automatically.
-
-
-## AI/data engineering positioning — text draft
 
 The part of AI engineering I enjoy most is making a system inspectable.
 
