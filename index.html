@@ -43,9 +43,9 @@ window.addEventListener('load',function(){setTimeout(function(){
 }
 </script>
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/portfolio.css">
+<link rel="stylesheet" href="assets/css/portfolio.css">\n<link rel="stylesheet" href="assets/css/cinematic.css">
 </head>
-<body>
+<body>\n<div class="cine-intro" aria-hidden="true"><canvas></canvas><button class="intro-skip" type="button">Skip intro</button><div class="intro-core"><div class="intro-mark">RM<span>.</span></div><div class="intro-sub">Reliable AI · Useful data · Better decisions</div></div></div>
 <div id="bar"></div>
 <a href="#work" class="skip" >Skip to work</a>
 
@@ -96,7 +96,37 @@ window.addEventListener('load',function(){setTimeout(function(){
 </header>
 
 
-<!-- ============ SELECTED WORK ============ -->
+
+<!-- ============ CINEMATIC SYSTEMS ============ -->
+<section id="cinematic-ai" class="cine-scene" aria-labelledby="cine-ai-title">
+  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
+  <div class="scene-inner">
+    <div><div class="scene-index">01 / AI · AGENTS</div><h2 class="scene-title" id="cine-ai-title">From task to evaluated action.</h2><p class="scene-copy">A cinematic view of an agent workflow: <b>receive a task, retrieve context, select a tool, execute, then evaluate the result.</b> The sequence explains system structure; it is not live production telemetry.</p><p class="scene-note">ILLUSTRATIVE SYSTEM VIEW · AGENT TOOLKIT / LLM EVALUATION</p></div>
+    <div class="system-stage" aria-label="Illustrative AI agent workflow"><div class="agent-orbit"></div><div class="agent-orbit o2"></div><div class="agent-node n1">TASK<br>INTAKE</div><div class="agent-node n2">RETRIEVE<br>CONTEXT</div><div class="agent-node n3">TOOL<br>EXECUTION</div><div class="agent-node n4">EVALUATE<br>OUTPUT</div><div class="agent-core">AI RITESH<br>AGENT LOOP</div><div class="agent-pulse"></div></div>
+  </div>
+</section>
+<section id="cinematic-data" class="cine-scene" aria-labelledby="cine-data-title">
+  <canvas class="scene-canvas" data-mode="data" aria-hidden="true"></canvas>
+  <div class="scene-inner">
+    <div><div class="scene-index">02 / DATA ENGINEERING</div><h2 class="scene-title" id="cine-data-title">Signals become systems.</h2><p class="scene-copy">Events move visibly through the architecture: <b>sources → ingestion → processing → storage → analytics.</b> The motion is deliberately large-scale so the pipeline reads as a system, not a decorative diagram.</p><p class="scene-note">ILLUSTRATIVE ARCHITECTURE · STREAMING + LAKEHOUSE PROJECTS</p></div>
+    <div class="system-stage stream-stage" aria-label="Illustrative streaming data pipeline"><div class="stream-particle"></div><div class="stream-particle p2"></div><div class="stream-particle p3"></div><div class="stream-col"><strong>SOURCES</strong><span>events · files · APIs</span></div><div class="stream-col"><strong>INGEST</strong><span>Kafka · batch</span></div><div class="stream-col"><strong>PROCESS</strong><span>Spark · transforms</span></div><div class="stream-col"><strong>STORE</strong><span>lakehouse · Cassandra</span></div><div class="stream-col"><strong>DECIDE</strong><span>analytics · models</span></div></div>
+  </div>
+</section>
+<section id="cinematic-maref" class="cine-scene" aria-labelledby="cine-maref-title">
+  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
+  <div class="scene-inner">
+    <div><div class="scene-index">03 / MAREF · LLM EVALUATION</div><h2 class="scene-title" id="cine-maref-title">Reliability needs more than one score.</h2><p class="scene-copy">MAREF is presented as an <b>in-development evaluation framework</b>. Its six dimensions make failure modes inspectable without claiming benchmark results that the repository does not establish.</p><p class="scene-note">EXPLANATORY VISUALIZATION · NOT EXPERIMENTAL RESULTS</p></div>
+    <div class="system-stage maref-stage" aria-label="Six proposed MAREF evaluation dimensions"><div class="maref-dim"><span class="num">01</span><b>Task Accuracy</b><span>Does the output correctly address the requested task?</span></div><div class="maref-dim"><span class="num">02</span><b>Groundedness</b><span>Can claims be supported by supplied context or evidence?</span></div><div class="maref-dim"><span class="num">03</span><b>Hallucination Resistance</b><span>Does the system avoid unsupported invention?</span></div><div class="maref-dim"><span class="num">04</span><b>Instruction Adherence</b><span>Does the output follow constraints and requested format?</span></div><div class="maref-dim"><span class="num">05</span><b>Consistency</b><span>Are outputs stable under equivalent conditions?</span></div><div class="maref-dim"><span class="num">06</span><b>Task Completion</b><span>Did the workflow actually finish the required job?</span></div></div>
+  </div>
+</section>
+<section id="cinematic-product" class="cine-scene" aria-labelledby="cine-product-title">
+  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
+  <div class="scene-inner">
+    <div><div class="scene-index">04 / PRODUCT ANALYTICS</div><h2 class="scene-title" id="cine-product-title">Behavior becomes a decision.</h2><p class="scene-copy">Funnels, retention, experiments and behavioral signals become a decision surface. The visuals show <b>how product questions are structured</b>, not fabricated customer or experiment outcomes.</p><p class="scene-note">ILLUSTRATIVE ANALYTICS VIEW · FUNNEL / RETENTION / EXPERIMENTATION</p></div>
+    <div class="system-stage product-stage" aria-label="Illustrative product analytics funnel and retention view"><div class="funnel-cine"><span>DISCOVER</span><span>ACTIVATE</span><span>ENGAGE</span><span>RETAIN</span></div><div class="retention-lines" aria-hidden="true"><i></i><i></i><i></i></div></div>
+  </div>
+</section>
+\n<!-- ============ SELECTED WORK ============ -->
 <main id="main-content">
 <section id="work" class="paper">
   <div class="wrap">
@@ -682,10 +712,10 @@ window.addEventListener('load',function(){setTimeout(function(){
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section id="contact" class="dark">
+<section id="contact" class="dark cinematic-contact">
   <div class="wrap">
     <div class="kicker rv" style="justify-content:center;display:inline-flex">Contact</div>
-    <h2 class="big rv" style="margin-top:16px">Let's build<span class="mut">something useful.</span></h2>
+    <h2 class="big rv" style="margin-top:16px">LET’S BUILD<span class="mut">SOMETHING RELIABLE.</span></h2>
     <p class="rv d1">Open to AI/ML, data engineering, and product-analytics roles across the US. The fastest way to reach me is email — one click to copy.</p>
     <button class="copymail rv d2" id="copymail" data-mail="riteshmamidi0905@gmail.com">
       <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
@@ -717,6 +747,6 @@ window.addEventListener('load',function(){setTimeout(function(){
 <div class="tocopy-toast" id="toast">Email copied to clipboard</div>
 
 <script src="app.js?v=4" defer></script>
-<script src="assets/js/portfolio.js" defer></script>
+<script src="assets/js/portfolio.js" defer></script>\n<script src="assets/js/cinematic.js" defer></script>
 </body>
 </html>
