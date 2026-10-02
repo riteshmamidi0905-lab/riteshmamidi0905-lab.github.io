@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>/* progressive enhancement: reveal animations only run with working JS; failure-safe reveals content if app.js never initializes */
-(function(){var d=document.documentElement;d.classList.add('js');
+(function(){var d=document.documentElement;d.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!localStorage.getItem('rm-intro-seen')&&!/[?&]capture=/.test(location.search)&&innerWidth>0)d.classList.add('intro-pending')}catch(e){}
 window.addEventListener('load',function(){setTimeout(function(){
   if(!window.__enh){[].forEach.call(document.querySelectorAll('.rv'),function(e){e.classList.add('in');});}
 },1800);});})();</script>
@@ -43,16 +43,19 @@ window.addEventListener('load',function(){setTimeout(function(){
 }
 </script>
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/portfolio.css">\n<link rel="stylesheet" href="assets/css/cinematic.css">
+<link rel="stylesheet" href="assets/css/portfolio.css">
+<link rel="stylesheet" href="assets/css/worlds.css">
 </head>
-<body>\n<div class="cine-intro" aria-hidden="true"><canvas></canvas><button class="intro-skip" type="button">Skip intro</button><div class="intro-core"><div class="intro-mark">RM<span>.</span></div><div class="intro-sub">Reliable AI · Useful data · Better decisions</div></div></div>
+<body>
 <div id="bar"></div>
 <a href="#work" class="skip" >Skip to work</a>
+<div class="rm-intro" role="region" aria-label="Intro animation"><canvas aria-hidden="true"></canvas><div class="intro-word" aria-hidden="true">RITESH MAMIDI</div><button type="button" class="intro-skip">Skip intro</button></div>
 
 <nav id="nav"><div class="wrap">
   <a class="brand" href="#hero" aria-label="Ritesh Mamidi — home"><span class="mk">RM</span> Ritesh Mamidi</a>
   <div class="nlinks" id="nlinks">
     <a href="#work">Work</a>
+    <a href="#lab">Lab</a>
     <a href="#research">Research</a>
     <a href="#watch">Watch</a>
     <a href="#experience">Experience</a>
@@ -64,9 +67,11 @@ window.addEventListener('load',function(){setTimeout(function(){
 </div></nav>
 
 <!-- ============ HERO ============ -->
-<header id="hero">
-  <canvas id="field" aria-hidden="true"></canvas>
-  <div class="hgrid" aria-hidden="true"></div>
+<header id="hero" class="hero-world" data-world="hero">
+  <canvas class="world-canvas" aria-hidden="true"></canvas>
+  <div class="hero-vignette" aria-hidden="true"></div>
+  <!--AV:hero:hero-av:eager-->
+  <p class="hero-hello"><b>Ritesh</b>Hi, I’m Ritesh. Scroll and I’ll show you how I build reliable AI, then let you run it.</p>
   <div class="wrap">
     <div class="hero-layout">
       <div class="hero-copy">
@@ -75,7 +80,8 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h1 class="big hero-rise" style="animation-delay:.18s">Reliable AI.<br>Useful data.<br><em>Better decisions.</em></h1>
         <p class="hero-intro">I’m Ritesh Mamidi. I build measurable AI systems, dependable data pipelines, and the analytics behind better product decisions.</p><div class="hrole">AI/ML · Data Engineering · Product Analytics<br>GenAI / LLM Evaluation</div>
         <div class="hcta hero-rise" style="animation-delay:.36s">
-          <a class="btn btn-p" href="#work">Explore work <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-p" href="#work">Explore work <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-o" href="#lab">Run live demos</a>
           <a class="btn btn-o" href="#research">Explore MAREF</a>
           <a class="btn btn-o" href="https://linkedin.com/in/riteshmamidi0905" target="_blank" rel="noopener">LinkedIn</a>
         </div>
@@ -86,10 +92,6 @@ window.addEventListener('load',function(){setTimeout(function(){
           <div class="m"><div class="v" data-count="2">2</div><div class="k">Pro certifications</div></div>
         </div>
       </div>
-      <figure class="hero-avatar hero-rise" style="animation-delay:.24s" aria-label="Portrait of Ritesh Mamidi">
-        <img src="linkedin-avatar.webp" alt="Ritesh Mamidi" width="510" height="694" fetchpriority="high" decoding="async">
-        <figcaption class="avatar-tag">AI · DATA · PRODUCT</figcaption>
-      </figure>
     </div>
   </div>
   <div class="scue" aria-hidden="true"><div class="m"></div>SCROLL</div>
@@ -97,37 +99,57 @@ window.addEventListener('load',function(){setTimeout(function(){
 
 
 
-<!-- ============ CINEMATIC SYSTEMS ============ -->
-<section id="cinematic-ai" class="cine-scene" aria-labelledby="cine-ai-title">
-  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">01 / AI · AGENTS</div><h2 class="scene-title" id="cine-ai-title">From task to evaluated action.</h2><p class="scene-copy">A cinematic view of an agent workflow: <b>receive a task, retrieve context, select a tool, execute, then evaluate the result.</b> The sequence explains system structure; it is not live production telemetry.</p><p class="scene-note">ILLUSTRATIVE SYSTEM VIEW · AGENT TOOLKIT / LLM EVALUATION</p></div>
-    <div class="system-stage" aria-label="Illustrative AI agent workflow"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>AI RITESH</span></div><div class="agent-orbit"></div><div class="agent-orbit o2"></div><div class="agent-node n1">TASK<br>INTAKE</div><div class="agent-node n2">RETRIEVE<br>CONTEXT</div><div class="agent-node n3">TOOL<br>EXECUTION</div><div class="agent-node n4">EVALUATE<br>OUTPUT</div><div class="agent-core">AI RITESH<br>AGENT LOOP</div><div class="agent-pulse"></div></div>
-  </div>
-</section>
-<section id="cinematic-data" class="cine-scene" aria-labelledby="cine-data-title">
-  <canvas class="scene-canvas" data-mode="data" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">02 / DATA ENGINEERING</div><h2 class="scene-title" id="cine-data-title">Signals become systems.</h2><p class="scene-copy">Events move visibly through the architecture: <b>sources → ingestion → processing → storage → analytics.</b> The motion is deliberately large-scale so the pipeline reads as a system, not a decorative diagram.</p><p class="scene-note">ILLUSTRATIVE ARCHITECTURE · STREAMING + LAKEHOUSE PROJECTS</p></div>
-    <div class="system-stage stream-stage" aria-label="Illustrative streaming data pipeline"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>DATA RITESH</span></div><div class="stream-particle"></div><div class="stream-particle p2"></div><div class="stream-particle p3"></div><div class="stream-col"><strong>SOURCES</strong><span>events · files · APIs</span></div><div class="stream-col"><strong>INGEST</strong><span>Kafka · batch</span></div><div class="stream-col"><strong>PROCESS</strong><span>Spark · transforms</span></div><div class="stream-col"><strong>STORE</strong><span>lakehouse · Cassandra</span></div><div class="stream-col"><strong>DECIDE</strong><span>analytics · models</span></div></div>
-  </div>
-</section>
-<section id="cinematic-maref" class="cine-scene" aria-labelledby="cine-maref-title">
-  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">03 / MAREF · LLM EVALUATION</div><h2 class="scene-title" id="cine-maref-title">Reliability needs more than one score.</h2><p class="scene-copy">MAREF is presented as an <b>in-development evaluation framework</b>. Its six dimensions make failure modes inspectable without claiming benchmark results that the repository does not establish.</p><p class="scene-note">EXPLANATORY VISUALIZATION · NOT EXPERIMENTAL RESULTS</p></div>
-    <div class="system-stage maref-stage" aria-label="Six proposed MAREF evaluation dimensions"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>RESEARCH RITESH</span></div><div class="maref-dim"><span class="num">01</span><b>Task Accuracy</b><span>Does the output correctly address the requested task?</span></div><div class="maref-dim"><span class="num">02</span><b>Groundedness</b><span>Can claims be supported by supplied context or evidence?</span></div><div class="maref-dim"><span class="num">03</span><b>Hallucination Resistance</b><span>Does the system avoid unsupported invention?</span></div><div class="maref-dim"><span class="num">04</span><b>Instruction Adherence</b><span>Does the output follow constraints and requested format?</span></div><div class="maref-dim"><span class="num">05</span><b>Consistency</b><span>Are outputs stable under equivalent conditions?</span></div><div class="maref-dim"><span class="num">06</span><b>Task Completion</b><span>Did the workflow actually finish the required job?</span></div></div>
-  </div>
-</section>
-<section id="cinematic-product" class="cine-scene" aria-labelledby="cine-product-title">
-  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">04 / PRODUCT ANALYTICS</div><h2 class="scene-title" id="cine-product-title">Behavior becomes a decision.</h2><p class="scene-copy">Funnels, retention, experiments and behavioral signals become a decision surface. The visuals show <b>how product questions are structured</b>, not fabricated customer or experiment outcomes.</p><p class="scene-note">ILLUSTRATIVE ANALYTICS VIEW · FUNNEL / RETENTION / EXPERIMENTATION</p></div>
-    <div class="system-stage product-stage" aria-label="Illustrative product analytics funnel and retention view"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>PRODUCT RITESH</span></div><div class="funnel-cine"><span>DISCOVER</span><span>ACTIVATE</span><span>ENGAGE</span><span>RETAIN</span></div><div class="retention-lines" aria-hidden="true"><i></i><i></i><i></i></div></div>
-  </div>
-</section>
-\n<!-- ============ SELECTED WORK ============ -->
+
 <main id="main-content">
+<!--WORLD:agents-->
+<!--WORLD:data-->
+<!--WORLD:maref-->
+<!--WORLD:product-->
+
+<!-- ============ INTERACTIVE LAB ============ -->
+<section id="lab" class="dark lab" aria-labelledby="lab-title">
+  <div class="wrap">
+    <div class="kicker rv">Interactive lab</div>
+    <h2 class="h1 rv" id="lab-title">Run the systems, not screenshots.</h2>
+    <p class="lede rv">Six working demos. Each runs real logic from my repositories, ported to your browser: deterministic, offline, with no model calls and no server. Where the data is fixed or synthetic, the panel says so.</p>
+    <noscript><p class="lab-note">The lab needs JavaScript. Each demo ports code from a public repository; the descriptions below still apply.</p></noscript>
+    <div class="lab-tabs" role="tablist" aria-label="Interactive demos">
+      <button role="tab" id="tab-agent" aria-controls="lab-agent" aria-selected="true" data-lab="agent">Agent Workflow</button>
+      <button role="tab" id="tab-rag" aria-controls="lab-rag" aria-selected="false" data-lab="rag" tabindex="-1">RAG Explorer</button>
+      <button role="tab" id="tab-stream" aria-controls="lab-stream" aria-selected="false" data-lab="stream" tabindex="-1">Streaming Pipeline</button>
+      <button role="tab" id="tab-maref" aria-controls="lab-maref" aria-selected="false" data-lab="maref" tabindex="-1">MAREF Playground</button>
+      <button role="tab" id="tab-experiment" aria-controls="lab-experiment" aria-selected="false" data-lab="experiment" tabindex="-1">Experimentation Lab</button>
+      <button role="tab" id="tab-funnel" aria-controls="lab-funnel" aria-selected="false" data-lab="funnel" tabindex="-1">Product Funnel</button>
+    </div>
+
+    <div class="lab-panel" id="lab-agent" role="tabpanel" aria-labelledby="tab-agent" data-lab="agent">
+      <div class="lab-head"><div><h3>Agent Workflow Explorer</h3><p class="lab-what">Type a task and step through Task → Plan → Tool → Execution → Evaluation → Response. This runs the ReAct loop from <b>ai-agent-toolkit</b>: a rule-based planner, four safe tools (the calculator never uses <code>eval</code>), and Thought → Action → Observation, in your browser.</p><span class="lab-label">Real deterministic code · no language model · offline</span></div><div class="lab-chip"><!--AV:ai:lab-av:notag--><span>AI Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="agent"></div>
+    </div>
+    <div class="lab-panel" id="lab-rag" role="tabpanel" aria-labelledby="tab-rag" data-lab="rag" hidden>
+      <div class="lab-head"><div><h3>RAG Explorer</h3><p class="lab-what">Ask a question over a <b>fixed sample corpus</b> (four fictional “Acme Cloud” documents from <b>genai-doc-assistant</b>). See the chunks, the hashed-embedding retrieval and keyword re-rank, and how the extractive reader builds a cited answer, or abstains. Then run the repository’s own retrieval evaluation set.</p><span class="lab-label">Fixed sample corpus · deterministic · no language model</span></div><div class="lab-chip"><!--AV:ai:lab-av:notag--><span>AI Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="rag"></div>
+    </div>
+    <div class="lab-panel" id="lab-stream" role="tabpanel" aria-labelledby="tab-stream" data-lab="stream" hidden>
+      <div class="lab-head"><div><h3>Streaming Pipeline</h3><p class="lab-what">A producer generates <b>synthetic transactions</b> with the same logic as <b>realtime-streaming-pipeline</b>: fraud rules, one-minute event-time windows and a two-minute watermark. Capacity starts below the event rate, so the lag builds; raise capacity to drain it. Add late events and watch the watermark drop them.</p><span class="lab-label">Synthetic events · simulated clock · no Kafka, Spark or Cassandra involved</span></div><div class="lab-chip"><!--AV:data:lab-av:notag--><span>Data Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="stream"></div>
+    </div>
+    <div class="lab-panel" id="lab-maref" role="tabpanel" aria-labelledby="tab-maref" data-lab="maref" hidden>
+      <div class="lab-head"><div><h3>MAREF Evaluation Playground</h3><p class="lab-what">Score recorded sample agent runs on the six MAREF dimensions. The scores are <b>deterministic proxy heuristics</b> built from metrics in <b>llm-eval-framework</b> (token F1, faithfulness, number match). Edit the output text and watch each dimension react. Gates are per-dimension, so a good average cannot hide a bad answer.</p><span class="lab-label warn">Proxy heuristics · not an LLM judge · not MAREF results (MAREF is in development)</span></div><div class="lab-chip"><!--AV:research:lab-av:notag--><span>Research Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="maref"></div>
+    </div>
+    <div class="lab-panel" id="lab-experiment" role="tabpanel" aria-labelledby="tab-experiment" data-lab="experiment" hidden>
+      <div class="lab-head"><div><h3>Experimentation Lab</h3><p class="lab-what">Set visitors and conversions for each arm. The pooled two-proportion z-test, confidence interval, power, sample-size and decision rule from <b>experimentation-toolkit</b> run live on your inputs. Then see why peeking at a test early produces false positives.</p><span class="lab-label">Real statistics · computed from your inputs</span></div><div class="lab-chip"><!--AV:product:lab-av:notag--><span>Product Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="experiment"></div>
+    </div>
+    <div class="lab-panel" id="lab-funnel" role="tabpanel" aria-labelledby="tab-funnel" data-lab="funnel" hidden>
+      <div class="lab-head"><div><h3>Product Funnel Explorer</h3><p class="lab-what">Change acquisition, activation, retention and conversion assumptions and watch counts, leaks and revenue update. The defaults are <b>placeholders, not data from any real product</b>, and retention follows a simple modelled decay curve.</p><span class="lab-label warn">Your assumptions · modelled retention · not measured data</span></div><div class="lab-chip"><!--AV:product:lab-av:notag--><span>Product Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="funnel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SELECTED WORK ============ -->
 <section id="work" class="paper">
   <div class="wrap">
     <div class="kicker rv">Selected Work</div>
@@ -277,22 +299,28 @@ window.addEventListener('load',function(){setTimeout(function(){
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section id="contact" class="dark cinematic-contact">
-  <div class="wrap">
-    <div class="kicker rv" style="justify-content:center;display:inline-flex">Contact</div>
-    <h2 class="big rv" style="margin-top:16px">LET’S BUILD<span class="mut">SOMETHING RELIABLE.</span></h2>
-    <p class="rv d1">Open to AI/ML, data engineering, and product-analytics roles across the US. The fastest way to reach me is email — one click to copy.</p>
-    <button class="copymail rv d2" id="copymail" data-mail="riteshmamidi0905@gmail.com">
-      <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-      riteshmamidi0905@gmail.com
-      <span class="cp" id="cptext">click to copy</span>
-    </button>
-    <div class="csoc rv d3">
-      <a class="btn btn-o" href="https://linkedin.com/in/riteshmamidi0905" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn btn-o" href="https://github.com/riteshmamidi0905-lab" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn btn-o" href="ritesh_mamidi_resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+<section id="contact" class="dark contact-world" data-world="contact" aria-labelledby="contact-title">
+  <canvas class="world-canvas" aria-hidden="true"></canvas>
+  <div class="contact-vig" aria-hidden="true"></div>
+  <!--AV:contact:contact-av:notag-->
+  <p class="contact-say"><b class="mono" style="color:var(--ac);font-size:10px;letter-spacing:.14em;display:block;margin-bottom:4px">RITESH</b>If something here is the kind of system you need, let’s talk.</p>
+  <div class="contact-stage"><div class="wrap">
+    <div class="contact-copy">
+      <div class="kicker rv">Contact</div>
+      <h2 class="rv" id="contact-title" style="margin-top:16px">LET’S BUILD<span class="mut">SOMETHING RELIABLE.</span></h2>
+      <p class="rv d1">Open to AI/ML, data engineering, and product-analytics roles across the US. The fastest way to reach me is email — one click to copy.</p>
+      <button class="copymail rv d2" id="copymail" data-mail="riteshmamidi0905@gmail.com">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+        riteshmamidi0905@gmail.com
+        <span class="cp" id="cptext">click to copy</span>
+      </button>
+      <div class="csoc rv d3">
+        <a class="btn btn-o" href="https://linkedin.com/in/riteshmamidi0905" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-o" href="https://github.com/riteshmamidi0905-lab" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-o" href="ritesh_mamidi_resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+      </div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 </main>
@@ -309,9 +337,16 @@ window.addEventListener('load',function(){setTimeout(function(){
   </div>
 </footer>
 
+<!--TOUR-->
 <div class="tocopy-toast" id="toast">Email copied to clipboard</div>
 
 <script src="app.js?v=4" defer></script>
-<script src="assets/js/portfolio.js" defer></script>\n<script src="assets/js/cinematic.js" defer></script>
+<script src="assets/js/portfolio.js" defer></script>
+<script src="assets/js/lab/agent-core.js" defer></script>
+<script src="assets/js/lab/stream-core.js" defer></script>
+<script src="assets/js/lab/funnel-core.js" defer></script>
+<script src="assets/js/worlds.js" defer></script>
+<script src="assets/js/host.js" defer></script>
+<!--WORLDS-JSON-->
 </body>
 </html>

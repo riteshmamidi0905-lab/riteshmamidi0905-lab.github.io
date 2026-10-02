@@ -1,0 +1,142 @@
+{
+ "agents": {
+  "persona": "ai",
+  "kicker": "01 / AI AGENTS",
+  "title": "From task to evaluated action.",
+  "lab": "lab-agent",
+  "labLabel": "Run the agent yourself",
+  "note": "Illustrative system view · modelled on ai-agent-toolkit and llm-eval-framework",
+  "steps": [
+   [
+    "Task",
+    "A task arrives in plain language: “Convert 5 km to mi, then multiply by 2.” Everything downstream depends on reading it correctly."
+   ],
+   [
+    "Plan",
+    "The planner decides what kind of problem this is: a single lookup, or a composition where one tool’s output feeds the next."
+   ],
+   [
+    "Tool selection",
+    "It chooses from four tools: a calculator, a unit converter, a tiny knowledge base and text statistics. The calculator walks a restricted syntax tree and never calls eval."
+   ],
+   [
+    "Retrieval",
+    "Fact questions go to a knowledge base that matches on keyword overlap. When nothing matches, the answer is “unknown” instead of a guess."
+   ],
+   [
+    "Execution",
+    "The first observation, 3.107 mi, flows into the second step. That is real ReAct feedback: the second action depends on the first result."
+   ],
+   [
+    "Evaluation",
+    "Then the trace is checked: did it finish, did any tool error, does the second number re-derive from the first?"
+   ],
+   [
+    "Response",
+    "Only then does the agent answer. In the lab below, this same loop runs in your browser on any task you type."
+   ]
+  ]
+ },
+ "data": {
+  "persona": "data",
+  "kicker": "02 / DATA ENGINEERING",
+  "title": "Signals become systems.",
+  "lab": "lab-stream",
+  "labLabel": "Run the synthetic stream",
+  "note": "Synthetic events · simulated in your browser · modelled on realtime-streaming-pipeline",
+  "steps": [
+   [
+    "Sources",
+    "A producer emits synthetic payment events. About 2% are crafted as high-amount fraud and 1% come from risky countries. None of this is real traffic."
+   ],
+   [
+    "Ingestion",
+    "Kafka decouples producers from processing. When events arrive faster than Spark can process them, the backlog grows."
+   ],
+   [
+    "Processing",
+    "Rules flag each transaction: amount above 2,000, a high-risk country, or a non-positive amount. Merchants are grouped into one-minute event-time windows."
+   ],
+   [
+    "Storage",
+    "A two-minute watermark bounds state. Events too late for their window are dropped. Verdicts and merchant metrics land in separate tables."
+   ],
+   [
+    "Analytics",
+    "Per-merchant counts, totals and fraud counts: what an analyst or model queries next. The lab runs this pipeline live, with controls."
+   ]
+  ]
+ },
+ "maref": {
+  "persona": "research",
+  "kicker": "03 / MAREF · IN DEVELOPMENT",
+  "title": "Reliability needs more than one score.",
+  "lab": "lab-maref",
+  "labLabel": "Open the evaluation playground",
+  "note": "Explanatory visualization · not experimental results · MAREF is a framework in development",
+  "steps": [
+   [
+    "The problem",
+    "An agent can finish a task, sound confident and still be wrong. One average score hides which way it failed."
+   ],
+   [
+    "Task Accuracy",
+    "Is the answer correct? Compare the response with a task-specific reference or a deterministic check."
+   ],
+   [
+    "Groundedness",
+    "Can each claim be traced to evidence? A citation only counts if the source actually supports the claim."
+   ],
+   [
+    "Hallucination Resistance",
+    "Does the agent avoid unsupported information? Invented figures and names are the signal."
+   ],
+   [
+    "Instruction Adherence",
+    "Did it follow the constraints: format, length, required content, no spurious refusal?"
+   ],
+   [
+    "Consistency",
+    "Does the same task give stable answers across runs? Variance is a reliability failure of its own."
+   ],
+   [
+    "Task Completion",
+    "Did the workflow actually do the job? Skipped steps and missing tool calls count."
+   ],
+   [
+    "No scores here",
+    "This scene shows no results because there are none yet. The playground scores recorded sample traces with deterministic proxy metrics, clearly labelled."
+   ]
+  ]
+ },
+ "product": {
+  "persona": "product",
+  "kicker": "04 / PRODUCT ANALYTICS",
+  "title": "Behavior becomes a decision.",
+  "lab": "lab-funnel",
+  "labLabel": "Change the funnel yourself",
+  "note": "Adjustable assumptions, not measured data · modelled on product-analytics-funnel-retention and experimentation-toolkit",
+  "steps": [
+   [
+    "Acquisition",
+    "Every funnel starts as a count of people who arrived. The question is where they go next."
+   ],
+   [
+    "Activation",
+    "The share who reach their first real value. A small lift here compounds through every later stage."
+   ],
+   [
+    "Retention",
+    "Cohorts show whether activation was real. A decay curve that flattens describes a healthier product than one that keeps falling."
+   ],
+   [
+    "Revenue",
+    "Retained users convert. Revenue is the product of every earlier rate, so the biggest leak is rarely where the team is looking."
+   ],
+   [
+    "Experiment",
+    "Ideas change one rate. Power, minimum detectable effect and guardrails turn a test into ship, kill or keep running."
+   ]
+  ]
+ }
+}

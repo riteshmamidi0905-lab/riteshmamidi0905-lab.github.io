@@ -1,0 +1,277 @@
+{
+ "realtime-streaming-pipeline": {
+  "persona": "data",
+  "lab": "lab-stream",
+  "labLabel": "Run the synthetic stream",
+  "beats": [
+   [
+    "What is this",
+    "A runnable fraud-detection stream: Kafka, Spark Structured Streaming and Cassandra in one Docker Compose stack, fed by a synthetic transaction producer."
+   ],
+   [
+    "The problem",
+    "Fraud signals decay in minutes. A nightly batch is far too slow to act on them."
+   ],
+   [
+    "How it works",
+    "The producer writes events to Kafka. Spark parses the JSON, flags fraud with rules, and aggregates one-minute merchant windows. Two Cassandra tables store verdicts and metrics."
+   ],
+   [
+    "Why this architecture",
+    "Explainable rules make every fraud flag inspectable. Event-time windows and a watermark bound how much late-data state Spark has to keep. Separate checkpoints track each sink."
+   ],
+   [
+    "How it is evaluated",
+    "The Spark transforms are pure functions tested on static DataFrames: JSON parsing, fraud-rule decisions, event-time merchant aggregation. The full Kafka and Cassandra runtime is a separate integration check."
+   ],
+   [
+    "Tradeoffs",
+    "Rules can be read and debugged but cannot learn new patterns. A watermark keeps state bounded but drops events that arrive too late."
+   ],
+   [
+    "Limitations",
+    "The transactions are synthetic and detection is rule-based. This is not a deployed payment-risk model."
+   ],
+   [
+    "What I would build next",
+    "Test sink idempotency under failure and restart, reviewing checkpoints and Cassandra keys together."
+   ]
+  ],
+  "arch": [
+   "producer.py emits transactions at a configurable rate. About 3% are crafted to trip the fraud rules.",
+   "Durable ingestion. Each transaction is keyed by account ID.",
+   "flag_fraud: amount over 2,000, a high-risk country, or a non-positive amount. One-minute tumbling windows with a two-minute watermark.",
+   "Two sinks: per-transaction verdicts and per-merchant window metrics, each with its own checkpoint."
+  ]
+ },
+ "spark-data-lakehouse": {
+  "persona": "data",
+  "lab": null,
+  "labLabel": null,
+  "beats": [
+   [
+    "What is this",
+    "A medallion-style Spark lakehouse: Bronze, Silver and Gold layers with data-quality checks between them."
+   ],
+   [
+    "The problem",
+    "Raw event data is duplicated, unenriched and unqueryable. Analysts cannot trust it directly."
+   ],
+   [
+    "How it works",
+    "Each layer has one job: ingest, then clean, deduplicate and enrich, then aggregate into business marts that are written as partitioned Parquet."
+   ],
+   [
+    "Why this architecture",
+    "Small dimensions use broadcast joins. Partitioned Parquet and Adaptive Query Execution target avoidable shuffle and scan work."
+   ],
+   [
+    "How it is evaluated",
+    "Unit tests cover cleaning, deterministic deduplication, enrichment and the gold aggregates. Quality rules inspect nulls, negative quantities and invalid enum values."
+   ],
+   [
+    "Tradeoffs",
+    "Gates between layers fail loudly when inputs drift, instead of letting bad rows flow into the marts."
+   ],
+   [
+    "Limitations",
+    "Local Spark and synthetic inputs demonstrate the processing architecture. They do not demonstrate production scale."
+   ],
+   [
+    "What I would build next",
+    "Turn the quality checks into an explicit contract per layer, and deduplicate as early as possible."
+   ]
+  ],
+  "arch": [
+   "Synthetic input events processed with local Spark.",
+   "The ingestion layer: the raw record of what arrived.",
+   "Cleaning, deterministic deduplication and enrichment, using broadcast joins for small dimensions.",
+   "Business aggregates written as partitioned Parquet.",
+   "The gold marts are shaped for BI and SQL. Data-quality rules guard each layer boundary."
+  ]
+ },
+ "llm-eval-framework": {
+  "persona": "research",
+  "lab": "lab-maref",
+  "labLabel": "Open the evaluation playground",
+  "beats": [
+   [
+    "What is this",
+    "llmeval: a rubric-driven platform for scoring LLM outputs. It pairs 14 deterministic offline metrics with an optional LLM-as-judge backend."
+   ],
+   [
+    "The problem",
+    "Teams ship LLM features without a repeatable way to tell whether answers are grounded or hallucinated."
+   ],
+   [
+    "How it works",
+    "Cases go through a rubric of weighted criteria. Metrics or judges score each criterion. The result is a per-case breakdown, a JSON report, an HTML dashboard and a CLI gate."
+   ],
+   [
+    "Why this architecture",
+    "Weighted scores and hard thresholds are separate on purpose. A high overall score cannot override a required safety or grounding check."
+   ],
+   [
+    "How it is evaluated",
+    "An 18-case RAG-QA benchmark ships with the repository, plus tests for deterministic scoring, thresholds, the API and the reports. The CLI has a fail-under option for CI."
+   ],
+   [
+    "Tradeoffs",
+    "Deterministic metrics are reproducible and need no API key. Optional judges can score nuanced criteria but need calibration and human review."
+   ],
+   [
+    "Limitations",
+    "Token-overlap faithfulness is a heuristic. Neither metrics nor judges prove factual reliability on their own."
+   ],
+   [
+    "What I would build next",
+    "Track agreement between the judge and human reviewers, so the judge itself can be trusted."
+   ]
+  ],
+  "arch": [
+   "JSONL cases carry a prompt, context, output and reference. An 18-case benchmark ships with the repo.",
+   "The evaluator scores outputs you supply. It calls a model only if you enable a judge.",
+   "A JSON or YAML rubric: weighted criteria, optional hard thresholds, 14 metrics, and an optional chat(prompt) judge.",
+   "A weighted per-case score plus pass/fail. A threshold can fail a case even when its weighted score is high.",
+   "A self-contained HTML dashboard, a JSON report, a REST API and a CLI --fail-under gate for CI."
+  ]
+ },
+ "genai-doc-assistant": {
+  "persona": "ai",
+  "lab": "lab-rag",
+  "labLabel": "Explore retrieval in the browser",
+  "beats": [
+   [
+    "What is this",
+    "A full-stack assistant that answers from your own documents, with citations back to the source chunks."
+   ],
+   [
+    "The problem",
+    "General chatbots hallucinate and cannot cite. Teams need answers grounded in their own corpus."
+   ],
+   [
+    "How it works",
+    "A router decides whether to search or answer. Documents become sentence-aware chunks, retrieval blends vector similarity with keyword overlap, and the reader answers only from what was retrieved."
+   ],
+   [
+    "Why this architecture",
+    "An offline extractive reader keeps the default path reproducible with no credentials. Embedding, vector store and generation backends switch by configuration."
+   ],
+   [
+    "How it is evaluated",
+    "A sample-corpus harness checks retrieval hit-rate, reciprocal rank, faithfulness and answer relevance, with CI thresholds. Tests cover retrieval, routing, streaming and the API."
+   ],
+   [
+    "Tradeoffs",
+    "Feature hashing works offline but is weaker than semantic embeddings. The extractive reader never invents, but it cannot paraphrase."
+   ],
+   [
+    "Limitations",
+    "Sample-corpus evaluation and local load tests do not show performance on arbitrary documents or live users."
+   ],
+   [
+    "What I would build next",
+    "Test retrieval failures on a broader corpus, and measure how well the system abstains."
+   ]
+  ],
+  "arch": [
+   "A FastAPI backend with a browser chat interface. A router-agent decides when to search and when to answer.",
+   "Cosine search over hashed embeddings (or sentence-transformers), then a 0.7 vector plus 0.3 keyword re-rank.",
+   "Sentence-aware chunks of about 480 characters with one sentence of overlap.",
+   "By default an offline extractive reader that answers only from context and abstains otherwise. Ollama, Gemini and OpenAI backends are configurable.",
+   "Answers carry [n] citations back to chunk IDs, and responses stream token by token."
+  ]
+ },
+ "mlops-platform": {
+  "persona": "builder",
+  "lab": null,
+  "labLabel": null,
+  "beats": [
+   [
+    "What is this",
+    "A local end-to-end model lifecycle: train candidates, register a model, promote a version, serve predictions and monitor drift."
+   ],
+   [
+    "The problem",
+    "Models get trained once and forgotten. Nobody notices when live data drifts away from the training data."
+   ],
+   [
+    "How it works",
+    "Experiment tracking feeds a registry with explicit stage promotion. FastAPI serves the promoted model, and PSI and KS statistics compare live inputs with the training distribution."
+   ],
+   [
+    "Why this architecture",
+    "A model bundle keeps the scaler and the feature view together with the model. Promotion archives the previous Production version, so serving stays traceable."
+   ],
+   [
+    "How it is evaluated",
+    "Tests cover serving readiness, authentication, registry promotion and prediction monitoring. Seeded covariate shifts exercise the PSI and KS alerts."
+   ],
+   [
+    "Tradeoffs",
+    "Drift statistics are cheap to compute. Choosing the alert threshold is the hard part, and drift is not the same as degradation."
+   ],
+   [
+    "Limitations",
+    "“Production” here is a registry stage name. The portfolio does not claim a running customer deployment."
+   ],
+   [
+    "What I would build next",
+    "Automated retraining triggers, once the thresholds are trustworthy."
+   ]
+  ],
+  "arch": [
+   "The model bundle keeps the scaler and feature view together with the model.",
+   "Experiment tracking records candidate runs, and the best is selected for registration.",
+   "Explicit stage promotion. Promoting a version archives the previous Production version.",
+   "FastAPI serves the promoted model. Tests cover readiness and authentication.",
+   "PSI and KS compare live inputs with training data. Seeded covariate shifts exercise the alerts."
+  ]
+ },
+ "experimentation-toolkit": {
+  "persona": "product",
+  "lab": "lab-experiment",
+  "labLabel": "Run the statistics yourself",
+  "beats": [
+   [
+    "What is this",
+    "expkit: an end-to-end A/B analysis toolkit, from sample-size design to a ship, kill or keep-running decision."
+   ],
+   [
+    "The problem",
+    "Naive A/B tests ship on noise: no power analysis, no variance reduction, no multiple-comparison control."
+   ],
+   [
+    "How it works",
+    "Design the test, run a z-test, Welch t-test or bootstrap, apply CUPED variance reduction, check guardrails, correct for multiple comparisons, then decide."
+   ],
+   [
+    "Why this architecture",
+    "Power and minimum detectable effect guide the design before any analysis. Guardrails and FDR control stop a nominal win from becoming a bad product decision."
+   ],
+   [
+    "How it is evaluated",
+    "Tests cover the statistical helpers, CUPED, guardrails, multiple-comparison adjustment, decisions and scorecard generation on seeded data."
+   ],
+   [
+    "Tradeoffs",
+    "A fixed-horizon test is simple and valid, but peeking at it early inflates false positives."
+   ],
+   [
+    "Limitations",
+    "The checkout experiment is synthetic. Its effect sizes are demonstration output, not commercial impact."
+   ],
+   [
+    "What I would build next",
+    "Sequential testing, so early stopping is statistically sound."
+   ]
+  ],
+  "arch": [
+   "sample_size_proportion, power_proportion and mde_proportion size a test before it runs.",
+   "A seeded synthetic experiment: 24k users, a pre-period covariate and device-level effects.",
+   "A pooled two-proportion z-test, Welch’s t-test and a percentile bootstrap CI.",
+   "CUPED uses a pre-experiment covariate to tighten intervals. Guardrails must not regress. FDR correction controls false discoveries.",
+   "A SHIP, KILL or INCONCLUSIVE decision and a self-contained HTML scorecard."
+  ]
+ }
+}

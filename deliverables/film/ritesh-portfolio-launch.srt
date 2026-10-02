@@ -1,0 +1,87 @@
+1
+00:00:00,700 --> 00:00:03,250
+Hi, I’m Ritesh. Let me show you how I build reliable AI.
+
+2
+00:00:03,100 --> 00:00:05,200
+A task comes in. The planner picks a tool.
+
+3
+00:00:05,200 --> 00:00:07,300
+Each observation feeds the next step.
+
+4
+00:00:07,300 --> 00:00:09,350
+Deterministic checks verify the trace before the answer.
+
+5
+00:00:09,200 --> 00:00:11,100
+Synthetic events stream through the pipeline.
+
+6
+00:00:11,100 --> 00:00:13,000
+Rules flag fraud. A watermark drops very late events.
+
+7
+00:00:13,000 --> 00:00:14,650
+Same logic as my Kafka, Spark and Cassandra project.
+
+8
+00:00:14,500 --> 00:00:16,400
+MAREF: six reliability dimensions, not one score.
+
+9
+00:00:16,400 --> 00:00:18,400
+Accuracy, grounding, hallucination, instructions, consistency, completion.
+
+10
+00:00:18,400 --> 00:00:19,950
+In development: no results are claimed.
+
+11
+00:00:19,800 --> 00:00:22,200
+RAG: real retrieval over a sample corpus.
+
+12
+00:00:22,200 --> 00:00:24,250
+Chunks, scores and citations are all inspectable.
+
+13
+00:00:24,100 --> 00:00:27,550
+Experimentation: real statistics decide ship or keep running.
+
+14
+00:00:27,400 --> 00:00:29,300
+Funnels, retention and experiments.
+
+15
+00:00:29,300 --> 00:00:30,850
+Every rate is an assumption you can change.
+
+16
+00:00:30,700 --> 00:00:31,600
+Real-Time Streaming Pipeline
+
+17
+00:00:31,600 --> 00:00:32,500
+Spark Data Lakehouse
+
+18
+00:00:32,500 --> 00:00:33,400
+LLM Evaluation Framework
+
+19
+00:00:33,400 --> 00:00:34,300
+GenAI Document Assistant
+
+20
+00:00:34,300 --> 00:00:35,200
+MLOps Platform
+
+21
+00:00:35,200 --> 00:00:35,950
+Experimentation Toolkit
+
+22
+00:00:36,600 --> 00:00:40,050
+Let’s talk.

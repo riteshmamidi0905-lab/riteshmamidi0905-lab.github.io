@@ -7,7 +7,7 @@ for(const [label,width,height] of [['desktop',1440,1000],['tablet',820,1180],['m
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)bad.push(r.status()+' '+r.url())});
  await serveLocal(page);await page.goto(base,{waitUntil:'networkidle'});
  assert.equal(await page.locator('.pcard').count(),22);assert.equal(await page.locator('.flagw').count(),6);
- await page.locator('#research').scrollIntoViewIfNeeded();await page.getByRole('button',{name:/Groundedness/}).click();assert.equal(await page.locator('#dimensionTitle').textContent(),'Groundedness');
+ await page.locator('#research').scrollIntoViewIfNeeded();await page.locator('button.dimension[data-name="Groundedness"]').click();assert.equal(await page.locator('#dimensionTitle').textContent(),'Groundedness');
  await page.locator('[data-f="genai"]').click();assert.equal(await page.locator('.pcard:not(.hide)').count(),5);assert.match(await page.locator('#filterStatus').textContent(),/^5 projects/);
  await page.locator('[data-f="all"]').click();assert.equal(await page.locator('.pcard:not(.hide)').count(),22);
  await page.locator('.cs-summary').first().click();assert.equal(await page.locator('details[open]').count(),1);

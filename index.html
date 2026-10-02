@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>/* progressive enhancement: reveal animations only run with working JS; failure-safe reveals content if app.js never initializes */
-(function(){var d=document.documentElement;d.classList.add('js');
+(function(){var d=document.documentElement;d.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!localStorage.getItem('rm-intro-seen')&&!/[?&]capture=/.test(location.search)&&innerWidth>0)d.classList.add('intro-pending')}catch(e){}
 window.addEventListener('load',function(){setTimeout(function(){
   if(!window.__enh){[].forEach.call(document.querySelectorAll('.rv'),function(e){e.classList.add('in');});}
 },1800);});})();</script>
@@ -43,16 +43,19 @@ window.addEventListener('load',function(){setTimeout(function(){
 }
 </script>
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/portfolio.css">\n<link rel="stylesheet" href="assets/css/cinematic.css">
+<link rel="stylesheet" href="assets/css/portfolio.css">
+<link rel="stylesheet" href="assets/css/worlds.css">
 </head>
-<body>\n<div class="cine-intro" aria-hidden="true"><canvas></canvas><button class="intro-skip" type="button">Skip intro</button><div class="intro-core"><div class="intro-mark">RM<span>.</span></div><div class="intro-sub">Reliable AI · Useful data · Better decisions</div></div></div>
+<body>
 <div id="bar"></div>
 <a href="#work" class="skip" >Skip to work</a>
+<div class="rm-intro" role="region" aria-label="Intro animation"><canvas aria-hidden="true"></canvas><div class="intro-word" aria-hidden="true">RITESH MAMIDI</div><button type="button" class="intro-skip">Skip intro</button></div>
 
 <nav id="nav"><div class="wrap">
   <a class="brand" href="#hero" aria-label="Ritesh Mamidi — home"><span class="mk">RM</span> Ritesh Mamidi</a>
   <div class="nlinks" id="nlinks">
     <a href="#work">Work</a>
+    <a href="#lab">Lab</a>
     <a href="#research">Research</a>
     <a href="#watch">Watch</a>
     <a href="#experience">Experience</a>
@@ -64,9 +67,11 @@ window.addEventListener('load',function(){setTimeout(function(){
 </div></nav>
 
 <!-- ============ HERO ============ -->
-<header id="hero">
-  <canvas id="field" aria-hidden="true"></canvas>
-  <div class="hgrid" aria-hidden="true"></div>
+<header id="hero" class="hero-world" data-world="hero">
+  <canvas class="world-canvas" aria-hidden="true"></canvas>
+  <div class="hero-vignette" aria-hidden="true"></div>
+  <figure class="av hero-av" data-av data-persona="hero" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 50vw, 640px" width="510" height="694" alt="Ritesh Mamidi" fetchpriority="high" decoding="async"><figcaption class="av-tag">RITESH</figcaption></figure>
+  <p class="hero-hello"><b>Ritesh</b>Hi, I’m Ritesh. Scroll and I’ll show you how I build reliable AI, then let you run it.</p>
   <div class="wrap">
     <div class="hero-layout">
       <div class="hero-copy">
@@ -75,7 +80,8 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h1 class="big hero-rise" style="animation-delay:.18s">Reliable AI.<br>Useful data.<br><em>Better decisions.</em></h1>
         <p class="hero-intro">I’m Ritesh Mamidi. I build measurable AI systems, dependable data pipelines, and the analytics behind better product decisions.</p><div class="hrole">AI/ML · Data Engineering · Product Analytics<br>GenAI / LLM Evaluation</div>
         <div class="hcta hero-rise" style="animation-delay:.36s">
-          <a class="btn btn-p" href="#work">Explore work <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-p" href="#work">Explore work <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-o" href="#lab">Run live demos</a>
           <a class="btn btn-o" href="#research">Explore MAREF</a>
           <a class="btn btn-o" href="https://linkedin.com/in/riteshmamidi0905" target="_blank" rel="noopener">LinkedIn</a>
         </div>
@@ -86,10 +92,6 @@ window.addEventListener('load',function(){setTimeout(function(){
           <div class="m"><div class="v" data-count="2">2</div><div class="k">Pro certifications</div></div>
         </div>
       </div>
-      <figure class="hero-avatar hero-rise" style="animation-delay:.24s" aria-label="Portrait of Ritesh Mamidi">
-        <img src="linkedin-avatar.webp" alt="Ritesh Mamidi" width="510" height="694" fetchpriority="high" decoding="async">
-        <figcaption class="avatar-tag">AI · DATA · PRODUCT</figcaption>
-      </figure>
     </div>
   </div>
   <div class="scue" aria-hidden="true"><div class="m"></div>SCROLL</div>
@@ -97,37 +99,113 @@ window.addEventListener('load',function(){setTimeout(function(){
 
 
 
-<!-- ============ CINEMATIC SYSTEMS ============ -->
-<section id="cinematic-ai" class="cine-scene" aria-labelledby="cine-ai-title">
-  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">01 / AI · AGENTS</div><h2 class="scene-title" id="cine-ai-title">From task to evaluated action.</h2><p class="scene-copy">A cinematic view of an agent workflow: <b>receive a task, retrieve context, select a tool, execute, then evaluate the result.</b> The sequence explains system structure; it is not live production telemetry.</p><p class="scene-note">ILLUSTRATIVE SYSTEM VIEW · AGENT TOOLKIT / LLM EVALUATION</p></div>
-    <div class="system-stage" aria-label="Illustrative AI agent workflow"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>AI RITESH</span></div><div class="agent-orbit"></div><div class="agent-orbit o2"></div><div class="agent-node n1">TASK<br>INTAKE</div><div class="agent-node n2">RETRIEVE<br>CONTEXT</div><div class="agent-node n3">TOOL<br>EXECUTION</div><div class="agent-node n4">EVALUATE<br>OUTPUT</div><div class="agent-core">AI RITESH<br>AGENT LOOP</div><div class="agent-pulse"></div></div>
-  </div>
-</section>
-<section id="cinematic-data" class="cine-scene" aria-labelledby="cine-data-title">
-  <canvas class="scene-canvas" data-mode="data" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">02 / DATA ENGINEERING</div><h2 class="scene-title" id="cine-data-title">Signals become systems.</h2><p class="scene-copy">Events move visibly through the architecture: <b>sources → ingestion → processing → storage → analytics.</b> The motion is deliberately large-scale so the pipeline reads as a system, not a decorative diagram.</p><p class="scene-note">ILLUSTRATIVE ARCHITECTURE · STREAMING + LAKEHOUSE PROJECTS</p></div>
-    <div class="system-stage stream-stage" aria-label="Illustrative streaming data pipeline"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>DATA RITESH</span></div><div class="stream-particle"></div><div class="stream-particle p2"></div><div class="stream-particle p3"></div><div class="stream-col"><strong>SOURCES</strong><span>events · files · APIs</span></div><div class="stream-col"><strong>INGEST</strong><span>Kafka · batch</span></div><div class="stream-col"><strong>PROCESS</strong><span>Spark · transforms</span></div><div class="stream-col"><strong>STORE</strong><span>lakehouse · Cassandra</span></div><div class="stream-col"><strong>DECIDE</strong><span>analytics · models</span></div></div>
-  </div>
-</section>
-<section id="cinematic-maref" class="cine-scene" aria-labelledby="cine-maref-title">
-  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">03 / MAREF · LLM EVALUATION</div><h2 class="scene-title" id="cine-maref-title">Reliability needs more than one score.</h2><p class="scene-copy">MAREF is presented as an <b>in-development evaluation framework</b>. Its six dimensions make failure modes inspectable without claiming benchmark results that the repository does not establish.</p><p class="scene-note">EXPLANATORY VISUALIZATION · NOT EXPERIMENTAL RESULTS</p></div>
-    <div class="system-stage maref-stage" aria-label="Six proposed MAREF evaluation dimensions"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>RESEARCH RITESH</span></div><div class="maref-dim"><span class="num">01</span><b>Task Accuracy</b><span>Does the output correctly address the requested task?</span></div><div class="maref-dim"><span class="num">02</span><b>Groundedness</b><span>Can claims be supported by supplied context or evidence?</span></div><div class="maref-dim"><span class="num">03</span><b>Hallucination Resistance</b><span>Does the system avoid unsupported invention?</span></div><div class="maref-dim"><span class="num">04</span><b>Instruction Adherence</b><span>Does the output follow constraints and requested format?</span></div><div class="maref-dim"><span class="num">05</span><b>Consistency</b><span>Are outputs stable under equivalent conditions?</span></div><div class="maref-dim"><span class="num">06</span><b>Task Completion</b><span>Did the workflow actually finish the required job?</span></div></div>
-  </div>
-</section>
-<section id="cinematic-product" class="cine-scene" aria-labelledby="cine-product-title">
-  <canvas class="scene-canvas" data-mode="network" aria-hidden="true"></canvas>
-  <div class="scene-inner">
-    <div><div class="scene-index">04 / PRODUCT ANALYTICS</div><h2 class="scene-title" id="cine-product-title">Behavior becomes a decision.</h2><p class="scene-copy">Funnels, retention, experiments and behavioral signals become a decision surface. The visuals show <b>how product questions are structured</b>, not fabricated customer or experiment outcomes.</p><p class="scene-note">ILLUSTRATIVE ANALYTICS VIEW · FUNNEL / RETENTION / EXPERIMENTATION</p></div>
-    <div class="system-stage product-stage" aria-label="Illustrative product analytics funnel and retention view"><div class="scene-avatar" aria-hidden="true"><img src="linkedin-avatar.webp" alt="" width="108" height="112" loading="lazy" decoding="async"><span>PRODUCT RITESH</span></div><div class="funnel-cine"><span>DISCOVER</span><span>ACTIVATE</span><span>ENGAGE</span><span>RETAIN</span></div><div class="retention-lines" aria-hidden="true"><i></i><i></i><i></i></div></div>
-  </div>
-</section>
-\n<!-- ============ SELECTED WORK ============ -->
+
 <main id="main-content">
+<section class="world" id="world-agents" data-world="agents" aria-labelledby="w-agents-t">
+  <div class="world-stage">
+    <canvas class="world-canvas" aria-hidden="true"></canvas>
+    <div class="world-vignette" aria-hidden="true"></div>
+    <div class="world-top"><span class="world-kicker">01 / AI AGENTS</span><span class="world-note">Illustrative system view · modelled on ai-agent-toolkit and llm-eval-framework</span></div>
+    <figure class="av world-av" data-av data-persona="ai" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 52vw, 420px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">AI RITESH</figcaption></figure>
+    <div class="world-copy">
+      <h2 class="world-title" id="w-agents-t">From task to evaluated action.</h2>
+      <ol class="world-steps"><li><b>Task</b><p>A task arrives in plain language: “Convert 5 km to mi, then multiply by 2.” Everything downstream depends on reading it correctly.</p></li><li><b>Plan</b><p>The planner decides what kind of problem this is: a single lookup, or a composition where one tool’s output feeds the next.</p></li><li><b>Tool selection</b><p>It chooses from four tools: a calculator, a unit converter, a tiny knowledge base and text statistics. The calculator walks a restricted syntax tree and never calls eval.</p></li><li><b>Retrieval</b><p>Fact questions go to a knowledge base that matches on keyword overlap. When nothing matches, the answer is “unknown” instead of a guess.</p></li><li><b>Execution</b><p>The first observation, 3.107 mi, flows into the second step. That is real ReAct feedback: the second action depends on the first result.</p></li><li><b>Evaluation</b><p>Then the trace is checked: did it finish, did any tool error, does the second number re-derive from the first?</p></li><li><b>Response</b><p>Only then does the agent answer. In the lab below, this same loop runs in your browser on any task you type.</p></li></ol>
+      <div class="world-nav" role="group" aria-label="From task to evaluated action. — steps"><button type="button" data-step="0" aria-label="Step 1 of 7: Task" aria-current="step">01</button><button type="button" data-step="1" aria-label="Step 2 of 7: Plan">02</button><button type="button" data-step="2" aria-label="Step 3 of 7: Tool selection">03</button><button type="button" data-step="3" aria-label="Step 4 of 7: Retrieval">04</button><button type="button" data-step="4" aria-label="Step 5 of 7: Execution">05</button><button type="button" data-step="5" aria-label="Step 6 of 7: Evaluation">06</button><button type="button" data-step="6" aria-label="Step 7 of 7: Response">07</button></div>
+      <a class="world-cta" href="#lab-agent">Run the agent yourself <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="world-cap" aria-live="polite"><div class="cap-who">AI RITESH says</div><span class="cap-label">Task</span><p class="cap-text">A task arrives in plain language: “Convert 5 km to mi, then multiply by 2.” Everything downstream depends on reading it correctly.</p></div>
+  </div>
+</section>
+<section class="world" id="world-data" data-world="data" aria-labelledby="w-data-t">
+  <div class="world-stage">
+    <canvas class="world-canvas" aria-hidden="true"></canvas>
+    <div class="world-vignette" aria-hidden="true"></div>
+    <div class="world-top"><span class="world-kicker">02 / DATA ENGINEERING</span><span class="world-note">Synthetic events · simulated in your browser · modelled on realtime-streaming-pipeline</span></div>
+    <figure class="av world-av" data-av data-persona="data" style="--rim:#6aa7ff"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 52vw, 420px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">DATA RITESH</figcaption></figure>
+    <div class="world-copy">
+      <h2 class="world-title" id="w-data-t">Signals become systems.</h2>
+      <ol class="world-steps"><li><b>Sources</b><p>A producer emits synthetic payment events. About 2% are crafted as high-amount fraud and 1% come from risky countries. None of this is real traffic.</p></li><li><b>Ingestion</b><p>Kafka decouples producers from processing. When events arrive faster than Spark can process them, the backlog grows.</p></li><li><b>Processing</b><p>Rules flag each transaction: amount above 2,000, a high-risk country, or a non-positive amount. Merchants are grouped into one-minute event-time windows.</p></li><li><b>Storage</b><p>A two-minute watermark bounds state. Events too late for their window are dropped. Verdicts and merchant metrics land in separate tables.</p></li><li><b>Analytics</b><p>Per-merchant counts, totals and fraud counts: what an analyst or model queries next. The lab runs this pipeline live, with controls.</p></li></ol>
+      <div class="world-nav" role="group" aria-label="Signals become systems. — steps"><button type="button" data-step="0" aria-label="Step 1 of 5: Sources" aria-current="step">01</button><button type="button" data-step="1" aria-label="Step 2 of 5: Ingestion">02</button><button type="button" data-step="2" aria-label="Step 3 of 5: Processing">03</button><button type="button" data-step="3" aria-label="Step 4 of 5: Storage">04</button><button type="button" data-step="4" aria-label="Step 5 of 5: Analytics">05</button></div>
+      <a class="world-cta" href="#lab-stream">Run the synthetic stream <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="world-cap" aria-live="polite"><div class="cap-who">DATA RITESH says</div><span class="cap-label">Sources</span><p class="cap-text">A producer emits synthetic payment events. About 2% are crafted as high-amount fraud and 1% come from risky countries. None of this is real traffic.</p></div>
+  </div>
+</section>
+<section class="world" id="world-maref" data-world="maref" aria-labelledby="w-maref-t">
+  <div class="world-stage">
+    <canvas class="world-canvas" aria-hidden="true"></canvas>
+    <div class="world-vignette" aria-hidden="true"></div>
+    <div class="world-top"><span class="world-kicker">03 / MAREF · IN DEVELOPMENT</span><span class="world-note">Explanatory visualization · not experimental results · MAREF is a framework in development</span></div>
+    <figure class="av world-av" data-av data-persona="research" style="--rim:#9b8cff"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 52vw, 420px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">RESEARCH RITESH</figcaption></figure>
+    <div class="world-copy">
+      <h2 class="world-title" id="w-maref-t">Reliability needs more than one score.</h2>
+      <ol class="world-steps"><li><b>The problem</b><p>An agent can finish a task, sound confident and still be wrong. One average score hides which way it failed.</p></li><li><b>Task Accuracy</b><p>Is the answer correct? Compare the response with a task-specific reference or a deterministic check.</p></li><li><b>Groundedness</b><p>Can each claim be traced to evidence? A citation only counts if the source actually supports the claim.</p></li><li><b>Hallucination Resistance</b><p>Does the agent avoid unsupported information? Invented figures and names are the signal.</p></li><li><b>Instruction Adherence</b><p>Did it follow the constraints: format, length, required content, no spurious refusal?</p></li><li><b>Consistency</b><p>Does the same task give stable answers across runs? Variance is a reliability failure of its own.</p></li><li><b>Task Completion</b><p>Did the workflow actually do the job? Skipped steps and missing tool calls count.</p></li><li><b>No scores here</b><p>This scene shows no results because there are none yet. The playground scores recorded sample traces with deterministic proxy metrics, clearly labelled.</p></li></ol>
+      <div class="world-nav" role="group" aria-label="Reliability needs more than one score. — steps"><button type="button" data-step="0" aria-label="Step 1 of 8: The problem" aria-current="step">01</button><button type="button" data-step="1" aria-label="Step 2 of 8: Task Accuracy">02</button><button type="button" data-step="2" aria-label="Step 3 of 8: Groundedness">03</button><button type="button" data-step="3" aria-label="Step 4 of 8: Hallucination Resistance">04</button><button type="button" data-step="4" aria-label="Step 5 of 8: Instruction Adherence">05</button><button type="button" data-step="5" aria-label="Step 6 of 8: Consistency">06</button><button type="button" data-step="6" aria-label="Step 7 of 8: Task Completion">07</button><button type="button" data-step="7" aria-label="Step 8 of 8: No scores here">08</button></div>
+      <a class="world-cta" href="#lab-maref">Open the evaluation playground <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="world-cap" aria-live="polite"><div class="cap-who">RESEARCH RITESH says</div><span class="cap-label">The problem</span><p class="cap-text">An agent can finish a task, sound confident and still be wrong. One average score hides which way it failed.</p></div>
+  </div>
+</section>
+<section class="world" id="world-product" data-world="product" aria-labelledby="w-product-t">
+  <div class="world-stage">
+    <canvas class="world-canvas" aria-hidden="true"></canvas>
+    <div class="world-vignette" aria-hidden="true"></div>
+    <div class="world-top"><span class="world-kicker">04 / PRODUCT ANALYTICS</span><span class="world-note">Adjustable assumptions, not measured data · modelled on product-analytics-funnel-retention and experimentation-toolkit</span></div>
+    <figure class="av world-av" data-av data-persona="product" style="--rim:#f5b94a"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 52vw, 420px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">PRODUCT RITESH</figcaption></figure>
+    <div class="world-copy">
+      <h2 class="world-title" id="w-product-t">Behavior becomes a decision.</h2>
+      <ol class="world-steps"><li><b>Acquisition</b><p>Every funnel starts as a count of people who arrived. The question is where they go next.</p></li><li><b>Activation</b><p>The share who reach their first real value. A small lift here compounds through every later stage.</p></li><li><b>Retention</b><p>Cohorts show whether activation was real. A decay curve that flattens describes a healthier product than one that keeps falling.</p></li><li><b>Revenue</b><p>Retained users convert. Revenue is the product of every earlier rate, so the biggest leak is rarely where the team is looking.</p></li><li><b>Experiment</b><p>Ideas change one rate. Power, minimum detectable effect and guardrails turn a test into ship, kill or keep running.</p></li></ol>
+      <div class="world-nav" role="group" aria-label="Behavior becomes a decision. — steps"><button type="button" data-step="0" aria-label="Step 1 of 5: Acquisition" aria-current="step">01</button><button type="button" data-step="1" aria-label="Step 2 of 5: Activation">02</button><button type="button" data-step="2" aria-label="Step 3 of 5: Retention">03</button><button type="button" data-step="3" aria-label="Step 4 of 5: Revenue">04</button><button type="button" data-step="4" aria-label="Step 5 of 5: Experiment">05</button></div>
+      <a class="world-cta" href="#lab-funnel">Change the funnel yourself <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="world-cap" aria-live="polite"><div class="cap-who">PRODUCT RITESH says</div><span class="cap-label">Acquisition</span><p class="cap-text">Every funnel starts as a count of people who arrived. The question is where they go next.</p></div>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVE LAB ============ -->
+<section id="lab" class="dark lab" aria-labelledby="lab-title">
+  <div class="wrap">
+    <div class="kicker rv">Interactive lab</div>
+    <h2 class="h1 rv" id="lab-title">Run the systems, not screenshots.</h2>
+    <p class="lede rv">Six working demos. Each runs real logic from my repositories, ported to your browser: deterministic, offline, with no model calls and no server. Where the data is fixed or synthetic, the panel says so.</p>
+    <noscript><p class="lab-note">The lab needs JavaScript. Each demo ports code from a public repository; the descriptions below still apply.</p></noscript>
+    <div class="lab-tabs" role="tablist" aria-label="Interactive demos">
+      <button role="tab" id="tab-agent" aria-controls="lab-agent" aria-selected="true" data-lab="agent">Agent Workflow</button>
+      <button role="tab" id="tab-rag" aria-controls="lab-rag" aria-selected="false" data-lab="rag" tabindex="-1">RAG Explorer</button>
+      <button role="tab" id="tab-stream" aria-controls="lab-stream" aria-selected="false" data-lab="stream" tabindex="-1">Streaming Pipeline</button>
+      <button role="tab" id="tab-maref" aria-controls="lab-maref" aria-selected="false" data-lab="maref" tabindex="-1">MAREF Playground</button>
+      <button role="tab" id="tab-experiment" aria-controls="lab-experiment" aria-selected="false" data-lab="experiment" tabindex="-1">Experimentation Lab</button>
+      <button role="tab" id="tab-funnel" aria-controls="lab-funnel" aria-selected="false" data-lab="funnel" tabindex="-1">Product Funnel</button>
+    </div>
+
+    <div class="lab-panel" id="lab-agent" role="tabpanel" aria-labelledby="tab-agent" data-lab="agent">
+      <div class="lab-head"><div><h3>Agent Workflow Explorer</h3><p class="lab-what">Type a task and step through Task → Plan → Tool → Execution → Evaluation → Response. This runs the ReAct loop from <b>ai-agent-toolkit</b>: a rule-based planner, four safe tools (the calculator never uses <code>eval</code>), and Thought → Action → Observation, in your browser.</p><span class="lab-label">Real deterministic code · no language model · offline</span></div><div class="lab-chip"><figure class="av lab-av" data-av data-persona="ai" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="80px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure><span>AI Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="agent"></div>
+    </div>
+    <div class="lab-panel" id="lab-rag" role="tabpanel" aria-labelledby="tab-rag" data-lab="rag" hidden>
+      <div class="lab-head"><div><h3>RAG Explorer</h3><p class="lab-what">Ask a question over a <b>fixed sample corpus</b> (four fictional “Acme Cloud” documents from <b>genai-doc-assistant</b>). See the chunks, the hashed-embedding retrieval and keyword re-rank, and how the extractive reader builds a cited answer, or abstains. Then run the repository’s own retrieval evaluation set.</p><span class="lab-label">Fixed sample corpus · deterministic · no language model</span></div><div class="lab-chip"><figure class="av lab-av" data-av data-persona="ai" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="80px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure><span>AI Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="rag"></div>
+    </div>
+    <div class="lab-panel" id="lab-stream" role="tabpanel" aria-labelledby="tab-stream" data-lab="stream" hidden>
+      <div class="lab-head"><div><h3>Streaming Pipeline</h3><p class="lab-what">A producer generates <b>synthetic transactions</b> with the same logic as <b>realtime-streaming-pipeline</b>: fraud rules, one-minute event-time windows and a two-minute watermark. Capacity starts below the event rate, so the lag builds; raise capacity to drain it. Add late events and watch the watermark drop them.</p><span class="lab-label">Synthetic events · simulated clock · no Kafka, Spark or Cassandra involved</span></div><div class="lab-chip"><figure class="av lab-av" data-av data-persona="data" style="--rim:#6aa7ff"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="80px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure><span>Data Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="stream"></div>
+    </div>
+    <div class="lab-panel" id="lab-maref" role="tabpanel" aria-labelledby="tab-maref" data-lab="maref" hidden>
+      <div class="lab-head"><div><h3>MAREF Evaluation Playground</h3><p class="lab-what">Score recorded sample agent runs on the six MAREF dimensions. The scores are <b>deterministic proxy heuristics</b> built from metrics in <b>llm-eval-framework</b> (token F1, faithfulness, number match). Edit the output text and watch each dimension react. Gates are per-dimension, so a good average cannot hide a bad answer.</p><span class="lab-label warn">Proxy heuristics · not an LLM judge · not MAREF results (MAREF is in development)</span></div><div class="lab-chip"><figure class="av lab-av" data-av data-persona="research" style="--rim:#9b8cff"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="80px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure><span>Research Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="maref"></div>
+    </div>
+    <div class="lab-panel" id="lab-experiment" role="tabpanel" aria-labelledby="tab-experiment" data-lab="experiment" hidden>
+      <div class="lab-head"><div><h3>Experimentation Lab</h3><p class="lab-what">Set visitors and conversions for each arm. The pooled two-proportion z-test, confidence interval, power, sample-size and decision rule from <b>experimentation-toolkit</b> run live on your inputs. Then see why peeking at a test early produces false positives.</p><span class="lab-label">Real statistics · computed from your inputs</span></div><div class="lab-chip"><figure class="av lab-av" data-av data-persona="product" style="--rim:#f5b94a"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="80px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure><span>Product Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="experiment"></div>
+    </div>
+    <div class="lab-panel" id="lab-funnel" role="tabpanel" aria-labelledby="tab-funnel" data-lab="funnel" hidden>
+      <div class="lab-head"><div><h3>Product Funnel Explorer</h3><p class="lab-what">Change acquisition, activation, retention and conversion assumptions and watch counts, leaks and revenue update. The defaults are <b>placeholders, not data from any real product</b>, and retention follows a simple modelled decay curve.</p><span class="lab-label warn">Your assumptions · modelled retention · not measured data</span></div><div class="lab-chip"><figure class="av lab-av" data-av data-persona="product" style="--rim:#f5b94a"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="80px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure><span>Product Ritesh runs it</span></div></div>
+      <div class="lab-ui" data-ui="funnel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SELECTED WORK ============ -->
 <section id="work" class="paper">
   <div class="wrap">
     <div class="kicker rv">Selected Work</div>
@@ -149,6 +227,15 @@ window.addEventListener('load',function(){setTimeout(function(){
         </div>
         <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="realtime-streaming-pipeline-ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><path id="realtime-streaming-pipeline-p1" d="M88 147 H120" fill="none" stroke="#7b8090" stroke-width="1.4" marker-end="url(#realtime-streaming-pipeline-ar)" opacity=".5"/><path id="realtime-streaming-pipeline-p2" d="M194 147 H226" fill="none" stroke="#7b8090" stroke-width="1.4" marker-end="url(#realtime-streaming-pipeline-ar)" opacity=".5"/><path id="realtime-streaming-pipeline-p3" d="M300 147 H320" fill="none" stroke="#7b8090" stroke-width="1.4" marker-end="url(#realtime-streaming-pipeline-ar)" opacity=".5"/><rect x="128" y="128" width="58" height="6" rx="3" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width=".8"/><rect x="128" y="141" width="58" height="6" rx="3" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width=".8"/><rect x="128" y="154" width="58" height="6" rx="3" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width=".8"/><rect x="234" y="128" width="58" height="38" rx="6" fill="none" stroke="#12b98f" stroke-width="1.2" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.2s" repeatCount="indefinite"/></rect><g><rect x="14" y="120" width="74" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="51" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Sources</text><text x="51" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">events</text></g><g><rect x="120" y="120" width="74" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="157" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Kafka</text><text x="157" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">topics</text></g><g><rect x="226" y="120" width="74" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="263" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Spark</text><text x="263" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">window</text></g><g><rect x="320" y="120" width="66" height="54" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="353" y="145" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Store</text><text x="353" y="161" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">Cassandra</text></g><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.00s"><mpath href="#realtime-streaming-pipeline-p1"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.90s"><mpath href="#realtime-streaming-pipeline-p1"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.00s"><mpath href="#realtime-streaming-pipeline-p2"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.90s"><mpath href="#realtime-streaming-pipeline-p2"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.00s"><mpath href="#realtime-streaming-pipeline-p3"/></animateMotion></circle><circle r="3" fill="#12b98f"><animateMotion dur="1.9s" repeatCount="indefinite" begin="0.90s"><mpath href="#realtime-streaming-pipeline-p3"/></animateMotion></circle><circle cx="20" cy="128" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0s" repeatCount="indefinite"/></circle><circle cx="24" cy="139" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0.3s" repeatCount="indefinite"/></circle><circle cx="28" cy="150" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0.6s" repeatCount="indefinite"/></circle><circle cx="32" cy="161" r="2.4" fill="#12151b" opacity=".55"><animate attributeName="opacity" values=".2;.7;.2" dur="1.6s" begin="0.8999999999999999s" repeatCount="indefinite"/></circle><text x="200" y="215" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">event-time &#183; watermarks &#183; checkpointed sinks</text></svg><div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
+      <section class="ex" data-persona="data" data-flag="realtime-streaming-pipeline" aria-label="DATA RITESH explains Real-Time Streaming Pipeline" style="--rim:#6aa7ff">
+        <div class="ex-host"><figure class="av " data-av data-persona="data" style="--rim:#6aa7ff"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="150px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">DATA RITESH</figcaption></figure></div>
+        <div class="ex-body">
+          <div class="ex-head"><span class="ex-kicker">DATA RITESH explains</span></div>
+          <ol class="ex-beats"><li><h5>What is this</h5><p>A runnable fraud-detection stream: Kafka, Spark Structured Streaming and Cassandra in one Docker Compose stack, fed by a synthetic transaction producer.</p></li><li><h5>The problem</h5><p>Fraud signals decay in minutes. A nightly batch is far too slow to act on them.</p></li><li><h5>How it works</h5><p>The producer writes events to Kafka. Spark parses the JSON, flags fraud with rules, and aggregates one-minute merchant windows. Two Cassandra tables store verdicts and metrics.</p></li><li><h5>Why this architecture</h5><p>Explainable rules make every fraud flag inspectable. Event-time windows and a watermark bound how much late-data state Spark has to keep. Separate checkpoints track each sink.</p></li><li><h5>How it is evaluated</h5><p>The Spark transforms are pure functions tested on static DataFrames: JSON parsing, fraud-rule decisions, event-time merchant aggregation. The full Kafka and Cassandra runtime is a separate integration check.</p></li><li><h5>Tradeoffs</h5><p>Rules can be read and debugged but cannot learn new patterns. A watermark keeps state bounded but drops events that arrive too late.</p></li><li><h5>Limitations</h5><p>The transactions are synthetic and detection is rule-based. This is not a deployed payment-risk model.</p></li><li><h5>What I would build next</h5><p>Test sink idempotency under failure and restart, reviewing checkpoints and Cassandra keys together.</p></li></ol>
+          <div class="ex-arch"><h5>Explore the architecture</h5><ul class="ex-archlist" style="list-style:none;display:grid;gap:8px;color:#c3cad5;font-size:15px"><li><b>Synthetic events</b> — producer.py emits transactions at a configurable rate. About 3% are crafted to trip the fraud rules.</li><li><b>Kafka</b> — Durable ingestion. Each transaction is keyed by account ID.</li><li><b>Fraud rules + windows</b> — flag_fraud: amount over 2,000, a high-risk country, or a non-positive amount. One-minute tumbling windows with a two-minute watermark.</li><li><b>Cassandra</b> — Two sinks: per-transaction verdicts and per-merchant window metrics, each with its own checkpoint.</li></ul></div>
+          <a class="ex-lab" href="#lab-stream">Run the synthetic stream →</a>
+        </div>
+      </section>
       <details class="cs-panel">
         <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <div class="cs-inner">
@@ -180,6 +267,15 @@ window.addEventListener('load',function(){setTimeout(function(){
         </div>
         <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="spark-data-lakehouse-ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><text x="30" y="62" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">Bronze</text><rect x="30" y="70" width="330" height="30" rx="7" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="70" width="0" height="30" rx="7" fill="#f4f0ec" stroke="#b06a3a" stroke-width="1.4"><animate attributeName="width" from="0" to="182" dur="1.4s" begin="0.20s" fill="freeze" calcMode="spline" keySplines=".2 .7 .2 1" keyTimes="0;1" values="0;182"/></rect><circle cx="34" cy="85" r="3.5" fill="#b06a3a"/><text x="30" y="120" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">Silver</text><rect x="30" y="128" width="330" height="30" rx="7" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="128" width="0" height="30" rx="7" fill="#f4f0ec" stroke="#9aa0aa" stroke-width="1.4"><animate attributeName="width" from="0" to="257" dur="1.4s" begin="0.55s" fill="freeze" calcMode="spline" keySplines=".2 .7 .2 1" keyTimes="0;1" values="0;257"/></rect><circle cx="34" cy="143" r="3.5" fill="#9aa0aa"/><text x="30" y="178" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">Gold</text><rect x="30" y="186" width="330" height="30" rx="7" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="186" width="0" height="30" rx="7" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1.4"><animate attributeName="width" from="0" to="317" dur="1.4s" begin="0.90s" fill="freeze" calcMode="spline" keySplines=".2 .7 .2 1" keyTimes="0;1" values="0;317"/></rect><circle cx="34" cy="201" r="3.5" fill="#12b98f"/><text x="30" y="248" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">&#10003; dedup &#10003; enrich &#10003; quality gates &#10003; partitioned Parquet</text></svg><div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
+      <section class="ex" data-persona="data" data-flag="spark-data-lakehouse" aria-label="DATA RITESH explains Spark Data Lakehouse" style="--rim:#6aa7ff">
+        <div class="ex-host"><figure class="av " data-av data-persona="data" style="--rim:#6aa7ff"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="150px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">DATA RITESH</figcaption></figure></div>
+        <div class="ex-body">
+          <div class="ex-head"><span class="ex-kicker">DATA RITESH explains</span></div>
+          <ol class="ex-beats"><li><h5>What is this</h5><p>A medallion-style Spark lakehouse: Bronze, Silver and Gold layers with data-quality checks between them.</p></li><li><h5>The problem</h5><p>Raw event data is duplicated, unenriched and unqueryable. Analysts cannot trust it directly.</p></li><li><h5>How it works</h5><p>Each layer has one job: ingest, then clean, deduplicate and enrich, then aggregate into business marts that are written as partitioned Parquet.</p></li><li><h5>Why this architecture</h5><p>Small dimensions use broadcast joins. Partitioned Parquet and Adaptive Query Execution target avoidable shuffle and scan work.</p></li><li><h5>How it is evaluated</h5><p>Unit tests cover cleaning, deterministic deduplication, enrichment and the gold aggregates. Quality rules inspect nulls, negative quantities and invalid enum values.</p></li><li><h5>Tradeoffs</h5><p>Gates between layers fail loudly when inputs drift, instead of letting bad rows flow into the marts.</p></li><li><h5>Limitations</h5><p>Local Spark and synthetic inputs demonstrate the processing architecture. They do not demonstrate production scale.</p></li><li><h5>What I would build next</h5><p>Turn the quality checks into an explicit contract per layer, and deduplicate as early as possible.</p></li></ol>
+          <div class="ex-arch"><h5>Explore the architecture</h5><ul class="ex-archlist" style="list-style:none;display:grid;gap:8px;color:#c3cad5;font-size:15px"><li><b>Raw events</b> — Synthetic input events processed with local Spark.</li><li><b>Bronze</b> — The ingestion layer: the raw record of what arrived.</li><li><b>Silver</b> — Cleaning, deterministic deduplication and enrichment, using broadcast joins for small dimensions.</li><li><b>Gold marts</b> — Business aggregates written as partitioned Parquet.</li><li><b>BI / SQL</b> — The gold marts are shaped for BI and SQL. Data-quality rules guard each layer boundary.</li></ul></div>
+          
+        </div>
+      </section>
       <details class="cs-panel">
         <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <div class="cs-inner">
@@ -212,6 +308,15 @@ window.addEventListener('load',function(){setTimeout(function(){
         </div>
         <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="llm-eval-framework-ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><text x="30" y="52" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">LLM-as-judge &#183; rubric scores</text><text x="30" y="72" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">Faithfulness</text><rect x="30" y="78" width="270" height="18" rx="9" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="78" width="0" height="18" rx="9" fill="#12b98f"><animate attributeName="width" from="0" to="248" dur="1.3s" begin="0.30s" fill="freeze"/></rect><text x="312" y="91" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12b98f">92</text><text x="30" y="118" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">Hallucination</text><rect x="30" y="124" width="270" height="18" rx="9" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="124" width="0" height="18" rx="9" fill="#c65b5b"><animate attributeName="width" from="0" to="22" dur="1.3s" begin="0.60s" fill="freeze"/></rect><text x="312" y="137" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#c65b5b">8</text><text x="30" y="164" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">Refusal</text><rect x="30" y="170" width="270" height="18" rx="9" fill="#eef0f2" stroke="#c8ccd2" stroke-width="1"/><rect x="30" y="170" width="0" height="18" rx="9" fill="#5b83c6"><animate attributeName="width" from="0" to="192" dur="1.3s" begin="0.90s" fill="freeze"/></rect><text x="312" y="183" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#5b83c6">71</text><circle cx="345" cy="70" r="26" fill="none" stroke="#c8ccd2" stroke-width="3"/><circle cx="345" cy="70" r="26" fill="none" stroke="#12b98f" stroke-width="3" stroke-linecap="round" stroke-dasharray="163" stroke-dashoffset="163" transform="rotate(-90 345 70)"><animate attributeName="stroke-dashoffset" from="163" to="41" dur="1.4s" begin=".4s" fill="freeze"/></circle><text x="345" y="66" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#12151b">A</text><text x="345" y="79" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#7b8090">GRADE</text><text x="30" y="242" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">REST API &#183; runs in CI &#183; interactive dashboard</text></svg><div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
+      <section class="ex" data-persona="research" data-flag="llm-eval-framework" aria-label="RESEARCH RITESH explains LLM Evaluation Framework" style="--rim:#9b8cff">
+        <div class="ex-host"><figure class="av " data-av data-persona="research" style="--rim:#9b8cff"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="150px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">RESEARCH RITESH</figcaption></figure></div>
+        <div class="ex-body">
+          <div class="ex-head"><span class="ex-kicker">RESEARCH RITESH explains</span></div>
+          <ol class="ex-beats"><li><h5>What is this</h5><p>llmeval: a rubric-driven platform for scoring LLM outputs. It pairs 14 deterministic offline metrics with an optional LLM-as-judge backend.</p></li><li><h5>The problem</h5><p>Teams ship LLM features without a repeatable way to tell whether answers are grounded or hallucinated.</p></li><li><h5>How it works</h5><p>Cases go through a rubric of weighted criteria. Metrics or judges score each criterion. The result is a per-case breakdown, a JSON report, an HTML dashboard and a CLI gate.</p></li><li><h5>Why this architecture</h5><p>Weighted scores and hard thresholds are separate on purpose. A high overall score cannot override a required safety or grounding check.</p></li><li><h5>How it is evaluated</h5><p>An 18-case RAG-QA benchmark ships with the repository, plus tests for deterministic scoring, thresholds, the API and the reports. The CLI has a fail-under option for CI.</p></li><li><h5>Tradeoffs</h5><p>Deterministic metrics are reproducible and need no API key. Optional judges can score nuanced criteria but need calibration and human review.</p></li><li><h5>Limitations</h5><p>Token-overlap faithfulness is a heuristic. Neither metrics nor judges prove factual reliability on their own.</p></li><li><h5>What I would build next</h5><p>Track agreement between the judge and human reviewers, so the judge itself can be trusted.</p></li></ol>
+          <div class="ex-arch"><h5>Explore the architecture</h5><ul class="ex-archlist" style="list-style:none;display:grid;gap:8px;color:#c3cad5;font-size:15px"><li><b>Test cases</b> — JSONL cases carry a prompt, context, output and reference. An 18-case benchmark ships with the repo.</li><li><b>Model outputs</b> — The evaluator scores outputs you supply. It calls a model only if you enable a judge.</li><li><b>Rubric judge</b> — A JSON or YAML rubric: weighted criteria, optional hard thresholds, 14 metrics, and an optional chat(prompt) judge.</li><li><b>Scores</b> — A weighted per-case score plus pass/fail. A threshold can fail a case even when its weighted score is high.</li><li><b>Dashboard</b> — A self-contained HTML dashboard, a JSON report, a REST API and a CLI --fail-under gate for CI.</li></ul></div>
+          <a class="ex-lab" href="#lab-maref">Open the evaluation playground →</a>
+        </div>
+      </section>
       <details class="cs-panel">
         <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <div class="cs-inner">
@@ -243,6 +348,15 @@ window.addEventListener('load',function(){setTimeout(function(){
         </div>
         <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="genai-doc-assistant-ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><g><rect x="14" y="128" width="58" height="44" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="43" y="154" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Query</text></g><g><rect x="96" y="128" width="58" height="44" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="125" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">Retrieve</text><text x="125" y="164" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">top-k</text></g><rect x="178" y="86" width="54" height="34" rx="7" fill="#f2f3f5" stroke="#c8ccd2" stroke-width="1"/><line x1="186" y1="98" x2="218" y2="98" stroke="#7b8090" stroke-width="1.4" opacity=".7"/><line x1="186" y1="106" x2="208" y2="106" stroke="#7b8090" stroke-width="1.4" opacity=".45"/><path id="genai-doc-assistant-rg0" d="M154 150 C168 150 168 103 178 103" fill="none" stroke="#c8ccd2" stroke-width="1.2" opacity=".4"/><rect x="178" y="128" width="54" height="34" rx="7" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1.5"/><line x1="186" y1="140" x2="218" y2="140" stroke="#12b98f" stroke-width="1.4" opacity=".7"/><line x1="186" y1="148" x2="208" y2="148" stroke="#12b98f" stroke-width="1.4" opacity=".45"/><path id="genai-doc-assistant-rg1" d="M154 150 C168 150 168 145 178 145" fill="none" stroke="#12b98f" stroke-width="1.2" opacity=".9"/><circle r="2.6" fill="#12b98f"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#genai-doc-assistant-rg1"/></animateMotion></circle><rect x="178" y="170" width="54" height="34" rx="7" fill="#f2f3f5" stroke="#c8ccd2" stroke-width="1"/><line x1="186" y1="182" x2="218" y2="182" stroke="#7b8090" stroke-width="1.4" opacity=".7"/><line x1="186" y1="190" x2="208" y2="190" stroke="#7b8090" stroke-width="1.4" opacity=".45"/><path id="genai-doc-assistant-rg2" d="M154 150 C168 150 168 187 178 187" fill="none" stroke="#c8ccd2" stroke-width="1.2" opacity=".4"/><g><rect x="258" y="128" width="52" height="44" rx="10" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="284" y="154" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12.5" font-weight="600" fill="#12151b">LLM</text></g><path id="genai-doc-assistant-rgl" d="M232 150 H258" fill="none" stroke="#7b8090" stroke-width="1.3" marker-end="url(#genai-doc-assistant-ar)" opacity=".5"/><rect x="322" y="112" width="66" height="76" rx="8" fill="#fff" stroke="#12151b" stroke-width="1.5"/><line x1="330" y1="126" x2="330" y2="126" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animate attributeName="x2" from="330" to="378" dur=".7s" begin="1.00s" fill="freeze"/></line><line x1="330" y1="138" x2="330" y2="138" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animate attributeName="x2" from="330" to="370" dur=".7s" begin="1.35s" fill="freeze"/></line><line x1="330" y1="150" x2="330" y2="150" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animate attributeName="x2" from="330" to="362" dur=".7s" begin="1.70s" fill="freeze"/></line><rect x="330" y="168" width="30" height="12" rx="6" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1"/><text x="345" y="177" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#12b98f">[1]</text><path id="genai-doc-assistant-rga" d="M310 150 H322" fill="none" stroke="#7b8090" stroke-width="1.3" marker-end="url(#genai-doc-assistant-ar)" opacity=".5"/><text x="200" y="238" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">grounded &#183; cited &#183; streamed</text></svg><div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
+      <section class="ex" data-persona="ai" data-flag="genai-doc-assistant" aria-label="AI RITESH explains GenAI Document Assistant" style="--rim:#22d3a6">
+        <div class="ex-host"><figure class="av " data-av data-persona="ai" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="150px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">AI RITESH</figcaption></figure></div>
+        <div class="ex-body">
+          <div class="ex-head"><span class="ex-kicker">AI RITESH explains</span></div>
+          <ol class="ex-beats"><li><h5>What is this</h5><p>A full-stack assistant that answers from your own documents, with citations back to the source chunks.</p></li><li><h5>The problem</h5><p>General chatbots hallucinate and cannot cite. Teams need answers grounded in their own corpus.</p></li><li><h5>How it works</h5><p>A router decides whether to search or answer. Documents become sentence-aware chunks, retrieval blends vector similarity with keyword overlap, and the reader answers only from what was retrieved.</p></li><li><h5>Why this architecture</h5><p>An offline extractive reader keeps the default path reproducible with no credentials. Embedding, vector store and generation backends switch by configuration.</p></li><li><h5>How it is evaluated</h5><p>A sample-corpus harness checks retrieval hit-rate, reciprocal rank, faithfulness and answer relevance, with CI thresholds. Tests cover retrieval, routing, streaming and the API.</p></li><li><h5>Tradeoffs</h5><p>Feature hashing works offline but is weaker than semantic embeddings. The extractive reader never invents, but it cannot paraphrase.</p></li><li><h5>Limitations</h5><p>Sample-corpus evaluation and local load tests do not show performance on arbitrary documents or live users.</p></li><li><h5>What I would build next</h5><p>Test retrieval failures on a broader corpus, and measure how well the system abstains.</p></li></ol>
+          <div class="ex-arch"><h5>Explore the architecture</h5><ul class="ex-archlist" style="list-style:none;display:grid;gap:8px;color:#c3cad5;font-size:15px"><li><b>Query</b> — A FastAPI backend with a browser chat interface. A router-agent decides when to search and when to answer.</li><li><b>Retriever</b> — Cosine search over hashed embeddings (or sentence-transformers), then a 0.7 vector plus 0.3 keyword re-rank.</li><li><b>Relevant chunks</b> — Sentence-aware chunks of about 480 characters with one sentence of overlap.</li><li><b>LLM</b> — By default an offline extractive reader that answers only from context and abstains otherwise. Ollama, Gemini and OpenAI backends are configurable.</li><li><b>Cited answer</b> — Answers carry [n] citations back to chunk IDs, and responses stream token by token.</li></ul></div>
+          <a class="ex-lab" href="#lab-rag">Explore retrieval in the browser →</a>
+        </div>
+      </section>
       <details class="cs-panel">
         <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <div class="cs-inner">
@@ -275,6 +389,15 @@ window.addEventListener('load',function(){setTimeout(function(){
         </div>
         <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="mlops-platform-ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><circle cx="200" cy="140" r="78" fill="none" stroke="#c8ccd2" stroke-width="1.4" stroke-dasharray="3 5"/><circle cx="200.0" cy="62.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="200.0" y="66.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Train</text><circle cx="278.0" cy="140.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="278.0" y="144.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Registry</text><circle cx="200.0" cy="218.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="200.0" y="222.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Serve</text><circle cx="122.0" cy="140.0" r="26" fill="#fff" stroke="#12151b" stroke-width="1.5"/><text x="122.0" y="144.0" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="600" fill="#12151b">Monitor</text><circle r="5" fill="#12b98f"><animateMotion dur="5s" repeatCount="indefinite" path="M200 62 A 78 78 0 1 1 199.99 62 Z"/></circle><text x="200" y="134" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#7b8090">DRIFT (PSI)</text><path d="M174 154 A 26 26 0 0 1 226 154" fill="none" stroke="#c8ccd2" stroke-width="3"/><line x1="200" y1="154" x2="182" y2="136" stroke="#12b98f" stroke-width="2.4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" values="0 200 154; 46 200 154; 12 200 154" dur="3.4s" repeatCount="indefinite"/></line><circle cx="200" cy="154" r="3" fill="#12151b"/></svg><div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
+      <section class="ex" data-persona="builder" data-flag="mlops-platform" aria-label="BUILDER RITESH explains MLOps Platform" style="--rim:#22d3a6">
+        <div class="ex-host"><figure class="av " data-av data-persona="builder" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="150px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">BUILDER RITESH</figcaption></figure></div>
+        <div class="ex-body">
+          <div class="ex-head"><span class="ex-kicker">BUILDER RITESH explains</span></div>
+          <ol class="ex-beats"><li><h5>What is this</h5><p>A local end-to-end model lifecycle: train candidates, register a model, promote a version, serve predictions and monitor drift.</p></li><li><h5>The problem</h5><p>Models get trained once and forgotten. Nobody notices when live data drifts away from the training data.</p></li><li><h5>How it works</h5><p>Experiment tracking feeds a registry with explicit stage promotion. FastAPI serves the promoted model, and PSI and KS statistics compare live inputs with the training distribution.</p></li><li><h5>Why this architecture</h5><p>A model bundle keeps the scaler and the feature view together with the model. Promotion archives the previous Production version, so serving stays traceable.</p></li><li><h5>How it is evaluated</h5><p>Tests cover serving readiness, authentication, registry promotion and prediction monitoring. Seeded covariate shifts exercise the PSI and KS alerts.</p></li><li><h5>Tradeoffs</h5><p>Drift statistics are cheap to compute. Choosing the alert threshold is the hard part, and drift is not the same as degradation.</p></li><li><h5>Limitations</h5><p>“Production” here is a registry stage name. The portfolio does not claim a running customer deployment.</p></li><li><h5>What I would build next</h5><p>Automated retraining triggers, once the thresholds are trustworthy.</p></li></ol>
+          <div class="ex-arch"><h5>Explore the architecture</h5><ul class="ex-archlist" style="list-style:none;display:grid;gap:8px;color:#c3cad5;font-size:15px"><li><b>Feature store</b> — The model bundle keeps the scaler and feature view together with the model.</li><li><b>Experiments</b> — Experiment tracking records candidate runs, and the best is selected for registration.</li><li><b>Registry</b> — Explicit stage promotion. Promoting a version archives the previous Production version.</li><li><b>Serving</b> — FastAPI serves the promoted model. Tests cover readiness and authentication.</li><li><b>Drift monitor</b> — PSI and KS compare live inputs with training data. Seeded covariate shifts exercise the alerts.</li></ul></div>
+          
+        </div>
+      </section>
       <details class="cs-panel">
         <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <div class="cs-inner">
@@ -306,6 +429,15 @@ window.addEventListener('load',function(){setTimeout(function(){
         </div>
         <div class="flag-visual" aria-hidden="true"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="architecture diagram"><defs><marker id="experimentation-toolkit-ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7b8090"/></marker></defs><text x="30" y="50" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#12151b">A / B &#183; CUPED-adjusted</text><line x1="40" y1="190" x2="360" y2="190" stroke="#c8ccd2" stroke-width="1"/><path d="M40 190 L40 189.8 L46 189.7 L52 189.4 L58 189.0 L64 188.3 L70 187.2 L76 185.6 L82 183.2 L88 180.0 L94 175.7 L100 170.1 L106 163.2 L112 155.1 L118 145.8 L124 135.9 L130 125.7 L136 116.0 L142 107.5 L148 100.8 L154 96.5 L160 95.0 L166 96.5 L172 100.8 L178 107.5 L184 116.0 L190 125.7 L196 135.9 L202 145.8 L208 155.1 L214 163.2 L220 170.1 L226 175.7 L232 180.0 L238 183.2 L244 185.6 L250 187.2 L256 188.3 L262 189.0 L268 189.4 L274 189.7 L280 189.8 L286 189.9 L292 190.0 L298 190.0 L304 190.0 L310 190.0 L316 190.0 L322 190.0 L328 190.0 L334 190.0 L340 190.0" fill="none" stroke="#7b8090" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/><path d="M40 190 L40 190.0 L46 190.0 L52 190.0 L58 190.0 L64 190.0 L70 190.0 L76 190.0 L82 190.0 L88 190.0 L94 190.0 L100 189.9 L106 189.9 L112 189.8 L118 189.6 L124 189.3 L130 188.8 L136 187.9 L142 186.7 L148 184.9 L154 182.3 L160 178.7 L166 173.9 L172 167.9 L178 160.6 L184 152.1 L190 142.6 L196 132.5 L202 122.4 L208 113.0 L214 105.0 L220 99.0 L226 95.7 L232 95.2 L238 97.6 L244 102.7 L250 110.1 L256 119.2 L262 129.1 L268 139.2 L274 149.0 L280 157.9 L286 165.6 L292 172.1 L298 177.2 L304 181.2 L310 184.1 L316 186.2 L322 187.6 L328 188.5 L334 189.1 L340 189.5" fill="none" stroke="#12b98f" stroke-width="2"  stroke-linecap="round"/><text x="120" y="205" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#7b8090">control</text><text x="230" y="205" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#12b98f">variant &#10003;</text><rect x="286" y="60" width="80" height="52" rx="9" fill="rgba(18,185,143,.12)" stroke="#12b98f" stroke-width="1.3"/><text x="326" y="80" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#7b8090">DECISION</text><text x="326" y="98" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#12b98f">SHIP</text><text x="30" y="238" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#7b8090">power &#183; guardrails &#183; FDR control</text></svg><div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
+      <section class="ex" data-persona="product" data-flag="experimentation-toolkit" aria-label="PRODUCT RITESH explains Experimentation Toolkit" style="--rim:#f5b94a">
+        <div class="ex-host"><figure class="av " data-av data-persona="product" style="--rim:#f5b94a"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="150px" width="510" height="694" alt="" loading="lazy" decoding="async"><figcaption class="av-tag">PRODUCT RITESH</figcaption></figure></div>
+        <div class="ex-body">
+          <div class="ex-head"><span class="ex-kicker">PRODUCT RITESH explains</span></div>
+          <ol class="ex-beats"><li><h5>What is this</h5><p>expkit: an end-to-end A/B analysis toolkit, from sample-size design to a ship, kill or keep-running decision.</p></li><li><h5>The problem</h5><p>Naive A/B tests ship on noise: no power analysis, no variance reduction, no multiple-comparison control.</p></li><li><h5>How it works</h5><p>Design the test, run a z-test, Welch t-test or bootstrap, apply CUPED variance reduction, check guardrails, correct for multiple comparisons, then decide.</p></li><li><h5>Why this architecture</h5><p>Power and minimum detectable effect guide the design before any analysis. Guardrails and FDR control stop a nominal win from becoming a bad product decision.</p></li><li><h5>How it is evaluated</h5><p>Tests cover the statistical helpers, CUPED, guardrails, multiple-comparison adjustment, decisions and scorecard generation on seeded data.</p></li><li><h5>Tradeoffs</h5><p>A fixed-horizon test is simple and valid, but peeking at it early inflates false positives.</p></li><li><h5>Limitations</h5><p>The checkout experiment is synthetic. Its effect sizes are demonstration output, not commercial impact.</p></li><li><h5>What I would build next</h5><p>Sequential testing, so early stopping is statistically sound.</p></li></ol>
+          <div class="ex-arch"><h5>Explore the architecture</h5><ul class="ex-archlist" style="list-style:none;display:grid;gap:8px;color:#c3cad5;font-size:15px"><li><b>Design + power</b> — sample_size_proportion, power_proportion and mde_proportion size a test before it runs.</li><li><b>Assignment</b> — A seeded synthetic experiment: 24k users, a pre-period covariate and device-level effects.</li><li><b>z / Welch / bootstrap</b> — A pooled two-proportion z-test, Welch’s t-test and a percentile bootstrap CI.</li><li><b>CUPED + guardrails</b> — CUPED uses a pre-experiment covariate to tighten intervals. Guardrails must not regress. FDR correction controls false discoveries.</li><li><b>Scorecard</b> — A SHIP, KILL or INCONCLUSIVE decision and a self-contained HTML scorecard.</li></ul></div>
+          <a class="ex-lab" href="#lab-experiment">Run the statistics yourself →</a>
+        </div>
+      </section>
       <details class="cs-panel">
         <summary class="cs-summary">Case study <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <div class="cs-inner">
@@ -341,7 +473,7 @@ window.addEventListener('load',function(){setTimeout(function(){
       <button class="fbtn" data-f="vision">Vision · Speech · NLP</button>
     </div>
     <p class="filter-status" id="filterStatus" role="status" aria-live="polite">22 projects · All areas</p><div class="pgrid" id="pgrid">
-      <article class="pcard" data-cat="data">
+      <article class="pcard" data-cat="data" data-repo="spark-data-lakehouse" data-persona="data" data-flow="Bronze|Silver|Gold">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/spark-data-lakehouse-still.svg">
       <img data-motion="spark-data-lakehouse" src="project-visuals/spark-data-lakehouse.svg" alt="Spark Data Lakehouse system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -350,9 +482,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Spark Data Lakehouse</h4>
         <p>End-to-end PySpark medallion (bronze→silver→gold) lakehouse on 300K+ events: dedup, broadcast-join enrichment, partitioned Parquet marts, AQE tuning, data-quality checks.</p>
         <div class="tt"><span>PySpark</span><span>Parquet</span><span>AQE</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/spark-data-lakehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/spark-data-lakehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="data">
+      <article class="pcard" data-cat="data" data-repo="realtime-streaming-pipeline" data-persona="data" data-flow="Kafka|Spark|Cassandra">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/realtime-streaming-pipeline-still.svg">
       <img data-motion="realtime-streaming-pipeline" src="project-visuals/realtime-streaming-pipeline.svg" alt="Real-Time Streaming Pipeline system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -361,9 +493,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Real-Time Streaming Pipeline</h4>
         <p>Kafka → Spark Structured Streaming → Cassandra fraud detection with event-time windows, watermarks, and a one-command Dockerized stack.</p>
         <div class="tt"><span>Kafka</span><span>Spark</span><span>Cassandra</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="data">
+      <article class="pcard" data-cat="data" data-repo="sql-analytics-warehouse" data-persona="data" data-flow="Raw|SQL|Insights">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/sql-analytics-warehouse-still.svg">
       <img data-motion="sql-analytics-warehouse" src="project-visuals/sql-analytics-warehouse.svg" alt="SQL Analytics Warehouse system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -372,9 +504,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>SQL Analytics Warehouse</h4>
         <p>Synthetic e-commerce warehouse plus a library of advanced SQL: CTEs, window functions, cohort retention, and RFM segmentation.</p>
         <div class="tt"><span>SQL</span><span>Warehouse</span><span>RFM</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="genai">
+      <article class="pcard" data-cat="genai" data-repo="genai-doc-assistant" data-persona="ai" data-flow="Docs|Retrieve|Cite">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/genai-doc-assistant-still.svg">
       <img data-motion="genai-doc-assistant" src="project-visuals/genai-doc-assistant.svg" alt="GenAI Document Assistant system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -383,9 +515,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>GenAI Document Assistant</h4>
         <p>Full-stack RAG with an extractive offline reader, source citations, arithmetic routing, SSE streaming, evaluation gates and configurable storage/generation backends.</p>
         <div class="tt"><span>RAG</span><span>Agents</span><span>FastAPI</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/genai-doc-assistant" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/genai-doc-assistant" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="genai">
+      <article class="pcard" data-cat="genai" data-repo="llm-eval-framework" data-persona="ai" data-flow="Output|Judge|Score">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/llm-eval-framework-still.svg">
       <img data-motion="llm-eval-framework" src="project-visuals/llm-eval-framework.svg" alt="LLM Evaluation Framework system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -394,9 +526,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>LLM Evaluation Framework</h4>
         <p>14 deterministic metrics, weighted JSON/YAML rubrics, hard gates, optional LLM judges, FastAPI, a CLI and an inspectable results dashboard.</p>
         <div class="tt"><span>LLM Eval</span><span>Judge</span><span>API</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/llm-eval-framework.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/llm-eval-framework" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/llm-eval-framework.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="genai">
+      <article class="pcard" data-cat="genai" data-repo="rag-doc-qa" data-persona="ai" data-flow="Chunk|Retrieve|Answer">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/rag-doc-qa-still.svg">
       <img data-motion="rag-doc-qa" src="project-visuals/rag-doc-qa.svg" alt="RAG Document Q&A system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -405,9 +537,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>RAG Document Q&A</h4>
         <p>Dependency-light retrieval-augmented Q&amp;A: sentence-aware chunking, from-scratch TF-IDF retrieval, grounded citable answers, FastAPI + Docker.</p>
         <div class="tt"><span>RAG</span><span>TF-IDF</span><span>Docker</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/rag-doc-qa" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/rag-doc-qa" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="genai">
+      <article class="pcard" data-cat="genai" data-repo="ai-agent-toolkit" data-persona="ai" data-flow="Plan|Tool|Act">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/ai-agent-toolkit-still.svg">
       <img data-motion="ai-agent-toolkit" src="project-visuals/ai-agent-toolkit.svg" alt="AI Agent Toolkit system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -416,9 +548,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>AI Agent Toolkit</h4>
         <p>ReAct tool/action/observation loop with a deterministic offline planner, a restricted AST calculator, unit conversion and knowledge retrieval; optional Gemini/OpenAI policies.</p>
         <div class="tt"><span>Agents</span><span>Tools</span><span>LLM</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-agent-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/ai-agent-toolkit.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-agent-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/ai-agent-toolkit.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="genai">
+      <article class="pcard" data-cat="genai" data-repo="ai-skills-platform" data-persona="ai" data-flow="Gateway|Skills|Response">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/ai-skills-platform-still.svg">
       <img data-motion="ai-skills-platform" src="project-visuals/ai-skills-platform.svg" alt="AI Skills Platform system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -427,9 +559,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>AI Skills Platform</h4>
         <p>One unified API gateway exposing eight AI skills, with authentication and a live dashboard — an aggregation layer over multiple models.</p>
         <div class="tt"><span>API Gateway</span><span>Auth</span><span>Dashboard</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-skills-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/ai-skills-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="mlops">
+      <article class="pcard" data-cat="mlops" data-repo="mlops-platform" data-persona="builder" data-flow="Train|Serve|Monitor">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/mlops-platform-still.svg">
       <img data-motion="mlops-platform" src="project-visuals/mlops-platform.svg" alt="MLOps Platform system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -438,9 +570,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>MLOps Platform</h4>
         <p>End-to-end ML platform: feature store, experiment tracking, model registry with stage promotion, FastAPI serving, and PSI/KS drift monitoring.</p>
         <div class="tt"><span>Registry</span><span>Serving</span><span>Drift</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/mlops-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/mlops-platform.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/mlops-platform" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/mlops-platform.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="mlops">
+      <article class="pcard" data-cat="mlops" data-repo="vision-inference-api" data-persona="builder" data-flow="Image|Model|HITL">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/vision-inference-api-still.svg">
       <img data-motion="vision-inference-api" src="project-visuals/vision-inference-api.svg" alt="Vision Inference API system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -449,9 +581,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Vision Inference API</h4>
         <p>Train &amp; serve a CNN image classifier with confidence-based human-in-the-loop review routing. PyTorch + FastAPI + Docker, offline dataset included.</p>
         <div class="tt"><span>PyTorch</span><span>FastAPI</span><span>HITL</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/vision-inference-api" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/vision-inference-api" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="analytics">
+      <article class="pcard" data-cat="analytics" data-repo="product-analytics-funnel-retention" data-persona="product" data-flow="Acquire|Activate|Retain">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/product-analytics-funnel-retention-still.svg">
       <img data-motion="product-analytics-funnel-retention" src="project-visuals/product-analytics-funnel-retention.svg" alt="Product Analytics — Funnel &amp; Retention system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -460,9 +592,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Product Analytics — Funnel &amp; Retention</h4>
         <p>Funnel, retention &amp; cohort analysis for a consumer app with channel LTV and a self-contained HTML growth dashboard.</p>
         <div class="tt"><span>Funnel</span><span>Cohorts</span><span>LTV</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="analytics">
+      <article class="pcard" data-cat="analytics" data-repo="experimentation-toolkit" data-persona="product" data-flow="A|Test|B">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/experimentation-toolkit-still.svg">
       <img data-motion="experimentation-toolkit" src="project-visuals/experimentation-toolkit.svg" alt="Experimentation Toolkit system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -471,9 +603,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Experimentation Toolkit</h4>
         <p>End-to-end A/B analysis: power &amp; sample-size design, z-test/Welch/bootstrap, CUPED variance reduction, guardrails, FDR, and a ship-or-kill scorecard.</p>
         <div class="tt"><span>A/B</span><span>CUPED</span><span>Stats</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/experimentation-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/experimentation-toolkit" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="analytics">
+      <article class="pcard" data-cat="analytics" data-repo="saas-kpi-dashboard" data-persona="product" data-flow="MRR|NRR|Churn">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/saas-kpi-dashboard-still.svg">
       <img data-motion="saas-kpi-dashboard" src="project-visuals/saas-kpi-dashboard.svg" alt="SaaS KPI Dashboard system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -482,9 +614,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>SaaS KPI Dashboard</h4>
         <p>SaaS revenue analytics: MRR movement decomposition, NRR/GRR, churn, ARPA — with a self-contained executive KPI dashboard.</p>
         <div class="tt"><span>MRR</span><span>NRR</span><span>KPI</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="analytics">
+      <article class="pcard" data-cat="analytics" data-repo="customer-churn-prediction" data-persona="product" data-flow="Users|Model|Risk">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/customer-churn-prediction-still.svg">
       <img data-motion="customer-churn-prediction" src="project-visuals/customer-churn-prediction.svg" alt="Customer Churn Prediction system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -493,9 +625,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Customer Churn Prediction</h4>
         <p>Subscription churn prediction (logistic regression + random forest), driver analysis, KMeans segmentation, revenue-at-risk, and an HTML report.</p>
         <div class="tt"><span>Churn</span><span>ML</span><span>Segmentation</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/customer-churn-prediction" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/customer-churn-prediction" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="neural-machine-translation" data-persona="builder" data-flow="Encode|Attend|Decode">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/neural-machine-translation-still.svg">
       <img data-motion="neural-machine-translation" src="project-visuals/neural-machine-translation.svg" alt="Neural Machine Translation system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -504,9 +636,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Neural Machine Translation</h4>
         <p>Seq2seq translator with attention (PyTorch), EN→FR, a from-scratch BLEU implementation, and attention heatmaps showing learned reordering.</p>
         <div class="tt"><span>Seq2Seq</span><span>Attention</span><span>BLEU</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/neural-machine-translation" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/neural-machine-translation.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/neural-machine-translation" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/neural-machine-translation.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="sign-language-recognition" data-persona="builder" data-flow="Gesture|CNN|Sign">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/sign-language-recognition-still.svg">
       <img data-motion="sign-language-recognition" src="project-visuals/sign-language-recognition.svg" alt="Sign Language Recognition system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -515,9 +647,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Sign Language Recognition</h4>
         <p>Web-based hand-gesture / sign-language recognition: a PyTorch CNN behind a Flask web app with an upload UI and JSON API.</p>
         <div class="tt"><span>CNN</span><span>Flask</span><span>Vision</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sign-language-recognition" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/sign-language-recognition" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="video-intelligence" data-persona="builder" data-flow="Frames|Detect|Scenes">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/video-intelligence-still.svg">
       <img data-motion="video-intelligence" src="project-visuals/video-intelligence.svg" alt="Video Intelligence system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -526,9 +658,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Video Intelligence</h4>
         <p>OpenCV shot boundaries, optical-flow motion, centroid tracking and hue-based scene labels; evaluated on generated clips with known ground truth.</p>
         <div class="tt"><span>Video</span><span>Detection</span><span>CV</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/video-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/video-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/video-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/video-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="speech-intelligence" data-persona="builder" data-flow="Audio|Model|Intent">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/speech-intelligence-still.svg">
       <img data-motion="speech-intelligence" src="project-visuals/speech-intelligence.svg" alt="Speech Intelligence system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -537,9 +669,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Speech Intelligence</h4>
         <p>Offline eight-command recognition using MFCC features and Random Forest, plus formant speech synthesis. Optional Google Cloud backends support broader speech tasks.</p>
         <div class="tt"><span>Speech</span><span>Audio</span><span>DSP</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/speech-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/speech-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/speech-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/speech-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="nlp-text-intelligence" data-persona="builder" data-flow="Text|Model|Insight">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/nlp-text-intelligence-still.svg">
       <img data-motion="nlp-text-intelligence" src="project-visuals/nlp-text-intelligence.svg" alt="NLP Text Intelligence system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -548,9 +680,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>NLP Text Intelligence</h4>
         <p>Offline sentiment, regex/gazetteer entities, TF-IDF topic classification, keywords and extractive summaries; optional Google Cloud backend.</p>
         <div class="tt"><span>NLP</span><span>Text</span><span>API</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/nlp-text-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/nlp-text-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/nlp-text-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/nlp-text-intelligence.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="document-ocr-vision" data-persona="builder" data-flow="Scan|OCR|JSON">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/document-ocr-vision-still.svg">
       <img data-motion="document-ocr-vision" src="project-visuals/document-ocr-vision.svg" alt="Document OCR &amp; Vision system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -559,9 +691,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Document OCR &amp; Vision</h4>
         <p>OpenCV denoise/deskew, Tesseract OCR and structured receipt fields, evaluated using CER, WER and field accuracy on generated documents.</p>
         <div class="tt"><span>OCR</span><span>Documents</span><span>Vision</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/document-ocr-vision" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/document-ocr-vision.html" target="_blank" rel="noopener">&#9654; Demo</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/document-ocr-vision" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><a class="demo" href="demos/document-ocr-vision.html" target="_blank" rel="noopener">&#9654; Demo</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="face-recognition-biometrics" data-persona="builder" data-flow="Face|Embed|Match">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/face-recognition-biometrics-still.svg">
       <img data-motion="face-recognition-biometrics" src="project-visuals/face-recognition-biometrics.svg" alt="Face Recognition Biometrics system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -570,9 +702,9 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Face Recognition Biometrics</h4>
         <p>Face-recognition biometric pipeline: OpenCV Haar detection, Eigenfaces + LBPH recognizers, and an open-set 'not in database' gate.</p>
         <div class="tt"><span>OpenCV</span><span>Biometrics</span><span>LBPH</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/face-recognition-biometrics" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/face-recognition-biometrics" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
-      <article class="pcard" data-cat="vision">
+      <article class="pcard" data-cat="vision" data-repo="bird-deterrent-signal-intelligence" data-persona="builder" data-flow="Signal|Detect|Respond">
         <div class="pv"><picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/bird-deterrent-signal-intelligence-still.svg">
       <img data-motion="bird-deterrent-signal-intelligence" src="project-visuals/bird-deterrent-signal-intelligence.svg" alt="Bird-Deterrent Signal Intelligence system visual" width="640" height="360" loading="lazy" decoding="async">
@@ -581,7 +713,7 @@ window.addEventListener('load',function(){setTimeout(function(){
         <h4>Bird-Deterrent Signal Intelligence</h4>
         <p>Crop-protection via signal intelligence: MFCC/spectral DSP, a bird detector, and a habituation-aware acoustic deterrent controller.</p>
         <div class="tt"><span>DSP</span><span>MFCC</span><span>Detection</span></div>
-        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/bird-deterrent-signal-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a></div>
+        <div class="links"><a class="code" href="https://github.com/riteshmamidi0905-lab/bird-deterrent-signal-intelligence" target="_blank" rel="noopener">&#10216;/&#10217; Code</a><button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>
       </div>
     <div style="margin-top:40px" class="rv">
@@ -712,22 +844,28 @@ window.addEventListener('load',function(){setTimeout(function(){
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section id="contact" class="dark cinematic-contact">
-  <div class="wrap">
-    <div class="kicker rv" style="justify-content:center;display:inline-flex">Contact</div>
-    <h2 class="big rv" style="margin-top:16px">LET’S BUILD<span class="mut">SOMETHING RELIABLE.</span></h2>
-    <p class="rv d1">Open to AI/ML, data engineering, and product-analytics roles across the US. The fastest way to reach me is email — one click to copy.</p>
-    <button class="copymail rv d2" id="copymail" data-mail="riteshmamidi0905@gmail.com">
-      <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-      riteshmamidi0905@gmail.com
-      <span class="cp" id="cptext">click to copy</span>
-    </button>
-    <div class="csoc rv d3">
-      <a class="btn btn-o" href="https://linkedin.com/in/riteshmamidi0905" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn btn-o" href="https://github.com/riteshmamidi0905-lab" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn btn-o" href="ritesh_mamidi_resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+<section id="contact" class="dark contact-world" data-world="contact" aria-labelledby="contact-title">
+  <canvas class="world-canvas" aria-hidden="true"></canvas>
+  <div class="contact-vig" aria-hidden="true"></div>
+  <figure class="av contact-av" data-av data-persona="contact" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 50vw, 640px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure>
+  <p class="contact-say"><b class="mono" style="color:var(--ac);font-size:10px;letter-spacing:.14em;display:block;margin-bottom:4px">RITESH</b>If something here is the kind of system you need, let’s talk.</p>
+  <div class="contact-stage"><div class="wrap">
+    <div class="contact-copy">
+      <div class="kicker rv">Contact</div>
+      <h2 class="rv" id="contact-title" style="margin-top:16px">LET’S BUILD<span class="mut">SOMETHING RELIABLE.</span></h2>
+      <p class="rv d1">Open to AI/ML, data engineering, and product-analytics roles across the US. The fastest way to reach me is email — one click to copy.</p>
+      <button class="copymail rv d2" id="copymail" data-mail="riteshmamidi0905@gmail.com">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+        riteshmamidi0905@gmail.com
+        <span class="cp" id="cptext">click to copy</span>
+      </button>
+      <div class="csoc rv d3">
+        <a class="btn btn-o" href="https://linkedin.com/in/riteshmamidi0905" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-o" href="https://github.com/riteshmamidi0905-lab" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-o" href="ritesh_mamidi_resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+      </div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 </main>
@@ -744,9 +882,16 @@ window.addEventListener('load',function(){setTimeout(function(){
   </div>
 </footer>
 
+<dialog class="tour" id="tour" aria-labelledby="tour-title"><form method="dialog" class="tour-close"><button aria-label="Close tour">&#10005;</button></form><div class="tour-host"><figure class="av tour-av" data-av data-persona="presenter" style="--rim:#22d3a6"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="160px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div><div class="tour-body"><div class="tour-kicker"></div><h3 id="tour-title"></h3><div class="tour-flow" aria-label="Project flow"></div><p class="tour-line" aria-live="polite"></p><div class="tour-tech"></div><div class="tour-links"></div><p class="tour-note">Illustrative workflow · summarised from the project’s repository description</p></div></dialog>
 <div class="tocopy-toast" id="toast">Email copied to clipboard</div>
 
 <script src="app.js?v=4" defer></script>
-<script src="assets/js/portfolio.js" defer></script>\n<script src="assets/js/cinematic.js" defer></script>
+<script src="assets/js/portfolio.js" defer></script>
+<script src="assets/js/lab/agent-core.js" defer></script>
+<script src="assets/js/lab/stream-core.js" defer></script>
+<script src="assets/js/lab/funnel-core.js" defer></script>
+<script src="assets/js/worlds.js" defer></script>
+<script src="assets/js/host.js" defer></script>
+<script type="application/json" id="rm-worlds">{"agents":{"persona":"ai","kicker":"01 / AI AGENTS","title":"From task to evaluated action.","lab":"lab-agent","labLabel":"Run the agent yourself","note":"Illustrative system view · modelled on ai-agent-toolkit and llm-eval-framework","steps":[["Task","A task arrives in plain language: “Convert 5 km to mi, then multiply by 2.” Everything downstream depends on reading it correctly."],["Plan","The planner decides what kind of problem this is: a single lookup, or a composition where one tool’s output feeds the next."],["Tool selection","It chooses from four tools: a calculator, a unit converter, a tiny knowledge base and text statistics. The calculator walks a restricted syntax tree and never calls eval."],["Retrieval","Fact questions go to a knowledge base that matches on keyword overlap. When nothing matches, the answer is “unknown” instead of a guess."],["Execution","The first observation, 3.107 mi, flows into the second step. That is real ReAct feedback: the second action depends on the first result."],["Evaluation","Then the trace is checked: did it finish, did any tool error, does the second number re-derive from the first?"],["Response","Only then does the agent answer. In the lab below, this same loop runs in your browser on any task you type."]]},"data":{"persona":"data","kicker":"02 / DATA ENGINEERING","title":"Signals become systems.","lab":"lab-stream","labLabel":"Run the synthetic stream","note":"Synthetic events · simulated in your browser · modelled on realtime-streaming-pipeline","steps":[["Sources","A producer emits synthetic payment events. About 2% are crafted as high-amount fraud and 1% come from risky countries. None of this is real traffic."],["Ingestion","Kafka decouples producers from processing. When events arrive faster than Spark can process them, the backlog grows."],["Processing","Rules flag each transaction: amount above 2,000, a high-risk country, or a non-positive amount. Merchants are grouped into one-minute event-time windows."],["Storage","A two-minute watermark bounds state. Events too late for their window are dropped. Verdicts and merchant metrics land in separate tables."],["Analytics","Per-merchant counts, totals and fraud counts: what an analyst or model queries next. The lab runs this pipeline live, with controls."]]},"maref":{"persona":"research","kicker":"03 / MAREF · IN DEVELOPMENT","title":"Reliability needs more than one score.","lab":"lab-maref","labLabel":"Open the evaluation playground","note":"Explanatory visualization · not experimental results · MAREF is a framework in development","steps":[["The problem","An agent can finish a task, sound confident and still be wrong. One average score hides which way it failed."],["Task Accuracy","Is the answer correct? Compare the response with a task-specific reference or a deterministic check."],["Groundedness","Can each claim be traced to evidence? A citation only counts if the source actually supports the claim."],["Hallucination Resistance","Does the agent avoid unsupported information? Invented figures and names are the signal."],["Instruction Adherence","Did it follow the constraints: format, length, required content, no spurious refusal?"],["Consistency","Does the same task give stable answers across runs? Variance is a reliability failure of its own."],["Task Completion","Did the workflow actually do the job? Skipped steps and missing tool calls count."],["No scores here","This scene shows no results because there are none yet. The playground scores recorded sample traces with deterministic proxy metrics, clearly labelled."]]},"product":{"persona":"product","kicker":"04 / PRODUCT ANALYTICS","title":"Behavior becomes a decision.","lab":"lab-funnel","labLabel":"Change the funnel yourself","note":"Adjustable assumptions, not measured data · modelled on product-analytics-funnel-retention and experimentation-toolkit","steps":[["Acquisition","Every funnel starts as a count of people who arrived. The question is where they go next."],["Activation","The share who reach their first real value. A small lift here compounds through every later stage."],["Retention","Cohorts show whether activation was real. A decay curve that flattens describes a healthier product than one that keeps falling."],["Revenue","Retained users convert. Revenue is the product of every earlier rate, so the biggest leak is rarely where the team is looking."],["Experiment","Ideas change one rate. Power, minimum detectable effect and guardrails turn a test into ship, kill or keep running."]]}}</script>
 </body>
 </html>

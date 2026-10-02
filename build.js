@@ -13,6 +13,7 @@ const path = require('path');
 const { GH, CATLABEL, FLAG, P } = require('./data.js');
 const { researchHTML, watchHTML } = require('./scripts/sections');
 const evidence = require('./content/project-evidence.json');
+const { avatarHTML, worldHTML, worldsJSON, explainerHTML } = require('./scripts/worlds-html');
 
 /* ---------- SVG architecture visuals (presentation, generated from nothing but layout) ---------- */
 const INK='#12151b', GRY='#c8ccd2', SUB='#7b8090', AC='#12b98f', ACF='rgba(18,185,143,.12)';
@@ -135,6 +136,7 @@ function flagshipHTML(){
         </div>
         <div class="flag-visual" aria-hidden="true">${GFX[f.gfx]().replace(/id="([^"]+)"/g,`id="${f.r}-$1"`).replace(/href="#([^"]+)"/g,`href="#${f.r}-$1"`).replace(/url\(#([^)]*)\)/g,`url(#${f.r}-$1)`)}<div class="visual-note">Illustrative Example — Not Experimental Results</div></div>
       </div>
+      ${explainerHTML(f)}
       <details class="cs-panel">
         <summary class="cs-summary">Case study ${caret}</summary>
         <div class="cs-inner">
@@ -198,13 +200,14 @@ function projectHTML(){
       <source media="(prefers-reduced-motion: reduce)" srcset="project-visuals/${p.r}-still.svg">
       <img data-motion="${p.r}" src="project-visuals/${p.r}.svg" alt="${p.n} system visual" width="640" height="360" loading="lazy" decoding="async">
     </picture><span class="demo-label">ILLUSTRATIVE WORKFLOW</span></div>`:inlineVisual;
-    return `<article class="pcard" data-cat="${p.c}">
+    const persona={data:'data',genai:'ai',mlops:'builder',analytics:'product',vision:'builder'}[p.c]||'builder';
+    return `<article class="pcard" data-cat="${p.c}" data-repo="${p.r}" data-persona="${persona}" data-flow="${ns.join('|')}">
         ${visual}
         <div class="cat">${CATLABEL[p.c]}</div>
         <h4>${p.n}</h4>
         <p>${p.d}</p>
         <div class="tt">${p.t.map(x=>`<span>${x}</span>`).join('')}</div>
-        <div class="links"><a class="code" href="${GH}${p.r}" target="_blank" rel="noopener">&#10216;/&#10217; Code</a>${demo}</div>
+        <div class="links"><a class="code" href="${GH}${p.r}" target="_blank" rel="noopener">&#10216;/&#10217; Code</a>${demo}<button type="button" class="pc-tour" aria-haspopup="dialog">&#9654; 10-second tour</button></div>
       </article>`;
   }).join('\n      ');
 }
@@ -218,5 +221,10 @@ tpl=tpl.replace('<div id="flagships"></div>', `<div id="flagships">\n    ${flags
 tpl=tpl.replace('<div class="pgrid" id="pgrid"></div>', `<div class="pgrid" id="pgrid">\n      ${projectHTML()}\n      </div>`);
 tpl=tpl.replace('<div id="research-content"></div>',researchHTML());
 tpl=tpl.replace('<div id="watch-content"></div>',watchHTML());
+tpl=tpl.replace(/<!--AV:(\w+):([\w-]+)(?::(\w+))?-->/g,(m,persona,cls,flag)=>avatarHTML(persona,{cls,eager:flag==='eager',tag:flag!=='notag',alt:persona==='hero'?'Ritesh Mamidi':'',sizes:persona==='hero'||persona==='contact'?'(max-width:900px) 50vw, 640px':'80px'}));
+tpl=tpl.replace(/<!--WORLD:(\w+)-->/g,(m,id)=>worldHTML(id));
+tpl=tpl.replace('<!--WORLDS-JSON-->',worldsJSON());
+tpl=tpl.replace('<!--TOUR-->',`<dialog class="tour" id="tour" aria-labelledby="tour-title"><form method="dialog" class="tour-close"><button aria-label="Close tour">&#10005;</button></form><div class="tour-host">${avatarHTML('presenter',{cls:'tour-av',tag:false,sizes:'160px'})}</div><div class="tour-body"><div class="tour-kicker"></div><h3 id="tour-title"></h3><div class="tour-flow" aria-label="Project flow"></div><p class="tour-line" aria-live="polite"></p><div class="tour-tech"></div><div class="tour-links"></div><p class="tour-note">Illustrative workflow · summarised from the project’s repository description</p></div></dialog>`);
+if(/<!--(AV|WORLD)/.test(tpl)) throw new Error('unreplaced build placeholder');
 fs.writeFileSync(path.join(SITE,'index.html'),tpl);
 console.log(`Built index.html — ${FLAG.length} flagships, ${P.length} project cards, ${tpl.length} bytes.`);

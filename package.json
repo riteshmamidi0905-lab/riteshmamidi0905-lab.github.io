@@ -4,9 +4,10 @@
   "version": "2.0.0",
   "scripts": {
     "build": "node build.js",
-    "test": "node scripts/check-site.js",
+    "test": "node scripts/check-site.js && node scripts/test-lab.js",
     "test:browser": "node scripts/test-site.js",
-    "test:a11y": "node scripts/test-accessibility.js"
+    "test:a11y": "node scripts/test-accessibility.js",
+    "test:experience": "node scripts/test-experience.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

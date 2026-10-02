@@ -22,4 +22,5 @@ jobs:
         run: |
           python3 -m http.server 8000 &
           npm run test:browser
+          npm run test:experience
           npm run test:a11y

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "note": "Each persona resolves to `file` when set, otherwise to the fallback portrait cut-out. To ship generated art: add the files, set `file` (and optional `file2x`, `w`, `h`), run `npm run build`. No other code changes are needed.",
+  "fallback": { "file": "assets/avatar/ritesh-cutout-510.webp", "file2x": "assets/avatar/ritesh-cutout-1020.webp", "w": 510, "h": 694 },
+  "personas": {
+    "hero":     { "label": "RITESH",          "rim": "#22d3a6", "file": null, "role": "Opening host" },
+    "ai":       { "label": "AI RITESH",       "rim": "#22d3a6", "file": null, "role": "AI agents" },
+    "data":     { "label": "DATA RITESH",     "rim": "#6aa7ff", "file": null, "role": "Data engineering" },
+    "research": { "label": "RESEARCH RITESH", "rim": "#9b8cff", "file": null, "role": "MAREF / evaluation" },
+    "product":  { "label": "PRODUCT RITESH",  "rim": "#f5b94a", "file": null, "role": "Product analytics" },
+    "builder":  { "label": "BUILDER RITESH",  "rim": "#22d3a6", "file": null, "role": "MLOps / systems" },
+    "presenter":{ "label": "PRESENTER RITESH","rim": "#22d3a6", "file": null, "role": "Explainers and film" },
+    "contact":  { "label": "RITESH",          "rim": "#22d3a6", "file": null, "role": "Closing scene" }
+  }
+}
