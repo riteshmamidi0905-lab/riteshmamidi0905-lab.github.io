@@ -17,7 +17,7 @@
     },
     draw(c, L, t, s, st) {
       const B = L.box, mob = L.mobile;
-      const aF = 1 - clamp((s - 1.55) / 0.35), aR = clamp((s - 1.6) / 0.35) * (1 - clamp((s - 2.55) / 0.35)), aE = clamp((s - 2.6) / 0.35);
+      const aF = 1 - clamp((s - 1.5) / 0.2), aR = clamp((s - 1.7) / 0.2) * (1 - clamp((s - 2.5) / 0.2)), aE = clamp((s - 2.7) / 0.2);
       if (aF > 0.01) funnel(c, L, B, mob, t, s, st, aF);
       if (aR > 0.01) retention(c, L, B, mob, t, s, st, aR);
       if (aE > 0.01) experiment(c, L, B, mob, t, s, st, aE);

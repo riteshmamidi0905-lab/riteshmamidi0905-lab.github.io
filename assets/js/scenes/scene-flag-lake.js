@@ -35,7 +35,7 @@
       const P = (l, i) => {
         if (l <= 1) return gridPos(l, i);
         const bad = why[i];
-        if (l === 2) { if (bad) { if (mob) return gridPos(2, st.pass.length + rejIdx[i]); const o = orig(2); return [o[0] + (rejIdx[i] % cols) * cell, o[1] + (gr + 1.4) * cell + Math.floor(rejIdx[i] / cols) * cell]; } return gridPos(2, passIdx[i]); }
+        if (l === 2) { if (bad) { if (mob) return gridPos(2, st.pass.length + rejIdx[i]); const o = orig(2); return [o[0] + (rejIdx[i] % cols) * cell, o[1] + (gr + 1.4) * cell + Math.floor(rejIdx[i] / cols) * cell]; } return gridPos(2, i); }
         if (bad || rows[i].type !== 'purchase') return P(2, i);
         const b = goldBase(rows[i].cat), k = st.stack[i]; return mob ? [b[0] + k * 12, b[1]] : [b[0], b[1] - k * (cell * 0.5)];
       };
@@ -47,8 +47,8 @@
       }
       rows.forEach((x, i) => { const stg = Math.min(3, Math.round(f)); for (let j = 0; j < Math.min(stg, 3); j++) { if (j === 2 && stg >= 3) { /* silver persists */ } const g = P(j, i); c.fillStyle = rgba(j === 2 && why[i] ? (why[i] === 'duplicate' ? HEX.violet : HEX.red) : HEX.amber, 0.16); c.fillRect(g[0], g[1], cell - 2, cell - 2); } });
       rows.forEach((x, i) => {
-        const l = Math.min(3, fl), u = ease(clamp(fr * 1.6 - 0.6 * (i / n))), fin = f >= 4, a = P(Math.min(3, fin ? 3 : l), i), b = P(Math.min(3, fin ? 3 : l + 1), i);
-        const base = f >= 3 ? P(3, i) : null; const pos = fin ? P(3, i) : [lerp(a[0], b[0], u), lerp(a[1], b[1], u) - Math.sin(u * Math.PI) * 14];
+        const l = Math.min(3, fl), u = ease(clamp(fr * 1.1 - 0.1 * (i / n))), fin = f >= 4, a = P(Math.min(3, fin ? 3 : l), i), b = P(Math.min(3, fin ? 3 : l + 1), i);
+        const base = f >= 3 ? P(3, i) : null; const pos = fin ? P(3, i) : [lerp(a[0], b[0], u), lerp(a[1], b[1], u)];
         const bad = why[i], stage = fin ? 3 : l + (u > 0.5 ? 1 : 0);
         let col = HEX.mut, al = 0.8; if (stage >= 1) col = HEX.amber; if (stage >= 2 && bad) { col = reasonCol(bad); } if (stage >= 3 && !bad && x.type !== 'purchase') al = 0.25; if (stage >= 3 && !bad && x.type === 'purchase') col = HEX.ac2;
         c.fillStyle = rgba(col, al); c.fillRect(pos[0], pos[1], cell - 2, cell - 2);

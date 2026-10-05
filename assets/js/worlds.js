@@ -164,7 +164,7 @@
   }
   function start() {
     const vis = new IntersectionObserver((es) => es.forEach((e) => { const w = worlds.find((x) => x.el === e.target); if (w) { w.visible = e.isIntersecting; if (e.isIntersecting && STATIC()) w.once(); } }), { rootMargin: '10% 0px' });
-    const near = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { const w = worlds.find((x) => x.el === e.target); if (w && !w.requested) { w.requested = true; w.activate(); } near.unobserve(e.target); } }), { rootMargin: capture ? '100000px' : '1800px 0px' });
+    const near = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { const w = worlds.find((x) => x.el === e.target); if (w && !w.requested) { w.requested = true; w.activate(); } near.unobserve(e.target); } }), { rootMargin: capture ? '100000px' : '4500px 0px' });
     worlds.forEach((w) => { vis.observe(w.el); near.observe(w.el); });
     if (!STATIC()) raf = requestAnimationFrame(loop);
     reduceMQ.addEventListener('change', () => location.reload());
