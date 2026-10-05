@@ -1,0 +1,178 @@
+{
+ "spark-data-lakehouse": {
+  "tests": true,
+  "docs": false,
+  "architecture": false,
+  "readme": true,
+  "sha": "261f7a1be78ae5fb99df5c79f42b1b1f48b26883",
+  "testsPath": "tests"
+ },
+ "realtime-streaming-pipeline": {
+  "tests": true,
+  "docs": false,
+  "architecture": false,
+  "readme": true,
+  "sha": "1be330f7b87a7d2599095be5c4617c7c55b12e58",
+  "testsPath": "tests"
+ },
+ "sql-analytics-warehouse": {
+  "tests": true,
+  "docs": false,
+  "architecture": false,
+  "readme": true,
+  "sha": "9afcfeff5374943558d301b00a2def8e8c0208bc",
+  "testsPath": "tests"
+ },
+ "genai-doc-assistant": {
+  "tests": true,
+  "docs": true,
+  "architecture": true,
+  "readme": true,
+  "sha": "daba676db51ffa94c9aea5b658a44fab7465cf1f",
+  "testsPath": "backend/tests"
+ },
+ "llm-eval-framework": {
+  "tests": true,
+  "docs": true,
+  "architecture": true,
+  "readme": true,
+  "sha": "99e6121db8a9c07cac5f987007a746136a53c09a",
+  "testsPath": "tests"
+ },
+ "rag-doc-qa": {
+  "tests": true,
+  "docs": false,
+  "architecture": false,
+  "readme": true,
+  "sha": "6e44f136a280e4af08d46e85f20b643736a07488",
+  "testsPath": "tests"
+ },
+ "ai-agent-toolkit": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "63275392400e9b13b2543be7b6dd42f3819d3ac8",
+  "testsPath": "tests"
+ },
+ "ai-skills-platform": {
+  "tests": true,
+  "docs": true,
+  "architecture": true,
+  "readme": true,
+  "sha": "eed8ad269dac0f91054134f3d01d3bcccfb8d719",
+  "testsPath": "tests"
+ },
+ "mlops-platform": {
+  "tests": true,
+  "docs": true,
+  "architecture": true,
+  "readme": true,
+  "sha": "1416b914b17b34ff4d91c90aa9a4ee6d569018c6",
+  "testsPath": "tests"
+ },
+ "vision-inference-api": {
+  "tests": true,
+  "docs": false,
+  "architecture": false,
+  "readme": true,
+  "sha": "30f6990946f68427af6d2cff3ee94bd9ef8b278f",
+  "testsPath": "tests"
+ },
+ "product-analytics-funnel-retention": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "6747477dc1a550eb87d530c84594d8f71afea80a",
+  "testsPath": "tests"
+ },
+ "experimentation-toolkit": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "ea33c6d11349cb32e6cf38daa137cb10e5d081ad",
+  "testsPath": "tests"
+ },
+ "saas-kpi-dashboard": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "154a2a47669ff648cf8bb85a41e3ab6057703459",
+  "testsPath": "tests"
+ },
+ "customer-churn-prediction": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "d64bbd0b960a86882658b3c5f11e2a3fba03eed7",
+  "testsPath": "tests"
+ },
+ "neural-machine-translation": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "b8fa67c9b8e3e4887dedac770859bbe03056322c",
+  "testsPath": "tests"
+ },
+ "sign-language-recognition": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "6d4af22a933430b8353e89459572b8d49f4f11d1",
+  "testsPath": "tests"
+ },
+ "video-intelligence": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "bd48bfd8a3c778edfcb9e37c85a0ffad8e212ba6",
+  "testsPath": "tests"
+ },
+ "speech-intelligence": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "26db966475af4a41592736b6f267c244448e9a6d",
+  "testsPath": "tests"
+ },
+ "nlp-text-intelligence": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "3d5eed6c68e321aeda062241d8c486e3b6219922",
+  "testsPath": "tests"
+ },
+ "document-ocr-vision": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "fa73b2e34e47bc289ce3b1835911253f626502a0",
+  "testsPath": "tests"
+ },
+ "face-recognition-biometrics": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "8d7a483570e7d3f4aac30339093ab8940bb60a32",
+  "testsPath": "tests"
+ },
+ "bird-deterrent-signal-intelligence": {
+  "tests": true,
+  "docs": true,
+  "architecture": false,
+  "readme": true,
+  "sha": "d74f0af85993d248d718f30d1f929230908e9c0a",
+  "testsPath": "tests"
+ }
+}

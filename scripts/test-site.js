@@ -1,26 +1,46 @@
-/* Local browser regression test; run with an HTTP server on PORT (default 8000). */
+/* Browser regression test for the page system; run with an HTTP server on PORT (default 8000). */
 'use strict';
-const {chromium}=require('playwright');const assert=require('node:assert/strict');const fs=require('node:fs');
-(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||undefined,args:['--no-sandbox','--disable-dev-shm-usage']});const results=[];const {serveLocal,base}=require('./local-preview');
-for(const [label,width,height] of [['desktop',1440,1000],['tablet',820,1180],['mobile',390,844],['small-mobile',320,740]]){
- const page=await browser.newPage({viewport:{width,height}});const errors=[];const bad=[];
- page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)bad.push(r.status()+' '+r.url())});
- await serveLocal(page);await page.goto(base,{waitUntil:'networkidle'});
- assert.equal(await page.locator('.pcard').count(),22);assert.equal(await page.locator('.flagw').count(),6);
- await page.locator('#research').scrollIntoViewIfNeeded();await page.locator('button.dimension[data-name="Groundedness"]').click();assert.equal(await page.locator('#dimensionTitle').textContent(),'Groundedness');
- await page.locator('[data-f="genai"]').click();assert.equal(await page.locator('.pcard:not(.hide)').count(),5);assert.match(await page.locator('#filterStatus').textContent(),/^5 projects/);
- await page.locator('[data-f="all"]').click();assert.equal(await page.locator('.pcard:not(.hide)').count(),22);
- await page.locator('.cs-summary').first().click();assert.equal(await page.locator('details[open]').count(),1);
- await page.locator('#motionToggle').click();assert.equal(await page.locator('#motionToggle').getAttribute('aria-pressed'),'true');await page.locator('#motionToggle').click();
- if(width<=1000){await page.locator('#burger').click();assert.equal(await page.locator('#burger').getAttribute('aria-expanded'),'true');await page.locator('#nlinks a[href="#research"]').click();assert.equal(await page.locator('#burger').getAttribute('aria-expanded'),'false');}
- await page.locator('img').evaluateAll(imgs=>imgs.forEach(i=>i.loading='eager'));await page.waitForFunction(()=>[...document.images].every(i=>i.complete));
- const layout=await page.evaluate(()=>({width:innerWidth,body:document.documentElement.scrollWidth,broken:[...document.images].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src),ids:[...document.querySelectorAll('[id]')].map(i=>i.id)}));
- assert.ok(layout.body<=width+1,`${label}: overflow ${layout.body}`);assert.deepEqual(layout.broken,[]);assert.equal(new Set(layout.ids).size,layout.ids.length,'duplicate SVG/HTML IDs');
- assert.deepEqual(errors,[]);assert.deepEqual(bad,[]);
- await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:`../qa-${label}-hero.png`,animations:'disabled'});
- await page.locator('#research').scrollIntoViewIfNeeded();await page.screenshot({path:`../qa-${label}-research.png`,animations:'disabled'});
- results.push({label,width,overflow:false,images:'pass',filters:'pass',research:'pass',navigation:'pass',consoleErrors:errors,failedLocalRequests:bad});await page.close();
-}
-const reduced=await browser.newPage({reducedMotion:'reduce'});await serveLocal(reduced);await reduced.goto(base,{waitUntil:'networkidle'});await reduced.locator('#pgrid').scrollIntoViewIfNeeded();await reduced.locator('img[data-motion]').evaluateAll(imgs=>imgs.forEach(i=>i.loading='eager'));await reduced.waitForFunction(()=>[...document.querySelectorAll('img[data-motion]')].every(i=>i.complete&&i.naturalWidth>0));assert.ok(await reduced.locator('img[data-motion]').evaluateAll(imgs=>imgs.every(i=>i.currentSrc.endsWith('-still.svg'))));assert.equal(await reduced.locator('.hero-rise').first().evaluate(el=>getComputedStyle(el).animationName),'none');await reduced.close();
-const keyboard=await browser.newPage();await serveLocal(keyboard);await keyboard.goto(base);await keyboard.keyboard.press('Tab');assert.equal(await keyboard.locator('.skip').evaluate(el=>el===document.activeElement),true);await keyboard.close();
-console.log(JSON.stringify({responsive:results,reducedMotion:'pass',keyboardSkip:'pass'},null,2));await browser.close();})().catch(e=>{console.error(e);process.exit(1)});
+const { chromium } = require('playwright'); const assert = require('node:assert/strict');
+const { serveLocal, base } = require('./local-preview'); const { P, FLAG } = require('../data');
+(async () => {
+  const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+  const results = [];
+  for (const [label, width, height] of [['desktop', 1440, 1000], ['laptop', 1180, 760], ['tablet', 820, 1180], ['mobile', 390, 844], ['small-mobile', 320, 740]]) {
+    const ctx = await browser.newContext({ viewport: { width, height } }); await ctx.addInitScript(() => { try { localStorage.setItem('rm-intro-seen', '1'); } catch (e) { } });
+    const page = await ctx.newPage(); const errors = [], bad = [];
+    page.on('pageerror', (e) => errors.push(e.message)); page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); }); page.on('response', (r) => { if (r.url().startsWith(base) && r.status() >= 400) bad.push(r.status() + ' ' + r.url()); });
+    await serveLocal(page); await page.goto(base, { waitUntil: 'load' });
+    assert.equal(await page.locator('.prow').count(), P.length); assert.equal(await page.locator('article.flag').count(), FLAG.length);
+    /* nav */
+    if (width <= 1180) { await page.locator('#burger').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'true'); await page.locator('#nlinks a[href="#maref"]').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'false'); }
+    /* architecture explorer: the diagram is interactive and keyboard reachable */
+    const flag = page.locator('#flag-llm-eval-framework'); await flag.scrollIntoViewIfNeeded();
+    const svg = flag.locator(`.arch-svg.${width <= 860 ? 'v' : 'h'}`); const before = await flag.locator('.arch-detail span').textContent();
+    await svg.locator('.an').nth(2).focus(); await page.keyboard.press('Enter');
+    assert.notEqual(await flag.locator('.arch-detail span').textContent(), before); assert.equal(await svg.locator('.an').nth(2).getAttribute('aria-pressed'), 'true');
+    /* MAREF dimensions */
+    await page.locator('#research').scrollIntoViewIfNeeded(); await page.locator('button.dimension[data-name="Groundedness"]').click();
+    assert.equal(await page.locator('#dimensionTitle').textContent(), 'Groundedness');
+    /* library: search, filter, detail dialog */
+    await page.locator('#psearch').scrollIntoViewIfNeeded(); await page.fill('#psearch', 'kafka'); const kafka = await page.locator('.prow:not(.hide)').count(); assert.ok(kafka >= 1 && kafka < P.length, 'search narrows');
+    await page.fill('#psearch', ''); await page.locator('[data-f="genai"]').click();
+    assert.equal(await page.locator('.prow:not(.hide)').count(), P.filter((p) => p.c === 'genai').length); assert.match(await page.locator('#filterStatus').textContent(), /^\d+ projects?/);
+    await page.locator('[data-f="all"]').click(); assert.equal(await page.locator('.prow:not(.hide)').count(), P.length);
+    await page.locator('.pr-main[data-repo="rag-doc-qa"]').click(); assert.equal(await page.locator('#pdetail').evaluate((d) => d.open), true);
+    assert.ok((await page.locator('#pd-ev a').count()) >= 2); assert.match(await page.locator('#pd-title').textContent(), /RAG/); await page.keyboard.press('Escape'); assert.equal(await page.locator('#pdetail').evaluate((d) => d.open), false);
+    /* layout + assets */
+    await page.locator('img').evaluateAll((imgs) => imgs.forEach((i) => { i.loading = 'eager'; })); await page.waitForFunction(() => [...document.images].every((i) => i.complete));
+    const lay = await page.evaluate(() => ({ w: innerWidth, s: document.documentElement.scrollWidth, broken: [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src) }));
+    assert.ok(lay.s <= lay.w + 1, `${label}: horizontal overflow ${lay.s} > ${lay.w}`); assert.deepEqual(lay.broken, []);
+    assert.deepEqual(errors, [], label + ' console errors'); assert.deepEqual(bad, [], label + ' failed requests');
+    results.push({ label, width, overflow: false }); await ctx.close();
+  }
+  /* recruiter view */
+  { const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'recruiter.html');
+    assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)); await ctx.close(); }
+  /* keyboard: first Tab lands on the skip link */
+  { const kb = await browser.newPage(); await serveLocal(kb); await kb.goto(base); await kb.keyboard.press('Tab'); assert.equal(await kb.locator('.skip').evaluate((el) => el === document.activeElement), true); await kb.close(); }
+  console.log(JSON.stringify({ responsive: results, recruiterView: 'pass', keyboardSkip: 'pass' }));
+  await browser.close();
+})().catch((e) => { console.error(e); process.exit(1); });

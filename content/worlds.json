@@ -1,22 +1,22 @@
 {
  "agents": {
   "persona": "ai",
-  "kicker": "01 / AI AGENTS",
+  "kicker": "03 · AI SYSTEMS",
   "title": "From task to evaluated action.",
   "lab": "lab-agent",
-  "labLabel": "Run the agent yourself",
+  "labLabel": "Run the agent trace explorer",
   "note": "Illustrative system view · modelled on ai-agent-toolkit and llm-eval-framework",
   "steps": [
    [
-    "Task",
-    "A task arrives in plain language: “Convert 5 km to mi, then multiply by 2.” Everything downstream depends on reading it correctly."
+    "Objective",
+    "An objective arrives in plain language: “Convert 5 km to mi, then multiply by 2.” Everything downstream depends on reading it correctly."
    ],
    [
-    "Plan",
+    "Planning",
     "The planner decides what kind of problem this is: a single lookup, or a composition where one tool’s output feeds the next."
    ],
    [
-    "Tool selection",
+    "Tools",
     "It chooses from four tools: a calculator, a unit converter, a tiny knowledge base and text statistics. The calculator walks a restricted syntax tree and never calls eval."
    ],
    [
@@ -32,14 +32,14 @@
     "Then the trace is checked: did it finish, did any tool error, does the second number re-derive from the first?"
    ],
    [
-    "Response",
+    "Result",
     "Only then does the agent answer. In the lab below, this same loop runs in your browser on any task you type."
    ]
   ]
  },
  "data": {
   "persona": "data",
-  "kicker": "02 / DATA ENGINEERING",
+  "kicker": "04 · DATA SYSTEMS",
   "title": "Signals become systems.",
   "lab": "lab-stream",
   "labLabel": "Run the synthetic stream",
@@ -65,11 +65,12 @@
     "Analytics",
     "Per-merchant counts, totals and fraud counts: what an analyst or model queries next. The lab runs this pipeline live, with controls."
    ]
-  ]
+  ],
+  "avatar": false
  },
  "maref": {
   "persona": "research",
-  "kicker": "03 / MAREF · IN DEVELOPMENT",
+  "kicker": "07 · AI RELIABILITY · MAREF",
   "title": "Reliability needs more than one score.",
   "lab": "lab-maref",
   "labLabel": "Open the evaluation playground",
@@ -111,7 +112,7 @@
  },
  "product": {
   "persona": "product",
-  "kicker": "04 / PRODUCT ANALYTICS",
+  "kicker": "05 · PRODUCT INTELLIGENCE",
   "title": "Behavior becomes a decision.",
   "lab": "lab-funnel",
   "labLabel": "Change the funnel yourself",
@@ -130,13 +131,14 @@
     "Cohorts show whether activation was real. A decay curve that flattens describes a healthier product than one that keeps falling."
    ],
    [
-    "Revenue",
-    "Retained users convert. Revenue is the product of every earlier rate, so the biggest leak is rarely where the team is looking."
+    "Experiment",
+    "Ideas change one rate. Power, minimum detectable effect and guardrails decide whether a change is real or noise."
    ],
    [
-    "Experiment",
-    "Ideas change one rate. Power, minimum detectable effect and guardrails turn a test into ship, kill or keep running."
+    "Decision",
+    "The output is a decision rule, not a chart: ship, kill or keep running. Change the assumptions below to see which stage deserves the next experiment."
    ]
-  ]
+  ],
+  "avatar": false
  }
 }

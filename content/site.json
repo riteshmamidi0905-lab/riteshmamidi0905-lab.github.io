@@ -1,0 +1,150 @@
+{
+ "person": {
+  "name": "Ritesh Mamidi",
+  "role": "AI / ML Engineer · Data & Product Analyst",
+  "location": "Austin, TX",
+  "now": "Data & AI Analyst, Apple Maps (client engagement)",
+  "status": "Open to AI/ML, data engineering and product-analytics roles in the US",
+  "email": "riteshmamidi0905@gmail.com",
+  "linkedin": "https://linkedin.com/in/riteshmamidi0905",
+  "github": "https://github.com/riteshmamidi0905-lab",
+  "resume": "ritesh_mamidi_resume.pdf"
+ },
+ "build": [
+  {
+   "id": "ai",
+   "title": "AI systems",
+   "line": "Agents that plan, call tools and get evaluated. Retrieval that cites its sources.",
+   "repos": [
+    "ai-agent-toolkit",
+    "genai-doc-assistant",
+    "llm-eval-framework"
+   ],
+   "href": "#ai"
+  },
+  {
+   "id": "data",
+   "title": "Data systems",
+   "line": "Streaming and batch pipelines: event-time windows, medallion layers, data-quality gates.",
+   "repos": [
+    "realtime-streaming-pipeline",
+    "spark-data-lakehouse",
+    "sql-analytics-warehouse"
+   ],
+   "href": "#data"
+  },
+  {
+   "id": "product",
+   "title": "Product intelligence",
+   "line": "Funnels, retention and A/B tests, with the statistics done properly.",
+   "repos": [
+    "product-analytics-funnel-retention",
+    "experimentation-toolkit",
+    "saas-kpi-dashboard"
+   ],
+   "href": "#product"
+  }
+ ],
+ "explains": {
+  "ai": "An agent that only sounds right is a liability. I keep the loop explicit (plan, tool, observation) and check the whole trace before an answer counts.",
+  "data": "Streaming bugs hide in time. I model event time and a watermark explicitly, so late data is handled or dropped on purpose, never by accident.",
+  "product": "A funnel is arithmetic until it drives a decision. Here every rate is an input, so you can see which stage is actually worth fixing.",
+  "maref": "LLM outputs can look correct while still being unsupported. MAREF is my attempt to separate the ways an agent can fail instead of averaging them away.",
+  "realtime-streaming-pipeline": "Fraud signals decay in minutes. I used explainable rules so every flag can be inspected, and event-time windows with a watermark so late data cannot grow state forever.",
+  "spark-data-lakehouse": "Bad rows should fail loudly between layers, not surface in a dashboard. Each medallion layer has one job, and quality checks sit at the boundaries.",
+  "llm-eval-framework": "LLM outputs can look correct while being unsupported. llmeval keeps weighted scores and hard thresholds separate, so a good average cannot hide a failed grounding check.",
+  "genai-doc-assistant": "A fluent answer is not enough; it needs a path back to its source. The default reader is extractive, so it can only quote what was retrieved, and it abstains otherwise.",
+  "mlops-platform": "Models get trained once and forgotten. Registry stages and PSI/KS drift checks keep the model's lifecycle and its inputs visible.",
+  "experimentation-toolkit": "Most A/B tests ship on noise. The toolkit sizes a test before it runs, and checks guardrails before it calls a win."
+ },
+ "experience": [
+  {
+   "role": "Data & AI Analyst, Apple Maps",
+   "org": "Apple (client engagement)",
+   "where": "Austin, TX",
+   "when": "Sep 2025 – Present",
+   "current": true,
+   "bullets": [
+    "Validate LLM and ML model outputs against published policy and quality rubrics; investigate model-quality issues, edge cases and systematic failure modes.",
+    "Build QA/QC frameworks and operational reporting in Python, SQL and Power BI; use LLM-assisted analysis and prompt engineering to classify and extract signals.",
+    "Reported results: investigation efficiency up 18% and operational escalations down 30% through quality-control frameworks and process improvement."
+   ]
+  },
+  {
+   "role": "Business / Data Analyst",
+   "org": "Heart Hospitality LLC",
+   "where": "United States",
+   "when": "Jan 2024 – Aug 2025",
+   "bullets": [
+    "Built ETL pipelines and automated reporting in Python and SQL across business systems: 55% less manual reporting effort and real-time visibility.",
+    "Designed relational data models and forecasting/classification models that improved planning accuracy by 22%."
+   ]
+  },
+  {
+   "role": "Data / Business Analyst",
+   "org": "Liberated Monks Pvt. Ltd.",
+   "where": "India",
+   "when": "Jan 2022 – Dec 2023",
+   "bullets": [
+    "Built Python/SQL ETL pipelines and Tableau dashboards that informed acquisition, engagement and retention.",
+    "Built ML segmentation and propensity models that improved marketing-driven engagement by 18%; owned data validation and KPI definitions."
+   ]
+  }
+ ],
+ "experienceNote": "Percentages are as reported on my résumé for professional work. They are separate from the open-source projects on this site.",
+ "principles": [
+  [
+   "Make outputs measurable.",
+   "On Apple Maps I validate LLM and ML outputs against quality rubrics. In my own projects I turn “seems fine” into scores, thresholds and gates."
+  ],
+  [
+   "Distrust the data first.",
+   "Validation, deduplication and quality checks come before modelling, and they fail loudly."
+  ],
+  [
+   "Ship the boring parts.",
+   "Tests, reproducibility and written limitations matter more to me than a polished demo."
+  ]
+ ],
+ "education": [
+  [
+   "MS, Business Analytics",
+   "St. Francis College · United States"
+  ],
+  [
+   "M.Tech (Integrated), Software Engineering",
+   "Vellore Institute of Technology (VIT) · India"
+  ]
+ ],
+ "certs": [
+  [
+   "IBM AI Engineering — Professional Certificate",
+   "Coursera",
+   "https://coursera.org/share/b785f720ad78492844b2d0da0dc40def"
+  ],
+  [
+   "Google Advanced Data Analytics — Professional Certificate",
+   "Coursera",
+   "https://coursera.org/verify/professional-cert/H8E69ER401OV"
+  ]
+ ],
+ "videos": {
+  "realtime-streaming-pipeline": [
+   "streaming-teaser"
+  ],
+  "llm-eval-framework": [
+   "evaluation-teaser",
+   "evaluation-explainer"
+  ],
+  "genai-doc-assistant": [
+   "rag-teaser",
+   "rag-walkthrough"
+  ]
+ },
+ "labFor": {
+  "realtime-streaming-pipeline": "lab-stream",
+  "llm-eval-framework": "lab-maref",
+  "genai-doc-assistant": "lab-rag",
+  "experimentation-toolkit": "lab-experiment"
+ }
+}

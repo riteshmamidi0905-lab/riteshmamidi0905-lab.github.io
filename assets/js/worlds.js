@@ -54,13 +54,13 @@
     init(w) {
       const run = agentRun(), h = run ? run.history : [{ input: '5 km to mi', observation: '3.107 mi' }, { input: '3.107 * 2.0', observation: '6.214' }];
       w.state.nodes = [
-        ['TASK', 'INTAKE', ['USER TASK', '“Convert 5 km to mi then multiply by 2”']],
-        ['PLAN', 'ROUTE', ['PLANNER', run ? `${run.plan.kind} → ${run.plan.tool}, then calculator ${run.plan.op} ${run.plan.operand}` : 'compose → unit_convert, then calculator * 2']],
-        ['TOOL', 'SELECT', ['TOOL CHOICE', `unit_convert('${h[0].input}')`]],
-        ['RETRIEVE', 'CONTEXT', ['KNOWLEDGE BASE', 'keyword overlap ≥ 2, else “unknown”']],
-        ['EXECUTE', 'OBSERVE', ['OBSERVATION', `${h[0].observation} → calculator('${h[1] ? h[1].input : '3.107 * 2.0'}')`]],
-        ['EVALUATE', 'CHECK', ['DETERMINISTIC CHECKS', 'finished ✓  no tool error ✓  re-derived ✓']],
-        ['RESPOND', 'ANSWER', ['ANSWER', run ? run.answer : '6.214']],
+        ['OBJECTIVE', 'INTAKE', ['USER TASK', '“Convert 5 km to mi then multiply by 2”']],
+        ['PLANNING', 'ROUTE', ['PLANNER', run ? `${run.plan.kind} → ${run.plan.tool}, then calculator ${run.plan.op} ${run.plan.operand}` : 'compose → unit_convert, then calculator * 2']],
+        ['TOOLS', 'SELECT', ['TOOL CHOICE', `unit_convert('${h[0].input}')`]],
+        ['RETRIEVAL', 'CONTEXT', ['KNOWLEDGE BASE', 'keyword overlap ≥ 2, else “unknown”']],
+        ['EXECUTION', 'OBSERVE', ['OBSERVATION', `${h[0].observation} → calculator('${h[1] ? h[1].input : '3.107 * 2.0'}')`]],
+        ['EVALUATION', 'CHECK', ['DETERMINISTIC CHECKS', 'finished ✓  no tool error ✓  re-derived ✓']],
+        ['RESULT', 'ANSWER', ['ANSWER', run ? run.answer : '6.214']],
       ];
     },
     draw(c, L, t, s, st) {
@@ -86,7 +86,7 @@
       });
       // host attention beam: avatar → active node
       const ai = clamp(Math.round(s), 0, N - 1), tp = pos(ai / (N - 1)), sx = L.av.x + L.av.w * 0.52, sy = L.av.y + L.av.h * 0.1;
-      c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.5); c.lineWidth = 1.2; c.beginPath(); c.moveTo(sx, sy); c.quadraticCurveTo((sx + tp[0]) / 2, Math.min(sy, tp[1]) - 30, tp[0], tp[1] + 12); c.stroke(); c.restore();
+      if (L.av.w) { c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.5); c.lineWidth = 1.2; c.beginPath(); c.moveTo(sx, sy); c.quadraticCurveTo((sx + tp[0]) / 2, Math.min(sy, tp[1]) - 30, tp[0], tp[1] + 12); c.stroke(); c.restore(); }
       const a = clamp(1 - Math.abs(s - ai) * 2.2);
       if (!L.mobile) card(c, tp[0] - 150, tp[1] + 42, 300, st.nodes[ai][2], HEX.ac2, a);
     },
@@ -138,7 +138,7 @@
       c.globalAlpha = 1;
       // host beam
       const ai = clamp(Math.round(s), 0, 4), ax2 = X(ai), sx2 = L.av.x + L.av.w * 0.52, sy2 = L.av.y + L.av.h * 0.1;
-      c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.45); c.beginPath(); c.moveTo(sx2, sy2); c.quadraticCurveTo((sx2 + ax2) / 2, y1 + 40, ax2, y1 + 34); c.stroke(); c.restore();
+      if (L.av.w) { c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.45); c.beginPath(); c.moveTo(sx2, sy2); c.quadraticCurveTo((sx2 + ax2) / 2, y1 + 40, ax2, y1 + 34); c.stroke(); c.restore(); }
     },
   };
 
@@ -147,7 +147,7 @@
     tint: HEX.violet,
     init(w) { w.state.dims = ['TASK ACCURACY', 'GROUNDEDNESS', 'HALLUCINATION RESISTANCE', 'INSTRUCTION ADHERENCE', 'CONSISTENCY', 'TASK COMPLETION']; w.state.short = ['ACCURACY', 'GROUNDING', 'HALLUC.', 'INSTRUCT.', 'CONSIST.', 'COMPLETE']; },
     draw(c, L, t, s, st) {
-      const { W, H } = L, cx = L.mobile ? W * 0.5 : W * 0.56, cy = L.film ? H * 0.47 : L.mobile ? H * 0.29 : H * 0.4, R = Math.min(L.film ? W * 0.27 : L.mobile ? W * 0.25 : H * 0.265, W * 0.31);
+      const { W, H } = L, cx = L.mobile ? W * 0.5 : W * 0.5, cy = L.film ? H * 0.47 : L.mobile ? H * 0.29 : H * 0.4, R = Math.min(L.film ? W * 0.27 : L.mobile ? W * 0.25 : H * 0.265, W * 0.31);
       const vtx = (k, r) => { const a = -Math.PI / 2 + k * TAU / 6; return [cx + Math.cos(a) * r, cy + Math.sin(a) * r]; };
       glow(c, cx, cy, R * 1.5, HEX.violet, 0.12);
       for (let ring = 1; ring <= 4; ring++) { c.strokeStyle = rgba(HEX.violet, 0.1 + 0.04 * ring); c.lineWidth = 1; c.beginPath(); for (let k = 0; k <= 6; k++) { const p = vtx(k % 6, R * ring / 4); k ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } c.stroke(); }
@@ -167,7 +167,7 @@
       const pt = (t * 0.35) % 1, seg = pt * 3, i0 = Math.min(2, Math.floor(seg)), f = seg - i0, P = (i) => [lerp(cx - R * 1.05, cx + R * 1.05, i / 3), cy + Math.sin(i * 1.7 + 0.4) * R * 0.28];
       const a0 = P(i0), a1 = P(i0 + 1); glow(c, lerp(a0[0], a1[0], f), lerp(a0[1], a1[1], f), 16, HEX.tx, 0.6);
       // host attention beam to the active axis
-      if (s >= 0.5 && s < 7) { const k = clamp(Math.round(active), 0, 5), p = vtx(k, R), sx = L.av.x + L.av.w * 0.5, sy = L.av.y + L.av.h * 0.1; c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.45); c.beginPath(); c.moveTo(sx, sy); c.quadraticCurveTo((sx + p[0]) / 2, Math.min(sy, p[1]) - 20, p[0], p[1]); c.stroke(); c.restore(); }
+      if (L.av.w && s >= 0.5 && s < 7) { const k = clamp(Math.round(active), 0, 5), p = vtx(k, R), sx = L.av.x + L.av.w * 0.5, sy = L.av.y + L.av.h * 0.1; c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.45); c.beginPath(); c.moveTo(sx, sy); c.quadraticCurveTo((sx + p[0]) / 2, Math.min(sy, p[1]) - 20, p[0], p[1]); c.stroke(); c.restore(); }
       if (s >= 6.5) { const a = clamp((s - 6.5) * 2); c.save(); c.globalAlpha = a; rrect(c, cx - 118, cy - 18, 236, 36, 10); c.fillStyle = 'rgba(8,10,16,.9)'; c.fill(); c.strokeStyle = rgba(HEX.amber, 0.8); c.stroke(); text(c, 'NO RESULTS · IN DEVELOPMENT', cx, cy + 4, { size: 10.5, align: 'center', col: HEX.amber, w: 600, ls: 1.3 }); c.restore(); }
     },
   };
@@ -179,7 +179,7 @@
     draw(c, L, t, s, st) {
       const { W, H } = L, y0 = L.band.y0, y1 = L.band.y1, mid = (y0 + y1) / 2, f = st.f, xs = [0.06, 0.3, 0.54, 0.78].map((v) => W * v), x1 = W * 0.96, hMax = (y1 - y0) * 0.92;
       const hs = f.counts.map((n) => Math.max(10, hMax * Math.pow(n / f.counts[0], 0.27)));
-      const forkAmt = clamp(s - 3.5);   // experiment step: the river forks in two
+      const forkAmt = clamp(s - 2.6);   // experiment step: the river forks in two
       const edge = (u, side) => { // piecewise smooth width
         const seg = clamp(u * 3, 0, 2.999), i = Math.floor(seg), k = ease(seg - i), h = lerp(hs[i], hs[i + 1], k); return mid + side * h / 2;
       };
@@ -202,9 +202,9 @@
       const ra = clamp(1 - Math.abs(s - 2) * 1.4);
       if (ra > 0.02 && !L.mobile) { c.save(); c.globalAlpha = ra; const gx = xs[2] - 10, gw = W * 0.34, gy = y1 + 66, gh = L.mobile ? 50 : 70; c.strokeStyle = rgba(HEX.mut, 0.4); c.beginPath(); c.moveTo(gx, gy); c.lineTo(gx, gy + gh); c.lineTo(gx + gw, gy + gh); c.stroke(); c.strokeStyle = HEX.ac2; c.lineWidth = 2; c.beginPath(); f.ret.curve.forEach((v, i) => { const x = gx + gw * i / 59, y = gy + gh * (1 - v / 0.5); i ? c.lineTo(x, y) : c.moveTo(x, y); }); c.stroke(); text(c, 'RETENTION BY DAY · D1 → D30 · modelled decay', gx, gy - 6, { size: 9.5, col: HEX.mut }); c.restore(); }
       // experiment fork (step 4)
-      if (forkAmt > 0.01) { c.save(); c.globalAlpha = forkAmt; const fx = xs[3], fy = mid; ['A', 'B'].forEach((v, i) => { const dy = (i ? 1 : -1) * 34 * forkAmt; c.strokeStyle = rgba(i ? HEX.ac2 : HEX.mut, 0.9); c.lineWidth = i ? 3 : 2; c.beginPath(); c.moveTo(fx, fy); c.bezierCurveTo(fx + 60, fy, x1 - 120, fy + dy, x1 - 20, fy + dy); c.stroke(); text(c, 'VARIANT ' + v, x1 - 14, fy + dy + 4, { size: 10, w: 600, col: i ? HEX.ac2 : HEX.mut, align: 'right' }); }); text(c, 'power · MDE · guardrails', fx + 20, fy - 54, { size: 10, col: HEX.amber, w: 600, ls: 1 }); c.restore(); }
+      if (forkAmt > 0.01) { c.save(); c.globalAlpha = forkAmt; const fx = xs[3], fy = mid; ['A', 'B'].forEach((v, i) => { const dy = (i ? 1 : -1) * 34 * forkAmt; c.strokeStyle = rgba(i ? HEX.ac2 : HEX.mut, 0.9); c.lineWidth = i ? 3 : 2; c.beginPath(); c.moveTo(fx, fy); c.bezierCurveTo(fx + 60, fy, x1 - 120, fy + dy, x1 - 20, fy + dy); c.stroke(); text(c, 'VARIANT ' + v, x1 - 24, fy + dy + (i ? 20 : -10), { size: 10, w: 600, col: i ? HEX.ac2 : HEX.mut, align: 'right' }); }); text(c, 'power · MDE · guardrails', fx + 20, fy - 54, { size: 10, col: HEX.amber, w: 600, ls: 1 }); const dd = clamp(s - 3.4); if (dd > 0) { c.globalAlpha = dd; rrect(c, x1 - 300, fy + 70, 300, 34, 10); c.fillStyle = 'rgba(8,10,12,.9)'; c.fill(); c.strokeStyle = rgba(HEX.amber, 0.8); c.stroke(); text(c, 'DECISION RULE · SHIP · KILL · KEEP RUNNING', x1 - 150, fy + 91, { size: 8.5, align: 'center', col: HEX.amber, w: 600, ls: 0.8 }); } c.restore(); }
       const ai = clamp(Math.round(s), 0, 4), ax = xs[Math.min(3, ai)], sx = L.av.x + L.av.w * 0.52, sy = L.av.y + L.av.h * 0.1;
-      c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.45); c.beginPath(); c.moveTo(sx, sy); c.quadraticCurveTo((sx + ax) / 2, y1 + 60, ax, y1 + 8); c.stroke(); c.restore();
+      if (L.av.w) { c.save(); c.setLineDash([2, 7]); c.lineDashOffset = -t * 18; c.strokeStyle = rgba(HEX.ac2, 0.45); c.beginPath(); c.moveTo(sx, sy); c.quadraticCurveTo((sx + ax) / 2, y1 + 60, ax, y1 + 8); c.stroke(); c.restore(); }
     },
   };
 
@@ -257,7 +257,7 @@
       const r = this.canvas.getBoundingClientRect(); if (!r.width) return;
       const dpr = Math.min(devicePixelRatio || 1, lowPower() ? 1.5 : 2); this.canvas.width = Math.round(r.width * dpr); this.canvas.height = Math.round(r.height * dpr); this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const W = r.width, H = r.height, mobile = W < 700, a = this.av ? this.av.getBoundingClientRect() : { left: W * 0.7, top: H * 0.5, width: 100, height: 200 };
-      const av = { x: a.left - r.left, y: a.top - r.top, w: a.width, h: a.height }; av.cx = av.x + av.w / 2;
+      const av = this.av ? { x: a.left - r.left, y: a.top - r.top, w: a.width, h: a.height } : { x: W, y: H, w: 0, h: 0 }; av.cx = av.x + av.w / 2;
       this.L = { W, H, mobile, low: lowPower(), av, band: mobile ? { y0: H * 0.21, y1: H * 0.37 } : { y0: H * 0.2, y1: H * 0.46 } };
     }
     bindUI() {

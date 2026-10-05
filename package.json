@@ -7,7 +7,8 @@
     "test": "node scripts/check-site.js && node scripts/test-lab.js",
     "test:browser": "node scripts/test-site.js",
     "test:a11y": "node scripts/test-accessibility.js",
-    "test:experience": "node scripts/test-experience.js"
+    "test:experience": "node scripts/test-experience.js",
+    "test:budget": "node scripts/test-budget.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
