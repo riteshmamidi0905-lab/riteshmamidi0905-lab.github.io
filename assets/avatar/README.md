@@ -30,3 +30,9 @@ Common suffix: *premium mature anime, semi-realistic character design, cinematic
 | LinkedIn master | LinkedIn Profile Ritesh | Square master ≥2048², head and shoulders, face large and centred, direct eye contact, confident and friendly, dark understated background, restrained teal/mint light, nothing else in frame. Designed for LinkedIn's circular crop. **Do not upload automatically — review first.** |
 
 Expression sets for animation (optional, same pose, separate layers or frames): eyes open/blink, mouth closed/speaking, brows neutral/raised.
+
+## Slots (V2)
+
+Drop a transparent PNG/WebP named `<persona>.webp` (or `.png`, optional `<persona>@2x.webp`) into this folder, run `node build.js`,
+then `npm run avatar:check`. No code changes: the aspect ratio is read from the file and the layout adapts. Personas: see `manifest.json`.
+Until a slot is filled, the portrait cut-out fallback is used. Worlds and flagship scenes are deliberately avatar-free.

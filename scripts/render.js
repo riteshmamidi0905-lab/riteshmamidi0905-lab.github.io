@@ -13,7 +13,7 @@ const videos = require(path.join(root, 'content/videos.json'));
 const timings = require(path.join(root, 'content/video-timings.json'));
 const evidence = require(path.join(root, 'content/project-evidence.json'));
 const plinks = require(path.join(root, 'content/project-links.json'));
-const { avatarHTML, worldHTML } = require('./worlds-html');
+const { avatarHTML, worldHTML, stageHTML } = require('./worlds-html');
 
 const unesc = (s) => String(s).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 const esc = (s) => unesc(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -110,32 +110,10 @@ function chapterHTML(id) {
   </div></section>`;
 }
 
-/* ---------- 06 flagships: a chapter each; the architecture diagram is the explorer ---------- */
-function archSVG(nodes, vertical, uid) {
-  const n = nodes.length;
-  const wrapLabel = (s) => { if (s.length <= 15) return [s]; const w = s.split(' '); let a = '', b = ''; w.forEach((x) => { if ((a + ' ' + x).trim().length <= Math.ceil(s.length / 2) + 2 && !b) a = (a + ' ' + x).trim(); else b = (b + ' ' + x).trim(); }); return b ? [a, b] : [a]; };
-  let nodesSVG = '', edges = '', dots = '';
-  if (!vertical) {
-    const W = 1200, nw = Math.min(250, (W - 80 - (n - 1) * 60) / n), gap = (W - 80 - n * nw) / (n - 1), y = 30, h = 136;
-    nodes.forEach((label, i) => {
-      const x = 40 + i * (nw + gap), ls = wrapLabel(label);
-      nodesSVG += `<g class="an" role="button" tabindex="0" data-i="${i}" aria-pressed="false" aria-label="${esc(label)}"><rect x="${x}" y="${y}" width="${nw}" height="${h}" rx="16"/><text class="ai" x="${x + 20}" y="${y + 34}">${NUM(i)}</text>${ls.map((t, k) => `<text class="al" x="${x + nw / 2}" y="${y + h / 2 + 14 + (k - (ls.length - 1) / 2) * 28}" text-anchor="middle">${esc(t)}</text>`).join('')}</g>`;
-      if (i < n - 1) {
-        const x1 = x + nw + 6, x2 = x + nw + gap - 6, id = `${uid}-e${i}`;
-        edges += `<path id="${id}" class="ae" d="M${x1} ${y + h / 2} H${x2}" marker-end="url(#${uid}-ah)"/>`;
-        dots += `<circle class="ad" r="3.4"><animateMotion dur="2.2s" repeatCount="indefinite" begin="${(i * 0.35).toFixed(2)}s"><mpath href="#${id}"/></animateMotion></circle>`;
-      }
-    });
-    return `<svg class="arch-svg h" viewBox="0 0 1200 196" role="group" aria-label="Architecture diagram" focusable="false"><defs><marker id="${uid}-ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M1 1l7 3.5L1 8z"/></marker></defs>${edges}${nodesSVG}${dots}</svg>`;
-  }
-  const W = 360, nw = 300, nh = 70, gap = 40;
-  nodes.forEach((label, i) => {
-    const y = 10 + i * (nh + gap), x = 30;
-    nodesSVG += `<g class="an" role="button" tabindex="0" data-i="${i}" aria-pressed="false" aria-label="${esc(label)}"><rect x="${x}" y="${y}" width="${nw}" height="${nh}" rx="14"/><text class="ai" x="${x + 16}" y="${y + 26}">${NUM(i)}</text><text class="al" x="${x + nw / 2}" y="${y + nh / 2 + 10}" text-anchor="middle">${esc(label)}</text></g>`;
-    if (i < n - 1) { const id = `${uid}-v${i}`; edges += `<path id="${id}" class="ae" d="M${W / 2} ${y + nh + 5} V${y + nh + gap - 5}" marker-end="url(#${uid}-ah2)"/>`; dots += `<circle class="ad" r="3.2"><animateMotion dur="1.6s" repeatCount="indefinite" begin="${(i * 0.3).toFixed(2)}s"><mpath href="#${id}"/></animateMotion></circle>`; }
-  });
-  return `<svg class="arch-svg v" viewBox="0 0 ${W} ${10 + n * (nh + gap) - gap + 10}" role="group" aria-label="Architecture diagram" focusable="false"><defs><marker id="${uid}-ah2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M1 1l7 3.5L1 8z"/></marker></defs>${edges}${nodesSVG}${dots}</svg>`;
-}
+/* ---------- 06 flagships: each is a full-screen pinned scene; the architecture IS the scene ---------- */
+const FLAG_SCENE = { 'realtime-streaming-pipeline': 'flag-stream', 'spark-data-lakehouse': 'flag-lake', 'llm-eval-framework': 'flag-eval', 'genai-doc-assistant': 'flag-rag', 'mlops-platform': 'flag-drift', 'experimentation-toolkit': 'flag-ab' };
+const flagSteps = (f) => f.cs.arch.map((n, i) => [n, explainers[f.r].arch[i]]);
+const flagStepsConfig = () => Object.fromEntries(FLAG.map((f) => ['flag:' + f.r, { steps: flagSteps(f) }]));
 
 const SPEC = [['What it is', 0], ['How it works', 2], ['Engineering decisions', 3], ['Tradeoffs', 5], ['Limitations', 6], ['Evaluation', 4], ['What I would build next', 7]];
 function videoHTML(vid) {
@@ -146,31 +124,29 @@ function videoHTML(vid) {
 function flagshipHTML(f, i) {
   const x = explainers[f.r], persona = x.persona, lab = site.labFor[f.r], vids = site.videos[f.r] || [];
   const ev = evidenceLinks(f.r);
-  const nodes = f.cs.arch;
-  if (x.arch.length !== nodes.length) throw new Error('arch mismatch ' + f.r);
+  if (x.arch.length !== f.cs.arch.length) throw new Error('arch mismatch ' + f.r);
   const spec = SPEC.map(([label, idx]) => `<div class="sp"><dt>${label}</dt><dd>${esc(x.beats[idx][1])}</dd></div>`).join('');
   const links = ev.map((e) => `<a class="ln" href="${e.href}" target="_blank" rel="noopener">${e.label} ${ARROW}</a>`).join('') + (lab ? `<a class="ln run" href="#${lab}">Run it ${DOWN}</a>` : '');
   const accent = { data: 'var(--blue)', research: 'var(--violet)', ai: 'var(--ac)', product: 'var(--amber)', builder: 'var(--ac)' }[persona];
-  return `<article class="flag" id="flag-${f.r}" data-repo="${f.r}" data-details='${JSON.stringify(x.arch).replace(/'/g, '&#39;')}' style="--fa:${accent}">
-  <header class="flag-head rv"><span class="flag-n" aria-hidden="true">${NUM(i)}</span><div><p class="eyebrow">Flagship · ${esc(CATLABEL[f.c])}</p><h3>${esc(f.n)}</h3><p class="flag-one">${esc(f.one)}</p></div></header>
-  <div class="arch rv" data-nodes='${JSON.stringify(nodes).replace(/'/g, '&#39;')}'>
-    <p class="arch-cap">Architecture: select a component</p>
-    ${archSVG(nodes, false, f.r)}${archSVG(nodes, true, f.r)}
-    <p class="arch-detail" aria-live="polite"><b></b><span></span></p>
+  const stage = stageHTML({ id: 'flag-' + f.r, cls: 'flagstage', scene: FLAG_SCENE[f.r], key: 'flag:' + f.r, kicker: `Flagship ${NUM(i)} · ${CATLABEL[f.c]}`, title: f.n, h: 3, note: f.tech.join(' · '), sub: f.one, steps: flagSteps(f) });
+  return `<article class="flag" data-repo="${f.r}" style="--fa:${accent}">
+  ${stage}
+  <div class="flag-after wrap">
+    <div class="flag-body">
+      ${explainsHTML(f.r, persona)}
+      <dl class="spec rv">${spec}</dl>
+    </div>
+    <div class="flag-foot rv"><nav class="lns" aria-label="${esc(f.n)} evidence and links">${links}</nav></div>
+    ${vids.length ? `<details class="filmbox"><summary>Watch ${vids.length > 1 ? 'the films' : 'the film'} <span>captioned · loads on demand</span></summary><div class="films">${vids.map(videoHTML).join('')}</div></details>` : ''}
   </div>
-  <div class="flag-body">
-    ${explainsHTML(f.r, persona)}
-    <dl class="spec rv">${spec}</dl>
-  </div>
-  <div class="flag-foot rv"><div class="stackline"><span>Stack</span>${f.tech.map(esc).join(' · ')}</div><nav class="lns" aria-label="${esc(f.n)} evidence and links">${links}</nav></div>
-  ${vids.length ? `<details class="filmbox"><summary>Watch ${vids.length > 1 ? 'the films' : 'the film'} <span>captioned · loads on demand</span></summary><div class="films">${vids.map(videoHTML).join('')}</div></details>` : ''}
 </article>`;
 }
-const flagshipsHTML = () => `<section id="flagships" class="sec flags" aria-labelledby="flags-t"><div class="wrap">
+const flagshipsHTML = () => `<section id="flagships" class="sec flags" aria-labelledby="flags-t"><div class="wrap flags-intro">
   <p class="kicker rv"><b>06</b> Flagship builds</p>
   <h2 id="flags-t" class="statement rv">Six systems, built end to end. <span class="mut">Code, tests, decisions and limitations are public.</span></h2>
+  </div>
   ${FLAG.map(flagshipHTML).join('\n')}
-  </div></section>`;
+  </section>`;
 
 /* ---------- 07 MAREF: research tone ---------- */
 function marefHTML() {
@@ -291,4 +267,4 @@ function recruiterHTML(headExtra) {
 <footer class="rf">© ${new Date().getFullYear()} ${esc(pr.name)} · <a href="./">Full experience</a></footer></body></html>`;
 }
 
-module.exports = { navHTML, heroHTML, buildHTML, chapterHTML, flagshipsHTML, marefHTML, experienceHTML, projectsHTML, detailDialog, aboutHTML, contactHTML, footerHTML, recruiterHTML, evidenceLinks };
+module.exports = { flagStepsConfig, navHTML, heroHTML, buildHTML, chapterHTML, flagshipsHTML, marefHTML, experienceHTML, projectsHTML, detailDialog, aboutHTML, contactHTML, footerHTML, recruiterHTML, evidenceLinks };

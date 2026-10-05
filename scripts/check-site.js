@@ -14,7 +14,7 @@ assert.equal(document.querySelectorAll('article.flag').length, FLAG.length, 'six
 assert.equal(document.querySelectorAll('h1').length, 1); assert.equal(document.querySelectorAll('main').length, 1);
 assert.equal(document.querySelectorAll('.dimension').length, 6);
 assert.equal(document.querySelectorAll('video').length, 5); assert.equal(document.querySelectorAll('track[kind="captions"]').length, 5);
-assert.equal(document.querySelectorAll('[data-world]').length, 6, 'hero + 4 worlds + contact');
+assert.equal(document.querySelectorAll('[data-world]').length, 12, 'hero + 4 worlds + contact + 6 flagship scenes');
 const order = [...document.querySelectorAll('main > section, main > .chapter, main > header')].map((s) => s.id);
 assert.deepEqual(order, ['hero', 'build', 'ai', 'data', 'product', 'flagships', 'maref', 'experience', 'projects', 'about', 'contact'], 'story order');
 

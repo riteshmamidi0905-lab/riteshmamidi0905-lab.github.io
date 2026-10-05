@@ -47,11 +47,11 @@
   }
 
   /* ---------- lab: tabs + lazy load of the demo code ---------- */
-  const LAB_SCRIPTS = ['lab/eval-core.js', 'lab/rag-corpus.js', 'lab/rag-core.js', 'lab/stats-core.js', 'lab/lab-ui.js'];
+  const LAB_SCRIPTS = ['lab/agent-core.js', 'lab/stream-core.js', 'lab/funnel-core.js', 'lab/eval-core.js', 'lab/rag-corpus.js', 'lab/rag-core.js', 'lab/stats-core.js', 'lab/lab-ui.js'];
   let labState = 0;   // 0 idle, 1 loading, 2 ready
   function loadLab() {
     if (labState) return; labState = 1;
-    LAB_SCRIPTS.reduce((p, f) => p.then(() => new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'assets/js/' + f; s.onload = res; s.onerror = rej; document.head.append(s); })), Promise.resolve())
+    LAB_SCRIPTS.reduce((p, f) => p.then(() => (window.RMW && window.RMW.loadFile ? window.RMW.loadFile(f) : new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'assets/js/' + f; s.onload = res; s.onerror = rej; document.head.append(s); }))), Promise.resolve())
       .then(() => { labState = 2; window.RMLab.mountLab(); }).catch(() => { labState = 0; $$('.lab-ui').forEach((u) => { u.textContent = 'The demo code could not be loaded. Please reload the page.'; }); });
   }
   function selectLab(id, focus) {

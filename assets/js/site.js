@@ -38,19 +38,6 @@
     $('#cptext').textContent = 'copied'; const toast = $('#toast'); toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); $('#cptext').textContent = 'copy'; }, 1800);
   });
 
-  /* architecture explorers: the diagram is the explorer */
-  const EX = window.__EXPLAIN || {};
-  $$('.arch').forEach((arch) => {
-    const flag = arch.closest('.flag'); const nodes = JSON.parse(arch.dataset.nodes || '[]'); const details = JSON.parse(flag.dataset.details || '[]');
-    const b = $('.arch-detail b', arch), s = $('.arch-detail span', arch);
-    const pick = (i) => { $$('.an', arch).forEach((n) => { const on = +n.dataset.i === i; n.classList.toggle('on', on); n.setAttribute('aria-pressed', on); }); b.textContent = `${String(i + 1).padStart(2, '0')} · ${nodes[i]}`; s.textContent = details[i] || ''; };
-    $$('.an', arch).forEach((n) => { n.addEventListener('click', () => pick(+n.dataset.i)); n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(+n.dataset.i); } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); const j = Math.min(nodes.length - 1, +n.dataset.i + 1); pick(j); const t = $(`.an[data-i="${j}"]`, e.target.closest('svg')); if (t) t.focus(); } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); const j = Math.max(0, +n.dataset.i - 1); pick(j); const t = $(`.an[data-i="${j}"]`, e.target.closest('svg')); if (t) t.focus(); } }); });
-    pick(0);
-    // flowing dots (SMIL) only while visible and when motion is allowed
-    const svgs = $$('svg', arch);
-    new IntersectionObserver((es) => svgs.forEach((sv) => { try { es[0].isIntersecting && !reduce ? sv.unpauseAnimations() : sv.pauseAnimations(); } catch (e) { /* ignore */ } })).observe(arch);
-  });
-
   /* MAREF dimensions */
   const dims = $$('.dimension');
   if (dims.length) {

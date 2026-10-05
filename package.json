@@ -8,7 +8,8 @@
     "test:browser": "node scripts/test-site.js",
     "test:a11y": "node scripts/test-accessibility.js",
     "test:experience": "node scripts/test-experience.js",
-    "test:budget": "node scripts/test-budget.js"
+    "test:budget": "node scripts/test-budget.js",
+    "avatar:check": "node scripts/check-avatars.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

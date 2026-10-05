@@ -12,7 +12,7 @@ let tpl = fs.readFileSync(path.join(SITE, 'index.src.html'), 'utf8');
 const map = {
   '<!--NAV-->': R.navHTML(), '<!--HERO-->': R.heroHTML(), '<!--BUILD-->': R.buildHTML(), '<!--FLAGSHIPS-->': R.flagshipsHTML(), '<!--MAREF-->': R.marefHTML(),
   '<!--EXPERIENCE-->': R.experienceHTML(), '<!--PROJECTS-->': R.projectsHTML(), '<!--ABOUT-->': R.aboutHTML(), '<!--CONTACT-->': R.contactHTML(),
-  '<!--FOOTER-->': R.footerHTML(), '<!--PDETAIL-->': R.detailDialog(), '<!--WORLDS-JSON-->': worldsJSON(),
+  '<!--FOOTER-->': R.footerHTML(), '<!--PDETAIL-->': R.detailDialog(), '<!--WORLDS-JSON-->': worldsJSON(R.flagStepsConfig()),
 };
 for (const [k, v] of Object.entries(map)) { if (!tpl.includes(k)) throw new Error('missing placeholder ' + k); tpl = tpl.replace(k, () => v); }
 tpl = tpl.replace(/<!--CHAPTER:(\w+)-->/g, (m, id) => R.chapterHTML(id));

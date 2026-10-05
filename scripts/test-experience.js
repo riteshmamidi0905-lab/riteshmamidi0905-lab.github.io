@@ -16,15 +16,15 @@ const { serveLocal, base } = require('./local-preview');
 
   for (const [label, width, height] of [['desktop', 1440, 900], ['tablet', 820, 1180], ['mobile', 390, 844], ['small-mobile', 320, 700]]) {
     const { ctx, page, errors, bad } = await newPage({ viewport: { width, height } });
-    await page.goto(base, { waitUntil: 'load' }); await page.waitForFunction(() => window.__rm && window.__rm.worlds.length === 6);
+    await page.goto(base, { waitUntil: 'load' }); await page.waitForFunction(() => window.__rm && window.__rm.worlds.length === 12);
     /* scenes draw real pixels and respond to step navigation */
-    for (const id of ['agents', 'data', 'maref', 'product']) {
-      await jump(page, '#world-' + id, 0.5); await page.waitForTimeout(700);
-      assert.ok(await inked(page, `#world-${id} .world-canvas`) > 15, `${label}: ${id} scene is blank`);
-      const want = await page.locator(`#world-${id} .world-nav button`).nth(1).getAttribute('aria-label');
-      await page.locator(`#world-${id} .world-nav button`).nth(1).click({ force: true });
-      await page.waitForFunction(([i]) => document.querySelector(`#world-${i}`).dataset.step === '1', [id], { timeout: 6000 }).catch(() => { throw new Error(`${label}: ${id} did not reach step 2 (${want})`); });
-      assert.match(want, /Step 2 of/); assert.equal(await page.locator(`#world-${id} .world-nav button[aria-current=step]`).getAttribute('data-step'), '1');
+    for (const id of ['world-agents', 'world-data', 'world-maref', 'world-product', ...['realtime-streaming-pipeline', 'spark-data-lakehouse', 'llm-eval-framework', 'genai-doc-assistant', 'mlops-platform', 'experimentation-toolkit'].map((r) => 'flag-' + r)]) {
+      await jump(page, '#' + id, 0.5); await page.waitForTimeout(1500);
+      assert.ok(await inked(page, `#${id} .world-canvas`) > 15, `${label}: ${id} scene is blank`);
+      const want = await page.locator(`#${id} .world-nav button`).nth(1).getAttribute('aria-label');
+      await page.locator(`#${id} .world-nav button`).nth(1).click({ force: true });
+      await page.waitForFunction(([i]) => document.querySelector(`#${i}`).dataset.step === '1', [id], { timeout: 6000 }).catch(() => { throw new Error(`${label}: ${id} did not reach step 2 (${want})`); });
+      assert.match(want, /Step 2 of/); assert.equal(await page.locator(`#${id} .world-nav button[aria-current=step]`).getAttribute('data-step'), '1');
     }
     await jump(page, '#hero', 0); await page.waitForTimeout(500); assert.ok(await inked(page, '#hero .world-canvas') > 15, label + ': hero blank');
     /* lab demos live inside the chapters they belong to */

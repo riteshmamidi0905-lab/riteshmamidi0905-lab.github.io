@@ -13,11 +13,13 @@ const { serveLocal, base } = require('./local-preview'); const { P, FLAG } = req
     assert.equal(await page.locator('.prow').count(), P.length); assert.equal(await page.locator('article.flag').count(), FLAG.length);
     /* nav */
     if (width <= 1180) { await page.locator('#burger').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'true'); await page.locator('#nlinks a[href="#maref"]').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'false'); }
-    /* architecture explorer: the diagram is interactive and keyboard reachable */
+    /* flagship scene: step buttons drive the stage and caption, keyboard reachable */
     const flag = page.locator('#flag-llm-eval-framework'); await flag.scrollIntoViewIfNeeded();
-    const svg = flag.locator(`.arch-svg.${width <= 860 ? 'v' : 'h'}`); const before = await flag.locator('.arch-detail span').textContent();
-    await svg.locator('.an').nth(2).focus(); await page.keyboard.press('Enter');
-    assert.notEqual(await flag.locator('.arch-detail span').textContent(), before); assert.equal(await svg.locator('.an').nth(2).getAttribute('aria-pressed'), 'true');
+    const before = await flag.locator('.cap-label').textContent();
+    const tgt = (await flag.locator('.world-nav [aria-current=step]').getAttribute('data-step')) === '0' ? 1 : 0; await flag.locator('.world-nav [data-step]').nth(tgt).focus(); await page.keyboard.press('Enter');
+    await page.waitForFunction(() => document.querySelector('#flag-llm-eval-framework').dataset.step === '2' || true);
+    await page.waitForTimeout(900);
+    assert.notEqual(await flag.locator('.cap-label').textContent(), before); assert.equal(await flag.locator('.world-nav [data-step]').nth(tgt).getAttribute('aria-current'), 'step');
     /* MAREF dimensions */
     await page.locator('#research').scrollIntoViewIfNeeded(); await page.locator('button.dimension[data-name="Groundedness"]').click();
     assert.equal(await page.locator('#dimensionTitle').textContent(), 'Groundedness');

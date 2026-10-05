@@ -1,11 +1,10 @@
 {
  "agents": {
-  "persona": "ai",
   "kicker": "03 · AI SYSTEMS",
   "title": "From task to evaluated action.",
   "lab": "lab-agent",
   "labLabel": "Run the agent trace explorer",
-  "note": "Illustrative system view · modelled on ai-agent-toolkit and llm-eval-framework",
+  "note": "Real agent loop and real retrieval · fixed sample corpus · no language model",
   "steps": [
    [
     "Objective",
@@ -34,11 +33,26 @@
    [
     "Result",
     "Only then does the agent answer. In the lab below, this same loop runs in your browser on any task you type."
+   ],
+   [
+    "Question",
+    "The same discipline applies to retrieval. A question arrives and is embedded as a vector: 1,024 signed hashed dimensions, no model download."
+   ],
+   [
+    "Chunks",
+    "The fixed sample corpus is cut into sentence-aware chunks. These eight, each with a document id, are everything retrieval can see."
+   ],
+   [
+    "Retrieval",
+    "Cosine similarity and keyword overlap are fused (0.7 vector, 0.3 keyword) and the chunks reorder. The top four go forward; the rest fall away."
+   ],
+   [
+    "Citations",
+    "The extractive reader quotes the best sentences from the top chunks and cites them. If nothing overlaps the question, it abstains instead of guessing."
    ]
   ]
  },
  "data": {
-  "persona": "data",
   "kicker": "04 · DATA SYSTEMS",
   "title": "Signals become systems.",
   "lab": "lab-stream",
@@ -65,11 +79,9 @@
     "Analytics",
     "Per-merchant counts, totals and fraud counts: what an analyst or model queries next. The lab runs this pipeline live, with controls."
    ]
-  ],
-  "avatar": false
+  ]
  },
  "maref": {
-  "persona": "research",
   "kicker": "07 · AI RELIABILITY · MAREF",
   "title": "Reliability needs more than one score.",
   "lab": "lab-maref",
@@ -111,7 +123,6 @@
   ]
  },
  "product": {
-  "persona": "product",
   "kicker": "05 · PRODUCT INTELLIGENCE",
   "title": "Behavior becomes a decision.",
   "lab": "lab-funnel",
@@ -138,7 +149,6 @@
     "Decision",
     "The output is a decision rule, not a chart: ship, kill or keep running. Change the assumptions below to see which stage deserves the next experiment."
    ]
-  ],
-  "avatar": false
+  ]
  }
 }
