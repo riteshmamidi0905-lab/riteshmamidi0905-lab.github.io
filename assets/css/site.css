@@ -175,7 +175,7 @@ code{font-family:var(--mono);font-size:.92em;color:var(--ac2)}
 .csoc{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .contact .contact-av{position:absolute;z-index:2;right:clamp(0px,4vw,80px);bottom:0;height:min(72svh,820px);width:auto}
 @media(max-width:900px){.contact{flex-direction:column;align-items:stretch;padding-top:calc(var(--nav) + 6px)}.contact-copy{padding-top:24px;padding-bottom:0}.contact .contact-av{position:relative;right:auto;align-self:flex-end;height:38svh;margin:0 -3vw 0 0}.contact-copy h2{font-size:clamp(44px,13vw,84px)}}
-.foot{border-top:1px solid var(--line);padding:26px 0;font:500 12.5px var(--mono);color:var(--dim)}.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}.foot a{margin-left:20px;color:var(--mut)}.foot a:hover{color:var(--ac2)}
+.foot{border-top:1px solid var(--line);padding:26px 0;font:500 12.5px var(--mono);color:var(--dim)}.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}.foot .wrap>span:last-child{display:flex;flex-wrap:wrap;gap:6px 20px}.foot a{color:var(--mut)}.foot a:hover{color:var(--ac2)}
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--tx);color:#05070a;padding:11px 20px;border-radius:99px;font-weight:600;font-size:14px;pointer-events:none;transition:.3s var(--ease);z-index:400}.toast.show{opacity:1;transform:translate(-50%,0)}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
