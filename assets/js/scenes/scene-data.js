@@ -57,7 +57,7 @@
       c.save(); c.globalAlpha = al; const left = B.x + cw * i + 22, wid = cw - 44;
       if (i === 0) {
         text(c, `${st.pipe.options.rate}`, left, y0 + 36, { size: 46, w: 700, col: HEX.tx }); text(c, 'events / second', left, y0 + 58, { size: 12.5, col: HEX.mut });
-        sn.recent.slice(-7).reverse().forEach((x2, k) => text(c, `${x2.txn_id.replace('txn_', '#')}  $${x2.amount}  ${x2.country}`, left, y0 + 98 + k * 25, { size: 13.5, col: x2.is_fraud ? HEX.amber : HEX.mut }));
+        sn.recent.slice(-Math.max(2, Math.min(7, Math.floor((B.h - 190) / 25)))).reverse().forEach((x2, k) => text(c, `${x2.txn_id.replace('txn_', '#')}  $${x2.amount}  ${x2.country}`, left, y0 + 98 + k * 25, { size: 13.5, col: x2.is_fraud ? HEX.amber : HEX.mut }));
       } else if (i === 1) {
         text(c, String(sn.lag), left, y0 + 36, { size: 46, w: 700, col: sn.lag > 30 ? HEX.red : HEX.tx }); text(c, 'events waiting · drains 60 / s', left, y0 + 58, { size: 12.5, col: HEX.mut });
         const cols = 12, cell = wid / cols, gy = y0 + 84; for (let k = 0; k < 60; k++) { c.fillStyle = k < sn.lag ? rgba(sn.lag > 45 ? HEX.red : HEX.amber, 0.92) : rgba(HEX.tx, 0.09); c.fillRect(left + (k % cols) * cell, gy + Math.floor(k / cols) * cell, cell - 2.5, cell - 2.5); }

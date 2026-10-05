@@ -106,7 +106,7 @@
     resize() {
       const r = this.canvas.getBoundingClientRect(); if (!r.width) return;
       const dpr = Math.min(devicePixelRatio || 1, lowPower() ? 1.5 : 2); this.canvas.width = Math.round(r.width * dpr); this.canvas.height = Math.round(r.height * dpr); this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const rW = r.width, rH = r.height, mobile = rW < 900, k = mobile ? clamp(rW / 390, 1, 1.45) : clamp(rW / 1440, 0.9, 1.4), W = rW / k, h = rH / k;
+      const rW = r.width, rH = r.height, mobile = rW < 900, k = mobile ? clamp(Math.min(rW / 390, rH / 844), 0.8, 1.45) : clamp(Math.min(rW / 1440, rH / 810), 0.6, 1.4), W = rW / k, h = rH / k;
       if (this.cap && this.cfg && this.cap.offsetParent) { const l = this.cap.querySelector('.cap-label'), tx = this.cap.querySelector('.cap-text'), keep = [l.textContent, tx.textContent]; let mh = 0; this.cap.style.minHeight = ''; this.cfg.steps.forEach((st2) => { l.textContent = st2[0]; tx.textContent = st2[1]; mh = Math.max(mh, this.cap.offsetHeight); }); l.textContent = keep[0]; tx.textContent = keep[1]; this.cap.style.minHeight = mh + 'px'; }
       const q = (sel) => { const e = this.el.querySelector(sel); if (!e || !e.offsetParent) return null; const b = e.getBoundingClientRect(); return { x: (b.left - r.left) / k, y: (b.top - r.top) / k, r: (b.right - r.left) / k, b: (b.bottom - r.top) / k }; };
       const top = q('.world-top'), cap = q('.world-cap'), nav = q('.world-nav');

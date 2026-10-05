@@ -59,7 +59,7 @@
         c.fillStyle = cd.col; c.fillRect(lx, y - 12, 2, mob ? 44 : Math.min(130, per - 14));
         text(c, `${cd.tag} · ${cd.b.label.toUpperCase()}`, lx + 12, y, { size: mob ? 9.5 : 11, w: 700, ls: 1.2, col: cd.col });
         wrap(c, cd.b.runs[0], lx + 12, y + (mob ? 16 : 22), lw - 14, mob ? 14 : 19, { size: fs, col: HEX.tx, sans: true });
-        if (cur >= 0 && s < 6.5 && !mob) { const d = dims[cur], r = res[d[0]], v = r.score; text(c, v == null ? '—' : v.toFixed(2), lx + 12, y + 94, { size: 34, w: 700, col: v != null && v < GATE ? HEX.red : cd.col }); text(c, v != null && v < GATE ? 'below the 0.6 gate' : 'clears the 0.6 gate', lx + 12 + 70, y + 94, { size: 12, col: HEX.mut }); }
+        if (cur >= 0 && s < 6.5 && !mob && per > 118) { const d = dims[cur], r = res[d[0]], v = r.score; text(c, v == null ? '—' : v.toFixed(2), lx + 12, y + 94, { size: 34, w: 700, col: v != null && v < GATE ? HEX.red : cd.col }); text(c, v != null && v < GATE ? 'below the 0.6 gate' : 'clears the 0.6 gate', lx + 12 + 70, y + 94, { size: 12, col: HEX.mut }); }
       });
       // ASSESSMENT column
       if (!mob) {
