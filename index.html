@@ -57,7 +57,7 @@ window.addEventListener('load',function(){setTimeout(function(){
 <section id="hero" class="hero" data-world="hero" aria-labelledby="hero-title">
   <canvas class="world-canvas" aria-hidden="true"></canvas>
   <div class="hero-vig" aria-hidden="true"></div>
-  <figure class="av hero-av" data-av data-persona="hero" data-fallback style="--rim:#22d3a6;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 27svh, min(560px, 57svh)" width="510" height="694" alt="Ritesh Mamidi" fetchpriority="high" decoding="async"></figure>
+  <figure class="av av-empty hero-av" data-av data-persona="hero" data-slot="empty" aria-hidden="true" hidden></figure>
   <div class="hero-copy">
     <p class="eyebrow"><i class="dot"></i>Austin, TX · open to roles</p>
     <h1 id="hero-title" class="hero-name">Ritesh<br>Mamidi</h1>
@@ -88,7 +88,7 @@ window.addEventListener('load',function(){setTimeout(function(){
 </section>
   <div class="wrap chapter-body">
     <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="ai" data-fallback style="--rim:#22d3a6;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="ai" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">An agent that only sounds right is a liability. I keep the loop explicit (plan, tool, observation) and check the whole trace before an answer counts.</p></div></aside>
     <div class="demo" data-group="ai"><div class="demo-head"><p class="kicker"><b>Run it</b> in your browser</p><div class="seg" role="tablist" aria-label="in your browser demos"><button role="tab" id="tab-agent" aria-controls="lab-agent" aria-selected="true" data-lab="agent">Agent trace explorer</button><button role="tab" id="tab-rag" aria-controls="lab-rag" aria-selected="false" data-lab="rag" tabindex="-1">RAG explorer</button></div></div>
   <div class="lab-panel" id="lab-agent" role="tabpanel" aria-labelledby="tab-agent" data-lab="agent">
@@ -111,7 +111,7 @@ window.addEventListener('load',function(){setTimeout(function(){
 </section>
   <div class="wrap chapter-body">
     <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="data" data-fallback style="--rim:#6aa7ff;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="data" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">Streaming bugs hide in time. I model event time and a watermark explicitly, so late data is handled or dropped on purpose, never by accident.</p></div></aside>
     <div class="demo" data-group="data"><div class="demo-head"><p class="kicker"><b>Run it</b> in your browser</p><div class="seg one" role="tablist"><button role="tab" id="tab-stream" aria-controls="lab-stream" aria-selected="true" data-lab="stream">Streaming pipeline</button></div></div>
   <div class="lab-panel" id="lab-stream" role="tabpanel" aria-labelledby="tab-stream" data-lab="stream">
@@ -131,7 +131,7 @@ window.addEventListener('load',function(){setTimeout(function(){
 </section>
   <div class="wrap chapter-body">
     <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="product" data-fallback style="--rim:#f5b94a;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="product" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">A funnel is arithmetic until it drives a decision. Here every rate is an input, so you can see which stage is actually worth fixing.</p></div></aside>
     <div class="demo" data-group="product"><div class="demo-head"><p class="kicker"><b>Run it</b> in your browser</p><div class="seg" role="tablist" aria-label="in your browser demos"><button role="tab" id="tab-experiment" aria-controls="lab-experiment" aria-selected="true" data-lab="experiment">Experimentation lab</button><button role="tab" id="tab-funnel" aria-controls="lab-funnel" aria-selected="false" data-lab="funnel" tabindex="-1">Funnel explorer</button></div></div>
   <div class="lab-panel" id="lab-experiment" role="tabpanel" aria-labelledby="tab-experiment" data-lab="experiment">
@@ -159,7 +159,7 @@ window.addEventListener('load',function(){setTimeout(function(){
   <div class="flag-after wrap">
     <div class="flag-body">
       <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="data" data-fallback style="--rim:#6aa7ff;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="data" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">Fraud signals decay in minutes. I used explainable rules so every flag can be inspected, and event-time windows with a watermark so late data cannot grow state forever.</p></div></aside>
       <dl class="spec rv"><div class="sp"><dt>What it is</dt><dd>A runnable fraud-detection stream: Kafka, Spark Structured Streaming and Cassandra in one Docker Compose stack, fed by a synthetic transaction producer.</dd></div><div class="sp"><dt>How it works</dt><dd>The producer writes events to Kafka. Spark parses the JSON, flags fraud with rules, and aggregates one-minute merchant windows. Two Cassandra tables store verdicts and metrics.</dd></div><div class="sp"><dt>Engineering decisions</dt><dd>Explainable rules make every fraud flag inspectable. Event-time windows and a watermark bound how much late-data state Spark has to keep. Separate checkpoints track each sink.</dd></div><div class="sp"><dt>Tradeoffs</dt><dd>Rules can be read and debugged but cannot learn new patterns. A watermark keeps state bounded but drops events that arrive too late.</dd></div><div class="sp"><dt>Limitations</dt><dd>The transactions are synthetic and detection is rule-based. This is not a deployed payment-risk model.</dd></div><div class="sp"><dt>Evaluation</dt><dd>The Spark transforms are pure functions tested on static DataFrames: JSON parsing, fraud-rule decisions, event-time merchant aggregation. The full Kafka and Cassandra runtime is a separate integration check.</dd></div><div class="sp"><dt>What I would build next</dt><dd>Test sink idempotency under failure and restart, reviewing checkpoints and Cassandra keys together.</dd></div></dl>
     </div>
@@ -182,7 +182,7 @@ window.addEventListener('load',function(){setTimeout(function(){
   <div class="flag-after wrap">
     <div class="flag-body">
       <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="data" data-fallback style="--rim:#6aa7ff;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="data" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">Bad rows should fail loudly between layers, not surface in a dashboard. Each medallion layer has one job, and quality checks sit at the boundaries.</p></div></aside>
       <dl class="spec rv"><div class="sp"><dt>What it is</dt><dd>A medallion-style Spark lakehouse: Bronze, Silver and Gold layers with data-quality checks between them.</dd></div><div class="sp"><dt>How it works</dt><dd>Each layer has one job: ingest, then clean, deduplicate and enrich, then aggregate into business marts that are written as partitioned Parquet.</dd></div><div class="sp"><dt>Engineering decisions</dt><dd>Small dimensions use broadcast joins. Partitioned Parquet and Adaptive Query Execution target avoidable shuffle and scan work.</dd></div><div class="sp"><dt>Tradeoffs</dt><dd>Gates between layers fail loudly when inputs drift, instead of letting bad rows flow into the marts.</dd></div><div class="sp"><dt>Limitations</dt><dd>Local Spark and synthetic inputs demonstrate the processing architecture. They do not demonstrate production scale.</dd></div><div class="sp"><dt>Evaluation</dt><dd>Unit tests cover cleaning, deterministic deduplication, enrichment and the gold aggregates. Quality rules inspect nulls, negative quantities and invalid enum values.</dd></div><div class="sp"><dt>What I would build next</dt><dd>Turn the quality checks into an explicit contract per layer, and deduplicate as early as possible.</dd></div></dl>
     </div>
@@ -204,7 +204,7 @@ window.addEventListener('load',function(){setTimeout(function(){
   <div class="flag-after wrap">
     <div class="flag-body">
       <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="research" data-fallback style="--rim:#9b8cff;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="research" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">LLM outputs can look correct while being unsupported. llmeval keeps weighted scores and hard thresholds separate, so a good average cannot hide a failed grounding check.</p></div></aside>
       <dl class="spec rv"><div class="sp"><dt>What it is</dt><dd>llmeval: a rubric-driven platform for scoring LLM outputs. It pairs 14 deterministic offline metrics with an optional LLM-as-judge backend.</dd></div><div class="sp"><dt>How it works</dt><dd>Cases go through a rubric of weighted criteria. Metrics or judges score each criterion. The result is a per-case breakdown, a JSON report, an HTML dashboard and a CLI gate.</dd></div><div class="sp"><dt>Engineering decisions</dt><dd>Weighted scores and hard thresholds are separate on purpose. A high overall score cannot override a required safety or grounding check.</dd></div><div class="sp"><dt>Tradeoffs</dt><dd>Deterministic metrics are reproducible and need no API key. Optional judges can score nuanced criteria but need calibration and human review.</dd></div><div class="sp"><dt>Limitations</dt><dd>Token-overlap faithfulness is a heuristic. Neither metrics nor judges prove factual reliability on their own.</dd></div><div class="sp"><dt>Evaluation</dt><dd>An 18-case RAG-QA benchmark ships with the repository, plus tests for deterministic scoring, thresholds, the API and the reports. The CLI has a fail-under option for CI.</dd></div><div class="sp"><dt>What I would build next</dt><dd>Track agreement between the judge and human reviewers, so the judge itself can be trusted.</dd></div></dl>
     </div>
@@ -228,7 +228,7 @@ window.addEventListener('load',function(){setTimeout(function(){
   <div class="flag-after wrap">
     <div class="flag-body">
       <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="ai" data-fallback style="--rim:#22d3a6;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="ai" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">A fluent answer is not enough; it needs a path back to its source. The default reader is extractive, so it can only quote what was retrieved, and it abstains otherwise.</p></div></aside>
       <dl class="spec rv"><div class="sp"><dt>What it is</dt><dd>A full-stack assistant that answers from your own documents, with citations back to the source chunks.</dd></div><div class="sp"><dt>How it works</dt><dd>A router decides whether to search or answer. Documents become sentence-aware chunks, retrieval blends vector similarity with keyword overlap, and the reader answers only from what was retrieved.</dd></div><div class="sp"><dt>Engineering decisions</dt><dd>An offline extractive reader keeps the default path reproducible with no credentials. Embedding, vector store and generation backends switch by configuration.</dd></div><div class="sp"><dt>Tradeoffs</dt><dd>Feature hashing works offline but is weaker than semantic embeddings. The extractive reader never invents, but it cannot paraphrase.</dd></div><div class="sp"><dt>Limitations</dt><dd>Sample-corpus evaluation and local load tests do not show performance on arbitrary documents or live users.</dd></div><div class="sp"><dt>Evaluation</dt><dd>A sample-corpus harness checks retrieval hit-rate, reciprocal rank, faithfulness and answer relevance, with CI thresholds. Tests cover retrieval, routing, streaming and the API.</dd></div><div class="sp"><dt>What I would build next</dt><dd>Test retrieval failures on a broader corpus, and measure how well the system abstains.</dd></div></dl>
     </div>
@@ -252,7 +252,7 @@ window.addEventListener('load',function(){setTimeout(function(){
   <div class="flag-after wrap">
     <div class="flag-body">
       <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="builder" data-fallback style="--rim:#22d3a6;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="builder" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">Models get trained once and forgotten. Registry stages and PSI/KS drift checks keep the model's lifecycle and its inputs visible.</p></div></aside>
       <dl class="spec rv"><div class="sp"><dt>What it is</dt><dd>A local end-to-end model lifecycle: train candidates, register a model, promote a version, serve predictions and monitor drift.</dd></div><div class="sp"><dt>How it works</dt><dd>Experiment tracking feeds a registry with explicit stage promotion. FastAPI serves the promoted model, and PSI and KS statistics compare live inputs with the training distribution.</dd></div><div class="sp"><dt>Engineering decisions</dt><dd>A model bundle keeps the scaler and the feature view together with the model. Promotion archives the previous Production version, so serving stays traceable.</dd></div><div class="sp"><dt>Tradeoffs</dt><dd>Drift statistics are cheap to compute. Choosing the alert threshold is the hard part, and drift is not the same as degradation.</dd></div><div class="sp"><dt>Limitations</dt><dd>“Production” here is a registry stage name. The portfolio does not claim a running customer deployment.</dd></div><div class="sp"><dt>Evaluation</dt><dd>Tests cover serving readiness, authentication, registry promotion and prediction monitoring. Seeded covariate shifts exercise the PSI and KS alerts.</dd></div><div class="sp"><dt>What I would build next</dt><dd>Automated retraining triggers, once the thresholds are trustworthy.</dd></div></dl>
     </div>
@@ -274,7 +274,7 @@ window.addEventListener('load',function(){setTimeout(function(){
   <div class="flag-after wrap">
     <div class="flag-body">
       <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="product" data-fallback style="--rim:#f5b94a;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="product" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">Most A/B tests ship on noise. The toolkit sizes a test before it runs, and checks guardrails before it calls a win.</p></div></aside>
       <dl class="spec rv"><div class="sp"><dt>What it is</dt><dd>expkit: an end-to-end A/B analysis toolkit, from sample-size design to a ship, kill or keep-running decision.</dd></div><div class="sp"><dt>How it works</dt><dd>Design the test, run a z-test, Welch t-test or bootstrap, apply CUPED variance reduction, check guardrails, correct for multiple comparisons, then decide.</dd></div><div class="sp"><dt>Engineering decisions</dt><dd>Power and minimum detectable effect guide the design before any analysis. Guardrails and FDR control stop a nominal win from becoming a bad product decision.</dd></div><div class="sp"><dt>Tradeoffs</dt><dd>A fixed-horizon test is simple and valid, but peeking at it early inflates false positives.</dd></div><div class="sp"><dt>Limitations</dt><dd>The checkout experiment is synthetic. Its effect sizes are demonstration output, not commercial impact.</dd></div><div class="sp"><dt>Evaluation</dt><dd>Tests cover the statistical helpers, CUPED, guardrails, multiple-comparison adjustment, decisions and scorecard generation on seeded data.</dd></div><div class="sp"><dt>What I would build next</dt><dd>Sequential testing, so early stopping is statistically sound.</dd></div></dl>
     </div>
@@ -296,7 +296,7 @@ window.addEventListener('load',function(){setTimeout(function(){
 </section>
   <div class="wrap chapter-body">
     <aside class="explains rv" aria-label="Ritesh explains">
-  <div class="ex-av"><figure class="av ex-face" data-av data-persona="research" data-fallback style="--rim:#9b8cff;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="88px" width="510" height="694" alt="" loading="lazy" decoding="async"></figure></div>
+  <div class="ex-av"><figure class="av av-empty ex-face" data-av data-persona="research" data-slot="empty" aria-hidden="true" hidden></figure></div>
   <div><p class="eyebrow">Ritesh explains</p><p class="quote">LLM outputs can look correct while still being unsupported. MAREF is my attempt to separate the ways an agent can fail instead of averaging them away.</p></div></aside>
     <article class="paper" id="research" aria-labelledby="paper-t">
       <p class="paper-status"><b>Research / framework in development.</b> No experimental results are claimed on this page.</p>
@@ -412,7 +412,7 @@ window.addEventListener('load',function(){setTimeout(function(){
 </div></section>
 <section id="contact" class="contact" data-world="contact" aria-labelledby="contact-title">
   <canvas class="world-canvas" aria-hidden="true"></canvas><div class="contact-vig" aria-hidden="true"></div>
-  <figure class="av contact-av" data-av data-persona="contact" data-fallback style="--rim:#22d3a6;--ar:510/694"><img src="assets/avatar/ritesh-cutout-510.webp" srcset="assets/avatar/ritesh-cutout-510.webp 510w, assets/avatar/ritesh-cutout-1020.webp 1020w" sizes="(max-width:900px) 28svh, min(540px, 54svh)" width="510" height="694" alt="" loading="lazy" decoding="async"></figure>
+  <figure class="av av-empty contact-av" data-av data-persona="contact" data-slot="empty" aria-hidden="true" hidden></figure>
   <div class="contact-copy"><p class="kicker rv"><b>11</b> Contact</p>
     <h2 id="contact-title" class="rv">Let’s build<span>something reliable.</span></h2>
     <p class="rv">Open to AI/ML, data engineering and product-analytics roles across the US. Email is fastest.</p>

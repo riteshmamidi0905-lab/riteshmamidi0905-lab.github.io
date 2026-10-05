@@ -36,6 +36,8 @@ function personaImage(persona) {
 function avatarHTML(persona, o) {
   o = Object.assign({ cls: '', tag: false, eager: false, sizes: '(max-width:900px) 70vw, 460px', alt: '' }, o || {});
   const { p, file, file2, w, h, fallback } = personaImage(persona);
+  /* no canonical art yet: an empty, hidden slot — the composition is designed to stand without it; drop a file in assets/avatar/ to fill it */
+  if (fallback) return `<figure class="av av-empty ${o.cls}" data-av data-persona="${persona}" data-slot="empty" aria-hidden="true" hidden></figure>`;
   const srcset = file2 ? ` srcset="${file} ${w}w, ${file2} ${w * 2}w" sizes="${o.sizes}"` : '';
   return `<figure class="av ${o.cls}" data-av data-persona="${persona}"${fallback ? ' data-fallback' : ''} style="--rim:${p.rim};--ar:${w}/${h}"><img src="${file}"${srcset} width="${w}" height="${h}" alt="${esc(o.alt)}" ${o.eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">${o.tag ? `<figcaption class="av-tag">${esc(p.label)}</figcaption>` : ''}</figure>`;
 }

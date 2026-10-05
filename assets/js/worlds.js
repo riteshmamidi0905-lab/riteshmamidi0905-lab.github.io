@@ -19,14 +19,16 @@
   const rand = (seed) => { let a = seed; return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
 
   /* ---------- drawing helpers shared by every scene ---------- */
+  const SC = { dpr: 1 };
+  function rec(c, s, x, y, o) { const sz = o.size || 12; c.font = `${o.w || 500} ${sz}px ${o.sans ? SANS : FONT}`; const m = c.measureText(String(s)), t = c.getTransform(), w = m.width + (o.ls || 0) * String(s).length, al = o.align || 'left', x0 = al === 'center' ? x - w / 2 : al === 'right' ? x - w : x; window.__txt.push({ s: String(s).slice(0, 40), x: (x0 * t.a + t.e) / SC.dpr, y: ((y - sz * 0.78) * t.d + t.f) / SC.dpr, w: w * t.a / SC.dpr, h: sz * t.d / SC.dpr, a: c.globalAlpha }); }
   function glow(c, x, y, r, col, a) { const g = c.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, rgba(col, a)); g.addColorStop(1, rgba(col, 0)); c.fillStyle = g; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); }
   function rrect(c, x, y, w, h, r) { r = Math.min(r, w / 2, h / 2); c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
-  function text(c, s, x, y, o) { o = o || {}; c.font = `${o.w || 500} ${o.size || 12}px ${o.sans ? SANS : FONT}`; c.textAlign = o.align || 'left'; c.textBaseline = o.base || 'alphabetic'; c.fillStyle = o.col || HEX.tx; if (o.ls) c.letterSpacing = o.ls + 'px'; c.fillText(s, x, y); if (o.ls) c.letterSpacing = '0px'; }
+  function text(c, s, x, y, o) { o = o || {}; if (window.__txt) rec(c, s, x, y, o); c.font = `${o.w || 500} ${o.size || 12}px ${o.sans ? SANS : FONT}`; c.textAlign = o.align || 'left'; c.textBaseline = o.base || 'alphabetic'; c.fillStyle = o.col || HEX.tx; if (o.ls) c.letterSpacing = o.ls + 'px'; c.fillText(s, x, y); if (o.ls) c.letterSpacing = '0px'; }
   function wrap(c, s, x, y, maxW, lh, o) { const words = String(s).split(' '); let ln = '', yy = y, n = 0; c.font = `${(o && o.w) || 500} ${(o && o.size) || 12}px ${o && o.sans ? SANS : FONT}`; for (const w of words) { const t = ln ? ln + ' ' + w : w; if (c.measureText(t).width > maxW && ln) { text(c, ln, x, yy, o); ln = w; yy += lh; n++; } else ln = t; } if (ln) { text(c, ln, x, yy, o); n++; } return n; }
   function line(c, x1, y1, x2, y2, col, w, a, dash) { c.save(); c.strokeStyle = rgba(col, a == null ? 1 : a); c.lineWidth = w || 1; if (dash) c.setLineDash(dash); c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); c.restore(); }
   function curve(c, p0, p1, p2, p3, col, w, a, dash, off) { c.save(); c.strokeStyle = rgba(col, a == null ? 1 : a); c.lineWidth = w || 1; if (dash) { c.setLineDash(dash); c.lineDashOffset = off || 0; } c.beginPath(); c.moveTo(p0[0], p0[1]); c.bezierCurveTo(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]); c.stroke(); c.restore(); }
   const bez = (p0, p1, p2, p3, t) => { const u = 1 - t; return [u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0], u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1]]; };
-  const Hh = { TAU, clamp, lerp, ease, easeOut, HEX, rgba, rgb, rand, glow, rrect, text, wrap, line, curve, bez, FONT, SANS, lowPower };
+  const Hh = { SC, TAU, clamp, lerp, ease, easeOut, HEX, rgba, rgb, rand, glow, rrect, text, wrap, line, curve, bez, FONT, SANS, lowPower };
 
   function backdrop(c, L, t, s, tint, parts) {
     const { W, H } = L;
@@ -45,7 +47,7 @@
   const J = (f) => 'assets/js/' + f;
   const FLAGDEPS = { 'flag-stream': ['lab/stream-core.js'], 'flag-lake': [], 'flag-eval': ['lab/eval-core.js'], 'flag-rag': ['lab/rag-corpus.js', 'lab/rag-core.js'], 'flag-drift': [], 'flag-ab': ['lab/stats-core.js'] };
   const DEPS = { agents: ['lab/agent-core.js', 'lab/rag-corpus.js', 'lab/rag-core.js', 'scenes/scene-ai.js'], data: ['lab/stream-core.js', 'scenes/scene-data.js'], product: ['lab/funnel-core.js', 'lab/stats-core.js', 'scenes/scene-product.js'], maref: ['lab/eval-core.js', 'scenes/scene-maref.js'] };
-  Object.keys(FLAGDEPS).forEach((k) => { DEPS[k] = FLAGDEPS[k].concat(['scenes/scene-flags.js']); });
+  Object.keys(FLAGDEPS).forEach((k) => { DEPS[k] = ['scenes/scene-kit.js'].concat(FLAGDEPS[k], ['scenes/scene-' + k + '.js']); });
   const loadScript = (f) => loaded[f] ? Promise.resolve() : loading[f] || (loading[f] = new Promise((res, rej) => { const s = document.createElement('script'); s.src = J(f); s.onload = () => { loaded[f] = 1; res(); }; s.onerror = rej; document.head.append(s); }));
   const loadP = {}, load = (name) => loadP[name] || (loadP[name] = (DEPS[name] || []).reduce((p, f) => p.then(() => loadScript(f)), Promise.resolve()));
   const RMW = window.RMW = { H: Hh, scenes, register(name, scene) { scenes[name] = scene; (listeners[name] || []).forEach((fn) => fn()); }, loadFile: (f) => loadScript(f), onReady(name, fn) { if (scenes[name]) fn(); else (listeners[name] = listeners[name] || []).push(fn); }, load };
@@ -57,15 +59,16 @@
     init(w) { const r = rand(9); w.state.net = Array.from({ length: 64 }, () => ({ x: r(), y: r(), p: r() * 6.28, v: 0.4 + r(), k: Math.floor(r() * 3) })); w.state.pointer = { x: 0.6, y: 0.45 }; w.state.pp = { x: 0.6, y: 0.45 }; },
     draw(c, L, t, s, st) {
       const { W, H } = L, sp = st.scrollP || 0; st.pp.x += (st.pointer.x - st.pp.x) * 0.06; st.pp.y += (st.pointer.y - st.pp.y) * 0.06;
-      const cx = W * (L.mobile ? 0.5 : 0.6) + (st.pp.x - 0.5) * 26, cy = H * (L.mobile ? 0.62 : 0.5) + (st.pp.y - 0.5) * 18, R = Math.min(W * (L.mobile ? 0.5 : 0.23), H * 0.42) * (1 + sp * 0.25);
+      const cx = W * (L.mobile ? 0.5 : 0.66) + (st.pp.x - 0.5) * 26, cy = H * (L.mobile ? 0.27 : 0.52) + (st.pp.y - 0.5) * 18, R = Math.min(W * (L.mobile ? 0.34 : 0.2), H * (L.mobile ? 0.17 : 0.4)) * (1 + sp * 0.25);
       const rot = t * 0.035 + sp * 0.9, vt = (k) => { const a = -Math.PI / 2 + rot + k * TAU / 6; return [cx + Math.cos(a) * R, cy + Math.sin(a) * R * 0.94]; };
-      for (let ring = 1; ring <= 3; ring++) { c.strokeStyle = rgba(HEX.ac, 0.05 + 0.025 * ring); c.lineWidth = 1; c.beginPath(); for (let k = 0; k <= 6; k++) { const p = vt(k % 6), f = ring / 3; k ? c.lineTo(cx + (p[0] - cx) * f, cy + (p[1] - cy) * f) : c.moveTo(cx + (p[0] - cx) * f, cy + (p[1] - cy) * f); } c.stroke(); }
+      for (let ring = 1; ring <= 3; ring++) { c.strokeStyle = rgba(HEX.ac, 0.14 + 0.06 * ring); c.lineWidth = 1; c.beginPath(); for (let k = 0; k <= 6; k++) { const p = vt(k % 6), f = ring / 3; k ? c.lineTo(cx + (p[0] - cx) * f, cy + (p[1] - cy) * f) : c.moveTo(cx + (p[0] - cx) * f, cy + (p[1] - cy) * f); } c.stroke(); }
       const lit = (t * 0.5) % 6;
+      c.beginPath(); for (let k = 0; k <= 6; k++) { const p = vt(k % 6), f = 0.5 + 0.22 * Math.sin(t * 0.45 + (k % 6) * 1.7) + 0.08 * Math.sin(t * 0.9 + k); k ? c.lineTo(cx + (p[0] - cx) * f, cy + (p[1] - cy) * f) : c.moveTo(cx + (p[0] - cx) * f, cy + (p[1] - cy) * f); } c.closePath(); c.fillStyle = rgba(HEX.ac, 0.08); c.fill(); c.strokeStyle = rgba(HEX.ac2, 0.55); c.lineWidth = 1.5; c.stroke();
       for (let k = 0; k < 6; k++) {
         const p = vt(k), d = Math.min(Math.abs(lit - k), 6 - Math.abs(lit - k)), g = clamp(1 - d / 1.2);
-        line(c, cx, cy, p[0], p[1], HEX.ac, 1, 0.08 + 0.35 * g); glow(c, p[0], p[1], 14 + 22 * g, HEX.ac, 0.1 + 0.35 * g);
+        line(c, cx, cy, p[0], p[1], HEX.ac, 1, 0.2 + 0.4 * g); glow(c, p[0], p[1], 14 + 22 * g, HEX.ac, 0.1 + 0.35 * g);
         c.fillStyle = g > 0.3 ? HEX.ac2 : '#05070a'; c.strokeStyle = rgba(HEX.ac2, 0.7); c.beginPath(); c.arc(p[0], p[1], 3.5 + 2.5 * g, 0, TAU); c.fill(); c.stroke();
-        if (!L.mobile && g > 0.15) text(c, DIMS[k], p[0] + (p[0] > cx ? 16 : -16), p[1] + 4, { size: 10, align: p[0] > cx ? 'left' : 'right', col: rgba(HEX.tx, 0.35 + 0.6 * g), ls: 1.3, w: 600 });
+        if (!L.mobile) text(c, DIMS[k], p[0] + (p[0] > cx ? 16 : -16), p[1] + 4, { size: 11, align: p[0] > cx ? 'left' : 'right', col: rgba(HEX.tx, 0.55 + 0.45 * g), ls: 1.3, w: 600 });
       }
       const pts = st.net.map((q) => [q.x * W + Math.sin(t * 0.3 * q.v + q.p) * 16 + (st.pp.x - 0.5) * 22 * q.v, q.y * H + Math.cos(t * 0.25 * q.v + q.p) * 12 + (st.pp.y - 0.5) * 14 * q.v - sp * 60 * q.v]);
       c.lineWidth = 0.8; const lim = (W * 0.12) ** 2;
@@ -96,17 +99,20 @@
       this.s = 0; this.target = 0; this.t = 0; this.visible = false; this.state = { scrollP: 0 }; this.manual = null; this.curStep = -1; this.L = null; this.cam = { x: 0, y: 0, z: 1 };
       const r = rand(11 + this.id.length); this.parts = Array.from({ length: 64 }, () => ({ x: r(), y: r(), z: 0.2 + r() * 0.8, p: r() * 6.28 }));
       this.cap = el.querySelector('.world-cap'); this.nav = [...el.querySelectorAll('.world-nav [data-step]')];
-      this.ready = new Promise((res) => { this.activate = () => load(this.name).then(() => RMW.onReady(this.name, () => { this.scene = scenes[this.name]; this.scene.init(this); this.resize(); this.once(); res(); })); });
+      this.ready = new Promise((res) => { this.activate = () => load(this.name).then(() => RMW.onReady(this.name, () => { this.scene = scenes[this.name]; this.scene.init(this); if (STATIC() && this.scene.still != null) { this.s = this.target = this.scene.still; this.t = this.scene.stillT || 8; this.setStep(clamp(Math.round(this.s), 0, this.N - 1), true); } this.resize(); this.once(); res(); })); });
       this.resize(); this.bindUI(); this.setStep(0, true);
-      new ResizeObserver(() => { this.resize(); this.once(); }).observe(el);
+      new ResizeObserver(() => { this.resize(); this.once(); }).observe(el); if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { this.resize(); this.once(); });
     }
     resize() {
       const r = this.canvas.getBoundingClientRect(); if (!r.width) return;
       const dpr = Math.min(devicePixelRatio || 1, lowPower() ? 1.5 : 2); this.canvas.width = Math.round(r.width * dpr); this.canvas.height = Math.round(r.height * dpr); this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const W = r.width, h = r.height, mobile = W < 900, av = (this.avEl = this.avEl || this.el.querySelector('[data-av]'));
-      const a = av ? av.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 }; const A = av ? { x: a.left - r.left, y: a.top - r.top, w: a.width, h: a.height } : { x: W, y: h, w: 0, h: 0 }; A.cx = A.x + A.w / 2;
-      const box = mobile ? { x: W * 0.04, y: h * 0.2, w: W * 0.92, h: h * 0.46 } : { x: W * 0.05, y: h * 0.19, w: W * 0.9, h: h * 0.58 };
-      this.L = { W, H: h, mobile, low: lowPower(), av: A, box, band: { y0: box.y, y1: box.y + box.h } };
+      const rW = r.width, rH = r.height, mobile = rW < 900, k = mobile ? clamp(rW / 390, 1, 1.45) : clamp(rW / 1440, 0.9, 1.4), W = rW / k, h = rH / k;
+      if (this.cap && this.cfg && this.cap.offsetParent) { const l = this.cap.querySelector('.cap-label'), tx = this.cap.querySelector('.cap-text'), keep = [l.textContent, tx.textContent]; let mh = 0; this.cap.style.minHeight = ''; this.cfg.steps.forEach((st2) => { l.textContent = st2[0]; tx.textContent = st2[1]; mh = Math.max(mh, this.cap.offsetHeight); }); l.textContent = keep[0]; tx.textContent = keep[1]; this.cap.style.minHeight = mh + 'px'; }
+      const q = (sel) => { const e = this.el.querySelector(sel); if (!e || !e.offsetParent) return null; const b = e.getBoundingClientRect(); return { x: (b.left - r.left) / k, y: (b.top - r.top) / k, r: (b.right - r.left) / k, b: (b.bottom - r.top) / k }; };
+      const top = q('.world-top'), cap = q('.world-cap'), nav = q('.world-nav');
+      const by = top ? top.b + (mobile ? 12 : 16) : h * 0.16, bb = cap ? cap.y - (mobile ? 12 : 34) : h * 0.8;
+      const box = { x: W * (mobile ? 0.04 : 0.045), y: by, w: W * (mobile ? 0.92 : 0.91), h: Math.max(160, bb - by) };
+      this.k = k; this.dpr = dpr; this.L = { W, H: h, rW, rH, k, mobile, low: lowPower(), box, band: { y0: box.y, y1: box.y + box.h }, top, cap, nav, av: { x: W, y: h, w: 0, h: 0, cx: W } };
     }
     bindUI() {
       this.nav.forEach((b) => b.addEventListener('click', () => this.goto(+b.dataset.step)));
@@ -137,7 +143,7 @@
     }
     draw(dt) {
       const c = this.ctx, L = this.L, sc = this.scene, tint = sc ? sc.tint : HEX.ac;
-      c.save(); backdrop(c, L, this.t, this.s, tint, this.parts);
+      SC.dpr = this.dpr; if (window.__txt) window.__txt.length = 0; c.save(); backdrop(c, { W: L.rW, H: L.rH, low: L.low }, this.t, this.s, tint, this.parts); c.scale(L.k, L.k);
       if (sc) {
         if (sc.advance && dt) sc.advance(this, Math.min(dt, 0.1));
         const cm = this.state.cam; if (cm) { this.cam.x += (cm.x - this.cam.x) * 0.08; this.cam.y += (cm.y - this.cam.y) * 0.08; this.cam.z += (cm.z - this.cam.z) * 0.08; c.translate(this.cam.x, this.cam.y); c.scale(this.cam.z, this.cam.z); c.translate(-this.cam.x, -this.cam.y); }

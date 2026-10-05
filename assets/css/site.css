@@ -53,7 +53,7 @@ code{font-family:var(--mono);font-size:.92em;color:var(--ac2)}
 .hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
 .hero .hero-av{position:absolute;z-index:2;right:clamp(0px,4vw,80px);bottom:0;height:min(76svh,860px);width:auto}
 .scue{position:absolute;z-index:4;right:var(--pad);bottom:28px;font:600 10.5px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:12px;writing-mode:vertical-rl}.scue span{width:1px;height:46px;background:linear-gradient(var(--ac),transparent)}
-@media(max-width:900px){.hero{flex-direction:column;align-items:stretch;justify-content:flex-start;padding-top:calc(var(--nav) + 6px)}.hero-copy{padding-top:6px;padding-bottom:0}.hero .hero-av{position:relative;right:auto;align-self:flex-end;height:36svh;margin:0 -3vw 0 0}.scue{display:none}.hero-name{font-size:clamp(60px,19vw,120px)}}
+@media(max-width:900px){.hero{flex-direction:column;align-items:stretch;justify-content:flex-end;padding-top:calc(var(--nav) + 6px)}.hero-copy{padding-top:6px;padding-bottom:32px}.hero .hero-av{position:relative;right:auto;align-self:flex-end;height:36svh;margin:0 -3vw 0 0}.scue{display:none}.hero-name{font-size:clamp(60px,19vw,120px)}}
 
 /* ---------- 02 build ---------- */
 .brows{margin-top:clamp(40px,7vh,80px);border-top:1px solid var(--line)}
