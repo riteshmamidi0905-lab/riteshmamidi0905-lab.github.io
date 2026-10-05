@@ -4,21 +4,12 @@ Static GitHub Pages portfolio for AI/ML, GenAI/LLM evaluation, data engineering 
 
 ## Source structure
 
-- `data.js`: canonical project library and six case studies.
-- `index.src.html`: authored page template; `index.html` is the synchronized build output.
-- `build.js` / `scripts/sections.js`: static generation; no framework runtime.
-- `assets/css/`: layout and portfolio identity; `app.js` and `assets/js/portfolio.js`: progressive enhancement.
-- `project-visuals/`: animated SVG project explanations and nonanimated `-still.svg` variants. Prior GIF assets are retained for compatibility but are not requested by the page.
-- `assets/media/`: captioned diagram films, posters and WebVTT captions.
-- `demos/`: preserved project dashboards. Dashboard values come from bundled demo data, not live portfolio telemetry.
-- `content/worlds.json`, `content/explainers.json`: the scroll-scrubbed scene scripts and the host's project explanations (data, rendered to static HTML by `scripts/worlds-html.js`).
-- `assets/js/worlds.js`: the cinematic scenes (canvas, one pure function of time and step each; only the visible scene renders). `assets/js/host.js`: intro, explainers, lab loading, micro-tours, capture mode. `assets/js/film.js`: the launch-film director (see below).
-- `assets/js/lab/*-core.js`: the real logic behind the interactive lab (agent loop, RAG, streaming simulation, A/B statistics, funnel model, evaluation proxies), ported from the repositories and unit-tested in Node. `lab-ui.js` only builds the DOM.
-- `assets/avatar/`: avatar manifest, cut-outs and the production spec for generated persona art (`README.md` there explains how to drop it in).
-- `deliverables/`: LinkedIn avatar crop and preview, and the rendered launch film with captions.
-- `content/research.json`: proposed MAREF dimensions; no experimental result claims.
-- `content/project-evidence.json`: exact reviewed source revisions for all 22 projects.
-- `content/videos.json` / `content/linkedin-drafts.md`: explainer scripts and social drafts. Publishing each social post requires specific approval.
+- `data.js` — canonical project library and the six case studies. `content/*.json` — site copy, explainers, world scripts, research, verified evidence links.
+- `index.src.html` — page skeleton + SEO head. `build.js` + `scripts/render.js` + `scripts/worlds-html.js` — static generation of `index.html` and `recruiter.html`. Nothing is hand-duplicated.
+- `assets/css/site.css` (the one design system), `assets/css/worlds.css` (scenes, avatar, demos), `assets/css/recruiter.css` (inlined into the recruiter page).
+- `assets/js/site.js` (page behaviour), `worlds.js` (scroll-scrubbed canvas scenes), `host.js` (intro, demo tabs, capture mode), `film.js` (launch-film director), `lab/` (real logic behind the demos, unit-tested, plus the UI).
+- `assets/avatar/` — avatar manifest, cut-outs and the spec for generated persona art. `deliverables/` — LinkedIn avatar crop and the launch film.
+- `docs/redesign/` — visual audit, before/after, motion and performance rules, how to add a flagship.
 
 ## Develop and verify
 
@@ -30,7 +21,8 @@ npx playwright install chromium
 python3 -m http.server 8000
 # In another terminal:
 npm run test:browser
-npm run test:experience   # scenes, intro, lab demos, explainers, capture mode, reduced motion
+npm run test:experience   # scenes, intro, in-chapter demos, capture mode, reduced motion
+npm run test:budget       # first-visit performance budgets
 npm run test:a11y
 ```
 
