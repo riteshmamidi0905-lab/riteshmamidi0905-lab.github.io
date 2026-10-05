@@ -138,7 +138,7 @@ canvas.lab-canvas{width:100%;display:block;background:#05080a;border:1px solid v
 .heat div{display:grid;gap:3px}
 .heat span{padding:7px 0;text-align:center;border-radius:4px;color:#04110d;font-weight:600}
 .heat .h{background:none;color:#8f98a6;font-weight:500}
-@media(max-width:900px){.lab-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.lab-grid{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- mobile compositions (deliberate, not shrunk desktop) ---------- */
 @media(max-width:900px){
@@ -169,3 +169,5 @@ html.rm-capture-lab .demo-head,html.rm-capture-lab .explains,html.rm-capture-lab
 html.rm-capture-lab .chapter-body{padding:24px var(--pad)}
 
 @media(min-width:901px){.world.no-av .world-cap{width:min(40vw,580px);border-radius:18px}.world.no-av .world-cap::after{display:none}}
+
+.demo,.lab-panel,.lab-ui,.lab-col{min-width:0;max-width:100%}.lab-panel table.lt td,.lab-panel table.lt th{overflow-wrap:anywhere}
