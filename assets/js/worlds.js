@@ -256,7 +256,7 @@
     resize() {
       const r = this.canvas.getBoundingClientRect(); if (!r.width) return;
       const dpr = Math.min(devicePixelRatio || 1, lowPower() ? 1.5 : 2); this.canvas.width = Math.round(r.width * dpr); this.canvas.height = Math.round(r.height * dpr); this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const W = r.width, H = r.height, mobile = W < 700, a = this.av ? this.av.getBoundingClientRect() : { left: W * 0.7, top: H * 0.5, width: 100, height: 200 };
+      const W = r.width, H = r.height, mobile = W < 900, a = this.av ? this.av.getBoundingClientRect() : { left: W * 0.7, top: H * 0.5, width: 100, height: 200 };
       const av = this.av ? { x: a.left - r.left, y: a.top - r.top, w: a.width, h: a.height } : { x: W, y: H, w: 0, h: 0 }; av.cx = av.x + av.w / 2;
       this.L = { W, H, mobile, low: lowPower(), av, band: mobile ? { y0: H * 0.21, y1: H * 0.37 } : { y0: H * 0.2, y1: H * 0.46 } };
     }

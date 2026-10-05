@@ -36,16 +36,16 @@
   function agentUI(root) {
     const A = L.agentCore; let task = A.EXAMPLES[0], events = [], shown = 0, timer = 0;
     const input = h('input', { type: 'text', id: 'agent-task', value: task, 'aria-label': 'Agent task', maxlength: 160 });
-    const stages = ['Task', 'Plan', 'Tool', 'Execution', 'Evaluation', 'Response'];
+    const stages = ['Objective', 'Planning', 'Tools', 'Execution', 'Evaluation', 'Result'];
     const pipe = h('div', { class: 'pipe', 'aria-label': 'Workflow stages' }), trace = h('ol', { class: 'trace', 'aria-live': 'polite' }), ans = h('div', { class: 'ans', hidden: true });
     function build() {
       clearInterval(timer); const res = A.run(task), ev = A.evaluate(task, res); events = [];
-      events.push(['Task', 'task', `“${task}”`]);
-      events.push(['Plan', 'plan', res.plan.kind === 'compose' ? `compose → ${res.plan.tool}, then calculator ${res.plan.op} ${res.plan.operand}` : `simple → ${res.plan.tool}`]);
-      res.history.forEach((s, i) => { events.push(['Tool', `thought ${i + 1}`, s.thought]); events.push(['Tool', 'action', `${s.tool}(${JSON.stringify(s.input)})`]); events.push(['Execution', 'observation', s.observation, s.observation.indexOf('error:') === 0]); });
+      events.push(['Objective', 'objective', `“${task}”`]);
+      events.push(['Planning', 'plan', res.plan.kind === 'compose' ? `compose → ${res.plan.tool}, then calculator ${res.plan.op} ${res.plan.operand}` : `simple → ${res.plan.tool}`]);
+      res.history.forEach((s, i) => { events.push(['Tools', `thought ${i + 1}`, s.thought]); events.push(['Tools', 'action', `${s.tool}(${JSON.stringify(s.input)})`]); events.push(['Execution', 'observation', s.observation, s.observation.indexOf('error:') === 0]); });
       if (!res.finished) events.push(['Execution', 'stopped', 'step limit reached with no answer', true]);
       ev.checks.forEach((c) => events.push(['Evaluation', c.pass ? 'check ✓' : 'check ✗', c.name, !c.pass]));
-      events.push(['Response', 'answer', String(res.answer), !ev.pass]); state.res = res; state.ev = ev; shown = 0; render();
+      events.push(['Result', 'answer', String(res.answer), !ev.pass]); state.res = res; state.ev = ev; shown = 0; render();
     }
     const state = {};
     function render() {
@@ -62,7 +62,7 @@
     input.addEventListener('input', () => { task = input.value; build(); });
     const ex = chips(A.EXAMPLES.map((t) => [t, t.length > 34 ? t.slice(0, 32) + '…' : t]), task, (t) => { task = t; input.value = t; build(); });
     root.append(h('div', { class: 'lab-grid' },
-      h('div', { class: 'lab-col' }, h('h4', null, 'Task'), h('div', { class: 'lab-row' }, h('label', { for: 'agent-task' }, h('span', null, 'Give the agent a task')), input), ex, h('div', { class: 'btn-row' }, stepBtn, runAll, reset),
+      h('div', { class: 'lab-col' }, h('h4', null, 'Objective'), h('div', { class: 'lab-row' }, h('label', { for: 'agent-task' }, h('span', null, 'Give the agent an objective')), input), ex, h('div', { class: 'btn-row' }, stepBtn, runAll, reset),
         h('h4', { style: 'margin-top:22px' }, 'Tools available'), h('table', { class: 'lt' }, h('tbody', null, Object.entries(A.TOOLS).map(([k, t]) => h('tr', null, h('td', null, k), h('td', null, t.description))))),
         h('p', { class: 'lab-note' }, 'The planner is the repository’s rule-based offline policy, so it handles conversions, arithmetic, a few facts and text counts. Anything else ends in “unknown”, and the evaluation stage flags it rather than guessing.')),
       h('div', { class: 'lab-col' }, pipe, trace, ans)));

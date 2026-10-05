@@ -141,7 +141,7 @@ canvas.lab-canvas{width:100%;display:block;background:#05080a;border:1px solid v
 @media(max-width:900px){.lab-grid{grid-template-columns:1fr}}
 
 /* ---------- mobile compositions (deliberate, not shrunk desktop) ---------- */
-@media(max-width:760px){
+@media(max-width:900px){
   .world-stage{min-height:560px}
   .world-top{top:calc(var(--nav) + 10px);left:16px;right:16px;flex-direction:column;gap:5px}
   .world-note{text-align:left;font-size:8.5px;max-width:none;letter-spacing:.04em}
@@ -168,4 +168,4 @@ html.rm-capture .world-note,html.rm-capture .world-nav,html.rm-capture .world-ct
 html.rm-capture-lab .demo-head,html.rm-capture-lab .explains,html.rm-capture-lab .chapter>.world{display:none}
 html.rm-capture-lab .chapter-body{padding:24px var(--pad)}
 
-@media(min-width:761px){.world.no-av .world-cap{width:min(40vw,580px);border-radius:18px}.world.no-av .world-cap::after{display:none}}
+@media(min-width:901px){.world.no-av .world-cap{width:min(40vw,580px);border-radius:18px}.world.no-av .world-cap::after{display:none}}
