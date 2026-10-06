@@ -14,7 +14,7 @@ assert.equal(document.querySelectorAll('article.flag').length, FLAG.length, 'six
 assert.equal(document.querySelectorAll('h1').length, 1); assert.equal(document.querySelectorAll('main').length, 1);
 assert.equal(document.querySelectorAll('.dimension').length, 6);
 assert.equal(document.querySelectorAll('video').length, 5); assert.equal(document.querySelectorAll('track[kind="captions"]').length, 5);
-assert.equal(document.querySelectorAll('[data-world]').length, 12, 'hero + 4 worlds + contact + 6 flagship scenes');
+assert.equal(document.querySelectorAll('[data-world]').length, 13, 'hero + 4 worlds + runtime scene + contact + 6 flagship scenes');
 const order = [...document.querySelectorAll('main > section, main > .chapter, main > header')].map((s) => s.id);
 assert.deepEqual(order, ['hero', 'build', 'ai', 'data', 'product', 'flagships', 'maref', 'experience', 'projects', 'about', 'contact'], 'story order');
 
@@ -52,7 +52,24 @@ for (const f of ['app.js', 'assets/js/portfolio.js', 'assets/css/base.css', 'ass
 /* recruiter view is script-free and complete */
 assert.equal(rec.querySelectorAll('script').length, 0); assert.ok(rec.querySelector('h1').textContent.includes('Ritesh Mamidi'));
 for (const k of ['Experience', 'Top projects', 'Core technologies', 'Research', 'Contact']) assert.ok([...rec.querySelectorAll('h2')].some((h) => h.textContent === k), 'recruiter section ' + k);
-assert.equal(rec.querySelectorAll('.proj > li').length, FLAG.length);
+assert.equal(rec.querySelectorAll('.proj > li').length, FLAG.length + 1, 'six flagships + the agent runtime');
+
+/* AI Agent Runtime: every claim is bound to the pinned public-repo evidence and its limits are stated */
+const RT = require('../content/agent-runtime.json');
+const rtText = document.querySelector('#agent-runtime').textContent, all = document.body.textContent;
+assert.equal(RT.sha.length, 40); assert.equal(plinks[RT.repo].sha, RT.sha); assert.equal(require('../content/project-evidence.json')[RT.repo], RT.sha);
+for (const must of ['89', '3.9', '3.12', 'PostgreSQL 16', 'Docker Compose', '13 / 13', '100%']) assert.ok(rtText.includes(must), 'runtime evidence missing: ' + must);
+assert.ok(rtText.includes('Runtime evaluation using deterministic stand-in and scripted models; not a benchmark of LLM quality.'), 'mandatory evaluation qualifier');
+const qIdx = rtText.indexOf('not a benchmark of LLM quality'), sIdx = rtText.indexOf('13 / 13'); assert.ok(qIdx > sIdx && qIdx - sIdx < 800, 'qualifier must sit right after the numbers');
+const prom = [...document.querySelectorAll('.rt-stats, #world-runtime .world-top, #world-runtime .world-steps, #world-runtime .world-cap')].map((e) => e.textContent).join(' ');
+assert.ok(!/61\.5/.test(prom), 'final-answer rate must not be prominent'); assert.ok(/61\.5%/.test(document.querySelector('.rt-det').textContent), 'appears only inside the detailed explanation, with context');
+assert.ok(document.querySelector('.rt-det').textContent.includes('by design'));
+const lim = document.querySelector('.rt-lim').textContent; for (const k of ['No real language model has been exercised', 'verified in CI only', 'Not deployed as a live service', 'No run-cancellation', 'cannot be killed', 'estimates', 'heuristics']) assert.ok(lim.includes(k), 'limitation missing: ' + k);
+assert.ok(!/production[- ]deployed|deployed to production|live in production/i.test(rtText), 'must not claim a production deployment');
+assert.ok(!/real[- ]model[^.]*(was|were) (run|executed)|verified (locally )?with docker/i.test(rtText));
+for (const a of document.querySelectorAll('#agent-runtime a[href^="https://github.com/"]')) { assert.ok(a.href.includes('/' + RT.repo), a.href); if (!/\/ai-agent-from-scratch$/.test(a.href)) assert.ok(a.href.includes(RT.sha), 'doc links are pinned to the commit: ' + a.href); }
+assert.ok(document.querySelector('#projects').textContent.includes(RT.title));
+assert.equal(P[0].r, RT.repo, 'agent runtime leads the library');
 
 /* deterministic build */
 const before = [read('index.html'), read('recruiter.html')];

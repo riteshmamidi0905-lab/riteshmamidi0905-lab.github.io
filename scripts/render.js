@@ -12,6 +12,7 @@ const research = require(path.join(root, 'content/research.json'));
 const videos = require(path.join(root, 'content/videos.json'));
 const timings = require(path.join(root, 'content/video-timings.json'));
 const evidence = require(path.join(root, 'content/project-evidence.json'));
+const RT = require(path.join(root, 'content/agent-runtime.json'));
 const plinks = require(path.join(root, 'content/project-links.json'));
 const { avatarHTML, worldHTML, stageHTML } = require('./worlds-html');
 
@@ -100,10 +101,28 @@ const CHAPTERS = {
   data: { world: 'data', persona: 'data', demos: ['stream'], label: 'in your browser' },
   product: { world: 'product', persona: 'product', demos: ['experiment', 'funnel'], label: 'in your browser' },
 };
+/* ---------- AI Agent Runtime: a flagship-level project inside the AI chapter (scene + inspectable evidence) ---------- */
+const rtLink = ([label, p, kind]) => { const href = kind === 'repo' ? GH + RT.repo : `${GH}${RT.repo}/${kind}/${RT.sha}/${p}`; return `<a class="ln" href="${href}" target="_blank" rel="noopener">${esc(label)} ${ARROW}</a>`; };
+function runtimeHTML() {
+  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Featured · AI engineering', title: RT.title, h: 3, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: [GH + RT.repo, 'Read the repository'], cls: 'runtimestage' });
+  return `${stage}
+  <div class="wrap rt-after" id="agent-runtime">
+    <p class="rt-sum rv">${esc(RT.summary)}</p>
+    <ul class="rt-stats rv" aria-label="Verified evidence">${RT.stats.map((x) => `<li><b>${esc(x[0])}</b><span>${esc(x[1])}</span><small>${esc(x[2])}</small></li>`).join('')}</ul>
+    <p class="rt-qual rv"><b>Qualification.</b> ${esc(RT.qualifier)} <span class="mut">Source: public repository at commit <code>${RT.sha.slice(0, 7)}</code>.</span></p>
+    <div class="rt-cols rv">
+      <details class="rt-det"><summary>Evaluation in detail</summary><p>${esc(RT.evalDetail)}</p><p><a class="ln" href="${GH}${RT.repo}/blob/${RT.sha}/docs/eval-report.md" target="_blank" rel="noopener">Full evaluation report ${ARROW}</a></p></details>
+      <div class="rt-lim"><h4>Limitations</h4><ul>${RT.limitations.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
+    </div>
+    <nav class="lns rv" aria-label="${esc(RT.short)} repository and documentation">${RT.docs.map(rtLink).join('')}</nav>
+  </div>`;
+}
+
 function chapterHTML(id) {
   const c = CHAPTERS[id];
   return `<section id="${id}" class="chapter">
   ${worldHTML(c.world)}
+  ${id === 'ai' ? runtimeHTML() : ''}
   <div class="wrap chapter-body">
     ${explainsHTML(id, c.persona)}
     ${demoHTML(id, c.demos, c.label)}
@@ -113,7 +132,7 @@ function chapterHTML(id) {
 /* ---------- 06 flagships: each is a full-screen pinned scene; the architecture IS the scene ---------- */
 const FLAG_SCENE = { 'realtime-streaming-pipeline': 'flag-stream', 'spark-data-lakehouse': 'flag-lake', 'llm-eval-framework': 'flag-eval', 'genai-doc-assistant': 'flag-rag', 'mlops-platform': 'flag-drift', 'experimentation-toolkit': 'flag-ab' };
 const flagSteps = (f) => f.cs.arch.map((n, i) => [n, explainers[f.r].arch[i]]);
-const flagStepsConfig = () => Object.fromEntries(FLAG.map((f) => ['flag:' + f.r, { steps: flagSteps(f) }]));
+const flagStepsConfig = () => Object.assign(Object.fromEntries(FLAG.map((f) => ['flag:' + f.r, { steps: flagSteps(f) }])), { runtime: { steps: RT.steps }, 'runtime-data': { ladder: RT.ladder, arch: RT.arch, sse: RT.sse, gates: RT.gates, guards: RT.guards, stats: RT.stats, qualifier: RT.qualifier, sha: RT.sha.slice(0, 7) } });
 
 const SPEC = [['What it is', 0], ['How it works', 2], ['Engineering decisions', 3], ['Tradeoffs', 5], ['Limitations', 6], ['Evaluation', 4], ['What I would build next', 7]];
 function videoHTML(vid) {
@@ -191,13 +210,13 @@ function experienceHTML() {
 function projectsHTML() {
   const cats = Object.entries(CATLABEL);
   const rows = P.map((p) => {
-    const fl = FLAG.some((f) => f.r === p.r);
+    const fl = FLAG.some((f) => f.r === p.r) || !!p.feat;
     return `<li class="prow" data-cat="${p.c}" data-q="${esc((p.n + ' ' + p.d + ' ' + p.t.join(' ') + ' ' + CATLABEL[p.c]).toLowerCase())}">
     <button class="pr-main" type="button" data-repo="${p.r}" aria-haspopup="dialog"><span class="pn">${esc(p.n)}${fl ? '<i class="fl">flagship</i>' : ''}</span><span class="pd">${esc(p.d)}</span></button>
     <span class="pt">${p.t.map((t) => `<i>${esc(t)}</i>`).join('')}</span>
     <span class="pl"><a href="${GH}${p.r}" target="_blank" rel="noopener" aria-label="${esc(p.n)} on GitHub">Code ${ARROW}</a>${p.dm ? `<a href="${p.dm}" target="_blank" rel="noopener" aria-label="${esc(p.n)} live demo">Demo ${ARROW}</a>` : ''}</span></li>`;
   }).join('');
-  const data = Object.fromEntries(P.map((p) => [p.r, { n: p.n, d: p.d, t: p.t, c: CATLABEL[p.c], flag: FLAG.some((f) => f.r === p.r), ev: evidenceLinks(p.r), visual: fs.existsSync(path.join(root, 'project-visuals', p.r + '.svg')) }]));
+  const data = Object.fromEntries(P.map((p) => [p.r, { n: p.n, d: p.d, t: p.t, c: CATLABEL[p.c], flag: FLAG.some((f) => f.r === p.r) || !!p.feat, ev: evidenceLinks(p.r), visual: fs.existsSync(path.join(root, 'project-visuals', p.r + '.svg')) }]));
   return `<section id="projects" class="sec lib" aria-labelledby="proj-t"><div class="wrap">
   <p class="kicker rv"><b>09</b> All projects</p>
   <h2 id="proj-t" class="statement rv">${P.length} projects. <span class="mut">The six above are the ones to read first.</span></h2>
@@ -259,7 +278,7 @@ function recruiterHTML(headExtra) {
 <p>I build and evaluate AI systems and the data pipelines under them: LLM output validation against quality rubrics at Apple Maps, and open-source work in agents, RAG, LLM evaluation, streaming and batch data engineering, MLOps and experimentation.</p>
 <p class="status">${esc(pr.status)}.</p></section>
 <section aria-labelledby="r-exp"><h2 id="r-exp">Experience</h2>${site.experience.map((e) => `<div class="job"><div class="when">${esc(e.when)}${e.current ? ' · current' : ''}</div><div><h3>${esc(e.role)}</h3><p class="org">${esc(e.org)} · ${esc(e.where)}</p><ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></div>`).join('')}<p class="fine">${esc(site.experienceNote)}</p></section>
-<section aria-labelledby="r-proj"><h2 id="r-proj">Top projects</h2><ol class="proj">${FLAG.map((f) => `<li><div><h3>${esc(f.n)}</h3><p>${esc(f.one)}</p><p class="tech">${f.tech.map(esc).join(' · ')}</p></div><p class="lk"><a href="${GH}${f.r}">Code</a>${plinks[f.r] && plinks[f.r].tests ? ` · <a href="${GH}${f.r}/tree/${evidence[f.r]}/${plinks[f.r].testsPath}">Tests</a>` : ''}${P_BY[f.r].dm ? ` · <a href="${P_BY[f.r].dm}">Demo</a>` : ''} · <a href="./#flag-${f.r}">Case study</a></p></li>`).join('')}</ol><p class="fine">${P.length} projects in total; the full list is on the <a href="./#projects">main site</a>. All are public repositories.</p></section>
+<section aria-labelledby="r-proj"><h2 id="r-proj">Top projects</h2><ol class="proj"><li><div><h3>${esc(RT.title)}</h3><p>${esc(RT.oneLine)}</p><p class="tech">${RT.tech.map(esc).join(' · ')}</p></div><p class="lk"><a href="${GH}${RT.repo}">Code</a> · <a href="${GH}${RT.repo}/tree/${RT.sha}/tests">Tests</a> · <a href="${GH}${RT.repo}/blob/${RT.sha}/docs/architecture.md">Architecture</a> · <a href="./#agent-runtime">Case study</a></p></li>${FLAG.map((f) => `<li><div><h3>${esc(f.n)}</h3><p>${esc(f.one)}</p><p class="tech">${f.tech.map(esc).join(' · ')}</p></div><p class="lk"><a href="${GH}${f.r}">Code</a>${plinks[f.r] && plinks[f.r].tests ? ` · <a href="${GH}${f.r}/tree/${evidence[f.r]}/${plinks[f.r].testsPath}">Tests</a>` : ''}${P_BY[f.r].dm ? ` · <a href="${P_BY[f.r].dm}">Demo</a>` : ''} · <a href="./#flag-${f.r}">Case study</a></p></li>`).join('')}</ol><p class="fine">${P.length} projects in total; the full list is on the <a href="./#projects">main site</a>. All are public repositories.</p></section>
 <section aria-labelledby="r-tech"><h2 id="r-tech">Core technologies</h2><p class="tags">${top.map((t) => `<span>${esc(t)}</span>`).join('')}</p></section>
 <section aria-labelledby="r-res"><h2 id="r-res">Research</h2><p><b>MAREF</b> — ${esc(research.expansion)}. <b>Research / framework in development;</b> no experimental results are claimed. Six proposed dimensions: ${research.dimensions.map((d) => esc(d.name)).join(', ')}.</p></section>
 <section aria-labelledby="r-edu"><h2 id="r-edu">Education and certifications</h2><ul class="plain">${site.education.map((e) => `<li><b>${esc(e[0])}</b> — ${esc(e[1])}</li>`).join('')}${site.certs.map((e) => `<li><b>${esc(e[0])}</b> — ${esc(e[1])} (<a href="${e[2]}">verify</a>)</li>`).join('')}</ul></section>

@@ -174,5 +174,13 @@
   "readme": true,
   "sha": "d74f0af85993d248d718f30d1f929230908e9c0a",
   "testsPath": "tests"
+ },
+ "ai-agent-from-scratch": {
+  "tests": true,
+  "docs": true,
+  "architecture": true,
+  "readme": true,
+  "sha": "231b1866f88ac31339fbb2b87ffee88d75d5a573",
+  "testsPath": "tests"
  }
 }

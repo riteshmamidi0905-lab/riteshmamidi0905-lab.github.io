@@ -53,7 +53,7 @@ function stageHTML(o) {
     <div class="world-vig" aria-hidden="true"></div>
     <div class="world-top"><div><span class="world-kicker">${esc(o.kicker)}</span>${o.h === 3 ? `<h3 class="world-title" id="${o.id}-t">${esc(o.title)}</h3>` : `<h2 class="world-title" id="${o.id}-t">${esc(o.title)}</h2>`}${o.sub ? `<p class="world-sub">${esc(o.sub)}</p>` : ''}</div><span class="world-note">${esc(o.note)}</span></div>
     <ol class="world-steps">${steps}</ol>
-    <div class="world-cap" aria-live="polite"><span class="cap-n">01 / ${String(o.steps.length).padStart(2, '0')}</span><b class="cap-label">${esc(o.steps[0][0])}</b><p class="cap-text">${esc(o.steps[0][1])}</p>${o.cta ? `<a class="world-cta" href="${o.cta[0]}">${esc(o.cta[1])} ${arrow}</a>` : ''}</div>
+    <div class="world-cap" aria-live="polite"><span class="cap-n">01 / ${String(o.steps.length).padStart(2, '0')}</span><b class="cap-label">${esc(o.steps[0][0])}</b><p class="cap-text">${esc(o.steps[0][1])}</p>${o.cta ? `<a class="world-cta" href="${o.cta[0]}"${/^https?:/.test(o.cta[0]) ? ' target="_blank" rel="noopener"' : ''}>${esc(o.cta[1])} ${arrow}</a>` : ''}</div>
     <div class="world-nav" role="group" aria-label="${esc(o.title)}: steps">${nav}</div>
   </div>
 </section>`;

@@ -46,11 +46,11 @@
   const scenes = {}, listeners = {}, loaded = {}, loading = {};
   const J = (f) => 'assets/js/' + f;
   const FLAGDEPS = { 'flag-stream': ['lab/stream-core.js'], 'flag-lake': [], 'flag-eval': ['lab/eval-core.js'], 'flag-rag': ['lab/rag-corpus.js', 'lab/rag-core.js'], 'flag-drift': [], 'flag-ab': ['lab/stats-core.js'] };
-  const DEPS = { agents: ['lab/agent-core.js', 'lab/rag-corpus.js', 'lab/rag-core.js', 'scenes/scene-ai.js'], data: ['lab/stream-core.js', 'scenes/scene-data.js'], product: ['lab/funnel-core.js', 'lab/stats-core.js', 'scenes/scene-product.js'], maref: ['lab/eval-core.js', 'scenes/scene-maref.js'] };
+  const DEPS = { agents: ['lab/agent-core.js', 'lab/rag-corpus.js', 'lab/rag-core.js', 'scenes/scene-ai.js'], data: ['lab/stream-core.js', 'scenes/scene-data.js'], product: ['lab/funnel-core.js', 'lab/stats-core.js', 'scenes/scene-product.js'], maref: ['lab/eval-core.js', 'scenes/scene-maref.js'], runtime: ['scenes/scene-runtime.js'] };
   Object.keys(FLAGDEPS).forEach((k) => { DEPS[k] = ['scenes/scene-kit.js'].concat(FLAGDEPS[k], ['scenes/scene-' + k + '.js']); });
   const loadScript = (f) => loaded[f] ? Promise.resolve() : loading[f] || (loading[f] = new Promise((res, rej) => { const s = document.createElement('script'); s.src = J(f); s.onload = () => { loaded[f] = 1; res(); }; s.onerror = rej; document.head.append(s); }));
   const loadP = {}, load = (name) => loadP[name] || (loadP[name] = (DEPS[name] || []).reduce((p, f) => p.then(() => loadScript(f)), Promise.resolve()));
-  const RMW = window.RMW = { H: Hh, scenes, register(name, scene) { scenes[name] = scene; (listeners[name] || []).forEach((fn) => fn()); }, loadFile: (f) => loadScript(f), onReady(name, fn) { if (scenes[name]) fn(); else (listeners[name] = listeners[name] || []).push(fn); }, load };
+  const RMW = window.RMW = { cfg: (k) => STEPS[k], H: Hh, scenes, register(name, scene) { scenes[name] = scene; (listeners[name] || []).forEach((fn) => fn()); }, loadFile: (f) => loadScript(f), onReady(name, fn) { if (scenes[name]) fn(); else (listeners[name] = listeners[name] || []).push(fn); }, load };
 
   /* ---------- hero + contact: the environment (agent graph, data streams, an evaluation ring) ---------- */
   const DIMS = ['TASK ACCURACY', 'GROUNDEDNESS', 'HALLUCINATION RESISTANCE', 'INSTRUCTION ADHERENCE', 'CONSISTENCY', 'TASK COMPLETION'];

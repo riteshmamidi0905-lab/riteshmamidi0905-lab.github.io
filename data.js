@@ -198,6 +198,14 @@ const FLAG=[
 ];
 const P=[
   {
+    "c": "genai",
+    "n": "AI Agent Runtime — From First Principles to Production",
+    "r": "ai-agent-from-scratch",
+    "feat": true,
+    "d": "Agent runtime in standard-library Python: explicit loop, tools, state, memory, planning, evaluation, reliability and security, then served by FastAPI with PostgreSQL and resumable SSE.",
+    "t": ["Python", "FastAPI", "PostgreSQL", "SSE"]
+  },
+  {
     "c": "data",
     "n": "Spark Data Lakehouse",
     "r": "spark-data-lakehouse",

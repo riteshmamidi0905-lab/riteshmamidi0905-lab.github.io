@@ -39,7 +39,7 @@ const { serveLocal, base } = require('./local-preview'); const { P, FLAG } = req
   }
   /* recruiter view */
   { const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'recruiter.html');
-    assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length);
+    assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length + 1);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)); await ctx.close(); }
   /* keyboard: first Tab lands on the skip link */
   { const kb = await browser.newPage(); await serveLocal(kb); await kb.goto(base); await kb.keyboard.press('Tab'); assert.equal(await kb.locator('.skip').evaluate((el) => el === document.activeElement), true); await kb.close(); }

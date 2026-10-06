@@ -1,0 +1,60 @@
+{
+ "title": "AI Agent Runtime — From First Principles to Production",
+ "short": "AI Agent Runtime",
+ "repo": "ai-agent-from-scratch",
+ "sha": "231b1866f88ac31339fbb2b87ffee88d75d5a573",
+ "summary": "A tool-using agent runtime written from scratch in Python, with no agent framework, then wrapped as a FastAPI service with PostgreSQL persistence and resumable event streaming. Built to be explained line by line.",
+ "oneLine": "Agent runtime in standard-library Python: explicit loop, tools, state, memory, planning, evaluation, reliability and security, then served by FastAPI with PostgreSQL and resumable SSE.",
+ "tech": ["Python", "FastAPI", "PostgreSQL", "SSE", "Docker Compose", "Agents"],
+ "ladder": [
+  ["Model interface", "model.py"], ["Structured output", "structured.py"], ["Tools", "tools.py"], ["Agent loop", "loop.py"],
+  ["State & memory", "state.py · memory.py"], ["Planning", "planner.py"], ["Evaluation", "evals.py"],
+  ["Reliability & security", "reliability.py · security.py"], ["Observability", "trace.py"]
+ ],
+ "arch": [
+  ["Client", "any HTTP client", "POST a run · approve writes"],
+  ["FastAPI", "service/app.py", "typed schemas · bearer auth · /healthz /readyz"],
+  ["Run service", "service/manager.py", "worker pool · concurrency cap · approvals"],
+  ["Agent runtime", "agent/", "stdlib-only core, unchanged"],
+  ["PostgreSQL", "runs · events · approvals · evals", "durable, ordered events"]
+ ],
+ "sse": "Events stored in order, streamed over SSE · resume with Last-Event-ID",
+ "gates": ["Allow-list", "Permission level", "Approval gate", "Schema check", "Timeout", "Untrusted-data wrap", "Secret redaction"],
+ "guards": ["Step and token budgets", "Retries for retryable errors only", "Loop detection", "Escalation to a human", "Workspace sandbox", "Approval timeout denies"],
+ "stats": [
+  ["89", "tests", "in the repository"],
+  ["3.9 · 3.12", "Python in CI", "core runtime, standard library only"],
+  ["PostgreSQL 16", "integration tests", "real database, not a mock"],
+  ["Docker Compose", "CI smoke + restart", "run survives an API restart"],
+  ["13 / 13", "scenarios reached the expected terminal status", "7 are deliberate failures"],
+  ["100%", "tool correctness", "in the deterministic evaluation"],
+  ["100%", "tested invariants held", "e.g. nothing written without approval"]
+ ],
+ "qualifier": "Runtime evaluation using deterministic stand-in and scripted models; not a benchmark of LLM quality.",
+ "evalDetail": "The 13 scenarios are 6 ordinary tasks run by a rule-based stand-in model and 7 failure scenarios run by a scripted model that deliberately misbehaves: a repeated call, a step runaway, a token runaway, a write with no approver, an injected instruction, a provider outage and an escalation. Each case passes when the run ends in the status that case expects, and the harness is itself tested to be able to fail. Because several scenarios are meant to stop without a final answer, the final-answer rate is 61.5% (8 of 13); that is by design, not a quality score. No language model was used.",
+ "limitations": [
+  "No real language model has been exercised. A real-model demo and an optional test exist in the repository, but they were not run, and CI never calls a paid API.",
+  "Docker Compose was verified in CI only, not on a local machine.",
+  "Not deployed as a live service; the claim is a production-oriented architecture verified by CI and integration tests.",
+  "No run-cancellation endpoint. One shared bearer token and no per-user ownership of runs. A restart interrupts in-flight runs.",
+  "A tool that times out is reported as timed out but cannot be killed, so its side effects may still complete.",
+  "Token counts are estimates unless the provider reports usage. Loop detection catches only consecutive identical calls.",
+  "Injection scanning is regex heuristics; permissions, approvals and sandboxing are the real protection."
+ ],
+ "docs": [
+  ["Repository", "", "repo"],
+  ["Architecture", "docs/architecture.md", "blob"],
+  ["API & events", "docs/api.md", "blob"],
+  ["Security notes", "docs/learning-notes/06-security.md", "blob"],
+  ["Configuration", "docs/configuration.md", "blob"],
+  ["Evaluation report", "docs/eval-report.md", "blob"],
+  ["Pre-build audit", "docs/audit-v9.md", "blob"],
+  ["Tests", "tests", "tree"]
+ ],
+ "steps": [
+  ["From first principles", "Built one idea at a time in standard-library Python: model interface, structured output, tools, an explicit agent loop, state and memory, planning, evaluation, reliability and security, observability."],
+  ["Production architecture", "The same runtime, unchanged, behind a typed FastAPI service. Runs execute on a worker pool; every structured event is stored in PostgreSQL and streamed over resumable SSE."],
+  ["Reliability & security", "The model proposes; the runtime decides. Each tool call passes an allow-list, permission level, approval gate, schema check and timeout, and its output returns as untrusted, redacted data."],
+  ["Verified evidence", "Measured from the public repository at commit 231b186. These describe the runtime, not LLM quality."]
+ ]
+}

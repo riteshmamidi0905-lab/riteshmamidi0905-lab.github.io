@@ -16,7 +16,7 @@
    "title": "AI systems",
    "line": "Agents that plan, call tools and get evaluated. Retrieval that cites its sources.",
    "repos": [
-    "ai-agent-toolkit",
+    "ai-agent-from-scratch",
     "genai-doc-assistant",
     "llm-eval-framework"
    ],
