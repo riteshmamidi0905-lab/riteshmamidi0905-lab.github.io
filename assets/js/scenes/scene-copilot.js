@@ -25,7 +25,7 @@
   const cyc = (t, period, n) => { const u = (t / period) % n; return [Math.floor(u), u - Math.floor(u)]; };
 
   scenes.copilot = {
-    tint: HX.ac, still: 4,
+    tint: HX.ac, still: 0,
     init() { },
     draw(c, L, t, s, st) {
       const d = D(), mob = L.mobile, A = kit.rail(c, L, d.short, s, HX.ac);
