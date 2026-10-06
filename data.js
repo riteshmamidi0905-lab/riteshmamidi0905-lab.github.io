@@ -199,6 +199,14 @@ const FLAG=[
 const P=[
   {
     "c": "genai",
+    "n": "Support Escalation Copilot",
+    "r": "support-escalation-copilot",
+    "feat": true,
+    "d": "Approval-gated AI case workflow for a fictional B2B SaaS support team: tenant isolation in PostgreSQL, typed actions, deterministic policy, exact-action approvals, idempotent execution and a hash-chained audit log. Reference implementation; the model is a rule-based stand-in, not an LLM.",
+    "t": ["Python", "PostgreSQL", "pgvector", "Row-level security"]
+  },
+  {
+    "c": "genai",
     "n": "AI Agent Runtime — From First Principles to Production",
     "r": "ai-agent-from-scratch",
     "feat": true,
@@ -378,7 +386,7 @@ const P=[
     "c": "vision",
     "n": "Sign Language Recognition",
     "r": "sign-language-recognition",
-    "d": "Web-based hand-gesture / sign-language recognition: a PyTorch CNN behind a Flask web app with an upload UI and JSON API.",
+    "d": "Web-based hand-gesture / sign-language recognition: a PyTorch CNN behind a Flask web app with an upload UI and JSON API. Reconstruction of a VIT M.Tech AI project.",
     "t": [
       "CNN",
       "Flask",
@@ -437,7 +445,7 @@ const P=[
     "c": "vision",
     "n": "Face Recognition Biometrics",
     "r": "face-recognition-biometrics",
-    "d": "Face-recognition biometric pipeline: OpenCV Haar detection, Eigenfaces + LBPH recognizers, and an open-set 'not in database' gate.",
+    "d": "Face-recognition biometric pipeline: OpenCV Haar detection, Eigenfaces + LBPH recognizers, and an open-set 'not in database' gate. Reconstruction of a VIT Biometrics project.",
     "t": [
       "OpenCV",
       "Biometrics",
@@ -448,7 +456,7 @@ const P=[
     "c": "vision",
     "n": "Bird-Deterrent Signal Intelligence",
     "r": "bird-deterrent-signal-intelligence",
-    "d": "Crop-protection via signal intelligence: MFCC/spectral DSP, a bird detector, and a habituation-aware acoustic deterrent controller.",
+    "d": "Crop-protection via signal intelligence: MFCC/spectral DSP, a bird detector, and a habituation-aware acoustic deterrent controller. Reconstruction of a VIT project.",
     "t": [
       "DSP",
       "MFCC",

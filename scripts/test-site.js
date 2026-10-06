@@ -12,7 +12,7 @@ const { serveLocal, base } = require('./local-preview'); const { P, FLAG } = req
     await serveLocal(page); await page.goto(base, { waitUntil: 'load' });
     assert.equal(await page.locator('.prow').count(), P.length); assert.equal(await page.locator('article.flag').count(), FLAG.length);
     /* nav */
-    if (width <= 1180) { await page.locator('#burger').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'true'); await page.locator('#nlinks a[href="#maref"]').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'false'); }
+    if (width <= 1180) { await page.locator('#burger').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'true'); await page.locator('#nlinks a[href="#evaluation"]').click(); assert.equal(await page.locator('#burger').getAttribute('aria-expanded'), 'false'); }
     /* flagship scene: step buttons drive the stage and caption, keyboard reachable */
     const flag = page.locator('#flag-llm-eval-framework'); await flag.scrollIntoViewIfNeeded();
     const before = await flag.locator('.cap-label').textContent();
@@ -35,11 +35,18 @@ const { serveLocal, base } = require('./local-preview'); const { P, FLAG } = req
     const lay = await page.evaluate(() => ({ w: innerWidth, s: document.documentElement.scrollWidth, broken: [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src) }));
     if (lay.s > lay.w + 1) { const off = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((e) => !e.closest('.hero,.world,.contact,.nl,dialog,table.lt') && e.getBoundingClientRect().right > innerWidth + 1 && e.getBoundingClientRect().width > 0).slice(0, 8).map((e) => `${e.tagName}.${(e.className && e.className.baseVal !== undefined ? e.className.baseVal : e.className) || ''} right=${Math.round(e.getBoundingClientRect().right)}`)); assert.fail(`${label}: horizontal overflow ${lay.s} > ${lay.w}: ${off.join(' | ')}`); } assert.deepEqual(lay.broken, []);
     assert.deepEqual(errors, [], label + ' console errors'); assert.deepEqual(bad, [], label + ' failed requests');
+    /* case-study page: no overflow, no console errors, no failed requests, readable tables */
+    await page.goto(base.replace(/\/?$/, '/') + 'support-escalation-copilot.html', { waitUntil: 'load' });
+    await page.locator('img').evaluateAll((imgs) => imgs.forEach((i) => { i.loading = 'eager'; })); await page.waitForFunction(() => [...document.images].every((i) => i.complete));
+    const cs = await page.evaluate(() => ({ w: innerWidth, s: document.documentElement.scrollWidth, broken: [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src), rows: document.querySelectorAll('.ev-row').length, h1: document.querySelectorAll('h1').length }));
+    if (cs.s > cs.w + 1) { const off = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((e) => !e.closest('.world,dialog') && e.getBoundingClientRect().right > innerWidth + 1 && e.getBoundingClientRect().width > 0).slice(0, 8).map((e) => `${e.tagName}.${(e.className && e.className.baseVal !== undefined ? e.className.baseVal : e.className) || ''} right=${Math.round(e.getBoundingClientRect().right)}`)); assert.fail(`${label}: case study overflows ${cs.s} > ${cs.w}: ${off.join(' | ')}`); }
+    assert.deepEqual(cs.broken, []); assert.equal(cs.h1, 1); assert.ok(cs.rows >= 27, 'evidence table rendered');
+    assert.deepEqual(errors, [], label + ' console errors (case study)'); assert.deepEqual(bad, [], label + ' failed requests (case study)');
     results.push({ label, width, overflow: false }); await ctx.close();
   }
   /* recruiter view */
   { const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'recruiter.html');
-    assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length + 1);
+    assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length + 2);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)); await ctx.close(); }
   /* keyboard: first Tab lands on the skip link */
   { const kb = await browser.newPage(); await serveLocal(kb); await kb.goto(base); await kb.keyboard.press('Tab'); assert.equal(await kb.locator('.skip').evaluate((el) => el === document.activeElement), true); await kb.close(); }

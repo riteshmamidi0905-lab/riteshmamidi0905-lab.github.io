@@ -1,0 +1,22 @@
+{
+ "repo": "riteshmamidi0905-lab/support-escalation-copilot",
+ "sha": "d259c57255992c21cda4d00fe21b3cd833a1fb9c",
+ "note": "Real screenshots of the project's operator UI (synthetic data, simulated sign-in), copied byte-for-byte from the pinned commit.",
+ "files": {
+  "04-approval-panel-exact-action.jpg": {
+   "path": "docs/m5/screenshots/04-approval-panel-exact-action.jpg",
+   "sha256": "156974082faa551faedc7b49e38b0cb752de8acff842c0c284d537158edbd1db",
+   "bytes": 58646
+  },
+  "10-uncertain-outcome-banner.jpg": {
+   "path": "docs/m5/screenshots/10-uncertain-outcome-banner.jpg",
+   "sha256": "b6a27f782c846a88a62788c1efcc6731e74fb858cc3921c9d9b8ca82a4648975",
+   "bytes": 59659
+  },
+  "20-demo-c-dropped-proposals-and-pending-approval.jpg": {
+   "path": "docs/m5/screenshots/20-demo-c-dropped-proposals-and-pending-approval.jpg",
+   "sha256": "b1a420ee0dbfa441f7b88e09cfa9bff01b64f0cb3c3132a076b6727ea5ec6f7d",
+   "bytes": 53612
+  }
+ }
+}

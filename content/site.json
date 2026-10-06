@@ -1,50 +1,25 @@
 {
  "person": {
   "name": "Ritesh Mamidi",
-  "role": "AI / ML Engineer · Data & Product Analyst",
+  "role": "Data & AI Analyst · builds AI agent systems and evaluation harnesses",
   "location": "Austin, TX",
   "now": "Data & AI Analyst, Apple Maps (client engagement)",
-  "status": "Open to AI/ML, data engineering and product-analytics roles in the US",
+  "status": "Open to applied AI, agent and LLM engineering, AI evaluation and reliability, forward-deployed and AI-focused product-analytics roles in the US",
   "email": "riteshmamidi0905@gmail.com",
   "linkedin": "https://linkedin.com/in/riteshmamidi0905",
   "github": "https://github.com/riteshmamidi0905-lab",
-  "resume": "ritesh_mamidi_resume.pdf"
+  "resume": "ritesh_mamidi_resume.pdf",
+  "focus": "Agent systems, AI evaluation and reliability, data and product analytics",
+  "contactLine": "Open to applied AI, agent and LLM engineering, AI evaluation and reliability, forward-deployed and AI-focused product-analytics roles across the US."
  },
- "build": [
-  {
-   "id": "ai",
-   "title": "AI systems",
-   "line": "Agents that plan, call tools and get evaluated. Retrieval that cites its sources.",
-   "repos": [
-    "ai-agent-from-scratch",
-    "genai-doc-assistant",
-    "llm-eval-framework"
-   ],
-   "href": "#ai"
-  },
-  {
-   "id": "data",
-   "title": "Data systems",
-   "line": "Streaming and batch pipelines: event-time windows, medallion layers, data-quality gates.",
-   "repos": [
-    "realtime-streaming-pipeline",
-    "spark-data-lakehouse",
-    "sql-analytics-warehouse"
-   ],
-   "href": "#data"
-  },
-  {
-   "id": "product",
-   "title": "Product intelligence",
-   "line": "Funnels, retention and A/B tests, with the statistics done properly.",
-   "repos": [
-    "product-analytics-funnel-retention",
-    "experimentation-toolkit",
-    "saas-kpi-dashboard"
-   ],
-   "href": "#product"
-  }
- ],
+ "hero": {
+  "tagline": [
+   "Product-minded AI builder.",
+   "Agent systems, evaluation,",
+   "and the controls around the model."
+  ],
+  "sub": "I build and test AI systems in the open: an approval-gated support workflow, an agent runtime and evaluation harnesses, each with its evidence and its limits published."
+ },
  "explains": {
   "ai": "An agent that only sounds right is a liability. I keep the loop explicit (plan, tool, observation) and check the whole trace before an answer counts.",
   "data": "Streaming bugs hide in time. I model event time and a watermark explicitly, so late data is handled or dropped on purpose, never by accident.",
@@ -146,5 +121,42 @@
   "llm-eval-framework": "lab-maref",
   "genai-doc-assistant": "lab-rag",
   "experimentation-toolkit": "lab-experiment"
- }
+ },
+ "experienceHeading": "Quality, data and analytics in production, now on the quality of AI output.",
+ "experienceLead": "My professional work is product, data and quality analysis. The AI engineering on this site is independent, open-source work. They connect through one habit: making outputs measurable before they are trusted.",
+ "progression": [
+  {
+   "kind": "Professional",
+   "stage": "Product and data problem solving",
+   "text": "Python and SQL pipelines, dashboards, segmentation and forecasting for business and marketing teams (Liberated Monks, Heart Hospitality)."
+  },
+  {
+   "kind": "Professional",
+   "stage": "AI evaluation",
+   "text": "Validating LLM and ML outputs against policy and quality rubrics at Apple Maps (client engagement). The open-source llmeval turns the same habit into scores, thresholds and gates.",
+   "href": "#evaluation",
+   "link": "See the evaluation work"
+  },
+  {
+   "kind": "Independent build",
+   "stage": "Agent engineering",
+   "text": "An agent runtime built from first principles: loop, tools, memory, permissions and persistence, then served over an API.",
+   "href": "#runtime",
+   "link": "See the agent runtime"
+  },
+  {
+   "kind": "Independent build",
+   "stage": "Production controls",
+   "text": "Typed actions, deterministic policy, approvals bound to the exact action, idempotent execution and a tamper-evident audit log.",
+   "href": "#copilot",
+   "link": "See the controls"
+  },
+  {
+   "kind": "Independent build",
+   "stage": "Customer-scenario AI systems",
+   "text": "The Support Escalation Copilot: a whole workflow for a fictional customer on synthetic data. The step it still needs is the real-model evaluation, which has not been run.",
+   "href": "support-escalation-copilot.html",
+   "link": "Read the case study"
+  }
+ ]
 }

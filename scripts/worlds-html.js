@@ -8,6 +8,7 @@ const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/avatar/manif
 const worlds = JSON.parse(fs.readFileSync(path.join(root, 'content/worlds.json'), 'utf8'));
 const explainers = JSON.parse(fs.readFileSync(path.join(root, 'content/explainers.json'), 'utf8'));
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const EVL = Object.fromEntries(Object.entries(require('./claims').BADGES).map(([k, v]) => [k, v[0]]));   // evidence labels: one vocabulary, defined in scripts/claims.js
 
 /* Avatar slots. A persona uses, in order: assets/avatar/<persona>.webp|png (+ optional @2x), then the manifest `file`, then the
    portrait cut-out fallback. Dropping a transparent image into assets/avatar/ and rebuilding is all a replacement needs. */
@@ -46,14 +47,14 @@ const arrow = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
 /* One full-screen pinned stage. `steps` = [[label, text], …]; scenes are drawn on the canvas, text is the supporting caption. */
 function stageHTML(o) {
   const nav = o.steps.map((s, i) => `<button type="button" data-step="${i}" aria-label="Step ${i + 1} of ${o.steps.length}: ${esc(s[0])}"${i ? '' : ' aria-current="step"'}><span>${String(i + 1).padStart(2, '0')}</span></button>`).join('');
-  const steps = o.steps.map((s) => `<li><b>${esc(s[0])}</b><p>${esc(s[1])}</p></li>`).join('');
+  const steps = o.steps.map((s) => `<li><b>${esc(s[0])}${s[2] ? ` · ${EVL[s[2]]}` : ''}</b><p>${esc(s[1])}</p></li>`).join('');
   return `<section class="world ${o.cls || ''}" id="${o.id}" data-world="${o.id.replace(/^world-/, '')}" data-scene="${o.scene}"${o.key ? ` data-steps="${esc(o.key)}"` : ''} aria-labelledby="${o.id}-t">
   <div class="world-stage">
     <canvas class="world-canvas" aria-hidden="true"></canvas>
     <div class="world-vig" aria-hidden="true"></div>
     <div class="world-top"><div><span class="world-kicker">${esc(o.kicker)}</span>${o.h === 3 ? `<h3 class="world-title" id="${o.id}-t">${esc(o.title)}</h3>` : `<h2 class="world-title" id="${o.id}-t">${esc(o.title)}</h2>`}${o.sub ? `<p class="world-sub">${esc(o.sub)}</p>` : ''}</div><span class="world-note">${esc(o.note)}</span></div>
     <ol class="world-steps">${steps}</ol>
-    <div class="world-cap" aria-live="polite"><span class="cap-n">01 / ${String(o.steps.length).padStart(2, '0')}</span><b class="cap-label">${esc(o.steps[0][0])}</b><p class="cap-text">${esc(o.steps[0][1])}</p>${o.cta ? `<a class="world-cta" href="${o.cta[0]}"${/^https?:/.test(o.cta[0]) ? ' target="_blank" rel="noopener"' : ''}>${esc(o.cta[1])} ${arrow}</a>` : ''}</div>
+    <div class="world-cap" aria-live="polite"><span class="cap-n">01 / ${String(o.steps.length).padStart(2, '0')}</span>${o.steps[0][2] ? `<span class="cap-ev ev ev-${o.steps[0][2]}"><span class="ev-m" aria-hidden="true"></span><span class="ev-t">${EVL[o.steps[0][2]]}</span></span>` : ''}<b class="cap-label">${esc(o.steps[0][0])}</b><p class="cap-text">${esc(o.steps[0][1])}</p>${o.cta ? `<a class="world-cta" href="${o.cta[0]}"${/^https?:/.test(o.cta[0]) ? ' target="_blank" rel="noopener"' : ''}>${esc(o.cta[1])} ${arrow}</a>` : ''}</div>
     <div class="world-nav" role="group" aria-label="${esc(o.title)}: steps">${nav}</div>
   </div>
 </section>`;

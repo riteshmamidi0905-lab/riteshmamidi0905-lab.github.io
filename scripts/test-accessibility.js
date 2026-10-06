@@ -14,5 +14,10 @@ const { serveLocal, base } = require('./local-preview');
     for (const t of ['#tab-rag', '#tab-funnel']) { await page.evaluate((t) => document.querySelector(t).scrollIntoView(), t); await page.click(t); await page.waitForTimeout(300); await scan(page, 'lab ' + t); }
     await page.evaluate(() => document.querySelector('#psearch').scrollIntoView()); await page.click('.pr-main[data-repo="llm-eval-framework"]'); await scan(page, 'project dialog open'); await ctx.close(); }
   { const ctx = await browser.newContext(); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'recruiter.html'); await scan(page, 'recruiter view'); await ctx.close(); }
+  /* the Copilot case study: reduced motion at two widths, then with the replay, a recorded check and the evidence filter exercised */
+  for (const width of [1440, 390]) { const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width, height: 1000 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'support-escalation-copilot.html'); await scan(page, `case study reduced-motion ${width}`); await ctx.close(); }
+  { const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'support-escalation-copilot.html');
+    await page.locator('.replay-pick button', { hasText: 'resync_no_approval' }).scrollIntoViewIfNeeded(); await page.locator('.replay-pick button', { hasText: 'resync_no_approval' }).click(); await page.waitForTimeout(2800);
+    await page.locator('.ex-run').first().click(); await page.locator('.ev-ctl button[data-f="simulated"]').click(); await page.evaluate(() => document.querySelectorAll('.rv').forEach((e) => e.classList.add('in'))); await page.waitForTimeout(1200); /* reveal transitions finished: axe reads mid-fade opacity as low contrast */ await scan(page, 'case study, interacted'); await ctx.close(); }
   await browser.close();
 })().catch((e) => { console.error(e.message); process.exit(1); });

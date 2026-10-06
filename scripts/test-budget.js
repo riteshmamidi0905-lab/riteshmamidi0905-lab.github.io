@@ -20,6 +20,16 @@ const BUDGET = { html: 48 * KB, css: 26 * KB, js: 40 * KB, fonts: 100 * KB, imag
     for (const lazy of [/lab\/(eval|stats|funnel)-core/, /lab-ui\.js/, /\.mp4/, /project-visuals\//]) assert.ok(!urls.some((u) => lazy.test(u)), `${label}: ${lazy} loaded before it was needed`);
     await ctx.close();
   }
+  /* the case-study page has its own first-visit budget (same limits) */
+  { const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } }); await ctx.addInitScript(() => { window.__cls = 0; new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true }); });
+    const page = await ctx.newPage(); const sizes = { html: 0, css: 0, js: 0, fonts: 0, images: 0, other: 0 }, urls = [];
+    page.on('response', async (r) => { try { const u = r.url(); if (!u.startsWith(base)) return; const b = await r.body(); const gz = /\.(woff2|webp|png|jpg|mp4)$/.test(u) ? b.length : zlib.gzipSync(b).length; urls.push(u.replace(base, '')); const t = /\.css/.test(u) ? 'css' : /\.js/.test(u) ? 'js' : /\.woff2/.test(u) ? 'fonts' : /\.(webp|png|jpg|svg)/.test(u) ? 'images' : 'html'; sizes[t] += gz; } catch (e) { /* aborted */ } });
+    await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'support-escalation-copilot.html', { waitUntil: 'networkidle' }); await page.waitForTimeout(1500);
+    const cls = await page.evaluate(() => window.__cls), total = Object.values(sizes).reduce((a, b) => a + b, 0);
+    out['case-study desktop'] = { ...Object.fromEntries(Object.entries(sizes).map(([k, v]) => [k, Math.round(v / KB * 10) / 10 + ' KB'])), total: Math.round(total / KB) + ' KB', requests: urls.length, cls: Math.round(cls * 1000) / 1000 };
+    for (const k of ['html', 'css', 'js', 'fonts', 'images']) assert.ok(sizes[k] <= BUDGET[k], `case study: ${k} ${Math.round(sizes[k] / KB)} KB > budget ${BUDGET[k] / KB} KB`);
+    assert.ok(total <= BUDGET.total, 'case study total'); assert.ok(urls.length <= BUDGET.requests, `case study: ${urls.length} requests`); assert.ok(cls <= BUDGET.cls, 'case study CLS ' + cls);
+    assert.ok(!urls.some((u) => /assets\/copilot\//.test(u)), 'case study: screenshots are lazy and must not load before they are scrolled to'); await ctx.close(); }
   console.log(JSON.stringify({ budgets: Object.fromEntries(Object.entries(BUDGET).map(([k, v]) => [k, k === 'cls' || k === 'requests' ? v : v / KB + ' KB'])), measured: out }, null, 1));
   await browser.close();
 })().catch((e) => { console.error(e.message); process.exit(1); });

@@ -15,6 +15,7 @@
   const HEX = { ac: '#22d3a6', ac2: '#79edc5', blue: '#6aa7ff', amber: '#f5b94a', red: '#ff6b6b', violet: '#9b8cff', tx: '#f3f5f7', mut: '#a0a9b6', dim: '#6f7a89' };
   const rgb = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
   const rgba = (h, a) => { const c = rgb(h); return `rgba(${c[0]},${c[1]},${c[2]},${a})`; };
+  const EVL = { verified: 'Verified', simulated: 'Simulated', limitation: 'Limitation', 'not-evaluated': 'Not evaluated' };   // evidence labels (checked against scripts/claims.js by npm test)
   const FONT = '"JetBrains Mono",ui-monospace,Menlo,monospace', SANS = 'Inter,system-ui,sans-serif';
   const rand = (seed) => { let a = seed; return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
 
@@ -46,7 +47,7 @@
   const scenes = {}, listeners = {}, loaded = {}, loading = {};
   const J = (f) => 'assets/js/' + f;
   const FLAGDEPS = { 'flag-stream': ['lab/stream-core.js'], 'flag-lake': [], 'flag-eval': ['lab/eval-core.js'], 'flag-rag': ['lab/rag-corpus.js', 'lab/rag-core.js'], 'flag-drift': [], 'flag-ab': ['lab/stats-core.js'] };
-  const DEPS = { agents: ['lab/agent-core.js', 'lab/rag-corpus.js', 'lab/rag-core.js', 'scenes/scene-ai.js'], data: ['lab/stream-core.js', 'scenes/scene-data.js'], product: ['lab/funnel-core.js', 'lab/stats-core.js', 'scenes/scene-product.js'], maref: ['lab/eval-core.js', 'scenes/scene-maref.js'], runtime: ['scenes/scene-runtime.js'] };
+  const DEPS = { agents: ['lab/agent-core.js', 'lab/rag-corpus.js', 'lab/rag-core.js', 'scenes/scene-ai.js'], data: ['lab/stream-core.js', 'scenes/scene-data.js'], product: ['lab/funnel-core.js', 'lab/stats-core.js', 'scenes/scene-product.js'], maref: ['lab/eval-core.js', 'scenes/scene-maref.js'], runtime: ['scenes/scene-runtime.js'], copilot: ['scenes/scene-kit.js', 'scenes/scene-copilot.js'] };
   Object.keys(FLAGDEPS).forEach((k) => { DEPS[k] = ['scenes/scene-kit.js'].concat(FLAGDEPS[k], ['scenes/scene-' + k + '.js']); });
   const loadScript = (f) => loaded[f] ? Promise.resolve() : loading[f] || (loading[f] = new Promise((res, rej) => { const s = document.createElement('script'); s.src = J(f); s.onload = () => { loaded[f] = 1; res(); }; s.onerror = rej; document.head.append(s); }));
   const loadP = {}, load = (name) => loadP[name] || (loadP[name] = (DEPS[name] || []).reduce((p, f) => p.then(() => loadScript(f)), Promise.resolve()));
@@ -128,7 +129,7 @@
       if (i === this.curStep && !force) return; this.curStep = i;
       if (!this.cfg) return; const step = this.cfg.steps[i];
       this.nav.forEach((b) => { const on = +b.dataset.step === i; b.setAttribute('aria-current', on ? 'step' : 'false'); b.classList.toggle('on', on); b.classList.toggle('past', +b.dataset.step < i); });
-      if (this.cap) { this.cap.classList.remove('in'); void this.cap.offsetWidth; const n = this.cap.querySelector('.cap-n'); if (n) n.textContent = `${String(i + 1).padStart(2, '0')} / ${String(this.N).padStart(2, '0')}`; this.cap.querySelector('.cap-label').textContent = step[0]; this.cap.querySelector('.cap-text').textContent = step[1]; this.cap.classList.add('in'); }
+      if (this.cap) { this.cap.classList.remove('in'); void this.cap.offsetWidth; const n = this.cap.querySelector('.cap-n'); if (n) n.textContent = `${String(i + 1).padStart(2, '0')} / ${String(this.N).padStart(2, '0')}`; const ev = this.cap.querySelector('.cap-ev'); if (ev) { ev.hidden = !step[2]; ev.className = 'cap-ev ev ev-' + (step[2] || 'verified'); ev.querySelector('.ev-t').textContent = EVL[step[2]] || ''; } this.cap.querySelector('.cap-label').textContent = step[0]; this.cap.querySelector('.cap-text').textContent = step[1]; this.cap.classList.add('in'); }
       this.el.dataset.step = i;
     }
     progress() { if (!this.el.classList.contains('is-pinned')) return this.target; const r = this.el.getBoundingClientRect(), span = this.el.offsetHeight - innerHeight; return clamp(clamp(-r.top / span) * this.N - 0.5, 0, this.N - 1); }

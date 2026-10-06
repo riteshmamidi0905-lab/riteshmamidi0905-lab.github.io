@@ -1,6 +1,6 @@
-# Adding a flagship (e.g. when AtlasIQ is verifiably ready)
+# Adding a flagship
 
-Nothing about AtlasIQ is on the site, and nothing should be until its repository is public, builds, has tests, and you have signed off on every claim. The page is data-driven, so a new flagship needs no layout work:
+A project becomes a flagship only when its repository is public, builds, has tests, contains only independently created, synthetic or open-source material, and every claim has been signed off. The page is data-driven, so a new flagship needs no layout work:
 
 1. **`data.js` → `FLAG`**: add the entry (`n`, `r`, `one`, `tech`, `cs.arch` = the architecture nodes in order, plus `cs.problem/approach/decision/evaluation/limit/lessons/result`). Add it to `P` as well so it appears in the library.
 2. **`content/explainers.json`**: add `beats` (what it is, problem, how it works, why this architecture, how it is evaluated, tradeoffs, limitations, what's next) and `arch` (one factual sentence per node, same order as `cs.arch`). The build fails if the counts differ.

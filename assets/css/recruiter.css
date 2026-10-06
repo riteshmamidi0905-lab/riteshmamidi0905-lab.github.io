@@ -16,3 +16,4 @@ h2{font:600 12px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.16em;te
 .rf{max-width:900px;margin:0 auto;padding:24px 22px 50px;color:var(--dim);font-size:13px}
 @media(max-width:620px){.job{grid-template-columns:1fr}.proj li{grid-template-columns:1fr}}
 @media print{body{background:#fff;color:#000}.rh,.skip{display:none}main a,.mono,h2,.when,.org,.tech,.job ul,.proj p,.plain li,.top p,.lead,.fine,.tags span{color:#222!important;border-color:#bbb!important}h1,h3{color:#000}main>section{border-color:#ccc}}
+.evl{font-size:14.5px;color:var(--mut);margin-top:8px}.evl b{color:var(--tx);font-weight:600}

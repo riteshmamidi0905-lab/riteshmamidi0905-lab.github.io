@@ -182,5 +182,13 @@
   "readme": true,
   "sha": "231b1866f88ac31339fbb2b87ffee88d75d5a573",
   "testsPath": "tests"
+ },
+ "support-escalation-copilot": {
+  "tests": true,
+  "docs": true,
+  "architecture": true,
+  "readme": true,
+  "sha": "d259c57255992c21cda4d00fe21b3cd833a1fb9c",
+  "testsPath": "tests"
  }
 }

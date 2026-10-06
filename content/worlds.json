@@ -1,6 +1,6 @@
 {
  "agents": {
-  "kicker": "03 · AI SYSTEMS",
+  "kicker": "Supporting · AI systems",
   "title": "From task to evaluated action.",
   "lab": "lab-agent",
   "labLabel": "Run the agent trace explorer",
@@ -53,7 +53,7 @@
   ]
  },
  "data": {
-  "kicker": "04 · DATA SYSTEMS",
+  "kicker": "Supporting · Data systems",
   "title": "Signals become systems.",
   "lab": "lab-stream",
   "labLabel": "Run the synthetic stream",
@@ -82,7 +82,7 @@
   ]
  },
  "maref": {
-  "kicker": "07 · AI RELIABILITY · MAREF",
+  "kicker": "Flagship 03 · AI reliability · MAREF",
   "title": "Reliability needs more than one score.",
   "lab": "lab-maref",
   "labLabel": "Open the evaluation playground",
@@ -123,7 +123,7 @@
   ]
  },
  "product": {
-  "kicker": "05 · PRODUCT INTELLIGENCE",
+  "kicker": "Supporting · Product intelligence",
   "title": "Behavior becomes a decision.",
   "lab": "lab-funnel",
   "labLabel": "Change the funnel yourself",

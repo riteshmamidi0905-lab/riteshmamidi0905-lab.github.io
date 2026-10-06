@@ -1,0 +1,17 @@
+{
+ "repo": "llm-eval-framework",
+ "sha": "99e6121db8a9c07cac5f987007a746136a53c09a",
+ "verifiedOn": "2026-10-06",
+ "how": "Cloned at the pinned commit and run: pytest -q (33 passed); metric registry counted (14); benchmarks/dataset.jsonl counted (18 lines).",
+ "stats": [
+  ["33", "tests pass", "re-run at the pinned commit"],
+  ["14", "deterministic metrics", "token F1, faithfulness, number match, BLEU and others"],
+  ["18", "hand-written benchmark cases", "outputs are constructed, not model runs"]
+ ],
+ "qualifier": "The 18-case benchmark uses hand-written cases with constructed outputs, so it tests that the metric suite separates good answers from bad ones. It is not an evaluation of any language model, and token-overlap faithfulness is a heuristic.",
+ "maref": {
+  "status": "not-evaluated",
+  "text": "MAREF, the multi-metric reliability framework for LLM agents, is a proposal. It has no public repository, no experiment and no result. The playground below scores recorded sample runs with deterministic proxies from llmeval to show the idea; it does not measure any model."
+ },
+ "bridge": "The most worked-through evaluation in my portfolio is in the Copilot: a frozen, hash-locked held-out retrieval set, mutation checks on every defence, an adversarial draft corpus whose failures are kept, and a real-model protocol that is frozen but not yet run."
+}
