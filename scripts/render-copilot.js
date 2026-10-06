@@ -133,4 +133,4 @@ function pageMain() {
 }
 const attackSummary = () => CP.attackRows;
 
-module.exports = { CP, homeHTML, pageMain, pageNavArgs, stepsConfig, sceneData, badge, legendHTML, statsHTML, attackSummary, REPO_URL, SHA, SHORT, REL, pinned };
+module.exports = { CP, homeHTML, pageMain, pageNavArgs, stepsConfig, sceneData, badge, legendHTML, statsHTML, attackSummary, REPO, REPO_URL, SHA, SHORT, REL, pinned };
