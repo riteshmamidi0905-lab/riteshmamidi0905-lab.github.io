@@ -139,7 +139,7 @@
         this.target = this.el.classList.contains('is-pinned') ? this.progress() : this.target; this.s += (this.target - this.s) * Math.min(1, dt * 7); this.t += dt;
         const r = this.el.getBoundingClientRect(); this.state.scrollP = clamp(-r.top / Math.max(1, r.height));
       }
-      if (this.cfg) this.setStep(clamp(Math.round(this.s), 0, this.N - 1), false);
+      if (this.cfg) this.setStep(this.el.classList.contains('is-pinned') ? clamp(Math.round(this.s), 0, this.N - 1) : clamp(Math.round(this.target), 0, this.N - 1), false);   /* a step button sets the step at once; only the scene eases toward it (a pinned scene follows the scroll position) */
       this.draw(dt);
     }
     draw(dt) {
