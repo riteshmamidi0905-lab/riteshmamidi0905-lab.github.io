@@ -43,18 +43,19 @@ function avatarHTML(persona, o) {
   return `<figure class="av ${o.cls}" data-av data-persona="${persona}"${fallback ? ' data-fallback' : ''} style="--rim:${p.rim};--ar:${w}/${h}"><img src="${file}"${srcset} width="${w}" height="${h}" alt="${esc(o.alt)}" ${o.eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">${o.tag ? `<figcaption class="av-tag">${esc(p.label)}</figcaption>` : ''}</figure>`;
 }
 
+const arrowOut = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
 const arrow = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
 /* One full-screen pinned stage. `steps` = [[label, text], …]; scenes are drawn on the canvas, text is the supporting caption. */
 function stageHTML(o) {
   const nav = o.steps.map((s, i) => `<button type="button" data-step="${i}" aria-label="Step ${i + 1} of ${o.steps.length}: ${esc(s[0])}"${i ? '' : ' aria-current="step"'}><span>${String(i + 1).padStart(2, '0')}</span></button>`).join('');
   const steps = o.steps.map((s) => `<li><b>${esc(s[0])}${s[2] ? ` · ${EVL[s[2]]}` : ''}</b><p>${esc(s[1])}</p></li>`).join('');
-  return `<section class="world ${o.cls || ''}" id="${o.id}" data-world="${o.id.replace(/^world-/, '')}" data-scene="${o.scene}"${o.key ? ` data-steps="${esc(o.key)}"` : ''} aria-labelledby="${o.id}-t">
+  return `<section class="world ${o.cls || ''}${o.compact ? ' compact' : ''}" id="${o.id}" data-world="${o.id.replace(/^world-/, '')}" data-scene="${o.scene}"${o.key ? ` data-steps="${esc(o.key)}"` : ''}${o.compact ? ' data-compact' : ''} aria-labelledby="${o.id}-t">
   <div class="world-stage">
     <canvas class="world-canvas" aria-hidden="true"></canvas>
     <div class="world-vig" aria-hidden="true"></div>
-    <div class="world-top"><div><span class="world-kicker">${esc(o.kicker)}</span>${o.h === 3 ? `<h3 class="world-title" id="${o.id}-t">${esc(o.title)}</h3>` : `<h2 class="world-title" id="${o.id}-t">${esc(o.title)}</h2>`}${o.sub ? `<p class="world-sub">${esc(o.sub)}</p>` : ''}</div><span class="world-note">${esc(o.note)}</span></div>
+    <div class="world-top"><div><span class="world-kicker">${esc(o.kicker)}</span>${o.h === 3 ? `<h3 class="world-title" id="${o.id}-t">${esc(o.title)}</h3>` : o.h === 1 ? `<h1 class="world-title" id="${o.id}-t">${esc(o.title)}</h1>` : `<h2 class="world-title" id="${o.id}-t">${esc(o.title)}</h2>`}${o.sub ? `<p class="world-sub">${esc(o.sub)}</p>` : ''}</div><span class="world-note">${esc(o.note)}</span></div>
     <ol class="world-steps">${steps}</ol>
-    <div class="world-cap" aria-live="polite"><span class="cap-n">01 / ${String(o.steps.length).padStart(2, '0')}</span>${o.steps[0][2] ? `<span class="cap-ev ev ev-${o.steps[0][2]}"><span class="ev-m" aria-hidden="true"></span><span class="ev-t">${EVL[o.steps[0][2]]}</span></span>` : ''}<b class="cap-label">${esc(o.steps[0][0])}</b><p class="cap-text">${esc(o.steps[0][1])}</p>${o.cta ? `<a class="world-cta" href="${o.cta[0]}"${/^https?:/.test(o.cta[0]) ? ' target="_blank" rel="noopener"' : ''}>${esc(o.cta[1])} ${arrow}</a>` : ''}</div>
+    <div class="world-cap" aria-live="polite"><span class="cap-n">01 / ${String(o.steps.length).padStart(2, '0')}</span>${o.steps[0][2] ? `<span class="cap-ev ev ev-${o.steps[0][2]}"><span class="ev-m" aria-hidden="true"></span><span class="ev-t">${EVL[o.steps[0][2]]}</span></span>` : ''}<b class="cap-label">${esc(o.steps[0][0])}</b><p class="cap-text">${esc(o.steps[0][1])}</p>${o.cta ? `<a class="world-cta" href="${o.cta[0]}"${/^https?:/.test(o.cta[0]) ? ' target="_blank" rel="noopener"' : ''}>${esc(o.cta[1])} ${/^#/.test(o.cta[0]) ? arrow : arrowOut}</a>` : ''}</div>
     <div class="world-nav" role="group" aria-label="${esc(o.title)}: steps">${nav}</div>
   </div>
 </section>`;

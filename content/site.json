@@ -154,9 +154,57 @@
   {
    "kind": "Independent build",
    "stage": "Customer-scenario AI systems",
-   "text": "The Support Escalation Copilot: a whole workflow for a fictional customer on synthetic data. The step it still needs is the real-model evaluation, which has not been run.",
+   "text": "The Support Escalation Copilot: a whole workflow for a fictional customer on synthetic data. One real-model run exposed the interface failures the scripted providers could not, and its results are published with those failures.",
    "href": "support-escalation-copilot.html",
    "link": "Read the case study"
   }
- ]
+ ],
+ "alsoBuilt": {
+  "heading": "Product analytics, experimentation and data engineering.",
+  "note": "Smaller or older than the three flagships, and labelled that way. Code, tests and limits are public; several run in the browser on synthetic data.",
+  "groups": [
+   {
+    "title": "Product and experimentation",
+    "items": [
+     [
+      "experimentation-toolkit",
+      "A/B analysis from power and sample size to a ship-or-kill call: CUPED, guardrails, false-discovery control."
+     ],
+     [
+      "product-analytics-funnel-retention",
+      "Funnel, retention and cohort analysis with channel LTV and a self-contained growth dashboard."
+     ],
+     [
+      "saas-kpi-dashboard",
+      "MRR movement, NRR/GRR and churn with a self-contained executive KPI dashboard."
+     ],
+     [
+      "sql-analytics-warehouse",
+      "A synthetic e-commerce warehouse and a library of advanced SQL: CTEs, window functions, cohorts, RFM."
+     ]
+    ]
+   },
+   {
+    "title": "Data, ML and GenAI engineering",
+    "items": [
+     [
+      "mlops-platform",
+      "Feature store, experiment tracking, model registry, FastAPI serving and PSI/KS drift monitoring."
+     ],
+     [
+      "genai-doc-assistant",
+      "RAG with an extractive offline reader, source citations, streaming and evaluation gates."
+     ],
+     [
+      "spark-data-lakehouse",
+      "A PySpark medallion lakehouse on 300K+ events with data-quality checks between layers."
+     ],
+     [
+      "realtime-streaming-pipeline",
+      "Kafka, Spark Structured Streaming and Cassandra fraud rules with event-time windows and watermarks."
+     ]
+    ]
+   }
+  ]
+ }
 }

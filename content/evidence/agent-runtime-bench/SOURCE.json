@@ -1,0 +1,13 @@
+{
+ "repo": "riteshmamidi0905-lab/agent-runtime-bench",
+ "release": null,
+ "sha": "679fa28213837c2a53f244700bdbabc6cc6dced5",
+ "note": "Vendored byte-for-byte from the public repository at this commit (the published ARB-1 results document). The Agent Runtime Benchmark figures on the homepage and the runtime page are checked against this file by scripts/check-site.js; npm run verify:evidence re-hashes it and --online re-fetches it from the pinned commit. To update: change sha, re-fetch the file, recompute the hash, review the diff, rebuild.",
+ "files": {
+  "RESULTS.md": {
+   "path": "docs/RESULTS.md",
+   "sha256": "a894b93de56a9c7cc52d284883f0c3e417df7f9ff9052e06b7cbba1c2dc9b218",
+   "bytes": 8191
+  }
+ }
+}

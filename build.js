@@ -10,12 +10,11 @@ const { FLAG, P } = require('./data.js');
 const SITE = __dirname;
 let tpl = fs.readFileSync(path.join(SITE, 'index.src.html'), 'utf8');
 const map = {
-  '<!--NAV-->': R.navHTML(), '<!--HERO-->': R.heroHTML(), '<!--BUILD-->': R.buildHTML(), '<!--COPILOT-->': R.copilotHTML(), '<!--RUNTIME-->': R.runtimeHTML(), '<!--EVALUATION-->': R.evaluationHTML(), '<!--SUPPORTING-->': R.supportingIntroHTML(), '<!--FLAGSHIPS-->': R.flagshipsHTML(),
-  '<!--EXPERIENCE-->': R.experienceHTML(), '<!--PROJECTS-->': R.projectsHTML(), '<!--ABOUT-->': R.aboutHTML(), '<!--CONTACT-->': R.contactHTML(),
-  '<!--FOOTER-->': R.footerHTML(), '<!--PDETAIL-->': R.detailDialog(), '<!--WORLDS-JSON-->': worldsJSON(R.flagStepsConfig()),
+  '<!--NAV-->': R.navHTML(), '<!--HERO-->': R.heroHTML(), '<!--KEY-->': R.keyHTML(), '<!--COPILOT-->': R.copilotHTML(), '<!--RUNTIME-->': R.runtimeHomeHTML(), '<!--EVALUATION-->': R.evaluationHomeHTML(), '<!--ALSOBUILT-->': R.alsoBuiltHTML(),
+  '<!--EXPERIENCE-->': R.experienceHTML(), '<!--ABOUT-->': R.aboutHTML(), '<!--CONTACT-->': R.contactHTML(),
+  '<!--FOOTER-->': R.footerHTML(), '<!--WORLDS-JSON-->': worldsJSON(R.flagStepsConfig()),
 };
 for (const [k, v] of Object.entries(map)) { if (!tpl.includes(k)) throw new Error('missing placeholder ' + k); tpl = tpl.replace(k, () => v); }
-tpl = tpl.replace(/<!--CHAPTER:(\w+)-->/g, (m, id) => R.chapterHTML(id));
 if (/<!--[A-Z]+[:\w-]*-->/.test(tpl)) throw new Error('unreplaced build placeholder');
 const preview = process.env.PREVIEW === '1';
 const outDir = preview ? path.resolve(process.argv[process.argv.indexOf('--out') + 1] || 'preview-out') : SITE;
@@ -32,5 +31,16 @@ fs.writeFileSync(path.join(outDir, 'recruiter.html'), R.recruiterHTML(preview ? 
   if (/<!--[A-Z]+[:\w-]*-->/.test(page)) throw new Error('unreplaced build placeholder (case study)');
   if (preview) page = page.replace('<meta name="robots" content="index,follow">', '').replace('</head>', robots + '\n</head>');
   fs.writeFileSync(path.join(outDir, 'support-escalation-copilot.html'), page);
+}
+/* deep pages: the material the homepage points to */
+for (const [file, pg] of Object.entries(R.PAGES)) {
+  let page = fs.readFileSync(path.join(SITE, 'page.src.html'), 'utf8');
+  const url = 'https://riteshmamidi0905-lab.github.io/' + file, pm = { '<!--NAV-->': R.navHTML(...pg.nav), '<!--MAIN-->': pg.main(), '<!--FOOTER-->': R.footerHTML(), '<!--PDETAIL-->': pg.dialog ? R.detailDialog() : '', '<!--WORLDS-JSON-->': worldsJSON(R.flagStepsConfig()) };
+  const attr = (v) => v.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  page = page.split('<!--PAGE-TITLE-->').join(attr(pg.title)).split('<!--PAGE-DESC-->').join(attr(pg.desc)).split('<!--PAGE-URL-->').join(url);
+  for (const [k, v] of Object.entries(pm)) { if (!page.includes(k)) throw new Error('missing placeholder ' + k); page = page.replace(k, () => v); }
+  if (/<!--[A-Z]+[:\w-]*-->/.test(page)) throw new Error('unreplaced build placeholder (' + file + ')');
+  if (preview) page = page.replace('<meta name="robots" content="index,follow">', '').replace('</head>', robots + '\n</head>');
+  fs.writeFileSync(path.join(outDir, file), page);
 }
 console.log(`Built index.html — ${FLAG.length} flagships, ${P.length} projects, ${tpl.length} bytes${preview ? ' (preview, noindex)' : ''}.`);

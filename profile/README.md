@@ -12,34 +12,35 @@
 
 ---
 
-I build AI agents, the infrastructure they run on, and the evaluation of how they fail, in the open, and publish the evidence next to the claims. Professionally I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. The three layers below are separate pieces of independent work, not one deployment, and each one says what was verified, what was simulated and what was not evaluated.
+**Professionally** I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. **In independent, open-source work** I build AI agents, the infrastructure they run on, and the evaluation of how they fail, and publish the evidence next to the claims. The three layers below are separate pieces of work, not one deployment; each says what was verified, what was simulated and what its limits are.
 
-## Flagship systems
+## I build AI agents
 
-### 1 · I build AI agents: [Support Escalation Copilot](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) `v0.6.0`
+### [Support Escalation Copilot](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) `v0.7.0`
 An approval-gated AI case workflow for a fictional B2B SaaS support team. The model helps with reading and drafting; everything that can hurt a customer stays in deterministic code and in human hands.
 
-- **VERIFIED** 472 automated tests pass; 92 / 92 catalogued attacks have executable tests; mutation checks kill 31/31 of the control-plane mutations.
-- **SIMULATED** The model is a deterministic rule-based stand-in, not an LLM. Across 32 injection runs, including a deliberately obedient scripted model, 0 invariants were violated.
-- **NOT EVALUATED** Real-model evaluation was not executed: no local language-model runtime was available, and no paid API was used; the method is frozen and hash-locked for a future run.
+- **VERIFIED** 489 automated tests pass; 92 / 92 catalogued attacks have executable tests.
+- **VERIFIED** **One real-model run** (a small local model, one pass): 10 of 22 cases reached the frozen expected outcome (not accuracy). It failed at the interface (schema, evidence handles, action parameters, drafts) while the four deterministic invariants held.
+- **SIMULATED** The default model is a deterministic rule-based stand-in, not an LLM; approvers are simulated.
 - **LIMITATION** Fictional customer, synthetic data, never deployed.
 
-[Interactive case study](https://riteshmamidi0905-lab.github.io/support-escalation-copilot.html) · [Repository](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) · [Public claims manifest](https://github.com/riteshmamidi0905-lab/support-escalation-copilot/blob/d259c57255992c21cda4d00fe21b3cd833a1fb9c/content/public-claims.json) · evidence commit `d259c57`
+[Case study](https://riteshmamidi0905-lab.github.io/support-escalation-copilot.html) · [Repository](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) · [Release v0.7.0](https://github.com/riteshmamidi0905-lab/support-escalation-copilot/releases/tag/v0.7.0)
 
-### 2 · I build the infrastructure they run on: [AI Agent Runtime — From First Principles to Production](https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch)
+## I build the infrastructure they run on
+
+### [AI Agent Runtime](https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch) + [Agent Runtime Benchmark](https://github.com/riteshmamidi0905-lab/agent-runtime-bench)
 Agent runtime in standard-library Python: explicit loop, tools, state, memory, planning, evaluation, reliability and security, then served by FastAPI with PostgreSQL and resumable SSE.
 
-- **VERIFIED** 89 tests; CI on Python 3.9 · 3.12; PostgreSQL 16 integration tests; a Docker Compose smoke-and-restart job in CI; 13/13 evaluation scenarios reached the expected status (7 are deliberate failures).
-- **SIMULATED** Runtime evaluation using deterministic stand-in and scripted models; not a benchmark of LLM quality.
-- **LIMITATION** The runtime's own tests and evaluation use scripted models, and CI never calls a paid API. A separate benchmark, agent-runtime-bench (ARB-1), runs one small local language model through the unmodified runtime: 43 of 48 tasks passed its frozen oracles (greedy decoding), all seven runtime controls held in 240 of 240 agent-mode runs, and it found a gap: a secret was disclosed through a permitted read tool. One model, one machine, 48 author-written tasks and heuristic oracles; not a safety claim about the runtime.
+- **VERIFIED** 89 tests; 13/13 evaluation scenarios reached the expected status (scripted models, not a benchmark of LLM quality).
+- **VERIFIED** ARB-1, one small model through the unmodified runtime: **43/48** tasks passed the frozen oracles; the runtime's **7/7** controls held in 240/240 agent-mode runs across six run sets.
+- **LIMITATION** It still found a hole (MT-02): a permitted read tool returned a secret and the model wrote it into its answer, and every control held. The lesson: Action safety ≠ information-flow safety.
 
-[Case study](https://riteshmamidi0905-lab.github.io/#runtime) · [Repository](https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch) · evidence commit `231b186`
+[Case study](https://riteshmamidi0905-lab.github.io/agent-runtime.html) · [Runtime](https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch) · [Benchmark results](https://github.com/riteshmamidi0905-lab/agent-runtime-bench/blob/679fa28213837c2a53f244700bdbabc6cc6dced5/docs/RESULTS.md)
 
-### 3 · I evaluate how they fail: [llm-eval-framework](https://github.com/riteshmamidi0905-lab/llm-eval-framework) and [MAREF](https://github.com/riteshmamidi0905-lab/maref)
-Rubric-driven evaluation of model outputs with weighted scores, hard per-criterion gates and inspectable failures.
+## I evaluate how they fail
 
-- **VERIFIED** 33 tests pass and 14 deterministic metrics (re-run 2026-10-06 at `99e6121`).
-- **SIMULATED** The 18-case benchmark uses hand-written cases with constructed outputs, so it tests that the metric suite separates good answers from bad ones. It is not an evaluation of any language model, and token-overlap faithfulness is a heuristic.
+### [llmeval](https://github.com/riteshmamidi0905-lab/llm-eval-framework) + [MAREF](https://github.com/riteshmamidi0905-lab/maref)
+- **VERIFIED** llmeval: 33 tests pass and 14 deterministic metrics (hand-written cases, not an evaluation of any model).
 - **LIMITATION** MAREF evaluates runs of an agent (it is not an agent). It is a research prototype with a same-author, pre-registered evaluation: not independent validation, and its test split is spent.
 
 > **MAREF · Research prototype · MIXED**<br>
@@ -47,9 +48,7 @@ Rubric-driven evaluation of model outputs with weighted scores, hard per-criteri
 > Pre-registered advantage vs shipped llmeval gates; no demonstrated advantage over stronger baselines or for trajectory-specific failures.<br>
 > [Full evaluation →](https://github.com/riteshmamidi0905-lab/maref/blob/1c00c9034adbe7d0d1ccf9a740c99201ec84de20/docs/EVALUATION.md)
 
-MAREF evaluates the runs recorded by the Agent Runtime Benchmark ([ARB-1](https://github.com/riteshmamidi0905-lab/agent-runtime-bench)), which exercises the AI Agent Runtime above.
-
-[Case study](https://riteshmamidi0905-lab.github.io/#evaluation) · [llmeval](https://github.com/riteshmamidi0905-lab/llm-eval-framework) · [MAREF](https://github.com/riteshmamidi0905-lab/maref) · [Canonical claim](https://github.com/riteshmamidi0905-lab/maref/blob/1c00c9034adbe7d0d1ccf9a740c99201ec84de20/docs/CLAIM.md)
+[Evaluation page](https://riteshmamidi0905-lab.github.io/evaluation.html) · [llmeval](https://github.com/riteshmamidi0905-lab/llm-eval-framework) · [MAREF](https://github.com/riteshmamidi0905-lab/maref) · [Canonical claim](https://github.com/riteshmamidi0905-lab/maref/blob/1c00c9034adbe7d0d1ccf9a740c99201ec84de20/docs/CLAIM.md)
 
 ## How the evidence is labelled
 
@@ -60,61 +59,22 @@ MAREF evaluates the runs recorded by the Agent Runtime Benchmark ([ARB-1](https:
 | **LIMITATION** | A known gap, stated on purpose. |
 | **NOT EVALUATED** | Not run. No result is claimed. |
 
-## Supporting work
+## Also built
 
-Smaller or older projects. Their repositories carry their own tests and notes; I make no numeric claims about them here.
+- [experimentation-toolkit](https://github.com/riteshmamidi0905-lab/experimentation-toolkit): A/B analysis from power and sample size to a ship-or-kill call: CUPED, guardrails, false-discovery control.
+- [product-analytics-funnel-retention](https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention): Funnel, retention and cohort analysis with channel LTV and a self-contained growth dashboard.
+- [saas-kpi-dashboard](https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard): MRR movement, NRR/GRR and churn with a self-contained executive KPI dashboard.
+- [sql-analytics-warehouse](https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse): A synthetic e-commerce warehouse and a library of advanced SQL: CTEs, window functions, cohorts, RFM.
+- [mlops-platform](https://github.com/riteshmamidi0905-lab/mlops-platform): Feature store, experiment tracking, model registry, FastAPI serving and PSI/KS drift monitoring.
+- [genai-doc-assistant](https://github.com/riteshmamidi0905-lab/genai-doc-assistant): RAG with an extractive offline reader, source citations, streaming and evaluation gates.
+- [spark-data-lakehouse](https://github.com/riteshmamidi0905-lab/spark-data-lakehouse): A PySpark medallion lakehouse on 300K+ events with data-quality checks between layers.
+- [realtime-streaming-pipeline](https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline): Kafka, Spark Structured Streaming and Cassandra fraud rules with event-time windows and watermarks.
 
-**Data Engineering**
+All 24 projects, with code, tests and limits: [portfolio](https://riteshmamidi0905-lab.github.io/projects.html).
 
-| Project | What it does |
-| :-- | :-- |
-| [spark-data-lakehouse](https://github.com/riteshmamidi0905-lab/spark-data-lakehouse) | End-to-end PySpark medallion (bronze→silver→gold) lakehouse on 300K+ events: dedup, broadcast-join enrichment, partitioned Parquet marts, AQE tuning, data-quality checks. |
-| [realtime-streaming-pipeline](https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline) | Kafka → Spark Structured Streaming → Cassandra fraud detection with event-time windows, watermarks, and a one-command Dockerized stack. |
-| [sql-analytics-warehouse](https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse) | Synthetic e-commerce warehouse plus a library of advanced SQL: CTEs, window functions, cohort retention, and RFM segmentation. |
-
-**GenAI · LLM**
-
-| Project | What it does |
-| :-- | :-- |
-| [genai-doc-assistant](https://github.com/riteshmamidi0905-lab/genai-doc-assistant) | Full-stack RAG with an extractive offline reader, source citations, arithmetic routing, SSE streaming, evaluation gates and configurable storage/generation backends. |
-| [rag-doc-qa](https://github.com/riteshmamidi0905-lab/rag-doc-qa) | Dependency-light retrieval-augmented Q&A: sentence-aware chunking, from-scratch TF-IDF retrieval, grounded citable answers, FastAPI + Docker. |
-| [ai-agent-toolkit](https://github.com/riteshmamidi0905-lab/ai-agent-toolkit) | ReAct tool/action/observation loop with a deterministic offline planner, a restricted AST calculator, unit conversion and knowledge retrieval; optional Gemini/OpenAI policies. |
-| [ai-skills-platform](https://github.com/riteshmamidi0905-lab/ai-skills-platform) | One unified API gateway exposing eight AI skills, with authentication and a live dashboard — an aggregation layer over multiple models. |
-
-**MLOps**
-
-| Project | What it does |
-| :-- | :-- |
-| [mlops-platform](https://github.com/riteshmamidi0905-lab/mlops-platform) | End-to-end ML platform: feature store, experiment tracking, model registry with stage promotion, FastAPI serving, and PSI/KS drift monitoring. |
-| [vision-inference-api](https://github.com/riteshmamidi0905-lab/vision-inference-api) | Train & serve a CNN image classifier with confidence-based human-in-the-loop review routing. PyTorch + FastAPI + Docker, offline dataset included. |
-
-**Analytics**
-
-| Project | What it does |
-| :-- | :-- |
-| [product-analytics-funnel-retention](https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention) | Funnel, retention & cohort analysis for a consumer app with channel LTV and a self-contained HTML growth dashboard. |
-| [experimentation-toolkit](https://github.com/riteshmamidi0905-lab/experimentation-toolkit) | End-to-end A/B analysis: power & sample-size design, z-test/Welch/bootstrap, CUPED variance reduction, guardrails, FDR, and a ship-or-kill scorecard. |
-| [saas-kpi-dashboard](https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard) | SaaS revenue analytics: MRR movement decomposition, NRR/GRR, churn, ARPA — with a self-contained executive KPI dashboard. |
-| [customer-churn-prediction](https://github.com/riteshmamidi0905-lab/customer-churn-prediction) | Subscription churn prediction (logistic regression + random forest), driver analysis, KMeans segmentation, revenue-at-risk, and an HTML report. |
-
-**Vision · Speech · NLP**
-
-| Project | What it does |
-| :-- | :-- |
-| [neural-machine-translation](https://github.com/riteshmamidi0905-lab/neural-machine-translation) | Seq2seq translator with attention (PyTorch), EN→FR, a from-scratch BLEU implementation, and attention heatmaps showing learned reordering. |
-| [sign-language-recognition](https://github.com/riteshmamidi0905-lab/sign-language-recognition) | Web-based hand-gesture / sign-language recognition: a PyTorch CNN behind a Flask web app with an upload UI and JSON API. Reconstruction of a VIT M.Tech AI project. |
-| [video-intelligence](https://github.com/riteshmamidi0905-lab/video-intelligence) | OpenCV shot boundaries, optical-flow motion, centroid tracking and hue-based scene labels; evaluated on generated clips with known ground truth. |
-| [speech-intelligence](https://github.com/riteshmamidi0905-lab/speech-intelligence) | Offline eight-command recognition using MFCC features and Random Forest, plus formant speech synthesis. Optional Google Cloud backends support broader speech tasks. |
-| [nlp-text-intelligence](https://github.com/riteshmamidi0905-lab/nlp-text-intelligence) | Offline sentiment, regex/gazetteer entities, TF-IDF topic classification, keywords and extractive summaries; optional Google Cloud backend. |
-| [document-ocr-vision](https://github.com/riteshmamidi0905-lab/document-ocr-vision) | OpenCV denoise/deskew, Tesseract OCR and structured receipt fields, evaluated using CER, WER and field accuracy on generated documents. |
-| [face-recognition-biometrics](https://github.com/riteshmamidi0905-lab/face-recognition-biometrics) | Face-recognition biometric pipeline: OpenCV Haar detection, Eigenfaces + LBPH recognizers, and an open-set 'not in database' gate. Reconstruction of a VIT Biometrics project. |
-| [bird-deterrent-signal-intelligence](https://github.com/riteshmamidi0905-lab/bird-deterrent-signal-intelligence) | Crop-protection via signal intelligence: MFCC/spectral DSP, a bird detector, and a habituation-aware acoustic deterrent controller. Reconstruction of a VIT project. |
-
-## Stack
+## Stack, education and certifications
 
 Python · SQL · PostgreSQL (row-level security, pgvector) · FastAPI · PyTorch · scikit-learn · pandas · Spark · Kafka · Docker · GitHub Actions · Power BI · Tableau
-
-## Education and certifications
 
 - **MS, Business Analytics**, St. Francis College · United States
 - **M.Tech (Integrated), Software Engineering**, Vellore Institute of Technology (VIT) · India

@@ -65,7 +65,7 @@
       $('#pd-cat').textContent = p.c; $('#pd-title').textContent = p.n; $('#pd-what').textContent = p.d;
       $('#pd-tech').replaceChildren(...p.t.map((t) => el('i', null, t)));
       $('#pd-ev').replaceChildren(...p.ev.map((e) => { const a = el('a', { href: e.href, target: '_blank', rel: 'noopener' }, el('span', null, e.label), el('span', null, '↗')); return el('li', null, a); }));
-      const flag = $('#pd-flag'); flag.replaceChildren(); if (p.flag) flag.append(el('a', { href: '#flag-' + b.dataset.repo, class: 'ln' }, 'Read the flagship case study ↑'));
+      const flag = $('#pd-flag'); flag.replaceChildren(); if (p.flag && p.fh) flag.append(el('a', { href: p.fh, class: 'ln' }, p.fh[0] === '#' ? 'Read the case study ↑' : 'Read the case study →'));
       flag.firstChild && flag.firstChild.addEventListener('click', () => dlg.close());
       const fig = $('#pd-vis'); fig.hidden = !p.visual; $$('img', fig).forEach((i) => i.remove());
       if (p.visual) fig.prepend(el('img', { src: `project-visuals/${b.dataset.repo}${reduce ? '-still' : ''}.svg`, alt: p.n + ' illustrative workflow', width: '640', height: '360' }));

@@ -3,7 +3,7 @@
  "title": "Support Escalation Copilot",
  "kicker": "Flagship 01 · Applied AI system",
  "oneLine": "An approval-gated AI case workflow for a fictional B2B SaaS support team. The model helps with reading and drafting; everything that can hurt a customer stays in deterministic code and in human hands.",
- "summary": "A reference implementation, not a product: the customer is fictional, the data is synthetic, it has never been deployed, and every model result comes from a deterministic rule-based stand-in rather than a language model. What it does show is the engineering around a model: tenant isolation in the database, a closed vocabulary of typed actions, deterministic policy, approvals bound to the exact action, idempotent execution, a tamper-evident audit log, and an evidence base that states what it does not prove.",
+ "summary": "A reference implementation, not a product: the customer is fictional, the data is synthetic, it has never been deployed, and its default model is a deterministic rule-based stand-in rather than a language model. One recorded real-model run, with one small local model, is reported with its failures. What the project shows is the engineering around a model: tenant isolation in the database, a closed vocabulary of typed actions, deterministic policy, approvals bound to the exact action, idempotent execution, a tamper-evident audit log, and an evidence base that states what it does not prove.",
  "tech": [
   "Python",
   "PostgreSQL 16 + pgvector",
@@ -61,9 +61,10 @@
    "badge": "simulated",
    "claims": [
     "model-cannot-authorise",
-    "model-is-standin"
+    "model-is-standin",
+    "real-model-failure-classes"
    ],
-   "text": "The model returns a structured diagnosis: hypotheses, cited evidence, what is missing or contradictory. Its output is untrusted data checked by deterministic code. Here the model is a rule-based stand-in, not an LLM, so this stage shows the orchestration, not model quality."
+   "text": "The model returns a structured diagnosis: hypotheses, cited evidence, what is missing or contradictory. Its output is untrusted data checked by deterministic code. In this walkthrough the model is a rule-based stand-in, not an LLM, so the stage shows the orchestration. In the one real-model run, the first diagnosis reply from a small local model failed the schema in {{real-model-failure-classes.diagnose_first_reply_schema_invalid.cases}} of {{real-model-failure-classes.diagnose_first_reply_schema_invalid.of_cases}} cases, and the controls rejected it."
   },
   {
    "label": "Typed action proposed",
@@ -148,15 +149,22 @@
    "badge": "limitation",
    "claim": "model-is-standin",
    "value": "Not an LLM",
-   "label": "every model result is a rule-based stand-in",
+   "label": "the default model is a rule-based stand-in",
    "note": "its heuristics were developed while looking at the scenarios"
   },
   {
-   "badge": "not-evaluated",
-   "claim": "real-model-evaluation-status",
-   "value": "Not run",
-   "label": "real-model evaluation",
-   "note": "method frozen and hash-locked for a future run; nothing is known about a real model here"
+   "badge": "verified",
+   "claim": "real-model-expected-outcomes",
+   "value": "{{real-model-expected-outcomes.expected_outcome_attained}} / {{real-model-expected-outcomes.cases}}",
+   "label": "cases reached the frozen expected outcome in one real-model run",
+   "note": "expected-outcome attainment, not accuracy; one small model, one pass; {{real-model-expected-outcomes.degraded}} cases ended DEGRADED"
+  },
+  {
+   "badge": "verified",
+   "claim": "real-model-controls-held",
+   "value": "{{real-model-controls-held.injection_per_run_invariants_held}} / {{real-model-controls-held.injection_runs}}",
+   "label": "real-model injection runs with all four invariants held",
+   "note": "measured per run by model-free replay; this scores the controls, not the model under attack"
   }
  ],
  "attackStory": {
@@ -331,6 +339,17 @@
    ]
   },
   {
+   "id": "realmodel",
+   "title": "The real-model run",
+   "blurb": "One small model, one pass, recorded and replayable. The earlier release, v0.6.0, had no real-model run.",
+   "claims": [
+    "real-model-expected-outcomes",
+    "real-model-controls-held",
+    "real-model-failure-classes",
+    "real-model-protocol-history"
+   ]
+  },
+  {
    "id": "controls",
    "title": "What the controls do",
    "blurb": "Designed and tested behaviours. Each has the qualification the repository attaches to it.",
@@ -497,7 +516,7 @@
   }
  ],
  "next": [
-  "Run the frozen real-model protocol against a local open-weights model and report it beside the stand-in results.",
+  "Fix the interface failures the real-model run exposed (give the first DIAGNOSE call its schema, type the plan parameters, make the draft rules explainable) and rerun as a separately labelled v2 protocol, never compared with this run as if it were the same experiment.",
   "Replace simulated sign-in with a real identity provider, and add the external audit anchor.",
   "Measure whether itemised human review actually catches the misleading drafts."
  ],
@@ -508,9 +527,19 @@
    ""
   ],
   [
-   "Release v0.6.0",
+   "Release v0.7.0",
    "release",
    ""
+  ],
+  [
+   "Real-model results",
+   "blob",
+   "docs/m8-real-model-results.md"
+  ],
+  [
+   "Amendment A1",
+   "blob",
+   "docs/real-model-amendment-A1.md"
   ],
   [
    "Public claims manifest",
@@ -537,5 +566,110 @@
    "blob",
    "docs/risks.md"
   ]
- ]
+ ],
+ "home": {
+  "problem": "Tier-2 support engineers read a ticket, hunt through stale runbooks, then ask for approval in chat, and the costly mistakes touch customers: a feed re-synced twice, a credit outside policy, the wrong tenant's data.",
+  "architecture": "The Copilot lets a model read, reconcile and draft while tenant isolation, a closed vocabulary of {{typed-actions-no-email.actions}} typed actions, deterministic policy, exact-action approval, idempotent execution and a hash-chained audit stay in code and in human hands.",
+  "result": {
+   "kicker": "Real-model result · one run",
+   "big": "{{real-model-expected-outcomes.expected_outcome_attained}} / {{real-model-expected-outcomes.cases}}",
+   "label": "cases reached the frozen expected outcome",
+   "text": "One run of the frozen protocol with Qwen3-4B-Instruct-2507 (Q4): {{real-model-expected-outcomes.cases}} cases and {{real-model-controls-held.injection_runs}} injection runs on synthetic data with simulated approvers. Expected-outcome attainment, not accuracy; {{real-model-expected-outcomes.degraded}} cases ended DEGRADED because the model never produced a valid diagnosis.",
+   "claims": [
+    "real-model-expected-outcomes"
+   ]
+  },
+  "controls": {
+   "kicker": "Safety and control result",
+   "big": "{{real-model-controls-held.injection_per_run_invariants_held}} / {{real-model-controls-held.injection_runs}}",
+   "label": "injection runs with all four invariants held",
+   "text": "The four deterministic invariants held in all {{real-model-expected-outcomes.cases}} cases (I2 under Amendment A1's attribution rule) and in every injection run, measured per run by model-free replay: no proposed action passed the action schema and no side effect occurred without an approval. This scores the controls around an untrusted model, not the model's behaviour under attack.",
+   "claims": [
+    "real-model-controls-held"
+   ]
+  },
+  "failure": {
+   "kicker": "Where it failed, and the lesson",
+   "title": "The interface, not the controls",
+   "claims": [
+    "real-model-failure-classes"
+   ],
+   "items": [
+    "The first diagnosis reply failed the schema in {{real-model-failure-classes.diagnose_first_reply_schema_invalid.cases}} of {{real-model-failure-classes.diagnose_first_reply_schema_invalid.of_cases}} cases.",
+    "{{real-model-failure-classes.invalid_evidence_handles.rejected_replies}} diagnosis replies cited evidence handles that do not exist ({{real-model-failure-classes.invalid_evidence_handles.cases_degraded}} cases ended DEGRADED).",
+    "All {{real-model-failure-classes.action_parameter_schema.actions_rejected}} escalation and re-sync actions it proposed failed the action-parameter schema.",
+    "{{real-model-failure-classes.draft_rejected_after_repair.rejected}} of {{real-model-failure-classes.draft_rejected_after_repair.draft_stages_in_cases}} drafts were rejected after one repair."
+   ],
+   "lesson": "The model is treated as untrusted, and deterministic controls are scored apart from task completion. The real-model run exposed interface failures that the scripted and deterministic providers could not."
+  },
+  "qualifier": "The customer is fictional, the data synthetic, the approvers simulated and the system has never been deployed. The default model is a stand-in, not an LLM; the real-model run is one small model on one machine, one pass, and the earlier release v0.6.0 predates it. The frozen v1 run stopped at case {{real-model-protocol-history.v1_cases_run}} of 22 on its pre-registered I2 proxy; Amendment A1 refined only that stop rule, and the complete A1 run is the reported result."
+ },
+ "realModel": {
+  "kicker": "The real-model run",
+  "title": "One real model, run once, reported with its failures.",
+  "lead": "The frozen real-model protocol was executed once with one small local model: Qwen3-4B-Instruct-2507 (Q4), {{real-model-expected-outcomes.cases}} frozen cases and {{real-model-controls-held.injection_runs}} injection runs, on synthetic data with simulated approvers, on one machine. The model is treated as untrusted; the deterministic controls are scored separately from whether the case reached its expected outcome. Release v0.6.0 predates this run and says so.",
+  "classes": [
+   {
+    "title": "Diagnosis schema",
+    "count": "{{real-model-failure-classes.diagnose_first_reply_schema_invalid.cases}} / {{real-model-failure-classes.diagnose_first_reply_schema_invalid.of_cases}}",
+    "text": "cases where the first DIAGNOSE reply failed the schema. That first call carries no schema, so the model invented field names; the workflow's structured fallback call, which does carry the schema, then returned a valid reply every time."
+   },
+   {
+    "title": "Invalid evidence handles",
+    "count": "{{real-model-failure-classes.invalid_evidence_handles.rejected_replies}}",
+    "text": "diagnosis replies cited handles that do not exist. {{real-model-failure-classes.invalid_evidence_handles.cases_degraded}} cases never recovered and were handed to a person as DEGRADED."
+   },
+   {
+    "title": "Action parameters",
+    "count": "{{real-model-failure-classes.action_parameter_schema.actions_rejected}} / {{real-model-failure-classes.action_parameter_schema.actions_rejected}}",
+    "text": "escalation and re-sync actions failed the action-parameter schema (wrong identifiers, severities and types), in {{real-model-failure-classes.action_parameter_schema.in_cases}} cases and {{real-model-failure-classes.action_parameter_schema.in_injection_runs}} injection runs. Nothing executed."
+   },
+   {
+    "title": "Draft and policy checks",
+    "count": "{{real-model-failure-classes.draft_rejected_after_repair.rejected}} / {{real-model-failure-classes.draft_rejected_after_repair.draft_stages_in_cases}}",
+    "text": "drafts were rejected after one repair by the deterministic draft and grounding checks; only {{real-model-failure-classes.draft_rejected_after_repair.first_reply_accepted}} were accepted on the first reply."
+   }
+  ],
+  "split": {
+   "completion": {
+    "title": "Task completion",
+    "text": "{{real-model-expected-outcomes.expected_outcome_attained}} of {{real-model-expected-outcomes.cases}} cases reached the frozen expected outcome; {{real-model-expected-outcomes.degraded}} ended DEGRADED. REFUSE, CLARIFY and INSUFFICIENT_EVIDENCE are scored as different outcomes, and the expectations were written for the stand-in, so this is expected-outcome attainment, not accuracy."
+   },
+   "controls": {
+    "title": "Deterministic controls",
+    "text": "In the cases, I1 held in {{real-model-controls-held.invariants_held_in_cases.I1}}, I3 in {{real-model-controls-held.invariants_held_in_cases.I3}} and I4 in {{real-model-controls-held.invariants_held_in_cases.I4}}; I2 held in all of them under Amendment A1's attribution rule (the original proxy flagged one case, where the model echoed an account identifier the customer had quoted). In the {{real-model-controls-held.injection_runs}} injection runs all four held per run, and {{real-model-controls-held.actions_rejected_by_the_schema_in_injection_runs}} proposed actions were rejected by the schema, not by the model."
+   }
+  },
+  "history": [
+   {
+    "who": "Frozen v1 protocol",
+    "text": "Run as pre-registered; it stopped at case {{real-model-protocol-history.v1_cases_run}} of 22 because its I2 proxy flagged an account identifier the customer had quoted in the ticket."
+   },
+   {
+    "who": "Amendment A1",
+    "text": "Written after seeing that stop. It refined only the I2 stop rule; the amendment and its scope are hash-locked."
+   },
+   {
+    "who": "Complete run",
+    "text": "The full A1 run is the reported result. The v1 stop is kept as recorded, not replaced."
+   },
+   {
+    "who": "Replay without a model",
+    "text": "All {{real-model-protocol-history.replay_calls.0}} recorded replies replay through the unchanged workflow and reproduce every outcome, with no model."
+   }
+  ],
+  "disclosure": "The live harness printed I1 false in all {{real-model-controls-held.injection_runs}} injection runs because it counted side effects cumulatively across one world (one earlier case had a legitimately approved effect). The per-run replay corrects it, and the live reading is kept as recorded.",
+  "links": [
+   [
+    "Real-model results",
+    "blob",
+    "docs/m8-real-model-results.md"
+   ],
+   [
+    "Amendment A1",
+    "blob",
+    "docs/real-model-amendment-A1.md"
+   ]
+  ]
+ }
 }

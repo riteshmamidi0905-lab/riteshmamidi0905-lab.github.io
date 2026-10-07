@@ -41,12 +41,12 @@ function evidenceLinks(r) {
 }
 
 /* ---------- navigation ---------- */
-const NAV_LINKS = [['Copilot', '#copilot'], ['Agent runtime', '#runtime'], ['Evaluation', '#evaluation'], ['Supporting', '#supporting'], ['Experience', '#experience'], ['Projects', '#projects'], ['About', '#about']];
+const NAV_LINKS = [['Copilot', '#copilot'], ['Agent runtime', '#runtime'], ['Evaluation', '#evaluation'], ['Also built', '#also-built'], ['Experience', '#experience'], ['About', '#about']];
 function navHTML(links, o) {
   o = o || {}; links = links || NAV_LINKS;
   return `<header class="nav" id="nav"><div class="nav-in">
   <a class="brand" href="${o.home || '#hero'}" aria-label="${esc(o.brand || site.person.name + ' — top')}"><span class="mk">RM</span><span class="bn">${esc(site.person.name)}</span></a>
-  <nav class="nl" id="nlinks" aria-label="Sections">${links.map(([n, h]) => `<a href="${h}">${n}</a>`).join('')}<a class="nl-rec" href="${o.back ? o.back[1] : 'recruiter.html'}">${o.back ? o.back[0] : 'Recruiter view'}</a><a class="nl-cta" href="${o.home ? o.home + '#contact' : '#contact'}">Contact</a></nav>
+  <nav class="nl" id="nlinks" aria-label="Sections">${links.map(([n, h]) => `<a href="${h}">${n}</a>`).join('')}${o.noProjects ? '' : '<a href="projects.html">All projects</a>'}<a class="nl-rec" href="${o.back ? o.back[1] : 'recruiter.html'}">${o.back ? o.back[0] : 'Recruiter view'}</a><a class="nl-cta" href="${o.home ? o.home + '#contact' : '#contact'}">Contact</a></nav>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nlinks"><span></span><span></span></button>
 </div><div class="nav-bar" id="bar" aria-hidden="true"></div></header>`;
 }
@@ -54,11 +54,11 @@ function navHTML(links, o) {
 /* ---------- 01 hero ---------- */
 const RT_STAT = (k) => RT.stats.find((x) => x[1].startsWith(k));
 function proofHTML() {
-  const cs = Object.fromEntries(CP.stats.map((x) => [x.claim, x]));
-  const tests = RT_STAT('tests')[0], scen = RT_STAT('scenarios reached')[0].replace(/\s/g, '');
+  const cs = Object.fromEntries(CP.stats.map((x) => [x.claim, x])), tk = (e) => CPR.C.token(e);
+  const tests = RT_STAT('tests')[0], scen = RT_STAT('scenarios reached')[0].replace(/\s/g, ''), A = RT.arb;
   return `<ul class="proof" aria-label="Flagship evidence at a glance">
-    <li><a href="#copilot"><i class="layer">I build AI agents</i><b>Support Escalation Copilot</b><span>${CPR.badge('verified')} ${esc(cs['test-suite'].value)} tests · ${esc(cs['threat-catalogue'].value.replace(/\s/g, ''))} attacks executable</span><span>${CPR.badge('simulated')} stand-in model, not an LLM</span><span>${CPR.badge('not-evaluated')} real-model evaluation</span></a></li>
-    <li><a href="#runtime"><i class="layer">I build the infrastructure they run on</i><b>AI Agent Runtime</b><span>${CPR.badge('verified')} ${esc(tests)} tests · ${esc(scen)} scenarios</span><span>${CPR.badge('simulated')} scripted models</span></a></li>
+    <li><a href="#copilot"><i class="layer">I build AI agents</i><b>Support Escalation Copilot</b><span>${CPR.badge('verified')} ${esc(cs['test-suite'].value)} tests · ${esc(cs['threat-catalogue'].value.replace(/\s/g, ''))} attacks executable</span><span>${CPR.badge('verified')} one real-model run: ${esc(tk('real-model-expected-outcomes.expected_outcome_attained'))}/${esc(tk('real-model-expected-outcomes.cases'))} cases reached the frozen expected outcome</span><span>${CPR.badge('simulated')} default model: stand-in, not an LLM</span></a></li>
+    <li><a href="#runtime"><i class="layer">I build the infrastructure they run on</i><b>AI Agent Runtime · Agent Runtime Benchmark</b><span>${CPR.badge('verified')} ${esc(tests)} tests · ${esc(scen)} scenarios (scripted models)</span><span>${CPR.badge('verified')} ARB-1: ${esc(A.results[0][0])} tasks · ${esc(A.results[1][0])} controls held · ${esc(A.results[2][0])} information-flow gap</span></a></li>
     <li><a href="#evaluation"><i class="layer">I evaluate how they fail</i><b>llmeval · MAREF</b><span>${CPR.badge('verified')} ${esc(EVAL.stats[0][0])} tests · llmeval metric suite</span><span>${CPR.badge('limitation')} MAREF: Research prototype · ${esc(EVAL.maref.card.title.split(' · ').pop())}</span></a></li>
     <li><a href="#experience"><b>Now · Data &amp; AI Analyst</b><span>Apple: validating LLM and ML outputs against quality rubrics</span></a></li>
   </ul>`;
@@ -75,28 +75,15 @@ function heroHTML() {
     <p class="tagline">${site.hero.tagline.map((l, i, a) => (i === a.length - 1 ? `<em>${esc(l)}</em>` : esc(l))).join('<br>')}</p>
     <p class="hero-sub">${esc(site.hero.sub)}</p>
     ${proofHTML()}
-    <div class="hero-cta"><a class="btn solid" href="#build">See the flagship systems ${DOWN}</a><a class="btn" href="${pr.github}" target="_blank" rel="noopener">GitHub ${ARROW}</a><a class="btn" href="${pr.resume}" target="_blank" rel="noopener">Résumé ${ARROW}</a></div>
+    <div class="hero-cta"><a class="btn solid" href="#copilot">See the flagship systems ${DOWN}</a><a class="btn" href="recruiter.html">Recruiter view ${ARROW}</a><a class="btn" href="${pr.resume}" target="_blank" rel="noopener">Résumé ${ARROW}</a><a class="btn" href="${pr.github}" target="_blank" rel="noopener">GitHub ${ARROW}</a></div>
   </div>
-  <a class="scue" href="#build" aria-label="Scroll to the next section"><span></span>Scroll</a>
+  <a class="scue" href="#key" aria-label="Scroll to the next section"><span></span>Scroll</a>
 </section>`;
 }
 
-/* ---------- 02 flagship systems: the hierarchy, with the evidence labels explained once ---------- */
-const FLAGSHIPS = [
-  { layer: 'I build AI agents', href: '#copilot', title: CP.title, line: 'An approval-gated AI case workflow: the model reads and drafts; deterministic code and people decide.', tag: 'Reference implementation · fictional customer', badges: ['verified', 'simulated', 'not-evaluated'] },
-  { layer: 'I build the infrastructure they run on', href: '#runtime', title: RT.title, line: 'The agent loop, tools, memory, permissions and persistence, built from first principles and then served.', tag: 'Open-source build · scripted models', badges: ['verified', 'simulated'] },
-  { layer: 'I evaluate how they fail', href: '#evaluation', title: 'LLM evaluation: llmeval and MAREF', line: 'Rubrics with hard gates and inspectable failures (llmeval); MAREF, a research prototype that evaluates agent runs, with a mixed result.', tag: 'Tested metric suite · research prototype, mixed result', badges: ['verified', 'limitation'] },
-];
-function buildHTML() {
-  const rows = FLAGSHIPS.map((b, i) => `<li class="brow rv"><a href="${b.href}" class="brow-a"><span class="bidx">${NUM(i)}</span><span class="bt">${esc(b.title)}</span><span class="bl"><span class="layer">${esc(b.layer)}</span>${esc(b.line)}</span>
-    <span class="bp">${esc(b.tag)}<span class="bbadges">${b.badges.map((x) => CPR.badge(x)).join('')}</span></span><span class="bgo" aria-hidden="true">${DOWN}</span></a></li>`).join('');
-  return `<section id="build" class="sec build" aria-labelledby="build-t"><div class="wrap">
-  <p class="kicker rv"><b>02</b> Flagship systems</p>
-  <h2 id="build-t" class="statement rv">Three layers, each with its evidence attached. <span class="mut">Next to every claim: what was verified, what was simulated, and what was not evaluated. Separate pieces of work, not one deployment.</span></h2>
-  <ol class="brows">${rows}</ol>
-  <div class="rv build-legend"><p class="mono-l">How to read the evidence</p>${CPR.legendHTML()}</div>
-</div></section>`;
-}
+/* ---------- the evidence key: the four labels, defined once, directly under the hero ---------- */
+const keyHTML = () => `<section id="key" class="keyband" aria-labelledby="key-t"><div class="wrap"><p class="mono-l rv" id="key-t">How to read the evidence · three separate pieces of work, not one deployed system</p>${CPR.legendHTML()}</div></section>`;
+const layerHTML = (t) => `<p class="layer-l rv"><span class="layer">${esc(t)}</span></p>`;
 
 /* ---------- labs (real demos), grouped under the chapter they belong to ---------- */
 const LAB = {
@@ -124,10 +111,16 @@ const CHAPTERS = {
   data: { world: 'data', persona: 'data', demos: ['stream'], label: 'in your browser' },
   product: { world: 'product', persona: 'product', demos: ['experiment', 'funnel'], label: 'in your browser' },
 };
-/* ---------- Flagship 02: AI Agent Runtime — scene + inspectable evidence ---------- */
+/* ---------- Flagship 02: AI Agent Runtime + Agent Runtime Benchmark ---------- */
 const rtLink = ([label, p, kind]) => { const href = kind === 'repo' ? GH + RT.repo : kind === 'ext' ? p : `${GH}${RT.repo}/${kind}/${RT.sha}/${p}`; return `<a class="ln" href="${href}" target="_blank" rel="noopener">${esc(label)} ${ARROW}</a>`; };
-function runtimeHTML() {
-  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent engineering', title: RT.title, h: 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: [GH + RT.repo, 'Read the repository'], cls: 'runtimestage' });
+const arbLink = ([label, p, kind]) => { const href = kind === 'repo' ? GH + RT.arb.repo : `${GH}${RT.arb.repo}/${kind}/${RT.arb.sha}/${p}`; return `<a class="ln" href="${href}" target="_blank" rel="noopener">${esc(label)} ${ARROW}</a>`; };
+const ARB_BADGE = ['verified', 'verified', 'limitation'];
+const arbStatsHTML = () => `<ul class="rt-stats arb-stats rv" aria-label="Agent Runtime Benchmark results">${RT.arb.results.map((x, i) => `<li class="${i === 2 ? 'arb-gap' : ''}">${CPR.badge(ARB_BADGE[i])}<b>${esc(x[0])}</b><span>${esc(x[1])}</span><small>${esc(x[2])}</small></li>`).join('')}</ul>`;
+const lessonHTML = () => `<aside class="lesson rv" id="arb-lesson" aria-labelledby="arb-lesson-t"><p class="mono-l">${CPR.badge('limitation')} The lesson from the failure</p><h3 id="arb-lesson-t">${esc(RT.arb.lessonTitle)}</h3><p>${esc(RT.arb.lesson)}</p></aside>`;
+const arbQualHTML = () => `<p class="rt-qual rv" id="arb-qual"><b>Qualification.</b> ${esc(RT.arb.qualifier)} <span class="mut">Source: public benchmark repository at commit <code>${RT.arb.sha.slice(0, 7)}</code>.</span></p>`;
+function runtimeHTML(o) {      /* the full page: pinned scene, evidence, evaluation detail, limitations, documentation */
+  o = o || {};
+  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent engineering', title: RT.title, h: o.h || 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: [GH + RT.repo, 'Read the repository'], cls: 'runtimestage' });
   return `<section id="runtime" class="flagsec" aria-label="Flagship 02: ${esc(RT.short)}">${stage}
   <div class="wrap rt-after" id="agent-runtime">
     <p class="rt-sum rv">${esc(RT.summary)}</p>
@@ -138,6 +131,29 @@ function runtimeHTML() {
       <div class="rt-lim"><h4>${CPR.badge('limitation')} Limitations</h4><ul>${RT.limitations.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
     </div>
     <nav class="lns rv" aria-label="${esc(RT.short)} repository and documentation">${RT.docs.map(rtLink).join('')}</nav>
+  </div></section>
+  <section id="arb" class="sec arb-sec" aria-labelledby="arb-t"><div class="wrap">
+    <p class="kicker rv"><b>ARB-1</b> Agent Runtime Benchmark</p>
+    <h2 id="arb-t" class="statement rv">One real model through the unmodified runtime. <span class="mut">The controls held. The benchmark still found a hole.</span></h2>
+    <p class="rt-sum rv">${esc(RT.arb.line)}</p>
+    ${arbStatsHTML()}${lessonHTML()}${arbQualHTML()}
+    <p class="mc-rel rv">The recorded runs of this benchmark are what MAREF, a separate research prototype, evaluates. MAREF is an evaluator of agent runs, not an agent; its result is mixed and its evaluation is same-author, <b>not independent validation</b>. <a class="tl" href="evaluation.html#maref">Read the MAREF result</a>.</p>
+    <nav class="lns rv" aria-label="Agent Runtime Benchmark repository and documentation">${RT.arb.docs.map(arbLink).join('')}</nav>
+  </div></section>`;
+}
+function runtimeHomeHTML() {   /* the homepage version: one screen of scene, then the architecture, the two results and the lesson */
+  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent engineering', title: RT.title, h: 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: ['agent-runtime.html', 'Read the runtime and the benchmark in full'], cls: 'runtimestage', compact: true });
+  const pick = (k) => RT_STAT(k), keep = ['tests', 'scenarios reached', 'integration tests'].map(pick);
+  return `<section id="runtime" class="flagsec" aria-label="Flagship 02: ${esc(RT.short)} and the Agent Runtime Benchmark">${stage}
+  <div class="wrap rt-after rt-home" id="agent-runtime-home">
+    ${layerHTML('I build the infrastructure they run on')}
+    <p class="rt-sum rv">${esc(RT.summary)}</p>
+    <h3 class="hm-h rv">The runtime, tested with scripted models</h3>
+    <ul class="rt-stats rv" aria-label="Verified evidence for the runtime">${keep.map((x) => `<li><b>${esc(x[0])}</b><span>${esc(x[1])}</span><small>${esc(x[2])}</small></li>`).join('')}</ul>
+    <p class="rt-qual rv">${CPR.badge('simulated')} <b>Qualification.</b> ${esc(RT.qualifier)} <span class="mut">Source: public repository at commit <code>${RT.sha.slice(0, 7)}</code>.</span></p>
+    <h3 class="hm-h rv">${esc(RT.arb.title)}: one real model through the unmodified runtime</h3>
+    ${arbStatsHTML()}${lessonHTML()}${arbQualHTML()}
+    <nav class="lns rv" aria-label="Runtime and benchmark links"><a class="ln" href="agent-runtime.html">Runtime and benchmark in full ${ARROW}</a><a class="ln" href="${GH}${RT.repo}" target="_blank" rel="noopener">Runtime repository ${ARROW}</a>${RT.arb.docs.map(arbLink).join('')}</nav>
   </div></section>`;
 }
 
@@ -185,29 +201,53 @@ function flagshipHTML(f, i, kicker, level) {
 const EVAL_REPO = 'llm-eval-framework';
 const SUPPORTING = FLAG.filter((f) => f.r !== EVAL_REPO);
 const supportingIntroHTML = () => `<section id="supporting" class="sec supp" aria-labelledby="supp-t"><div class="wrap">
-  <p class="kicker rv"><b>03</b> Supporting evidence</p>
+  <p class="kicker rv"><b>Run it</b> Explorers</p>
   <h2 id="supp-t" class="statement rv">The same habits in other domains. <span class="mut">Explorers you can run, and five more systems built end to end.</span></h2>
   <p class="supp-note rv">These are smaller or older than the flagships and are labelled that way: tests and limits are public, and several run entirely in your browser on synthetic data.</p>
 </div></section>`;
 const flagshipsHTML = () => `<section id="flagships" class="sec flags" aria-labelledby="flags-t"><div class="wrap flags-intro">
-  <p class="kicker rv"><b>04</b> Supporting builds</p>
+  <p class="kicker rv"><b>Built</b> Supporting builds</p>
   <h2 id="flags-t" class="statement rv">Five more systems, built end to end. <span class="mut">Code, tests, decisions and limitations are public.</span></h2>
   </div>
   ${SUPPORTING.map((f, i) => flagshipHTML(f, i)).join('\n')}
   </section>`;
 
-/* ---------- Flagship 03: evaluation. llmeval is tested; MAREF is a proposal and says so ---------- */
-function evaluationHTML() {
-  const f = FLAG.find((x) => x.r === EVAL_REPO);
-  return `<section id="evaluation" class="flagsec" aria-label="Flagship 03: LLM evaluation">
-  ${flagshipHTML(f, 0, 'Flagship 03 · AI evaluation', 2)}
-  <div class="wrap eval-ev" id="llmeval-evidence">
+/* ---------- Flagship 03: evaluation. llmeval is tested; MAREF is a research prototype with a mixed result and says so ---------- */
+const llmevalEvidenceHTML = (bridge) => `<div class="wrap eval-ev" id="llmeval-evidence">
     <ul class="rt-stats rv" aria-label="Verified evidence for llmeval">${EVAL.stats.map((x) => `<li>${CPR.badge('verified')}<b>${esc(x[0])}</b><span>${esc(x[1])}</span><small>${esc(x[2])}</small></li>`).join('')}</ul>
     <p class="rt-qual rv"><b>Qualification.</b> ${esc(EVAL.qualifier)} <span class="mut">Source: public repository at commit <code>${EVAL.sha.slice(0, 7)}</code>, re-run ${esc(EVAL.verifiedOn)}.</span></p>
-    <p class="eval-bridge rv">${esc(EVAL.bridge)} <a class="ln" href="${esc(CP.caseStudy)}#retrieval">See the retrieval evaluation ${ARROW}</a></p>
-  </div>
+    ${bridge ? `<p class="eval-bridge rv">${esc(EVAL.bridge)} <a class="ln" href="${esc(CP.caseStudy)}#retrieval">See the retrieval evaluation ${ARROW}</a></p>` : ''}
+  </div>`;
+function evaluationHTML() {    /* the full page */
+  const f = FLAG.find((x) => x.r === EVAL_REPO);
+  return `<section id="evaluation" class="flagsec" aria-label="Flagship 03: LLM evaluation">
+  ${flagshipHTML(f, 0, 'Flagship 03 · AI evaluation', 1)}
+  ${llmevalEvidenceHTML(true)}
   ${marefHTML()}
   </section>`;
+}
+const marefCardHTML = (id) => `<div class="maref-card" id="${id}" role="group" aria-label="MAREF result summary">
+        <p class="mc-title">${esc(MAREF.card.title)}</p>
+        <p class="mc-nums">${esc(MAREF.card.numbers)}</p>
+        <p class="mc-claim">${esc(MAREF.card.claim)}</p>
+        <p class="mc-go"><a class="ln" id="maref-eval-link" href="${MAREF_PIN('docs/EVALUATION.md')}" target="_blank" rel="noopener">${esc(MAREF.card.link)}</a></p>
+      </div>`;
+function evaluationHomeHTML() {   /* the homepage version: llmeval in one block, MAREF as a compact card */
+  const f = FLAG.find((x) => x.r === EVAL_REPO);
+  return `<section id="evaluation" class="sec flagsec evalhome" aria-labelledby="eval-t"><div class="wrap">
+    ${layerHTML('I evaluate how they fail')}
+    <p class="kicker rv"><b>Flagship 03</b> AI evaluation</p>
+    <h2 id="eval-t" class="hm-title rv">LLM evaluation: llmeval and MAREF</h2>
+    <p class="rt-sum rv">${esc(f.one)} <span class="mut">llmeval keeps weighted scores and hard thresholds separate, so a good average cannot hide a failed grounding check.</span></p>
+    ${llmevalEvidenceHTML(false)}
+    <div id="maref" class="maref-home">
+      <h3 class="hm-h rv">MAREF: evaluating agent runs, not an agent</h3>
+      <p class="paper-status rv">${CPR.badge('limitation')} <b>${esc(MAREF.disclosure)}</b> The canonical wording is <a class="tl" href="${MAREF_PIN('docs/CLAIM.md')}" target="_blank" rel="noopener">CLAIM.md</a>.</p>
+      ${marefCardHTML('maref-card')}
+      <p class="mc-rel">MAREF is an <b>evaluator of agent runs, not an agent</b>. It evaluates the runs recorded by the Agent Runtime Benchmark (<a class="tl" href="${GH}agent-runtime-bench" target="_blank" rel="noopener">ARB-1</a>), which exercises the AI Agent Runtime above. <a class="tl" href="${MAREF_GH}" target="_blank" rel="noopener">MAREF repository</a>.</p>
+    </div>
+    <nav class="lns rv" aria-label="Evaluation links"><a class="ln" href="evaluation.html">llmeval and the MAREF research page ${ARROW}</a><a class="ln" href="${GH}${EVAL_REPO}" target="_blank" rel="noopener">llmeval repository ${ARROW}</a></nav>
+  </div></section>`;
 }
 
 /* ---------- 07 MAREF: research tone ---------- */
@@ -220,12 +260,7 @@ function marefHTML() {
     ${explainsHTML('maref', 'research')}
     <article class="paper" id="research" aria-labelledby="paper-t">
       <p class="paper-status">${CPR.badge('limitation')} <b>${esc(MAREF.disclosure)}</b> The canonical wording is <a class="tl" href="${MAREF_PIN('docs/CLAIM.md')}" target="_blank" rel="noopener">CLAIM.md</a>.</p>
-      <div class="maref-card" id="maref-card" role="group" aria-label="MAREF result summary">
-        <p class="mc-title">${esc(MAREF.card.title)}</p>
-        <p class="mc-nums">${esc(MAREF.card.numbers)}</p>
-        <p class="mc-claim">${esc(MAREF.card.claim)}</p>
-        <p class="mc-go"><a class="ln" id="maref-eval-link" href="${MAREF_PIN('docs/EVALUATION.md')}" target="_blank" rel="noopener">${esc(MAREF.card.link)}</a></p>
-      </div>
+      ${marefCardHTML('maref-card')}
       <p class="mc-rel">MAREF is an <b>evaluator of agent runs, not an agent</b>. It evaluates the runs recorded by the Agent Runtime Benchmark (<a class="tl" href="https://github.com/riteshmamidi0905-lab/agent-runtime-bench" target="_blank" rel="noopener">ARB-1</a>), which exercises the AI Agent Runtime above. <a class="tl" href="${MAREF_GH}" target="_blank" rel="noopener">MAREF repository</a>.</p>
       <h3 id="paper-t" class="paper-title">MAREF: ${esc(research.expansion)}</h3>
       <p class="paper-sub"><em>Evaluating the Reliability of Large Language Model Agents: A Multi-Metric Framework for Accuracy, Hallucination, Consistency, and Task Completion.</em></p>
@@ -245,22 +280,38 @@ function marefHTML() {
 }
 
 /* ---------- 05 experience: the career story, in the order it happened ---------- */
-function progressionHTML() {
-  return `<div class="prog rv"><p class="mono-l">How the work progressed</p><ol class="prog-list">${site.progression.map((p, i) => `<li class="${p.kind === 'Professional' ? 'pro' : 'ind'}"><span class="prog-n">${NUM(i)}</span><div><p class="prog-k ${p.kind === 'Professional' ? 'pro' : 'ind'}">${esc(p.kind)}</p><h3>${esc(p.stage)}</h3><p>${esc(p.text)}</p>${p.href ? `<a class="ln" href="${p.href}">${esc(p.link)} ${p.href[0] === '#' ? DOWN : ARROW}</a>` : ''}</div></li>`).join('')}</ol></div>`;
+function progressionHTML(prefix) {
+  prefix = prefix || '';
+  return `<div class="prog rv"><p class="mono-l">How the work progressed</p><ol class="prog-list">${site.progression.map((p, i) => `<li class="${p.kind === 'Professional' ? 'pro' : 'ind'}"><span class="prog-n">${NUM(i)}</span><div><p class="prog-k ${p.kind === 'Professional' ? 'pro' : 'ind'}">${esc(p.kind)}</p><h3>${esc(p.stage)}</h3><p>${esc(p.text)}</p>${p.href ? `<a class="ln" href="${p.href[0] === '#' ? prefix + p.href : p.href}">${esc(p.link)} ${p.href[0] === '#' ? DOWN : ARROW}</a>` : ''}</div></li>`).join('')}</ol></div>`;
 }
 function experienceHTML() {
   const items = site.experience.map((e) => `<li class="role rv"><div class="role-when"><span>${esc(e.when)}</span>${e.current ? '<i class="cur">current</i>' : ''}</div>
     <div><h3>${esc(e.role)}</h3><p class="role-org">${esc(e.org)} · ${esc(e.where)}</p><ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></li>`).join('');
   return `<section id="experience" class="sec" aria-labelledby="exp-t"><div class="wrap">
-  <p class="kicker rv"><b>05</b> Experience</p>
-  <h2 id="exp-t" class="statement rv">${esc(site.experienceHeading)}</h2>
+  <p class="kicker rv"><b>Experience</b> Professional work</p>
+  <h2 id="exp-t" class="hm-title rv">${esc(site.experienceHeading)}</h2>
   <p class="exp-lead rv">${esc(site.experienceLead)}</p>
-  ${progressionHTML()}
   <ol class="timeline">${items}</ol>
   <p class="fine rv">${esc(site.experienceNote)}</p>
 </div></section>`;
 }
 
+/* ---------- also built: product, analytics and data engineering as compact cards; the full list lives on projects.html ---------- */
+function alsoBuiltHTML() {
+  const card = (r, line) => {
+    const p = P_BY[r], fl = FLAG.some((f) => f.r === r);
+    return `<li class="ab-card rv"><h4>${esc(p.n)}</h4><p>${esc(line)}</p><p class="ab-t">${p.t.map((t) => `<i>${esc(t)}</i>`).join('')}</p>
+      <p class="ab-l"><a href="${GH}${r}" target="_blank" rel="noopener" aria-label="${esc(p.n)} on GitHub">Code ${ARROW}</a>${fl ? `<a href="projects.html#flag-${r}" aria-label="${esc(p.n)} case study">Case study</a>` : ''}</p></li>`;
+  };
+  return `<section id="also-built" class="sec alsob" aria-labelledby="ab-t"><div class="wrap">
+  <p class="kicker rv"><b>Also built</b> Product, analytics and data engineering</p>
+  <h2 id="ab-t" class="hm-title rv">${esc(site.alsoBuilt.heading)}</h2>
+  ${site.alsoBuilt.groups.map((g) => `<h3 class="hm-h rv">${esc(g.title)}</h3><ul class="ab-grid">${g.items.map(([r, line]) => card(r, line)).join('')}</ul>`).join('')}
+  <p class="fine rv">${esc(site.alsoBuilt.note)} <a href="projects.html#projects">All ${P.length} projects ${ARROW}</a></p>
+</div></section>`;
+}
+
+const flagHref = (r) => (r === 'support-escalation-copilot' ? CP.caseStudy : r === RT.repo ? 'agent-runtime.html' : r === EVAL_REPO ? 'evaluation.html#flag-' + r : FLAG.some((f) => f.r === r) ? '#flag-' + r : '');
 /* ---------- 09 all projects: compact, searchable, late ---------- */
 function projectsHTML() {
   const cats = Object.entries(CATLABEL);
@@ -271,10 +322,10 @@ function projectsHTML() {
     <span class="pt">${p.t.map((t) => `<i>${esc(t)}</i>`).join('')}</span>
     <span class="pl"><a href="${GH}${p.r}" target="_blank" rel="noopener" aria-label="${esc(p.n)} on GitHub">Code ${ARROW}</a>${p.dm ? `<a href="${p.dm}" target="_blank" rel="noopener" aria-label="${esc(p.n)} live demo">Demo ${ARROW}</a>` : ''}</span></li>`;
   }).join('');
-  const data = Object.fromEntries(P.map((p) => [p.r, { n: p.n, d: p.d, t: p.t, c: CATLABEL[p.c], flag: FLAG.some((f) => f.r === p.r) || !!p.feat, ev: evidenceLinks(p.r), visual: fs.existsSync(path.join(root, 'project-visuals', p.r + '.svg')) }]));
+  const data = Object.fromEntries(P.map((p) => [p.r, { n: p.n, d: p.d, t: p.t, c: CATLABEL[p.c], flag: FLAG.some((f) => f.r === p.r) || !!p.feat, fh: flagHref(p.r), ev: evidenceLinks(p.r), visual: fs.existsSync(path.join(root, 'project-visuals', p.r + '.svg')) }]));
   return `<section id="projects" class="sec lib" aria-labelledby="proj-t"><div class="wrap">
-  <p class="kicker rv"><b>06</b> All projects</p>
-  <h2 id="proj-t" class="statement rv">${P.length} projects. <span class="mut">The three flagships above are the ones to read first.</span></h2>
+  <p class="kicker rv"><b>Library</b> All projects</p>
+  <h2 id="proj-t" class="statement rv">${P.length} projects. <span class="mut">The three flagships on the homepage are the ones to read first.</span></h2>
   <div class="lib-ctl rv"><label class="vh" for="psearch">Search projects</label><input id="psearch" type="search" placeholder="Search ${P.length} projects, e.g. kafka, rag, churn" autocomplete="off">
     <div class="chips" role="group" aria-label="Filter by area"><button type="button" data-f="all" aria-pressed="true">All</button>${cats.map(([k, v]) => `<button type="button" data-f="${k}" aria-pressed="false">${esc(v)}</button>`).join('')}</div>
     <p class="fine" id="filterStatus" role="status">${P.length} projects</p></div>
@@ -283,18 +334,19 @@ function projectsHTML() {
 </div></section>
 <script type="application/json" id="rm-projects">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 }
+const progressionSectionHTML = () => `<section id="progression" class="sec" aria-labelledby="prog-t"><div class="wrap"><p class="kicker rv"><b>Path</b> How the work progressed</p><h2 id="prog-t" class="statement rv">From professional quality work to independent AI systems.</h2>${progressionHTML('./')}</div></section>`;
 const detailDialog = () => `<dialog class="pd-dlg" id="pdetail" aria-labelledby="pd-title"><form method="dialog" class="pd-x"><button aria-label="Close">&#10005;</button></form>
   <p class="eyebrow" id="pd-cat"></p><h3 id="pd-title"></h3><p class="pd-what" id="pd-what"></p>
   <div class="pd-grid"><div><h4>Technology</h4><p class="pd-tech" id="pd-tech"></p><h4>Evidence</h4><ul class="pd-ev" id="pd-ev"></ul><p class="fine" id="pd-flag"></p></div>
   <figure class="pd-vis" id="pd-vis" hidden><figcaption>Illustrative workflow, not live telemetry</figcaption></figure></div></dialog>`;
 
-/* ---------- 10 about ---------- */
+/* ---------- 10 about: short ---------- */
 function aboutHTML() {
   const pr = site.person;
-  return `<section id="about" class="sec" aria-labelledby="about-t"><div class="wrap about-grid">
-  <div><p class="kicker rv"><b>07</b> About</p><h2 id="about-t" class="statement rv">How I work.</h2>
+  return `<section id="about" class="sec aboutc" aria-labelledby="about-t"><div class="wrap about-grid">
+  <div><p class="kicker rv"><b>About</b> How I work</p><h2 id="about-t" class="hm-title rv">How I work.</h2>
     <ol class="princ">${site.principles.map((p, i) => `<li class="rv"><span>${NUM(i)}</span><div><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div></li>`).join('')}</ol></div>
-  <aside class="facts rv"><dl><div><dt>Based in</dt><dd>${esc(pr.location)}</dd></div><div><dt>Now</dt><dd>${esc(pr.now)}</dd></div><div><dt>Focus</dt><dd>${esc(pr.focus)}</dd></div><div><dt>Status</dt><dd>${esc(pr.status)}</dd></div></dl>
+  <aside class="facts rv"><dl><div><dt>Based in</dt><dd>${esc(pr.location)}</dd></div><div><dt>Now</dt><dd>${esc(pr.now)}</dd></div><div><dt>Focus</dt><dd>${esc(pr.focus)}</dd></div></dl>
     <h4>Education</h4><ul>${site.education.map((e) => `<li><b>${esc(e[0])}</b><span>${esc(e[1])}</span></li>`).join('')}</ul>
     <h4>Certifications</h4><ul>${site.certs.map((e) => `<li><b>${esc(e[0])}</b><span>${esc(e[1])} · <a href="${e[2]}" target="_blank" rel="noopener">Verify ${ARROW}</a></span></li>`).join('')}</ul></aside>
 </div></section>`;
@@ -306,7 +358,7 @@ function contactHTML() {
   return `<section id="contact" class="contact" data-world="contact" aria-labelledby="contact-title">
   <canvas class="world-canvas" aria-hidden="true"></canvas><div class="contact-vig" aria-hidden="true"></div>
   ${avatarHTML('contact', { cls: 'contact-av', tag: false, sizes: '(max-width:900px) 28svh, min(540px, 54svh)' })}
-  <div class="contact-copy"><p class="kicker rv"><b>08</b> Contact</p>
+  <div class="contact-copy"><p class="kicker rv"><b>Contact</b> Get in touch</p>
     <h2 id="contact-title" class="rv">Let’s build<span>something reliable.</span></h2>
     <p class="rv">${esc(pr.contactLine)} Email is fastest.</p>
     <button class="copymail rv" id="copymail" data-mail="${pr.email}"><span>${pr.email}</span><i id="cptext">copy</i></button>
@@ -314,6 +366,30 @@ function contactHTML() {
 </section>`;
 }
 const footerHTML = () => `<footer class="foot"><div class="wrap"><span>© <span id="yr">2026</span> ${esc(site.person.name)} · ${esc(site.person.location)}</span><span><a href="${site.person.github}" target="_blank" rel="noopener">GitHub</a><a href="${site.person.linkedin}" target="_blank" rel="noopener">LinkedIn</a><a href="${site.person.resume}" target="_blank" rel="noopener">Résumé</a><a href="recruiter.html">Recruiter view</a></span></div></footer><div class="toast" id="toast" role="status">Email copied to clipboard</div>`;
+
+/* ---------- deep pages: the material the homepage points to. Same design system, their own skeleton (page.src.html). ---------- */
+const csHead = (eyebrow, h1, one, cta) => `<header class="cs-head wrap" id="top"><p class="eyebrow"><i class="dot"></i>${esc(eyebrow)}</p><h1>${esc(h1)}</h1><p class="cs-one">${esc(one)}</p><div class="cs-cta">${cta}</div></header>`;
+const PAGES = {
+  'agent-runtime.html': {
+    title: 'AI Agent Runtime and Agent Runtime Benchmark · Ritesh Mamidi',
+    desc: 'An agent runtime written from first principles in standard-library Python, served with FastAPI and PostgreSQL, and the Agent Runtime Benchmark that runs one small local model through it: results, the failure it found, and the limits.',
+    nav: [[['Runtime', '#runtime'], ['Benchmark', '#arb']], { home: './', brand: 'Ritesh Mamidi — portfolio home', back: ['← Portfolio', './'], noProjects: true }],
+    main: () => `<main id="main-content" class="cs">${runtimeHTML({ h: 1 })}</main>`,
+  },
+  'evaluation.html': {
+    title: 'llmeval and MAREF · LLM evaluation · Ritesh Mamidi',
+    desc: 'llmeval, a tested LLM-evaluation metric suite, and MAREF, a research prototype that evaluates agent runs, with its mixed pre-registered result, its disclosure and an explorer of its eight dimensions.',
+    nav: [[['llmeval', '#evaluation'], ['MAREF', '#maref']], { home: './', brand: 'Ritesh Mamidi — portfolio home', back: ['← Portfolio', './'], noProjects: true }],
+    main: () => `<main id="main-content" class="cs">${evaluationHTML()}</main>`,
+  },
+  'projects.html': {
+    title: 'All projects · Ritesh Mamidi',
+    desc: `All ${P.length} projects: a searchable library, browser explorers that run real logic on synthetic data, and the supporting systems built end to end, each with its code, tests and limits in public.`,
+    nav: [[['Library', '#projects'], ['Explorers', '#supporting'], ['Builds', '#flagships'], ['Path', '#progression']], { home: './', brand: 'Ritesh Mamidi — portfolio home', back: ['← Portfolio', './'], noProjects: true }],
+    main: () => `<main id="main-content" class="cs">${csHead('Library · all projects', `${P.length} projects and the explorers that run them`, 'Everything built in public, with code, tests and limits: a searchable library, browser explorers that run real logic on synthetic data, and the supporting systems built end to end. The three flagships are on the homepage.', `<a class="btn solid" href="#projects">Search the library</a><a class="btn" href="#supporting">Run an explorer</a><a class="btn" href="./">Back to the portfolio ${ARROW}</a>`)}${projectsHTML()}${supportingIntroHTML()}${chapterHTML('ai')}${chapterHTML('data')}${chapterHTML('product')}${flagshipsHTML()}${progressionSectionHTML()}</main>`,
+    dialog: true,
+  },
+};
 
 /* ---------- recruiter view: one fast, script-free, print-friendly page ---------- */
 function recruiterHTML(headExtra) {
@@ -333,7 +409,7 @@ function recruiterHTML(headExtra) {
 <p>Professionally I validate LLM and ML outputs against quality rubrics (Apple) and build QA and reporting in Python and SQL. On my own time, in public, I build AI agents (an approval-gated support workflow), the infrastructure they run on (an agent runtime) and the evaluation of how they fail (llmeval, and MAREF, a research prototype with a mixed result), each with its evidence attached, plus data engineering, MLOps and experimentation projects.</p>
 <p class="status">${esc(pr.status)}.</p></section>
 <section aria-labelledby="r-exp"><h2 id="r-exp">Experience</h2>${site.experience.map((e) => `<div class="job"><div class="when">${esc(e.when)}${e.current ? ' · current' : ''}</div><div><h3>${esc(e.role)}</h3><p class="org">${esc(e.org)} · ${esc(e.where)}</p><ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></div>`).join('')}<p class="fine">${esc(site.experienceNote)}</p></section>
-<section aria-labelledby="r-proj"><h2 id="r-proj">Top projects</h2><ol class="proj"><li><div><h3>${esc(CP.title)}</h3><p>${esc(CP.oneLine)}</p><p class="tech">${CP.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(CP.stats[0].value)} tests pass; ${esc(CP.stats[1].value)} catalogued attacks have executable tests. <b>Simulated:</b> the model is a rule-based stand-in, not an LLM. <b>Not evaluated:</b> real-model behaviour. Fictional customer, synthetic data, never deployed.</p></div><p class="lk"><a href="${GH}${CPR.REPO}">Code</a> · <a href="${GH}${CPR.REPO}/tree/${CPR.SHA}/tests">Tests</a> · <a href="${CPR.pinned('docs/architecture.md')}">Architecture</a> · <a href="${esc(CP.caseStudy)}">Case study</a></p></li><li><div><h3>${esc(RT.title)}</h3><p>${esc(RT.oneLine)}</p><p class="tech">${RT.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(RT.stats[0][0])} tests, ${esc(RT.stats[4][0])} scenarios reached the expected status. <b>Simulated:</b> scripted models, not a benchmark of LLM quality.</p></div><p class="lk"><a href="${GH}${RT.repo}">Code</a> · <a href="${GH}${RT.repo}/tree/${RT.sha}/tests">Tests</a> · <a href="${GH}${RT.repo}/blob/${RT.sha}/docs/architecture.md">Architecture</a> · <a href="./#agent-runtime">Case study</a></p></li>${FLAG.map((f) => `<li><div><h3>${esc(f.n)}</h3><p>${esc(f.one)}</p><p class="tech">${f.tech.map(esc).join(' · ')}</p></div><p class="lk"><a href="${GH}${f.r}">Code</a>${plinks[f.r] && plinks[f.r].tests ? ` · <a href="${GH}${f.r}/tree/${evidence[f.r]}/${plinks[f.r].testsPath}">Tests</a>` : ''}${P_BY[f.r].dm ? ` · <a href="${P_BY[f.r].dm}">Demo</a>` : ''} · <a href="./#flag-${f.r}">Case study</a></p></li>`).join('')}</ol><p class="fine">${P.length} projects in total; the full list is on the <a href="./#projects">main site</a>. All are public repositories. The first three are the flagships; the rest are supporting work.</p></section>
+<section aria-labelledby="r-proj"><h2 id="r-proj">Top projects</h2><ol class="proj"><li><div><h3>${esc(CP.title)}</h3><p>${esc(CP.oneLine)}</p><p class="tech">${CP.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(CP.stats[0].value)} tests pass; ${esc(CP.stats[1].value)} catalogued attacks have executable tests. <b>One real-model run</b> (a small local model, one pass): ${esc(CPR.C.token('real-model-expected-outcomes.expected_outcome_attained'))} of ${esc(CPR.C.token('real-model-expected-outcomes.cases'))} cases reached the frozen expected outcome (not accuracy); it failed at the interface (schema, evidence handles, action parameters, drafts) while the four deterministic invariants held. <b>Simulated:</b> the default model is a rule-based stand-in, not an LLM; approvers are simulated. Fictional customer, synthetic data, never deployed.</p></div><p class="lk"><a href="${GH}${CPR.REPO}">Code</a> · <a href="${GH}${CPR.REPO}/tree/${CPR.SHA}/tests">Tests</a> · <a href="${CPR.pinned('docs/architecture.md')}">Architecture</a> · <a href="${esc(CP.caseStudy)}">Case study</a></p></li><li><div><h3>${esc(RT.title)}</h3><p>${esc(RT.oneLine)}</p><p class="tech">${RT.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(RT.stats[0][0])} tests, ${esc(RT.stats[4][0])} scenarios reached the expected status. <b>Simulated:</b> scripted models, not a benchmark of LLM quality. <b>Agent Runtime Benchmark (one small model):</b> ${esc(RT.arb.results[0][0])} tasks passed the frozen oracles; the runtime's ${esc(RT.arb.results[1][0])} controls held ${esc(RT.arb.results[1][2])}; <b>${esc(RT.arb.results[2][0])}</b>, a secret disclosed through a permitted read tool, was not covered by them. ${esc(RT.arb.lessonTitle)}.</p></div><p class="lk"><a href="${GH}${RT.repo}">Code</a> · <a href="${GH}${RT.repo}/tree/${RT.sha}/tests">Tests</a> · <a href="${GH}${RT.repo}/blob/${RT.sha}/docs/architecture.md">Architecture</a> · <a href="agent-runtime.html">Case study</a></p></li>${FLAG.map((f) => `<li><div><h3>${esc(f.n)}</h3><p>${esc(f.one)}</p><p class="tech">${f.tech.map(esc).join(' · ')}</p></div><p class="lk"><a href="${GH}${f.r}">Code</a>${plinks[f.r] && plinks[f.r].tests ? ` · <a href="${GH}${f.r}/tree/${evidence[f.r]}/${plinks[f.r].testsPath}">Tests</a>` : ''}${P_BY[f.r].dm ? ` · <a href="${P_BY[f.r].dm}">Demo</a>` : ''} · <a href="${f.r === EVAL_REPO ? 'evaluation.html' : 'projects.html'}#flag-${f.r}">Case study</a></p></li>`).join('')}</ol><p class="fine">${P.length} projects in total; the full list is on the <a href="projects.html#projects">projects page</a>. All are public repositories. The first three are the flagships; the rest are supporting work.</p></section>
 <section aria-labelledby="r-tech"><h2 id="r-tech">Core technologies</h2><p class="tags">${top.map((t) => `<span>${esc(t)}</span>`).join('')}</p></section>
 <section aria-labelledby="r-res"><h2 id="r-res">Research</h2><div class="maref-card" id="maref-card-r"><p class="mc-title"><b>${esc(MAREF.card.title)}</b></p><p class="mc-nums">${esc(MAREF.card.numbers)}</p><p class="mc-claim">${esc(MAREF.card.claim)}</p><p class="mc-go"><a href="${MAREF_PIN('docs/EVALUATION.md')}">${esc(MAREF.card.link)}</a></p></div><p class="fine">MAREF — ${esc(research.expansion)} — evaluates agent runs; it is not an agent. ${esc(MAREF.disclosure)} <a href="${MAREF_PIN('docs/CLAIM.md')}">Canonical wording</a> · <a href="${MAREF_GH}">Repository</a></p></section>
 <section aria-labelledby="r-edu"><h2 id="r-edu">Education and certifications</h2><ul class="plain">${site.education.map((e) => `<li><b>${esc(e[0])}</b> — ${esc(e[1])}</li>`).join('')}${site.certs.map((e) => `<li><b>${esc(e[0])}</b> — ${esc(e[1])} (<a href="${e[2]}">verify</a>)</li>`).join('')}</ul></section>
@@ -341,4 +417,4 @@ function recruiterHTML(headExtra) {
 <footer class="rf">© ${new Date().getFullYear()} ${esc(pr.name)} · <a href="./">Full experience</a></footer></body></html>`;
 }
 
-module.exports = { CPR, esc, ARROW, flagStepsConfig, navHTML, heroHTML, buildHTML, chapterHTML, copilotHTML: CPR.homeHTML, runtimeHTML, evaluationHTML, supportingIntroHTML, flagshipsHTML, marefHTML, experienceHTML, projectsHTML, detailDialog, aboutHTML, contactHTML, footerHTML, recruiterHTML, evidenceLinks };
+module.exports = { CPR, esc, ARROW, PAGES, flagStepsConfig, navHTML, heroHTML, keyHTML, chapterHTML, copilotHTML: CPR.homeHTML, runtimeHTML, runtimeHomeHTML, evaluationHTML, evaluationHomeHTML, alsoBuiltHTML, supportingIntroHTML, flagshipsHTML, marefHTML, experienceHTML, projectsHTML, detailDialog, aboutHTML, contactHTML, footerHTML, recruiterHTML, evidenceLinks };

@@ -291,3 +291,39 @@ code{font-family:var(--mono);font-size:.92em;color:var(--ac2)}
 @media(max-width:1100px){.proof li:last-child b{flex:0 0 auto}}
 @media(max-width:900px){.proof .layer{display:none}.proof{gap:6px}.proof li:last-child a{padding:7px 12px}}
 .tl{color:var(--ac2);text-decoration:underline;text-underline-offset:3px}.tl:hover{color:var(--tx)}
+
+/* ===== M11: the compact homepage and the deep pages it points to ===== */
+.keyband{padding:clamp(26px,4.5vh,48px) 0;border-bottom:1px solid var(--line);background:var(--bg2)}
+.keyband .ev-legend{margin-top:12px;gap:12px 24px}.keyband .ev-legend li{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 12px}.keyband .ev-legend p{font-size:13px;line-height:1.45;flex:1 1 220px}
+.layer-l{margin-bottom:14px}
+.hm-title{font-size:clamp(26px,3.6vw,48px);line-height:1.06;letter-spacing:-.04em;font-weight:700;max-width:21em;margin-top:16px;text-wrap:balance}
+.hm-h{font:600 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:clamp(24px,4vh,40px) 0 2px}
+.hm-trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(20px,3vh,32px);align-items:stretch}
+.hm-card{--bc:var(--ac2);border:1px solid var(--line);border-top:3px solid var(--bc);border-radius:14px;padding:18px 18px 16px;background:var(--panel);display:flex;flex-direction:column;gap:6px;overflow-wrap:anywhere}
+.hm-card.tone-limitation{--bc:var(--amber)}
+.hm-big{font:700 clamp(36px,4.4vw,54px)/1 var(--sans);letter-spacing:-.04em;color:var(--bc);margin-top:6px}
+.hm-lab{font-weight:600;font-size:15px;line-height:1.3}.hm-note{font-size:14px;line-height:1.5;color:var(--mut)}
+.hm-fh{font-size:20px;letter-spacing:-.02em;line-height:1.15;margin-top:4px}
+.hm-list{display:grid;gap:8px;margin-top:4px}.hm-list li{position:relative;padding-left:16px;font-size:14px;line-height:1.45}.hm-list li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--amber)}
+.hm-lesson{margin-top:6px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--mut)}.hm-lesson b{color:var(--amber)}
+.cp-home,.rt-home{padding-block:clamp(28px,5vh,56px) clamp(28px,5vh,56px)}.cp-home .rt-qual,.rt-home .rt-qual{margin-top:16px}.cp-home .cp-foot{margin-top:20px}.cp-home .cp-prov{margin-top:14px}
+.lesson{margin-top:clamp(16px,2.6vh,26px);padding:16px 20px 18px;border:1px solid color-mix(in srgb,var(--amber) 50%,transparent);border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:rgba(245,185,74,.05);max-width:80ch}
+.lesson h3{font-size:clamp(22px,2.4vw,30px);letter-spacing:-.03em;line-height:1.1;margin:8px 0}.lesson p:not(.mono-l){font-size:15.5px;line-height:1.55}
+.arb-stats .arb-gap b{color:var(--amber)}.arb-sec{padding-block:clamp(56px,9vh,110px)}
+.rt-home .rt-stats{margin-top:12px}.rt-home .rt-stats li{padding:10px 0}
+.evalhome,.alsob,.aboutc,#experience{padding-block:clamp(44px,7vh,88px)}
+.evalhome .eval-ev{padding:0;margin-top:8px}.evalhome .rt-stats{margin-top:12px}.maref-home{margin-top:clamp(20px,3vh,32px)}.maref-home .maref-card{max-width:none;margin:14px 0 10px}.maref-home .paper-status{margin-top:8px}
+.ab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:10px;margin-top:10px}
+.ab-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--panel);display:flex;flex-direction:column;gap:6px}
+.ab-card h4{font-size:16px;letter-spacing:-.01em;line-height:1.25}.ab-card p{font-size:13.5px;line-height:1.45;color:var(--mut)}
+.ab-t{display:flex;flex-wrap:wrap;gap:4px}.ab-t i{font:500 10.5px var(--mono);padding:2px 8px;border:1px solid var(--line);border-radius:99px;color:var(--dim);font-style:normal}
+.ab-l{display:flex;gap:16px;margin-top:auto}.ab-l a{font:600 12px var(--mono);color:var(--ac2)}
+#experience .exp-lead{margin-top:12px}#experience .timeline{margin-top:clamp(20px,3.5vh,36px)}#experience .role{padding:clamp(18px,3vh,30px) 0}#experience .role h3{font-size:clamp(20px,2.2vw,28px)}#experience .role-org{margin:6px 0 10px}#experience .role li{font-size:15.5px}#experience .role ul{gap:8px}
+.aboutc .about-grid{gap:clamp(24px,4vw,64px)}.aboutc .princ{margin-top:18px}.aboutc .princ li{padding:14px 0}.aboutc .princ h3{font-size:18px}.aboutc .princ p{font-size:15px}.aboutc .facts{padding:clamp(18px,2vw,28px)}.aboutc .facts dl{margin-bottom:14px}.aboutc .facts h4{margin:14px 0 8px;padding-top:12px}
+.rm-classes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.rm-class{border:1px solid var(--line);border-top:3px solid var(--amber);border-radius:14px;padding:16px;background:var(--panel);overflow-wrap:anywhere}
+.rm-class b{display:block;font:700 clamp(28px,3vw,40px)/1 var(--sans);letter-spacing:-.03em;color:var(--amber)}.rm-class h3{font-size:17px;margin:8px 0 6px;letter-spacing:-.01em}.rm-class p{font-size:14px;line-height:1.5;color:var(--mut)}
+.rm-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}.rm-half{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--panel)}.rm-half p:not(.mono-l){margin-top:8px;font-size:15px;line-height:1.55}
+.rm-run .hm-h{margin-top:clamp(24px,4vh,40px)}.rm-history{max-width:80ch;margin-top:12px}
+@media(max-width:1000px){.hm-trio{grid-template-columns:1fr}.rm-classes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.rm-classes,.rm-split{grid-template-columns:1fr}}

@@ -5,30 +5,133 @@
  "sha": "231b1866f88ac31339fbb2b87ffee88d75d5a573",
  "summary": "A tool-using agent runtime written from scratch in Python, with no agent framework, then wrapped as a FastAPI service with PostgreSQL persistence and resumable event streaming. Built to be explained line by line.",
  "oneLine": "Agent runtime in standard-library Python: explicit loop, tools, state, memory, planning, evaluation, reliability and security, then served by FastAPI with PostgreSQL and resumable SSE.",
- "tech": ["Python", "FastAPI", "PostgreSQL", "SSE", "Docker Compose", "Agents"],
+ "tech": [
+  "Python",
+  "FastAPI",
+  "PostgreSQL",
+  "SSE",
+  "Docker Compose",
+  "Agents"
+ ],
  "ladder": [
-  ["Model interface", "model.py"], ["Structured output", "structured.py"], ["Tools", "tools.py"], ["Agent loop", "loop.py"],
-  ["State & memory", "state.py · memory.py"], ["Planning", "planner.py"], ["Evaluation", "evals.py"],
-  ["Reliability & security", "reliability.py · security.py"], ["Observability", "trace.py"]
+  [
+   "Model interface",
+   "model.py"
+  ],
+  [
+   "Structured output",
+   "structured.py"
+  ],
+  [
+   "Tools",
+   "tools.py"
+  ],
+  [
+   "Agent loop",
+   "loop.py"
+  ],
+  [
+   "State & memory",
+   "state.py · memory.py"
+  ],
+  [
+   "Planning",
+   "planner.py"
+  ],
+  [
+   "Evaluation",
+   "evals.py"
+  ],
+  [
+   "Reliability & security",
+   "reliability.py · security.py"
+  ],
+  [
+   "Observability",
+   "trace.py"
+  ]
  ],
  "arch": [
-  ["Client", "any HTTP client", "POST a run · approve writes"],
-  ["FastAPI", "service/app.py", "typed schemas · bearer auth · /healthz /readyz"],
-  ["Run service", "service/manager.py", "worker pool · concurrency cap · approvals"],
-  ["Agent runtime", "agent/", "stdlib-only core, unchanged"],
-  ["PostgreSQL", "runs · events · approvals · evals", "durable, ordered events"]
+  [
+   "Client",
+   "any HTTP client",
+   "POST a run · approve writes"
+  ],
+  [
+   "FastAPI",
+   "service/app.py",
+   "typed schemas · bearer auth · /healthz /readyz"
+  ],
+  [
+   "Run service",
+   "service/manager.py",
+   "worker pool · concurrency cap · approvals"
+  ],
+  [
+   "Agent runtime",
+   "agent/",
+   "stdlib-only core, unchanged"
+  ],
+  [
+   "PostgreSQL",
+   "runs · events · approvals · evals",
+   "durable, ordered events"
+  ]
  ],
  "sse": "Events stored in order, streamed over SSE · resume with Last-Event-ID",
- "gates": ["Allow-list", "Permission level", "Approval gate", "Schema check", "Timeout", "Untrusted-data wrap", "Secret redaction"],
- "guards": ["Step and token budgets", "Retries for retryable errors only", "Loop detection", "Escalation to a human", "Workspace sandbox", "Approval timeout denies"],
+ "gates": [
+  "Allow-list",
+  "Permission level",
+  "Approval gate",
+  "Schema check",
+  "Timeout",
+  "Untrusted-data wrap",
+  "Secret redaction"
+ ],
+ "guards": [
+  "Step and token budgets",
+  "Retries for retryable errors only",
+  "Loop detection",
+  "Escalation to a human",
+  "Workspace sandbox",
+  "Approval timeout denies"
+ ],
  "stats": [
-  ["89", "tests", "in the repository"],
-  ["3.9 · 3.12", "Python in CI", "core runtime, standard library only"],
-  ["PostgreSQL 16", "integration tests", "real database, not a mock"],
-  ["Docker Compose", "CI smoke + restart", "run survives an API restart"],
-  ["13 / 13", "scenarios reached the expected terminal status", "7 are deliberate failures"],
-  ["100%", "tool correctness", "in the deterministic evaluation"],
-  ["100%", "tested invariants held", "e.g. nothing written without approval"]
+  [
+   "89",
+   "tests",
+   "in the repository"
+  ],
+  [
+   "3.9 · 3.12",
+   "Python in CI",
+   "core runtime, standard library only"
+  ],
+  [
+   "PostgreSQL 16",
+   "integration tests",
+   "real database, not a mock"
+  ],
+  [
+   "Docker Compose",
+   "CI smoke + restart",
+   "run survives an API restart"
+  ],
+  [
+   "13 / 13",
+   "scenarios reached the expected terminal status",
+   "7 are deliberate failures"
+  ],
+  [
+   "100%",
+   "tool correctness",
+   "in the deterministic evaluation"
+  ],
+  [
+   "100%",
+   "tested invariants held",
+   "e.g. nothing written without approval"
+  ]
  ],
  "qualifier": "Runtime evaluation using deterministic stand-in and scripted models; not a benchmark of LLM quality.",
  "evalDetail": "The 13 scenarios are 6 ordinary tasks run by a rule-based stand-in model and 7 failure scenarios run by a scripted model that deliberately misbehaves: a repeated call, a step runaway, a token runaway, a write with no approver, an injected instruction, a provider outage and an escalation. Each case passes when the run ends in the status that case expects, and the harness is itself tested to be able to fail. Because several scenarios are meant to stop without a final answer, the final-answer rate is 61.5% (8 of 13); that is by design, not a quality score. No language model was used.",
@@ -42,20 +145,111 @@
   "Injection scanning is regex heuristics; permissions, approvals and sandboxing are the real protection."
  ],
  "docs": [
-  ["Repository", "", "repo"],
-  ["Architecture", "docs/architecture.md", "blob"],
-  ["API & events", "docs/api.md", "blob"],
-  ["Security notes", "docs/learning-notes/06-security.md", "blob"],
-  ["Configuration", "docs/configuration.md", "blob"],
-  ["Evaluation report", "docs/eval-report.md", "blob"],
-  ["Pre-build audit", "docs/audit-v9.md", "blob"],
-  ["Tests", "tests", "tree"],
-  ["Real-model benchmark (ARB-1)", "https://github.com/riteshmamidi0905-lab/agent-runtime-bench", "ext"]
+  [
+   "Repository",
+   "",
+   "repo"
+  ],
+  [
+   "Architecture",
+   "docs/architecture.md",
+   "blob"
+  ],
+  [
+   "API & events",
+   "docs/api.md",
+   "blob"
+  ],
+  [
+   "Security notes",
+   "docs/learning-notes/06-security.md",
+   "blob"
+  ],
+  [
+   "Configuration",
+   "docs/configuration.md",
+   "blob"
+  ],
+  [
+   "Evaluation report",
+   "docs/eval-report.md",
+   "blob"
+  ],
+  [
+   "Pre-build audit",
+   "docs/audit-v9.md",
+   "blob"
+  ],
+  [
+   "Tests",
+   "tests",
+   "tree"
+  ],
+  [
+   "Real-model benchmark (ARB-1)",
+   "https://github.com/riteshmamidi0905-lab/agent-runtime-bench",
+   "ext"
+  ]
  ],
  "steps": [
-  ["From first principles", "Built one idea at a time in standard-library Python: model interface, structured output, tools, an explicit agent loop, state and memory, planning, evaluation, reliability and security, observability."],
-  ["Production architecture", "The same runtime, unchanged, behind a typed FastAPI service. Runs execute on a worker pool; every structured event is stored in PostgreSQL and streamed over resumable SSE."],
-  ["Reliability & security", "The model proposes; the runtime decides. Each tool call passes an allow-list, permission level, approval gate, schema check and timeout, and its output returns as untrusted, redacted data."],
-  ["Verified evidence", "Measured from the public repository at commit 231b186. These describe the runtime, not LLM quality."]
- ]
+  [
+   "From first principles",
+   "Built one idea at a time in standard-library Python: model interface, structured output, tools, an explicit agent loop, state and memory, planning, evaluation, reliability and security, observability."
+  ],
+  [
+   "Production architecture",
+   "The same runtime, unchanged, behind a typed FastAPI service. Runs execute on a worker pool; every structured event is stored in PostgreSQL and streamed over resumable SSE."
+  ],
+  [
+   "Reliability & security",
+   "The model proposes; the runtime decides. Each tool call passes an allow-list, permission level, approval gate, schema check and timeout, and its output returns as untrusted, redacted data."
+  ],
+  [
+   "Verified evidence",
+   "Measured from the public repository at commit 231b186. These describe the runtime, not LLM quality."
+  ]
+ ],
+ "arb": {
+  "repo": "agent-runtime-bench",
+  "sha": "679fa28213837c2a53f244700bdbabc6cc6dced5",
+  "title": "Agent Runtime Benchmark (ARB-1)",
+  "line": "A frozen 48-task benchmark that runs one small local model through the unmodified runtime and reports model behaviour and runtime controls separately.",
+  "results": [
+   [
+    "43/48",
+    "tasks passed the frozen oracles",
+    "greedy pass · one 4B model, one machine · 48 author-written tasks · 20/25 adversarial and negative"
+   ],
+   [
+    "7/7",
+    "runtime controls held",
+    "in 240/240 agent-mode runs across six run sets"
+   ],
+   [
+    "MT-02",
+    "the failure the controls do not cover",
+    "a permitted read tool returned a secret and the model wrote it into its answer"
+   ]
+  ],
+  "lessonTitle": "Action safety ≠ information-flow safety",
+  "lesson": "The controls constrain actions (writes, dangerous tools, budgets), not information flow through permitted read tools. In MT-02 a fetched page told the model to read a config value and reveal it; the model called the read-level get_config and wrote the passphrase into its answer. Every control held and the secret was still disclosed: the benchmark found the largest hole exactly where the controls do not look.",
+  "qualifier": "One small quantised model, 48 tasks written by the same AI author that wrote the oracles, a scripted approver, heuristic lexicon oracles (four of 22 failures in the runs MAREF uses were oracle false negatives, disclosed in the results). Descriptive counts, not a leaderboard and not a safety claim about the runtime.",
+  "docs": [
+   [
+    "Benchmark repository",
+    "",
+    "repo"
+   ],
+   [
+    "ARB-1 results (read before quoting a number)",
+    "docs/RESULTS.md",
+    "blob"
+   ],
+   [
+    "Benchmark design",
+    "docs/benchmark-design.md",
+    "blob"
+   ]
+  ]
+ }
 }

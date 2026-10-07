@@ -1,11 +1,13 @@
 # Ritesh Mamidi — portfolio
 
-Static GitHub Pages portfolio: three flagship layers with their evidence attached: an AI agent (Support Escalation Copilot), the infrastructure it runs on (AI Agent Runtime) and the evaluation of how agents fail (llmeval and the MAREF research prototype), then supporting data and analytics work and the career story. Positioning, claims and limits are governed as data; see "Claim governance" below.
+Static GitHub Pages portfolio: three flagship layers with their evidence attached: an AI agent (Support Escalation Copilot), the infrastructure it runs on (AI Agent Runtime and the Agent Runtime Benchmark) and the evaluation of how agents fail (llmeval and the MAREF research prototype), then compact cards for the product, analytics and data-engineering work and the career story. Positioning, claims and limits are governed as data; see "Claim governance" below.
+
+**Page structure.** The homepage is deliberately short (about 18 screens at 375×812; `scripts/measure-height.js` measures it and `npm run test:browser` fails above 25). Depth lives on its own pages, linked from the homepage and the recruiter view: `support-escalation-copilot.html` (case study, including the real-model run), `agent-runtime.html` (runtime + Agent Runtime Benchmark), `evaluation.html` (llmeval + the MAREF research page and explorer) and `projects.html` (searchable library, browser explorers, supporting builds, career path). Nothing was deleted from the repository: the information architecture changed, the evidence did not.
 
 ## Source structure
 
 - `data.js` — canonical project library and the six supporting case studies. `content/*.json` — site copy, explainers, world scripts, research, verified evidence links.
-- `index.src.html` and `copilot.src.html` — page skeletons + SEO heads. `build.js` + `scripts/render.js` + `scripts/render-copilot.js` + `scripts/worlds-html.js` — static generation of `index.html`, `support-escalation-copilot.html` and `recruiter.html`; `scripts/render-profile.js` generates `profile/README.md` (the GitHub profile README, copied by hand into the profile repository). Nothing is hand-duplicated.
+- `index.src.html`, `copilot.src.html` and `page.src.html` — page skeletons + SEO heads. `build.js` + `scripts/render.js` + `scripts/render-copilot.js` + `scripts/worlds-html.js` — static generation of `index.html`, `support-escalation-copilot.html`, `agent-runtime.html`, `evaluation.html`, `projects.html` and `recruiter.html`; `scripts/render-profile.js` generates `profile/README.md` (the GitHub profile README, copied by hand into the profile repository). Nothing is hand-duplicated.
 - `assets/css/site.css` (the one design system), `assets/css/worlds.css` (scenes, avatar, demos), `assets/css/recruiter.css` (inlined into the recruiter page).
 - `assets/js/site.js` (page behaviour), `worlds.js` (scroll-scrubbed canvas scenes), `host.js` (intro, demo tabs, capture mode), `film.js` (launch-film director), `lab/` (real logic behind the demos, unit-tested, plus the UI).
 - `assets/avatar/` — avatar manifest, cut-outs and the spec for generated persona art. `deliverables/` — LinkedIn avatar crop and the launch film.
@@ -35,9 +37,9 @@ The site remains compatible with GitHub Pages publishing from `main` at the repo
 
 ## Capture mode and the launch film
 
-Any scene can be captured cleanly: `?capture=hero|agents|data|maref|product|contact|rag|stream|experiment|funnel|maref-lab|agent|<flagship-repo-id>`, optionally with `&step=N&t=SECONDS` for a fixed frame. Size the browser viewport to the format you need (16:9, 1:1, 4:5).
+Any scene can be captured cleanly on the page that holds it (`hero`, `contact` on the homepage; `maref`, `maref-lab` on `evaluation.html`; `agents`, `data`, `product`, `rag`, `stream`, `experiment`, `funnel`, `agent` and the supporting-build ids on `projects.html`): `?capture=<scene>`, optionally with `&step=N&t=SECONDS` for a fixed frame. Size the browser viewport to the format you need (16:9, 1:1, 4:5).
 
-`?capture=film` is a deterministic director page for the launch film: `window.__film.seek(t)` renders any frame from the site's own scenes and lab demos. `scripts/render-film.js` seeks, screenshots at 1080×1350 (30 fps) and encodes with FFmpeg, and writes SRT/VTT captions next to the video:
+`?capture=film` is a deterministic director page (**known broken since before M11**: `film.js` still reads `RMLab.SCENES`, which the scene engine no longer defines; the already-rendered films in `deliverables/` and `assets/media/` are unaffected) for the launch film: `window.__film.seek(t)` renders any frame from the site's own scenes and lab demos. `scripts/render-film.js` seeks, screenshots at 1080×1350 (30 fps) and encodes with FFmpeg, and writes SRT/VTT captions next to the video:
 
 ```sh
 python3 -m http.server 8000 &

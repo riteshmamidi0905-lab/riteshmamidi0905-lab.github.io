@@ -1,13 +1,13 @@
 {
  "repo": "riteshmamidi0905-lab/support-escalation-copilot",
- "release": "v0.6.0",
- "sha": "d259c57255992c21cda4d00fe21b3cd833a1fb9c",
+ "release": "v0.7.0",
+ "sha": "c7377de1ec81fc595f1a57c079a28a97a216c266",
  "note": "Vendored byte-for-byte from the public repository at this commit. The portfolio renders every Support Escalation Copilot figure from these files; `npm run verify:evidence` re-hashes them and `--online` re-fetches them from the pinned commit. To update: bump sha, re-run scripts/sync-evidence.js, review the diff, rebuild.",
  "files": {
   "public-claims.json": {
    "path": "content/public-claims.json",
-   "sha256": "52438cda3ca3fd00db7c28c028377ac36fa2cd7420a0e74277dbac4f5746d0f9",
-   "bytes": 25794
+   "sha256": "dac4bed6264ee86fdaebcab6ddef37376d6ae7f814594e49c14589fd1d3b89c8",
+   "bytes": 34158
   },
   "draft-steering.json": {
    "path": "reports/m5/draft-steering.json",
@@ -16,8 +16,8 @@
   },
   "release-evidence.json": {
    "path": "reports/m6/release-evidence.json",
-   "sha256": "aed0f8a2666f4062f5f4fc0709ad66742409f289db5e934b47ba292db3030729",
-   "bytes": 4180
+   "sha256": "343a3dae7d8ab1b12ff904ff58cb887f26b896ea9f9a2c50abef4a714c166ac7",
+   "bytes": 9002
   },
   "m4-injection.md": {
    "path": "docs/m4-injection.md",

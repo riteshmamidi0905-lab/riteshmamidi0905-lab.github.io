@@ -4,9 +4,21 @@
  "verifiedOn": "2026-10-06",
  "how": "Cloned at the pinned commit and run: pytest -q (33 passed); metric registry counted (14); benchmarks/dataset.jsonl counted (18 lines).",
  "stats": [
-  ["33", "tests pass", "re-run at the pinned commit"],
-  ["14", "deterministic metrics", "token F1, faithfulness, number match, BLEU and others"],
-  ["18", "hand-written benchmark cases", "outputs are constructed, not model runs"]
+  [
+   "33",
+   "tests pass",
+   "re-run at the pinned commit"
+  ],
+  [
+   "14",
+   "deterministic metrics",
+   "token F1, faithfulness, number match, BLEU and others"
+  ],
+  [
+   "18",
+   "hand-written benchmark cases",
+   "outputs are constructed, not model runs"
+  ]
  ],
  "qualifier": "The 18-case benchmark uses hand-written cases with constructed outputs, so it tests that the metric suite separates good answers from bad ones. It is not an evaluation of any language model, and token-overlap faithfulness is a heuristic.",
  "maref": {
@@ -21,5 +33,5 @@
   },
   "disclosure": "Same-author, not independent validation. Pre-registered; the test split is spent."
  },
- "bridge": "The most worked-through evaluation in my portfolio is in the Copilot: a frozen, hash-locked held-out retrieval set, mutation checks on every defence, an adversarial draft corpus whose failures are kept, and a real-model protocol that is frozen; no real-model result is claimed for the published v0.6.0."
+ "bridge": "The most worked-through evaluation in my portfolio is in the Copilot: a frozen, hash-locked held-out retrieval set, mutation checks on every defence, an adversarial draft corpus whose failures are kept, and one real-model run reported with its four failure classes and its protocol deviation, not summarised into a score."
 }

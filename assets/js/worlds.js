@@ -121,7 +121,7 @@
       if (this.name === 'hero') addEventListener('pointermove', (e) => { this.state.pointer = { x: e.clientX / innerWidth, y: e.clientY / innerHeight }; }, { passive: true });
     }
     goto(i) {
-      if (STATIC() || !this.el.classList.contains('is-pinned')) { this.setStep(i, false); this.target = i; this.s = i; this.once(); return; }
+      if (STATIC() || !this.el.classList.contains('is-pinned')) { this.setStep(i, false); this.target = i; if (STATIC() || !this.el.hasAttribute('data-compact')) this.s = i; this.once(); return; }   /* compact scenes ease toward the step instead of jumping */
       const top = this.el.getBoundingClientRect().top + scrollY, span = this.el.offsetHeight - innerHeight;
       window.scrollTo({ top: top + span * ((i + 0.5) / this.N), behavior: 'smooth' });
     }
@@ -173,7 +173,7 @@
   function init() {
     STEPS = JSON.parse((document.getElementById('rm-worlds') || { textContent: '{}' }).textContent);
     document.querySelectorAll('[data-world]').forEach((el) => {
-      const id = el.dataset.world, cfg = STEPS[el.dataset.steps || id] || null; if (cfg && !STATIC()) el.classList.add('is-pinned');
+      const id = el.dataset.world, cfg = STEPS[el.dataset.steps || id] || null; if (cfg && !STATIC() && !el.hasAttribute('data-compact')) el.classList.add('is-pinned');   /* compact scenes (homepage) are one screen, driven by their step buttons, never pinned */
       el.classList.add('js-world'); el.style.setProperty('--n', cfg ? cfg.steps.length : 1);
       worlds.push(new World(el, cfg));
     });

@@ -13,14 +13,14 @@ const stat = (id) => CP.stats.find((s) => s.claim === id);
 const rt = (k) => RT.stats.find((x) => x[1].startsWith(k));
 const badge = (k) => `**${C.BADGES[k][0].toUpperCase()}**`;
 const link = (t, h) => `[${t}](${h})`;
-const supporting = P.filter((p) => !['support-escalation-copilot', RT.repo, 'llm-eval-framework'].includes(p.r));
-const groups = Object.entries(CATLABEL).map(([k, label]) => [label, supporting.filter((p) => p.c === k)]).filter(([, ps]) => ps.length);
+const tk = (e) => C.token(e), A = RT.arb;
+const ALSO = site.alsoBuilt.groups.flatMap((g) => g.items);
 
 const md = `<h1 align="center">${pr.name}</h1>
 
 <p align="center">
   <b>${site.hero.tagline[0]}</b><br>
-  ${site.hero.tagline[1]} ${site.hero.tagline[2].replace(/^and/, 'and')}
+  ${site.hero.tagline[1]} ${site.hero.tagline[2]}
 </p>
 
 <p align="center">
@@ -30,34 +30,35 @@ const md = `<h1 align="center">${pr.name}</h1>
 
 ---
 
-I build AI agents, the infrastructure they run on, and the evaluation of how they fail, in the open, and publish the evidence next to the claims. Professionally I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. The three layers below are separate pieces of independent work, not one deployment, and each one says what was verified, what was simulated and what was not evaluated.
+**Professionally** I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. **In independent, open-source work** I build AI agents, the infrastructure they run on, and the evaluation of how they fail, and publish the evidence next to the claims. The three layers below are separate pieces of work, not one deployment; each says what was verified, what was simulated and what its limits are.
 
-## Flagship systems
+## I build AI agents
 
-### 1 · I build AI agents: ${link(CP.title, REPO_URL)} \`${REL}\`
+### ${link(CP.title, REPO_URL)} \`${REL}\`
 ${CP.oneLine}
 
-- ${badge('verified')} ${stat('test-suite').value} automated tests pass; ${stat('threat-catalogue').value} catalogued attacks have executable tests; mutation checks kill ${stat('mutation-checks').value} of the control-plane mutations.
-- ${badge('simulated')} The model is a deterministic rule-based stand-in, not an LLM. Across ${C.claim('invariants-held-in-scenario-runs').value.injection_runs} injection runs, including a deliberately obedient scripted model, ${C.claim('invariants-held-in-scenario-runs').value.invariant_violations} invariants were violated.
-- ${badge('not-evaluated')} ${C.claim('real-model-evaluation-status').claim}
+- ${badge('verified')} ${stat('test-suite').value} automated tests pass; ${stat('threat-catalogue').value} catalogued attacks have executable tests.
+- ${badge('verified')} **One real-model run** (a small local model, one pass): ${tk('real-model-expected-outcomes.expected_outcome_attained')} of ${tk('real-model-expected-outcomes.cases')} cases reached the frozen expected outcome (not accuracy). It failed at the interface (schema, evidence handles, action parameters, drafts) while the four deterministic invariants held.
+- ${badge('simulated')} The default model is a deterministic rule-based stand-in, not an LLM; approvers are simulated.
 - ${badge('limitation')} Fictional customer, synthetic data, never deployed.
 
-${link('Interactive case study', SITE + CP.caseStudy)} · ${link('Repository', REPO_URL)} · ${link('Public claims manifest', `${REPO_URL}/blob/${C.SOURCE.sha}/content/public-claims.json`)} · evidence commit \`${SHORT}\`
+${link('Case study', SITE + CP.caseStudy)} · ${link('Repository', REPO_URL)} · ${link('Release ' + REL, `${REPO_URL}/releases/tag/${REL}`)}
 
-### 2 · I build the infrastructure they run on: ${link(RT.title, GH + RT.repo)}
+## I build the infrastructure they run on
+
+### ${link(RT.short, GH + RT.repo)} + ${link('Agent Runtime Benchmark', GH + A.repo)}
 ${RT.oneLine}
 
-- ${badge('verified')} ${rt('tests')[0]} tests; CI on Python ${rt('Python')[0]}; PostgreSQL 16 integration tests; a Docker Compose smoke-and-restart job in CI; ${rt('scenarios')[0].replace(/\s/g, '')} evaluation scenarios reached the expected status (7 are deliberate failures).
-- ${badge('simulated')} ${RT.qualifier}
-- ${badge('limitation')} ${RT.limitations[0]}
+- ${badge('verified')} ${rt('tests')[0]} tests; ${rt('scenarios')[0].replace(/\s/g, '')} evaluation scenarios reached the expected status (scripted models, not a benchmark of LLM quality).
+- ${badge('verified')} ARB-1, one small model through the unmodified runtime: **${A.results[0][0]}** tasks passed the frozen oracles; the runtime's **${A.results[1][0]}** controls held ${A.results[1][2]}.
+- ${badge('limitation')} It still found a hole (${A.results[2][0]}): ${A.results[2][2]}, and every control held. The lesson: ${A.lessonTitle}.
 
-${link('Case study', SITE + '#runtime')} · ${link('Repository', GH + RT.repo)} · evidence commit \`${RT.sha.slice(0, 7)}\`
+${link('Case study', SITE + 'agent-runtime.html')} · ${link('Runtime', GH + RT.repo)} · ${link('Benchmark results', `${GH}${A.repo}/blob/${A.sha}/docs/RESULTS.md`)}
 
-### 3 · I evaluate how they fail: ${link('llm-eval-framework', GH + 'llm-eval-framework')} and ${link('MAREF', 'https://github.com/' + EVAL.maref.repo)}
-Rubric-driven evaluation of model outputs with weighted scores, hard per-criterion gates and inspectable failures.
+## I evaluate how they fail
 
-- ${badge('verified')} ${EVAL.stats[0][0]} tests pass and ${EVAL.stats[1][0]} deterministic metrics (re-run ${EVAL.verifiedOn} at \`${EVAL.sha.slice(0, 7)}\`).
-- ${badge('simulated')} ${EVAL.qualifier}
+### ${link('llmeval', GH + EVAL.repo)} + ${link('MAREF', 'https://github.com/' + EVAL.maref.repo)}
+- ${badge('verified')} llmeval: ${EVAL.stats[0][0]} tests pass and ${EVAL.stats[1][0]} deterministic metrics (hand-written cases, not an evaluation of any model).
 - ${badge('limitation')} MAREF evaluates runs of an agent (it is not an agent). It is a research prototype with a same-author, pre-registered evaluation: not independent validation, and its test split is spent.
 
 > **${EVAL.maref.card.title}**<br>
@@ -65,9 +66,7 @@ Rubric-driven evaluation of model outputs with weighted scores, hard per-criteri
 > ${EVAL.maref.card.claim}<br>
 > ${link(EVAL.maref.card.link, `https://github.com/${EVAL.maref.repo}/blob/${EVAL.maref.sha}/docs/EVALUATION.md`)}
 
-MAREF evaluates the runs recorded by the Agent Runtime Benchmark (${link('ARB-1', GH + 'agent-runtime-bench')}), which exercises the AI Agent Runtime above.
-
-${link('Case study', SITE + '#evaluation')} · ${link('llmeval', GH + 'llm-eval-framework')} · ${link('MAREF', 'https://github.com/' + EVAL.maref.repo)} · ${link('Canonical claim', `https://github.com/${EVAL.maref.repo}/blob/${EVAL.maref.sha}/docs/CLAIM.md`)}
+${link('Evaluation page', SITE + 'evaluation.html')} · ${link('llmeval', GH + EVAL.repo)} · ${link('MAREF', 'https://github.com/' + EVAL.maref.repo)} · ${link('Canonical claim', `https://github.com/${EVAL.maref.repo}/blob/${EVAL.maref.sha}/docs/CLAIM.md`)}
 
 ## How the evidence is labelled
 
@@ -75,17 +74,15 @@ ${link('Case study', SITE + '#evaluation')} · ${link('llmeval', GH + 'llm-eval-
 | :-- | :-- |
 ${Object.entries(C.BADGES).map(([k, [name, def]]) => `| ${badge(k)} | ${def} |`).join('\n')}
 
-## Supporting work
+## Also built
 
-Smaller or older projects. Their repositories carry their own tests and notes; I make no numeric claims about them here.
+${ALSO.map(([r, line]) => `- ${link(r, GH + r)}: ${line}`).join('\n')}
 
-${groups.map(([label, ps]) => `**${label}**\n\n| Project | What it does |\n| :-- | :-- |\n${ps.map((p) => `| ${link(p.r, GH + p.r)} | ${unesc(p.d)} |`).join('\n')}`).join('\n\n')}
+All ${P.length} projects, with code, tests and limits: ${link('portfolio', SITE + 'projects.html')}.
 
-## Stack
+## Stack, education and certifications
 
 Python · SQL · PostgreSQL (row-level security, pgvector) · FastAPI · PyTorch · scikit-learn · pandas · Spark · Kafka · Docker · GitHub Actions · Power BI · Tableau
-
-## Education and certifications
 
 ${site.education.map((e) => `- **${e[0]}**, ${e[1]}`).join('\n')}
 ${site.certs.map((e) => `- **${e[0]}**, ${e[1]}`).join('\n')}
