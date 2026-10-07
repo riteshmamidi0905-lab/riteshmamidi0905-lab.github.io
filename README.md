@@ -1,6 +1,6 @@
 # Ritesh Mamidi — portfolio
 
-Static GitHub Pages portfolio: three flagship AI systems with their evidence attached (Support Escalation Copilot, AI Agent Runtime, LLM evaluation), then supporting data and analytics work and the career story. Positioning, claims and limits are governed as data; see "Claim governance" below.
+Static GitHub Pages portfolio: three flagship layers with their evidence attached: an AI agent (Support Escalation Copilot), the infrastructure it runs on (AI Agent Runtime) and the evaluation of how agents fail (llmeval and the MAREF research prototype), then supporting data and analytics work and the career story. Positioning, claims and limits are governed as data; see "Claim governance" below.
 
 ## Source structure
 
@@ -56,6 +56,7 @@ Numbers about the Support Escalation Copilot are never typed into this repositor
 - `npm run verify:evidence` re-hashes every vendored file (part of `npm test`); `npm run verify:evidence:online` also re-fetches each file at the pinned commit (CI). Update to a new release with `npm run sync:evidence -- <40-char sha> [tag]`, then rebuild, review the diff and run the tests.
 - `scripts/check-site.js` asserts, among much else: every `data-claim` is portfolio-eligible; every number in the Copilot narrative appears in an eligible claim (a stray figure fails); the evidence table contains every eligible claim verbatim, with its qualification; the attack replay and the draft examples are rows of the repository's own reports; the evidence labels (Verified / Simulated / Limitation / Not evaluated) are derived from the manifest's own fields; the hero positioning is truthful; and one banned token is absent from every text file (checked by hash).
 - The AI Agent Runtime stays pinned in `content/agent-runtime.json` (commit `231b186`) and llmeval in `content/llm-eval-framework.json` (commit `99e6121`, re-run and dated).
+- The MAREF card (`content/llm-eval-framework.json`, key `maref`) is the wording approved in the MAREF repository's `docs/CLAIM.md`. That file and the recorded test-split results are vendored byte for byte in `content/evidence/maref/` (pinned to a full commit SHA, re-hashed by `verify:evidence`). `scripts/check-site.js` asserts that the card is exactly the approved text, that every line of it is in the vendored canonical claim, that its three figures equal the recorded frozen-primary-label numbers, that `33/33` never appears on any public surface without `36/154` and `151/187` beside it, that the not-independent-validation disclosure is present, and that wording such as "independently validated", "production-ready" or "MAREF outperforms llmeval" never appears. See `docs/m10-maref-integration.md`.
 
 ## Credibility
 

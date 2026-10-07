@@ -30,11 +30,11 @@ const md = `<h1 align="center">${pr.name}</h1>
 
 ---
 
-I build AI systems in the open and publish the evidence next to the claims. Professionally I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. The three repositories below are independent work, and each one says what was verified, what was simulated and what was not evaluated.
+I build AI agents, the infrastructure they run on, and the evaluation of how they fail, in the open, and publish the evidence next to the claims. Professionally I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. The three layers below are separate pieces of independent work, not one deployment, and each one says what was verified, what was simulated and what was not evaluated.
 
 ## Flagship systems
 
-### 1 · ${link(CP.title, REPO_URL)} \`${REL}\`
+### 1 · I build AI agents: ${link(CP.title, REPO_URL)} \`${REL}\`
 ${CP.oneLine}
 
 - ${badge('verified')} ${stat('test-suite').value} automated tests pass; ${stat('threat-catalogue').value} catalogued attacks have executable tests; mutation checks kill ${stat('mutation-checks').value} of the control-plane mutations.
@@ -44,7 +44,7 @@ ${CP.oneLine}
 
 ${link('Interactive case study', SITE + CP.caseStudy)} · ${link('Repository', REPO_URL)} · ${link('Public claims manifest', `${REPO_URL}/blob/${C.SOURCE.sha}/content/public-claims.json`)} · evidence commit \`${SHORT}\`
 
-### 2 · ${link(RT.title, GH + RT.repo)}
+### 2 · I build the infrastructure they run on: ${link(RT.title, GH + RT.repo)}
 ${RT.oneLine}
 
 - ${badge('verified')} ${rt('tests')[0]} tests; CI on Python ${rt('Python')[0]}; PostgreSQL 16 integration tests; a Docker Compose smoke-and-restart job in CI; ${rt('scenarios')[0].replace(/\s/g, '')} evaluation scenarios reached the expected status (7 are deliberate failures).
@@ -53,14 +53,21 @@ ${RT.oneLine}
 
 ${link('Case study', SITE + '#runtime')} · ${link('Repository', GH + RT.repo)} · evidence commit \`${RT.sha.slice(0, 7)}\`
 
-### 3 · ${link('llm-eval-framework', GH + 'llm-eval-framework')}
+### 3 · I evaluate how they fail: ${link('llm-eval-framework', GH + 'llm-eval-framework')} and ${link('MAREF', 'https://github.com/' + EVAL.maref.repo)}
 Rubric-driven evaluation of model outputs with weighted scores, hard per-criterion gates and inspectable failures.
 
 - ${badge('verified')} ${EVAL.stats[0][0]} tests pass and ${EVAL.stats[1][0]} deterministic metrics (re-run ${EVAL.verifiedOn} at \`${EVAL.sha.slice(0, 7)}\`).
 - ${badge('simulated')} ${EVAL.qualifier}
-- ${badge('not-evaluated')} MAREF, a proposed reliability framework for LLM agents, has no repository, no experiment and no result yet.
+- ${badge('limitation')} MAREF evaluates runs of an agent (it is not an agent). It is a research prototype with a same-author, pre-registered evaluation: not independent validation, and its test split is spent.
 
-${link('Case study', SITE + '#evaluation')} · ${link('Repository', GH + 'llm-eval-framework')}
+> **${EVAL.maref.card.title}**<br>
+> ${EVAL.maref.card.numbers}<br>
+> ${EVAL.maref.card.claim}<br>
+> ${link(EVAL.maref.card.link, `https://github.com/${EVAL.maref.repo}/blob/${EVAL.maref.sha}/docs/EVALUATION.md`)}
+
+MAREF evaluates the runs recorded by the Agent Runtime Benchmark (${link('ARB-1', GH + 'agent-runtime-bench')}), which exercises the AI Agent Runtime above.
+
+${link('Case study', SITE + '#evaluation')} · ${link('llmeval', GH + 'llm-eval-framework')} · ${link('MAREF', 'https://github.com/' + EVAL.maref.repo)} · ${link('Canonical claim', `https://github.com/${EVAL.maref.repo}/blob/${EVAL.maref.sha}/docs/CLAIM.md`)}
 
 ## How the evidence is labelled
 

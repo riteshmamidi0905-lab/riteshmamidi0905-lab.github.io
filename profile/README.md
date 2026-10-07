@@ -2,7 +2,7 @@
 
 <p align="center">
   <b>Product-minded AI builder.</b><br>
-  Agent systems, evaluation, and the controls around the model.
+  I build AI agents and the infrastructure they run on, and evaluate how they fail.
 </p>
 
 <p align="center">
@@ -12,11 +12,11 @@
 
 ---
 
-I build AI systems in the open and publish the evidence next to the claims. Professionally I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. The three repositories below are independent work, and each one says what was verified, what was simulated and what was not evaluated.
+I build AI agents, the infrastructure they run on, and the evaluation of how they fail, in the open, and publish the evidence next to the claims. Professionally I validate LLM and ML outputs against policy and quality rubrics and build QA and reporting in Python and SQL. The three layers below are separate pieces of independent work, not one deployment, and each one says what was verified, what was simulated and what was not evaluated.
 
 ## Flagship systems
 
-### 1 · [Support Escalation Copilot](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) `v0.6.0`
+### 1 · I build AI agents: [Support Escalation Copilot](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) `v0.6.0`
 An approval-gated AI case workflow for a fictional B2B SaaS support team. The model helps with reading and drafting; everything that can hurt a customer stays in deterministic code and in human hands.
 
 - **VERIFIED** 472 automated tests pass; 92 / 92 catalogued attacks have executable tests; mutation checks kill 31/31 of the control-plane mutations.
@@ -26,23 +26,30 @@ An approval-gated AI case workflow for a fictional B2B SaaS support team. The mo
 
 [Interactive case study](https://riteshmamidi0905-lab.github.io/support-escalation-copilot.html) · [Repository](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) · [Public claims manifest](https://github.com/riteshmamidi0905-lab/support-escalation-copilot/blob/d259c57255992c21cda4d00fe21b3cd833a1fb9c/content/public-claims.json) · evidence commit `d259c57`
 
-### 2 · [AI Agent Runtime — From First Principles to Production](https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch)
+### 2 · I build the infrastructure they run on: [AI Agent Runtime — From First Principles to Production](https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch)
 Agent runtime in standard-library Python: explicit loop, tools, state, memory, planning, evaluation, reliability and security, then served by FastAPI with PostgreSQL and resumable SSE.
 
 - **VERIFIED** 89 tests; CI on Python 3.9 · 3.12; PostgreSQL 16 integration tests; a Docker Compose smoke-and-restart job in CI; 13/13 evaluation scenarios reached the expected status (7 are deliberate failures).
 - **SIMULATED** Runtime evaluation using deterministic stand-in and scripted models; not a benchmark of LLM quality.
-- **LIMITATION** No real language model has been exercised. A real-model demo and an optional test exist in the repository, but they were not run, and CI never calls a paid API.
+- **LIMITATION** The runtime's own tests and evaluation use scripted models, and CI never calls a paid API. A separate benchmark, agent-runtime-bench (ARB-1), runs one small local language model through the unmodified runtime: 43 of 48 tasks passed its frozen oracles (greedy decoding), all seven runtime controls held in 240 of 240 agent-mode runs, and it found a gap: a secret was disclosed through a permitted read tool. One model, one machine, 48 author-written tasks and heuristic oracles; not a safety claim about the runtime.
 
 [Case study](https://riteshmamidi0905-lab.github.io/#runtime) · [Repository](https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch) · evidence commit `231b186`
 
-### 3 · [llm-eval-framework](https://github.com/riteshmamidi0905-lab/llm-eval-framework)
+### 3 · I evaluate how they fail: [llm-eval-framework](https://github.com/riteshmamidi0905-lab/llm-eval-framework) and [MAREF](https://github.com/riteshmamidi0905-lab/maref)
 Rubric-driven evaluation of model outputs with weighted scores, hard per-criterion gates and inspectable failures.
 
 - **VERIFIED** 33 tests pass and 14 deterministic metrics (re-run 2026-10-06 at `99e6121`).
 - **SIMULATED** The 18-case benchmark uses hand-written cases with constructed outputs, so it tests that the metric suite separates good answers from bad ones. It is not an evaluation of any language model, and token-overlap faithfulness is a heuristic.
-- **NOT EVALUATED** MAREF, a proposed reliability framework for LLM agents, has no repository, no experiment and no result yet.
+- **LIMITATION** MAREF evaluates runs of an agent (it is not an agent). It is a research prototype with a same-author, pre-registered evaluation: not independent validation, and its test split is spent.
 
-[Case study](https://riteshmamidi0905-lab.github.io/#evaluation) · [Repository](https://github.com/riteshmamidi0905-lab/llm-eval-framework)
+> **MAREF · Research prototype · MIXED**<br>
+> 33/33 labelled failures detected · 36/154 clean runs flagged · 151/187 overall agreement<br>
+> Pre-registered advantage vs shipped llmeval gates; no demonstrated advantage over stronger baselines or for trajectory-specific failures.<br>
+> [Full evaluation →](https://github.com/riteshmamidi0905-lab/maref/blob/1c00c9034adbe7d0d1ccf9a740c99201ec84de20/docs/EVALUATION.md)
+
+MAREF evaluates the runs recorded by the Agent Runtime Benchmark ([ARB-1](https://github.com/riteshmamidi0905-lab/agent-runtime-bench)), which exercises the AI Agent Runtime above.
+
+[Case study](https://riteshmamidi0905-lab.github.io/#evaluation) · [llmeval](https://github.com/riteshmamidi0905-lab/llm-eval-framework) · [MAREF](https://github.com/riteshmamidi0905-lab/maref) · [Canonical claim](https://github.com/riteshmamidi0905-lab/maref/blob/1c00c9034adbe7d0d1ccf9a740c99201ec84de20/docs/CLAIM.md)
 
 ## How the evidence is labelled
 

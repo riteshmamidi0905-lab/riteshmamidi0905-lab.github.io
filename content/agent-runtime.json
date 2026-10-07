@@ -33,7 +33,7 @@
  "qualifier": "Runtime evaluation using deterministic stand-in and scripted models; not a benchmark of LLM quality.",
  "evalDetail": "The 13 scenarios are 6 ordinary tasks run by a rule-based stand-in model and 7 failure scenarios run by a scripted model that deliberately misbehaves: a repeated call, a step runaway, a token runaway, a write with no approver, an injected instruction, a provider outage and an escalation. Each case passes when the run ends in the status that case expects, and the harness is itself tested to be able to fail. Because several scenarios are meant to stop without a final answer, the final-answer rate is 61.5% (8 of 13); that is by design, not a quality score. No language model was used.",
  "limitations": [
-  "No real language model has been exercised. A real-model demo and an optional test exist in the repository, but they were not run, and CI never calls a paid API.",
+  "The runtime's own tests and evaluation use scripted models, and CI never calls a paid API. A separate benchmark, agent-runtime-bench (ARB-1), runs one small local language model through the unmodified runtime: 43 of 48 tasks passed its frozen oracles (greedy decoding), all seven runtime controls held in 240 of 240 agent-mode runs, and it found a gap: a secret was disclosed through a permitted read tool. One model, one machine, 48 author-written tasks and heuristic oracles; not a safety claim about the runtime.",
   "Docker Compose was verified in CI only, not on a local machine.",
   "Not deployed as a live service; the claim is a production-oriented architecture verified by CI and integration tests.",
   "No run-cancellation endpoint. One shared bearer token and no per-user ownership of runs. A restart interrupts in-flight runs.",
@@ -49,7 +49,8 @@
   ["Configuration", "docs/configuration.md", "blob"],
   ["Evaluation report", "docs/eval-report.md", "blob"],
   ["Pre-build audit", "docs/audit-v9.md", "blob"],
-  ["Tests", "tests", "tree"]
+  ["Tests", "tests", "tree"],
+  ["Real-model benchmark (ARB-1)", "https://github.com/riteshmamidi0905-lab/agent-runtime-bench", "ext"]
  ],
  "steps": [
   ["From first principles", "Built one idea at a time in standard-library Python: model interface, structured output, tools, an explicit agent loop, state and memory, planning, evaluation, reliability and security, observability."],

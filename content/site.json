@@ -15,10 +15,10 @@
  "hero": {
   "tagline": [
    "Product-minded AI builder.",
-   "Agent systems, evaluation,",
-   "and the controls around the model."
+   "I build AI agents and the infrastructure they run on,",
+   "and evaluate how they fail."
   ],
-  "sub": "I build and test AI systems in the open: an approval-gated support workflow, an agent runtime and evaluation harnesses, each with its evidence and its limits published."
+  "sub": "Three separate pieces of work, each with its evidence and its limits published in the open."
  },
  "explains": {
   "ai": "An agent that only sounds right is a liability. I keep the loop explicit (plan, tool, observation) and check the whole trace before an answer counts.",

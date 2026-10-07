@@ -1,0 +1,18 @@
+{
+ "repo": "riteshmamidi0905-lab/maref",
+ "release": null,
+ "sha": "1c00c9034adbe7d0d1ccf9a740c99201ec84de20",
+ "note": "Vendored byte-for-byte from the public repository at this commit (the published canonical claim and the recorded test-split results). The MAREF card is checked against these files by scripts/check-site.js; npm run verify:evidence re-hashes them and --online re-fetches them from the pinned commit. To update: change sha, re-fetch both files, recompute the hashes, review the diff, rebuild.",
+ "files": {
+  "CLAIM.md": {
+   "path": "docs/CLAIM.md",
+   "sha256": "9b74551b07c8378a02071c247c535e8c0368e6deaa0d4b844e4b43765e23dd44",
+   "bytes": 7650
+  },
+  "results.json": {
+   "path": "results/test/results.json",
+   "sha256": "d42f617671f2d3b3a77df760a2864e7d1ed6251887d5b2c849e6957d0cdc3684",
+   "bytes": 46905
+  }
+ }
+}

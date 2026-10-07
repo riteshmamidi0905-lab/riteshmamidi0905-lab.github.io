@@ -17,3 +17,4 @@ h2{font:600 12px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.16em;te
 @media(max-width:620px){.job{grid-template-columns:1fr}.proj li{grid-template-columns:1fr}}
 @media print{body{background:#fff;color:#000}.rh,.skip{display:none}main a,.mono,h2,.when,.org,.tech,.job ul,.proj p,.plain li,.top p,.lead,.fine,.tags span{color:#222!important;border-color:#bbb!important}h1,h3{color:#000}main>section{border-color:#ccc}}
 .evl{font-size:14.5px;color:var(--mut);margin-top:8px}.evl b{color:var(--tx);font-weight:600}
+.maref-card{margin:8px 0 12px;padding:14px 18px;border:1px solid var(--line);border-left:3px solid #e6b450}.maref-card .mc-nums{font-family:ui-monospace,monospace;font-weight:600;font-size:14px;margin-top:8px}.maref-card .mc-claim{color:var(--mut);margin-top:8px}.maref-card .mc-go{margin-top:10px}

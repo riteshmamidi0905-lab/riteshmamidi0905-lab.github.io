@@ -26,7 +26,7 @@
       caps: [[0, 'A task comes in. The planner picks a tool.'], [2.1, 'Each observation feeds the next step.'], [4.2, 'Deterministic checks verify the trace before the answer.']] },
     { id: 'data', d: 5.6, kind: 'world', scene: 'data', persona: 'data', kick: '02 / DATA ENGINEERING', title: 'Signals become systems.', s: [0, 4], note: 'Synthetic events · simulated in the browser',
       caps: [[0, 'Synthetic events stream through the pipeline.'], [1.9, 'Rules flag fraud. A watermark drops very late events.'], [3.8, 'Same logic as my Kafka, Spark and Cassandra project.']] },
-    { id: 'maref', d: 5.6, kind: 'world', scene: 'maref', persona: 'research', kick: '03 / MAREF · IN DEVELOPMENT', title: 'Reliability needs more than one score.', s: [0, 7], note: 'Explanatory visualization · not experimental results',
+    { id: 'maref', d: 5.6, kind: 'world', scene: 'maref', persona: 'research', kick: '03 / MAREF · RESEARCH PROTOTYPE', title: 'Reliability needs more than one score.', s: [0, 7], note: 'Explanatory visualization · not experimental results',
       caps: [[0, 'MAREF: six reliability dimensions, not one score.'], [1.9, 'Accuracy, grounding, hallucination, instructions, consistency, completion.'], [3.9, 'In development: no results are claimed.']] },
     { id: 'rag', d: 4.6, kind: 'lab', lab: 'rag', persona: 'ai', note: 'Fixed sample corpus · real retrieval · no language model',
       caps: [[0, 'RAG: real retrieval over a sample corpus.'], [2.4, 'Chunks, scores and citations are all inspectable.']] },

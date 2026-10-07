@@ -43,7 +43,7 @@ for (const f of FLAG) assert.ok(!plinks[f.r] || plinks[f.r].tests === !!plinks[f
 
 /* integrity of research claims */
 assert.ok(document.querySelector('#research').textContent.includes('Illustrative Example — Not Experimental Results'));
-assert.ok(/Research \/ framework in development/.test(document.querySelector('.paper-status').textContent));
+assert.ok(/not independent validation/i.test(document.querySelector('#research .paper-status').textContent), 'MAREF is presented with the same-author, not-independent-validation disclosure');
 assert.ok(!document.querySelector('.hero-av').textContent.includes('AI generated'));
 
 /* one design system: no leftovers of the previous generations */
@@ -66,10 +66,10 @@ const qIdx = rtText.indexOf('not a benchmark of LLM quality'), sIdx = rtText.ind
 const prom = [...document.querySelectorAll('.rt-stats, #world-runtime .world-top, #world-runtime .world-steps, #world-runtime .world-cap')].map((e) => e.textContent).join(' ');
 assert.ok(!/61\.5/.test(prom), 'final-answer rate must not be prominent'); assert.ok(/61\.5%/.test(document.querySelector('.rt-det').textContent), 'appears only inside the detailed explanation, with context');
 assert.ok(document.querySelector('.rt-det').textContent.includes('by design'));
-const lim = document.querySelector('.rt-lim').textContent; for (const k of ['No real language model has been exercised', 'verified in CI only', 'Not deployed as a live service', 'No run-cancellation', 'cannot be killed', 'estimates', 'heuristics']) assert.ok(lim.includes(k), 'limitation missing: ' + k);
+const lim = document.querySelector('.rt-lim').textContent; for (const k of ['use scripted models', 'agent-runtime-bench', 'not a safety claim about the runtime', 'a secret was disclosed through a permitted read tool', 'verified in CI only', 'Not deployed as a live service', 'No run-cancellation', 'cannot be killed', 'estimates', 'heuristics']) assert.ok(lim.includes(k), 'limitation missing: ' + k);
 assert.ok(!/production[- ]deployed|deployed to production|live in production/i.test(rtText), 'must not claim a production deployment');
 assert.ok(!/real[- ]model[^.]*(was|were) (run|executed)|verified (locally )?with docker/i.test(rtText));
-for (const a of document.querySelectorAll('#agent-runtime a[href^="https://github.com/"]')) { assert.ok(a.href.includes('/' + RT.repo), a.href); if (!/\/ai-agent-from-scratch$/.test(a.href)) assert.ok(a.href.includes(RT.sha), 'doc links are pinned to the commit: ' + a.href); }
+for (const a of document.querySelectorAll('#agent-runtime a[href^="https://github.com/"]')) { if (a.href === 'https://github.com/riteshmamidi0905-lab/agent-runtime-bench') continue; assert.ok(a.href.includes('/' + RT.repo), a.href); if (!/\/ai-agent-from-scratch$/.test(a.href)) assert.ok(a.href.includes(RT.sha), 'doc links are pinned to the commit: ' + a.href); }
 assert.ok(document.querySelector('#projects').textContent.includes(RT.title));
 assert.equal(P[0].r, 'support-escalation-copilot', 'the Copilot leads the library'); assert.equal(P[1].r, RT.repo, 'the agent runtime is second');
 
@@ -114,7 +114,7 @@ const labels = Object.values(C.BADGES).map((b) => b[0]);
 assert.deepEqual([...document.querySelectorAll('#build .ev-legend .ev')].map((e) => txt(e).trim()), labels, 'legend on the homepage'); assert.deepEqual([...csDoc.querySelectorAll('.cs-head .ev-legend .ev')].map((e) => txt(e).trim()), labels, 'legend on the case study');
 for (const doc of [document, csDoc]) for (const e of doc.querySelectorAll('.ev')) { const k = [...e.classList].find((c) => c.startsWith('ev-') && c !== 'ev-m'); if (!k) continue; const key = k.slice(3); if (!C.BADGES[key]) continue; const t = txt(e).trim(); assert.ok(t === C.BADGES[key][0] || e.classList.contains('cap-ev') || t === '', `label text ${t} does not match ${key}`); }
 for (const [k, [name]] of Object.entries(C.BADGES)) assert.ok(read('assets/js/worlds.js').includes(`'${k}': '${name}'`) || read('assets/js/worlds.js').includes(`${k}: '${name}'`), 'worlds.js label vocabulary differs from claims.js: ' + k);
-assert.ok(document.querySelector('.paper-status .ev-not-evaluated'), 'MAREF is labelled not evaluated'); assert.ok(document.querySelector('#llmeval-evidence').textContent.includes(EVAL.qualifier), 'llmeval qualifier'); for (const [n] of EVAL.stats) assert.ok(document.querySelector('#llmeval-evidence').textContent.includes(n), 'llmeval figure ' + n);
+assert.ok(document.querySelector('#research .paper-status .ev-limitation'), 'MAREF carries the limitation label'); assert.ok(document.querySelector('#llmeval-evidence').textContent.includes(EVAL.qualifier), 'llmeval qualifier'); for (const [n] of EVAL.stats) assert.ok(document.querySelector('#llmeval-evidence').textContent.includes(n), 'llmeval figure ' + n);
 
 /* 5 · the scene is drawn from the same claims: what the canvas will show equals the manifest */
 const W = JSON.parse(document.querySelector('#rm-worlds').textContent), CD = W['copilot-data'];
@@ -163,6 +163,51 @@ const prof = require('./render-profile'); assert.equal(read('profile/README.md')
 assert.ok(!/AI\s*\/\s*ML\s+Engineer/i.test(prof.md) && prof.md.includes('not an LLM') && prof.md.includes('NOT EVALUATED'), 'profile README: truthful title and the same labels');
 { const t = prof.md.replace(/<[^>]+>/g, ' ').replace(/\(https?:[^)]*\)/g, ' ').replace(/`[^`]*`/g, ' ').replace(/[A-Za-z]+-\d+/g, ' ').replace(/\d{4}-\d{2}-\d{2}/g, ' '); const ok = new Set([...C.allowedNumbers(), ...CP.allowNumbers, ...JSON.stringify(require('../content/agent-runtime.json')).match(/\d+(?:\.\d+)?/g), ...JSON.stringify(EVAL).match(/\d+(?:\.\d+)?/g)]);
   const head = t.slice(0, t.indexOf('## Supporting work')); const bad = [...new Set(head.match(/\d+(?:\.\d+)?/g))].filter((n) => !ok.has(n) && !['1', '2', '3'].includes(n)); assert.deepEqual(bad, [], 'profile README flagship section: numbers outside the claims'); }
+
+/* ================= M10: the MAREF card, its evidence and the three-layer hierarchy ================= */
+{
+  const M = EVAL.maref, MC = M.card, MS = require('../content/evidence/maref/SOURCE.json');
+  const mclaim = read('content/evidence/maref/CLAIM.md'), mres = JSON.parse(read('content/evidence/maref/results.json'));
+  const norm = (t) => t.replace(/[`*>]/g, '').replace(/\s+/g, ' ');
+  /* 1 · the card is exactly the approved wording, and every line of it is in the vendored canonical claim */
+  assert.equal(MC.title, 'MAREF · Research prototype · MIXED');
+  assert.equal(MC.numbers, '33/33 labelled failures detected · 36/154 clean runs flagged · 151/187 overall agreement');
+  assert.equal(MC.claim, 'Pre-registered advantage vs shipped llmeval gates; no demonstrated advantage over stronger baselines or for trajectory-specific failures.');
+  assert.equal(MC.link, 'Full evaluation →');
+  for (const line of [MC.title, MC.numbers, MC.claim]) assert.ok(norm(mclaim).includes(line), 'card line is not in the canonical claim: ' + line);
+  assert.ok(mclaim.includes('MIXED: agreement and false alarms hold, no trajectory-only failure mode qualifies'), 'the verbatim verdict is in the canonical claim');
+  /* 2 · the numbers are the recorded, frozen-primary-label test-split numbers of the pinned commit */
+  assert.equal(MS.sha, M.sha); assert.equal(MS.repo, M.repo); assert.match(M.sha, /^[0-9a-f]{40}$/);
+  const ra = mres.by_source.all.detectors['MAREF-RA'];
+  assert.equal(mres.labels, 'frozen'); assert.equal(mres.split, 'test'); assert.equal(ra.recall.split(' ')[0], '33/33'); assert.equal(ra.false_alarm.split(' ')[0], '36/154'); assert.equal(ra.agreement_with_labels.split(' ')[0], '151/187');
+  assert.ok(mres.distinctness_decision.verdict.startsWith('MIXED'), 'recorded verdict is MIXED');
+  /* 3 · the card on the page and in the recruiter view: same lines, and the evaluation link is the pinned public canonical evaluation */
+  const EVAL_URL = `https://github.com/${M.repo}/blob/${M.sha}/docs/EVALUATION.md`;
+  for (const [doc, id, label] of [[document, '#maref-card', 'index'], [rec, '#maref-card-r', 'recruiter']]) {
+    const card = doc.querySelector(id); assert.ok(card, label + ': MAREF card present');
+    assert.deepEqual([...card.querySelectorAll('p')].slice(0, 3).map((p) => p.textContent.replace(/\s+/g, ' ').trim()), [MC.title, MC.numbers, MC.claim], label + ': card lines');
+    const a = card.querySelector('a'); assert.equal(a.textContent.trim(), MC.link, label + ': link text'); assert.equal(a.getAttribute('href'), EVAL_URL, label + ': the link points to the public canonical evaluation at the pinned commit');
+  }
+  /* 4 · 33/33 never stands alone, and the banned wording never appears, on any public surface */
+  for (const [label, raw] of [['index', document.body.textContent], ['recruiter', rec.body.textContent], ['case study', csDoc.body.textContent], ['profile README', prof.md.replace(/<[^>]+>/g, ' ')]]) {
+    const t = raw.replace(/\s+/g, ' ');
+    for (let i = t.indexOf('33/33'); i >= 0; i = t.indexOf('33/33', i + 1)) { const w = t.slice(Math.max(0, i - 220), i + 280); assert.ok(w.includes('36/154') && w.includes('151/187'), `${label}: 33/33 shown without 36/154 and 151/187 beside it`); }
+    for (const re of [/independently validated/i, /production[- ]ready/i, /MAREF (outperforms|beats|is better than)/i, /MAREF does not beat/i, /better than (the )?baselines/i, /MAREF[^.]{0,40}\b(is|as) an? (AI |LLM )?agent\b/i])
+      assert.ok(!re.test(t), `${label}: banned wording ${re}`);
+    for (let i = t.indexOf('MAREF'); i >= 0; i = t.indexOf('MAREF', i + 1)) assert.ok(!/\bvalidated\b/i.test(t.slice(Math.max(0, i - 160), i + 240).replace(/not independent validation/gi, '')), `${label}: "validated" next to MAREF`);
+    if (label !== 'case study') assert.ok(/not independent validation/i.test(t), label + ': carries the not-independent-validation disclosure');
+  }
+  /* 5 · the three-layer hierarchy is stated the same way in the hero, the flagship list and the recruiter story; MAREF is an evaluator, not an agent */
+  const LAYERS = ['I build AI agents', 'I build the infrastructure they run on', 'I evaluate how they fail'];
+  assert.deepEqual([...document.querySelectorAll('.hero .proof .layer')].map((e) => e.textContent.trim()), LAYERS);
+  assert.deepEqual([...document.querySelectorAll('#build .brow .layer')].map((e) => e.textContent.trim()), LAYERS);
+  assert.deepEqual([...document.querySelectorAll('#build .brow .bt')].map((e) => e.textContent.trim()), [CP.title, RT.title, 'LLM evaluation: llmeval and MAREF']);
+  assert.ok(/not an agent/.test(txt(document.querySelector('#research'))), 'MAREF is described as an evaluator, not an agent');
+  assert.ok(document.querySelector('#research a[href="https://github.com/riteshmamidi0905-lab/agent-runtime-bench"]') && document.querySelector('#research a[href="https://github.com/riteshmamidi0905-lab/maref"]'));
+  assert.ok(/Research prototype/.test(txt(document.querySelector('.hero .proof'))), 'the hero chip says research prototype');
+  assert.ok(!/in development|still on paper|no repository, no experiment/i.test(txt(document.querySelector('#evaluation'))), 'no stale "MAREF is only a proposal" wording');
+  assert.ok(txt(document.querySelector('.hero .tagline')).includes('Product-minded AI builder'), 'the product / data / quality bridge stays in the hero');
+}
 
 /* deterministic build */
 const before = [read('index.html'), read('recruiter.html'), read('support-escalation-copilot.html')];

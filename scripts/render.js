@@ -18,6 +18,7 @@ const { avatarHTML, worldHTML, stageHTML } = require('./worlds-html');
 const CPR = require('./render-copilot');
 const CP = CPR.CP;
 const EVAL = require(path.join(root, 'content/llm-eval-framework.json'));
+const MAREF = EVAL.maref, MAREF_GH = 'https://github.com/' + MAREF.repo, MAREF_PIN = (f) => `${MAREF_GH}/blob/${MAREF.sha}/${f}`;
 
 const unesc = (s) => String(s).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 const esc = (s) => unesc(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -56,8 +57,9 @@ function proofHTML() {
   const cs = Object.fromEntries(CP.stats.map((x) => [x.claim, x]));
   const tests = RT_STAT('tests')[0], scen = RT_STAT('scenarios reached')[0].replace(/\s/g, '');
   return `<ul class="proof" aria-label="Flagship evidence at a glance">
-    <li><a href="#copilot"><b>Support Escalation Copilot</b><span>${CPR.badge('verified')} ${esc(cs['test-suite'].value)} tests · ${esc(cs['threat-catalogue'].value.replace(/\s/g, ''))} attacks executable</span><span>${CPR.badge('simulated')} stand-in model, not an LLM</span><span>${CPR.badge('not-evaluated')} real-model evaluation</span></a></li>
-    <li><a href="#runtime"><b>AI Agent Runtime</b><span>${CPR.badge('verified')} ${esc(tests)} tests · ${esc(scen)} scenarios</span><span>${CPR.badge('simulated')} scripted models</span></a></li>
+    <li><a href="#copilot"><i class="layer">I build AI agents</i><b>Support Escalation Copilot</b><span>${CPR.badge('verified')} ${esc(cs['test-suite'].value)} tests · ${esc(cs['threat-catalogue'].value.replace(/\s/g, ''))} attacks executable</span><span>${CPR.badge('simulated')} stand-in model, not an LLM</span><span>${CPR.badge('not-evaluated')} real-model evaluation</span></a></li>
+    <li><a href="#runtime"><i class="layer">I build the infrastructure they run on</i><b>AI Agent Runtime</b><span>${CPR.badge('verified')} ${esc(tests)} tests · ${esc(scen)} scenarios</span><span>${CPR.badge('simulated')} scripted models</span></a></li>
+    <li><a href="#evaluation"><i class="layer">I evaluate how they fail</i><b>llmeval · MAREF</b><span>${CPR.badge('verified')} ${esc(EVAL.stats[0][0])} tests · llmeval metric suite</span><span>${CPR.badge('limitation')} MAREF: Research prototype · ${esc(EVAL.maref.card.title.split(' · ').pop())}</span></a></li>
     <li><a href="#experience"><b>Now · Data &amp; AI Analyst</b><span>Apple: validating LLM and ML outputs against quality rubrics</span></a></li>
   </ul>`;
 }
@@ -81,16 +83,16 @@ function heroHTML() {
 
 /* ---------- 02 flagship systems: the hierarchy, with the evidence labels explained once ---------- */
 const FLAGSHIPS = [
-  { href: '#copilot', title: CP.title, line: 'An approval-gated AI case workflow: the model reads and drafts; deterministic code and people decide.', tag: 'Reference implementation · fictional customer', badges: ['verified', 'simulated', 'not-evaluated'] },
-  { href: '#runtime', title: RT.title, line: 'The agent loop, tools, memory, permissions and persistence, built from first principles and then served.', tag: 'Open-source build · scripted models', badges: ['verified', 'simulated'] },
-  { href: '#evaluation', title: 'LLM evaluation: llmeval and MAREF', line: 'Rubrics with hard gates and inspectable failures; MAREF, a reliability framework still on paper.', tag: 'Tested metric suite · framework not evaluated', badges: ['verified', 'not-evaluated'] },
+  { layer: 'I build AI agents', href: '#copilot', title: CP.title, line: 'An approval-gated AI case workflow: the model reads and drafts; deterministic code and people decide.', tag: 'Reference implementation · fictional customer', badges: ['verified', 'simulated', 'not-evaluated'] },
+  { layer: 'I build the infrastructure they run on', href: '#runtime', title: RT.title, line: 'The agent loop, tools, memory, permissions and persistence, built from first principles and then served.', tag: 'Open-source build · scripted models', badges: ['verified', 'simulated'] },
+  { layer: 'I evaluate how they fail', href: '#evaluation', title: 'LLM evaluation: llmeval and MAREF', line: 'Rubrics with hard gates and inspectable failures (llmeval); MAREF, a research prototype that evaluates agent runs, with a mixed result.', tag: 'Tested metric suite · research prototype, mixed result', badges: ['verified', 'limitation'] },
 ];
 function buildHTML() {
-  const rows = FLAGSHIPS.map((b, i) => `<li class="brow rv"><a href="${b.href}" class="brow-a"><span class="bidx">${NUM(i)}</span><span class="bt">${esc(b.title)}</span><span class="bl">${esc(b.line)}</span>
+  const rows = FLAGSHIPS.map((b, i) => `<li class="brow rv"><a href="${b.href}" class="brow-a"><span class="bidx">${NUM(i)}</span><span class="bt">${esc(b.title)}</span><span class="bl"><span class="layer">${esc(b.layer)}</span>${esc(b.line)}</span>
     <span class="bp">${esc(b.tag)}<span class="bbadges">${b.badges.map((x) => CPR.badge(x)).join('')}</span></span><span class="bgo" aria-hidden="true">${DOWN}</span></a></li>`).join('');
   return `<section id="build" class="sec build" aria-labelledby="build-t"><div class="wrap">
   <p class="kicker rv"><b>02</b> Flagship systems</p>
-  <h2 id="build-t" class="statement rv">Three systems, each with its evidence attached. <span class="mut">Next to every claim: what was verified, what was simulated, and what was not evaluated.</span></h2>
+  <h2 id="build-t" class="statement rv">Three layers, each with its evidence attached. <span class="mut">Next to every claim: what was verified, what was simulated, and what was not evaluated. Separate pieces of work, not one deployment.</span></h2>
   <ol class="brows">${rows}</ol>
   <div class="rv build-legend"><p class="mono-l">How to read the evidence</p>${CPR.legendHTML()}</div>
 </div></section>`;
@@ -101,7 +103,7 @@ const LAB = {
   agent: ['Agent trace explorer', 'Type an objective and step through Objective → Planning → Tools → Execution → Evaluation → Result. This runs the ReAct loop from <b>ai-agent-toolkit</b> in your browser: a rule-based planner, four safe tools (the calculator never uses <code>eval</code>), and a structured trace. It shows execution state, not model reasoning.', 'Real deterministic code · no language model · offline', ''],
   rag: ['RAG explorer', 'Ask a question over a <b>fixed sample corpus</b> (four fictional “Acme Cloud” documents from <b>genai-doc-assistant</b>). See the chunks, the hashed-embedding retrieval and keyword re-rank, and how the extractive reader builds a cited answer, or abstains. Then run the repository’s own retrieval eval set.', 'Fixed sample corpus · deterministic · no language model', ''],
   stream: ['Streaming pipeline', 'A producer generates <b>synthetic transactions</b> with the same logic as <b>realtime-streaming-pipeline</b>: fraud rules, one-minute event-time windows and a two-minute watermark. Capacity starts below the event rate, so the lag builds; raise capacity to drain it. Add late events and watch the watermark drop them.', 'Synthetic events · simulated clock · no Kafka, Spark or Cassandra involved', ''],
-  maref: ['MAREF playground', 'Score recorded sample agent runs on the six MAREF dimensions. The scores are <b>deterministic proxy heuristics</b> built from metrics in <b>llm-eval-framework</b> (token F1, faithfulness, number match). Edit the output text and watch each dimension react. Gates are per dimension, so a good average cannot hide a bad answer.', 'Proxy heuristics · not an LLM judge · not MAREF results (MAREF is in development)', 'warn'],
+  maref: ['Proxy-metric playground', 'Score recorded sample agent runs on six proxy dimensions. The scores are <b>deterministic proxy heuristics</b> built from metrics in <b>llm-eval-framework</b> (token F1, faithfulness, number match). Edit the output text and watch each dimension react. Gates are per dimension, so a good average cannot hide a bad answer. <b>This is an illustration of the idea, not the MAREF implementation.</b>', 'Proxy heuristics · not an LLM judge · not MAREF and not its results (see the evaluation above)', 'warn'],
   experiment: ['Experimentation lab', 'Set visitors and conversions for each arm. The pooled two-proportion z-test, confidence interval, power, sample size and decision rule from <b>experimentation-toolkit</b> run live on your inputs. Then see why peeking at a test early produces false positives.', 'Real statistics · computed from your inputs', ''],
   funnel: ['Funnel explorer', 'Change acquisition, activation, retention and conversion assumptions and watch counts, leaks and revenue update. The defaults are <b>placeholders, not data from any real product</b>, and retention follows a simple modelled decay curve.', 'Your assumptions · modelled retention · not measured data', 'warn'],
 };
@@ -123,7 +125,7 @@ const CHAPTERS = {
   product: { world: 'product', persona: 'product', demos: ['experiment', 'funnel'], label: 'in your browser' },
 };
 /* ---------- Flagship 02: AI Agent Runtime — scene + inspectable evidence ---------- */
-const rtLink = ([label, p, kind]) => { const href = kind === 'repo' ? GH + RT.repo : `${GH}${RT.repo}/${kind}/${RT.sha}/${p}`; return `<a class="ln" href="${href}" target="_blank" rel="noopener">${esc(label)} ${ARROW}</a>`; };
+const rtLink = ([label, p, kind]) => { const href = kind === 'repo' ? GH + RT.repo : kind === 'ext' ? p : `${GH}${RT.repo}/${kind}/${RT.sha}/${p}`; return `<a class="ln" href="${href}" target="_blank" rel="noopener">${esc(label)} ${ARROW}</a>`; };
 function runtimeHTML() {
   const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent engineering', title: RT.title, h: 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: [GH + RT.repo, 'Read the repository'], cls: 'runtimestage' });
   return `<section id="runtime" class="flagsec" aria-label="Flagship 02: ${esc(RT.short)}">${stage}
@@ -217,10 +219,17 @@ function marefHTML() {
   <div class="wrap chapter-body">
     ${explainsHTML('maref', 'research')}
     <article class="paper" id="research" aria-labelledby="paper-t">
-      <p class="paper-status">${CPR.badge('not-evaluated')} <b>Research / framework in development.</b> No experimental results are claimed on this page.</p>
+      <p class="paper-status">${CPR.badge('limitation')} <b>${esc(MAREF.disclosure)}</b> The canonical wording is <a class="tl" href="${MAREF_PIN('docs/CLAIM.md')}" target="_blank" rel="noopener">CLAIM.md</a>.</p>
+      <div class="maref-card" id="maref-card" role="group" aria-label="MAREF result summary">
+        <p class="mc-title">${esc(MAREF.card.title)}</p>
+        <p class="mc-nums">${esc(MAREF.card.numbers)}</p>
+        <p class="mc-claim">${esc(MAREF.card.claim)}</p>
+        <p class="mc-go"><a class="ln" id="maref-eval-link" href="${MAREF_PIN('docs/EVALUATION.md')}" target="_blank" rel="noopener">${esc(MAREF.card.link)}</a></p>
+      </div>
+      <p class="mc-rel">MAREF is an <b>evaluator of agent runs, not an agent</b>. It evaluates the runs recorded by the Agent Runtime Benchmark (<a class="tl" href="https://github.com/riteshmamidi0905-lab/agent-runtime-bench" target="_blank" rel="noopener">ARB-1</a>), which exercises the AI Agent Runtime above. <a class="tl" href="${MAREF_GH}" target="_blank" rel="noopener">MAREF repository</a>.</p>
       <h3 id="paper-t" class="paper-title">MAREF: ${esc(research.expansion)}</h3>
       <p class="paper-sub"><em>Evaluating the Reliability of Large Language Model Agents: A Multi-Metric Framework for Accuracy, Hallucination, Consistency, and Task Completion.</em></p>
-      <p class="paper-abs"><b>Abstract.</b> An agent can answer correctly and still be unreliable: ungrounded, inconsistent, or unfinished. MAREF proposes six dimensions so each failure mode can be inspected on its own instead of being averaged into one score.</p>
+      <p class="paper-abs"><b>Abstract.</b> An agent can answer correctly and still be unreliable: ungrounded, inconsistent, or unfinished. MAREF evaluates a whole agent run (its tool calls, side effects and ending, not only the final text) on eight dimensions so each failure mode can be inspected on its own instead of being averaged into one score. The explorer below walks through six of them with illustrative examples; the other two are action correctness and policy and injection safety. The measured result is in the card above.</p>
       <div class="paper-grid">
         <div class="dims-col" role="group" aria-label="MAREF dimensions">${dims}</div>
         <div class="dim-panel" aria-live="polite"><p class="mono-l" id="dimensionNum">Dimension 01</p><h4 id="dimensionTitle">${esc(d[0].name)}</h4><p class="dim-q" id="dimensionQ">${esc(d[0].question)}</p>
@@ -228,7 +237,7 @@ function marefHTML() {
           <p class="dim-ex"><b>Illustrative example (not an experimental result).</b> <span id="dimensionEx">${esc(d[0].example)}</span></p>
           <ol class="dim-flow" id="dimensionFlow">${d[0].flow.map((x) => `<li>${esc(x)}</li>`).join('')}</ol></div>
       </div>
-      <p class="paper-note">Illustrative Example — Not Experimental Results. The playground below scores <em>recorded sample runs</em> with deterministic proxies; it demonstrates the idea, it does not measure any model.</p>
+      <p class="paper-note">Illustrative Example — Not Experimental Results. The explorer and the playground below are illustrations: the playground scores <em>recorded sample runs</em> with deterministic proxies built from llmeval metrics. They are not MAREF's implementation and measure no model; MAREF's measured results are in the full evaluation linked above.</p>
     </article>
     ${demoHTML('maref', ['maref'], 'on recorded sample runs')}
   </div></section>
@@ -321,12 +330,12 @@ function recruiterHTML(headExtra) {
 <a class="skip" href="#main">Skip to content</a>
 <header class="rh"><div class="in"><a class="back" href="./">← Full experience</a><nav aria-label="Contact"><a href="${pr.resume}">Résumé</a><a href="${pr.github}">GitHub</a><a href="${pr.linkedin}">LinkedIn</a><a class="cta" href="mailto:${pr.email}">Email</a></nav></div></header>
 <main id="main"><section class="top"><p class="mono">Recruiter view · 60-second read</p><h1>${esc(pr.name)}</h1><p class="lead">${esc(pr.role)}. ${esc(pr.location)}.</p>
-<p>Professionally I validate LLM and ML outputs against quality rubrics (Apple) and build QA and reporting in Python and SQL. On my own time, in public, I build AI systems with their evidence attached: an approval-gated support workflow, an agent runtime and an evaluation framework, plus data engineering, MLOps and experimentation projects.</p>
+<p>Professionally I validate LLM and ML outputs against quality rubrics (Apple) and build QA and reporting in Python and SQL. On my own time, in public, I build AI agents (an approval-gated support workflow), the infrastructure they run on (an agent runtime) and the evaluation of how they fail (llmeval, and MAREF, a research prototype with a mixed result), each with its evidence attached, plus data engineering, MLOps and experimentation projects.</p>
 <p class="status">${esc(pr.status)}.</p></section>
 <section aria-labelledby="r-exp"><h2 id="r-exp">Experience</h2>${site.experience.map((e) => `<div class="job"><div class="when">${esc(e.when)}${e.current ? ' · current' : ''}</div><div><h3>${esc(e.role)}</h3><p class="org">${esc(e.org)} · ${esc(e.where)}</p><ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></div>`).join('')}<p class="fine">${esc(site.experienceNote)}</p></section>
 <section aria-labelledby="r-proj"><h2 id="r-proj">Top projects</h2><ol class="proj"><li><div><h3>${esc(CP.title)}</h3><p>${esc(CP.oneLine)}</p><p class="tech">${CP.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(CP.stats[0].value)} tests pass; ${esc(CP.stats[1].value)} catalogued attacks have executable tests. <b>Simulated:</b> the model is a rule-based stand-in, not an LLM. <b>Not evaluated:</b> real-model behaviour. Fictional customer, synthetic data, never deployed.</p></div><p class="lk"><a href="${GH}${CPR.REPO}">Code</a> · <a href="${GH}${CPR.REPO}/tree/${CPR.SHA}/tests">Tests</a> · <a href="${CPR.pinned('docs/architecture.md')}">Architecture</a> · <a href="${esc(CP.caseStudy)}">Case study</a></p></li><li><div><h3>${esc(RT.title)}</h3><p>${esc(RT.oneLine)}</p><p class="tech">${RT.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(RT.stats[0][0])} tests, ${esc(RT.stats[4][0])} scenarios reached the expected status. <b>Simulated:</b> scripted models, not a benchmark of LLM quality.</p></div><p class="lk"><a href="${GH}${RT.repo}">Code</a> · <a href="${GH}${RT.repo}/tree/${RT.sha}/tests">Tests</a> · <a href="${GH}${RT.repo}/blob/${RT.sha}/docs/architecture.md">Architecture</a> · <a href="./#agent-runtime">Case study</a></p></li>${FLAG.map((f) => `<li><div><h3>${esc(f.n)}</h3><p>${esc(f.one)}</p><p class="tech">${f.tech.map(esc).join(' · ')}</p></div><p class="lk"><a href="${GH}${f.r}">Code</a>${plinks[f.r] && plinks[f.r].tests ? ` · <a href="${GH}${f.r}/tree/${evidence[f.r]}/${plinks[f.r].testsPath}">Tests</a>` : ''}${P_BY[f.r].dm ? ` · <a href="${P_BY[f.r].dm}">Demo</a>` : ''} · <a href="./#flag-${f.r}">Case study</a></p></li>`).join('')}</ol><p class="fine">${P.length} projects in total; the full list is on the <a href="./#projects">main site</a>. All are public repositories. The first three are the flagships; the rest are supporting work.</p></section>
 <section aria-labelledby="r-tech"><h2 id="r-tech">Core technologies</h2><p class="tags">${top.map((t) => `<span>${esc(t)}</span>`).join('')}</p></section>
-<section aria-labelledby="r-res"><h2 id="r-res">Research</h2><p><b>MAREF</b> — ${esc(research.expansion)}. <b>Research / framework in development;</b> no experimental results are claimed. Six proposed dimensions: ${research.dimensions.map((d) => esc(d.name)).join(', ')}.</p></section>
+<section aria-labelledby="r-res"><h2 id="r-res">Research</h2><div class="maref-card" id="maref-card-r"><p class="mc-title"><b>${esc(MAREF.card.title)}</b></p><p class="mc-nums">${esc(MAREF.card.numbers)}</p><p class="mc-claim">${esc(MAREF.card.claim)}</p><p class="mc-go"><a href="${MAREF_PIN('docs/EVALUATION.md')}">${esc(MAREF.card.link)}</a></p></div><p class="fine">MAREF — ${esc(research.expansion)} — evaluates agent runs; it is not an agent. ${esc(MAREF.disclosure)} <a href="${MAREF_PIN('docs/CLAIM.md')}">Canonical wording</a> · <a href="${MAREF_GH}">Repository</a></p></section>
 <section aria-labelledby="r-edu"><h2 id="r-edu">Education and certifications</h2><ul class="plain">${site.education.map((e) => `<li><b>${esc(e[0])}</b> — ${esc(e[1])}</li>`).join('')}${site.certs.map((e) => `<li><b>${esc(e[0])}</b> — ${esc(e[1])} (<a href="${e[2]}">verify</a>)</li>`).join('')}</ul></section>
 <section aria-labelledby="r-con"><h2 id="r-con">Contact</h2><p><a href="mailto:${pr.email}">${pr.email}</a> · <a href="${pr.linkedin}">LinkedIn</a> · <a href="${pr.github}">GitHub</a> · <a href="${pr.resume}">Résumé (PDF)</a></p></section></main>
 <footer class="rf">© ${new Date().getFullYear()} ${esc(pr.name)} · <a href="./">Full experience</a></footer></body></html>`;

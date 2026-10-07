@@ -82,11 +82,11 @@
   ]
  },
  "maref": {
-  "kicker": "Flagship 03 · AI reliability · MAREF",
+  "kicker": "Flagship 03 · AI reliability · MAREF research prototype",
   "title": "Reliability needs more than one score.",
   "lab": "lab-maref",
-  "labLabel": "Open the evaluation playground",
-  "note": "Explanatory visualization · not experimental results · MAREF is a framework in development",
+  "labLabel": "Open the proxy-metric playground",
+  "note": "Explanatory visualization of six of MAREF's eight dimensions · not the measured results",
   "steps": [
    [
     "The problem",
@@ -118,7 +118,7 @@
    ],
    [
     "No scores here",
-    "This scene shows no results because there are none yet. The playground scores recorded sample traces with deterministic proxy metrics, clearly labelled."
+    "This scene is an illustration and shows no measured results. MAREF's measured results, with their denominators and caveats, are in the full evaluation."
    ]
   ]
  },

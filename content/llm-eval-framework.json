@@ -10,8 +10,16 @@
  ],
  "qualifier": "The 18-case benchmark uses hand-written cases with constructed outputs, so it tests that the metric suite separates good answers from bad ones. It is not an evaluation of any language model, and token-overlap faithfulness is a heuristic.",
  "maref": {
-  "status": "not-evaluated",
-  "text": "MAREF, the multi-metric reliability framework for LLM agents, is a proposal. It has no public repository, no experiment and no result. The playground below scores recorded sample runs with deterministic proxies from llmeval to show the idea; it does not measure any model."
+  "status": "research-prototype-mixed",
+  "repo": "riteshmamidi0905-lab/maref",
+  "sha": "1c00c9034adbe7d0d1ccf9a740c99201ec84de20",
+  "card": {
+   "title": "MAREF · Research prototype · MIXED",
+   "numbers": "33/33 labelled failures detected · 36/154 clean runs flagged · 151/187 overall agreement",
+   "claim": "Pre-registered advantage vs shipped llmeval gates; no demonstrated advantage over stronger baselines or for trajectory-specific failures.",
+   "link": "Full evaluation →"
+  },
+  "disclosure": "Same-author, not independent validation. Pre-registered; the test split is spent."
  },
- "bridge": "The most worked-through evaluation in my portfolio is in the Copilot: a frozen, hash-locked held-out retrieval set, mutation checks on every defence, an adversarial draft corpus whose failures are kept, and a real-model protocol that is frozen but not yet run."
+ "bridge": "The most worked-through evaluation in my portfolio is in the Copilot: a frozen, hash-locked held-out retrieval set, mutation checks on every defence, an adversarial draft corpus whose failures are kept, and a real-model protocol that is frozen; no real-model result is claimed for the published v0.6.0."
 }
