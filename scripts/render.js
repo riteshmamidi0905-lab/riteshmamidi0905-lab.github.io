@@ -54,13 +54,12 @@ function navHTML(links, o) {
 /* ---------- 01 hero ---------- */
 const RT_STAT = (k) => RT.stats.find((x) => x[1].startsWith(k));
 function proofHTML() {
-  const cs = Object.fromEntries(CP.stats.map((x) => [x.claim, x])), tk = (e) => CPR.C.token(e);
-  const tests = RT_STAT('tests')[0], scen = RT_STAT('scenarios reached')[0].replace(/\s/g, ''), A = RT.arb;
-  return `<ul class="proof" aria-label="Flagship evidence at a glance">
-    <li><a href="#copilot"><i class="layer">I build AI agents</i><b>Support Escalation Copilot</b><span>${CPR.badge('verified')} ${esc(cs['test-suite'].value)} tests · ${esc(cs['threat-catalogue'].value.replace(/\s/g, ''))} attacks executable</span><span>${CPR.badge('verified')} one real-model run: ${esc(tk('real-model-expected-outcomes.expected_outcome_attained'))}/${esc(tk('real-model-expected-outcomes.cases'))} cases reached the frozen expected outcome</span><span>${CPR.badge('simulated')} default model: stand-in, not an LLM</span></a></li>
-    <li><a href="#runtime"><i class="layer">I build the infrastructure they run on</i><b>AI Agent Runtime · Agent Runtime Benchmark</b><span>${CPR.badge('verified')} ${esc(tests)} tests · ${esc(scen)} scenarios (scripted models)</span><span>${CPR.badge('verified')} ARB-1: ${esc(A.results[0][0])} tasks · ${esc(A.results[1][0])} controls held · ${esc(A.results[2][0])} information-flow gap</span></a></li>
-    <li><a href="#evaluation"><i class="layer">I evaluate how they fail</i><b>llmeval · MAREF</b><span>${CPR.badge('verified')} ${esc(EVAL.stats[0][0])} tests · llmeval metric suite</span><span>${CPR.badge('limitation')} MAREF: Research prototype · ${esc(EVAL.maref.card.title.split(' · ').pop())}</span></a></li>
-    <li><a href="#experience"><b>Now · Data &amp; AI Analyst</b><span>Apple: validating LLM and ML outputs against quality rubrics</span></a></li>
+  return `<p class="proof-k mono-l">Independent open-source projects · evidence and limits published</p>
+  <ul class="proof" aria-label="Flagship evidence at a glance">
+    <li><a href="#copilot"><i class="layer">I build AI agents</i><b>Support Escalation Copilot</b><span>${CPR.badge('verified')} Approval-gated agentic workflow · deterministic controls · real-model evaluation published</span><span>${CPR.badge('simulated')} Fictional customer · default model is a stand-in, not an LLM</span></a></li>
+    <li><a href="#runtime"><i class="layer">I build the infrastructure they run on</i><b>AI Agent Runtime · Agent Runtime Benchmark</b><span>${CPR.badge('verified')} Reusable agent runtime · benchmarked with a real model</span><span>${CPR.badge('limitation')} The benchmark found an information-flow gap (MT-02) its controls did not cover</span></a></li>
+    <li><a href="#evaluation"><i class="layer">I evaluate how they fail</i><b>llmeval · MAREF</b><span>${CPR.badge('verified')} llmeval: tested metric suite with hard gates</span><span>${CPR.badge('limitation')} MAREF: Research prototype · ${esc(EVAL.maref.card.title.split(' · ').pop())}</span></a></li>
+    <li class="pro"><a href="#experience"><b>Professional · Data &amp; AI Analyst</b><span>Apple (client engagement) · AI/ML quality, data and operational analysis</span></a></li>
   </ul>`;
 }
 function heroHTML() {
@@ -82,7 +81,7 @@ function heroHTML() {
 }
 
 /* ---------- the evidence key: the four labels, defined once, directly under the hero ---------- */
-const keyHTML = () => `<section id="key" class="keyband" aria-labelledby="key-t"><div class="wrap"><p class="mono-l rv" id="key-t">How to read the evidence · three separate pieces of work, not one deployed system</p>${CPR.legendHTML()}</div></section>`;
+const keyHTML = () => `<section id="key" class="keyband" aria-labelledby="key-t"><div class="wrap"><p class="mono-l rv" id="key-t">How to read the evidence · independent open-source projects: three separate pieces of work, not one deployed system</p>${CPR.legendHTML()}</div></section>`;
 const layerHTML = (t) => `<p class="layer-l rv"><span class="layer">${esc(t)}</span></p>`;
 
 /* ---------- labs (real demos), grouped under the chapter they belong to ---------- */
@@ -120,7 +119,7 @@ const lessonHTML = () => `<aside class="lesson rv" id="arb-lesson" aria-labelled
 const arbQualHTML = () => `<p class="rt-qual rv" id="arb-qual"><b>Qualification.</b> ${esc(RT.arb.qualifier)} <span class="mut">Source: public benchmark repository at commit <code>${RT.arb.sha.slice(0, 7)}</code>.</span></p>`;
 function runtimeHTML(o) {      /* the full page: pinned scene, evidence, evaluation detail, limitations, documentation */
   o = o || {};
-  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent engineering', title: RT.title, h: o.h || 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: [GH + RT.repo, 'Read the repository'], cls: 'runtimestage' });
+  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent infrastructure', title: RT.title, h: o.h || 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: [GH + RT.repo, 'Read the repository'], cls: 'runtimestage' });
   return `<section id="runtime" class="flagsec" aria-label="Flagship 02: ${esc(RT.short)}">${stage}
   <div class="wrap rt-after" id="agent-runtime">
     <p class="rt-sum rv">${esc(RT.summary)}</p>
@@ -142,7 +141,7 @@ function runtimeHTML(o) {      /* the full page: pinned scene, evidence, evaluat
   </div></section>`;
 }
 function runtimeHomeHTML() {   /* the homepage version: one screen of scene, then the architecture, the two results and the lesson */
-  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent engineering', title: RT.title, h: 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: ['agent-runtime.html', 'Read the runtime and the benchmark in full'], cls: 'runtimestage', compact: true });
+  const stage = stageHTML({ id: 'world-runtime', scene: 'runtime', key: 'runtime', kicker: 'Flagship 02 · Agent infrastructure', title: RT.title, h: 2, note: RT.tech.join(' · '), sub: RT.oneLine, steps: RT.steps, cta: ['agent-runtime.html', 'Read the runtime and the benchmark in full'], cls: 'runtimestage', compact: true });
   const pick = (k) => RT_STAT(k), keep = ['tests', 'scenarios reached', 'integration tests'].map(pick);
   return `<section id="runtime" class="flagsec" aria-label="Flagship 02: ${esc(RT.short)} and the Agent Runtime Benchmark">${stage}
   <div class="wrap rt-after rt-home" id="agent-runtime-home">
@@ -284,14 +283,16 @@ function progressionHTML(prefix) {
   prefix = prefix || '';
   return `<div class="prog rv"><p class="mono-l">How the work progressed</p><ol class="prog-list">${site.progression.map((p, i) => `<li class="${p.kind === 'Professional' ? 'pro' : 'ind'}"><span class="prog-n">${NUM(i)}</span><div><p class="prog-k ${p.kind === 'Professional' ? 'pro' : 'ind'}">${esc(p.kind)}</p><h3>${esc(p.stage)}</h3><p>${esc(p.text)}</p>${p.href ? `<a class="ln" href="${p.href[0] === '#' ? prefix + p.href : p.href}">${esc(p.link)} ${p.href[0] === '#' ? DOWN : ARROW}</a>` : ''}</div></li>`).join('')}</ol></div>`;
 }
+const rich = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
 function experienceHTML() {
   const items = site.experience.map((e) => `<li class="role rv"><div class="role-when"><span>${esc(e.when)}</span>${e.current ? '<i class="cur">current</i>' : ''}</div>
-    <div><h3>${esc(e.role)}</h3><p class="role-org">${esc(e.org)} · ${esc(e.where)}</p><ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></li>`).join('');
+    <div><p class="role-co">${esc(e.org)}</p><h3>${esc(e.role)}</h3><p class="role-org">${esc(e.where)}</p>${e.focus ? `<p class="focus" aria-label="Focus">${e.focus.map((f) => `<i>${esc(f)}</i>`).join('')}</p>` : ''}<ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></li>`).join('');
   return `<section id="experience" class="sec" aria-labelledby="exp-t"><div class="wrap">
   <p class="kicker rv"><b>Experience</b> Professional work</p>
   <h2 id="exp-t" class="hm-title rv">${esc(site.experienceHeading)}</h2>
-  <p class="exp-lead rv">${esc(site.experienceLead)}</p>
+  <p class="exp-lead rv">${rich(site.experienceLead)}</p>
   <ol class="timeline">${items}</ol>
+  <p class="exp-bridge rv">${esc(site.experienceBridge)}</p>
   <p class="fine rv">${esc(site.experienceNote)}</p>
 </div></section>`;
 }
@@ -399,14 +400,14 @@ function recruiterHTML(headExtra) {
   FLAG.forEach((f) => f.tech.forEach((t) => { tech[t] = (tech[t] || 0) + 3; }));
   const top = Object.entries(tech).sort((a, b) => b[1] - a[1]).slice(0, 18).map((x) => x[0]);
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ritesh Mamidi — Recruiter view</title>
-<meta name="description" content="Ritesh Mamidi, Data &amp; AI Analyst in Austin, TX who builds AI agent systems and evaluation harnesses: experience, flagship projects with labelled evidence, core technologies, résumé and contact on one page.">
+<meta name="description" content="Ritesh Mamidi, Data &amp; AI Analyst in Austin, TX who independently builds agentic AI systems and evaluation harnesses as open-source work: experience, flagship projects with labelled evidence, core technologies, résumé and contact on one page.">
 <link rel="canonical" href="https://riteshmamidi0905-lab.github.io/recruiter.html">${headExtra || ''}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2307080a'/%3E%3Ctext x='50' y='68' font-family='sans-serif' font-size='52' font-weight='800' fill='%2322d3a6' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
 <style>${fs.readFileSync(path.join(root, 'assets/css/recruiter.css'), 'utf8')}</style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="rh"><div class="in"><a class="back" href="./">← Full experience</a><nav aria-label="Contact"><a href="${pr.resume}">Résumé</a><a href="${pr.github}">GitHub</a><a href="${pr.linkedin}">LinkedIn</a><a class="cta" href="mailto:${pr.email}">Email</a></nav></div></header>
 <main id="main"><section class="top"><p class="mono">Recruiter view · 60-second read</p><h1>${esc(pr.name)}</h1><p class="lead">${esc(pr.role)}. ${esc(pr.location)}.</p>
-<p>Professionally I validate LLM and ML outputs against quality rubrics (Apple) and build QA and reporting in Python and SQL. On my own time, in public, I build AI agents (an approval-gated support workflow), the infrastructure they run on (an agent runtime) and the evaluation of how they fail (llmeval, and MAREF, a research prototype with a mixed result), each with its evidence attached, plus data engineering, MLOps and experimentation projects.</p>
+<p>Professionally, in an Apple client engagement, I validate LLM and ML outputs against quality rubrics and build QA and reporting in Python and SQL. Separately, as independent open-source work, I build agentic AI systems (an approval-gated support workflow), the infrastructure they run on (an agent runtime) and the evaluation of how they fail (llmeval, and MAREF, a research prototype with a mixed result), each with its evidence attached, plus data engineering, MLOps and experimentation projects.</p>
 <p class="status">${esc(pr.status)}.</p></section>
 <section aria-labelledby="r-exp"><h2 id="r-exp">Experience</h2>${site.experience.map((e) => `<div class="job"><div class="when">${esc(e.when)}${e.current ? ' · current' : ''}</div><div><h3>${esc(e.role)}</h3><p class="org">${esc(e.org)} · ${esc(e.where)}</p><ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></div>`).join('')}<p class="fine">${esc(site.experienceNote)}</p></section>
 <section aria-labelledby="r-proj"><h2 id="r-proj">Top projects</h2><ol class="proj"><li><div><h3>${esc(CP.title)}</h3><p>${esc(CP.oneLine)}</p><p class="tech">${CP.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(CP.stats[0].value)} tests pass; ${esc(CP.stats[1].value)} catalogued attacks have executable tests. <b>One real-model run</b> (a small local model, one pass): ${esc(CPR.C.token('real-model-expected-outcomes.expected_outcome_attained'))} of ${esc(CPR.C.token('real-model-expected-outcomes.cases'))} cases reached the frozen expected outcome (not accuracy); it failed at the interface (schema, evidence handles, action parameters, drafts) while the four deterministic invariants held. <b>Simulated:</b> the default model is a rule-based stand-in, not an LLM; approvers are simulated. Fictional customer, synthetic data, never deployed.</p></div><p class="lk"><a href="${GH}${CPR.REPO}">Code</a> · <a href="${GH}${CPR.REPO}/tree/${CPR.SHA}/tests">Tests</a> · <a href="${CPR.pinned('docs/architecture.md')}">Architecture</a> · <a href="${esc(CP.caseStudy)}">Case study</a></p></li><li><div><h3>${esc(RT.title)}</h3><p>${esc(RT.oneLine)}</p><p class="tech">${RT.tech.map(esc).join(' · ')}</p><p class="evl"><b>Verified:</b> ${esc(RT.stats[0][0])} tests, ${esc(RT.stats[4][0])} scenarios reached the expected status. <b>Simulated:</b> scripted models, not a benchmark of LLM quality. <b>Agent Runtime Benchmark (one small model):</b> ${esc(RT.arb.results[0][0])} tasks passed the frozen oracles; the runtime's ${esc(RT.arb.results[1][0])} controls held ${esc(RT.arb.results[1][2])}; <b>${esc(RT.arb.results[2][0])}</b>, a secret disclosed through a permitted read tool, was not covered by them. ${esc(RT.arb.lessonTitle)}.</p></div><p class="lk"><a href="${GH}${RT.repo}">Code</a> · <a href="${GH}${RT.repo}/tree/${RT.sha}/tests">Tests</a> · <a href="${GH}${RT.repo}/blob/${RT.sha}/docs/architecture.md">Architecture</a> · <a href="agent-runtime.html">Case study</a></p></li>${FLAG.map((f) => `<li><div><h3>${esc(f.n)}</h3><p>${esc(f.one)}</p><p class="tech">${f.tech.map(esc).join(' · ')}</p></div><p class="lk"><a href="${GH}${f.r}">Code</a>${plinks[f.r] && plinks[f.r].tests ? ` · <a href="${GH}${f.r}/tree/${evidence[f.r]}/${plinks[f.r].testsPath}">Tests</a>` : ''}${P_BY[f.r].dm ? ` · <a href="${P_BY[f.r].dm}">Demo</a>` : ''} · <a href="${f.r === EVAL_REPO ? 'evaluation.html' : 'projects.html'}#flag-${f.r}">Case study</a></p></li>`).join('')}</ol><p class="fine">${P.length} projects in total; the full list is on the <a href="projects.html#projects">projects page</a>. All are public repositories. The first three are the flagships; the rest are supporting work.</p></section>

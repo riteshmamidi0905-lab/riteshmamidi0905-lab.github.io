@@ -17,7 +17,7 @@
 ## I build AI agents
 
 ### [Support Escalation Copilot](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) `v0.7.1`
-An approval-gated AI case workflow for a fictional B2B SaaS support team. The model helps with reading and drafting; everything that can hurt a customer stays in deterministic code and in human hands.
+An approval-gated agentic case workflow for a fictional B2B SaaS support team. The model helps with reading and drafting; everything that can hurt a customer stays in deterministic code and in human hands.
 
 - **VERIFIED** 489 automated tests pass; 92 / 92 catalogued attacks have executable tests.
 - **VERIFIED** **One real-model run** (a small local model, one pass): 10 of 22 cases reached the frozen expected outcome (not accuracy). It failed at the interface (schema, evidence handles, action parameters, drafts) while the four deterministic invariants held.
