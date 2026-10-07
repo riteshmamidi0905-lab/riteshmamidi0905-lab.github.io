@@ -16,7 +16,7 @@
 
 ## I build AI agents
 
-### [Support Escalation Copilot](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) `v0.7.0`
+### [Support Escalation Copilot](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) `v0.7.1`
 An approval-gated AI case workflow for a fictional B2B SaaS support team. The model helps with reading and drafting; everything that can hurt a customer stays in deterministic code and in human hands.
 
 - **VERIFIED** 489 automated tests pass; 92 / 92 catalogued attacks have executable tests.
@@ -24,7 +24,7 @@ An approval-gated AI case workflow for a fictional B2B SaaS support team. The mo
 - **SIMULATED** The default model is a deterministic rule-based stand-in, not an LLM; approvers are simulated.
 - **LIMITATION** Fictional customer, synthetic data, never deployed.
 
-[Case study](https://riteshmamidi0905-lab.github.io/support-escalation-copilot.html) · [Repository](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) · [Release v0.7.0](https://github.com/riteshmamidi0905-lab/support-escalation-copilot/releases/tag/v0.7.0)
+[Case study](https://riteshmamidi0905-lab.github.io/support-escalation-copilot.html) · [Repository](https://github.com/riteshmamidi0905-lab/support-escalation-copilot) · [Release v0.7.1](https://github.com/riteshmamidi0905-lab/support-escalation-copilot/releases/tag/v0.7.1)
 
 ## I build the infrastructure they run on
 

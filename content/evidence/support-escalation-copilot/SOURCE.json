@@ -1,7 +1,7 @@
 {
  "repo": "riteshmamidi0905-lab/support-escalation-copilot",
- "release": "v0.7.0",
- "sha": "c7377de1ec81fc595f1a57c079a28a97a216c266",
+ "release": "v0.7.1",
+ "sha": "1d69a02c09fbb013585663cfa09b3f24cb29c770",
  "note": "Vendored byte-for-byte from the public repository at this commit. The portfolio renders every Support Escalation Copilot figure from these files; `npm run verify:evidence` re-hashes them and `--online` re-fetches them from the pinned commit. To update: bump sha, re-run scripts/sync-evidence.js, review the diff, rebuild.",
  "files": {
   "public-claims.json": {
