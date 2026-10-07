@@ -1,5 +1,5 @@
 {
- "title": "AI Agent Runtime — From First Principles to Production",
+ "title": "AI Agent Runtime: from first principles",
  "short": "AI Agent Runtime",
  "repo": "ai-agent-from-scratch",
  "sha": "231b1866f88ac31339fbb2b87ffee88d75d5a573",
@@ -138,7 +138,7 @@
  "limitations": [
   "The runtime's own tests and evaluation use scripted models, and CI never calls a paid API. A separate benchmark, agent-runtime-bench (ARB-1), runs one small local language model through the unmodified runtime: 43 of 48 tasks passed its frozen oracles (greedy decoding), all seven runtime controls held in 240 of 240 agent-mode runs, and it found a gap: a secret was disclosed through a permitted read tool. One model, one machine, 48 author-written tasks and heuristic oracles; not a safety claim about the runtime.",
   "Docker Compose was verified in CI only, not on a local machine.",
-  "Not deployed as a live service; the claim is a production-oriented architecture verified by CI and integration tests.",
+  "Not deployed as a live service; it is a service architecture verified by CI and integration tests, not proven in production.",
   "No run-cancellation endpoint. One shared bearer token and no per-user ownership of runs. A restart interrupts in-flight runs.",
   "A tool that times out is reported as timed out but cannot be killed, so its side effects may still complete.",
   "Token counts are estimates unless the provider reports usage. Loop detection catches only consecutive identical calls.",
@@ -197,7 +197,7 @@
    "Built one idea at a time in standard-library Python: model interface, structured output, tools, an explicit agent loop, state and memory, planning, evaluation, reliability and security, observability."
   ],
   [
-   "Production architecture",
+   "Service architecture",
    "The same runtime, unchanged, behind a typed FastAPI service. Runs execute on a worker pool; every structured event is stored in PostgreSQL and streamed over resumable SSE."
   ],
   [

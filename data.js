@@ -207,7 +207,7 @@ const P=[
   },
   {
     "c": "genai",
-    "n": "AI Agent Runtime — From First Principles to Production",
+    "n": "AI Agent Runtime: from first principles",
     "r": "ai-agent-from-scratch",
     "feat": true,
     "d": "Agent runtime in standard-library Python: explicit loop, tools, state, memory, planning, evaluation, reliability and security, then served by FastAPI with PostgreSQL and resumable SSE.",

@@ -1,9 +1,9 @@
 {
  "person": {
   "name": "Ritesh Mamidi",
-  "role": "Data & AI Analyst · builds AI agent systems and evaluation harnesses",
+  "role": "Data & AI Analyst · independently builds agentic AI systems and evaluation harnesses",
   "location": "Austin, TX",
-  "now": "Data & AI Analyst, Apple",
+  "now": "Data & AI Analyst · Apple (client engagement)",
   "status": "Open to applied AI, agent and LLM engineering, AI evaluation and reliability, forward-deployed and AI-focused product-analytics roles in the US",
   "email": "riteshmamidi0905@gmail.com",
   "linkedin": "https://linkedin.com/in/riteshmamidi0905",
@@ -43,6 +43,16 @@
     "Validate LLM and ML model outputs against published policy and quality rubrics; investigate model-quality issues, edge cases and systematic failure modes.",
     "Build QA/QC frameworks and operational reporting in Python, SQL and Power BI; use LLM-assisted analysis and prompt engineering to classify and extract signals.",
     "Reported results: investigation efficiency up 18% and operational escalations down 30% through quality-control frameworks and process improvement."
+   ],
+   "focus": [
+    "AI/ML output quality",
+    "Policy and rubric-based evaluation",
+    "Edge cases and systematic failure investigation",
+    "QA/QC",
+    "Python",
+    "SQL",
+    "Power BI",
+    "Operational analysis"
    ]
   },
   {
@@ -51,8 +61,8 @@
    "where": "United States",
    "when": "Jan 2024 – Aug 2025",
    "bullets": [
-    "Built ETL pipelines and automated reporting in Python and SQL across business systems: 55% less manual reporting effort and real-time visibility.",
-    "Designed relational data models and forecasting/classification models that improved planning accuracy by 22%."
+    "ETL pipelines and automated reporting in Python and SQL across business systems: 55% less manual reporting effort and real-time visibility.",
+    "Relational data models and forecasting/classification models that improved planning accuracy by 22%."
    ]
   },
   {
@@ -61,8 +71,8 @@
    "where": "India",
    "when": "Jan 2022 – Dec 2023",
    "bullets": [
-    "Built Python/SQL ETL pipelines and Tableau dashboards that informed acquisition, engagement and retention.",
-    "Built ML segmentation and propensity models that improved marketing-driven engagement by 18%; owned data validation and KPI definitions."
+    "Python/SQL ETL pipelines and Tableau dashboards that informed acquisition, engagement and retention.",
+    "ML segmentation and propensity models that improved marketing-driven engagement by 18%; owned data validation and KPI definitions."
    ]
   }
  ],
@@ -70,7 +80,7 @@
  "principles": [
   [
    "Make outputs measurable.",
-   "At Apple I validate LLM and ML outputs against quality rubrics. In my own projects I turn “seems fine” into scores, thresholds and gates."
+   "In my professional work (an Apple client engagement) I validate LLM and ML outputs against quality rubrics. In my independent projects I turn “seems fine” into scores, thresholds and gates."
   ],
   [
    "Distrust the data first.",
@@ -122,8 +132,8 @@
   "genai-doc-assistant": "lab-rag",
   "experimentation-toolkit": "lab-experiment"
  },
- "experienceHeading": "Quality, data and analytics in production, now on the quality of AI output.",
- "experienceLead": "My professional work is product, data and quality analysis. The AI engineering on this site is independent, open-source work. They connect through one habit: making outputs measurable before they are trusted.",
+ "experienceHeading": "Product, data, quality and AI/ML-output analysis.",
+ "experienceLead": "**Professional work** is product, data, quality and AI/ML-output analysis, below. **Independent work** is the public AI engineering projects above: independent, open-source work, not built for any employer or client.",
  "progression": [
   {
    "kind": "Professional",
@@ -133,20 +143,20 @@
   {
    "kind": "Professional",
    "stage": "AI evaluation",
-   "text": "Validating LLM and ML outputs against policy and quality rubrics at Apple. The open-source llmeval turns the same habit into scores, thresholds and gates.",
+   "text": "Validating LLM and ML outputs against policy and quality rubrics in an Apple client engagement. The independent, open-source llmeval turns the same habit into scores, thresholds and gates.",
    "href": "#evaluation",
    "link": "See the evaluation work"
   },
   {
    "kind": "Independent build",
-   "stage": "Agent engineering",
+   "stage": "Agent infrastructure",
    "text": "An agent runtime built from first principles: loop, tools, memory, permissions and persistence, then served over an API.",
    "href": "#runtime",
    "link": "See the agent runtime"
   },
   {
    "kind": "Independent build",
-   "stage": "Production controls",
+   "stage": "Deterministic controls",
    "text": "Typed actions, deterministic policy, approvals bound to the exact action, idempotent execution and a tamper-evident audit log.",
    "href": "#copilot",
    "link": "See the controls"
@@ -206,5 +216,6 @@
     ]
    }
   ]
- }
+ },
+ "experienceBridge": "I apply the same quality mindset to independent agent systems: measurable behaviour, deterministic controls, reproducible evaluation and explicit failure analysis."
 }
