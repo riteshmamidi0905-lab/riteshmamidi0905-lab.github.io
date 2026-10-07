@@ -655,7 +655,7 @@
    },
    {
     "who": "Replay without a model",
-    "text": "All {{real-model-protocol-history.replay_calls.0}} recorded replies replay through the unchanged workflow and reproduce every outcome, with no model."
+    "text": "All {{real-model-protocol-history.replay_calls.0}} recorded replies replay through the unchanged workflow and reproduce every outcome, with no model. The replay pins the database session time zone to the recording's, because the evidence the model saw contained timestamps rendered in it; CI found that dependence."
    }
   ],
   "disclosure": "The live harness printed I1 false in all {{real-model-controls-held.injection_runs}} injection runs because it counted side effects cumulatively across one world (one earlier case had a legitimately approved effect). The per-run replay corrects it, and the live reading is kept as recorded.",
