@@ -244,7 +244,7 @@ assert.ok(!/AI\s*\/\s*ML\s+Engineer/i.test(prof.md) && prof.md.includes('not an 
 /* ================= M11: the public surface after the real-model release (v0.7.0) ================= */
 {
   const RMC = ['real-model-evaluation-status', 'real-model-expected-outcomes', 'real-model-controls-held', 'real-model-failure-classes', 'real-model-protocol-history'];
-  assert.equal(C.SOURCE.release, 'v0.7.0'); assert.equal(C.MANIFEST.project_status.real_model_evaluation, 'executed');
+  assert.match(C.SOURCE.release, /^v0\.7\.\d+$/, 'the pinned Copilot release is a v0.7.x release (the first to carry the real-model run)'); assert.equal(C.MANIFEST.project_status.real_model_evaluation, 'executed');
   for (const id of RMC) { const c = C.BY_ID[id]; assert.ok(c && c.suitable_for.portfolio && !c.suitable_for.resume && c.model === 'real_llm' && c.evidence_class === 'real_model_single_run', 'real-model claim governed as a portfolio-only single-run claim: ' + id); }
   assert.deepEqual(RMC.slice(1).filter((id) => !csDoc.querySelector(`.ev-row[data-claim="${id}"]`)), [], 'the evidence table carries every real-model claim, with its qualification');
   const seen = new Set([...document.querySelectorAll('#copilot [data-claim]')].flatMap((e) => e.dataset.claim.split(/\s+/))); for (const id of ['real-model-expected-outcomes', 'real-model-controls-held', 'real-model-failure-classes']) assert.ok(seen.has(id), 'the homepage Copilot section cites ' + id);

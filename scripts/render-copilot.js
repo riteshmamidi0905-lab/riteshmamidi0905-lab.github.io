@@ -62,7 +62,7 @@ const residualHTML = () => `<article class="cp-story cp-residual rv" id="residua
   <div class="cp-bars" role="list">${RS.bars.map((b) => `<div class="cp-bar tone-${b.tone}" role="listitem"><div class="cp-bar-h"><span>${esc(b.label)}</span><b>${b.flagged} / ${b.n} flagged</b></div><div class="cp-bar-t" aria-hidden="true"><i style="width:${pct(b.flagged, b.n)}%"></i></div><small>${esc(b.want)}</small></div>`).join('')}</div>
   <p class="cp-close">${esc(RS.closing)}</p></article>`;
 
-const links = () => CP.links.map(([label, kind, p]) => { const href = kind === 'repo' ? REPO_URL : kind === 'release' ? `${REPO_URL}/releases/tag/${REL}` : pinned(p); return `<a class="ln" href="${href}" target="_blank" rel="noopener">${esc(label)} ${ARROW}</a>`; }).join('');
+const links = () => CP.links.map(([label0, kind, p]) => { const label = kind === 'release' ? 'Release ' + REL : label0; const href = kind === 'repo' ? REPO_URL : kind === 'release' ? `${REPO_URL}/releases/tag/${REL}` : pinned(p); return `<a class="ln" href="${href}" target="_blank" rel="noopener">${esc(label)} ${ARROW}</a>`; }).join('');
 const provenance = () => `<p class="fine cp-prov">Evidence source: public repository <code>${esc(REPO)}</code> at commit <code class="sha">${SHORT}</code> (release ${esc(REL)}). Claims, qualifications and numbers are rendered from the repository's own <a href="${pinned('content/public-claims.json')}" target="_blank" rel="noopener">public claims manifest</a>, vendored byte for byte and re-verified by hash on every build.</p>`;
 
 /* ---------- homepage flagship section: one screen of scene, then the result, the control result and the failure ---------- */
@@ -134,7 +134,7 @@ function pageJSON() {
 }
 const pageNavArgs = () => [[['Story', '#story'], ['Real model', '#real-model'], ['Attack', '#attack'], ['Residual', '#residual'], ['Retrieval', '#retrieval'], ['Evidence', '#evidence']], { home: './', brand: 'Ritesh Mamidi — portfolio home', back: ['← Portfolio', './'] }];
 function pageMain() {
-  const factsRow = ['Fictional customer', 'Synthetic data', 'Stand-in model by default', 'One real-model run (v0.7.0)', 'Never deployed'];
+  const factsRow = ['Fictional customer', 'Synthetic data', 'Stand-in model by default', 'One real-model run (reported from v0.7.0)', 'Never deployed'];
   return `<main id="main-content" class="cs">
   <header class="cs-head wrap" id="top"><p class="eyebrow"><i class="dot"></i>Case study · Flagship 01</p><h1>${esc(CP.title)}</h1><p class="cs-one">${esc(CP.oneLine)}</p>
     <ul class="cs-facts" aria-label="Status">${factsRow.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>

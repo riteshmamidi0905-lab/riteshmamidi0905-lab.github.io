@@ -304,7 +304,7 @@ function alsoBuiltHTML() {
       <p class="ab-l"><a href="${GH}${r}" target="_blank" rel="noopener" aria-label="${esc(p.n)} on GitHub">Code ${ARROW}</a>${fl ? `<a href="projects.html#flag-${r}" aria-label="${esc(p.n)} case study">Case study</a>` : ''}</p></li>`;
   };
   return `<section id="also-built" class="sec alsob" aria-labelledby="ab-t"><div class="wrap">
-  <p class="kicker rv"><b>Also built</b> Product, analytics and data engineering</p>
+  <p class="kicker rv"><b>Also built</b></p>
   <h2 id="ab-t" class="hm-title rv">${esc(site.alsoBuilt.heading)}</h2>
   ${site.alsoBuilt.groups.map((g) => `<h3 class="hm-h rv">${esc(g.title)}</h3><ul class="ab-grid">${g.items.map(([r, line]) => card(r, line)).join('')}</ul>`).join('')}
   <p class="fine rv">${esc(site.alsoBuilt.note)} <a href="projects.html#projects">All ${P.length} projects ${ARROW}</a></p>
