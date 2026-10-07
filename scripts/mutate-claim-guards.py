@@ -51,7 +51,7 @@ text_mutation('MAREF same-author disclosure removed', 'content/llm-eval-framewor
 text_mutation('MAREF evaluation link repointed to a moving branch', 'scripts/render.js', lambda s: s.replace("id=\"maref-eval-link\" href=\"${MAREF_PIN('docs/EVALUATION.md')}\"", "id=\"maref-eval-link\" href=\"${MAREF_GH}/blob/main/docs/EVALUATION.md\"", 1))
 text_mutation('hero loses the evaluation layer label', 'scripts/render.js', lambda s: s.replace('<i class="layer">I evaluate how they fail</i>', '', 1))
 text_mutation('MAREF described as an agent', 'content/site.json', lambda s: s.replace('MAREF is my attempt', 'MAREF is an AI agent and is my attempt', 1))
-text_mutation('a specific Apple programme named in career copy', 'content/site.json', lambda s: s.replace('At Apple I validate', 'At Apple ' + 'Maps I validate', 1))
+text_mutation('a specific Apple programme named in career copy', 'content/site.json', lambda s: s.replace('(an Apple client engagement)', '(an Apple ' + 'Maps client engagement)', 1))
 text_mutation('profile README left stale', 'profile/README.md', lambda s: s.replace('489', '488', 1))
 # ---- M11: the real-model release, the ARB figures, the compact homepage
 json_mutation('10/22 relabelled as accuracy on the homepage', lambda d: d['home']['result'].update(label='accuracy on the frozen cases', text='Accuracy of the model.'))
@@ -70,6 +70,13 @@ text_mutation('near-100% scripted metric advertised on the homepage', 'scripts/r
 text_mutation('a flagship scene pinned again on the homepage', 'scripts/render-copilot.js', lambda s: s.replace("['support-escalation-copilot.html', 'Read the full case study'], true)", "['support-escalation-copilot.html', 'Read the full case study'], false)", 1))
 text_mutation('hierarchy label removed from the runtime section', 'scripts/render.js', lambda s: s.replace("${layerHTML('I build the infrastructure they run on')}", '', 1))
 text_mutation('MAREF block on the homepage loses its disclosure', 'content/llm-eval-framework.json', lambda s: s.replace('"disclosure": "Same-author, not independent validation.', '"disclosure": "Same-author.', 1))
+
+text_mutation('hero implies direct Apple employment', 'scripts/render.js', lambda s: s.replace('Apple (client engagement) · AI/ML quality, data and operational analysis', 'Working at Apple · AI/ML quality, data and operational analysis', 1))
+text_mutation('hero leads with a raw test count again', 'scripts/render.js', lambda s: s.replace('Approval-gated agentic workflow · deterministic controls', '489 tests · Approval-gated agentic workflow', 1))
+text_mutation('hero stops saying the projects are independent', 'scripts/render.js', lambda s: s.replace('Independent open-source projects · evidence and limits published', 'Projects · evidence and limits published', 1))
+json_mutation('10/22 loses its qualification in the Copilot section', lambda d: d['home']['result'].update(label='cases passed', text='A pass count.'))
+text_mutation('an independent project presented as client work', 'content/site.json', lambda s: s.replace('I apply the same quality mindset to independent agent systems', 'I built these agent systems for my client at Apple, with the same quality mindset', 1))
+text_mutation('experience loses the independent-work boundary', 'content/site.json', lambda s: s.replace('independent, open-source work, not built for any employer or client', 'open-source work', 1))
 
 ok, msg = run(); print(('OK   ' if ok is False else 'note ') + 'restored tree: ' + ('passes (as it must)' if not ok else msg))
 print(f'\n{sum(results)}/{len(results)} mutations caught'); sys.exit(0 if all(results) else 1)
