@@ -3,7 +3,7 @@
   "name": "Ritesh Mamidi",
   "role": "Data & AI Analyst · builds AI agent systems and evaluation harnesses",
   "location": "Austin, TX",
-  "now": "Data & AI Analyst, Apple Maps (client engagement)",
+  "now": "Data & AI Analyst, Apple",
   "status": "Open to applied AI, agent and LLM engineering, AI evaluation and reliability, forward-deployed and AI-focused product-analytics roles in the US",
   "email": "riteshmamidi0905@gmail.com",
   "linkedin": "https://linkedin.com/in/riteshmamidi0905",
@@ -34,7 +34,7 @@
  },
  "experience": [
   {
-   "role": "Data & AI Analyst, Apple Maps",
+   "role": "Data & AI Analyst",
    "org": "Apple (client engagement)",
    "where": "Austin, TX",
    "when": "Sep 2025 – Present",
@@ -70,7 +70,7 @@
  "principles": [
   [
    "Make outputs measurable.",
-   "On Apple Maps I validate LLM and ML outputs against quality rubrics. In my own projects I turn “seems fine” into scores, thresholds and gates."
+   "At Apple I validate LLM and ML outputs against quality rubrics. In my own projects I turn “seems fine” into scores, thresholds and gates."
   ],
   [
    "Distrust the data first.",
@@ -133,7 +133,7 @@
   {
    "kind": "Professional",
    "stage": "AI evaluation",
-   "text": "Validating LLM and ML outputs against policy and quality rubrics at Apple Maps (client engagement). The open-source llmeval turns the same habit into scores, thresholds and gates.",
+   "text": "Validating LLM and ML outputs against policy and quality rubrics at Apple. The open-source llmeval turns the same habit into scores, thresholds and gates.",
    "href": "#evaluation",
    "link": "See the evaluation work"
   },

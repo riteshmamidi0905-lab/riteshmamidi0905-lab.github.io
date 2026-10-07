@@ -8,7 +8,7 @@ AI & Data Analyst | AI/ML & LLM Evaluation · Data Engineering · Product Analyt
 
 ## About
 
-I work across data quality, AI evaluation and analytics, with experience on an Apple Maps client engagement and earlier business/data analysis roles. I use Python, SQL and BI tools to investigate quality issues, improve workflows and make decisions easier to explain.
+I work across data quality, AI evaluation and analytics, with experience at Apple and earlier business/data analysis roles. I use Python, SQL and BI tools to investigate quality issues, improve workflows and make decisions easier to explain.
 
 My open-source portfolio explores streaming pipelines, Spark lakehouses, RAG, LLM evaluation, MLOps and product experimentation. It includes 22 projects, six case studies and five narrated technical films, with code and limitations available for inspection.
 

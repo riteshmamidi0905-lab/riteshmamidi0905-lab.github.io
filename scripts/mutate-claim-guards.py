@@ -43,6 +43,7 @@ json_mutation('an eligible claim dropped from the evidence table', lambda d: d['
 text_mutation('banned token slipped into a doc', 'README.md', lambda s: s + '\n' + ''.join(chr(c) for c in [65, 116, 108, 97, 115]) + 'IQ\n')
 text_mutation('job title changed back to an engineer title', 'index.src.html', lambda s: s.replace('"jobTitle":"Data & AI Analyst"', '"jobTitle":"AI/ML Engineer"', 1))
 text_mutation('MAREF no longer labelled not evaluated', 'scripts/render.js', lambda s: s.replace("${CPR.badge('not-evaluated')} <b>Research / framework", "<b>Research / framework", 1))
+text_mutation('a specific Apple programme named in career copy', 'content/site.json', lambda s: s.replace('At Apple I validate', 'At Apple ' + 'Maps I validate', 1))
 text_mutation('profile README left stale', 'profile/README.md', lambda s: s.replace('472', '471', 1))
 ok, msg = run(); print(('OK   ' if ok is False else 'note ') + 'restored tree: ' + ('passes (as it must)' if not ok else msg))
 print(f'\n{sum(results)}/{len(results)} mutations caught'); sys.exit(0 if all(results) else 1)

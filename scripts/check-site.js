@@ -138,7 +138,7 @@ const demos = read('content/evidence/support-escalation-copilot/m5-demos.md'); f
 const jl = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent);
 assert.equal(jl.jobTitle, 'Data & AI Analyst'); for (const h of allHtml) assert.ok(!/AI\s*\/\s*ML\s+(engineer)|\bAI Engineer\b(?! roles)/i.test(h.replace(/<[^>]+>/g, ' ')) || /Open to[^.]*AI Engineer/i.test(h), 'must not title him an engineer');
 assert.ok(!/AI\s*\/\s*ML\s+Engineer/i.test(document.title + document.querySelector('meta[name=description]').content), 'title and description');
-assert.match(txt(document.querySelector('.hero .proof')), /Data & AI Analyst[\s\S]*Apple Maps \(client engagement\)/); assert.ok(document.querySelector('.hero a[href="#copilot"]') && document.querySelector('.hero a[href="#runtime"]') && document.querySelector('.hero a[href^="https://github.com/riteshmamidi0905-lab"]') && document.querySelector('.hero a[href="ritesh_mamidi_resume.pdf"]'), 'first screen links the flagships, GitHub and the résumé');
+assert.match(txt(document.querySelector('.hero .proof')), /Data & AI Analyst[\s\S]*Apple: validating/); assert.ok(document.querySelector('.hero a[href="#copilot"]') && document.querySelector('.hero a[href="#runtime"]') && document.querySelector('.hero a[href^="https://github.com/riteshmamidi0905-lab"]') && document.querySelector('.hero a[href="ritesh_mamidi_resume.pdf"]'), 'first screen links the flagships, GitHub and the résumé');
 assert.ok(document.querySelector('.hero .tagline').textContent.includes('Product-minded AI builder'));
 assert.equal(document.querySelectorAll('.prog-list li').length, 5, 'career progression'); assert.ok([...document.querySelectorAll('.prog-k')].map((e) => e.textContent).join() === 'Professional,Professional,Independent build,Independent build,Independent build', 'professional vs independent work is labelled');
 assert.ok(txt(document.querySelector('#experience .exp-lead')).includes('independent, open-source work'));
@@ -151,8 +151,11 @@ const csIds = [...csDoc.querySelectorAll('[id]')].map((e) => e.id); assert.equal
 for (const f of ['assets/js/copilot.js', 'assets/js/scenes/scene-copilot.js', 'assets/copilot/SOURCE.json']) assert.ok(fs.existsSync(f), f);
 
 /* 9 · confidentiality: a token that must never appear anywhere in the repository (checked by hash, so this file does not contain it) */
+/* the employer is referred to as "Apple" and nothing more specific, anywhere in public text (patterns built from pieces so this file does not trip itself) */
+const PROGRAM = new RegExp('Apple' + '\\s+' + 'Maps|hundreds' + ' of millions', 'i');
 const BANNED = ['1c9d9e5648838d40234ae03a44342f02402ebe6593f96fde05fb72b10699206d'], seen = new Map();
-const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).forEach((e) => { if (['node_modules', '.git'].includes(e.name)) return; const f = path.join(d, e.name); if (e.isDirectory()) return walk(f); if (!/\.(html|js|json|md|css|txt|xml|yml|yaml|svg|vtt)$/.test(e.name)) return; for (const t of new Set(fs.readFileSync(f, 'utf8').toLowerCase().split(/[^a-z0-9]+/))) { if (t.length < 4) continue; if (!seen.has(t)) seen.set(t, crypto.createHash('sha256').update(t).digest('hex')); if (BANNED.includes(seen.get(t))) assert.fail('a token that must never appear is present in ' + f); } });
+const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).forEach((e) => { if (['node_modules', '.git'].includes(e.name)) return; const f = path.join(d, e.name); if (e.isDirectory()) return walk(f); if (!/\.(html|js|json|md|css|txt|xml|yml|yaml|svg|vtt)$/.test(e.name)) return; const raw = fs.readFileSync(f, 'utf8'); if (PROGRAM.test(raw)) assert.fail('the employer is named "Apple" only: a specific Apple programme is identified in ' + f);
+    for (const t of new Set(raw.toLowerCase().split(/[^a-z0-9]+/))) { if (t.length < 4) continue; if (!seen.has(t)) seen.set(t, crypto.createHash('sha256').update(t).digest('hex')); if (BANNED.includes(seen.get(t))) assert.fail('a token that must never appear is present in ' + f); } });
 walk(process.cwd());
 
 /* the GitHub profile README is generated from the same claims and must be committed fresh */
