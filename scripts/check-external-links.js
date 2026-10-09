@@ -2,7 +2,7 @@
    Usage: node scripts/check-external-links.js        Exit status 1 if a GitHub or same-site link is dead. */
 'use strict';
 const fs = require('fs'), https = require('https');
-const FILES = ['index.html', 'recruiter.html', 'support-escalation-copilot.html', 'agent-runtime.html', 'evaluation.html', 'projects.html', 'profile/README.md'];
+const FILES = ['index.html', 'recruiter.html', 'support-escalation-copilot.html', 'agent-runtime.html', 'evaluation.html', 'projects.html', 'mcp-weir.html', 'profile/README.md'];
 const urls = new Set();
 for (const f of FILES) { const t = fs.readFileSync(f, 'utf8'); for (const m of t.matchAll(/https?:\/\/[^\s"'<>)\]]+/g)) { let u = m[0].replace(/[.,;]+$/, ''); if (/^https?:\/\/(www\.w3\.org|schema\.org|fonts\.|localhost|127\.)/.test(u) || /\$\{|\{\{/.test(u)) continue; urls.add(u.split('#')[0]); } }
 const get = (u) => new Promise((res) => { const r = https.get(u, { headers: { 'User-Agent': 'portfolio-link-check' }, timeout: 20000 }, (x) => { x.resume(); res({ u, s: x.statusCode, loc: x.headers.location }); }); r.on('error', (e) => res({ u, s: 0, err: e.message })); r.on('timeout', () => { r.destroy(); res({ u, s: 0, err: 'timeout' }); }); });

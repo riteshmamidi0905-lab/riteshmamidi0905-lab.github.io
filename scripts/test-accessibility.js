@@ -6,7 +6,7 @@ const { serveLocal, base } = require('./local-preview');
   const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
   const scan = async (page, label) => { const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze(); console.log(JSON.stringify({ label, violations: r.violations.map((v) => ({ id: v.id, impact: v.impact, targets: v.nodes.slice(0, 4).map((n) => n.target) })) })); assert.deepEqual(r.violations, [], label); };
   const here = (f) => base.replace(/\/?$/, '/') + f;
-  for (const f of ['', 'agent-runtime.html', 'evaluation.html', 'projects.html']) for (const width of [1440, 390]) {
+  for (const f of ['', 'agent-runtime.html', 'evaluation.html', 'projects.html', 'mcp-weir.html']) for (const width of [1440, 390]) {
     const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width, height: 1000 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(here(f));
     await scan(page, `${f || 'home'} reduced-motion ${width}`); await ctx.close();
   }

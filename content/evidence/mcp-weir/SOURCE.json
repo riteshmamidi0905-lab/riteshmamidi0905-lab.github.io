@@ -1,0 +1,22 @@
+{
+ "repo": "riteshmamidi0905-lab/mcp-weir",
+ "sha": "0b6a0afb0669a0f21c1dd148dccb1d3ad9d8c36a",
+ "note": "Vendored byte-for-byte from the public repository at this commit by scripts/sync-weir-evidence.js. The Weir page is checked against these files by scripts/check-weir.js; npm run verify:evidence re-hashes them and --online re-fetches them from the pinned commit.",
+ "files": {
+  "headline.json": {
+   "path": "eval/results/headline.json",
+   "sha256": "0794c0ab5e0eaf19fadf6381a38273395402654398d70586598170a05656e4d3",
+   "bytes": 30604
+  },
+  "claims.md": {
+   "path": "docs/claims.md",
+   "sha256": "b6eeb512534d63a1a68f95fc12ec2ad8acab1ae4685c51019cd738527192c1fc",
+   "bytes": 10772
+  },
+  "FREEZE-HISTORY.md": {
+   "path": "eval/FREEZE-HISTORY.md",
+   "sha256": "ed87d8ef34797a80a7e21bbb635e40b394f2a51514d12ae11aea40e487b4e4bc",
+   "bytes": 3502
+  }
+ }
+}

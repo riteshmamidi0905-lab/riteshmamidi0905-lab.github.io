@@ -41,7 +41,7 @@ const BUDGET = { html: 48 * KB, css: 26 * KB, js: 40 * KB, fonts: 100 * KB, imag
     assert.ok(total <= BUDGET.total, `${f}: total ${Math.round(total / KB)} KB`); assert.ok(urls.length <= BUDGET.requests, `${f}: ${urls.length} requests`); assert.ok(cls <= BUDGET.cls, `${f}: CLS ${cls}`);
     assert.ok(!urls.some((u) => /\.mp4/.test(u)), `${f}: a film loaded before it was asked for`); await ctx.close(); }
   /* the layout must not move when the scene script attaches: delay worlds.js by 1.2 s so the first paint happens before init (a race that a fast machine hides), on every page and at both widths */
-  for (const [w, h] of [[1440, 900], [390, 844]]) for (const f of ['', 'agent-runtime.html', 'evaluation.html', 'projects.html', 'support-escalation-copilot.html']) {
+  for (const [w, h] of [[1440, 900], [390, 844]]) for (const f of ['', 'agent-runtime.html', 'evaluation.html', 'projects.html', 'support-escalation-copilot.html', 'mcp-weir.html']) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h } }); await ctx.addInitScript(() => { try { localStorage.setItem('rm-intro-seen', '1'); } catch (e) { } window.__cls = 0; new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true }); });
     const page = await ctx.newPage(); await serveLocal(page); await page.route('**/assets/js/worlds.js', async (r) => { await new Promise((res) => setTimeout(res, 1200)); r.fallback(); });
     await page.goto(base.replace(/\/?$/, '/') + f, { waitUntil: 'networkidle' }); await page.waitForTimeout(800);

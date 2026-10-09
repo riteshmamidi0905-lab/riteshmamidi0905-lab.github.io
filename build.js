@@ -10,7 +10,7 @@ const { FLAG, P } = require('./data.js');
 const SITE = __dirname;
 let tpl = fs.readFileSync(path.join(SITE, 'index.src.html'), 'utf8');
 const map = {
-  '<!--NAV-->': R.navHTML(), '<!--HERO-->': R.heroHTML(), '<!--KEY-->': R.keyHTML(), '<!--COPILOT-->': R.copilotHTML(), '<!--RUNTIME-->': R.runtimeHomeHTML(), '<!--EVALUATION-->': R.evaluationHomeHTML(), '<!--ALSOBUILT-->': R.alsoBuiltHTML(),
+  '<!--NAV-->': R.navHTML(), '<!--HERO-->': R.heroHTML(), '<!--KEY-->': R.keyHTML(), '<!--COPILOT-->': R.copilotHTML(), '<!--RUNTIME-->': R.runtimeHomeHTML(), '<!--EVALUATION-->': R.evaluationHomeHTML(), '<!--WEIR-->': require('./scripts/render-weir').homeHTML(), '<!--ALSOBUILT-->': R.alsoBuiltHTML(),
   '<!--EXPERIENCE-->': R.experienceHTML(), '<!--ABOUT-->': R.aboutHTML(), '<!--CONTACT-->': R.contactHTML(),
   '<!--FOOTER-->': R.footerHTML(), '<!--WORLDS-JSON-->': worldsJSON(R.flagStepsConfig()),
 };
