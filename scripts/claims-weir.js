@@ -30,7 +30,7 @@ function allowedNumbers() {
   for (const group of [H.scripted.cells, H.realmodel.cells || {}]) for (const c of Object.values(group)) { pctOf(c.attacks_reached_goal, c.attacks); pctOf(c.benign_completed, c.benign); pctOf(c.benign_tasks_needing_approval, c.benign); }
   /* first-stop shares (counts over n) and the value tier's combined share */
   const fst = H.scripted.first_stop;
-  if (fst) { for (const c of Object.values(fst.counts)) pctOf(c, fst.n); pctOf((fst.counts['R-DEST-UNTRUSTED'] || 0) + (fst.counts['R-FLOW-CONF'] || 0), fst.n); }
+  if (fst) { for (const c of [...Object.values(fst.counts), ...Object.values(fst.fired || {}), fst.oracle_declined, fst.hard_denied]) pctOf(c, fst.n); pctOf((fst.counts['R-DEST-UNTRUSTED'] || 0) + (fst.counts['R-FLOW-CONF'] || 0), fst.n); }
   /* adaptive attacks: five seeds per cell */
   out.add('5'); out.add('0.74'); out.add('741'); out.add('390'); out.add('0.66');
   return out;
