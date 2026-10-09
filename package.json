@@ -4,9 +4,10 @@
   "version": "2.0.0",
   "scripts": {
     "build": "node build.js && node scripts/render-profile.js",
-    "test": "node scripts/check-site.js && node scripts/test-lab.js",
+    "test": "node scripts/check-site.js && node scripts/check-weir.js && node scripts/test-lab.js",
     "test:browser": "node scripts/test-site.js",
     "test:a11y": "node scripts/test-accessibility.js",
+    "test:weir": "node scripts/test-weir.js",
     "test:experience": "node scripts/test-experience.js",
     "test:budget": "node scripts/test-budget.js",
     "avatar:check": "node scripts/check-avatars.js",

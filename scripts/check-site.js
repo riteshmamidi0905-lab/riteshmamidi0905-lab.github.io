@@ -11,8 +11,8 @@ const rec = parseHTML(read('recruiter.html')).document;
 const txt = (el) => el.textContent.replace(/\s+/g, ' ');
 const vis = (b) => { const c = b.cloneNode(true); c.querySelectorAll('script,style').forEach((e) => e.remove()); return c.textContent; };   // what a visitor can read: scene data embedded as JSON is not page copy
 const page = (f) => parseHTML(read(f)).document;
-const rtd = page('agent-runtime.html'), evd = page('evaluation.html'), prd = page('projects.html'), csd = page('support-escalation-copilot.html');
-const PAGES = [[document, 'index'], [rec, 'recruiter'], [csd, 'case study'], [rtd, 'runtime page'], [evd, 'evaluation page'], [prd, 'projects page']];
+const wrd = page('mcp-weir.html'), rtd = page('agent-runtime.html'), evd = page('evaluation.html'), prd = page('projects.html'), csd = page('support-escalation-copilot.html');
+const PAGES = [[document, 'index'], [rec, 'recruiter'], [csd, 'case study'], [rtd, 'runtime page'], [evd, 'evaluation page'], [prd, 'projects page'], [wrd, 'weir page']];
 
 /* inventory: the homepage is compact; the material it points to lives on its own pages */
 assert.equal(prd.querySelectorAll('.prow').length, P.length, 'all projects present on the projects page'); assert.equal(document.querySelectorAll('.prow').length, 0, 'the project list is not on the homepage');
@@ -25,12 +25,12 @@ assert.equal(document.querySelectorAll('[data-world]').length, 4, 'homepage: her
 assert.equal(document.querySelectorAll('[data-world][data-compact]').length, 2, 'the two flagship scenes on the homepage are compact (one screen, not pinned)');
 assert.equal(rtd.querySelectorAll('[data-world]').length, 1); assert.equal(evd.querySelectorAll('[data-world]').length, 2, 'llmeval scene + MAREF scene'); assert.equal(prd.querySelectorAll('[data-world]').length, 8, '3 chapter worlds + 5 build scenes');
 const sectionIds = (d) => [...d.querySelectorAll('main > section, main > .chapter, main > header')].map((x) => x.id);
-assert.deepEqual(sectionIds(document), ['hero', 'key', 'copilot', 'runtime', 'evaluation', 'also-built', 'experience', 'about', 'contact'], 'homepage story order: hero, evidence key, the three flagships (agents, infrastructure, evaluation), also built, experience, about, contact');
+assert.deepEqual(sectionIds(document), ['hero', 'key', 'copilot', 'runtime', 'evaluation', 'weir', 'also-built', 'experience', 'about', 'contact'], 'homepage story order: hero, evidence key, the three flagships (agents, infrastructure, evaluation), also built, experience, about, contact');
 assert.deepEqual(sectionIds(prd), ['top', 'projects', 'supporting', 'ai', 'data', 'product', 'flagships', 'progression'], 'projects page: library, explorers, builds, path');
 assert.ok(document.querySelector('#evaluation #maref') && evd.querySelector('#evaluation #maref'), 'MAREF sits inside Flagship 03, after the tested metric suite, on the homepage and on the evaluation page');
 
 /* ids unique per page; internal anchors, cross-page anchors and local assets resolve (incl. srcset) */
-const byFile = { 'index.html': document, 'recruiter.html': rec, 'support-escalation-copilot.html': csd, 'agent-runtime.html': rtd, 'evaluation.html': evd, 'projects.html': prd };
+const byFile = { 'index.html': document, 'recruiter.html': rec, 'support-escalation-copilot.html': csd, 'agent-runtime.html': rtd, 'evaluation.html': evd, 'projects.html': prd, 'mcp-weir.html': wrd };
 for (const [d, label] of PAGES) { const ids = [...d.querySelectorAll('[id]')].map((e) => e.id); assert.equal(new Set(ids).size, ids.length, `${label}: duplicate ids: ` + ids.filter((x, i) => ids.indexOf(x) !== i)); }
 for (const [doc, label] of PAGES) {
   for (const el of doc.querySelectorAll('[href],[src],[srcset]')) for (const attr of ['href', 'src', 'srcset']) {
@@ -65,7 +65,7 @@ for (const f of ['app.js', 'assets/js/portfolio.js', 'assets/css/base.css', 'ass
 /* recruiter view is script-free and complete */
 assert.equal(rec.querySelectorAll('script').length, 0); assert.ok(rec.querySelector('h1').textContent.includes('Ritesh Mamidi'));
 for (const k of ['Experience', 'Top projects', 'Core technologies', 'Research', 'Contact']) assert.ok([...rec.querySelectorAll('h2')].some((h) => h.textContent === k), 'recruiter section ' + k);
-assert.equal(rec.querySelectorAll('.proj > li').length, FLAG.length + 2, 'the Copilot + the agent runtime + the six supporting builds');
+assert.equal(rec.querySelectorAll('.proj > li').length, FLAG.length + 3, 'the Copilot + the agent runtime + Weir + the six supporting builds');
 assert.match(rec.querySelector('.proj > li').textContent, /Support Escalation Copilot/, 'the Copilot leads the recruiter view');
 
 /* AI Agent Runtime: every claim is bound to the pinned public-repo evidence and its limits are stated (full page), and the homepage version carries the same qualifiers */

@@ -5,7 +5,7 @@
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto'), https = require('https');
 const root = path.join(__dirname, '..');
-const SETS = [['content/evidence/support-escalation-copilot'], ['content/evidence/maref'], ['content/evidence/agent-runtime-bench'], ['assets/copilot']];
+const SETS = [['content/evidence/support-escalation-copilot'], ['content/evidence/maref'], ['content/evidence/agent-runtime-bench'], ['assets/copilot'], ['content/evidence/mcp-weir'], ['assets/weir']];
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const get = (url) => new Promise((res, rej) => https.get(url, { headers: { 'User-Agent': 'portfolio-evidence-check' } }, (r) => {
   if (r.statusCode !== 200) { r.resume(); return rej(new Error(url + ' -> HTTP ' + r.statusCode)); }

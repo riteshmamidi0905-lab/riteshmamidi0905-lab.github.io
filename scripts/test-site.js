@@ -60,7 +60,7 @@ const { serveLocal, base } = require('./local-preview'); const { P, FLAG } = req
   }
   /* recruiter view */
   { const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'recruiter.html');
-    assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length + 2);
+    assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length + 3);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)); await ctx.close(); }
   /* the homepage is short enough to read: at most 20 screens of 375x812, with and without motion */
   for (const reduce of ['no-preference', 'reduce']) { const ctx = await browser.newContext({ viewport: { width: 375, height: 812 }, reducedMotion: reduce, isMobile: true, hasTouch: true }); await ctx.addInitScript(() => { try { localStorage.setItem('rm-intro-seen', '1'); } catch (e) { } });
