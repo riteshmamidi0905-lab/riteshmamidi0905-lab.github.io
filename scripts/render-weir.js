@@ -198,11 +198,11 @@ function recruiterItem() {
 function homeHTML() {
   const c = W.cell('A3', 'strict'), a0 = W.cell('A0', 'none');
   return `<section id="weir" class="sec" aria-labelledby="weir-t"><div class="wrap">
-  <p class="kicker rv"><b>New</b> Data flow at the MCP tool boundary · research prototype</p>
+  <p class="kicker rv"><b>New</b> MCP tool boundary · research prototype</p>
   <h2 id="weir-t" class="hm-title rv">Weir: I built a data-flow tracker for AI agents. A boring rule beat it.</h2>
-  <ul class="cp-stats rv" aria-label="Weir evidence"><li class="cp-stat ev-simulated"><b>${esc(fsPct('R-UNTRUSTED-READ'))} vs ${esc(fsPct('R-FLOW-CONF'))}</b><span>of attacks: first-listed rule on the first stopped call, plain session rule vs content tracker (${esc(fsFired('R-FLOW-CONF'))} counting every rule that fired)</span></li>
-  <li class="cp-stat ev-simulated"><b>${esc(W.pct(a0.attacks_reached_goal, a0.attacks))}% to ${esc(W.pct(c.attacks_reached_goal, c.attacks))}%</b><span>of ${esc(W.fmtn(a0.attacks))} scripted attacks reach their goal: no gateway vs Weir with a careful simulated approver</span></li></ul>
-  <p class="rt-qual rv">${badge('limitation')} <b>Designed scripted mix; the ranking reverses if the approver approves everything.</b> The ${esc(W.pct(c.attacks_reached_goal, c.attacks))}% left is the model's own answer, which Weir cannot see; the 5% target was predicted missed. Same author, AI-assisted, never deployed.</p>
+  <ul class="cp-stats rv" aria-label="Weir evidence"><li class="cp-stat ev-simulated"><b>${esc(fsPct('R-UNTRUSTED-READ'))} vs ${esc(fsPct('R-FLOW-CONF'))}</b><span>first-listed rule on the first stopped call: plain session rule vs content tracker (${esc(fsFired('R-FLOW-CONF'))} counting every rule that fired)</span></li>
+  <li class="cp-stat ev-simulated"><b>${esc(W.pct(a0.attacks_reached_goal, a0.attacks))}% to ${esc(W.pct(c.attacks_reached_goal, c.attacks))}%</b><span>of ${esc(W.fmtn(a0.attacks))} scripted attacks reach their goal: no gateway vs Weir, careful simulated approver</span></li></ul>
+  <p class="rt-qual rv">${badge('limitation')} <b>Designed scripted mix; the ranking reverses if the approver approves everything.</b> The ${esc(W.pct(c.attacks_reached_goal, c.attacks))}% left is the model's answer, which Weir cannot see. Same author, AI-assisted, never deployed.</p>
   <nav class="lns rv" aria-label="Weir"><a class="ln" href="mcp-weir.html">Read the case study ${ARROW}</a>${lnk(REPO_URL, 'Repository')}</nav></div></section>`;
 }
 module.exports = { PAGE, main, recruiterItem, homeHTML };

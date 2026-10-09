@@ -354,3 +354,7 @@ code{font-family:var(--mono);font-size:.92em;color:var(--ac2)}
 .fs-bars .v .fs-track b{background:var(--amber)}.fs-bars .n .fs-track b{background:var(--red)}
 .fs-v{font:700 16px var(--sans);text-align:right}
 @media(max-width:560px){.fs-bars li{grid-template-columns:minmax(0,1fr) 56px}.fs-track{grid-column:1/-1;order:3}}
+
+/* Weir homepage strip: a compact evidence strip, not a flagship section */
+#weir.sec{padding-top:clamp(36px,6vh,60px);padding-bottom:clamp(36px,6vh,60px)}
+#weir .cp-stats{margin-top:clamp(14px,2.5vh,24px)}
