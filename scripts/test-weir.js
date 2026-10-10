@@ -7,6 +7,8 @@ const { chromium } = require('playwright'); const assert = require('node:assert/
 const { serveLocal, base } = require('./local-preview');
 const ROOT = path.join(__dirname, '..'), sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const here = (f) => base.replace(/\/?$/, '/') + f;
+/* The site reloads a page when the reduced-motion preference changes (assets/js/worlds.js). While a navigation starts, Playwright re-applies its emulated preference, which under load can fire that event in the page being left and re-load it over the navigation (found by tracing the navigation initiator: worlds.js, line 170). A real browser does not do this. So leaving a page is retried, a bounded number of times, until the page asked for is the one on screen and has stopped loading; every assertion afterwards is unchanged. */
+const leaveFor = async (page, url) => { const want = new URL(url).pathname; for (let i = 0; i < 5; i++) { await page.goto(url, { waitUntil: 'load' }); await page.waitForTimeout(250); if (new URL(page.url()).pathname === want && !(await page.title()).startsWith('Loading')) return; } throw new Error(`could not settle on ${url}; the page is ${page.url()}`); };
 const BUILT = ['index.html', 'recruiter.html', 'mcp-weir.html', 'projects.html', 'evaluation.html', 'agent-runtime.html', 'support-escalation-copilot.html', 'assets/css/site.css'];
 (async () => {
   assert.equal(process.cwd(), ROOT, 'run from the repository root: the test routes the working directory');
@@ -55,11 +57,11 @@ const BUILT = ['index.html', 'recruiter.html', 'mcp-weir.html', 'projects.html',
     for (const a of await page.locator('main a[href^="#"]').evaluateAll((as) => as.map((x) => x.getAttribute('href')).slice(0, 12))) assert.equal(await page.locator(a).count(), 1, 'anchor ' + a);
     assert.deepEqual(errors, [], label + ' console errors (weir page)'); assert.deepEqual(bad, [], label + ' failed requests (weir page)');
     /* the homepage strip */
-    await page.goto(base, { waitUntil: 'load' });
+    await leaveFor(page, base);
     const where = page.url() + ' | ' + (await page.title()); assert.equal(await page.locator('#weir').count(), 1, `homepage strip (the page at that moment: ${where})`); assert.ok(await page.locator('#weir a[href="mcp-weir.html"]').count() >= 1, 'strip links to the case study');
     await noOverflow('home'); assert.deepEqual(errors, [], label + ' console errors (home)'); assert.deepEqual(bad, [], label + ' failed requests (home)');
     /* the recruiter view lists it */
-    await page.goto(here('recruiter.html'), { waitUntil: 'load' }); assert.ok(await page.locator('a[href="mcp-weir.html"]').count() >= 1, 'recruiter view links the case study');
+    await leaveFor(page, here('recruiter.html')); assert.ok(await page.locator('a[href="mcp-weir.html"]').count() >= 1, 'recruiter view links the case study');
     /* the Weir entry on its own must fit at every width; the whole page must fit from 360 px up. At 320 px the Copilot and runtime entries (unchanged, already on the live site) overflow by 14 px because of their nowrap link row, so the page-level check starts at 360 */
     const alone = await page.evaluate(() => { const lis = [...document.querySelectorAll('.proj > li')], mine = lis.find((l) => l.querySelector('a[href="mcp-weir.html"]')); lis.forEach((l) => { l.style.display = l === mine ? '' : 'none'; }); const r = { sw: document.documentElement.scrollWidth, w: innerWidth }; lis.forEach((l) => { l.style.display = ''; }); return r; });
     assert.ok(alone.sw <= alone.w + 1, `${label}: the Weir recruiter entry alone overflows (${alone.sw} > ${alone.w})`);
