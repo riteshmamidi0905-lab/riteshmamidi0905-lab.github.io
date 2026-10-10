@@ -35,9 +35,9 @@ const BUILT = ['index.html', 'recruiter.html', 'mcp-weir.html', 'projects.html',
     /* the Control Center section: readable primary image (the phone-width capture on phones), a tabbed walk-through that works by mouse and by keyboard, and the qualifications in view */
     { await settle(); const cc = page.locator('#control-center'); await cc.scrollIntoViewIfNeeded();
       const prim = await cc.locator('.cc-main img').evaluate((i) => ({ src: i.currentSrc.split('/').pop(), w: Math.round(i.getBoundingClientRect().width), h: Math.round(i.getBoundingClientRect().height), nat: i.naturalWidth }));
-      assert.equal(prim.src, width <= 640 ? 'control-center-flow-mobile.png' : 'control-center-flow.png', `${label}: primary image source`); assert.ok(prim.nat > 0 && prim.w >= Math.min(width - 2 * 20 - 8, 300), `${label}: primary image is readable (${prim.w}px wide)`);
+      assert.equal(prim.src, width <= 860 ? 'control-center-flow-mobile.png' : 'control-center-flow.png', `${label}: primary image source`); assert.ok(prim.nat > 0 && prim.w >= Math.min(width - 2 * 20 - 8, 300), `${label}: primary image is readable (${prim.w}px wide)`);
       if (width >= 1180) assert.ok(prim.w >= 700, `${label}: primary image is large enough to read (${prim.w}px)`);
-      const secH = await cc.evaluate((e) => e.getBoundingClientRect().height); assert.ok(secH <= height * (width <= 640 ? 5.2 : 3.4), `${label}: the Control Center section (${Math.round(secH)}px) must not dominate the page`);
+      const secH = await cc.evaluate((e) => e.getBoundingClientRect().height); assert.ok(secH <= height * (width <= 860 ? 5.2 : 3.4), `${label}: the Control Center section (${Math.round(secH)}px) must not dominate the page`);
       assert.match(await cc.innerText(), /Synthetic world, real gateway/); assert.match(await cc.innerText(), /Localhost-only and experimental/); assert.match(await cc.innerText(), /Weir mediates MCP tool calls and results\. It does not inspect the model's final answer\./);
       const tabs = cc.locator('[role="tab"]'); assert.equal(await tabs.count(), 4, `${label}: four tabs`); const panels = cc.locator('.cc-step');
       const state = async () => ({ sel: await tabs.evaluateAll((t) => t.map((x) => x.getAttribute('aria-selected'))), vis: await panels.evaluateAll((p) => p.map((x) => !x.hidden && getComputedStyle(x).display !== 'none')) });

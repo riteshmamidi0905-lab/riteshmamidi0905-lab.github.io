@@ -370,4 +370,5 @@ code{font-family:var(--mono);font-size:.92em;color:var(--ac2)}
 .cc-tab:hover{border-color:var(--ac2);background:rgba(34,211,166,.08)}.cc-tab[aria-selected=true]{background:var(--ac);color:#04110d;border-color:var(--ac)}
 .cc-step[hidden]{display:none}
 @media(max-width:860px){.cc-fig img{min-width:900px}}
+@media(min-width:641px) and (max-width:860px){.cc-main{max-width:460px}} /* between phone and desktop the primary image is the phone-width capture: keep it phone-sized rather than a two-thousand-pixel column */
 @media(prefers-reduced-motion:reduce){.cc-tab{transition:none}}
