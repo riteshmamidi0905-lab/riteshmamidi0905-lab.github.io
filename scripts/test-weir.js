@@ -30,8 +30,25 @@ const BUILT = ['index.html', 'recruiter.html', 'mcp-weir.html', 'projects.html',
       assert.ok(lay.s <= lay.w + 1, `${label} ${name}: horizontal overflow ${lay.s} > ${lay.w}: ${lay.off.join(', ')}`); assert.deepEqual(lay.off, [], `${label} ${name}: elements past the right edge`); assert.deepEqual(lay.broken, [], `${label} ${name}: broken images`); };
     await page.goto(here('mcp-weir.html'), { waitUntil: 'load' });
     assert.equal(await page.locator('h1').count(), 1); assert.match(await page.locator('h1').first().innerText(), /Weir/);
-    for (const id of ['problem', 'what', 'demo', 'evaluation', 'real-model', 'failed', 'limits']) assert.equal(await page.locator('#' + id).count(), 1, 'section #' + id);
+    for (const id of ['problem', 'what', 'demo', 'control-center', 'evaluation', 'real-model', 'failed', 'limits']) assert.equal(await page.locator('#' + id).count(), 1, 'section #' + id);
     await noOverflow('weir page');
+    /* the Control Center section: readable primary image (the phone-width capture on phones), a tabbed walk-through that works by mouse and by keyboard, and the qualifications in view */
+    { await settle(); const cc = page.locator('#control-center'); await cc.scrollIntoViewIfNeeded();
+      const prim = await cc.locator('.cc-main img').evaluate((i) => ({ src: i.currentSrc.split('/').pop(), w: Math.round(i.getBoundingClientRect().width), h: Math.round(i.getBoundingClientRect().height), nat: i.naturalWidth }));
+      assert.equal(prim.src, width <= 640 ? 'control-center-flow-mobile.png' : 'control-center-flow.png', `${label}: primary image source`); assert.ok(prim.nat > 0 && prim.w >= Math.min(width - 2 * 20 - 8, 300), `${label}: primary image is readable (${prim.w}px wide)`);
+      if (width >= 1180) assert.ok(prim.w >= 700, `${label}: primary image is large enough to read (${prim.w}px)`);
+      const secH = await cc.evaluate((e) => e.getBoundingClientRect().height); assert.ok(secH <= height * (width <= 640 ? 5.2 : 3.4), `${label}: the Control Center section (${Math.round(secH)}px) must not dominate the page`);
+      assert.match(await cc.innerText(), /Synthetic world, real gateway/); assert.match(await cc.innerText(), /Localhost-only and experimental/); assert.match(await cc.innerText(), /Weir mediates MCP tool calls and results\. It does not inspect the model's final answer\./);
+      const tabs = cc.locator('[role="tab"]'); assert.equal(await tabs.count(), 4, `${label}: four tabs`); const panels = cc.locator('.cc-step');
+      const state = async () => ({ sel: await tabs.evaluateAll((t) => t.map((x) => x.getAttribute('aria-selected'))), vis: await panels.evaluateAll((p) => p.map((x) => !x.hidden && getComputedStyle(x).display !== 'none')) });
+      assert.deepEqual(await state(), { sel: ['true', 'false', 'false', 'false'], vis: [true, false, false, false] }, `${label}: first tab selected`);
+      for (let i = 1; i < 4; i++) { const box = await tabs.nth(i).boundingBox(); assert.ok(box.height >= 43.5, `${label}: tab ${i} is at least 44px tall (${box.height})`); await tabs.nth(i).click(); const st = await state(); assert.equal(st.vis.filter(Boolean).length, 1); assert.ok(st.vis[i] && st.sel[i] === 'true', `${label}: clicking tab ${i} shows its panel`);
+        await settle(); assert.ok(await panels.nth(i).locator('img').evaluate((m) => m.complete && m.naturalWidth > 0), `${label}: panel ${i} image loads`); }
+      await tabs.nth(0).click(); await tabs.nth(0).focus(); await page.keyboard.press('ArrowRight'); assert.ok((await state()).vis[1], `${label}: ArrowRight`); assert.equal(await page.evaluate(() => document.activeElement.id), 'cc-tab-1');
+      await page.keyboard.press('End'); assert.ok((await state()).vis[3], `${label}: End`); await page.keyboard.press('ArrowRight'); assert.ok((await state()).vis[0], `${label}: ArrowRight wraps`); await page.keyboard.press('ArrowLeft'); assert.ok((await state()).vis[3], `${label}: ArrowLeft wraps`); await page.keyboard.press('Home'); assert.ok((await state()).vis[0], `${label}: Home`);
+      assert.equal(await page.locator('.cc-tab[aria-selected="false"]').first().getAttribute('tabindex'), '-1', 'roving tabindex');
+      await tabs.nth(0).focus(); await page.keyboard.press('Tab'); assert.ok(await page.evaluate(() => !!document.activeElement.closest('.cc-step') || document.activeElement.classList.contains('cc-fig')), `${label}: Tab from the selected tab reaches the visible screenshot`);
+      await tabs.nth(0).click(); }
     /* wide screenshots scroll sideways on narrow screens and can be reached by keyboard; tables read as stacked cards */
     if (width <= 860) { const figs = page.locator('.weir-fig'); const n = await figs.count(); assert.ok(n >= 2, 'wide figures are scrollable'); for (let i = 0; i < n; i++) { assert.equal(await figs.nth(i).getAttribute('tabindex'), '0'); } const cap = await page.locator('.weir-tbl caption').first().boundingBox(); assert.ok(cap.width > width * 0.6, `${label}: table caption is squeezed to ${cap.width}px`); }
     /* anchors in the page navigation land on their sections */
@@ -49,6 +66,10 @@ const BUILT = ['index.html', 'recruiter.html', 'mcp-weir.html', 'projects.html',
     if (width >= 360) await noOverflow('recruiter');
     await ctx.close();
   }
+  /* without JavaScript the walk-through is a plain list: all four screenshots are visible and there are no tabs */
+  { const ctx = await browser.newContext({ viewport: { width: 1180, height: 760 }, javaScriptEnabled: false }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(here('mcp-weir.html'), { waitUntil: 'load' });
+    assert.equal(await page.locator('#control-center [role="tab"]').count(), 0); assert.equal(await page.locator('#control-center .cc-step:visible').count(), 4, 'all four screenshots are listed without JavaScript');
+    assert.equal(await page.locator('#control-center .cc-step[hidden]').count(), 0); await ctx.close(); }
   await browser.close();
-  console.log('PASS: Weir browser checks (' + mode + '; served bytes = built bytes for ' + BUILT.length + ' files; 404 detector; 5 widths: layout, overflow, images, console, focus, anchors, homepage strip, recruiter view)');
+  console.log('PASS: Weir browser checks (' + mode + '; served bytes = built bytes for ' + BUILT.length + ' files; 404 detector; 5 widths: layout, overflow, images, console, focus, anchors, Control Center section and gallery by mouse and keyboard, no-JavaScript fallback, homepage strip, recruiter view)');
 })().catch((e) => { console.error(e); process.exit(1); });

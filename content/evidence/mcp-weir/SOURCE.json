@@ -1,6 +1,6 @@
 {
  "repo": "riteshmamidi0905-lab/mcp-weir",
- "sha": "2da6c195cf09bac19aa50e1292d93aa405e8516f",
+ "sha": "5df274563a4a73ebbd31a6380e3a7d829b6bf4a2",
  "note": "Vendored byte-for-byte from the public repository at this commit by scripts/sync-weir-evidence.js. The Weir page is checked against these files by scripts/check-weir.js; npm run verify:evidence re-hashes them and --online re-fetches them from the pinned commit.",
  "files": {
   "headline.json": {
