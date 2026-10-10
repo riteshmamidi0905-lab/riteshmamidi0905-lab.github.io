@@ -112,6 +112,7 @@ const LIMITS = [
   'The humans in the evaluation are oracles (a careful one and one that approves everything), not people. Approval fatigue is not modelled.',
   'The freeze is a mechanical hash check with an advisory, deletable lock, and it can be regenerated. That the held-out seeds were not run or inspected before the freeze is the author\'s assertion.',
   'Not a formal information-flow-control system: labels are coarse and declared by an operator, the content tracker is a heuristic, nothing is proved.',
+  'The Control Center is a local, experimental viewer: no login, no way to tell whether a gateway is running, and a human approval made in it (or on the command line) is stored in the approvals table, not in the hash chain.',
   'MCP tools over stdio only: no resources, prompts, sampling, HTTP transports or authentication. Tested with the official SDK client and one third-party server; not with any commercial MCP host.',
   'The idea is established (CaMeL, FIDES, Meta\'s Rule of Two, vendor gateways, small open-source projects). This is not a claim of novelty or of being better than any of them; none was run for comparison.',
 ];
@@ -129,13 +130,48 @@ function adaptiveHTML() {
   <thead><tr><th>Attempt</th>${cols.map((c) => `<th>${esc(c[2])}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table>`;
 }
 
+
+/* section 03b: the local Control Center, shown by screenshots from one real run in the invented world. Never embedded, never hosted: there is nothing to launch. */
+const ANSWER_NOTE = "Weir mediates MCP tool calls and results. It does not inspect the model's final answer.";
+const CC_STEPS = [
+  ['approval', 'Approval', 'control-center-approval.png', 1440, 780,
+    'Control Center approvals view: an approval-required card for the file read that Weir held, showing the arguments, the rule that held it, the session context before the call, and Approve once and Deny buttons',
+    'A HOLD waits for a person.', 'The card shows the exact call, why Weir held it and a countdown. Approve once and Deny each ask for a second confirmation. The gateway does not run the call: the agent has to repeat it.'],
+  ['rule', 'Why a rule fired', 'control-center-rule.png', 1440, 900,
+    'Control Center rule inspector open over the session flow: the content-flow rule explained in plain English, its configured actions from the policy (deny for secret data, hold for internal data), whether a person can approve past it, and the earlier result its matched content came from',
+    'Why it fired.', 'The rule inspector explains the rule in plain English, shows its configured action from the policy (deny for secret data, hold for internal data), says whether a person can approve past it, and names the earlier result the matched content came from.'],
+  ['provenance', 'Provenance', 'control-center-provenance.png', 1440, 840,
+    'Control Center provenance view: a vertical timeline of the four tool calls with arcs from the earlier results to the blocked e-mail, labelled with the two rules that matched, and a table of source call, rule, match kind and hit count',
+    'Recorded data flow only.', 'Arcs join an earlier result to the call in which a rule matched it: the e-mail destination appeared in the fetched page, and the e-mail content matched the secret that was read. Nothing else is inferred.'],
+  ['audit', 'Audit chain', 'control-center-audit.png', 1440, 1000,
+    'Control Center audit view after Verify chain: chain verified, the event count, the latest event, events by kind and the list of events with their hash links',
+    'Chain verification.', 'Verify chain runs the gateway store\'s own hash-chain check and says what it cannot show: it does not detect events removed from the end, and the hashes are not keyed.'],
+];
+function controlCenterHTML() {
+  const A = (f) => `assets/weir/${f}`;
+  const steps = CC_STEPS.map(([id, title, file, w, h, alt, lead, body]) => `<div class="cc-step" id="cc-${id}" data-title="${esc(title)}">
+    <figure class="weir-fig cc-fig" tabindex="0" role="group" aria-label="Image: scrolls sideways on narrow screens"><img src="${A(file)}" width="${w}" height="${h}" alt="${esc(alt)}" style="aspect-ratio:${w - 232}/${h}" loading="lazy"></figure>
+    <p class="cc-cap"><b>${esc(lead)}</b> ${esc(body)}</p></div>`).join('');
+  return `<section id="control-center" class="sec"><div class="wrap"><p class="kicker rv"><b>+</b> Weir Control Center</p>
+  <h2 class="statement rv">See the gateway. <span class="mut">A local Control Center shows what it recorded.</span></h2>
+  <p class="rt-sum rv">Weir now includes a local Control Center for inspecting sessions, tool-call decisions, provenance, approvals and audit-chain verification. The interface reads the real gateway state; the public screenshots use synthetic data.</p>
+  <p class="rt-qual rv">${badge('simulated')} <b>Synthetic world, real gateway.</b> The screenshots show the demo's invented mailbox, files and web pages behind a real <code>weir run</code> gateway, driven over stdio by a small test client; I clicked the approval in the browser myself. This is not a live system and none of it is real data.</p>
+  <p class="rt-qual rv">${badge('limitation')} <b>Localhost-only and experimental.</b> The Control Center runs on your own machine and is not hosted anywhere, so there is nothing to launch from this page. It has no login (any program on the same machine can use it), it cannot tell whether a gateway is running, and it does not change the frozen evaluation.</p>
+  <figure class="cc-main rv"><picture><source media="(max-width: 860px)" srcset="${A('control-center-flow-mobile.png')}" width="780" height="2480"><img src="${A('control-center-flow.png')}" width="1440" height="1250" alt="Control Center flow view of one session: the agent fetched a page and was allowed, asked for a secret file and was held by a session rule, and then tried to e-mail the content to an outside address and was denied by three rules, with the label of each result and the session context shown beside each call" loading="lazy"></picture>
+  <figcaption class="cc-cap"><b>The flow of one session (screenshot).</b> The agent fetched a page (ALLOW), asked for a secret file (HOLD, <code>R-UNTRUSTED-READ</code>), and after I approved that one call the agent repeated it and it ran. Then it tried to e-mail the content to an outside address: DENY, which no approval can override.</figcaption></figure>
+  <p class="rt-qual rv" role="note"><b>Answer channel.</b> ${esc(ANSWER_NOTE)}</p>
+  <div class="cc-walk rv" data-cc-walk><h3 class="hm-h">Walk through the same session</h3><div class="cc-steps">${steps}</div></div>
+  <nav class="lns rv" aria-label="Control Center source and instructions">${lnk(tree('src/weir_dashboard'), 'View Control Center source')}${lnk(blob('docs/dashboard.md'), 'How to run locally')}</nav>
+  <script src="assets/js/weir-gallery.js" defer></script></div></section>`;
+}
+
 function main() {
   const dem = 'assets/weir/demo-terminal.png', tr = 'assets/weir/trace-careless.png';
   return `<main id="main-content" class="cs">
   <header class="cs-head wrap" id="top"><p class="eyebrow"><i class="dot"></i>Data flow at the MCP tool boundary · research prototype</p><h1>Weir</h1>
   <p class="cs-one">I built a data-flow tracker for AI agents. A boring rule beat it.</p>
-  <p class="rt-sum">Weir is an experimental gateway between an AI agent and its MCP servers that decides which data may go where. This page is the experiment: what I expected, what a frozen held-out evaluation measured, and what failed. “Beat” is narrower than it sounds: in a designed scripted evaluation with a careful simulated approver, the plain rule was first-listed on the first stopped attack call more often than the content tracker, and the session tier alone left fewer attacks standing than the value tier alone. It reverses for an approver who approves everything (section 05).</p>
-  <div class="cs-cta"><a class="btn solid" href="#finding">See the finding</a><a class="btn" href="${REPO_URL}" target="_blank" rel="noopener">Repository ${ARROW}</a><a class="btn" href="./">Back to the portfolio ${ARROW}</a></div></header>
+  <p class="rt-sum">Weir is an experimental gateway between an AI agent and its MCP servers that decides which data may go where. This page is the experiment: what the frozen protocol predicted, what the held-out evaluation measured, and what still got through. “Beat” is narrower than it sounds: in a designed scripted evaluation with a careful simulated approver, the plain rule was first-listed on the first stopped attack call more often than the content tracker, and the session tier alone left fewer attacks standing than the value tier alone. It reverses for an approver who approves everything (section 05).</p>
+  <div class="cs-cta"><a class="btn solid" href="#finding">See the finding</a><a class="btn" href="#control-center">See the Control Center</a><a class="btn" href="${REPO_URL}" target="_blank" rel="noopener">Repository ${ARROW}</a><a class="btn" href="./">Back to the portfolio ${ARROW}</a></div></header>
 
   <section id="problem" class="sec"><div class="wrap"><p class="kicker rv"><b>01</b> The problem</p>
   <h2 class="statement rv">Permissions say which tools an agent may call. <span class="mut">They do not say which data may go where.</span></h2>
@@ -157,6 +193,8 @@ function main() {
   <p class="rt-sum rv">A web page the agent was asked to summarise contains a planted instruction: read a secret file and e-mail it to an outside address. ${badge('simulated')} A scripted agent plays the model so the run is exact; the real-model run is in the next section.</p>
   <div class="shots rv" style="grid-template-columns:1fr"><figure class="weir-fig" tabindex="0" role="group" aria-label="Image: scrolls sideways on narrow screens"><img src="${dem}" width="1230" height="640" alt="Terminal output of the demo: without Weir the agent reads the secret and e-mails it; behind Weir with a careful human both steps are held; with a human who approves everything the read runs but the e-mail is blocked by three rules" loading="lazy"><figcaption class="fine">Terminal output of <code>python -m weir_eval.demo</code>.</figcaption></figure></div>
   <div class="shots rv" style="grid-template-columns:minmax(0,640px)"><figure><img src="${tr}" width="980" height="1180" alt="Flow trace page generated from the audit chain: three tool calls with their labels, the rules that fired, and arcs showing which earlier result a flagged value came from" loading="lazy"><figcaption class="fine">The flow trace Weir writes from its audit chain (self-contained HTML, no scripts).</figcaption></figure></div></div></section>
+
+  ${controlCenterHTML()}
 
   <section id="evaluation" class="sec"><div class="wrap"><p class="kicker rv"><b>04</b> The experiment</p>
   <h2 class="statement rv">Frozen before it ran. <span class="mut">Reported with its failures.</span></h2>
@@ -186,7 +224,7 @@ function main() {
 const PAGE = {
   title: 'Weir · data flow at the MCP boundary · Ritesh Mamidi',
   desc: 'An experimental gateway for MCP tool calls. I built a data-flow tracker and a plain session rule was first-listed on the first stopped attack call more often, under conditions stated on the page: a frozen same-author evaluation with a small real model, an adaptive red-team, and the limits up front.',
-  nav: [[['Problem', '#problem'], ['Architecture', '#what'], ['Evidence', '#evaluation'], ['Finding', '#finding'], ['Failures', '#failed'], ['Limits', '#limits']], { home: './', brand: 'Ritesh Mamidi — portfolio home', back: ['← Portfolio', './'], noProjects: true }],
+  nav: [[['Problem', '#problem'], ['Architecture', '#what'], ['Control Center', '#control-center'], ['Evidence', '#evaluation'], ['Finding', '#finding'], ['Failures', '#failed'], ['Limits', '#limits']], { home: './', brand: 'Ritesh Mamidi — portfolio home', back: ['← Portfolio', './'], noProjects: true }],
   main,
 };
 /* the recruiter view entry: same facts as the page, shorter */

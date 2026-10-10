@@ -13,7 +13,7 @@ assert.equal(document.querySelectorAll('h1').length, 1, 'one h1'); assert.equal(
 const ids = [...document.querySelectorAll('[id]')].map((e) => e.id); assert.equal(new Set(ids).size, ids.length, 'unique ids');
 for (const a of document.querySelectorAll('a[href^="#"]')) assert.ok(document.getElementById(a.getAttribute('href').slice(1)), 'dead anchor ' + a.getAttribute('href'));
 for (const img of document.querySelectorAll('img')) { assert.ok(img.hasAttribute('alt') && img.getAttribute('alt').length > 20, 'descriptive alt'); assert.ok(img.hasAttribute('width') && img.hasAttribute('height')); assert.ok(fs.existsSync(path.join(__dirname, '..', img.getAttribute('src'))), 'image exists: ' + img.getAttribute('src')); }
-for (const s of ['problem', 'what', 'demo', 'evaluation', 'failed', 'limits']) assert.ok(document.getElementById(s), 'section ' + s);
+for (const s of ['problem', 'what', 'demo', 'control-center', 'evaluation', 'failed', 'limits']) assert.ok(document.getElementById(s), 'section ' + s);
 
 /* the evidence labels: all four classes appear, and the page never shows a result without a qualification near it */
 for (const b of ['verified', 'simulated', 'limitation', 'not-evaluated']) assert.ok(document.querySelector('.ev-' + b), 'badge ' + b);
@@ -46,4 +46,27 @@ assert.equal(W.H.equivalence.agree, W.H.equivalence.total, 'equivalence is compl
 /* links: the repository only, at the pinned commit or default branch; external prior-art links are not used */
 for (const a of document.querySelectorAll('main a[href^="http"]')) assert.ok(a.href.startsWith('https://github.com/riteshmamidi0905-lab/mcp-weir'), 'unexpected external link ' + a.href);
 assert.match(W.SOURCE.sha, /^[0-9a-f]{40}$/); assert.notEqual(W.SOURCE.sha, '0'.repeat(40), 'evidence is pinned to a real commit');
-console.log('PASS: Weir page (structure, labels, disclosures, wording, numbers traced to the pinned evidence, links)');
+/* the Control Center section: screenshots only, qualified, never a launch link, answer-channel limitation beside it, no stale framing */
+const html = read('mcp-weir.html'), cc = document.getElementById('control-center'); assert.ok(cc, 'Control Center section exists');
+const ccText = vis(cc), order = [...document.querySelectorAll('main > section')].map((x) => x.id);
+assert.ok(order.indexOf('control-center') > order.indexOf('demo') && order.indexOf('control-center') < order.indexOf('evaluation'), 'the Control Center follows the demo and precedes the experiment: ' + order.join(','));
+for (const [re, why] of [[/Synthetic world, real gateway/, 'synthetic qualification'], [/Localhost-only/, 'localhost-only qualification'], [/experimental/i, 'experimental qualification'], [/not hosted anywhere/, 'not hosted'], [/does not change the frozen evaluation/, 'frozen evaluation unchanged'], [/none of it is real data/, 'no real data'], [/for inspecting sessions, tool-call decisions, provenance, approvals and audit-chain verification/, 'what it does']]) assert.ok(re.test(ccText), 'Control Center copy missing: ' + why);
+assert.ok(ccText.includes("Weir mediates MCP tool calls and results. It does not inspect the model's final answer."), 'the answer-channel limitation sits in the Control Center section');
+assert.ok(!/launch (the )?(dash|control)|open (the )?dashboard|live demo|try it (live|online)|sign in|log in/i.test(text), 'no launch call to action');
+assert.ok(!/production (dashboard|observability|monitoring)|control plane|security (console|dashboard)|real-time (production )?monitoring|enterprise|saas|monitoring platform/i.test(ccText), 'no production, security-console or hosted-product wording');
+assert.ok(!/what I expected|\bI expected\b|surprise/i.test(text) && /what the frozen protocol predicted, what the held-out evaluation measured, and what still got through/.test(text), 'the hero says what the frozen protocol predicted (no stale expectation framing)');
+assert.ok(!/\/private\/tmp|\/Users\/|claude-501|weir-token|X-Weir|\bap_[0-9a-f]{8}\b/.test(html), 'no local path, run token or approval id in the page');
+const ccLinks = [...cc.querySelectorAll('a[href^="http"]')].map((a) => [a.textContent.replace(/\s+/g, ' ').trim(), a.getAttribute('href')]);
+assert.deepEqual(ccLinks.map((l) => l[0]), ['View Control Center source', 'How to run locally'], 'exactly the two source and docs links');
+assert.equal(ccLinks[0][1], `https://github.com/riteshmamidi0905-lab/mcp-weir/tree/${W.SOURCE.sha}/src/weir_dashboard`); assert.equal(ccLinks[1][1], `https://github.com/riteshmamidi0905-lab/mcp-weir/blob/${W.SOURCE.sha}/docs/dashboard.md`);
+const vendored = JSON.parse(read('assets/weir/SOURCE.json')).files, ccImgs = [...cc.querySelectorAll('img')], ccSrcs = [...ccImgs.map((i) => i.getAttribute('src')), ...[...cc.querySelectorAll('source')].map((x) => x.getAttribute('srcset'))];
+assert.equal(ccImgs.length, 5, 'one primary image and four walk-through images'); assert.equal(ccSrcs.length, 6, 'plus the phone-width source of the primary image');
+for (const src of ccSrcs) { assert.match(src, /^assets\/weir\/control-center-[a-z-]+\.png$/); assert.ok(vendored[path.basename(src)], 'screenshot is vendored from the pinned commit: ' + src); }
+for (const img of ccImgs) assert.ok(img.getAttribute('alt').length > 60, 'Control Center screenshots have descriptive alt text');
+assert.equal(cc.querySelectorAll('[data-cc-walk] .cc-step').length, 4, 'four steps in the walk-through'); for (const f of cc.querySelectorAll('.cc-fig')) assert.equal(f.getAttribute('tabindex'), '0');
+assert.ok(cc.querySelector('script[src="assets/js/weir-gallery.js"]') && fs.existsSync(path.join(__dirname, '..', 'assets/js/weir-gallery.js')), 'gallery script is the one local file');
+assert.ok(/does not inspect the model/.test(ccText) && /Not new|not hosted/.test(ccText + text));
+assert.ok([...document.querySelectorAll('.lns a')].every((a) => !/launch/i.test(a.textContent)), 'no link is labelled as a launch');
+assert.ok(text.includes('The Control Center is a local, experimental viewer') && /not in the hash chain/.test(text), 'the Control Center limitation is in the limits list');
+
+console.log('PASS: Weir page (structure, labels, disclosures, wording, numbers traced to the pinned evidence, links, Control Center section)');

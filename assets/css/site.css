@@ -358,3 +358,17 @@ code{font-family:var(--mono);font-size:.92em;color:var(--ac2)}
 /* Weir homepage strip: a compact evidence strip, not a flagship section */
 #weir.sec{padding-top:clamp(36px,6vh,60px);padding-bottom:clamp(36px,6vh,60px)}
 #weir .cp-stats{margin-top:clamp(14px,2.5vh,24px)}
+
+/* ---------- Weir Control Center section (screenshots only; the gallery is a progressive enhancement of a plain list) ---------- */
+.cc-main{margin:clamp(24px,4vh,40px) 0 0;max-width:1000px}.cc-main img{width:100%;height:auto;border:1px solid var(--line2);border-radius:12px;background:#fff}
+.cc-cap{margin-top:10px;font-size:14px;line-height:1.5;color:var(--mut);max-width:78ch}.cc-cap b{color:var(--tx);font-weight:600}.cc-cap code{font-size:12.5px}
+.cc-main+.rt-qual{margin-top:22px}
+.cc-walk{margin-top:clamp(28px,5vh,44px);max-width:1000px}.cc-step+.cc-step{margin-top:30px}
+.cc-fig{margin:10px 0 0}.cc-fig img{width:100%;height:auto;object-fit:cover;object-position:100% 0;border:1px solid var(--line2);border-radius:12px;background:#fff} /* the walk-through screenshots are shown without the app's left rail (the 232px at the left of a 1440px capture): the primary image keeps it */
+.cc-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.cc-tab{font:600 14px var(--sans);min-height:44px;padding:0 18px;border-radius:99px;border:1px solid var(--line2);background:rgba(255,255,255,.02);color:var(--tx);cursor:pointer;transition:border-color .2s,background .2s}
+.cc-tab:hover{border-color:var(--ac2);background:rgba(34,211,166,.08)}.cc-tab[aria-selected=true]{background:var(--ac);color:#04110d;border-color:var(--ac)}
+.cc-step[hidden]{display:none}
+@media(max-width:860px){.cc-fig img{min-width:900px}}
+@media(min-width:641px) and (max-width:860px){.cc-main{max-width:460px}} /* between phone and desktop the primary image is the phone-width capture: keep it phone-sized rather than a two-thousand-pixel column */
+@media(prefers-reduced-motion:reduce){.cc-tab{transition:none}}
