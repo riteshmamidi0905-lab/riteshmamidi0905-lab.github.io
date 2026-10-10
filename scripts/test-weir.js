@@ -56,7 +56,7 @@ const BUILT = ['index.html', 'recruiter.html', 'mcp-weir.html', 'projects.html',
     assert.deepEqual(errors, [], label + ' console errors (weir page)'); assert.deepEqual(bad, [], label + ' failed requests (weir page)');
     /* the homepage strip */
     await page.goto(base, { waitUntil: 'load' });
-    assert.equal(await page.locator('#weir').count(), 1, 'homepage strip'); assert.ok(await page.locator('#weir a[href="mcp-weir.html"]').count() >= 1, 'strip links to the case study');
+    const where = page.url() + ' | ' + (await page.title()); assert.equal(await page.locator('#weir').count(), 1, `homepage strip (the page at that moment: ${where})`); assert.ok(await page.locator('#weir a[href="mcp-weir.html"]').count() >= 1, 'strip links to the case study');
     await noOverflow('home'); assert.deepEqual(errors, [], label + ' console errors (home)'); assert.deepEqual(bad, [], label + ' failed requests (home)');
     /* the recruiter view lists it */
     await page.goto(here('recruiter.html'), { waitUntil: 'load' }); assert.ok(await page.locator('a[href="mcp-weir.html"]').count() >= 1, 'recruiter view links the case study');
