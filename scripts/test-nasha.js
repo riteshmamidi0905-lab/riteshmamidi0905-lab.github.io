@@ -45,7 +45,9 @@ const ROOT = path.join(__dirname, '..'), sha = (b) => crypto.createHash('sha256'
     await page.locator('.cs-cta .btn').first().focus(); await page.keyboard.press('Shift+Tab'); await page.keyboard.press('Tab'); const outline = await page.locator('.cs-cta .btn').first().evaluate((e) => getComputedStyle(e).outlineStyle); assert.notEqual(outline, 'none', `${label}: focus ring`);
     assert.deepEqual(errors, [], label + ' console errors'); assert.deepEqual(bad, [], label + ' failed requests');
     /* homepage strip */
-    await page.goto(base, { waitUntil: 'load' }); await settle(); const strip = page.locator('#nasha-lab'); assert.equal(await strip.count(), 1); assert.match(await strip.innerText(), /Independent founder concept, synthetic data/); await strip.locator('a[href="nasha-lab.html"]').scrollIntoViewIfNeeded();
+    /* leaving a page can be overridden by the site's reduced-motion reload (see test-weir leaveFor); retry until the homepage is on screen */
+    for (let i = 0; i < 5; i++) { await page.goto(base, { waitUntil: 'load' }); await page.waitForTimeout(250); if (new URL(page.url()).pathname === new URL(base).pathname || new URL(page.url()).pathname === '/index.html') break; }
+    await settle(); const strip = page.locator('#nasha-lab'); assert.equal(await strip.count(), 1); assert.match(await strip.innerText(), /Independent founder concept, synthetic data/); await strip.locator('a[href="nasha-lab.html"]').scrollIntoViewIfNeeded();
     assert.deepEqual(errors, [], label + ' console errors (home)'); await ctx.close();
   }
   /* JavaScript disabled: every panel, table and step is readable */
