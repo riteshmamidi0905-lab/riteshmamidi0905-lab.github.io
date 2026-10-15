@@ -51,6 +51,6 @@ const ROOT = path.join(__dirname, '..'), sha = (b) => crypto.createHash('sha256'
   /* JavaScript disabled: every panel, table and step is readable */
   { const ctx = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1280, height: 900 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(here('nasha-lab.html'), { waitUntil: 'load' });
     assert.equal(await page.locator('.nx-pn:visible').count(), 10, 'no JS: all ten stage panels are shown'); assert.ok(await page.locator('.nx-sb:visible').count() === 3 && await page.locator('.nx-tp:visible').count() === 8, 'no JS: all steps shown'); assert.ok(await page.locator('table:visible').count() >= 4, 'no JS: tables shown');
-    assert.match(await page.locator('#results').innerText(), /The LLM didn't win/); await ctx.close(); }
+    assert.match(await page.locator('#results').innerText(), /The small local LLMs didn't win here/); await ctx.close(); }
   await browser.close(); console.log('PASS: NASHA page browser regression (served bytes, five widths, interactions by pointer and keyboard, no-JS fallback, console clean)');
 })().catch((e) => { console.error(e); process.exit(1); });

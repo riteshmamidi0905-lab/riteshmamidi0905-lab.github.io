@@ -33,16 +33,21 @@ assert.equal(doc.querySelectorAll('main [style*="font-size"]').length, 0);
 /* 3 · disclosure and what the page must not imply */
 assert.match(T, /Independent founder concept \+ synthetic enterprise simulation/); assert.match(T, /not a live operating restaurant/); assert.match(T, /no customers, revenue, suppliers, orders or production deployment/i);
 assert.match(T, /not employment/i); assert.match(T, /same author|one author/i); assert.match(T, /not independent/i); assert.match(T, /working name/);
-const BAN = [/independently validated/i, /production[- ]ready/i, /deployed (in|to) production/i, /our customers|real customers|paying customers|serves customers/i, /\brevenue of\b/i, /LLMs? (are|is) (worse|inferior|bad) (than|in general)/i, /neural retrieval is (worse|inferior)/i, /beats? (all )?(GPT|Claude|frontier)/i, /™|®/, /\bwe (built|ran|tested)\b/i,
+const BAN = [/\bLLMs? (lose|lost|fail|loses)\b(?! here)(?!.{0,40}(these|this|on))/i, /\bBM25 (is|was) (better|best|superior)\b(?!.{0,60}(this|these|corpus|benchmark))/i, /\b100% (real[- ]world )?accura/i, /\b(is|as) an? (operating|live|real) (company|business|restaurant)\b(?<!not an? (operating|live|real) (company|business|restaurant))/i, /\b(are|is|show|shows|prove|proves|demonstrate|demonstrates|deliver|delivers|delivered|drove|achieved|generated) (a |the |real )?business (outcomes?|results?|impact)\b/i, /independently validated/i, /production[- ]ready/i, /deployed (in|to) production/i, /our customers|real customers|paying customers|serves customers/i, /\brevenue of\b/i, /LLMs? (are|is) (worse|inferior|bad) (than|in general)/i, /neural retrieval is (worse|inferior)/i, /beats? (all )?(GPT|Claude|frontier)/i, /™|®/, /\bwe (built|ran|tested)\b/i,
   /(Principal|Staff|Senior) (Engineer|AI)/i, /employer|client results/i];
 const TB = T.replace(/not a claim that neural retrieval is worse in general/gi, '').replace(/not a claim about LLMs in general/gi, '');
 for (const re of BAN) if (re.test(TB) && !(re.source === 'employer|client results' && /not (employer|employment)/i.test(T))) assert.ok(false, 'banned wording on the NASHA page: ' + re);
+/* the five misreadings are also banned on the homepage, recruiter view, profile README and the LinkedIn draft */
+{ const MIS = BAN.slice(0, 5); const other = { 'index.html': 1, 'recruiter.html': 1, 'profile/README.md': 1, 'content/linkedin-drafts.md': 1 };
+  for (const f of Object.keys(other)) { const fp = path.join(__dirname, '..', f); if (!fs.existsSync(fp)) continue; const txt = fs.readFileSync(fp, 'utf8').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    for (const re of MIS) assert.ok(!re.test(txt), 'misreading wording in ' + f + ': ' + re);
+    assert.ok(!/It lost\./.test(txt), f + ': the bare "It lost." hook overstates the result; say which planner, which scenarios'); } }
 for (let i = T.search(/halal/i); i >= 0 && i < T.length; i = T.indexOf('halal', i + 1)) { if (i < 0) break; assert.ok(/no halal/i.test(T.slice(Math.max(0, i - 14), i + 5)), 'halal appears only as "no halal claim"'); }
 for (let i = T.indexOf('Gobi Taco'); i >= 0; i = T.indexOf('Gobi Taco', i + 1)) assert.ok(/history|historical|older|superseded/i.test(T.slice(Math.max(0, i - 140), i + 140)), '"Gobi Taco" only as labelled history');
 assert.ok(!/Mango Habanero Gobi[^.]{0,60}\btaco\b/i.test(T.replace(/not a taco/gi, '').replace(/"Gobi Taco"/g, '')), 'Mango Habanero Gobi is not described as a taco');
 for (const p of N.LEDGER.prohibited_claims) assert.ok(typeof p === 'string' && p.length > 10);
 /* the page states the key framing and limits */
-assert.match(T, /The LLM didn't win/); assert.match(T, /simplest system that satisfies the reliability requirement/); assert.match(T, /not a claim that neural retrieval is worse in general/i);
+assert.match(T, /The small local LLMs didn't win here/); assert.match(T, /simplest system that satisfies the reliability requirement/); assert.match(T, /not a claim that neural retrieval is worse in general/i);
 assert.match(T, /The model does not own the permission system/i); assert.match(T, /MODEL INVENTS A KEY/); assert.match(T, /MODEL APPEARS GROUNDED/); assert.match(T, /Only successful trusted tool results can establish grounding/);
 
 /* 4 · numbers: every figure traces to the vendored evidence or a small structural allow-list */

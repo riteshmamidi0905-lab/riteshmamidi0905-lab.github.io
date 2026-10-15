@@ -59,7 +59,7 @@ function proofHTML() {
     <li><a href="#copilot"><i class="layer">I build AI agents</i><b>Support Escalation Copilot</b><span>${CPR.badge('verified')} Approval-gated agentic workflow · deterministic controls · real-model evaluation published</span><span>${CPR.badge('simulated')} Fictional customer · default model is a stand-in, not an LLM</span></a></li>
     <li><a href="#runtime"><i class="layer">I build the infrastructure they run on</i><b>AI Agent Runtime · Agent Runtime Benchmark</b><span>${CPR.badge('verified')} Reusable agent runtime · benchmarked with a real model</span><span>${CPR.badge('limitation')} The benchmark found an information-flow gap (MT-02) its controls did not cover</span></a></li>
     <li><a href="#evaluation"><i class="layer">I evaluate how they fail</i><b>llmeval · MAREF</b><span>${CPR.badge('verified')} llmeval: tested metric suite with hard gates</span><span>${CPR.badge('limitation')} MAREF: Research prototype · ${esc(EVAL.maref.card.title.split(' · ').pop())}</span></a></li>
-    <li><a href="#nasha-lab"><i class="layer">I put it together and measure it</i><b>NASHA AI Operations Lab</b><span>${CPR.badge('simulated')} Synthetic enterprise · the LLM planner did not win · not employment</span></a></li>
+    <li><a href="#nasha-lab"><i class="layer">I put it together and measure it</i><b>NASHA AI Operations Lab</b><span>${CPR.badge('simulated')} Synthetic enterprise · a deterministic planner beat small local LLMs on synthetic scenarios · not employment</span></a></li>
     <li class="pro"><a href="#experience"><b>Professional · Data &amp; AI Analyst</b><span>Apple (client engagement) · AI/ML quality, data and operational analysis</span></a></li>
   </ul>`;
 }
@@ -287,7 +287,7 @@ function progressionHTML(prefix) {
 const rich = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
 function experienceHTML() {
   const items = site.experience.map((e) => `<li class="role rv"><div class="role-when"><span>${esc(e.when)}</span>${e.current ? '<i class="cur">current</i>' : ''}</div>
-    <div><p class="role-co">${esc(e.org)}</p><h3>${esc(e.role)}</h3><p class="role-org">${esc(e.where)}</p>${e.focus ? `<p class="focus" aria-label="Focus">${e.focus.map((f) => `<i>${esc(f)}</i>`).join('')}</p>` : ''}<ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></li>`).join('');
+    <div><p class="role-co">${esc(e.org)}</p><h3>${esc(e.role)}</h3><p class="role-org">${esc(e.where)}</p><ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div></li>`).join('');
   return `<section id="experience" class="sec" aria-labelledby="exp-t"><div class="wrap">
   <p class="kicker rv"><b>Experience</b> Professional work</p>
   <h2 id="exp-t" class="hm-title rv">${esc(site.experienceHeading)}</h2>
@@ -302,7 +302,7 @@ function experienceHTML() {
 function alsoBuiltHTML() {
   const card = (r, line) => {
     const p = P_BY[r], fl = FLAG.some((f) => f.r === r);
-    return `<li class="ab-card rv"><h4>${esc(p.n)}</h4><p>${esc(line)}</p><p class="ab-t">${p.t.map((t) => `<i>${esc(t)}</i>`).join('')}</p>
+    return `<li class="ab-card rv"><h4>${esc(p.n)}</h4><p>${esc(line)}</p>
       <p class="ab-l"><a href="${GH}${r}" target="_blank" rel="noopener" aria-label="${esc(p.n)} on GitHub">Code ${ARROW}</a>${fl ? `<a href="projects.html#flag-${r}" aria-label="${esc(p.n)} case study">Case study</a>` : ''}</p></li>`;
   };
   return `<section id="also-built" class="sec alsob" aria-labelledby="ab-t"><div class="wrap">
