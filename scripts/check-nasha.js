@@ -42,6 +42,9 @@ for (const re of BAN) if (re.test(TB) && !(re.source === 'employer|client result
   for (const f of Object.keys(other)) { const fp = path.join(__dirname, '..', f); if (!fs.existsSync(fp)) continue; const txt = fs.readFileSync(fp, 'utf8').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
     for (const re of MIS) assert.ok(!re.test(txt), 'misreading wording in ' + f + ': ' + re);
     assert.ok(!/It lost\./.test(txt), f + ': the bare "It lost." hook overstates the result; say which planner, which scenarios'); } }
+/* test counts: 229 is the frozen Block 3 CI count and may appear only labelled as Block 3; the current count is stated with where it was run */
+for (let i = T.indexOf('229'); i >= 0; i = T.indexOf('229', i + 1)) assert.ok(/Block 3/.test(T.slice(Math.max(0, i - 120), i + 60)), 'the 229 test count must be labelled as Block 3 historical CI');
+assert.ok(/265 passed/.test(T) || /265 lab tests passed/.test(T) || /passes 265/.test(T), 'the current lab test count (265) is stated');
 for (let i = T.search(/halal/i); i >= 0 && i < T.length; i = T.indexOf('halal', i + 1)) { if (i < 0) break; assert.ok(/no halal/i.test(T.slice(Math.max(0, i - 14), i + 5)), 'halal appears only as "no halal claim"'); }
 for (let i = T.indexOf('Gobi Taco'); i >= 0; i = T.indexOf('Gobi Taco', i + 1)) assert.ok(/history|historical|older|superseded/i.test(T.slice(Math.max(0, i - 140), i + 140)), '"Gobi Taco" only as labelled history');
 assert.ok(!/Mango Habanero Gobi[^.]{0,60}\btaco\b/i.test(T.replace(/not a taco/gi, '').replace(/"Gobi Taco"/g, '')), 'Mango Habanero Gobi is not described as a taco');
@@ -51,7 +54,7 @@ assert.match(T, /The small local LLMs didn't win here/); assert.match(T, /simple
 assert.match(T, /The model does not own the permission system/i); assert.match(T, /MODEL INVENTS A KEY/); assert.match(T, /MODEL APPEARS GROUNDED/); assert.match(T, /Only successful trusted tool results can establish grounding/);
 
 /* 4 · numbers: every figure traces to the vendored evidence or a small structural allow-list */
-const ALLOW = new Set([...N.allowedNumbers(), '2.5', '0.8.7', '56', '758', '12', '45', '60', '29', '15', '1,820', '000', '78', '35', '30', '50', '48', '440']);
+const ALLOW = new Set([...N.allowedNumbers(), '2.5', '0.8.7', '56', '758', '12', '45', '60', '29', '15', '1,820', '000', '265', '78', '35', '30', '50', '48', '440']);
 const stray = []; const clean = TS.replace(/\bD-\d+\b/g, ' ').replace(/Qwen2\.5-\d(\.\d)?B/g, ' ').replace(/all-MiniLM-L6-v2/g, ' ').replace(/\b(ts|p)[12]\b/g, ' ').replace(/\bpg\d+\b/g, ' ');
 for (const m of clean.matchAll(/\d[\d,]*(?:\.\d+)*/g)) { const t = m[0].replace(/[.,]+$/, ''); if (!ALLOW.has(t) && !ALLOW.has(t.replace(/,/g, ''))) stray.push(t); }
 assert.deepEqual([...new Set(stray)], [], 'numbers on the NASHA page that trace to no evidence: ' + [...new Set(stray)].join(', '));
