@@ -373,3 +373,5 @@ code{font-family:var(--mono);font-size:.92em;color:var(--ac2)}
 @media(min-width:641px) and (max-width:860px){.cc-main{max-width:460px}} /* between phone and desktop the primary image is the phone-width capture: keep it phone-sized rather than a two-thousand-pixel column */
 @media(prefers-reduced-motion:reduce){.cc-tab{transition:none}}
 .alsob .hm-h{margin-top:clamp(14px,2.4vh,24px)}.aboutc .princ li{padding:11px 0}
+@media(max-width:700px){.ab-card p:not(.ab-l){display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}#experience .role li{font-size:15.5px;line-height:1.45}.contact .contact-av{height:26svh}}
+@media(max-width:700px){.hm-card{padding:14px 14px 12px;gap:4px}.hm-big{font-size:34px;margin-top:2px}.hm-note{font-size:13px;line-height:1.42}.rt-qual{font-size:13.5px;line-height:1.45;margin-top:14px}.rt-sum{font-size:17px;line-height:1.38}.cp-stat{padding:12px 0 14px}.hm-trio{gap:10px}}
