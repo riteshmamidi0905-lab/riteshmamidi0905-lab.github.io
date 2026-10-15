@@ -1,0 +1,23 @@
+{
+ "repo": "riteshmamidi0905-lab/INDO-MEX-BREWERY",
+ "sha": "5317dd25e7f1456317edd2887a50340dfd93a80e",
+ "branch": "claude/nasha-enterprise-ai-lab",
+ "note": "Vendored byte-for-byte from the public repository at this commit by scripts/sync-nasha-evidence.js. The NASHA page is checked against these files by scripts/check-nasha.js; npm run verify:evidence re-hashes them and --online re-fetches them from the pinned commit. SYNTHETIC DATA / OFFLINE EVALUATION / same-author.",
+ "files": {
+  "portfolio-evidence.json": {
+   "path": "lab/portfolio/portfolio-evidence.json",
+   "sha256": "9b1e4736aeaed753efb50202b80f31936502e1ab46ba42ad713bf458543aa281",
+   "bytes": 43868
+  },
+  "claims.json": {
+   "path": "lab/claims/claims.json",
+   "sha256": "1f6407dfc05baaee37e15cffef592ddb732b1d77993da239ccbdb78db1190afd",
+   "bytes": 30383
+  },
+  "BASELINE-BLOCK3.json": {
+   "path": "lab/baseline/BASELINE-BLOCK3.json",
+   "sha256": "3cad58077155d74f109661c56d780a68b460ee673f586130765f33e2d36b748a",
+   "bytes": 8627
+  }
+ }
+}

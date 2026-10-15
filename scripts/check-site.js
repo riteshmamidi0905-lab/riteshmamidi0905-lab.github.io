@@ -25,7 +25,7 @@ assert.equal(document.querySelectorAll('[data-world]').length, 4, 'homepage: her
 assert.equal(document.querySelectorAll('[data-world][data-compact]').length, 2, 'the two flagship scenes on the homepage are compact (one screen, not pinned)');
 assert.equal(rtd.querySelectorAll('[data-world]').length, 1); assert.equal(evd.querySelectorAll('[data-world]').length, 2, 'llmeval scene + MAREF scene'); assert.equal(prd.querySelectorAll('[data-world]').length, 8, '3 chapter worlds + 5 build scenes');
 const sectionIds = (d) => [...d.querySelectorAll('main > section, main > .chapter, main > header')].map((x) => x.id);
-assert.deepEqual(sectionIds(document), ['hero', 'key', 'copilot', 'runtime', 'evaluation', 'weir', 'also-built', 'experience', 'about', 'contact'], 'homepage story order: hero, evidence key, the three flagships (agents, infrastructure, evaluation), also built, experience, about, contact');
+assert.deepEqual(sectionIds(document), ['hero', 'key', 'copilot', 'runtime', 'evaluation', 'weir', 'nasha-lab', 'also-built', 'experience', 'about', 'contact'], 'homepage story order: hero, evidence key, the three flagships (agents, infrastructure, evaluation), also built, experience, about, contact');
 assert.deepEqual(sectionIds(prd), ['top', 'projects', 'supporting', 'ai', 'data', 'product', 'flagships', 'progression'], 'projects page: library, explorers, builds, path');
 assert.ok(document.querySelector('#evaluation #maref') && evd.querySelector('#evaluation #maref'), 'MAREF sits inside Flagship 03, after the tested metric suite, on the homepage and on the evaluation page');
 
@@ -65,7 +65,7 @@ for (const f of ['app.js', 'assets/js/portfolio.js', 'assets/css/base.css', 'ass
 /* recruiter view is script-free and complete */
 assert.equal(rec.querySelectorAll('script').length, 0); assert.ok(rec.querySelector('h1').textContent.includes('Ritesh Mamidi'));
 for (const k of ['Experience', 'Top projects', 'Core technologies', 'Research', 'Contact']) assert.ok([...rec.querySelectorAll('h2')].some((h) => h.textContent === k), 'recruiter section ' + k);
-assert.equal(rec.querySelectorAll('.proj > li').length, FLAG.length + 3, 'the Copilot + the agent runtime + Weir + the six supporting builds');
+assert.equal(rec.querySelectorAll('.proj > li').length, FLAG.length + 4, 'the Copilot + the agent runtime + NASHA + Weir + the six supporting builds');
 assert.match(rec.querySelector('.proj > li').textContent, /Support Escalation Copilot/, 'the Copilot leads the recruiter view');
 
 /* AI Agent Runtime: every claim is bound to the pinned public-repo evidence and its limits are stated (full page), and the homepage version carries the same qualifiers */
@@ -172,7 +172,7 @@ assert.equal(jl.jobTitle, 'Data & AI Analyst'); for (const h of allHtml) assert.
 assert.ok(!/AI\s*\/\s*ML\s+Engineer/i.test(document.title + document.querySelector('meta[name=description]').content), 'title and description');
 const heroPro = txt(document.querySelector('.hero .proof .pro')); assert.match(heroPro, /^Professional · Data & AI Analyst\s*Apple \(client engagement\) · AI\/ML quality, data and operational analysis$/, 'the hero names the professional role with the client-engagement boundary'); assert.ok(!/\bat Apple\b|\bApple (employee|engineer)\b/i.test(txt(document.querySelector('.hero'))), 'the hero never implies direct Apple employment');
 assert.match(txt(document.querySelector('.hero .proof-k')), /Independent open-source projects/, 'the hero says the projects are independent and open source'); assert.ok(document.querySelector('.hero a[href="#copilot"]') && document.querySelector('.hero a[href="#runtime"]') && document.querySelector('.hero a[href^="https://github.com/riteshmamidi0905-lab"]') && document.querySelector('.hero a[href="ritesh_mamidi_resume.pdf"]') && document.querySelector('.hero a[href="recruiter.html"]'), 'first screen links the flagships, the recruiter view, GitHub and the résumé');
-assert.ok(document.querySelector('.hero .tagline').textContent.includes('Product-minded AI builder'));
+assert.ok(document.querySelector('.hero .tagline').textContent.includes('Product-minded applied-AI builder'));
 assert.equal(prd.querySelectorAll('.prog-list li').length, 5, 'career progression (projects page)'); assert.equal(document.querySelectorAll('.prog-list').length, 0); assert.ok([...prd.querySelectorAll('.prog-k')].map((e) => e.textContent).join() === 'Professional,Professional,Independent build,Independent build,Independent build', 'professional vs independent work is labelled');
 assert.ok(txt(document.querySelector('#experience .exp-lead')).includes('independent, open-source work'));
 assert.deepEqual([...document.querySelectorAll('#experience .role-co')].map((e) => txt(e)), ['Apple (client engagement)', 'Heart Hospitality LLC', 'Liberated Monks Pvt. Ltd.'], 'company-first, scannable experience');
@@ -234,14 +234,14 @@ assert.ok(!/AI\s*\/\s*ML\s+Engineer/i.test(prof.md) && prof.md.includes('not an 
   }
   /* 5 · the three-layer hierarchy is stated the same way in the hero, the flagship list and the recruiter story; MAREF is an evaluator, not an agent */
   const LAYERS = ['I build AI agents', 'I build the infrastructure they run on', 'I evaluate how they fail'];
-  assert.deepEqual([...document.querySelectorAll('.hero .proof .layer')].map((e) => e.textContent.trim()), LAYERS);
+  assert.deepEqual([...document.querySelectorAll('.hero .proof .layer')].map((e) => e.textContent.trim()), [...LAYERS, 'I put it together and measure it']);
   assert.deepEqual(['#copilot', '#runtime', '#evaluation'].map((id) => txt(document.querySelector(id + ' .layer-l .layer')).trim()), LAYERS, 'each flagship section opens with its layer');
   assert.deepEqual([CP.title, RT.title, 'LLM evaluation: llmeval and MAREF'], [txt(document.querySelector('#copilot .world-title')), txt(document.querySelector('#runtime .world-title')), txt(document.querySelector('#evaluation .hm-title'))], 'flagship order and titles');
   assert.ok(/not an agent/.test(txt(evd.querySelector('#research'))) && /not an agent/.test(txt(document.querySelector('#maref'))), 'MAREF is described as an evaluator, not an agent');
   for (const d of [document, evd]) assert.ok(d.querySelector('#maref a[href="https://github.com/riteshmamidi0905-lab/agent-runtime-bench"]') && d.querySelector('#maref a[href="https://github.com/riteshmamidi0905-lab/maref"]'));
   assert.ok(/Research prototype/.test(txt(document.querySelector('.hero .proof'))), 'the hero chip says research prototype');
   assert.ok(!/in development|still on paper|no repository, no experiment/i.test(txt(document.querySelector('#evaluation'))), 'no stale "MAREF is only a proposal" wording');
-  assert.ok(txt(document.querySelector('.hero .tagline')).includes('Product-minded AI builder'), 'the product / data / quality bridge stays in the hero');
+  assert.ok(txt(document.querySelector('.hero .tagline')).includes('Product-minded applied-AI builder'), 'the product / data / quality bridge stays in the hero');
 }
 
 /* ================= M11: the public surface after the real-model release (v0.7.0) ================= */
