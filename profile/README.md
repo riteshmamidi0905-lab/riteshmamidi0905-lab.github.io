@@ -1,8 +1,8 @@
 <h1 align="center">Ritesh Mamidi</h1>
 
 <p align="center">
-  <b>Product-minded AI builder.</b><br>
-  I build AI agents and the infrastructure they run on, and evaluate how they fail.
+  <b>Product-minded applied-AI builder: agentic systems, AI evaluation, data and product.</b><br>
+  I build AI systems around real business problems and test whether they actually work.
 </p>
 
 <p align="center">

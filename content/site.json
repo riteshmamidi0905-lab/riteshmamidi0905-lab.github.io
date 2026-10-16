@@ -14,11 +14,11 @@
  },
  "hero": {
   "tagline": [
-   "Product-minded AI builder.",
-   "I build AI agents and the infrastructure they run on,",
-   "and evaluate how they fail."
+   "Product-minded applied-AI builder: agentic systems, AI evaluation, data and product.",
+   "I build AI systems around real business problems",
+   "and test whether they actually work."
   ],
-  "sub": "Three separate pieces of work, each with its evidence and its limits published in the open."
+  "sub": "Independent projects with their evidence and their limits published in the open, and professional work validating LLM and ML outputs."
  },
  "explains": {
   "ai": "An agent that only sounds right is a liability. I keep the loop explicit (plan, tool, observation) and check the whole trace before an answer counts.",

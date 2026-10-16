@@ -1,0 +1,64 @@
+/* nasha.css — NASHA AI Operations Lab page only. Same tokens as site.css; no new colours. Everything here has a static fallback (the JS only enhances). */
+.nx-disc{margin-top:22px;max-width:80ch;border:1px solid var(--amber);border-left-width:4px;border-radius:10px;padding:14px 18px;background:rgba(245,185,74,.07);font-size:15px;line-height:1.55;color:var(--tx)}
+.nx-disc strong{color:var(--amber)}
+.nx-i{font:600 11px var(--mono);color:var(--ac);margin-right:10px;letter-spacing:.08em}
+.nx-ul{display:grid;gap:10px;margin-top:10px}.nx-ul li{position:relative;padding-left:18px;font-size:15px;line-height:1.55;color:var(--mut)}.nx-ul li::before{content:'';position:absolute;left:0;top:.65em;width:6px;height:6px;border-radius:50%;background:var(--ac)}.nx-ul b{color:var(--tx)}
+.nx-small{font-size:13.5px;line-height:1.55;color:var(--dim);margin-top:12px;max-width:70ch}
+/* architecture explorer */
+.nx-arch{margin-top:clamp(28px,5vh,48px);display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:start}
+.nx-flow{display:grid;gap:0;counter-reset:n}
+.nx-flow li{position:relative;padding-bottom:12px}
+.nx-flow li:not(:last-child)::after{content:"";position:absolute;left:25px;top:48px;bottom:-2px;width:1px;background:var(--line2)}
+.nx-node{display:flex;align-items:center;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font:600 14.5px var(--sans);cursor:pointer;transition:border-color .2s,background .2s}
+.nx-node:hover{border-color:var(--line2)}.nx-node[aria-pressed="true"]{border-color:var(--ac);background:rgba(34,211,166,.08)}
+.nx-panels{position:sticky;top:calc(var(--nav) + 16px)}
+.nx-pn{border:1px solid var(--line);border-radius:14px;padding:clamp(18px,2.4vw,30px);background:var(--panel);margin-bottom:14px}
+.nx-pn h3{font-size:clamp(20px,2vw,26px);letter-spacing:-.02em}.nx-pn p{color:var(--mut);margin-top:10px;font-size:15.5px;line-height:1.6;max-width:62ch}
+.nx-links{display:flex;flex-wrap:wrap;gap:6px 18px}
+.js .nx-pn[hidden]{display:none}
+@media(max-width:860px){.nx-arch{grid-template-columns:1fr}.nx-panels{position:static}}
+/* charts */
+.nx-chart{margin-top:clamp(24px,4vh,40px)}
+.nx-bars{display:grid;gap:10px;margin-top:16px}
+.nx-bar{display:grid;grid-template-columns:minmax(150px,260px) 1fr minmax(96px,auto);gap:12px;align-items:center;font-size:14.5px}
+.nx-bt{display:block;height:16px;background:var(--line);border-radius:4px;overflow:hidden}
+.nx-bf{display:block;height:100%;background:var(--ac);border-radius:4px;min-width:2px;transition:width .5s var(--ease)}
+.nx-llm .nx-bf,.nx-llm-guardrail .nx-bf{background:var(--blue)}.nx-stand-in .nx-bf{background:var(--violet)}
+.nx-bv{font:600 13px var(--mono);color:var(--tx);text-align:right}.nx-bv i{font-style:normal;color:var(--dim)}
+.nx-note{font:500 12.5px/1.6 var(--mono);color:var(--dim);margin-top:12px;max-width:80ch}
+.nx-sel{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:20px}.nx-sel label{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.nx-sel select{font:600 14px var(--sans);padding:10px 14px;border:1px solid var(--line2);border-radius:10px;background:var(--panel);color:var(--tx);max-width:100%}
+.nx-ts{margin-top:clamp(32px,5vh,56px)}
+@media(max-width:700px){.nx-bar{grid-template-columns:1fr;gap:4px}.nx-bv{text-align:left}}
+/* failure steps and trace steppers */
+.nx-steps,.nx-trace{display:grid;gap:10px;margin-top:clamp(22px,4vh,38px);max-width:900px}
+.nx-st,.nx-tb{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:15px 18px;border:1px solid var(--line);border-radius:12px;background:var(--panel);font:600 16px var(--sans);cursor:pointer}
+.nx-st[aria-expanded="true"],.nx-tb[aria-expanded="true"]{border-color:var(--ac);background:rgba(34,211,166,.07)}
+.nx-sk{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ac);min-width:84px}
+.nx-sb,.nx-tp{padding:14px 18px 6px 18px;color:var(--mut);font-size:15.5px;line-height:1.6;max-width:70ch}.js .nx-sb[hidden],.js .nx-tp[hidden]{display:none}
+.nx-chain{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.nx-chain li{font:600 11.5px var(--mono);letter-spacing:.06em;padding:8px 12px;border:1px solid var(--line2);border-radius:8px;color:var(--tx)}
+.nx-chain li:not(:last-child)::after{content:" →";color:var(--ac)}
+.nx-ex{margin-top:10px;padding:10px 14px;border-left:3px solid var(--blue);background:rgba(106,167,255,.06);border-radius:0 8px 8px 0;color:var(--tx);font-size:14.5px;overflow-wrap:anywhere}.nx-ex .mono-l{display:block;margin-bottom:4px}
+/* permissions */
+.nx-perm .nx-auto th code{color:var(--ac2)}.nx-perm .nx-ask th code{color:var(--amber)}.nx-perm .nx-no th code{color:var(--red)}
+.nx-sim{margin-top:clamp(28px,5vh,48px);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,2.4vw,30px);background:var(--panel);max-width:900px}
+.nx-out{margin-top:16px;padding:14px 18px;border-radius:10px;border:1px solid var(--line2);font-size:15.5px;line-height:1.55;color:var(--tx)}
+.nx-out.nx-auto{border-color:var(--ac)}.nx-out.nx-ask{border-color:var(--amber)}.nx-out.nx-no{border-color:var(--red)}.nx-out[hidden]{display:none}
+/* screenshot */
+.nx-shot{margin-top:clamp(28px,5vh,48px);max-width:760px}.nx-shot img{width:100%;height:auto;border:1px solid var(--line2);border-radius:10px;background:#fff;max-height:880px;object-fit:cover;object-position:top}
+.nx-shot figcaption{font:500 12.5px/1.6 var(--mono);color:var(--dim);margin-top:10px}
+/* lists */
+.nx-others{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px;margin-top:clamp(24px,4vh,40px)}
+.nx-others li{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--panel)}.nx-others h3{font-size:18px;letter-spacing:-.01em}.nx-others h3 a{text-decoration:underline;text-underline-offset:4px}.nx-others p{color:var(--mut);font-size:14.5px;line-height:1.55;margin-top:8px}
+.nx-others .nx-this{border-color:var(--ac);background:rgba(34,211,166,.06)}
+.nx-comp tbody th{white-space:nowrap}.nx-comp td .ln{margin-right:14px}
+.nx-acc{margin-top:clamp(22px,4vh,38px);max-width:860px;display:grid;gap:8px}
+.nx-acc details{border:1px solid var(--line);border-radius:10px;background:var(--panel)}.nx-acc summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none}.nx-acc summary::-webkit-details-marker{display:none}.nx-acc summary:hover{color:var(--ac2)}
+.nx-acc details[open] summary{border-bottom:1px solid var(--line)}.nx-acc p{padding:14px 18px 18px;color:var(--mut);font-size:15.5px;line-height:1.6}
+@media(prefers-reduced-motion:reduce){.nx-bf{transition:none}}
+
+/* failure diagram (inline SVG, theme tokens only) */
+.nx-fd{margin-top:clamp(24px,4vh,40px);max-width:860px}.nx-fdsvg{width:100%;height:auto;color:var(--tx)}
+.nx-fdsvg .fd-n rect{fill:var(--panel);stroke:var(--line2);stroke-width:1.5}.nx-fdsvg .fd-badn rect{stroke:var(--red)}.nx-fdsvg .fd-okn rect{stroke:var(--ac)}
+.fd-t{fill:var(--tx);font:600 12px var(--mono);letter-spacing:.04em}.fd-s{fill:var(--mut);font:500 12px var(--mono)}.fd-h{font:700 12px var(--mono);letter-spacing:.14em}.fd-bad{fill:var(--red)}.fd-ok{fill:var(--ac2)}
+.fd-ar{fill:none;stroke:var(--mut);stroke-width:1.6}.fd-loop{stroke:var(--red);stroke-dasharray:5 4}
