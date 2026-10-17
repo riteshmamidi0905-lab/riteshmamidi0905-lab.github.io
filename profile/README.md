@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Austin, TX · Data &amp; AI Analyst (LLM and ML output quality, client engagement)<br>
+  Austin, TX · Data &amp; AI Analyst at Movate (Apple client engagement · LLM and ML output quality)<br>
   <a href="https://riteshmamidi0905-lab.github.io/">Portfolio</a> · <a href="https://riteshmamidi0905-lab.github.io/recruiter.html">Recruiter view</a> · <a href="https://riteshmamidi0905-lab.github.io/ritesh_mamidi_resume.pdf">Résumé</a> · <a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a>
 </p>
 
@@ -49,6 +49,16 @@ Agent runtime in standard-library Python: explicit loop, tools, state, memory, p
 > [Full evaluation →](https://github.com/riteshmamidi0905-lab/maref/blob/1c00c9034adbe7d0d1ccf9a740c99201ec84de20/docs/EVALUATION.md)
 
 [Evaluation page](https://riteshmamidi0905-lab.github.io/evaluation.html) · [llmeval](https://github.com/riteshmamidi0905-lab/llm-eval-framework) · [MAREF](https://github.com/riteshmamidi0905-lab/maref) · [Canonical claim](https://github.com/riteshmamidi0905-lab/maref/blob/1c00c9034adbe7d0d1ccf9a740c99201ec84de20/docs/CLAIM.md)
+
+## I put it together and decide where AI belongs
+
+### [Hospitality AI Lab](https://riteshmamidi0905-lab.github.io/nasha-lab.html)
+A synthetic hospitality enterprise (generated orders, stock and suppliers; no real business, customers or revenue) used to test where AI belongs in operations and where it does not: typed tools, human approval, retrieval, an analytics mart and experiments, with every AI component compared against a deterministic baseline.
+
+- **SIMULATED** Synthetic data, scenarios and evaluations written by the same author; nothing deployed.
+- **LIMITATION** The headline result is negative on purpose: under identical tools, permissions and checks, a deterministic planner beat the small local language models tested, so the recommendation was to keep AI out of that decision path.
+
+[Case study](https://riteshmamidi0905-lab.github.io/nasha-lab.html) · [Results](https://riteshmamidi0905-lab.github.io/nasha-lab.html#results)
 
 ## How the evidence is labelled
 

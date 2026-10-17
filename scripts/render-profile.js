@@ -24,7 +24,7 @@ const md = `<h1 align="center">${pr.name}</h1>
 </p>
 
 <p align="center">
-  Austin, TX · Data &amp; AI Analyst (LLM and ML output quality, client engagement)<br>
+  Austin, TX · Data &amp; AI Analyst at Movate (Apple client engagement · LLM and ML output quality)<br>
   <a href="${SITE}">Portfolio</a> · <a href="${SITE}recruiter.html">Recruiter view</a> · <a href="${SITE}${pr.resume}">Résumé</a> · <a href="${pr.linkedin}">LinkedIn</a>
 </p>
 
@@ -67,6 +67,16 @@ ${link('Case study', SITE + 'agent-runtime.html')} · ${link('Runtime', GH + RT.
 > ${link(EVAL.maref.card.link, `https://github.com/${EVAL.maref.repo}/blob/${EVAL.maref.sha}/docs/EVALUATION.md`)}
 
 ${link('Evaluation page', SITE + 'evaluation.html')} · ${link('llmeval', GH + EVAL.repo)} · ${link('MAREF', 'https://github.com/' + EVAL.maref.repo)} · ${link('Canonical claim', `https://github.com/${EVAL.maref.repo}/blob/${EVAL.maref.sha}/docs/CLAIM.md`)}
+
+## I put it together and decide where AI belongs
+
+### [Hospitality AI Lab](${SITE}nasha-lab.html)
+A synthetic hospitality enterprise (generated orders, stock and suppliers; no real business, customers or revenue) used to test where AI belongs in operations and where it does not: typed tools, human approval, retrieval, an analytics mart and experiments, with every AI component compared against a deterministic baseline.
+
+- **SIMULATED** Synthetic data, scenarios and evaluations written by the same author; nothing deployed.
+- **LIMITATION** The headline result is negative on purpose: under identical tools, permissions and checks, a deterministic planner beat the small local language models tested, so the recommendation was to keep AI out of that decision path.
+
+[Case study](${SITE}nasha-lab.html) · [Results](${SITE}nasha-lab.html#results)
 
 ## How the evidence is labelled
 
