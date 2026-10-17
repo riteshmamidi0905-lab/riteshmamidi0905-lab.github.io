@@ -256,7 +256,7 @@ function others() {
   return `<section id="others" class="sec cs-sec" aria-labelledby="oth-t"><div class="wrap"><p class="kicker rv"><b>+</b> The rest of the portfolio</p>
   <h2 id="oth-t" class="statement rv">Different projects prove different things. <span class="mut">The lab integrates them.</span></h2>
   <ul class="nx-others rv">${OTHERS.map(([t, h, d]) => `<li><h3><a href="${h}"${/^https/.test(h) ? ' target="_blank" rel="noopener"' : ''}>${esc(t)}</a></h3><p>${esc(d)}</p></li>`).join('')}<li class="nx-this"><h3>Hospitality AI Lab (this page)</h3><p>Integrated systems engineering: a synthetic data platform, status-aware knowledge, MCP tools, a LangGraph agent, human approval, an experiment that compared two planners, and a frozen, claim-checked evaluation. It proves: how the pieces fit together and whether they work.</p></li></ul>
-  <p class="rt-qual rv"><b>Professional experience is separate.</b> My employment (Data &amp; AI Analyst, Apple client engagement; earlier analyst roles) is on the <a href="./#experience">homepage</a>. The hospitality concept is an independent personal project: it is not employment, and none of its numbers are employer or business results.</p></div></section>`;
+  <p class="rt-qual rv"><b>Professional experience is separate.</b> My employment (Data &amp; AI Analyst at Movate on an Apple client engagement; earlier analyst roles) is on the <a href="./#experience">homepage</a>. The hospitality concept is an independent personal project: it is not employment, and none of its numbers are employer or business results.</p></div></section>`;
 }
 
 /* ---------- full case study (progressive disclosure) ---------- */

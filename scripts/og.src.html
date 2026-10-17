@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Inter;src:url(../assets/fonts/inter-latin.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:JBM;src:url(../assets/fonts/jetbrains-mono-latin.woff2) format('woff2');font-weight:100 800}
+:root{--bg:#05070a;--panel:#0b1015;--tx:#f3f5f7;--mut:#a9b2bf;--dim:#8794a3;--ac:#22d3a6;--amber:#f5b94a}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;background:var(--bg);overflow:hidden;color:var(--tx)}
+.c{position:relative;width:1200px;height:630px;padding:64px 72px;
+ background:radial-gradient(760px 420px at 980px 140px, rgba(34,211,166,.08), transparent 70%),var(--bg)}
+.grid{position:absolute;inset:0;background-image:radial-gradient(rgba(243,245,247,.10) 1px,transparent 1.2px);background-size:24px 24px;
+ -webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 75%);mask-image:linear-gradient(90deg,transparent 30%,#000 75%);opacity:.6}
+.k{position:relative;font:600 17px JBM,monospace;letter-spacing:.2em;color:var(--mut)}
+.k i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ac);margin-right:12px;vertical-align:1px}
+h1{position:relative;margin-top:22px;font:700 86px/1 Inter,sans-serif;letter-spacing:-.035em}
+.role{position:relative;margin-top:22px;font:600 30px/1.2 Inter,sans-serif;letter-spacing:-.015em;color:var(--mut)}
+.role b{color:var(--ac);font-weight:600;padding:0 .12em}
+.line{position:relative;margin-top:26px;font:500 27px/1.35 Inter,sans-serif;letter-spacing:-.01em;max-width:900px}
+.line span{color:var(--ac)}
+.row{position:absolute;left:72px;right:72px;bottom:60px;display:flex;gap:16px}
+.chip{flex:1;border:1px solid #26313b;background:var(--panel);border-radius:14px;padding:16px 18px}
+.chip .t{font:600 13px JBM,monospace;letter-spacing:.14em;color:var(--dim)}
+.chip .d{margin-top:8px;font:600 19px/1.25 Inter,sans-serif}
+.chip.no{border-color:rgba(245,185,74,.45)} .chip.no .t{color:var(--amber)}
+</style></head>
+<body><div class="c"><div class="grid"></div>
+ <div class="k"><i></i>AUSTIN, TX · DATA &amp; AI ANALYST</div>
+ <h1>Ritesh Mamidi</h1>
+ <div class="role">Applied AI<b>·</b>Agentic Systems<b>·</b>AI Evaluation<b>·</b>Data &amp; Product</div>
+ <div class="line">I build AI systems for real business problems, <span>and test whether they actually work.</span></div>
+ <div class="row">
+  <div class="chip"><div class="t">BUILD</div><div class="d">Approval-gated agent workflows</div></div>
+  <div class="chip"><div class="t">EVALUATE</div><div class="d">LLM, retrieval and failure testing</div></div>
+  <div class="chip no"><div class="t">DECIDE</div><div class="d">Including when AI doesn’t belong</div></div>
+ </div>
+</div></body></html>

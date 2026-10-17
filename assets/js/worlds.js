@@ -69,7 +69,7 @@
         const p = vt(k), d = Math.min(Math.abs(lit - k), 6 - Math.abs(lit - k)), g = clamp(1 - d / 1.2);
         line(c, cx, cy, p[0], p[1], HEX.ac, 1, 0.2 + 0.4 * g); glow(c, p[0], p[1], 14 + 22 * g, HEX.ac, 0.1 + 0.35 * g);
         c.fillStyle = g > 0.3 ? HEX.ac2 : '#05070a'; c.strokeStyle = rgba(HEX.ac2, 0.7); c.beginPath(); c.arc(p[0], p[1], 3.5 + 2.5 * g, 0, TAU); c.fill(); c.stroke();
-        if (!L.mobile) text(c, DIMS[k], p[0] + (p[0] > cx ? 16 : -16), p[1] + 4, { size: 11, align: p[0] > cx ? 'left' : 'right', col: rgba(HEX.tx, 0.55 + 0.45 * g), ls: 1.3, w: 600 });
+        if (!L.mobile && p[0] > cx + 4) text(c, DIMS[k], p[0] + 16, p[1] + 4, { size: 11, align: 'left', col: rgba(HEX.tx, 0.55 + 0.45 * g), ls: 1.3, w: 600 }); /* right-side labels only: left-side labels swept under the hero copy */
       }
       const pts = st.net.map((q) => [q.x * W + Math.sin(t * 0.3 * q.v + q.p) * 16 + (st.pp.x - 0.5) * 22 * q.v, q.y * H + Math.cos(t * 0.25 * q.v + q.p) * 12 + (st.pp.y - 0.5) * 14 * q.v - sp * 60 * q.v]);
       c.lineWidth = 0.8; const lim = (W * 0.12) ** 2;

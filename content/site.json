@@ -3,14 +3,14 @@
   "name": "Ritesh Mamidi",
   "role": "Applied AI · Agentic Systems · AI Evaluation · Data & Product",
   "location": "Austin, TX",
-  "now": "Data & AI Analyst · Apple (client engagement)",
-  "status": "Open to applied AI, agent and LLM engineering, AI evaluation and reliability, forward-deployed and AI-focused product-analytics roles in the US",
+  "now": "Data & AI Analyst · Movate (Apple client engagement)",
+  "status": "Open to AI operations, AI evaluation and quality, AI product and product analytics, and applied AI roles in the US",
   "email": "riteshmamidi0905@gmail.com",
   "linkedin": "https://linkedin.com/in/riteshmamidi0905",
   "github": "https://github.com/riteshmamidi0905-lab",
   "resume": "ritesh_mamidi_resume.pdf",
   "focus": "Agent systems, AI evaluation and reliability, data and product analytics",
-  "contactLine": "Open to applied AI, agent and LLM engineering, AI evaluation and reliability, forward-deployed and AI-focused product-analytics roles across the US."
+  "contactLine": "Open to AI operations, AI evaluation and quality, AI product and product analytics, and applied AI roles across the US."
  },
  "hero": {
   "tagline": [
@@ -35,14 +35,14 @@
  "experience": [
   {
    "role": "Data & AI Analyst",
-   "org": "Apple (client engagement)",
+   "org": "Movate · Apple client engagement",
    "where": "Austin, TX",
    "when": "Sep 2025 – Present",
    "current": true,
    "bullets": [
-    "Validate LLM and ML model outputs against published policy and quality rubrics; investigate model-quality issues, edge cases and systematic failure modes.",
-    "Build QA/QC frameworks and operational reporting in Python, SQL and Power BI; use LLM-assisted analysis and prompt engineering to classify and extract signals.",
-    "Reported results: investigation efficiency up 18% and operational escalations down 30% through quality-control frameworks and process improvement."
+    "Research and validate geospatial and transit data; investigate conflicting sources and resolve incomplete records.",
+    "Validate ML and GenAI pipeline outputs against policy and quality rubrics; investigate edge cases and systematic failure patterns.",
+    "Build QA/QC checks and operational reporting in Python, SQL and Power BI, contributing to an 18% improvement in investigation efficiency and a 30% reduction in operational escalations."
    ],
    "focus": [
     "AI/ML output quality",
@@ -61,7 +61,7 @@
    "where": "United States",
    "when": "Jan 2024 – Aug 2025",
    "bullets": [
-    "ETL pipelines and automated reporting in Python and SQL across business systems: 55% less manual reporting effort and real-time visibility.",
+    "ETL pipelines and automated reporting in Python and SQL across business systems: 55% less manual reporting effort and clearer KPI visibility.",
     "Relational data models and forecasting/classification models that improved planning accuracy by 22%."
    ]
   },
@@ -72,7 +72,7 @@
    "when": "Jan 2022 – Dec 2023",
    "bullets": [
     "Python/SQL ETL pipelines and Tableau dashboards that informed acquisition, engagement and retention.",
-    "ML segmentation and propensity models that improved marketing-driven engagement by 18%; owned data validation and KPI definitions."
+    "ML segmentation and propensity models, associated with an 18% improvement in marketing-driven engagement; owned data validation and KPI definitions."
    ]
   }
  ],
@@ -80,7 +80,7 @@
  "principles": [
   [
    "Make outputs measurable.",
-   "In my professional work (an Apple client engagement) I validate LLM and ML outputs against quality rubrics. In my independent projects I turn “seems fine” into scores, thresholds and gates."
+   "In my professional work (an Apple client engagement through Movate) I validate LLM and ML outputs against quality rubrics. In my independent projects I turn “seems fine” into scores, thresholds and gates."
   ],
   [
    "Distrust the data first.",
@@ -105,12 +105,12 @@
   [
    "IBM AI Engineering — Professional Certificate",
    "Coursera",
-   "https://coursera.org/share/b785f720ad78492844b2d0da0dc40def"
+   "https://www.coursera.org/share/b785f720ad78492844b2d0da0dc40def"
   ],
   [
    "Google Advanced Data Analytics — Professional Certificate",
    "Coursera",
-   "https://coursera.org/verify/professional-cert/H8E69ER401OV"
+   "https://www.coursera.org/verify/professional-cert/H8E69ER401OV"
   ]
  ],
  "videos": {
@@ -143,7 +143,7 @@
   {
    "kind": "Professional",
    "stage": "AI evaluation",
-   "text": "Validating LLM and ML outputs against policy and quality rubrics in an Apple client engagement. The independent, open-source llmeval turns the same habit into scores, thresholds and gates.",
+   "text": "Validating LLM and ML outputs against policy and quality rubrics in an Apple client engagement through Movate. The independent, open-source llmeval turns the same habit into scores, thresholds and gates.",
    "href": "#evaluation",
    "link": "See the evaluation work"
   },

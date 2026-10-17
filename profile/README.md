@@ -81,4 +81,4 @@ Python · SQL · PostgreSQL (row-level security, pgvector) · FastAPI · PyTorch
 - **IBM AI Engineering — Professional Certificate**, Coursera
 - **Google Advanced Data Analytics — Professional Certificate**, Coursera
 
-<p align="center"><i>Open to applied AI, agent and LLM engineering, AI evaluation and reliability, forward-deployed and AI-focused product-analytics roles in the US</i></p>
+<p align="center"><i>Open to AI operations, AI evaluation and quality, AI product and product analytics, and applied AI roles in the US</i></p>
