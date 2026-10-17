@@ -18,7 +18,7 @@ for (const id of ['det', 'q15r2', 'q15r2g', 'q7', 'q7g']) assert.ok(N.hasPlanner
 assert.equal(N.LEDGER.claims.length, E.claims.length, 'the vendored ledger and the exported claims agree');
 
 /* 2 · structure */
-assert.equal(doc.querySelectorAll('h1').length, 1); assert.match(text(doc.querySelector('h1')), /NASHA AI Operations Lab/);
+assert.equal(doc.querySelectorAll('h1').length, 1); assert.match(text(doc.querySelector('h1')), /Hospitality AI Lab/);
 for (const id of ['glance', 'architecture', 'results', 'failure', 'retrieval', 'permissions', 'trace', 'hardening', 'competencies', 'others', 'case-study']) assert.equal(doc.querySelectorAll('#' + id).length, 1, 'section #' + id);
 const ids = [...doc.querySelectorAll('[id]')].map((e) => e.id); assert.equal(new Set(ids).size, ids.length, 'duplicate ids: ' + ids.filter((x, i) => ids.indexOf(x) !== i));
 assert.equal(doc.querySelectorAll('.nx-node').length, 10, 'ten architecture stages'); assert.equal(doc.querySelectorAll('.nx-pn').length, 10);
@@ -77,7 +77,9 @@ if (fs.existsSync(path.join(clone, '.git'))) {
 /* 6 · the homepage strip, the hero and the recruiter view carry the same framing */
 assert.ok(home.querySelector('#nasha-lab a[href="nasha-lab.html"]')); assert.match(text(home.querySelector('#nasha-lab')), /Independent founder concept, synthetic data/); assert.match(text(home.querySelector('#nasha-lab')), /not employment/i);
 assert.ok(home.querySelector('.hero a[href="#nasha-lab"]')); assert.ok(home.querySelector('#nlinks a[href="#nasha-lab"]'));
-const recText = text(rec.querySelector('.proj')); assert.match(recText, /NASHA AI Operations Lab/); assert.match(recText, /not employment/i); assert.match(recText, /same-author evaluation/i);
+const recText = text(rec.querySelector('.proj')); assert.match(recText, /Hospitality AI Lab/); assert.match(recText, /not employment/i); assert.match(recText, /same-author evaluation/i);
 assert.ok(!/NASHA/.test(text(home.querySelector('#experience'))), 'NASHA is not in the experience section');
 assert.ok(!/NASHA/.test(JSON.stringify(require('../content/site.json').experience)), 'NASHA is not in the experience data');
+/* public brand policy: the unresolved internal hospitality name is not shown to visitors (file paths and URLs are technical identifiers, kept for provenance) */
+{ const fs = require('fs'); for (const f of ['index.html', 'recruiter.html', 'nasha-lab.html']) { const d = parseHTML(fs.readFileSync(require('path').join(__dirname, '..', f), 'utf8')).document; d.querySelectorAll('script,style,code,noscript').forEach((n) => n.remove()); assert.ok(!/NASHA/i.test(text(d.body)), 'internal hospitality name visible on ' + f); } }
 console.log(`PASS: NASHA page (structure, disclosure, wording bans, number guard, headline results vs evidence, ${checked} link paths at the pinned commit${skipped ? ' [skipped: no NASHA checkout]' : ''}, homepage and recruiter framing, not employment)`);
