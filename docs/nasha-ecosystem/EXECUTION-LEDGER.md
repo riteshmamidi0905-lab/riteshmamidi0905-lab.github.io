@@ -4,7 +4,9 @@ Session date: 2026-10-19. Development only; no merge, deployment, publication, e
 
 ## Current phase
 
-Current increment: controlled offline execution of pinned Python specialists and THE WEIR, recorded evidence displayed separately from browser illustrations, visual correction and full regression acceptance. No live backend endpoint or production deployment. The premium generated-media vision remains future work.
+Current increment: cinematic finalization and recruiter launch readiness. The verified engineering and existing page experiences are preserved. A local portrait film, keyboard-driven acceptance, reproducible local Lighthouse measurements and a controlled launch package extend the review record. No live backend endpoint or production deployment. The premium generated-media vision remains future work.
+
+Read `FINAL-ACCEPTANCE.md` and `LAUNCH-PACKAGE.md` for this increment. All earlier ledger entries below are preserved as historical records.
 
 Read `INTEGRATION-AND-VISUAL-REVIEW.md` and `evidence/integration-verification.json` for this increment; older sections below describe the preserved baseline.
 
@@ -66,3 +68,21 @@ No background automation was configured. Work does not continue after this sessi
 - The implementation commit carrying this ledger is the continuation point (`git log -1` on this branch); verify its latest Validate portfolio run before further work. No production deployment or social publication authorized or performed.
 
 Next: inspect the service-evidence panel, choose focused film close-ups for any future local edit, and conduct manual assistive-technology review. An authenticated operational backend is separate future scope. Generated media still requires an exact credit quote and explicit approval.
+
+## Cinematic finalization continuation — 2026-10-19
+
+- Resumed the exact remote development HEAD `1629b3a6c6d0a22c54d083fc6cda5531f93123b5`; independently confirmed Validate portfolio #72 / run `39307175827` SUCCESS for that SHA. Original attached checkout remains untouched on `work` at `f63f8db`.
+- Restored source in `/workspace/work/nasha-ecosystem`; initial Git tree matched `1f89bc2e7356f0e2d7d85cca4dd654094ad41d94`. After the sandbox proxy failure, approved shell execution fetched the actual development history. Final commits descend from the real remote HEAD, not the temporary local import.
+- Read the required integration review, ledger and receipt before changing source. Preserved pinned Python engineering, browser models, all twelve existing SVG identities, the Command Center, Digital Twin, THE WEIR illustration and six-discipline recruiter narrative. No product redesign was demonstrated as necessary.
+- Original local film was absent after environment restoration. Recreated the unchanged original page/renderer at `97edab6`; this runtime's bytes differ from the prior receipt. No byte-identity claim is made. Compared chapter captures and frames against the new edit.
+- Added `scripts/render-nasha-final.js`: 48-second silent portrait edit, eight chapters, inventory-question opening, VECTRA/QUANTIX/NEXORA close-ups, actual portfolio evidence captures, explicit recorded/synthetic labels, restrained 0.2-second fades and source/evidence invitation. Existing artwork is unchanged. No generated character, fake live execution, music, narration or generation credits.
+- Encoded H.264, 1080×1350, 24 fps, 1,152 frames, exactly 48 seconds, no audio. Complete decode passes. Eight contiguous VTT cues cover 0–48 seconds; native HTML review player/captions checked at desktop, tablet and mobile. All rendered media remain ignored under `work/`; only source and evidence metadata are committed.
+- Keyboard-event walkthrough passes at 1440, 820 and 390 pixels: skip entry, what-if controls, recorded selection, native details, dialog navigation/Escape/focus return, workflow step and separate approval/execution. Chromium accessibility tree inspected. This is not human screen-reader testing; NVDA/VoiceOver, announcement quality and real-device review remain explicit gates.
+- Local HTTP exposed one missing-favicon 404 in the existing Command Center check. Reused the portfolio's existing inline RM favicon and rebuilt the standalone preview; no design or engineering behavior changed. Reran affected acceptance without weakening any test.
+- Existing suites and pinned integration were rerun; exact current results are in `FINAL-ACCEPTANCE.md` and `evidence/final-verification.json`. Do not confuse historical backend test counts with this increment's scoped byte-identical integration check.
+- `scripts/measure-nasha-local.sh` pins free Lighthouse 13.5.0 and records three mobile and three desktop runs, settings, warnings, transfer size and requests. Local HTTP only: no authorized remote preview was provided, and no website was deployed. Exact results are in `evidence/lighthouse-local.json`; no real-network or field-performance claim.
+- Prepared architecture/evidence/security review, offline preview, silent film/player/transcript, LinkedIn stills and unpublished copy, controlled promotion steps and rollback procedure. See `LAUNCH-PACKAGE.md`. Rendered package remains local under `work/launch-package/`.
+- The designated chat output directory remains unavailable (read-only parent; approved retry permission denied). No media was uploaded to another service as a workaround. Local media retention is not guaranteed beyond this workspace.
+- Final development commit and its exact-head CI are verifiable from this branch's latest commit and Actions run. Acceptance is conditional for owner review; production launch and social publication are not authorized. Remaining human review and delivery limits are recorded, not waived.
+
+No production branch merged, website deployed, LinkedIn content published, paid cost incurred or background automation configured.

@@ -1,0 +1,105 @@
+{
+  "scope": "Scripted key presses in Chromium over local HTTP. No pointer/focus API used for interaction. Accessibility tree inspected; no speech output tested.",
+  "results": [
+    {
+      "width": 1440,
+      "keyboardOnlyInteraction": true,
+      "skipLink": true,
+      "twinWhatIf": true,
+      "recordedWorkflow": true,
+      "detailsToggle": true,
+      "dialogTrap": [
+        "profile-close",
+        "profile-code",
+        "",
+        "profile-close",
+        "profile-code"
+      ],
+      "escapeRestoresFocus": true,
+      "workflowStep": true,
+      "separateApprovalAndExecution": true,
+      "accessibilityTree": {
+        "exposedNodes": 1184,
+        "mainLandmark": true,
+        "namedControls": true
+      },
+      "captures": [
+        "work/qa/review-1440-header.png",
+        "work/qa/review-1440-twin.png",
+        "work/qa/review-1440-team.png",
+        "work/qa/review-1440-weir-lab.png",
+        "work/qa/review-1440-service-evidence.png",
+        "work/qa/review-1440-recruiter-mode.png"
+      ]
+    },
+    {
+      "width": 820,
+      "keyboardOnlyInteraction": true,
+      "skipLink": true,
+      "twinWhatIf": true,
+      "recordedWorkflow": true,
+      "detailsToggle": true,
+      "dialogTrap": [
+        "profile-close",
+        "profile-code",
+        "",
+        "profile-close",
+        "profile-code"
+      ],
+      "escapeRestoresFocus": true,
+      "workflowStep": true,
+      "separateApprovalAndExecution": true,
+      "accessibilityTree": {
+        "exposedNodes": 1222,
+        "mainLandmark": true,
+        "namedControls": true
+      },
+      "captures": [
+        "work/qa/review-820-header.png",
+        "work/qa/review-820-twin.png",
+        "work/qa/review-820-team.png",
+        "work/qa/review-820-weir-lab.png",
+        "work/qa/review-820-service-evidence.png",
+        "work/qa/review-820-recruiter-mode.png"
+      ]
+    },
+    {
+      "width": 390,
+      "keyboardOnlyInteraction": true,
+      "skipLink": true,
+      "twinWhatIf": true,
+      "recordedWorkflow": true,
+      "detailsToggle": true,
+      "dialogTrap": [
+        "profile-close",
+        "profile-code",
+        "",
+        "agent-dialog",
+        "profile-close"
+      ],
+      "escapeRestoresFocus": true,
+      "workflowStep": true,
+      "separateApprovalAndExecution": true,
+      "accessibilityTree": {
+        "exposedNodes": 1263,
+        "mainLandmark": true,
+        "namedControls": true
+      },
+      "captures": [
+        "work/qa/review-390-header.png",
+        "work/qa/review-390-twin.png",
+        "work/qa/review-390-team.png",
+        "work/qa/review-390-weir-lab.png",
+        "work/qa/review-390-service-evidence.png",
+        "work/qa/review-390-recruiter-mode.png"
+      ]
+    }
+  ],
+  "humanVerificationRequired": [
+    "NVDA with Firefox or Chrome on Windows",
+    "VoiceOver with Safari on macOS and iOS",
+    "Announcement order and verbosity for live regions",
+    "Touch exploration, captions and real-device usability"
+  ],
+  "dialogNote": "Native dialog keeps background controls inert. Chromium cycles through a browser-chrome stop represented by body between dialog controls; this is allowed by the check."
+}

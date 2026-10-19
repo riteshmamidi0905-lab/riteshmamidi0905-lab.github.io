@@ -1,0 +1,70 @@
+{
+  "status": "UNPUBLISHED REVIEW DRAFT",
+  "durationSeconds": 48,
+  "resolution": [
+    1080,
+    1350
+  ],
+  "fps": 24,
+  "frames": 1152,
+  "codec": "H.264",
+  "audioStreams": 0,
+  "completeDecode": "PASS",
+  "captions": {
+    "format": "WebVTT",
+    "cues": 8,
+    "continuousStartSeconds": 0,
+    "continuousEndSeconds": 48,
+    "htmlPlayerWidths": [
+      1440,
+      820,
+      390
+    ]
+  },
+  "editorial": {
+    "chapterLengthsSeconds": [
+      6,
+      5,
+      5,
+      5,
+      8,
+      8,
+      5,
+      6
+    ],
+    "transitions": "0.2-second fade in/out per chapter; no fake execution or camera movement",
+    "primaryCaptionSourcePixels": 42,
+    "primaryCaptionAt390PixelVideoWidth": 15.166666666666666,
+    "portraitIdentities": "Existing VECTRA, QUANTIX and NEXORA SVGs, unchanged",
+    "evidence": "Actual development-page screenshots; recorded Python/gateway evidence is labelled not live"
+  },
+  "originalRecreation": {
+    "commit": "97edab6b789dadcac2d22cea3de3da12343edb58",
+    "sha256": "dd6c259155715f9eb033547843dec7c8489d675f39e332b81cee5bfe9f3be32a",
+    "receiptOriginalSha256": "95476132f973427bad0b31dee72b1513592cb80c6babf5add7c588fd346ffa18",
+    "byteIdentityWithPriorReceipt": false,
+    "note": "Original local media absent in this restored environment. Recreated unchanged original source and renderer; current runtime does not reproduce the prior film hash. Editorial comparison uses the recreated cut, not a claimed byte-identical original."
+  },
+  "files": {
+    "nasha-launch-final.mp4": {
+      "bytes": 1280542,
+      "sha256": "d79ee800872684192218de8a615bd8e8f377abb3b775aee9165a2e082ef6ed17"
+    },
+    "nasha-launch-final.vtt": {
+      "bytes": 1149,
+      "sha256": "5458b45df62bed34e5f0360591eac60c7f03f2b6ca82e1b167b6e63cdf82e4c3"
+    },
+    "launch-poster.png": {
+      "bytes": 376851,
+      "sha256": "244b7fb2f4008f544b212ecb5de9ea09016d930f35bc175bbfb164f31ff05df7"
+    },
+    "linkedin-cover.png": {
+      "bytes": 156932,
+      "sha256": "ecadc91b65eca8f47d45985da5a4ec3b876220f4e097fc6ccd4c3a9e31ae32b3"
+    }
+  },
+  "renderedMediaTracked": false,
+  "modelCalls": 0,
+  "generationCreditsConsumed": 0,
+  "humanPlaybackApproval": "PENDING"
+}

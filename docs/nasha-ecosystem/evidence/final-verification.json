@@ -1,0 +1,167 @@
+{
+  "scope": "Existing portfolio commands over local HTTP; affected suites rerun after the favicon fix. No test removed or weakened. Full historical backend suite not rerun.",
+  "baseCommit": "1629b3a6c6d0a22c54d083fc6cda5531f93123b5",
+  "initialFailure": {
+    "command": "node scripts/test-nasha-command-center.js",
+    "exitCode": 1,
+    "output": "AssertionError [ERR_ASSERTION]: desktop JS errors\n+ actual - expected\n\n+ [\n+   'Failed to load resource: the server responded with a status of 404 (File not found)'\n+ ]\n- []\n\n    at /workspace/work/nasha-ecosystem/scripts/test-nasha-command-center.js:45:10 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [Array],\n  expected: [],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n",
+    "diagnosis": "Missing implicit /favicon.ico returned 404 under real local HTTP.",
+    "fix": "Reuse existing portfolio inline RM favicon; rebuild standalone preview.",
+    "rerunExitCode": 0
+  },
+  "finalChecks": [
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "seconds": 1.02,
+      "log": "work/qa/regression-0.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 build\n> node build.js && node scripts/render-profile.js && node scripts/render-nasha-integration.js && node scripts/render-nasha-standalone.js\n\nBuilt index.html \u2014 6 flagships, 24 projects, 66475 bytes.\nprofile/README.md written, 8458 bytes\nSaved standalone offline preview: /workspace/work/nasha-ecosystem/deliverables/nasha-ecosystem/nasha-preview.html\n",
+      "outputSha256": "b08da90a83c67005bba9e57e4f50d3b399ac9d2dc2677c1deaf4021df4ab4117"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "seconds": 1.6,
+      "log": "work/qa/post-favicon-3.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test\n> node scripts/check-site.js && node scripts/check-weir.js && node scripts/check-nasha.js && node scripts/test-lab.js && node scripts/test-nasha-ecosystem-core.js && node scripts/check-nasha-media.js\n\nBuilt index.html \u2014 6 flagships, 24 projects, 66475 bytes.\nPASS: inventory, story order, links/anchors/assets, evidence honesty, research labels, no old-design remnants, recruiter view, claim governance (pinned evidence, portfolio-eligible claims only, number guard, labels, attack/draft stories vs reports, positioning, confidentiality), deterministic build\nPASS: Weir page (structure, labels, disclosures, wording, numbers traced to the pinned evidence, links, Control Center section)\nPASS: NASHA page (structure, disclosure, wording bans, number guard, headline results vs evidence, 0 link paths at the pinned commit [skipped: no NASHA checkout], homepage and recruiter framing, not employment)\nPASS: lab cores (stats, agent, streaming, RAG, evaluation, funnel)\nPASS: synthetic model arithmetic, invalid inputs, fail-closed policy, approval separation, changed arguments, grant replay and ordered audit\nPASS: unreleased media excluded from tracked files and preview; local render paths ignored\n",
+      "outputSha256": "b8db35343ad252a5366f22d648558df989e6e62e89c9de8b369c0c9c49dc8825"
+    },
+    {
+      "command": "npm run verify:evidence",
+      "exitCode": 0,
+      "seconds": 0.65,
+      "log": "work/qa/regression-2.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 verify:evidence\n> node scripts/verify-evidence.js\n\nPASS: 28 vendored evidence files match their pinned hashes (offline)\n",
+      "outputSha256": "9b66059f1d669f24fe90d7781cee7b5d85e1a11131651cb4abac5d9e0599c586"
+    },
+    {
+      "command": "NODE_USE_ENV_PROXY=1 npm run verify:evidence:online",
+      "exitCode": 0,
+      "seconds": 12.28,
+      "log": "work/qa/regression-3.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 verify:evidence:online\n> node scripts/verify-evidence.js --online\n\nPASS: 28 vendored evidence files match their pinned hashes and the public repository at the pinned commit\n",
+      "outputSha256": "3929b80e35c1bcfe33d28117502f2a1bef197e3a0d1a1ea229b8f53dffcfa360"
+    },
+    {
+      "command": "npm run test:browser",
+      "exitCode": 0,
+      "seconds": 42.65,
+      "log": "work/qa/regression-4.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test:browser\n> node scripts/test-site.js\n\n{\"responsive\":[{\"label\":\"desktop\",\"width\":1440,\"overflow\":false},{\"label\":\"laptop\",\"width\":1180,\"overflow\":false},{\"label\":\"tablet\",\"width\":820,\"overflow\":false},{\"label\":\"mobile\",\"width\":390,\"overflow\":false},{\"label\":\"small-mobile\",\"width\":320,\"overflow\":false},{\"homepageScreens375x812\":19,\"motion\":\"no-preference\"},{\"homepageScreens375x812\":19,\"motion\":\"reduce\"}],\"recruiterView\":\"pass\",\"keyboardSkip\":\"pass\"}\n",
+      "outputSha256": "836e6610758ef95d31dd57531c2b4aee7de84c3057d6c282317ce7fef5dbb7b8"
+    },
+    {
+      "command": "npm run test:experience",
+      "exitCode": 0,
+      "seconds": 186.91,
+      "log": "work/qa/regression-5.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test:experience\n> node scripts/test-experience.js\n\nPASS: homepage and deep-page scenes, intro, lab demos on the projects page, MAREF playground on the evaluation page, capture mode, reduced motion, overflow at 4 viewports\n",
+      "outputSha256": "911c3acc925ccf7ee7112252a7e22310e354f2402f12a3207e7c5992cc5d7a63"
+    },
+    {
+      "command": "npm run test:budget",
+      "exitCode": 0,
+      "seconds": 59.12,
+      "log": "work/qa/regression-6.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test:budget\n> node scripts/test-budget.js\n\n{\n \"budgets\": {\n  \"html\": \"48 KB\",\n  \"css\": \"26 KB\",\n  \"js\": \"40 KB\",\n  \"fonts\": \"100 KB\",\n  \"images\": \"260 KB\",\n  \"total\": \"440 KB\",\n  \"requests\": 24,\n  \"cls\": 0.1\n },\n \"measured\": {\n  \"desktop\": {\n   \"html\": \"18.9 KB\",\n   \"css\": \"16.7 KB\",\n   \"js\": \"28.6 KB\",\n   \"fonts\": \"86.6 KB\",\n   \"images\": \"0 KB\",\n   \"other\": \"0 KB\",\n   \"total\": \"151 KB\",\n   \"requests\": 11,\n   \"cls\": 0\n  },\n  \"mobile\": {\n   \"html\": \"18.9 KB\",\n   \"css\": \"16.7 KB\",\n   \"js\": \"28.6 KB\",\n   \"fonts\": \"86.6 KB\",\n   \"images\": \"0 KB\",\n   \"other\": \"0 KB\",\n   \"total\": \"151 KB\",\n   \"requests\": 11,\n   \"cls\": 0\n  },\n  \"case-study desktop\": {\n   \"html\": \"23.2 KB\",\n   \"css\": \"16.7 KB\",\n   \"js\": \"21.6 KB\",\n   \"fonts\": \"86.6 KB\",\n   \"images\": \"0 KB\",\n   \"other\": \"0 KB\",\n   \"total\": \"148 KB\",\n   \"requests\": 10,\n   \"cls\": 0\n  },\n  \"agent-runtime.html\": {\n   \"html\": \"10.7 KB\",\n   \"css\": \"16.7 KB\",\n   \"js\": \"18.3 KB\",\n   \"fonts\": \"86.6 KB\",\n   \"images\": \"0 KB\",\n   \"other\": \"0 KB\",\n   \"total\": \"132 KB\",\n   \"requests\": 9,\n   \"cls\": 0\n  },\n  \"evaluation.html\": {\n   \"html\": \"12.6 KB\",\n   \"css\": \"16.7 KB\",\n   \"js\": \"26.8 KB\",\n   \"fonts\": \"86.6 KB\",\n   \"images\": \"0 KB\",\n   \"other\": \"0.9 KB\",\n   \"total\": \"144 KB\",\n   \"requests\": 14,\n   \"cls\": 0\n  },\n  \"projects.html\": {\n   \"html\": \"23.9 KB\",\n   \"css\": \"16.7 KB\",\n   \"js\": \"26.5 KB\",\n   \"fonts\": \"86.6 KB\",\n   \"images\": \"0 KB\",\n   \"other\": \"1.8 KB\",\n   \"total\": \"155 KB\",\n   \"requests\": 15,\n   \"cls\": 0\n  },\n  \"nasha-lab.html\": {\n   \"html\": \"26.3 KB\",\n   \"css\": \"18.9 KB\",\n   \"js\": \"15.5 KB\",\n   \"fonts\": \"86.6 KB\",\n   \"images\": \"0 KB\",\n   \"other\": \"0 KB\",\n   \"total\": \"147 KB\",\n   \"requests\": 10,\n   \"cls\": 0\n  },\n  \"late-js 1440 home\": {\n   \"cls\": 0\n  },\n  \"late-js 1440 agent-runtime.html\": {\n   \"cls\": 0\n  },\n  \"late-js 1440 evaluation.html\": {\n   \"cls\": 0\n  },\n  \"late-js 1440 projects.html\": {\n   \"cls\": 0\n  },\n  \"late-js 1440 support-escalation-copilot.html\": {\n   \"cls\": 0\n  },\n  \"late-js 1440 mcp-weir.html\": {\n   \"cls\": 0\n  },\n  \"late-js 1440 nasha-lab.html\": {\n   \"cls\": 0\n  },\n  \"late-js 390 home\": {\n   \"cls\": 0.002\n  },\n  \"late-js 390 agent-runtime.html\": {\n   \"cls\": 0\n  },\n  \"late-js 390 evaluation.html\": {\n   \"cls\": 0\n  },\n  \"late-js 390 projects.html\": {\n   \"cls\": 0\n  },\n  \"late-js 390 support-escalation-copilot.html\": {\n   \"cls\": 0.002\n  },\n  \"late-js 390 mcp-weir.html\": {\n   \"cls\": 0.003\n  },\n  \"late-js 390 nasha-lab.html\": {\n   \"cls\": 0.005\n  }\n }\n}\n",
+      "outputSha256": "bebc3e0472314ca6bf8b9195bbe7b38e9870a2ff0c9f0281ae12426386cf3551"
+    },
+    {
+      "command": "npm run test:a11y",
+      "exitCode": 0,
+      "seconds": 73.29,
+      "log": "work/qa/post-favicon-1.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test:a11y\n> node scripts/test-accessibility.js\n\n{\"label\":\"home reduced-motion 1440\",\"violations\":[]}\n{\"label\":\"home reduced-motion 390\",\"violations\":[]}\n{\"label\":\"agent-runtime.html reduced-motion 1440\",\"violations\":[]}\n{\"label\":\"agent-runtime.html reduced-motion 390\",\"violations\":[]}\n{\"label\":\"evaluation.html reduced-motion 1440\",\"violations\":[]}\n{\"label\":\"evaluation.html reduced-motion 390\",\"violations\":[]}\n{\"label\":\"projects.html reduced-motion 1440\",\"violations\":[]}\n{\"label\":\"projects.html reduced-motion 390\",\"violations\":[]}\n{\"label\":\"mcp-weir.html reduced-motion 1440\",\"violations\":[]}\n{\"label\":\"mcp-weir.html reduced-motion 390\",\"violations\":[]}\n{\"label\":\"nasha-lab.html reduced-motion 1440\",\"violations\":[]}\n{\"label\":\"nasha-lab.html reduced-motion 390\",\"violations\":[]}\n{\"label\":\"home, compact scene stepped\",\"violations\":[]}\n{\"label\":\"lab #tab-rag\",\"violations\":[]}\n{\"label\":\"lab #tab-funnel\",\"violations\":[]}\n{\"label\":\"project dialog open\",\"violations\":[]}\n{\"label\":\"evaluation page, playground mounted\",\"violations\":[]}\n{\"label\":\"recruiter view\",\"violations\":[]}\n{\"label\":\"case study reduced-motion 1440\",\"violations\":[]}\n{\"label\":\"case study reduced-motion 390\",\"violations\":[]}\n{\"label\":\"case study, interacted\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 1440 static\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 1440 dialog open\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 1440 inventory selected\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 1180 static\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 1180 dialog open\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 1180 inventory selected\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 820 static\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 820 dialog open\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 820 inventory selected\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 390 static\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 390 dialog open\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 390 inventory selected\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 320 static\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 320 dialog open\",\"violations\":[]}\n{\"label\":\"NASHA Command Center 320 inventory selected\",\"violations\":[]}\n",
+      "outputSha256": "d89c6f9bdaeee6a3e2d47eaa53771a6b68f512e05ffc8da13973f51f56d3d56a"
+    },
+    {
+      "command": "npm run test:weir",
+      "exitCode": 0,
+      "seconds": 13.62,
+      "log": "work/qa/regression-8.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test:weir\n> node scripts/test-weir.js\n\nPASS: Weir browser checks (server at http://127.0.0.1:8000; served bytes = built bytes for 8 files; 404 detector; 5 widths: layout, overflow, images, console, focus, anchors, Control Center section and gallery by mouse and keyboard, no-JavaScript fallback, homepage strip, recruiter view)\n",
+      "outputSha256": "409472ee46aa198cf5aa0d9b42dd64b6925e8a82a998d6061e319703d8f3052c"
+    },
+    {
+      "command": "npm run test:nasha",
+      "exitCode": 0,
+      "seconds": 11.53,
+      "log": "work/qa/regression-9.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test:nasha\n> node scripts/test-nasha.js\n\nPASS: NASHA page browser regression (served bytes, five widths, interactions by pointer and keyboard, no-JS fallback, console clean)\n",
+      "outputSha256": "22e5699b7e63588298d01d6c4fb526ce5ce8af17b1d5c69c11fca838b8ee51dc"
+    },
+    {
+      "command": "node scripts/test-nasha-command-center.js",
+      "exitCode": 0,
+      "seconds": 5.58,
+      "log": "work/qa/post-favicon-0.log",
+      "output": "PASS: NASHA AI Command Center five viewport sizes, interactive profiles, keyboard, replay, disclosure, assets, links, reduced motion\n",
+      "outputSha256": "39d827df972a395507d5a62b62fcf5b5e0eaf2b84c7bfbf0d20c206762c27e64"
+    },
+    {
+      "command": "npm run test:ecosystem",
+      "exitCode": 0,
+      "seconds": 26.69,
+      "log": "work/qa/post-favicon-2.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 test:ecosystem\n> node scripts/test-nasha-ecosystem-core.js && node scripts/test-nasha-ecosystem.js && node scripts/test-nasha-standalone.js\n\nPASS: synthetic model arithmetic, invalid inputs, fail-closed policy, approval separation, changed arguments, grant replay and ordered audit\n{\"status\":\"TESTED\",\"scope\":\"Local Chromium and axe; browser illustrations only\",\"viewports\":[{\"width\":1440,\"scans\":[{\"state\":\"interacted\",\"violations\":0},{\"state\":\"profile\",\"violations\":0},{\"state\":\"recorded-security-expanded\",\"violations\":0}],\"gzipBytes\":27089,\"requests\":20,\"cls\":0,\"overflow\":false,\"externalRequests\":0},{\"width\":1180,\"scans\":[{\"state\":\"interacted\",\"violations\":0},{\"state\":\"profile\",\"violations\":0},{\"state\":\"recorded-security-expanded\",\"violations\":0}],\"gzipBytes\":27089,\"requests\":20,\"cls\":0,\"overflow\":false,\"externalRequests\":0},{\"width\":820,\"scans\":[{\"state\":\"interacted\",\"violations\":0},{\"state\":\"profile\",\"violations\":0},{\"state\":\"recorded-security-expanded\",\"violations\":0}],\"gzipBytes\":27089,\"requests\":20,\"cls\":0,\"overflow\":false,\"externalRequests\":0},{\"width\":390,\"scans\":[{\"state\":\"interacted\",\"violations\":0},{\"state\":\"profile\",\"violations\":0},{\"state\":\"recorded-security-expanded\",\"violations\":0}],\"gzipBytes\":27089,\"requests\":20,\"cls\":0,\"overflow\":false,\"externalRequests\":0},{\"width\":320,\"scans\":[{\"state\":\"interacted\",\"violations\":0},{\"state\":\"profile\",\"violations\":0},{\"state\":\"recorded-security-expanded\",\"violations\":0}],\"gzipBytes\":27089,\"requests\":20,\"cls\":0,\"overflow\":false,\"externalRequests\":0}],\"noJavaScriptFallback\":true}\nPASS: standalone embedded bytes, desktop and 320px, twin/approval interactions, zero external resource requests\n",
+      "outputSha256": "07fe67dc9c0e547c0007ea77107e2ab79c3d0484f1edcec69d3d772db3415ed4"
+    },
+    {
+      "command": "npm run avatar:check",
+      "exitCode": 0,
+      "seconds": 0.15,
+      "log": "work/qa/regression-12.log",
+      "output": "\n> ritesh-mamidi-portfolio@2.0.0 avatar:check\n> node scripts/check-avatars.js\n\nslot hero: empty (fallback in use)\nslot ai: empty (fallback in use)\nslot data: empty (fallback in use)\nslot research: empty (fallback in use)\nslot product: empty (fallback in use)\nslot builder: empty (fallback in use)\nslot presenter: empty (fallback in use)\nslot contact: empty (fallback in use)\n",
+      "outputSha256": "bedfd1cf8eb43f96a90cfa57a6c22bb132d55ee688c5d8e4be96e75d7ae2c88f"
+    }
+  ],
+  "additionalReruns": [],
+  "accessibility": {
+    "originalScans": 36,
+    "ecosystemScans": 15,
+    "violations": 0,
+    "humanScreenReaderSession": false
+  },
+  "pinnedIntegration": {
+    "command": "python3 scripts/run-nasha-integration.py --engineering-root work/engineering --weir-root work/weir --check",
+    "exitCode": 0,
+    "result": "Pinned service outputs and real gateway evidence reproduce byte for byte"
+  },
+  "keyboardReview": "evidence/keyboard-review.json",
+  "filmReview": "evidence/film-finalization.json",
+  "performance": "evidence/lighthouse-local.json",
+  "prohibitedActions": {
+    "productionMerge": false,
+    "websiteDeployment": false,
+    "socialPublication": false,
+    "mediaUpload": false,
+    "modelCalls": 0,
+    "paidCosts": 0
+  },
+  "postFixBuild": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "generatedStandaloneRebuilt": true
+  },
+  "testedPageSha256": "169f76cf54f5e478fe0b1a2826fdabb11d46c820fdb45ae5024d00385821a330",
+  "lighthouseMedians": {
+    "mobile": {
+      "performance": 100,
+      "accessibility": 100,
+      "lcpMs": 1265.864,
+      "cls": 0,
+      "tbtMs": 3,
+      "transferBytes": 58181,
+      "requestCount": 8
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 100,
+      "lcpMs": 344.9538,
+      "cls": 0,
+      "tbtMs": 0,
+      "transferBytes": 58181,
+      "requestCount": 8
+    }
+  }
+}

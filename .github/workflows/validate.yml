@@ -45,3 +45,4 @@ jobs:
           npm run test:nasha
           node scripts/test-nasha-command-center.js
           npm run test:ecosystem
+          node scripts/review-nasha-keyboard.js
