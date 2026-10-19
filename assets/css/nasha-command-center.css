@@ -25,5 +25,5 @@ button{background:#18335a;border-color:#5a9ac2}button:hover{background:#255278}
 .status-ribbon .badge{border-color:#7cbfd0;color:#a4e8f4}
 .architecture{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem}.architecture .node{text-align:center}
 .evidence-note{border-left:3px solid var(--gold);padding:.6rem 1rem;background:#efc58b12;color:#e8d7bb}
-@media(max-width:700px){header{min-height:68vh;padding:3rem 1.2rem}.trace-panel{grid-template-columns:1fr}.profile-dialog dl{grid-template-columns:1fr}.profile-dialog dd{margin-bottom:.7rem}}
+@media(max-width:700px){header{min-height:68vh;padding:3rem 1.2rem}.trace-panel{grid-template-columns:minmax(0,1fr)}.trace-panel>*{min-width:0;max-width:100%;overflow-wrap:anywhere}.trace-steps button,.trace-detail button{max-width:100%;white-space:normal;overflow-wrap:anywhere}.profile-dialog dl{grid-template-columns:1fr}.profile-dialog dd{margin-bottom:.7rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
