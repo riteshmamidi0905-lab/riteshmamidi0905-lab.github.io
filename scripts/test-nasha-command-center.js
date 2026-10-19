@@ -20,8 +20,8 @@ const {serveLocal,base}=require("./local-preview");
   assert.ok(overflow<=1,label+" overflow "+overflow);
   const imgs=await page.locator("img").evaluateAll(a=>a.filter(x=>x.complete&&x.naturalWidth===0).map(x=>x.src));
   assert.deepEqual(imgs,[],label+" images");
-  for(const href of await page.locator('a[href^="#"]').evaluateAll(a=>a.map(x=>x.getAttribute("href")))){
-   assert.equal(await page.locator(href).count(),1,label+" anchor "+href);
+  for(const href of await page.locator('a[href^="#"]').evaluateAll(a=>a.map(x=>x.getAttribute("href")).filter(h=>h.length>1))){
+   assert.equal(await page.locator(`[id="${href.slice(1)}"]`).count(),1,label+" anchor "+href);
   }
   const btn=page.locator("#roles article button").first();
   await btn.focus();await page.keyboard.press("Enter");
