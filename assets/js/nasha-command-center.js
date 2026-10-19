@@ -17,7 +17,7 @@ const ROLE_DATA=[
 ];
 const FLOW_DATA={
 seasonal:{title:"Seasonal beer development",roles:["AETHON","CORTEX","ZYBREW","VECTRA","NEXORA","QUANTIX","PYRIX","AEGIS","VERITAS","SYNAPSE"],detail:"Synthetic proposal, ingredient requirements, supplier comparison and founder-review checkpoint.",state:"REQUIRES_HUMAN_APPROVAL"},
-inventory:{title:"Inventory & procurement",roles:["VECTRA","QUANTIX","NEXORA","AEGIS","VERITAS"],detail:"Executable synthetic analytical handoffs. Real THE WEIR approval and protected execution are NOT verified.",state:"REQUIRES_HUMAN_APPROVAL"},
+inventory:{title:"Inventory & procurement",roles:["VECTRA","QUANTIX","NEXORA","AEGIS","VERITAS"],detail:"Executable synthetic analytical handoffs. Synthetic gateway policy, approval lifecycle, and audit integration passed engineering CI #132; this replay remains illustrative, not a captured security trace.",state:"REQUIRES_HUMAN_APPROVAL"},
 customer:{title:"Customer intelligence",roles:["ECHON","QUANTIX","AETHON","NOVARA","AEGIS","VERITAS","SYNAPSE"],detail:"Synthetic feedback, simple sentiment labels, scenario analytics, unpublished campaign draft.",state:"REQUIRES_HUMAN_APPROVAL"}
 };
 const $=s=>document.querySelector(s);
@@ -39,7 +39,7 @@ function openProfile(r){
  $("#profile-specialty").textContent=purpose;
  $("#profile-description").textContent=description;
  const dl=$("#profile-facts");dl.replaceChildren();
- for(const [k,v] of [["Internal role",internal],["Inputs",inputs],["Outputs",outputs],["Collaborators",partners],["Implementation","Deterministic callable specialist; CI #116 verified; individual evaluation metrics not published"],["Permissions","No protected purchase or publication exposed through specialist interface"]]){
+ for(const [k,v] of [["Internal role",internal],["Inputs",inputs],["Outputs",outputs],["Collaborators",partners],["Implementation","Deterministic callable specialist; engineering CI #132 verified (368 Python tests passed, 15/15 workflow contract checks); no per-specialist model-accuracy metrics claimed"],["Permissions","No protected purchase or publication exposed through specialist interface"]]){
  addText(dl,"dt",k);addText(dl,"dd",v)}
  $("#profile-code").href=BASE+file;
  dialog.showModal();
@@ -57,7 +57,7 @@ function render(){
  const role=f.roles[index],meta=byDisplay[role];
  $("#trace-role").textContent=role;
  $("#trace-description").textContent=meta?meta[5]:"External policy gateway (architecture only)";
- $("#trace-evidence").textContent=meta?"Source: "+meta[1]+" specialist interface. Demonstration is an illustrative sequence, not a recorded execution trace.":"Integration and approval lifecycle are not end-to-end verified.";
+ $("#trace-evidence").textContent=meta?"Source: "+meta[1]+" specialist interface. Demonstration is an illustrative sequence, not a recorded execution trace.":"Synthetic gateway and approval lifecycle integration verified in CI #132; not a production deployment.";
  $("#trace-counter").textContent=(index+1)+" / "+f.roles.length;
  document.querySelectorAll("[data-workflow]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.workflow===current)));
 }
