@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>NASHA AI | Engineering Preview</title>
+<style>
+:root{color-scheme:dark;font:16px/1.6 system-ui,sans-serif;background:#0d1418;color:#eef2ee}
+*{box-sizing:border-box}body{margin:0}a{color:#eac88e}a:focus-visible,button:focus-visible{outline:3px solid #f7cc72;outline-offset:3px}
+main,header,footer{max-width:1160px;margin:auto;padding:2rem 1.3rem}header{min-height:55vh;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse at 90% 10%,#25504a 0,transparent 60%)}
+.kicker{color:#eac88e;text-transform:uppercase;letter-spacing:.22em;font-size:.85rem}h1{font-size:clamp(3.2rem,10vw,8rem);line-height:.95;letter-spacing:-.06em;margin:.3em 0}h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.04em}
+.lede{font-size:1.3rem;max-width:760px;color:#c8d6d1}.badge{display:inline-block;padding:.15rem .55rem;border:1px solid #8ca59b;border-radius:2rem;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase}
+section{margin:4rem 0}nav{display:flex;gap:1rem;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:1rem}
+.card{background:#152127;border:1px solid #334746;border-radius:16px;padding:1.25rem;min-height:160px}.card h3{margin:.5rem 0}.card p{color:#c1cecb}.mark{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;border:2px solid var(--accent);font-size:1.3rem;color:var(--accent)}
+button{background:#203831;color:#f2f7f4;border:1px solid #91b6a7;border-radius:8px;padding:.7rem 1rem;cursor:pointer}button[aria-pressed=true]{background:#426858}
+pre{white-space:pre-wrap;word-break:break-word;background:#091014;padding:1.2rem;border-radius:10px;max-height:390px;overflow:auto}
+.flow{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}.node{padding:.6rem 1rem;border:1px solid #57786d;border-radius:8px}.muted{color:#b7c6c1}
+@media(prefers-reduced-motion:no-preference){.card{transition:transform .2s}.card:hover{transform:translateY(-3px)}}
+</style></head>
+<body><header><p class="kicker">Independent engineering · Isolated preview</p><h1>NASHA<br>AI.</h1>
+<p class="lede">An evidence-first business intelligence architecture for a simulated Indo-Mexican brewpub. Twelve specialist roles. Deterministic controls. Human decisions where they matter.</p>
+<p><span class="badge">Prototype · Not deployed</span> <span class="badge">Synthetic scenarios</span></p>
+<nav aria-label="Page sections"><a href="#team">Team</a><a href="#workflows">Workflows</a><a href="#security">Security</a><a href="#evidence">Evidence</a></nav></header>
+<main>
+<section id="team"><p class="kicker">01 / Role architecture</p><h2>Specialists, not twelve chatbots.</h2>
+<p class="muted">Roles are defined in code. A role definition does not imply a deployed autonomous agent.</p><div id="roles" class="grid"></div></section>
+<section id="workflows"><p class="kicker">02 / Collaboration</p><h2>Explore the handoffs.</h2>
+<p class="muted">Replay of deterministic <strong>plan-only</strong> handoffs. These are not recorded live executions.</p>
+<div role="group" aria-label="Choose a workflow"><button type="button" data-workflow="seasonal" aria-pressed="true">Seasonal beer</button>
+<button type="button" data-workflow="inventory" aria-pressed="false">Inventory & procurement</button>
+<button type="button" data-workflow="customer" aria-pressed="false">Customer intelligence</button></div>
+<h3 id="workflow-title" aria-live="polite">Seasonal beer development</h3><div class="flow" id="flow" aria-label="Role handoff sequence"></div>
+<p class="badge">PLAN ONLY — NO TOOLS EXECUTED</p></section>
+<section id="security"><p class="kicker">03 / Governance</p><h2>Authority belongs outside the agent.</h2>
+<div class="flow" aria-label="Intended security path"><span class="node">NASHA proposal</span><span aria-hidden="true">→</span><span class="node">THE WEIR policy gateway</span><span aria-hidden="true">→</span><span class="node">ALLOW / APPROVE / DENY</span><span aria-hidden="true">→</span><span class="node">Scoped human approval</span><span aria-hidden="true">→</span><span class="node">Authorized execution</span></div>
+<p class="muted"><strong>Status: integration not verified.</strong> This is the target architecture, not evidence that the cross-repository enforcement path is deployed.</p></section>
+<section id="evidence"><p class="kicker">04 / Engineering evidence</p><h2>Show the boundary of what is known.</h2>
+<div class="grid"><article class="card"><span class="badge">Verified baseline</span><h3>Software & Docker</h3><p>Workflow #91 passed on an earlier engineering commit. Latest changes require separate CI verification.</p></article>
+<article class="card"><span class="badge">Implemented</span><h3>Role registry</h3><p>Twelve structured contracts with permission, metric, dependency and human-approval fields.</p></article>
+<article class="card"><span class="badge">Prototype</span><h3>Workflow planning</h3><p>Three deterministic handoff sequences; no protected tool execution.</p></article>
+<article class="card"><span class="badge">Planned</span><h3>Cross-system telemetry</h3><p>Unified traces, scoped approval evidence and incident replay are not yet demonstrated.</p></article></div>
+<p><a href="https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/tree/career/enterprise-platform-integration">NASHA engineering source</a> ·
+<a href="https://github.com/riteshmamidi0905-lab/mcp-weir">THE WEIR gateway source</a></p></section>
+</main><footer><p>NASHA AI · Independent engineering project · All operational examples are synthetic. This isolated preview is not a production release.</p></footer>
+<script>
+"use strict";
+const roles=[
+["ATLAS","Strategy","orchestrated analyst","#CBA46A","◇"],
+["BREWMASTER","Brewing intelligence","deterministic service","#D9A441","◈"],
+["FORGE","Menu & product","deterministic service","#C56E48","△"],
+["SENTINEL","Inventory","deterministic service","#438F83","⬡"],
+["MERIDIAN","Procurement","supervised workflow","#A58AB5","↗"],
+["PULSE","Analytics","deterministic service","#4D91BA","⌁"],
+["ECHO","Customer insights","planned evidence service","#BC82A6","◌"],
+["SPARK","Marketing","proposal service","#E8A95E","✳"],
+["NEXUS","Operations","LangGraph workflow","#8C9CB2","◎"],
+["GUARDIAN","Quality & compliance","deterministic service","#709D7B","⬟"],
+["SCRIBE","Knowledge","retrieval service","#91A7B4","▤"],
+["LUMEN","Evaluation","deterministic service","#C1A4DB","✧"]];
+const container=document.getElementById("roles");
+for(const [name,purpose,kind,color,glyph] of roles){
+const card=document.createElement("article");card.className="card";card.style.setProperty("--accent",color);
+const icon=document.createElement("div");icon.className="mark";icon.setAttribute("aria-hidden","true");icon.textContent=glyph;
+const title=document.createElement("h3");title.textContent=name;
+const description=document.createElement("p");description.textContent=purpose;
+const label=document.createElement("span");label.className="badge";label.textContent=kind;
+card.append(icon,title,description,label);container.append(card)}
+const workflows={
+seasonal:["Seasonal beer development",["ATLAS","SCRIBE","BREWMASTER","SENTINEL","MERIDIAN","PULSE","FORGE","GUARDIAN","LUMEN","NEXUS"]],
+inventory:["Inventory & procurement",["SENTINEL","PULSE","MERIDIAN","GUARDIAN","THE WEIR","HUMAN APPROVAL"]],
+customer:["Customer intelligence",["ECHO","PULSE","ATLAS","SPARK","GUARDIAN","LUMEN","NEXUS"]]};
+function show(name){
+const [title,steps]=workflows[name];document.getElementById("workflow-title").textContent=title;
+const flow=document.getElementById("flow");flow.replaceChildren();
+steps.forEach((s,i)=>{if(i){const arrow=document.createElement("span");arrow.setAttribute("aria-hidden","true");arrow.textContent="→";flow.append(arrow)}
+const node=document.createElement("span");node.className="node";node.textContent=s;flow.append(node)});
+document.querySelectorAll("[data-workflow]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.workflow===name)))}
+document.querySelectorAll("[data-workflow]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.workflow)));show("seasonal");
+</script></body></html>
