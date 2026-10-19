@@ -17,6 +17,7 @@ const {serveLocal,base}=require("./local-preview");
   assert.equal(await page.locator("#roles article button").count(),12);
   assert.match(await page.locator("#workflows .evidence-note").innerText(),/ILLUSTRATIVE REPLAY/);
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  if(overflow>1){const offenders=await page.evaluate(()=>[...document.querySelectorAll("body *")].map(e=>({tag:e.tagName,id:e.id,cls:String(e.className).slice(0,70),right:Math.round(e.getBoundingClientRect().right),width:Math.round(e.getBoundingClientRect().width)})).filter(e=>e.right>innerWidth+1).sort((a,b)=>b.right-a.right).slice(0,12));console.error("OVERFLOW DIAGNOSTIC",label,width,JSON.stringify(offenders));}
   assert.ok(overflow<=1,label+" overflow "+overflow);
   const imgs=await page.locator("img").evaluateAll(a=>a.filter(x=>x.complete&&x.naturalWidth===0).map(x=>x.src));
   assert.deepEqual(imgs,[],label+" images");
