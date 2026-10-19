@@ -1,0 +1,27 @@
+[
+  {
+    "path": "deliverables/nasha-ecosystem/nasha-launch-review.mp4",
+    "bytes": 3322373,
+    "sha256": "95476132f973427bad0b31dee72b1513592cb80c6babf5add7c588fd346ffa18"
+  },
+  {
+    "path": "deliverables/nasha-ecosystem/nasha-launch-review.vtt",
+    "bytes": 812,
+    "sha256": "b2dd3883aa0db2d8f2eefed7d6381cb6e5983679082ac1dbdb17a9bb0f722e14"
+  },
+  {
+    "path": "deliverables/nasha-ecosystem/linkedin-cover.png",
+    "bytes": 219818,
+    "sha256": "881eaf7f92845609487ddc90de47670591d8cf5d43f3498fc5650f1d63777809"
+  },
+  {
+    "path": "deliverables/nasha-ecosystem/launch-poster.png",
+    "bytes": 508522,
+    "sha256": "6ba9f58ba9874b01048472a99babf127394f32ba4794ef612fdeac3137cee1ef"
+  },
+  {
+    "path": "deliverables/nasha-ecosystem/nasha-preview.html",
+    "bytes": 60709,
+    "sha256": "f7f36a4b29811ae16b97a598fa17384400db81931b2a1fcef5722e09bb146f02"
+  }
+]

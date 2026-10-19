@@ -1,6 +1,6 @@
 # Cinematic assets and controlled launch
 
-Status: local review assets only. Nothing published or deployed.
+Status: source and standalone preview committed to the isolated development branch; rendered film and social review media remain local. Nothing deployed or posted to social media.
 
 ## Identity and asset production
 
@@ -24,6 +24,8 @@ No Runway credits consumed. No narrator included; if narration is added, use a l
 Six eight-second chapters: Command Center; connected specialist identities; courtyard Digital Twin; synthetic workflow handoff; THE WEIR review boundary; evidence and builder. Captures come from the actual development page. Every frame carries the synthetic/illustrative disclosure; chapter captions distinguish historical engineering evidence from browser illustrations. Local FFmpeg motion is editorial pan/zoom, not generated architectural footage. Silent by design.
 
 Reproduce with `TEST_FILE=1 CHROMIUM_PATH=/usr/bin/chromium node scripts/render-nasha-launch.js --out deliverables/nasha-ecosystem`. Requires existing Playwright, system FFmpeg and a Chromium executable. Rendering may require local process permissions in restrictive sandboxes.
+
+Open the standalone preview with `node scripts/render-nasha-standalone.js`, then open `deliverables/nasha-ecosystem/nasha-preview.html` in a browser. It embeds all runtime code and specialist art. Links to the existing recruiter/lab pages open the public portfolio; source links open GitHub.
 
 ## LinkedIn draft — unpublished
 

@@ -16,12 +16,25 @@
     "original accessibility suite: 36 scans, zero violations",
     "new ecosystem pure-model acceptance",
     "new ecosystem browser acceptance: five widths, ten axe scans, zero violations, 23185 gzip bytes, CLS 0, zero external requests",
-    "ffprobe: H.264, 1280x720, 48 seconds, no audio"
+    "ffprobe: H.264, 1280x720, 48 seconds, no audio",
+    "original cinematic interaction regression at four viewports",
+    "original homepage and deep-page performance budgets",
+    "original Weir browser acceptance",
+    "original NASHA browser acceptance",
+    "pinned new engineering source paths and local page links exist",
+    "standalone exported bytes via setContent: desktop and 320px, no external load requests, working twin and approval controls; direct file navigation blocked by managed browser policy"
   ],
   "not_verified": [
     "New Lighthouse scores",
     "Local full Python backend suite",
     "Production deployment"
   ],
-  "media_status": "48-second silent capture-based review cut; original SVG visuals; not a finalized generated-character launch film"
+  "media_status": "48-second silent capture-based review cut; original SVG visuals; not a finalized generated-character launch film",
+  "ci": {
+    "implementation_sha": "6988371255b3d9bce67aea7478e9b0e1927a6bbd",
+    "run_number": 68,
+    "run_id": 39293303417,
+    "conclusion": "success",
+    "url": "https://github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/actions/runs/39293303417"
+  }
 }

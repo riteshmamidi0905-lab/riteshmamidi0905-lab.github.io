@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "scripts": {
-    "build": "node build.js && node scripts/render-profile.js",
+    "build": "node build.js && node scripts/render-profile.js && node scripts/render-nasha-standalone.js",
     "test": "node scripts/check-site.js && node scripts/check-weir.js && node scripts/check-nasha.js && node scripts/test-lab.js && node scripts/test-nasha-ecosystem-core.js",
     "test:browser": "node scripts/test-site.js",
     "test:a11y": "node scripts/test-accessibility.js",
@@ -17,7 +17,7 @@
     "sync:evidence": "node scripts/sync-evidence.js",
     "sync:nasha": "node scripts/sync-nasha-evidence.js",
     "profile": "node scripts/render-profile.js",
-    "test:ecosystem": "node scripts/test-nasha-ecosystem-core.js && node scripts/test-nasha-ecosystem.js"
+    "test:ecosystem": "node scripts/test-nasha-ecosystem-core.js && node scripts/test-nasha-ecosystem.js && node scripts/test-nasha-standalone.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

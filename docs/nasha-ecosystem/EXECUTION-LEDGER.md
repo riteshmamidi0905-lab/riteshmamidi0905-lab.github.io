@@ -22,8 +22,8 @@ Phase 7 acceptance and Phase 8 launch preparation for a complete **browser-proto
 - Phase 3: illustrative ALLOW/DENY/APPROVE, distinct reviewer step, argument-change denial, single-use execution and ordered in-memory incident records. No backend or security claims for browser state.
 - Phase 4: twelve original consistent SVG service portraits; restrained native motion; no new dependency. Public and internal names preserved. Specialist source links pinned to engineering SHA.
 - Phase 5: recruiter summary, six-discipline evidence map, explicit limits, source links and generated neutral-brand recruiter entry. Existing portfolio claim guards retained.
-- Phase 6: local 48-second H.264 silent capture-based review cut, poster, LinkedIn cover, captions, media manifest and unpublished draft. Generator script is committed; generated binary media remains local and in the handoff output to avoid unnecessary repository bloat.
-- Phase 7: original Command Center acceptance, original responsive portfolio/recruiter suite, 36-scan accessibility suite, 28 evidence hashes, Node claim guards and model checks passed locally. New five-width/ten-scan browser acceptance passes with 23,185 gzip bytes, CLS 0, no overflow or external requests. Remaining regression/CI outcome is recorded in the final session receipt.
+- Phase 6: local 48-second H.264 silent capture-based review cut, poster, LinkedIn cover, captions, media manifest and unpublished draft. Generator scripts and the standalone preview are committed. Film, poster, cover, captions and intermediate captures remain local. An accidental public media commit was removed from branch history; see the receipt.
+- Phase 7: original Command Center acceptance, original responsive portfolio/recruiter suite, 36-scan accessibility suite, 28 evidence hashes, Node claim guards and model checks passed locally. New five-width/ten-scan browser acceptance passes with 23,185 gzip bytes, CLS 0, no overflow or external requests. All remaining local regression suites passed. Implementation CI #68 succeeded at `6988371255b3d9bce67aea7478e9b0e1927a6bbd`; the final handoff receipt records the exact continuation context.
 - Phase 8: controlled launch steps and status vocabulary documented; release awaits explicit owner approval.
 
 ## Decisions and fixes
@@ -43,7 +43,7 @@ Phase 7 acceptance and Phase 8 launch preparation for a complete **browser-proto
 
 1. Read this ledger and `SESSION-RECEIPT.md` first. Check out the final remote development branch/commit named there; do not start from `main` or replay the local import onto it.
 2. Inspect the latest CI run for that exact commit. If failed, fix the demonstrated failure on the development branch and rerun the relevant local check before pushing.
-3. Review `deliverables/nasha-ecosystem/` generated locally, or reproduce it with the documented script. The user-facing output includes the review film and a source/preview archive.
+3. Review `deliverables/nasha-ecosystem/` generated locally, or reproduce it with the documented script. The development branch includes the standalone offline preview and source. The film remains in the local worktree.
 4. Perform human editorial review of the silent review cut, mobile interactions and accessibility with assistive technology. Advanced photoreal portrait generation and real backend-connected twin are PLANNED, not delivered capabilities.
 5. For paid imagery, obtain a current per-model credit quote and approval for one preview before generation. No sensitive authorization, deployment or publication is implied.
 6. Prepare a specific release diff and production destination for owner approval. Do not merge, deploy or publish without it.
