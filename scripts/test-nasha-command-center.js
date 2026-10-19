@@ -12,7 +12,7 @@ const {serveLocal,base}=require("./local-preview");
   page.on("pageerror",e=>errors.push(e.message));
   page.on("console",m=>{if(m.type()==="error")errors.push(m.text())});
   page.on("response",r=>{if(r.url().startsWith(base)&&r.status()>=400)bad.push(r.url())});
-  await page.goto(base.replace(/\\/?$/, "/")+"nasha-ai-preview.html",{waitUntil:"load"});
+  await page.goto((base.endsWith("/") ? base : base + "/")+"nasha-ai-preview.html",{waitUntil:"load"});
   assert.equal(await page.locator("#roles article").count(),12,label+" roles");
   assert.equal(await page.locator("#roles article button").count(),12);
   assert.match(await page.locator("#workflows .evidence-note").innerText(),/ILLUSTRATIVE REPLAY/);
