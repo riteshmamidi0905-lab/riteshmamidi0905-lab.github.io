@@ -59,7 +59,7 @@ const { serveLocal, base } = require('./local-preview'); const { P, FLAG } = req
     results.push({ label, width, overflow: false }); await ctx.close();
   }
   /* recruiter view */
-  { const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'recruiter.html');
+  for (const width of [1440, 1180, 820, 390, 320]) { const ctx = await browser.newContext({ viewport: { width, height: 844 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'recruiter.html');
     assert.match(await page.locator('h1').textContent(), /Ritesh Mamidi/); assert.equal(await page.locator('.proj > li').count(), FLAG.length + 4);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)); await ctx.close(); }
   /* the homepage is short enough to read: at most 20 screens of 375x812 (Block 4.5: back to 20 after compressing lower-value homepage material: also-built tag pills, current-role focus pills, section padding and the contact height; the NASHA strip stays one screen), with and without motion */
