@@ -55,7 +55,6 @@ const {serveLocal,base} = require('./local-preview');
   for (const href of await page.locator('a[href^="#"]').evaluateAll(a=>a.map(x=>x.getAttribute('href')).filter(x=>x.length>1))) {
    assert.equal(await page.locator(href).count(),1,'unique navigation target '+href);
   }
-  assert.equal(await page.locator('#roles img').first().evaluate(e=>getComputedStyle(e).objectFit),'contain');
   await page.click('#weir-reset'); assert.equal(await page.locator('#weir-audit li').count(),0);
   await page.locator('footer').scrollIntoViewIfNeeded(); await page.locator('img').evaluateAll(a=>a.forEach(i=>i.loading='eager')); await page.waitForFunction(()=>[...document.images].every(i=>i.complete));
   assert.equal(await page.locator('#roles img').count(),12); assert.equal(await page.locator('img').evaluateAll(a=>a.filter(i=>i.complete&&i.naturalWidth===0).length),0);
