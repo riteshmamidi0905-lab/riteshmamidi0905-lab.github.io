@@ -1,0 +1,46 @@
+{
+  "status": "IMPLEMENTED",
+  "type": "Local capture-based silent review cut",
+  "durationSeconds": 48,
+  "sourcePage": "nasha-ai-preview.html",
+  "externalActions": 0,
+  "generationCreditsConsumed": 0,
+  "shots": [
+    {
+      "id": "hero",
+      "target": "header",
+      "title": "NASHA AI / Engineering with visible boundaries",
+      "caption": "Independent project by Ritesh Mamidi. Synthetic hospitality concept."
+    },
+    {
+      "id": "specialists",
+      "target": "#team",
+      "title": "Twelve specialists. Clear contracts.",
+      "caption": "Deterministic callable services, not twelve independent LLMs."
+    },
+    {
+      "id": "twin",
+      "target": "#twin",
+      "title": "Explore a connected courtyard.",
+      "caption": "ILLUSTRATIVE Digital Twin. Invented stock, demand and financial inputs."
+    },
+    {
+      "id": "workflow",
+      "target": "#workflows",
+      "title": "Follow the handoff.",
+      "caption": "ILLUSTRATIVE role-sequence replay, not a captured execution trace."
+    },
+    {
+      "id": "weir",
+      "target": "#weir-lab",
+      "title": "A proposal is not permission.",
+      "caption": "ILLUSTRATIVE approval and audit. THE WEIR is a separate gateway."
+    },
+    {
+      "id": "evidence",
+      "target": "#evidence",
+      "title": "Inspect the evidence. Understand the limits.",
+      "caption": "Backend CI #132 at 2fc1000: 368 passed, 1 skipped; 15/15 workflow checks."
+    }
+  ]
+}

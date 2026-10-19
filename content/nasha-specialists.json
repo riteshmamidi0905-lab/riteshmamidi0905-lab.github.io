@@ -1,0 +1,110 @@
+[
+  {
+    "public_name": "AETHON",
+    "internal_name": "ATLAS",
+    "specialty": "Strategy Intelligence",
+    "color": "#c5adf9",
+    "asset": "assets/nasha/specialists/aethon.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "ZYBREW",
+    "internal_name": "BREWMASTER",
+    "specialty": "Brewing Intelligence",
+    "color": "#efb95c",
+    "asset": "assets/nasha/specialists/zybrew.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "PYRIX",
+    "internal_name": "FORGE",
+    "specialty": "Culinary Innovation",
+    "color": "#f08e74",
+    "asset": "assets/nasha/specialists/pyrix.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "VECTRA",
+    "internal_name": "SENTINEL",
+    "specialty": "Inventory Intelligence",
+    "color": "#66e3c3",
+    "asset": "assets/nasha/specialists/vectra.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "NEXORA",
+    "internal_name": "MERIDIAN",
+    "specialty": "Procurement Intelligence",
+    "color": "#d2a3f3",
+    "asset": "assets/nasha/specialists/nexora.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "QUANTIX",
+    "internal_name": "PULSE",
+    "specialty": "Financial Analytics",
+    "color": "#6ac7fa",
+    "asset": "assets/nasha/specialists/quantix.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "ECHON",
+    "internal_name": "ECHO",
+    "specialty": "Customer Intelligence",
+    "color": "#f3a2d4",
+    "asset": "assets/nasha/specialists/echon.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "NOVARA",
+    "internal_name": "SPARK",
+    "specialty": "Marketing Intelligence",
+    "color": "#ffc58a",
+    "asset": "assets/nasha/specialists/novara.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "SYNAPSE",
+    "internal_name": "NEXUS",
+    "specialty": "Workflow Orchestration",
+    "color": "#9eb9ff",
+    "asset": "assets/nasha/specialists/synapse.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "AEGIS",
+    "internal_name": "GUARDIAN",
+    "specialty": "Quality & Compliance",
+    "color": "#8ce0a0",
+    "asset": "assets/nasha/specialists/aegis.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "CORTEX",
+    "internal_name": "SCRIBE",
+    "specialty": "Knowledge & Research",
+    "color": "#96d6e6",
+    "asset": "assets/nasha/specialists/cortex.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  },
+  {
+    "public_name": "VERITAS",
+    "internal_name": "LUMEN",
+    "specialty": "AI Evaluation",
+    "color": "#d8b2ff",
+    "asset": "assets/nasha/specialists/veritas.svg",
+    "status": "IMPLEMENTED",
+    "visual_status": "ILLUSTRATIVE"
+  }
+]

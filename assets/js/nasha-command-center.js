@@ -1,10 +1,10 @@
 "use strict";
 /* Isolated preview: evidence-labeled deterministic simulations, not recorded traces. */
-const BASE="https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/blob/career/enterprise-platform-integration/lab/nasha_lab/";
+const BASE="https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/blob/2fc100070025cfee8d40216c25326ad3a6040cb0/lab/nasha_lab/";
 const ROLE_DATA=[
-["AETHON","ATLAS","Strategy Intelligence","◇","#c5adf9","Evidence-based founder strategy and decisions","objective, evidence","decision brief","SCRIBE, PULSE, SYNAPSE","specialists.py"],
-["ZYBREW","BREWMASTER","Brewing Intelligence","◈","#efb95c","Unbrewed beer concept and ingredient requirements","style, batch_liters, ingredients","unbrewed batch plan","CORTEX, VECTRA, PYRIX","specialists.py"],
-["PYRIX","FORGE","Culinary Innovation","△","#f08e74","Menu proposals and no-beef/no-pork checks","dish, ingredients, cost","untested menu proposal","ZYBREW, AEGIS","specialists.py"],
+["AETHON","ATLAS","Strategy Intelligence","◇","#c5adf9","Evidence-based founder strategy and decisions","objective, evidence","decision brief","CORTEX, QUANTIX, SYNAPSE","specialists.py"],
+["ZYBREW","BREWMASTER","Brewing Intelligence","◈","#efb95c","Unbrewed beer concept and ingredient requirements","style, batch_liters, ingredient_requirements","unbrewed batch plan","CORTEX, VECTRA, PYRIX","specialists.py"],
+["PYRIX","FORGE","Culinary Innovation","△","#f08e74","Menu proposals and no-beef/no-pork checks","dish, ingredients, estimated_cost","untested menu proposal","ZYBREW, AEGIS","specialists.py"],
 ["VECTRA","SENTINEL","Inventory Intelligence","⬡","#66e3c3","Stock shortfall and replenishment signals","on_hand, reorder_point","shortfall and reorder flag","NEXORA, QUANTIX","specialists.py"],
 ["NEXORA","MERIDIAN","Procurement Intelligence","↗","#d2a3f3","Synthetic supplier quote comparison; draft only","supplier_quotes","recommended supplier draft","VECTRA, AEGIS, THE WEIR","specialists.py"],
 ["QUANTIX","PULSE","Financial Analytics","⌁","#6ac7fa","Scenario revenue, cost and margin","units, unit_price, unit_cost","financial scenario","AETHON, NEXORA","specialists.py"],
@@ -29,6 +29,7 @@ for(const r of ROLE_DATA){
  const [name,internal,purpose,glyph,color,description]=r;
  const card=document.createElement("article");card.className="card";card.style.setProperty("--accent",color);
  addText(card,"div",glyph,"mark").setAttribute("aria-hidden","true");
+ const art=document.createElement("img");art.src="assets/nasha/specialists/"+name.toLowerCase()+".svg";art.alt="";art.width=480;art.height=260;art.loading="lazy";art.className="specialist-art";card.append(art);
  addText(card,"h3",name);addText(card,"p",purpose);addText(card,"span","IMPLEMENTED • DETERMINISTIC SERVICE","badge");
  const btn=addText(card,"button","Explore "+name);btn.type="button";btn.addEventListener("click",()=>openProfile(r));
  container.append(card);

@@ -1,0 +1,27 @@
+{
+  "status": "TESTED",
+  "baseline_snapshot_tree": "bdd8f78587dd17b79c030482c557e7de6c2bb637",
+  "baseline_import_commit": "cff155c41c50e72def123f1fb02a7ac355a0881a",
+  "runtime": {
+    "node": "24.19.0",
+    "chromium": "system /usr/bin/chromium",
+    "ffmpeg": "7.1.5"
+  },
+  "passed": [
+    "npm run build",
+    "npm test",
+    "npm run verify:evidence: 28 pinned files",
+    "original Command Center five viewport acceptance",
+    "original portfolio responsive and recruiter regression",
+    "original accessibility suite: 36 scans, zero violations",
+    "new ecosystem pure-model acceptance",
+    "new ecosystem browser acceptance: five widths, ten axe scans, zero violations, 23185 gzip bytes, CLS 0, zero external requests",
+    "ffprobe: H.264, 1280x720, 48 seconds, no audio"
+  ],
+  "not_verified": [
+    "New Lighthouse scores",
+    "Local full Python backend suite",
+    "Production deployment"
+  ],
+  "media_status": "48-second silent capture-based review cut; original SVG visuals; not a finalized generated-character launch film"
+}

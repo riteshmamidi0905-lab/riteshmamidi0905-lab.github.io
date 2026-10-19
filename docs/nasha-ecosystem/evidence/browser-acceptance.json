@@ -1,0 +1,97 @@
+{
+  "status": "TESTED",
+  "scope": "Local Chromium and axe; browser illustrations only",
+  "viewports": [
+    {
+      "width": 1440,
+      "scans": [
+        {
+          "state": "interacted",
+          "violations": 0
+        },
+        {
+          "state": "profile",
+          "violations": 0
+        }
+      ],
+      "gzipBytes": 23185,
+      "requests": 18,
+      "cls": 0,
+      "overflow": false,
+      "externalRequests": 0
+    },
+    {
+      "width": 1180,
+      "scans": [
+        {
+          "state": "interacted",
+          "violations": 0
+        },
+        {
+          "state": "profile",
+          "violations": 0
+        }
+      ],
+      "gzipBytes": 23185,
+      "requests": 18,
+      "cls": 0,
+      "overflow": false,
+      "externalRequests": 0
+    },
+    {
+      "width": 820,
+      "scans": [
+        {
+          "state": "interacted",
+          "violations": 0
+        },
+        {
+          "state": "profile",
+          "violations": 0
+        }
+      ],
+      "gzipBytes": 23185,
+      "requests": 18,
+      "cls": 0,
+      "overflow": false,
+      "externalRequests": 0
+    },
+    {
+      "width": 390,
+      "scans": [
+        {
+          "state": "interacted",
+          "violations": 0
+        },
+        {
+          "state": "profile",
+          "violations": 0
+        }
+      ],
+      "gzipBytes": 23185,
+      "requests": 18,
+      "cls": 0,
+      "overflow": false,
+      "externalRequests": 0
+    },
+    {
+      "width": 320,
+      "scans": [
+        {
+          "state": "interacted",
+          "violations": 0
+        },
+        {
+          "state": "profile",
+          "violations": 0
+        }
+      ],
+      "gzipBytes": 23185,
+      "requests": 18,
+      "cls": 0,
+      "overflow": false,
+      "externalRequests": 0
+    }
+  ],
+  "noJavaScriptFallback": true
+}
