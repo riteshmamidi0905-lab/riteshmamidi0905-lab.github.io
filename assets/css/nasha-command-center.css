@@ -1,0 +1,29 @@
+/* NASHA AI Command Center — isolated development preview */
+:root{--ink:#eaf5ff;--cyan:#5ee8fa;--violet:#a78bfa;--gold:#efc58b;--panel:#101c30}
+html{scroll-behavior:smooth}body{background:radial-gradient(ellipse at 85% 3%,#122b49 0,transparent 32%),#080d19;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+header{max-width:none;min-height:85vh;position:relative;overflow:hidden;padding:clamp(2rem,7vw,7rem);background:radial-gradient(circle at 74% 39%,#1b4c66aa 0,transparent 36%),radial-gradient(circle at 88% 9%,#53388c66 0,transparent 38%),linear-gradient(150deg,#080e1e,#0c1831)}
+header:before{content:"";position:absolute;inset:0;opacity:.17;background-image:linear-gradient(#76a9ff24 1px,transparent 1px),linear-gradient(90deg,#76a9ff24 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
+header>*{position:relative}h1{font-weight:850;text-shadow:0 0 42px #5ee8fa44}h1 em{font-style:normal;color:var(--cyan)}
+.lede{font-size:clamp(1.1rem,2vw,1.5rem)}.kicker{color:var(--cyan)}h2{font-weight:780}
+main{max-width:1340px}section{scroll-margin-top:2rem;margin:6rem 0}.grid{grid-template-columns:repeat(auto-fit,minmax(245px,1fr))}
+.card{position:relative;background:linear-gradient(150deg,#152742,#0d1629);border-color:#45648666;box-shadow:0 14px 32px #0003}
+.card h3{font-size:1.45rem}.card button{margin-top:.7rem}.card .badge{color:#e1d2fb}.mark{background:#091a2d}
+button{background:#18335a;border-color:#5a9ac2}button:hover{background:#255278}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem}.hero-ctas a{display:inline-flex;align-items:center;border:1px solid #76dff3;border-radius:8px;padding:.75rem 1.1rem;text-decoration:none;color:#e8fcff;background:#0b3b5b77}
+.hero-ctas a:hover{background:#1a5574}
+.profile-dialog{width:min(680px,calc(100vw - 2rem));max-height:85vh;background:#0e1a2f;color:#eaf5ff;border:1px solid #6d9ed0;border-radius:18px;padding:2rem;box-shadow:0 20px 100px #000c}
+.profile-dialog::backdrop{background:#020715dc;backdrop-filter:blur(6px)}
+.profile-dialog h2{margin-top:.2rem}.profile-dialog dl{display:grid;grid-template-columns:1fr 2fr;gap:.6rem}.profile-dialog dt{color:#8fd6ed}.profile-dialog dd{margin:0}
+.profile-close{float:right}.profile-status{color:#f4d7a6}
+.trace-panel{display:grid;grid-template-columns:minmax(220px,1fr) minmax(280px,1.5fr);gap:1rem;margin-top:1.5rem}
+.trace-steps{display:flex;flex-direction:column;gap:.45rem}.trace-steps button{text-align:left}
+.trace-steps button[aria-current=step]{background:#1e526b;border-color:#79d7ec}
+.trace-detail{background:#0d1a2e;border:1px solid #476480;border-radius:12px;padding:1.5rem;min-height:250px}
+.trace-detail h4{margin-top:0;color:var(--cyan)}
+.trace-controls{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
+.status-ribbon{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.3rem 0}
+.status-ribbon .badge{border-color:#7cbfd0;color:#a4e8f4}
+.architecture{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem}.architecture .node{text-align:center}
+.evidence-note{border-left:3px solid var(--gold);padding:.6rem 1rem;background:#efc58b12;color:#e8d7bb}
+@media(max-width:700px){header{min-height:68vh;padding:3rem 1.2rem}.trace-panel{grid-template-columns:1fr}.profile-dialog dl{grid-template-columns:1fr}.profile-dialog dd{margin-bottom:.7rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
