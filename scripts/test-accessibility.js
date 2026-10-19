@@ -27,5 +27,17 @@ const { serveLocal, base } = require('./local-preview');
   { const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } }); const page = await ctx.newPage(); await serveLocal(page); await page.goto(base.replace(/\/?$/, '/') + 'support-escalation-copilot.html');
     await page.locator('.replay-pick button', { hasText: 'resync_no_approval' }).scrollIntoViewIfNeeded(); await page.locator('.replay-pick button', { hasText: 'resync_no_approval' }).click(); await page.waitForTimeout(2800);
     await page.locator('.ex-run').first().click(); await page.locator('.ev-ctl button[data-f="simulated"]').click(); await page.evaluate(() => document.querySelectorAll('.rv').forEach((e) => e.classList.add('in'))); await page.waitForTimeout(1200); /* reveal transitions finished: axe reads mid-fade opacity as low contrast */ await scan(page, 'case study, interacted'); await ctx.close(); }
+  /* NASHA AI Command Center: static, open dialog, and selected workflow at five widths. */
+  for (const width of [1440,1180,820,390,320]) {
+    const ctx=await browser.newContext({reducedMotion:'reduce',viewport:{width,height:900}});
+    const page=await ctx.newPage();await serveLocal(page);await page.goto(here('nasha-ai-preview.html'),{waitUntil:'load'});
+    await scan(page,'NASHA Command Center '+width+' static');
+    await page.locator('#roles article button').first().click();
+    await scan(page,'NASHA Command Center '+width+' dialog open');
+    await page.keyboard.press('Escape');
+    await page.locator('[data-workflow="inventory"]').click();
+    await scan(page,'NASHA Command Center '+width+' inventory selected');
+    await ctx.close();
+  }
   await browser.close();
 })().catch((e) => { console.error(e.message); process.exit(1); });
