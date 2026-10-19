@@ -1,0 +1,129 @@
+{
+  "checked_date": "2026-10-19",
+  "accidental_commit": "9adf0ad4fb3a7e12ebdb6d2b6d60f1ef49ddddb9",
+  "development_head": "97edab6b789dadcac2d22cea3de3da12343edb58",
+  "refs": [
+    {
+      "ref": "refs/heads/career/brand-neutral-portfolio",
+      "sha": "f63f8dba82d9faaea8d1d480275a15d7eae39eee",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 18,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/claude/applied-ai-ecosystem",
+      "sha": "7e33722fa582da42d239a8ccc4b81c600cb97ed8",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 22,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/deployment-bundle-339adc5",
+      "sha": "7f69c089df4e6578c3d1064fe7cc6c5e548f7278",
+      "status": "diverged",
+      "ahead": 2,
+      "behind": 85,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/feat/mcp-weir-case-study",
+      "sha": "afb3ee45abf76d86d6855b8c6bbf28da1aa835f7",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 37,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/main",
+      "sha": "f63f8dba82d9faaea8d1d480275a15d7eae39eee",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 18,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/riteshmamidi0905-lab-patch-1",
+      "sha": "485c9bb9a2567ebb95b0c2150cc9e4be590e053c",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 97,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/weir-control-center",
+      "sha": "3aed1e48f5d6492feb6fab1da4a1995707c0e665",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 29,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/wip/cinematic-worlds-lab",
+      "sha": "52e72327dfea78d3a34be2db865a0d9311fff482",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 61,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/wip/nasha-ai-command-center",
+      "sha": "d4440a3618503830cdefa9c760d364af4588e780",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 2,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/wip/nasha-ecosystem-20261019",
+      "sha": "97edab6b789dadcac2d22cea3de3da12343edb58",
+      "status": "diverged",
+      "ahead": 1,
+      "behind": 1,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/heads/wip/v2-art-direction",
+      "sha": "075a69ce66802bba2302f2ad125a70dfd569ab80",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 58,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/tags/pre-v2-rollback",
+      "sha": "86ae4a4cd4d83cf7e8c0691528d2247a2947cc9e",
+      "status": "behind",
+      "behind": 69,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/pull/1/head",
+      "sha": "485c9bb9a2567ebb95b0c2150cc9e4be590e053c",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 97,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/pull/2/head",
+      "sha": "3aed1e48f5d6492feb6fab1da4a1995707c0e665",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 29,
+      "accidental_commit_is_ancestor": false
+    },
+    {
+      "ref": "refs/pull/3/head",
+      "sha": "7e33722fa582da42d239a8ccc4b81c600cb97ed8",
+      "status": "behind",
+      "ahead": 0,
+      "behind": 22,
+      "accidental_commit_is_ancestor": false
+    }
+  ],
+  "scope": "All refs returned by GitHub matching-refs heads, tags and pull at inspection time. No storage-erasure claim. Accidental commit metadata remains retrievable.",
+  "local_film_sha256": "95476132f973427bad0b31dee72b1513592cb80c6babf5add7c588fd346ffa18",
+  "local_film_matches_receipt": true
+}

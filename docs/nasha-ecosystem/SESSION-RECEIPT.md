@@ -51,3 +51,7 @@ Do not merge/deploy or post the LinkedIn material without explicit approval for 
 ## Media handling correction
 
 The film and social review media were accidentally included in public development commit `9adf0ad4fb3a7e12ebdb6d2b6d60f1ef49ddddb9`, contrary to the instruction not to publish the film. That commit was removed from the development branch history by replacing it with a handoff commit based on `6988371` that contains source, documentation and the standalone preview only. The four rendered media files are retained locally and ignored by Git. GitHub may retain unreferenced objects; removal from branch history is not a guarantee of cache or object erasure. No social publication or production deployment occurred.
+
+## Continued integration increment — 2026-10-19
+
+This receipt's original starting HEAD is `97edab6b789dadcac2d22cea3de3da12343edb58`, verified with successful CI #70. A later commit on the same development branch now adds controlled offline execution of pinned Python services and THE WEIR, recorded evidence panels, the portrait crop fix, media recurrence guard and regression evidence. Read `INTEGRATION-AND-VISUAL-REVIEW.md`, the updated ledger and `evidence/integration-verification.json`; use the development branch's current HEAD rather than resuming the old imported local history. The recreated local film is byte-identical to the original recorded SHA-256 and remains ignored. Production and credit restrictions remain in force.

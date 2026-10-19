@@ -15,9 +15,23 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: npm run build && git diff --exit-code -- index.html recruiter.html support-escalation-copilot.html agent-runtime.html evaluation.html projects.html mcp-weir.html nasha-lab.html profile/README.md deliverables/nasha-ecosystem/nasha-preview.html
+      - run: npm run build && git diff --exit-code -- index.html recruiter.html support-escalation-copilot.html agent-runtime.html evaluation.html projects.html mcp-weir.html nasha-lab.html profile/README.md assets/js/nasha-integration-evidence.js deliverables/nasha-ecosystem/nasha-preview.html
       - name: Evidence is byte-identical to the pinned public commit
         run: npm run verify:evidence:online
+      - uses: actions/checkout@v4
+        with:
+          repository: riteshmamidi0905-lab/INDO-MEX-BREWERY
+          ref: 2fc100070025cfee8d40216c25326ad3a6040cb0
+          path: work/engineering
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: riteshmamidi0905-lab/mcp-weir
+          ref: 5df274563a4a73ebbd31a6380e3a7d829b6bf4a2
+          path: work/weir
+          persist-credentials: false
+      - name: Actual pinned Python services and THE WEIR reproduce synthetic evidence
+        run: python3 scripts/run-nasha-integration.py --engineering-root work/engineering --weir-root work/weir --check
       - run: npm test
       - run: npx playwright install --with-deps chromium
       - name: Browser checks

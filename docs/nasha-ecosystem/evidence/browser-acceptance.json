@@ -12,10 +12,14 @@
         {
           "state": "profile",
           "violations": 0
+        },
+        {
+          "state": "recorded-security-expanded",
+          "violations": 0
         }
       ],
-      "gzipBytes": 23185,
-      "requests": 18,
+      "gzipBytes": 26892,
+      "requests": 20,
       "cls": 0,
       "overflow": false,
       "externalRequests": 0
@@ -30,10 +34,14 @@
         {
           "state": "profile",
           "violations": 0
+        },
+        {
+          "state": "recorded-security-expanded",
+          "violations": 0
         }
       ],
-      "gzipBytes": 23185,
-      "requests": 18,
+      "gzipBytes": 26892,
+      "requests": 20,
       "cls": 0,
       "overflow": false,
       "externalRequests": 0
@@ -48,10 +56,14 @@
         {
           "state": "profile",
           "violations": 0
+        },
+        {
+          "state": "recorded-security-expanded",
+          "violations": 0
         }
       ],
-      "gzipBytes": 23185,
-      "requests": 18,
+      "gzipBytes": 26892,
+      "requests": 20,
       "cls": 0,
       "overflow": false,
       "externalRequests": 0
@@ -66,10 +78,14 @@
         {
           "state": "profile",
           "violations": 0
+        },
+        {
+          "state": "recorded-security-expanded",
+          "violations": 0
         }
       ],
-      "gzipBytes": 23185,
-      "requests": 18,
+      "gzipBytes": 26892,
+      "requests": 20,
       "cls": 0,
       "overflow": false,
       "externalRequests": 0
@@ -84,10 +100,14 @@
         {
           "state": "profile",
           "violations": 0
+        },
+        {
+          "state": "recorded-security-expanded",
+          "violations": 0
         }
       ],
-      "gzipBytes": 23185,
-      "requests": 18,
+      "gzipBytes": 26892,
+      "requests": 20,
       "cls": 0,
       "overflow": false,
       "externalRequests": 0

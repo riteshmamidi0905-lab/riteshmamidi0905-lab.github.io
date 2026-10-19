@@ -1,0 +1,449 @@
+{
+  "date": "2026-10-19",
+  "baseline_head": "97edab6b789dadcac2d22cea3de3da12343edb58",
+  "branch": "wip/nasha-ecosystem-20261019",
+  "local_runtime": {
+    "node": "v24.19.0",
+    "chromium": "Chromium 151.0.7922.173 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "mode": "TEST_FILE=1; actual local files fulfilled through Playwright routing; not real network performance",
+  "commands": [
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "elapsed_seconds": 1.06,
+      "log": "work/verification/build.log"
+    },
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "elapsed_seconds": 4.09,
+      "log": "work/verification/test.log"
+    },
+    {
+      "command": "npm run verify:evidence",
+      "exit_code": 0,
+      "elapsed_seconds": 0.5,
+      "log": "work/verification/verify:evidence.log"
+    },
+    {
+      "command": "node scripts/test-nasha-command-center.js",
+      "exit_code": 0,
+      "elapsed_seconds": 11.25,
+      "log": "work/verification/scripts-test-nasha-command-center.js.log"
+    },
+    {
+      "command": "npm run test:browser",
+      "exit_code": 0,
+      "elapsed_seconds": 50.04,
+      "log": "work/verification/test:browser.log"
+    },
+    {
+      "command": "npm run test:experience",
+      "exit_code": 0,
+      "elapsed_seconds": 184.83,
+      "log": "work/verification/test:experience.log"
+    },
+    {
+      "command": "npm run test:budget",
+      "exit_code": 0,
+      "elapsed_seconds": 60.04,
+      "log": "work/verification/test:budget.log"
+    },
+    {
+      "command": "npm run test:a11y",
+      "exit_code": 0,
+      "elapsed_seconds": 88.55,
+      "log": "work/verification/test:a11y.log"
+    },
+    {
+      "command": "npm run test:weir",
+      "exit_code": 0,
+      "elapsed_seconds": 16.27,
+      "log": "work/verification/test:weir.log"
+    },
+    {
+      "command": "npm run test:nasha",
+      "exit_code": 0,
+      "elapsed_seconds": 11.43,
+      "log": "work/verification/test:nasha.log"
+    }
+  ],
+  "final_increment_checks": {
+    "npm_test_with_media_guard": "PASS",
+    "python_source_hashes_and_real_gateway": "PASS; repeated byte-identical output",
+    "altered_source_rejected_before_import": true,
+    "online_28_evidence_files": "PASS using NODE_USE_ENV_PROXY=1",
+    "ecosystem_and_standalone_final": "PASS",
+    "pinned_engineering_link_paths_checked": 8,
+    "git_diff_check": "PASS",
+    "baseline_CI70": "SUCCESS; all job steps successful; run 39301998238"
+  },
+  "accessibility": {
+    "existing_scans": 36,
+    "existing_violations": 0,
+    "ecosystem_scans": 15,
+    "ecosystem_violations": 0,
+    "manual_assistive_technology": "NOT VERIFIED"
+  },
+  "performance": {
+    "ecosystem": [
+      {
+        "width": 1440,
+        "scans": [
+          {
+            "state": "interacted",
+            "violations": 0
+          },
+          {
+            "state": "profile",
+            "violations": 0
+          },
+          {
+            "state": "recorded-security-expanded",
+            "violations": 0
+          }
+        ],
+        "gzipBytes": 26892,
+        "requests": 20,
+        "cls": 0,
+        "overflow": false,
+        "externalRequests": 0
+      },
+      {
+        "width": 1180,
+        "scans": [
+          {
+            "state": "interacted",
+            "violations": 0
+          },
+          {
+            "state": "profile",
+            "violations": 0
+          },
+          {
+            "state": "recorded-security-expanded",
+            "violations": 0
+          }
+        ],
+        "gzipBytes": 26892,
+        "requests": 20,
+        "cls": 0,
+        "overflow": false,
+        "externalRequests": 0
+      },
+      {
+        "width": 820,
+        "scans": [
+          {
+            "state": "interacted",
+            "violations": 0
+          },
+          {
+            "state": "profile",
+            "violations": 0
+          },
+          {
+            "state": "recorded-security-expanded",
+            "violations": 0
+          }
+        ],
+        "gzipBytes": 26892,
+        "requests": 20,
+        "cls": 0,
+        "overflow": false,
+        "externalRequests": 0
+      },
+      {
+        "width": 390,
+        "scans": [
+          {
+            "state": "interacted",
+            "violations": 0
+          },
+          {
+            "state": "profile",
+            "violations": 0
+          },
+          {
+            "state": "recorded-security-expanded",
+            "violations": 0
+          }
+        ],
+        "gzipBytes": 26892,
+        "requests": 20,
+        "cls": 0,
+        "overflow": false,
+        "externalRequests": 0
+      },
+      {
+        "width": 320,
+        "scans": [
+          {
+            "state": "interacted",
+            "violations": 0
+          },
+          {
+            "state": "profile",
+            "violations": 0
+          },
+          {
+            "state": "recorded-security-expanded",
+            "violations": 0
+          }
+        ],
+        "gzipBytes": 26892,
+        "requests": 20,
+        "cls": 0,
+        "overflow": false,
+        "externalRequests": 0
+      }
+    ],
+    "original_budget_suite": {
+      "budgets": {
+        "html": "48 KB",
+        "css": "26 KB",
+        "js": "40 KB",
+        "fonts": "100 KB",
+        "images": "260 KB",
+        "total": "440 KB",
+        "requests": 24,
+        "cls": 0.1
+      },
+      "measured": {
+        "desktop": {
+          "html": "18.9 KB",
+          "css": "16.7 KB",
+          "js": "28.6 KB",
+          "fonts": "86.6 KB",
+          "images": "0 KB",
+          "other": "0 KB",
+          "total": "151 KB",
+          "requests": 11,
+          "cls": 0
+        },
+        "mobile": {
+          "html": "18.9 KB",
+          "css": "16.7 KB",
+          "js": "28.6 KB",
+          "fonts": "86.6 KB",
+          "images": "0 KB",
+          "other": "0 KB",
+          "total": "151 KB",
+          "requests": 11,
+          "cls": 0.002
+        },
+        "case-study desktop": {
+          "html": "23.2 KB",
+          "css": "16.7 KB",
+          "js": "21.6 KB",
+          "fonts": "86.6 KB",
+          "images": "0 KB",
+          "other": "0 KB",
+          "total": "148 KB",
+          "requests": 10,
+          "cls": 0
+        },
+        "agent-runtime.html": {
+          "html": "10.7 KB",
+          "css": "16.7 KB",
+          "js": "18.3 KB",
+          "fonts": "86.6 KB",
+          "images": "0 KB",
+          "other": "0 KB",
+          "total": "132 KB",
+          "requests": 9,
+          "cls": 0
+        },
+        "evaluation.html": {
+          "html": "12.6 KB",
+          "css": "16.7 KB",
+          "js": "26.8 KB",
+          "fonts": "86.6 KB",
+          "images": "0 KB",
+          "other": "0.9 KB",
+          "total": "144 KB",
+          "requests": 14,
+          "cls": 0
+        },
+        "projects.html": {
+          "html": "23.9 KB",
+          "css": "16.7 KB",
+          "js": "26.5 KB",
+          "fonts": "86.6 KB",
+          "images": "0 KB",
+          "other": "1.8 KB",
+          "total": "155 KB",
+          "requests": 15,
+          "cls": 0
+        },
+        "nasha-lab.html": {
+          "html": "26.3 KB",
+          "css": "18.9 KB",
+          "js": "15.5 KB",
+          "fonts": "86.6 KB",
+          "images": "0 KB",
+          "other": "0 KB",
+          "total": "147 KB",
+          "requests": 10,
+          "cls": 0
+        },
+        "late-js 1440 home": {
+          "cls": 0
+        },
+        "late-js 1440 agent-runtime.html": {
+          "cls": 0
+        },
+        "late-js 1440 evaluation.html": {
+          "cls": 0
+        },
+        "late-js 1440 projects.html": {
+          "cls": 0
+        },
+        "late-js 1440 support-escalation-copilot.html": {
+          "cls": 0
+        },
+        "late-js 1440 mcp-weir.html": {
+          "cls": 0
+        },
+        "late-js 1440 nasha-lab.html": {
+          "cls": 0
+        },
+        "late-js 390 home": {
+          "cls": 0.002
+        },
+        "late-js 390 agent-runtime.html": {
+          "cls": 0
+        },
+        "late-js 390 evaluation.html": {
+          "cls": 0
+        },
+        "late-js 390 projects.html": {
+          "cls": 0
+        },
+        "late-js 390 support-escalation-copilot.html": {
+          "cls": 0.002
+        },
+        "late-js 390 mcp-weir.html": {
+          "cls": 0.003
+        },
+        "late-js 390 nasha-lab.html": {
+          "cls": 0.005
+        }
+      }
+    },
+    "new_lighthouse": "NOT RUN",
+    "network_load_times": "NOT MEASURED"
+  },
+  "screenshots": [
+    {
+      "path": "work/review-1440-full.png",
+      "bytes": 3406641,
+      "sha256": "b5e68add242e21469657f6a45de2723ea82b8ab1f046fbc80e06858c56bc4914"
+    },
+    {
+      "path": "work/review-1440-recruiter-mode.png",
+      "bytes": 336421,
+      "sha256": "404567da0977d9afdba1b28ef502867d0b263ee5496e24e4aff1fcaee9a57cfa"
+    },
+    {
+      "path": "work/review-1440-service-evidence.png",
+      "bytes": 478975,
+      "sha256": "3b5e017daf7480f864ca53a8d1e223a91b525d041be9acfdd3771795bd3942ee"
+    },
+    {
+      "path": "work/review-1440-team.png",
+      "bytes": 578527,
+      "sha256": "c9eece8bb3eacd9e687e8539c64b33c7acb9c37f61fbf58d0470b4b6aa099d00"
+    },
+    {
+      "path": "work/review-1440-twin.png",
+      "bytes": 492328,
+      "sha256": "469bb21ea60cea78935c5915dec0a809b81ff54a52072bb5215a6d0c27ff7a5a"
+    },
+    {
+      "path": "work/review-1440-weir-lab.png",
+      "bytes": 194121,
+      "sha256": "fefeb4b522b42ec35b7e04eaad92eeac1ccad33538fce3d094495cd259093915"
+    },
+    {
+      "path": "work/review-390-full.png",
+      "bytes": 3116083,
+      "sha256": "11d94c208e6a53570eb035390476ae2b4df95700c1ba9916c90a1c5af37ec6c7"
+    },
+    {
+      "path": "work/review-390-recruiter-mode.png",
+      "bytes": 394307,
+      "sha256": "4d2f15d35dc789e7b01c96c1ce0c790865b3183b3cbc52a8fc285cddc50ddd0c"
+    },
+    {
+      "path": "work/review-390-service-evidence.png",
+      "bytes": 401822,
+      "sha256": "76dcbd71f9430e3c32940de3289a1cc98d645aeecabf0e86c77ea44598697048"
+    },
+    {
+      "path": "work/review-390-team.png",
+      "bytes": 943884,
+      "sha256": "2420de476ce4cad8548f77c70f758a9bc548ea120493e91f1f243e52688238a0"
+    },
+    {
+      "path": "work/review-390-twin.png",
+      "bytes": 323698,
+      "sha256": "ba17b4f5f4204ae7f3801285d3fffa0b03fc3466e43aafc6ff05d23adc10ca14"
+    },
+    {
+      "path": "work/review-390-weir-lab.png",
+      "bytes": 186297,
+      "sha256": "25cbba82d12fc333385ffdb74245043d2c422401f62e8f8b43a430d113b33d1c"
+    },
+    {
+      "path": "work/review-820-full.png",
+      "bytes": 2923235,
+      "sha256": "d97ac9de64444f7eca1c1483ee2b946fc1a33372fa649ef7f4148a7283095017"
+    },
+    {
+      "path": "work/review-820-recruiter-mode.png",
+      "bytes": 364743,
+      "sha256": "901ad403e4bd07b0cb2cad6c01ca9b45e8a685718e8921a5185614540da4aa4c"
+    },
+    {
+      "path": "work/review-820-service-evidence.png",
+      "bytes": 445407,
+      "sha256": "f752e077369dbd7bbda947a1d04935ad1e16611a1169eee41bd4960686f64f1c"
+    },
+    {
+      "path": "work/review-820-team.png",
+      "bytes": 633030,
+      "sha256": "7073583e4bba0d9ef7c515734f16a5e621fced4e5b0a19c0be5d2f30c9d85e9d"
+    },
+    {
+      "path": "work/review-820-twin.png",
+      "bytes": 363105,
+      "sha256": "7c089336affb62f6f118079ee1e1ad5473a69f8131bbc10257a56cff8232c9ad"
+    },
+    {
+      "path": "work/review-820-weir-lab.png",
+      "bytes": 168749,
+      "sha256": "b32a4f975ce6ac11bc455e750a1839dab6e9fce658b5740a9976522827995182"
+    }
+  ],
+  "media": {
+    "film_sha256": "95476132f973427bad0b31dee72b1513592cb80c6babf5add7c588fd346ffa18",
+    "matches_original_receipt": true,
+    "duration_seconds": 48,
+    "width": 1280,
+    "height": 720,
+    "fps": 24,
+    "codec": "H.264",
+    "audio_streams": 0,
+    "full_decode": "PASS",
+    "contiguous_caption_cues": 6
+  },
+  "limits": [
+    "Historical full engineering CI132 not rerun locally",
+    "No production deployment",
+    "No manual screen-reader session",
+    "No generation credits used",
+    "No media uploaded or committed"
+  ]
+}

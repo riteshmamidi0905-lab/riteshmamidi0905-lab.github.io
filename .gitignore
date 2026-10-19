@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 /deliverables/nasha-ecosystem/*
 !/deliverables/nasha-ecosystem/nasha-preview.html
+
+/work/

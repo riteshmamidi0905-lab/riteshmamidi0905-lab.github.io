@@ -12,6 +12,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
   // setContent tests the exact exported bytes; managed Chromium blocks file:// navigation.
   await page.setContent(html,{waitUntil:'networkidle'});
   assert.equal(await page.locator('#roles article').count(),12);
+  await page.selectOption('#service-workflow','seasonal_beer');assert.equal(await page.locator('#service-results article').count(),10);
   await page.selectOption('#twin-scenario','shortage');assert.match(await page.locator('#twin-summary').innerText(),/8 units short/);
   await page.selectOption('#weir-request','draft');await page.click('#weir-evaluate');await page.click('#weir-approve');await page.click('#weir-execute');
   assert.match(await page.locator('#weir-outcome').innerText(),/grant consumed/);

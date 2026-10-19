@@ -55,3 +55,13 @@ Backend baseline: CI #132, 368 passed and one skipped Python test, 15/15 determi
 ## Limits and future work
 
 The Digital Twin is an inspectable synthetic prototype, not a physical or commercial twin. Invented inputs do not estimate demand or profit. Keyword sentiment is deliberately limited. The approval illustration has no identity, crypto, persistent audit, network boundary or real purchase capability. A production integration would require a separately reviewed authenticated backend, real gateway policy, operational data governance and deployment authorization.
+
+## 2026-10-19 recorded execution integration
+
+The browser model above remains illustrative. The isolated preview now also displays
+outputs from actual pinned Python workflows and THE WEIR, produced offline by
+`scripts/run-nasha-integration.py`. This controlled runner verifies source blob
+identities before import, uses synthetic fixtures and a disposable local audit
+store, and serializes deterministic evidence for review. No live backend endpoint
+or browser-triggered Python execution has been introduced. See
+`INTEGRATION-AND-VISUAL-REVIEW.md` and `content/nasha-integration-evidence.json`.

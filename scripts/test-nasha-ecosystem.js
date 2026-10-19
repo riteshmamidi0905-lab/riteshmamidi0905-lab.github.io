@@ -41,6 +41,21 @@ const {serveLocal,base} = require('./local-preview');
    assert.deepEqual(axe.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})),[],width+' '+state+' accessibility'); scans.push({state,violations:axe.violations.length});
    if(state==='profile') await page.keyboard.press('Escape');
   }
+  for (const [workflow,count] of [['inventory_procurement',5],['seasonal_beer',10],['customer_marketing',7]]) {
+   await page.selectOption('#service-workflow',workflow);
+   assert.equal(await page.locator('#service-results article').count(),count);
+   assert.match(await page.locator('#service-status').innerText(),/REQUIRES_HUMAN_APPROVAL.*External actions: 0/);
+  }
+  await page.locator('#service-evidence summary').click();
+  assert.match(await page.locator('#recorded-security-summary').innerText(),/DENY → APPROVE → ALLOW/);
+  assert.match(await page.locator('#recorded-security-events').innerText(),/approval.consumed/);
+  const recordedAxe=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+  assert.deepEqual(recordedAxe.violations.map(v=>v.id),[],width+' expanded recorded security accessibility');
+  scans.push({state:'recorded-security-expanded',violations:recordedAxe.violations.length});
+  for (const href of await page.locator('a[href^="#"]').evaluateAll(a=>a.map(x=>x.getAttribute('href')).filter(x=>x.length>1))) {
+   assert.equal(await page.locator(href).count(),1,'unique navigation target '+href);
+  }
+  assert.equal(await page.locator('#roles img').first().evaluate(e=>getComputedStyle(e).objectFit),'contain');
   await page.click('#weir-reset'); assert.equal(await page.locator('#weir-audit li').count(),0);
   await page.locator('footer').scrollIntoViewIfNeeded(); await page.locator('img').evaluateAll(a=>a.forEach(i=>i.loading='eager')); await page.waitForFunction(()=>[...document.images].every(i=>i.complete));
   assert.equal(await page.locator('#roles img').count(),12); assert.equal(await page.locator('img').evaluateAll(a=>a.filter(i=>i.complete&&i.naturalWidth===0).length),0);

@@ -4,7 +4,9 @@ Session date: 2026-10-19. Development only; no merge, deployment, publication, e
 
 ## Current phase
 
-Phase 7 acceptance and Phase 8 launch preparation for a complete **browser-prototype increment**. The full premium media vision is not declared complete. Photoreal character portraits, generated architectural film and actual backend-connected twin remain future work.
+Current increment: controlled offline execution of pinned Python specialists and THE WEIR, recorded evidence displayed separately from browser illustrations, visual correction and full regression acceptance. No live backend endpoint or production deployment. The premium generated-media vision remains future work.
+
+Read `INTEGRATION-AND-VISUAL-REVIEW.md` and `evidence/integration-verification.json` for this increment; older sections below describe the preserved baseline.
 
 ## Baseline and preservation
 
@@ -49,3 +51,18 @@ Phase 7 acceptance and Phase 8 launch preparation for a complete **browser-proto
 6. Prepare a specific release diff and production destination for owner approval. Do not merge, deploy or publish without it.
 
 No background automation was configured. Work does not continue after this session ends.
+
+## Integration continuation — 2026-10-19
+
+- Branch `wip/nasha-ecosystem-20261019`, exact starting HEAD `97edab6b789dadcac2d22cea3de3da12343edb58`. CI #70 / run `39301998238` independently confirmed successful for that HEAD.
+- Original workspace and production branches preserved. Development checkout restored at `/workspace/work/nasha-ecosystem`; source tree and imported commit identities verified against GitHub, then complete history fetched through the configured proxy.
+- Three actual pinned Python workflows execute 22 handoffs covering all twelve specialists. Controlled runner verifies source hashes and writes reproducible synthetic output; browser display is explicitly recorded evidence.
+- Actual independent THE WEIR gateway exercises DENY / APPROVE / synthetic operator review / ALLOW, scoped single-use approval, expiry and audit reconstruction. One in-memory test note, zero external transactions. No secrets or new dependencies.
+- Corrected demonstrated SVG portrait cropping using contain; preserved the existing design, controls and all prior tests. Added source/evidence navigation and recruiter explanation.
+- Added a media recurrence guard. Eleven remote branches, one tag and three pull refs inspected: none contains accidental commit `9adf0ad`. Current reachable objects exclude the known four rendered media blobs. No GitHub storage/cache erasure claim.
+- Reproduced the exact prior 48-second film locally; SHA-256 matches the receipt byte for byte. Complete decode and six-cue VTT timing pass. Editorial findings recorded in the review report. No rendered media committed or uploaded.
+- Read-only model availability audit performed; no generation or credit use. Runway currently exposes image models but no video models.
+- Exact acceptance results: `evidence/integration-verification.json` and updated `evidence/browser-acceptance.json`. Historical CI #132 remains historical full-backend evidence. New local integration acceptance is scoped and does not claim all 368 Python tests were rerun.
+- The implementation commit carrying this ledger is the continuation point (`git log -1` on this branch); verify its latest Validate portfolio run before further work. No production deployment or social publication authorized or performed.
+
+Next: inspect the service-evidence panel, choose focused film close-ups for any future local edit, and conduct manual assistive-technology review. An authenticated operational backend is separate future scope. Generated media still requires an exact credit quote and explicit approval.

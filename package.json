@@ -3,8 +3,8 @@
   "private": true,
   "version": "2.0.0",
   "scripts": {
-    "build": "node build.js && node scripts/render-profile.js && node scripts/render-nasha-standalone.js",
-    "test": "node scripts/check-site.js && node scripts/check-weir.js && node scripts/check-nasha.js && node scripts/test-lab.js && node scripts/test-nasha-ecosystem-core.js",
+    "build": "node build.js && node scripts/render-profile.js && node scripts/render-nasha-integration.js && node scripts/render-nasha-standalone.js",
+    "test": "node scripts/check-site.js && node scripts/check-weir.js && node scripts/check-nasha.js && node scripts/test-lab.js && node scripts/test-nasha-ecosystem-core.js && node scripts/check-nasha-media.js",
     "test:browser": "node scripts/test-site.js",
     "test:a11y": "node scripts/test-accessibility.js",
     "test:weir": "node scripts/test-weir.js",

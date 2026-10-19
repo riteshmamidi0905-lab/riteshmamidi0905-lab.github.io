@@ -1,0 +1,106 @@
+{
+  "engineering_commit": "2fc100070025cfee8d40216c25326ad3a6040cb0",
+  "weir_commit": "5df274563a4a73ebbd31a6380e3a7d829b6bf4a2",
+  "files": [
+    {
+      "path": "engineering/lab/nasha_lab/__init__.py",
+      "git_blob": "9fdf99d29fac5f15e0c78312e28210c89460d6d7"
+    },
+    {
+      "path": "engineering/lab/nasha_lab/specialists.py",
+      "git_blob": "a6c6d17de290ca339d987515c2e52e900492edce"
+    },
+    {
+      "path": "engineering/lab/nasha_lab/specialist_workflows.py",
+      "git_blob": "508ef4e3ab591b1e015038facd924f43439b4742"
+    },
+    {
+      "path": "engineering/lab/nasha_lab/ai_team.py",
+      "git_blob": "6f50a013166f5ac259c67f5f780216438ed36e3f"
+    },
+    {
+      "path": "engineering/lab/nasha_lab/ai_audit.py",
+      "git_blob": "192ddbe96ccae7de5d12d586a89818c2dc3cd232"
+    },
+    {
+      "path": "engineering/lab/nasha_lab/weir_adapter.py",
+      "git_blob": "bbdbeb3e3a023574062ce042dda7a2d821e9c084"
+    },
+    {
+      "path": "engineering/lab/nasha_lab/weir_incident.py",
+      "git_blob": "a753671abd779da78111b49ba124eb78c44e4d5e"
+    },
+    {
+      "path": "weir/src/mcp_weir/__init__.py",
+      "git_blob": "f2ccb91fb954688779817c302ed79a2bba9173be"
+    },
+    {
+      "path": "weir/src/mcp_weir/__main__.py",
+      "git_blob": "4e28416e104515e90fca4b69cc60d0c61fd15d61"
+    },
+    {
+      "path": "weir/src/mcp_weir/cli.py",
+      "git_blob": "6d62ea44c4fa170a10fc52977adb01dd5ead87ef"
+    },
+    {
+      "path": "weir/src/mcp_weir/decision.py",
+      "git_blob": "f37acb4cb820eab35d75124a788db5199a805635"
+    },
+    {
+      "path": "weir/src/mcp_weir/destinations.py",
+      "git_blob": "265748e9cd635eae0670c3f7c45baf439223c4c3"
+    },
+    {
+      "path": "weir/src/mcp_weir/gateway.py",
+      "git_blob": "c370d71683055ddef2ba72ec426edcea6b5b6b27"
+    },
+    {
+      "path": "weir/src/mcp_weir/labels.py",
+      "git_blob": "b4f3e280c4aa4c6e99472df6c8e6c1e42fc4d150"
+    },
+    {
+      "path": "weir/src/mcp_weir/pinning.py",
+      "git_blob": "3a554303d0c475d5457ec17d5a8a012eae46f993"
+    },
+    {
+      "path": "weir/src/mcp_weir/policy.py",
+      "git_blob": "af8e2c547160a4a9453d3f9abf99155874c40e40"
+    },
+    {
+      "path": "weir/src/mcp_weir/report.py",
+      "git_blob": "28c3dec375f02edeaaf4ebe9ade8e81fcd32d371"
+    },
+    {
+      "path": "weir/src/mcp_weir/server.py",
+      "git_blob": "6648821999a24ae6105609cd4b742a6c2320fd15"
+    },
+    {
+      "path": "weir/src/mcp_weir/session.py",
+      "git_blob": "0ad348fef088c3e69e3b0d801f2c9328c0f9e3b3"
+    },
+    {
+      "path": "weir/src/mcp_weir/store.py",
+      "git_blob": "5eafbcbebdabfec11cba9bf937c9b7d55f7ce610"
+    },
+    {
+      "path": "weir/src/mcp_weir/tracker.py",
+      "git_blob": "bd4ab74b50dcaea1095d54916fe13cb139ee38c6"
+    },
+    {
+      "path": "weir/src/mcp_weir/upstream.py",
+      "git_blob": "1ff410d69ce62f9627b072f36e0379f7b43ad2bc"
+    },
+    {
+      "path": "weir/src/weir_testbed/__init__.py",
+      "git_blob": "f906640f0346246a4f8bc9e9fb4d73a8241f27ab"
+    },
+    {
+      "path": "weir/src/weir_testbed/servers.py",
+      "git_blob": "fbb5aaa963aaa0886efee4db557603f65543e49b"
+    },
+    {
+      "path": "weir/src/weir_testbed/world.py",
+      "git_blob": "3db3e39026d68efc8363503be6f70c28d5461ce0"
+    }
+  ]
+}
