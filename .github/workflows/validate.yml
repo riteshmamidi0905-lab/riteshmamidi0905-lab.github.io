@@ -29,3 +29,4 @@ jobs:
           npm run test:a11y
           npm run test:weir
           npm run test:nasha
+          node scripts/test-nasha-command-center.js
