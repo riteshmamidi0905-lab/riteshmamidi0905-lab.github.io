@@ -1,22 +1,12 @@
 {
   "name": "ritesh-mamidi-portfolio",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "scripts": {
-    "build": "node build.js && node scripts/render-profile.js",
-    "test": "node scripts/check-site.js && node scripts/check-weir.js && node scripts/check-nasha.js && node scripts/test-lab.js",
-    "test:browser": "node scripts/test-site.js",
-    "test:a11y": "node scripts/test-accessibility.js",
-    "test:weir": "node scripts/test-weir.js",
-    "test:nasha": "node scripts/test-nasha.js",
-    "test:experience": "node scripts/test-experience.js",
-    "test:budget": "node scripts/test-budget.js",
-    "avatar:check": "node scripts/check-avatars.js",
-    "verify:evidence": "node scripts/verify-evidence.js",
-    "verify:evidence:online": "node scripts/verify-evidence.js --online",
-    "sync:evidence": "node scripts/sync-evidence.js",
-    "sync:nasha": "node scripts/sync-nasha-evidence.js",
-    "profile": "node scripts/render-profile.js"
+    "build": "python3 scripts/validate-release.py",
+    "test": "python3 scripts/validate-release.py && node --test scripts/test-model.cjs",
+    "test:browser": "node scripts/test-browser.cjs",
+    "test:a11y": "node scripts/test-browser.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

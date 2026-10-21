@@ -1,0 +1,97 @@
+[
+  {
+    "path": "index.html",
+    "bytes": 12778,
+    "sha256": "21800a9e88c7a3277d24b6e11aae2afcb3775430417afe1503d5cbeb2480c81a"
+  },
+  {
+    "path": "ai-engineering.html",
+    "bytes": 9114,
+    "sha256": "cacdb59a48783469df00a2c0299ecd351e00395579ea78572971317760f8d81f"
+  },
+  {
+    "path": "nasha-lab.html",
+    "bytes": 32889,
+    "sha256": "de90442df47e578ca5ad4f89c6100277afa9dd6791d8d76bbb22121da628d32c"
+  },
+  {
+    "path": "projects.html",
+    "bytes": 39916,
+    "sha256": "f4deb630a9e583bbcd272d38aff02e33eba69f98afb3c4cf492ea855875fe3df"
+  },
+  {
+    "path": "recruiter.html",
+    "bytes": 8609,
+    "sha256": "f5da67c1e455722018edd889455b8695368edf6407b69e986b189b6422622538"
+  },
+  {
+    "path": "404.html",
+    "bytes": 571,
+    "sha256": "b8ee95001741b049cd5971c6d51a44f5a42ae4a1bd23e12d435f619c0d092781"
+  },
+  {
+    "path": "robots.txt",
+    "bytes": 83,
+    "sha256": "88e196370b02cecbce6a05558949cc63e789146657effad9704ccdcfef51edfa"
+  },
+  {
+    "path": "sitemap.xml",
+    "bytes": 473,
+    "sha256": "48f03edcf804f13c57dc0a6aa2bf8e609097eb30cc096eefd5619847d6e1b957"
+  },
+  {
+    "path": "mark.svg",
+    "bytes": 225,
+    "sha256": "c27d8542a67d0cf0e43affce27ee2a5754c44163bbced4cd0e790afc65102819"
+  },
+  {
+    "path": "cinematic.css",
+    "bytes": 19475,
+    "sha256": "7e8ec07a6a348bf2594c41e4509727bcc88ff032604171a9ab1dff77c8724aad"
+  },
+  {
+    "path": "cinematic.js",
+    "bytes": 5516,
+    "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
+  },
+  {
+    "path": "ritesh_mamidi_resume.pdf",
+    "bytes": 82249,
+    "sha256": "5be37bc18841479c9ed33049dec9fe9401d6ecb4c25fd07629f3555afbce5a7b"
+  },
+  {
+    "path": "assets/fonts/inter-latin.woff2",
+    "bytes": 48256,
+    "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+  },
+  {
+    "path": "assets/fonts/jetbrains-mono-latin.woff2",
+    "bytes": 40404,
+    "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
+  },
+  {
+    "path": "assets/fonts/Inter-LICENSE.txt",
+    "bytes": 4477,
+    "sha256": "3b0a5fca3d17942cde889069889dedbbbd075e9b599968c82a95f4d944e9b345"
+  },
+  {
+    "path": "assets/fonts/JetBrains-Mono-LICENSE.txt",
+    "bytes": 4524,
+    "sha256": "403581b69dac5cff4079205e01c6b467e56af449ecbd7247693ddb1baafa005b"
+  },
+  {
+    "path": "assets/js/nasha-ecosystem-core.js",
+    "bytes": 4481,
+    "sha256": "355b458337448c0890285af20c9a658ab58371d235a448958d1f6cc077346ed5"
+  },
+  {
+    "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",
+    "bytes": 12426,
+    "sha256": "7c6b04267ed43658b5d440fbe638faf96294dd94d5662509ac50df4668cf1267"
+  },
+  {
+    "path": "recovered/nasha-b666563/docs/nasha-ecosystem/ARCHITECTURE.md",
+    "bytes": 4120,
+    "sha256": "21719d0733dcd3ce0bf27c21a8e462857020171906decd61d2f8ccdd5aeadd5b"
+  }
+]
