@@ -1,0 +1,564 @@
+{
+ "base": "http://127.0.0.1:8011/",
+ "checks": [
+  {
+   "check": "index.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "index.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "nasha.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "recruiter.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "desktop: no console errors",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "desktop: no failed requests",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "index.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "nasha.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "recruiter.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "laptop: no console errors",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "laptop: no failed requests",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "index.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "nasha.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "recruiter.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "tablet: no console errors",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "tablet: no failed requests",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 390 vs 390"
+  },
+  {
+   "check": "index.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 390 vs 390"
+  },
+  {
+   "check": "nasha.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 390 vs 390"
+  },
+  {
+   "check": "recruiter.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "mobile: no console errors",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "mobile: no failed requests",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 320 vs 320"
+  },
+  {
+   "check": "index.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "index.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 324 vs 324"
+  },
+  {
+   "check": "nasha.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "nasha.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 320 vs 320"
+  },
+  {
+   "check": "recruiter.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "recruiter.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "narrow: no console errors",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "narrow: no failed requests",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "keyboard: ArrowRight selects the next scenario tab",
+   "pass": true,
+   "detail": "tab-1"
+  },
+  {
+   "check": "keyboard: End selects the last tab",
+   "pass": true,
+   "detail": "tab-7"
+  },
+  {
+   "check": "keyboard: Step button advances the replay",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "skip link present and targets #main",
+   "pass": true,
+   "detail": "#main"
+  },
+  {
+   "check": "keyboard: architecture node can be selected with Enter",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "reduced motion: all content visible without scrolling triggers",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "reduced motion: CSS animations disabled",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "index.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "808 ms"
+  },
+  {
+   "check": "index.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "check": "index.html: JavaScript <= 40 KB, CSS <= 30 KB",
+   "pass": true,
+   "detail": "js 11692 css 17792"
+  },
+  {
+   "check": "nasha.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "784 ms"
+  },
+  {
+   "check": "nasha.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "check": "nasha.html: JavaScript <= 40 KB, CSS <= 30 KB",
+   "pass": true,
+   "detail": "js 12601 css 17792"
+  },
+  {
+   "check": "recruiter.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "716 ms"
+  },
+  {
+   "check": "recruiter.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "check": "recruiter.html: JavaScript <= 40 KB, CSS <= 30 KB",
+   "pass": true,
+   "detail": "js 1774 css 17792"
+  }
+ ],
+ "axe": [
+  {
+   "page": "index.html",
+   "viewport": "desktop",
+   "violations": []
+  },
+  {
+   "page": "nasha.html",
+   "viewport": "desktop",
+   "violations": []
+  },
+  {
+   "page": "recruiter.html",
+   "viewport": "desktop",
+   "violations": []
+  },
+  {
+   "page": "index.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "nasha.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "recruiter.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
+  }
+ ],
+ "metrics": {
+  "index.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 808,
+   "cls": 0,
+   "dom_content_loaded_ms": 736,
+   "load_ms": 1294,
+   "js_bytes": 11692,
+   "css_bytes": 17792,
+   "total_bytes": 183523
+  },
+  "nasha.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 784,
+   "cls": 0,
+   "dom_content_loaded_ms": 604,
+   "load_ms": 1198,
+   "js_bytes": 12601,
+   "css_bytes": 17792,
+   "total_bytes": 175745
+  },
+  "recruiter.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 716,
+   "cls": 0,
+   "dom_content_loaded_ms": 533,
+   "load_ms": 907,
+   "js_bytes": 1774,
+   "css_bytes": 17792,
+   "total_bytes": 116819
+  }
+ },
+ "summary": {
+  "checks": 92,
+  "passed": 92,
+  "failed": []
+ }
+}

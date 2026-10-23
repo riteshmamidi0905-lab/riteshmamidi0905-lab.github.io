@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NASHA Enterprise AI Lab · governed AI operations · Ritesh Mamidi</title>
+<meta name="description" content="A synthetic restaurant concept used to build and test a governed AI operations workflow: orders, inventory, forecast, agent, THE WEIR, human approval, audited draft purchase order.">
+<meta name="theme-color" content="#06090a">
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/system.css">
+</head>
+<body data-world="sys">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap">
+  <a class="id" href="index.html"><b>rm</b><span>RITESH MAMIDI<small>APPLIED AI · DATA · PLATFORM</small></span></a>
+  <button class="menu" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+  <nav class="nav" id="nav" aria-label="Primary"><a href="index.html">Overview</a><a href="index.html#worlds">Worlds</a><a href="nasha.html" aria-current="page">Flagship: NASHA</a><a href="projects.html">Projects</a><a href="recruiter.html">Recruiters</a><a class="cta" href="recruiter.html">60-second brief</a></nav>
+</div></header>
+<main id="main">
+<section aria-labelledby="h1" style="padding-bottom:clamp(30px,5vw,70px)">
+  <div class="wrap">
+    <p class="mono eyebrow"><span class="dot"></span>Flagship case study · independent engineering</p>
+    <h1 id="h1">A governed AI operations platform, <em>tested where it breaks</em>.</h1>
+    <p class="lede">NASHA is a proposed restaurant-and-brewery concept. It is not an operating business, it has no customers, and every order, supplier and number below is synthetic. It exists to give an engineering system a realistic job: notice that stock disappeared faster than the recipes explain, propose a purchase, and make sure a human, not the model, decides.</p>
+    <div class="legend-grid" style="margin-top:32px">
+      <div class="card"><h2 class="ct">What is real</h2><p>The code, the tests, the recorded runs on this page and the numbers measured when the evidence was exported.</p></div>
+      <div class="card"><h2 class="ct">What is synthetic</h2><p>Orders, inventory counts, supplier quotes, prices, anomalies and people. None of it is a business result.</p></div>
+      <div class="card"><h2 class="ct">What is not claimed</h2><p>No production deployment, no real-model run, no security certification, and no live demo: this page replays recorded evidence.</p></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="ah" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Architecture</p><h2 id="ah">Every box states its status.</h2></div><p class="lede">Click a component for its evidence. Dashed outlines are blocked, dotted are designed-only. “Separate repo” components are real projects I built elsewhere; the badge says whether they are integrated.</p></div>
+    <div class="arch" id="arch"><div><div class="filters" role="group" aria-label="Filter by status"></div><div class="graph"><svg viewBox="0 0 1090 500" role="group" aria-label="Architecture graph of the NASHA governed workflow: select a component for its evidence"></svg></div></div><aside class="panel" aria-live="polite"></aside></div>
+  </div>
+</section>
+
+<section aria-labelledby="rh">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>The end-to-end run</p><h2 id="rh">Replay real runs, including the attacks.</h2></div><p class="lede">Eight scenarios were executed against two synthetic tenants when this evidence was exported. Every one ends with no unauthorised purchase order and zero external transmissions.</p></div>
+    <div class="player" id="player">
+      <div class="player-bar"><div class="tabs" role="tablist" aria-label="Recorded scenarios"></div></div>
+      <div class="player-bar ctl"><button class="pbtn" id="play">Play</button><button class="pbtn" id="step">Step</button><button class="pbtn" id="reset">Reset</button><span class="note" style="margin-left:8px">Recorded run · synthetic data</span></div>
+      <div class="player-body"><div role="tabpanel" id="steps" aria-label="Recorded steps"><ol class="steps" tabindex="0" aria-label="Replay steps (scrollable)"></ol></div>
+        <aside class="side" aria-label="Run summary"><div class="kv"><span class="mono">What this run shows</span><span class="claim v">Loading recorded evidence…</span></div>
+          <div class="kv"><span class="mono">Purchase orders created</span><span class="po big zero" aria-live="polite">0</span></div><div class="outcome"></div>
+          <div class="kv"><span class="mono">Ledger audit rows</span><ol class="audit" tabindex="0" aria-label="Ledger audit rows (scrollable)"></ol></div></aside></div>
+      <p class="sr" id="live" aria-live="polite"></p>
+    </div>
+    <p class="note" style="margin-top:14px">Timings are per-call milliseconds measured on the build machine for this run, not a benchmark. The “model” in the malformed-output scenario is a scripted test double.</p>
+  </div>
+</section>
+
+<section aria-labelledby="sh" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Security design</p><h2 id="sh">Four layers, each sufficient on its own.</h2></div><p class="lede">An unauthorised purchase has to get past all four. The tests try each, and the schema makes “sent” unrepresentable.</p></div>
+    <div class="two">
+      <div class="card"><h3>1 · Identity and tenant</h3><p>Each tenant has its own signing secret, warehouse, ledger, approval store and memory. A token from another tenant fails signature verification; the same location id resolves to different data per tenant.</p></div>
+      <div class="card"><h3>2 · THE WEIR policy</h3><p>A default-deny policy per role. The quality-lead role has no procurement tool at all, so the call is blocked before anything runs and no approval is even requested. Supplier-written text is labelled untrusted.</p></div>
+      <div class="card"><h3>3 · Human approval, bound to the call</h3><p>The write is held for a different, authorised person. The approval is bound to the exact call, expires, and works once. Changing the quantity, supplier, quote or amount after approval needs a new approval.</p></div>
+      <div class="card"><h3>4 · Upstream and schema</h3><p>The procurement upstream re-validates against the ledger and the warehouse; the ledger’s only order state is DRAFT_NOT_SENT, writes are idempotent, and the audit trail is hash-chained so edits are detectable.</p></div>
+    </div>
+    <p class="note" style="margin-top:18px">Found by a regression test while building this: the estimated cost was not part of the approved call, so a tampered cost could pass. It is now bound and re-checked.</p>
+  </div>
+</section>
+
+<section aria-labelledby="eh">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Evaluation</p><h2 id="eh">Measured, with the caveat attached.</h2></div><p class="lede">A small synthetic evaluation proves the harness works, not that the system is reliable in the real world.</p></div>
+    <div class="two"><div><div class="bars" id="bars" aria-label="Ops AI evaluation pass rate by category"></div><p class="note" id="evalnote" style="margin-top:16px"></p></div>
+      <div class="card"><h3 id="mt"></h3><p id="mp"></p></div></div>
+  </div>
+</section>
+
+<section aria-labelledby="lh" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Limits</p><h2 id="lh">What this does not show.</h2></div></div>
+    <ul class="proofs" style="max-width:900px">
+      <li><span class="chip">Blocked</span><span>The real-model integration test cannot run here: there is no local model runtime, and downloads are blocked. The model planner is verified only with scripted clients.</span></li>
+      <li><span class="chip">Not integrated</span><span>My Production AI Agent Platform is a separate repository. NASHA reuses ideas and adapted code from it; it does not import or run on it.</span></li>
+      <li><span class="chip">Architectural only</span><span>Tenants share one process and code, plus the reference recipe files used to seed each scenario. There is no per-tenant recipe versioning.</span></li>
+      <li><span class="chip">Synthetic</span><span>Sales, prices, quotes and anomalies are generated. The variance detector was scored against three injected anomalies, a small sample.</span></li>
+      <li><span class="chip">Local</span><span id="commitnote">The evidence comes from local commits that have not been pushed.</span></li></ul>
+  </div>
+</section>
+
+<section aria-labelledby="xh">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Reproduce</p><h2 id="xh">Run it yourself.</h2></div></div>
+    <pre tabindex="0" aria-label="Reproduction commands">cd lab
+python3 -m pytest tests/test_governed_workflow.py -q      # workflow, security, failure and tenant-isolation tests
+python3 tools/export_portfolio_evidence.py                # re-executes the 8 scenarios and rewrites the evidence JSON
+python3 -m nasha_lab.warehouse.ops_ai_eval --db &lt;warehouse.db&gt; --check</pre>
+    <div style="margin-top:28px;overflow:auto" tabindex="0" role="region" aria-label="Evidence table (scrollable)"><table class="ev" id="evtable"><thead><tr><th>Component</th><th>Status</th><th>Code</th><th>Tests</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+</main>
+<footer class="ftr"><div class="wrap"><span>© 2026 Ritesh Mamidi · Redesign candidate, not deployed</span><nav aria-label="Footer"><a href="https://github.com/riteshmamidi0905-lab">GitHub</a><a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a><a href="mailto:riteshmamidi0905@gmail.com">Email</a></nav></div></footer>
+<div class="mbar" aria-label="Quick actions"><a class="btn pri" href="recruiter.html">Recruiter brief</a><a class="btn" href="index.html#flagship">Home</a></div>
+<script src="js/common.js"></script><script src="js/trace.js" defer></script><script src="js/arch.js" defer></script>
+<script defer>
+addEventListener('DOMContentLoaded',async()=>{const m=document.querySelector('.menu');if(m)m.hidden=false;const d=await loadEvidence();
+ if(!d){document.querySelector('.claim').textContent='The evidence file could not be loaded. Serve the folder over http (see README).';return}
+ TracePlayer(document.getElementById('player'),d);ArchExplorer(document.getElementById('arch'),d.architecture);
+ const e=d.metrics.ops_ai_evaluation,bars=document.getElementById('bars');
+ bars.innerHTML=Object.entries(e.by_category).map(([k,v])=>`<div class="bar"><span>${k}</span><i><b style="width:${100*v.pass/v.n}%"></b></i><span class="mono">${v.pass}/${v.n}</span></div>`).join('');
+ document.getElementById('evalnote').textContent=e.caveat+' Result hash '+e.result_sha256+'.';
+ const t=d.metrics.governed_workflow_tests;document.getElementById('mt').textContent=t.passed+' workflow tests passed, '+t.failed+' failed';document.getElementById('mp').textContent='Run when the evidence was exported ('+t.file+'): the happy path, fifteen failure and attack classes, security properties and tenant isolation. Median tool call '+d.measured.tool_ms_median+' ms (max '+d.measured.tool_ms_max+' ms) on the build machine.';
+ document.getElementById('commitnote').textContent='Evidence generated from local commit '+d.repository.commit+' of the NASHA repository, which has not been pushed. Repository paths below are relative to that repository.';
+ document.querySelector('#evtable tbody').innerHTML=d.architecture.nodes.map(n=>`<tr><td>${n.name}</td><td><span class="chip">${n.status.replace(/_/g,' ')}</span></td><td>${n.evidence.map(x=>'<code>'+x+'</code>').join('<br>')||'—'}</td><td>${n.tests.map(x=>'<code>'+x+'</code>').join('<br>')||'—'}</td></tr>`).join('')});
+</script>
+</body></html>

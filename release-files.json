@@ -1,8 +1,13 @@
 [
   {
     "path": "index.html",
-    "bytes": 12778,
-    "sha256": "21800a9e88c7a3277d24b6e11aae2afcb3775430417afe1503d5cbeb2480c81a"
+    "bytes": 20998,
+    "sha256": "66ff384e7ae5e7d5b69566b9d6231f94f9aad42ac13878892f11cee1a038f2a9"
+  },
+  {
+    "path": "nasha.html",
+    "bytes": 12311,
+    "sha256": "4101171f577f5ff1a0b96defde8ed082e6a57d71a9f3e5261d5d2957a9a26f6e"
   },
   {
     "path": "ai-engineering.html",
@@ -21,8 +26,8 @@
   },
   {
     "path": "recruiter.html",
-    "bytes": 8609,
-    "sha256": "f5da67c1e455722018edd889455b8695368edf6407b69e986b189b6422622538"
+    "bytes": 8368,
+    "sha256": "fa2772b942ee332bbf26947a68ef6c99840b9f74dcdf44e81e3c686b7986c615"
   },
   {
     "path": "404.html",
@@ -36,8 +41,8 @@
   },
   {
     "path": "sitemap.xml",
-    "bytes": 473,
-    "sha256": "48f03edcf804f13c57dc0a6aa2bf8e609097eb30cc096eefd5619847d6e1b957"
+    "bytes": 544,
+    "sha256": "56a42343eb5d50d2dd204c32363dda1516ce5bc72c9efd1704de9026a07fb834"
   },
   {
     "path": "mark.svg",
@@ -53,6 +58,36 @@
     "path": "cinematic.js",
     "bytes": 5516,
     "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
+  },
+  {
+    "path": "css/system.css",
+    "bytes": 17792,
+    "sha256": "b00b6cc8db4157d8e74ec41e8683b9e75c7cc6e1d78f296da63b8c01b8b0582a"
+  },
+  {
+    "path": "js/common.js",
+    "bytes": 1774,
+    "sha256": "212bc668e91f2d9c64142ab6356d903aa463395db5dc89b961d1c10150876063"
+  },
+  {
+    "path": "js/hero.js",
+    "bytes": 4040,
+    "sha256": "f4f39a6fc47181e8dba2f6dfed73267f3678d40437ac94d9c417a0a37815682d"
+  },
+  {
+    "path": "js/trace.js",
+    "bytes": 5878,
+    "sha256": "2b7b13074388fac4f5806e6bee140ff49c6f1178da47b2e7956b0b4fe443eff1"
+  },
+  {
+    "path": "js/arch.js",
+    "bytes": 4949,
+    "sha256": "55389be8926e3af837f66180657b17f00ed1cc2cee0e60344dedc66c4062054f"
+  },
+  {
+    "path": "data/nasha-governed-evidence.json",
+    "bytes": 44156,
+    "sha256": "72f30bb92e16af8c3544e376e394299b042c14f7daa64880525374061f8fd085"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",

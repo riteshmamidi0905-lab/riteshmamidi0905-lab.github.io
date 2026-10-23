@@ -5,16 +5,17 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==19
+assert len(manifest)==26
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
- def __init__(self):super().__init__();self.ids=set();self.refs=[];self.projects=0;self.flags=0
+ def __init__(self):super().__init__();self.ids=set();self.refs=[];self.projects=0;self.flags=0;self.rows=0
  def handle_starttag(self,tag,attrs):
   a=dict(attrs)
   if 'id' in a:self.ids.add(a['id'])
   self.projects+='project' in a.get('class','').split()
   self.flags+='flag-card' in a.get('class','').split()
+  self.rows+='row' in a.get('class','').split()
   for key in ['href','src']:
    if key in a:self.refs.append(a[key])
 pages={}
@@ -36,6 +37,9 @@ for name,page in pages.items():
   assert target in expected,(name,ref)
   if u.fragment and target in pages:assert unquote(u.fragment) in pages[target].ids,(name,ref)
 assert pages['projects.html'].projects==24
-assert pages['index.html'].flags==6
-assert 'prefers-reduced-motion' in (root/'cinematic.css').read_text()
-print('PASS: 19 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six flagships, reduced-motion stylesheet')
+assert pages['index.html'].rows==6
+assert 'prefers-reduced-motion' in (root/'cinematic.css').read_text() and 'prefers-reduced-motion' in (root/'css/system.css').read_text()
+ev=json.loads((root/'data/nasha-governed-evidence.json').read_text())
+assert ev['synthetic'] is True and all(x['external_transmissions']==0 and x['matched_expectation'] for x in ev['scenarios']) and 'dev-passcode' not in json.dumps(ev),'evidence file invariants'
+assert all(n['status'] in ev['architecture']['status_legend'] for n in ev['architecture']['nodes'])
+print('PASS: 26 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')
