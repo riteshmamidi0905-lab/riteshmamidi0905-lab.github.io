@@ -30,6 +30,16 @@
   </div>
 </section>
 
+<section class="film" id="film" aria-labelledby="fhd" data-world="data">
+  <div class="film-in wrap">
+    <div class="film-head"><div><p class="mono eyebrow"><span class="dot"></span>One run, eight stages</p><h2 id="fhd">From synthetic orders to an audited draft.</h2></div><p class="note">A replay of one recorded run of the verified synthetic workflow. Scroll, use the buttons, or press the arrow keys. Every value comes from the evidence file; no backend is called.</p></div>
+    <ol class="rail" aria-label="Pipeline stages"></ol>
+    <div class="film-body"></div>
+    <div class="film-ctl"><button class="pbtn" data-act="prev">Previous stage</button><button class="pbtn" data-act="next">Next stage</button><span class="hint">Recorded synthetic run · not live</span></div>
+    <p class="film-live sr" aria-live="polite"></p>
+  </div>
+</section>
+
 <section aria-labelledby="ah" style="background:var(--bg2);border-block:1px solid var(--line)">
   <div class="wrap">
     <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Architecture</p><h2 id="ah">Every box states its status.</h2></div><p class="lede">Click a component for its evidence. Dashed outlines are blocked, dotted are designed-only. “Separate repo” components are real projects I built elsewhere; the badge says whether they are integrated.</p></div>
@@ -74,6 +84,18 @@
   </div>
 </section>
 
+<section aria-labelledby="vh" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Verification</p><h2 id="vh">Can the tests tell when the system is wrong?</h2></div><p class="lede">Scored against oracles rebuilt from raw data, then attacked: each mutant is a deliberately broken version of the system that the evaluation has to catch.</p></div>
+    <div class="two"><div><h3 style="margin-bottom:14px">Evaluation by category</h3><div class="bars" id="gbars" aria-label="Governed evaluation pass rate by category"></div><p class="note" id="gsum" style="margin-top:16px"></p></div>
+      <div><h3 style="margin-bottom:14px">Mutation tests</h3><ul class="mut" id="mut" aria-label="Mutants and whether the evaluation caught them"></ul><p class="note" id="msum" style="margin-top:16px"></p></div></div>
+    <h3 style="margin:clamp(36px,5vw,64px) 0 14px">Release gate</h3>
+    <div class="gate-hd" id="ghd"></div>
+    <ul class="gates" id="gates" aria-label="Twelve release gates and their results"></ul>
+    <p class="note" style="margin-top:16px">A gate with missing, stale or malformed evidence fails; it never passes by default. REVIEW means nothing failed but something required could not be verified here.</p>
+  </div>
+</section>
+
 <section aria-labelledby="lh" style="background:var(--bg2);border-block:1px solid var(--line)">
   <div class="wrap">
     <div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Limits</p><h2 id="lh">What this does not show.</h2></div></div>
@@ -99,11 +121,11 @@ python3 -m nasha_lab.warehouse.ops_ai_eval --db &lt;warehouse.db&gt; --check</pr
 </main>
 <footer class="ftr"><div class="wrap"><span>© 2026 Ritesh Mamidi · Redesign candidate, not deployed</span><nav aria-label="Footer"><a href="https://github.com/riteshmamidi0905-lab">GitHub</a><a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a><a href="mailto:riteshmamidi0905@gmail.com">Email</a></nav></div></footer>
 <div class="mbar" aria-label="Quick actions"><a class="btn pri" href="recruiter.html">Recruiter brief</a><a class="btn" href="index.html#flagship">Home</a></div>
-<script src="js/common.js"></script><script src="js/trace.js" defer></script><script src="js/arch.js" defer></script>
+<script src="js/common.js"></script><script src="js/trace.js" defer></script><script src="js/arch.js" defer></script><script src="js/pipeline.js" defer></script><script src="js/verify.js" defer></script>
 <script defer>
 addEventListener('DOMContentLoaded',async()=>{const m=document.querySelector('.menu');if(m)m.hidden=false;const d=await loadEvidence();
  if(!d){document.querySelector('.claim').textContent='The evidence file could not be loaded. Serve the folder over http (see README).';return}
- TracePlayer(document.getElementById('player'),d);ArchExplorer(document.getElementById('arch'),d.architecture);
+ PipelineFilm(document.getElementById('film'),d);VerifyPanel(d);TracePlayer(document.getElementById('player'),d);ArchExplorer(document.getElementById('arch'),d.architecture);
  const e=d.metrics.ops_ai_evaluation,bars=document.getElementById('bars');
  bars.innerHTML=Object.entries(e.by_category).map(([k,v])=>`<div class="bar"><span>${k}</span><i><b style="width:${100*v.pass/v.n}%"></b></i><span class="mono">${v.pass}/${v.n}</span></div>`).join('');
  document.getElementById('evalnote').textContent=e.caveat+' Result hash '+e.result_sha256+'.';

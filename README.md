@@ -4,6 +4,9 @@
 
 Static GitHub Pages site, no build step, no framework, no video. New in this branch: `index.html` (home: hero, four worlds, flagship replay, build index), `nasha.html` (flagship case study: architecture explorer, replay of 8 recorded runs, security design, evaluation, limits, evidence table), `recruiter.html` (rebuilt in the new design system, experience text verbatim), `css/system.css`, `js/*.js` (about 15 KB), `data/nasha-governed-evidence.json` (real recorded evidence from the NASHA repository). The legacy pages `projects.html`, `ai-engineering.html` and `nasha-lab.html` are unchanged and still use `cinematic.css`.
 
+## Added at Milestone E
+`nasha.html` now opens with a scroll-pinned **pipeline film** (`js/pipeline.js`): synthetic orders → inventory → forecasting → AI planner → THE WEIR → human approval → draft procurement → audit trail, a replay of one recorded run whose every value is read from `data/nasha-governed-evidence.json` (`story` block). Scroll, buttons, rail and arrow keys drive it; reduced-motion and narrow screens show all stages stacked. A **verification** section (`js/verify.js`) shows the governed evaluation by category, the 9 mutants and the 12-gate release report (`data/release-gate-report.json`, currently REQUIRES_REVIEW; remote CI NOT_RUN). Nothing calls a backend. Rendered with Playwright Chromium (Claude in Chrome was not available in this environment); frames are in `docs/redesign/screenshots/`.
+
 ## Preview locally
 ```
 python3 -m http.server 8011        # the evidence JSON is fetched, so file:// will not work

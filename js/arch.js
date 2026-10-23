@@ -1,9 +1,9 @@
 /* Architecture explorer built from the evidence manifest's `architecture` section. Statuses are never colour-only: dashed = blocked, dotted = designed only, text badge on every node. */
 (()=>{'use strict';
-const POS={orders:[10,20],pipeline:[10,120],postgres:[10,220],scenario:[290,120],forecast:[290,20],opsai:[290,220],retrieval:[290,320],trace:[570,20],agent:[570,220],llm:[570,320],agentplatform:[570,420],weir:[850,120],approval:[850,220],ledger:[850,320],tenants:[850,420],webui:[290,420]};
+const POS={orders:[10,20],pipeline:[10,120],postgres:[10,220],scenario:[290,120],forecast:[290,20],opsai:[290,220],retrieval:[290,320],trace:[570,20],agent:[570,220],llm:[570,320],agentplatform:[570,420],weir:[850,120],approval:[850,220],ledger:[850,320],tenants:[850,420],webui:[290,420],incident:[850,20],evaluation:[10,320],releasegate:[10,420]};
 const COL={data:'#62c9ff',ai:'#7ce8bd',systems:'#ffb85c',product:'#ff94a8'};
 const BADGE={implemented_and_tested:'IMPLEMENTED · TESTED',integrated_real_separate_repository:'REAL · OTHER REPO',separate_repository_not_integrated:'SEPARATE · NOT INTEGRATED',blocked:'BLOCKED',designed_only:'DESIGNED ONLY'};
-const W=220,H=62;const SHORT={forecast:'Demand forecast',scenario:'Recipes · BOM · variance',trace:'Run traces · correlation',agent:'Governed agent',retrieval:'Retrieval · pgvector',ledger:'Procurement ledger',agentplatform:'Agent Platform (repo)',llm:'Language-model runtime',opsai:'Ops AI tool layer',tenants:'Tenant isolation',postgres:'PostgreSQL variant'};
+const W=220,H=62;const SHORT={forecast:'Demand forecast',scenario:'Recipes · BOM · variance',trace:'Run traces · correlation',agent:'Governed agent',retrieval:'Retrieval · pgvector',ledger:'Procurement ledger',agentplatform:'Agent Platform (repo)',llm:'Language-model runtime',opsai:'Ops AI tool layer',tenants:'Tenant isolation',postgres:'PostgreSQL variant',evaluation:'Evaluation · mutation',releasegate:'Release gate',incident:'Incident investigation'};
 window.ArchExplorer=function(root,arch){
   const svg=root.querySelector('svg'),panel=root.querySelector('.panel'),filters=root.querySelector('.filters');let sel=null,flt='all';
   const byId=Object.fromEntries(arch.nodes.map(n=>[n.id,n]));

@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==26
+assert len(manifest)==29
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -42,4 +42,11 @@ assert 'prefers-reduced-motion' in (root/'cinematic.css').read_text() and 'prefe
 ev=json.loads((root/'data/nasha-governed-evidence.json').read_text())
 assert ev['synthetic'] is True and all(x['external_transmissions']==0 and x['matched_expectation'] for x in ev['scenarios']) and 'dev-passcode' not in json.dumps(ev),'evidence file invariants'
 assert all(n['status'] in ev['architecture']['status_legend'] for n in ev['architecture']['nodes'])
-print('PASS: 26 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')
+gr=json.loads((root/'data/release-gate-report.json').read_text())
+assert gr['schema']=='release-gate-report/1' and len(gr['gates'])==12 and gr['overall'] in ('PASS','FAIL','REQUIRES_REVIEW') and gr['remote_ci']=='NOT_RUN','release-gate report invariants'
+assert gr['overall']=='PASS' or all(v['status']!='PASS' for v in gr['gates'].values()) is False,'gate report'
+cl=ev['claims']; assert cl and all({'id','text','value','source'}<=set(c) for c in cl),'claims shape'
+assert ev['story']['draft']['external_transmissions']==0 and ev['story']['draft']['state']=='DRAFT_NOT_SENT'
+assert ev['metrics']['governed_evaluation']['mutants_killed']==ev['metrics']['governed_evaluation']['mutants_total']==len(ev['mutation_detail'])
+assert ev['metrics']['release_evidence']['tests_failed']==0 and 'UNVERIFIED' in ev['metrics']['release_evidence']['model_runtime']
+print('PASS: 29 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')

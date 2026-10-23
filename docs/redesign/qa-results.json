@@ -334,7 +334,7 @@
   {
    "check": "nasha.html narrow: no horizontal overflow",
    "pass": true,
-   "detail": "scrollWidth 324 vs 324"
+   "detail": "scrollWidth 360 vs 360"
   },
   {
    "check": "nasha.html narrow: no clipped text",
@@ -419,7 +419,7 @@
   {
    "check": "index.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "808 ms"
+   "detail": "916 ms"
   },
   {
    "check": "index.html slow network: CLS <= 0.1",
@@ -429,12 +429,12 @@
   {
    "check": "index.html: JavaScript <= 40 KB, CSS <= 30 KB",
    "pass": true,
-   "detail": "js 11692 css 17792"
+   "detail": "js 11692 css 26722"
   },
   {
    "check": "nasha.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "784 ms"
+   "detail": "932 ms"
   },
   {
    "check": "nasha.html slow network: CLS <= 0.1",
@@ -444,12 +444,12 @@
   {
    "check": "nasha.html: JavaScript <= 40 KB, CSS <= 30 KB",
    "pass": true,
-   "detail": "js 12601 css 17792"
+   "detail": "js 23987 css 26722"
   },
   {
    "check": "recruiter.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "716 ms"
+   "detail": "792 ms"
   },
   {
    "check": "recruiter.html slow network: CLS <= 0.1",
@@ -459,7 +459,7 @@
   {
    "check": "recruiter.html: JavaScript <= 40 KB, CSS <= 30 KB",
    "pass": true,
-   "detail": "js 1774 css 17792"
+   "detail": "js 1774 css 26722"
   }
  ],
  "axe": [
@@ -527,33 +527,33 @@
  "metrics": {
   "index.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 808,
+   "lcp_ms": 916,
    "cls": 0,
-   "dom_content_loaded_ms": 736,
-   "load_ms": 1294,
+   "dom_content_loaded_ms": 840,
+   "load_ms": 1396,
    "js_bytes": 11692,
-   "css_bytes": 17792,
-   "total_bytes": 183523
+   "css_bytes": 26722,
+   "total_bytes": 200903
   },
   "nasha.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 784,
+   "lcp_ms": 932,
    "cls": 0,
-   "dom_content_loaded_ms": 604,
-   "load_ms": 1198,
-   "js_bytes": 12601,
-   "css_bytes": 17792,
-   "total_bytes": 175745
+   "dom_content_loaded_ms": 757,
+   "load_ms": 1334,
+   "js_bytes": 23987,
+   "css_bytes": 26722,
+   "total_bytes": 212918
   },
   "recruiter.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 716,
+   "lcp_ms": 792,
    "cls": 0,
-   "dom_content_loaded_ms": 533,
-   "load_ms": 907,
+   "dom_content_loaded_ms": 612,
+   "load_ms": 979,
    "js_bytes": 1774,
-   "css_bytes": 17792,
-   "total_bytes": 116819
+   "css_bytes": 26722,
+   "total_bytes": 125749
   }
  },
  "summary": {
