@@ -914,7 +914,7 @@
   {
    "check": "index.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1164 ms"
+   "detail": "1252 ms"
   },
   {
    "check": "index.html slow network: CLS <= 0.1",
@@ -929,7 +929,7 @@
   {
    "check": "nasha.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1112 ms"
+   "detail": "1100 ms"
   },
   {
    "check": "nasha.html slow network: CLS <= 0.1",
@@ -939,7 +939,7 @@
   {
    "check": "nasha.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 24007 css 37324"
+   "detail": "js 24014 css 37324"
   },
   {
    "check": "recruiter.html slow network: LCP <= 2500 ms",
@@ -959,7 +959,7 @@
   {
    "check": "reliability.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "968 ms"
+   "detail": "940 ms"
   },
   {
    "check": "reliability.html slow network: CLS <= 0.1",
@@ -974,7 +974,7 @@
   {
    "check": "security.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1020 ms"
+   "detail": "972 ms"
   },
   {
    "check": "security.html slow network: CLS <= 0.1",
@@ -989,7 +989,7 @@
   {
    "check": "growthos.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "980 ms"
+   "detail": "968 ms"
   },
   {
    "check": "growthos.html slow network: CLS <= 0.1",
@@ -999,12 +999,12 @@
   {
    "check": "growthos.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 14971 css 37324"
+   "detail": "js 15628 css 37324"
   },
   {
    "check": "projects.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1020 ms"
+   "detail": "1140 ms"
   },
   {
    "check": "projects.html slow network: CLS <= 0.1",
@@ -1219,70 +1219,70 @@
  "metrics": {
   "index.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1164,
+   "lcp_ms": 1252,
    "cls": 0,
-   "dom_content_loaded_ms": 1028,
-   "load_ms": 1592,
+   "dom_content_loaded_ms": 1083,
+   "load_ms": 1643,
    "js_bytes": 11692,
    "css_bytes": 37324,
-   "total_bytes": 375033
+   "total_bytes": 375145
   },
   "nasha.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1112,
+   "lcp_ms": 1100,
    "cls": 0,
-   "dom_content_loaded_ms": 923,
-   "load_ms": 1530,
-   "js_bytes": 24007,
+   "dom_content_loaded_ms": 875,
+   "load_ms": 1546,
+   "js_bytes": 24014,
    "css_bytes": 37324,
-   "total_bytes": 387005
+   "total_bytes": 387153
   },
   "recruiter.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
    "lcp_ms": 928,
    "cls": 0,
-   "dom_content_loaded_ms": 784,
-   "load_ms": 1190,
+   "dom_content_loaded_ms": 772,
+   "load_ms": 1176,
    "js_bytes": 1774,
    "css_bytes": 37324,
    "total_bytes": 136466
   },
   "reliability.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 968,
+   "lcp_ms": 940,
    "cls": 0.0359,
-   "dom_content_loaded_ms": 829,
-   "load_ms": 1434,
+   "dom_content_loaded_ms": 821,
+   "load_ms": 1401,
    "js_bytes": 12019,
    "css_bytes": 37324,
-   "total_bytes": 368329
+   "total_bytes": 368331
   },
   "security.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1020,
+   "lcp_ms": 972,
    "cls": 0,
    "dom_content_loaded_ms": 820,
-   "load_ms": 1498,
+   "load_ms": 1470,
    "js_bytes": 12019,
    "css_bytes": 37324,
-   "total_bytes": 366105
+   "total_bytes": 366107
   },
   "growthos.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 980,
+   "lcp_ms": 968,
    "cls": 0,
-   "dom_content_loaded_ms": 821,
-   "load_ms": 1674,
-   "js_bytes": 14971,
+   "dom_content_loaded_ms": 841,
+   "load_ms": 1758,
+   "js_bytes": 15628,
    "css_bytes": 37324,
-   "total_bytes": 236293
+   "total_bytes": 254099
   },
   "projects.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1020,
+   "lcp_ms": 1140,
    "cls": 0,
-   "dom_content_loaded_ms": 746,
-   "load_ms": 1293,
+   "dom_content_loaded_ms": 795,
+   "load_ms": 1377,
    "js_bytes": 2805,
    "css_bytes": 37324,
    "total_bytes": 167742

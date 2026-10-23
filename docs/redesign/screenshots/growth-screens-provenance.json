@@ -1,8 +1,8 @@
 {
  "source": "live application served by `python -m nasha_lab.growth.demo` on 127.0.0.1:8765 (synthetic tenants)",
- "lab_commit": "dacc1dc",
- "captured_at": "2026-10-23T14:56:34.668471Z",
- "viewport": "1440x900",
+ "lab_commit": "67d39f2",
+ "captured_at": "2026-10-23T15:34:15.129918Z",
+ "viewport": "1440x900 (run screens: full page)",
  "browser": "Chromium via Playwright",
  "api_health": {
   "status": "ok"
@@ -11,107 +11,133 @@
   {
    "file": "dashboard.webp",
    "route": "#/dashboard",
+   "view": "business",
    "url": "http://127.0.0.1:8765/app#/dashboard",
    "h1": "Executive dashboard",
-   "chips": [
-    "AWAITING APPROVAL",
-    "BLOCKED",
-    "EXECUTED",
-    "REJECTED"
+   "size": [
+    1440,
+    900
    ]
   },
   {
    "file": "crm-leads.webp",
    "route": "#/crm/leads",
+   "view": "business",
    "url": "http://127.0.0.1:8765/app#/crm/leads",
    "h1": "CRM",
-   "chips": [
-    "new",
-    "new",
-    "new",
-    "new"
+   "size": [
+    1440,
+    900
    ]
   },
   {
    "file": "pipeline.webp",
    "route": "#/pipeline",
+   "view": "business",
    "url": "http://127.0.0.1:8765/app#/pipeline",
    "h1": "Sales pipeline",
-   "chips": []
+   "size": [
+    1440,
+    900
+   ]
   },
   {
    "file": "pricing.webp",
    "route": "#/pricing",
+   "view": "business",
    "url": "http://127.0.0.1:8765/app#/pricing",
    "h1": "Pricing studio",
-   "chips": []
+   "size": [
+    1440,
+    900
+   ]
   },
   {
    "file": "workflows.webp",
    "route": "#/workflows",
+   "view": "business",
    "url": "http://127.0.0.1:8765/app#/workflows",
    "h1": "AI workflow center",
-   "chips": [
-    "BLOCKED",
-    "AWAITING APPROVAL",
-    "REJECTED",
-    "EXECUTED"
+   "size": [
+    1440,
+    900
    ]
   },
   {
    "file": "security.webp",
    "route": "#/security",
+   "view": "business",
    "url": "http://127.0.0.1:8765/app#/security",
    "h1": "Security and audit",
-   "chips": [
-    "reject",
-    "approve",
-    "allow",
-    "allow"
+   "size": [
+    1440,
+    900
    ]
   },
   {
-   "file": "run-denied.webp",
-   "route": "#/workflows/wf-ea1cb15aae23",
-   "url": "http://127.0.0.1:8765/app#/workflows/wf-ea1cb15aae23",
-   "h1": "Run wf-ea1cb15aae23",
-   "chips": [
-    "BLOCKED",
-    "consent recorded",
-    "BLOCKED"
+   "file": "settings.webp",
+   "route": "#/settings",
+   "view": "business",
+   "url": "http://127.0.0.1:8765/app#/settings",
+   "h1": "Settings and data provenance",
+   "size": [
+    1440,
+    900
    ]
   },
   {
    "file": "run-awaiting.webp",
-   "route": "#/workflows/wf-706a7d9d1d96",
-   "url": "http://127.0.0.1:8765/app#/workflows/wf-706a7d9d1d96",
-   "h1": "Run wf-706a7d9d1d96",
-   "chips": [
-    "AWAITING APPROVAL",
-    "consent recorded",
-    "AWAITING APPROVAL"
+   "route": "#/workflows/wf-bbf964251a44",
+   "view": "business",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-bbf964251a44",
+   "h1": "Lead qualification: Dana Whitfield",
+   "size": [
+    1440,
+    1862
+   ]
+  },
+  {
+   "file": "run-denied.webp",
+   "route": "#/workflows/wf-813339d97267",
+   "view": "business",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-813339d97267",
+   "h1": "Lead qualification: Sofia Moreno",
+   "size": [
+    1440,
+    1998
    ]
   },
   {
    "file": "run-rejected.webp",
-   "route": "#/workflows/wf-7890cfa6b412",
-   "url": "http://127.0.0.1:8765/app#/workflows/wf-7890cfa6b412",
-   "h1": "Run wf-7890cfa6b412",
-   "chips": [
-    "REJECTED",
-    "consent recorded",
-    "REJECTED"
+   "route": "#/workflows/wf-bdb615bf3ab5",
+   "view": "business",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-bdb615bf3ab5",
+   "h1": "Lead qualification: Tomas Reyes",
+   "size": [
+    1440,
+    2040
    ]
   },
   {
    "file": "run-executed.webp",
-   "route": "#/workflows/wf-c5821fa2ff74",
-   "url": "http://127.0.0.1:8765/app#/workflows/wf-c5821fa2ff74",
-   "h1": "Run wf-c5821fa2ff74",
-   "chips": [
-    "EXECUTED",
-    "consent recorded",
-    "EXECUTED"
+   "route": "#/workflows/wf-95df13125549",
+   "view": "business",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-95df13125549",
+   "h1": "Lead qualification: Marcus Oyelaran",
+   "size": [
+    1440,
+    2347
+   ]
+  },
+  {
+   "file": "run-engineering.webp",
+   "route": "#/workflows/wf-937b8a90dc89",
+   "view": "engineering",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-937b8a90dc89",
+   "h1": "Lead qualification: Ines Calder",
+   "size": [
+    1440,
+    3353
    ]
   }
  ]

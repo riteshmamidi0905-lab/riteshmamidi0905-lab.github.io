@@ -4,7 +4,7 @@
 const esc=s=>String(s==null?'—':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>typeof n==='number'?n.toLocaleString('en-US'):esc(n);
 const STAGES=[
- {n:'Synthetic orders',w:'data',h:'A simulator invents a restaurant’s sales.',ev:'enterprise_sim.py · test_enterprise_sim.py',
+ {n:'Synthetic orders',w:'data',h:'A simulator invents a hospitality brand’s sales.',ev:'enterprise_sim.py · test_enterprise_sim.py',
   t:d=>`${fmt(d.orders.order_lines)} order lines and ${fmt(d.orders.recipes)} recipes, generated from a seed, so a rebuild is byte-identical. None of it is a real business.`,
   v:d=>`<div class="big-n">${fmt(d.orders.orders)}<small>synthetic orders</small></div>`},
  {n:'Inventory',w:'data',h:'Recipes turn sales into expected stock use.',ev:'scenario.py · depletion recomputed independently in test_scenario_d87.py',

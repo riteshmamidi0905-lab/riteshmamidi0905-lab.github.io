@@ -1,13 +1,13 @@
 [
   {
     "path": "index.html",
-    "bytes": 23645,
-    "sha256": "0a71ba222211a64e314ee939ceb8f2423467de5e78ebd182794452adae4f7a5e"
+    "bytes": 23755,
+    "sha256": "e689b191c3a2e5c075c3a87f9dbfa87f3a525ba8f9e06d2a0ff373eb4ea48102"
   },
   {
     "path": "nasha.html",
-    "bytes": 14772,
-    "sha256": "81523fac115d6af1a4c5809e187dabe1a163e66c57c61fd9626963921f831d72"
+    "bytes": 14911,
+    "sha256": "42ffd988cfcbdaae202d95cc07d04fc6067de887c077dca9113c0e95e61185bc"
   },
   {
     "path": "ai-engineering.html",
@@ -16,8 +16,8 @@
   },
   {
     "path": "nasha-lab.html",
-    "bytes": 32889,
-    "sha256": "de90442df47e578ca5ad4f89c6100277afa9dd6791d8d76bbb22121da628d32c"
+    "bytes": 32890,
+    "sha256": "13bf04082b3f20f2ebefe4a8af58b91bf0427f6da0dc60db78dfb170b39e2bbd"
   },
   {
     "path": "projects.html",
@@ -86,8 +86,8 @@
   },
   {
     "path": "js/pipeline.js",
-    "bytes": 8978,
-    "sha256": "7c51785696863763f3be535fcaed916b21e505fe512364266b77e1b162eaedff"
+    "bytes": 8985,
+    "sha256": "771688f9026b94fa2c9b90f30086ce85d0fd1d5b4885286e4be10444a22ed14f"
   },
   {
     "path": "js/verify.js",
@@ -106,18 +106,18 @@
   },
   {
     "path": "js/growth.js",
-    "bytes": 13197,
-    "sha256": "c6dd537829a0ef833c3b01b8c4377f535cf3a460660166f79718e1b0e1209885"
+    "bytes": 13854,
+    "sha256": "cf058ad078ab0938b3d8a5fc9d8d958de2e67fd3d35b821822f6e4e407a0e523"
   },
   {
     "path": "growthos.html",
-    "bytes": 12303,
-    "sha256": "632b857b98008c278186ffe671995800e5f06bc3cb8e6d68a41fb92b09828b13"
+    "bytes": 12551,
+    "sha256": "99949e3a29cb6997d5c425465c19798d40dfc40cd9c140604aaf3e2d07723402"
   },
   {
     "path": "data/growth-os-evidence.json",
-    "bytes": 28882,
-    "sha256": "85efddc9cc8c27040f53335ed19052b581c5b3245b29916b74f1f128368f82ac"
+    "bytes": 29679,
+    "sha256": "14b30861e38e5946bf36bb1bae7dc3cfa6060f9b8d4b1ef74bd11dc08747711d"
   },
   {
     "path": "reliability.html",
@@ -131,13 +131,13 @@
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 213487,
-    "sha256": "b0c14a41c0ab2c7a6a2d26b8d579dd5c92fc3153a9bee0d76c484413347e7f7f"
+    "bytes": 213489,
+    "sha256": "54a223c04b4a792e72196aa170f97c15569add09b1d966237a2399dd602737fc"
   },
   {
     "path": "data/release-gate-report.json",
     "bytes": 8530,
-    "sha256": "1cbdd5d2d6d25897c7b81df83458c935c15859af988b6a8e63222154e8f98525"
+    "sha256": "33488a24dea9f2e1c3baa6b235d455c344f9f8c728a36f8f9960f0d828161f0b"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
@@ -171,53 +171,63 @@
   },
   {
     "path": "assets/growth/crm-leads.webp",
-    "bytes": 47458,
-    "sha256": "690e39eb773ecd7d9f3ae44f1b6537e7098ad3a503519299f006b86845e40c57"
+    "bytes": 78622,
+    "sha256": "0aaf48d017afa6560bf0d5b11f5ae8c89c17a88425893ae1eb07281e3f49b88b"
   },
   {
     "path": "assets/growth/dashboard.webp",
-    "bytes": 53928,
-    "sha256": "5f0d87e230f9a6812912c9bbdb2ce30b0d3c42237c72e84a1b7a4dd70ec5e53f"
+    "bytes": 70032,
+    "sha256": "142081783988498401e12c16ed76123aa01f6ae2027393a3fae4699702403134"
   },
   {
     "path": "assets/growth/pipeline.webp",
-    "bytes": 37284,
-    "sha256": "6d33a7c17486615c9fd40b78eb22791cffcf3335628be0aea022f33b54351de1"
+    "bytes": 46546,
+    "sha256": "dcf4d117f6b4ff81dd6d30223164fa975bfd792ce09ace545f85015306012bb3"
   },
   {
     "path": "assets/growth/pricing.webp",
-    "bytes": 39728,
-    "sha256": "16e620c09c37b421b5bb81a6a581d874b9d537a6219098910f7888a89b8e86f0"
+    "bytes": 42890,
+    "sha256": "f4e55940a1c7fb2ca494448e07f7753d2167f6586b4ac739de836df9b4d2fd0c"
   },
   {
     "path": "assets/growth/run-awaiting.webp",
-    "bytes": 64412,
-    "sha256": "df126d517781c69653229b28639bfb34f12ce5dc2eca26e84c9997ff9a8e22f2"
+    "bytes": 139072,
+    "sha256": "a6b583019d9a255ac2b3653ec57447e28f3afa98dca2382805eb7132ddd5ca7c"
   },
   {
     "path": "assets/growth/run-denied.webp",
-    "bytes": 71012,
-    "sha256": "e8c423ca1fe70833d00fb363d4ff02e23f65e835608036bdb3cdd3928149b38b"
+    "bytes": 144484,
+    "sha256": "ff34eb693693701c2eea13a0056a366ae5014fcc71b0da9ada6a4a779b8f6fd0"
+  },
+  {
+    "path": "assets/growth/run-engineering.webp",
+    "bytes": 160050,
+    "sha256": "74e0f1a2b208f06ee8d4d25c1c64104a270bffddec7e5a5650c5a1686a0fd0e8"
   },
   {
     "path": "assets/growth/run-executed.webp",
-    "bytes": 63252,
-    "sha256": "ad0dbe5b5ce936c28a0b1e2ed931b7d86a5b5a6627584d629aad7e341027a840"
+    "bytes": 167426,
+    "sha256": "243d543307fb97f62dc22a6c05a3a73b10a112bb329ffa41e55a26bb5004da90"
   },
   {
     "path": "assets/growth/run-rejected.webp",
-    "bytes": 72216,
-    "sha256": "0a4d0cfc799d10cb547a37b8a36b5a1d6bd8f2d38632dd4f54ba854f946a05be"
+    "bytes": 146872,
+    "sha256": "187a39340064db612e0456f9e8b7343bdc0b67c6be666a29d7ae64818e128b00"
   },
   {
     "path": "assets/growth/security.webp",
-    "bytes": 71868,
-    "sha256": "dfe6e4b963379f7d825e515948bb0fc9e3b18b1f39efea5a83848b257262c923"
+    "bytes": 84586,
+    "sha256": "3c0b67eb023f45e247389bd7a7688fc47b8bc2916f86bc29702cc718ca22b909"
+  },
+  {
+    "path": "assets/growth/settings.webp",
+    "bytes": 69578,
+    "sha256": "8a7b7413a542ad47f46399e8a772417e63e359844c3c1fa4fd52e1e534948457"
   },
   {
     "path": "assets/growth/workflows.webp",
-    "bytes": 41148,
-    "sha256": "ead353b63e612d2bfcdef27e4e7f08d1fd153c2b5cdc437e34e8d9539a332aa9"
+    "bytes": 89836,
+    "sha256": "198064970979e1c10c86d7558120c7e788be7ec1a7b7d15bd61fc9e29402b77e"
   },
   {
     "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",
