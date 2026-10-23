@@ -77,6 +77,106 @@
    "detail": "[]"
   },
   {
+   "check": "reliability.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "reliability.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "security.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "growthos.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "projects.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "desktop: no console errors",
    "pass": true,
    "detail": "[]"
@@ -147,6 +247,86 @@
    "detail": "[]"
   },
   {
+   "check": "reliability.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "reliability.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "security.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "growthos.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "projects.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "laptop: no console errors",
    "pass": true,
    "detail": "[]"
@@ -213,6 +393,86 @@
   },
   {
    "check": "recruiter.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "reliability.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "security.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "growthos.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "projects.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html tablet: touch targets >= 36px (standalone controls)",
    "pass": true,
    "detail": "[]"
   },
@@ -302,6 +562,106 @@
    "detail": "[]"
   },
   {
+   "check": "reliability.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 390 vs 390"
+  },
+  {
+   "check": "reliability.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 425 vs 425"
+  },
+  {
+   "check": "security.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 390 vs 390"
+  },
+  {
+   "check": "growthos.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 390 vs 390"
+  },
+  {
+   "check": "projects.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "mobile: no console errors",
    "pass": true,
    "detail": "[]"
@@ -372,6 +732,86 @@
    "detail": "[]"
   },
   {
+   "check": "reliability.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 320 vs 320"
+  },
+  {
+   "check": "reliability.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "reliability.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 424 vs 424"
+  },
+  {
+   "check": "security.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "security.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 320 vs 320"
+  },
+  {
+   "check": "growthos.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 320 vs 320"
+  },
+  {
+   "check": "projects.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "projects.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "narrow: no console errors",
    "pass": true,
    "detail": "[]"
@@ -402,6 +842,36 @@
    "detail": "#main"
   },
   {
+   "check": "film: Next button advances to stage 2",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "film: rail node is a keyboard-operable button to stage 5",
+   "pass": true,
+   "detail": "4"
+  },
+  {
+   "check": "film: exactly one stage visible while pinned",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "reliability: Show sources toggles provenance with the keyboard",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "reliability: every rendered metric has a source pointer",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "security: incident explorer renders answers and switches scenario",
+   "pass": true,
+   "detail": "8,8"
+  },
+  {
    "check": "keyboard: architecture node can be selected with Enter",
    "pass": true,
    "detail": "1"
@@ -419,7 +889,7 @@
   {
    "check": "index.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1020 ms"
+   "detail": "1128 ms"
   },
   {
    "check": "index.html slow network: CLS <= 0.1",
@@ -427,14 +897,14 @@
    "detail": "0"
   },
   {
-   "check": "index.html: JavaScript <= 40 KB, CSS <= 30 KB",
+   "check": "index.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 11692 css 26859"
+   "detail": "js 11692 css 35631"
   },
   {
    "check": "nasha.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "940 ms"
+   "detail": "1012 ms"
   },
   {
    "check": "nasha.html slow network: CLS <= 0.1",
@@ -442,14 +912,14 @@
    "detail": "0"
   },
   {
-   "check": "nasha.html: JavaScript <= 40 KB, CSS <= 30 KB",
+   "check": "nasha.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 24004 css 26859"
+   "detail": "js 24007 css 35631"
   },
   {
    "check": "recruiter.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "812 ms"
+   "detail": "864 ms"
   },
   {
    "check": "recruiter.html slow network: CLS <= 0.1",
@@ -457,9 +927,69 @@
    "detail": "0"
   },
   {
-   "check": "recruiter.html: JavaScript <= 40 KB, CSS <= 30 KB",
+   "check": "recruiter.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 1774 css 26859"
+   "detail": "js 1774 css 35631"
+  },
+  {
+   "check": "reliability.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "912 ms"
+  },
+  {
+   "check": "reliability.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0.0389"
+  },
+  {
+   "check": "reliability.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
+   "pass": true,
+   "detail": "js 12019 css 35631"
+  },
+  {
+   "check": "security.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "904 ms"
+  },
+  {
+   "check": "security.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "check": "security.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
+   "pass": true,
+   "detail": "js 12019 css 35631"
+  },
+  {
+   "check": "growthos.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "872 ms"
+  },
+  {
+   "check": "growthos.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "check": "growthos.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
+   "pass": true,
+   "detail": "js 6794 css 35631"
+  },
+  {
+   "check": "projects.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "956 ms"
+  },
+  {
+   "check": "projects.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "check": "projects.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
+   "pass": true,
+   "detail": "js 2805 css 35631"
   }
  ],
  "axe": [
@@ -479,6 +1009,46 @@
    "violations": []
   },
   {
+   "page": "reliability.html",
+   "viewport": "desktop",
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "targets": [
+      "section[aria-labelledby=\"c4\"] > .wrap > .two > .panelx[role=\"region\"][aria-label=\"Data table (scrollable)\"]"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "security.html",
+   "viewport": "desktop",
+   "violations": [
+    {
+     "id": "heading-order",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Heading levels should only increase by one",
+     "targets": [
+      "h4:nth-child(2)"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "growthos.html",
+   "viewport": "desktop",
+   "violations": []
+  },
+  {
+   "page": "projects.html",
+   "viewport": "desktop",
+   "violations": []
+  },
+  {
    "page": "index.html",
    "viewport": "mobile",
    "violations": [
@@ -522,43 +1092,161 @@
      ]
     }
    ]
+  },
+  {
+   "page": "reliability.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "targets": [
+      "section[aria-labelledby=\"c4\"] > .wrap > .two > .panelx[role=\"region\"][aria-label=\"Data table (scrollable)\"]"
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "security.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "heading-order",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Heading levels should only increase by one",
+     "targets": [
+      "h4:nth-child(2)"
+     ]
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "growthos.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "projects.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
   }
  ],
  "metrics": {
   "index.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1020,
+   "lcp_ms": 1128,
    "cls": 0,
-   "dom_content_loaded_ms": 898,
-   "load_ms": 1451,
+   "dom_content_loaded_ms": 1024,
+   "load_ms": 1586,
    "js_bytes": 11692,
-   "css_bytes": 26859,
-   "total_bytes": 201037
+   "css_bytes": 35631,
+   "total_bytes": 365608
   },
   "nasha.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 940,
+   "lcp_ms": 1012,
    "cls": 0,
-   "dom_content_loaded_ms": 777,
-   "load_ms": 1365,
-   "js_bytes": 24004,
-   "css_bytes": 26859,
-   "total_bytes": 213456
+   "dom_content_loaded_ms": 849,
+   "load_ms": 1444,
+   "js_bytes": 24007,
+   "css_bytes": 35631,
+   "total_bytes": 376893
   },
   "recruiter.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 812,
+   "lcp_ms": 864,
    "cls": 0,
-   "dom_content_loaded_ms": 650,
-   "load_ms": 1036,
+   "dom_content_loaded_ms": 719,
+   "load_ms": 1097,
    "js_bytes": 1774,
-   "css_bytes": 26859,
-   "total_bytes": 125886
+   "css_bytes": 35631,
+   "total_bytes": 134773
+  },
+  "reliability.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 912,
+   "cls": 0.0389,
+   "dom_content_loaded_ms": 789,
+   "load_ms": 1369,
+   "js_bytes": 12019,
+   "css_bytes": 35631,
+   "total_bytes": 358217
+  },
+  "security.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 904,
+   "cls": 0,
+   "dom_content_loaded_ms": 773,
+   "load_ms": 1401,
+   "js_bytes": 12019,
+   "css_bytes": 35631,
+   "total_bytes": 355993
+  },
+  "growthos.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 872,
+   "cls": 0,
+   "dom_content_loaded_ms": 750,
+   "load_ms": 1195,
+   "js_bytes": 6794,
+   "css_bytes": 35631,
+   "total_bytes": 158426
+  },
+  "projects.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 956,
+   "cls": 0,
+   "dom_content_loaded_ms": 727,
+   "load_ms": 1207,
+   "js_bytes": 2805,
+   "css_bytes": 35631,
+   "total_bytes": 166049
   }
  },
  "summary": {
-  "checks": 92,
-  "passed": 92,
+  "checks": 198,
+  "passed": 198,
   "failed": []
  }
 }

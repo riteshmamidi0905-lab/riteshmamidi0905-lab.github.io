@@ -61,8 +61,8 @@
   },
   {
     "path": "css/system.css",
-    "bytes": 35410,
-    "sha256": "94ca8c39e54634d253b12e77308c0831bec56263e96eaac79e150e2fb2141e32"
+    "bytes": 35631,
+    "sha256": "b81f3ed1976baea0d4488363d106657d80acc3ddeb4a48c79442c66b566f04c3"
   },
   {
     "path": "js/common.js",
@@ -86,8 +86,8 @@
   },
   {
     "path": "js/pipeline.js",
-    "bytes": 8975,
-    "sha256": "c0a5bca4292f0766c96025f03d7ef39a83afc31d08852321a4945f272c6ce33e"
+    "bytes": 8978,
+    "sha256": "7c51785696863763f3be535fcaed916b21e505fe512364266b77e1b162eaedff"
   },
   {
     "path": "js/verify.js",
@@ -96,8 +96,8 @@
   },
   {
     "path": "js/dash.js",
-    "bytes": 10212,
-    "sha256": "f6432e6c93ae211633e51c54b429bc62e592c49f832bd48e501772facc643539"
+    "bytes": 10245,
+    "sha256": "c22500ba11e8991143542f8552ced28c7327e752aba719b483b4c4eff39bcc78"
   },
   {
     "path": "js/projects.js",
@@ -111,33 +111,33 @@
   },
   {
     "path": "growthos.html",
-    "bytes": 8495,
-    "sha256": "2f299b5fa17acdefff3b5e6b91686f11615f75cd67142f31d0a8617623fc63ad"
+    "bytes": 8559,
+    "sha256": "9a510fda742e7ab1ead0730df4606bad1cd1b5ce95830f90ee127a748fa0882e"
   },
   {
     "path": "data/growth-os-evidence.json",
     "bytes": 18557,
-    "sha256": "dfb6cc3986039377195773f9c3238bb9145b7aef7edc78b8b54f3949bd68d756"
+    "sha256": "5d0b60135f99c9525d89e8d57f1be2f30fcd175f4e35755eadefc6bccff43a5a"
   },
   {
     "path": "reliability.html",
-    "bytes": 7892,
-    "sha256": "5045ed341607658c56748676489d32749ac68ef71db41824e1b1930753228c31"
+    "bytes": 8084,
+    "sha256": "07ed940078ca0155954144499f73ba2edea719344abd11b19b46c89fa2711c06"
   },
   {
     "path": "security.html",
-    "bytes": 5796,
-    "sha256": "90b95956fcd711b6358dcc704f85423b0003761faf8f5bdd70cbb62c2025d8bd"
+    "bytes": 5860,
+    "sha256": "04ced127f2fcfca04dad8ac9ee1fa0005ae62e135fd36c71e188f7c8c6566492"
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 52603,
-    "sha256": "38ca77a81a041f60365ca323c8275e0850d9fbda9646d7050bcbe637b95f2b1c"
+    "bytes": 206065,
+    "sha256": "ded9b3b51a6b3fbdd0ffbf444aa2924ab08cb5eb6b210f9d2f720b5ad589ba23"
   },
   {
     "path": "data/release-gate-report.json",
-    "bytes": 6448,
-    "sha256": "84cca3702582eecddb425d7329eaf15202cb1bd4394826ee69e820d813683aed"
+    "bytes": 7533,
+    "sha256": "f5f85595c18592123264d5b9340670f8d889b395489946a23efe9284f0593130"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",

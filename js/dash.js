@@ -20,7 +20,7 @@ function reliability(d,gate){
   h('k-mut',`${N('mut.killed')}<small>of ${N('mut.total')} mutants caught</small>`);
   h('k-tests',`${N('suite.passed')}<small>tests passed · ${N('suite.failed')} failed · ${N('suite.skipped')} skipped</small>`);
   h('cat-bars',bars(R.categories));
-  h('mut-grid',D.metrics.filter(m=>/^mut\.\d+$/.test(m.id)).map(m=>`<li class="${m.value?'':'live'}" data-src="${esc(S(m.id))}"><b>${m.value?'CAUGHT':'SURVIVED'}</b>${esc(m.text.replace('mutant caught: ',''))}</li>`).join(''));
+  h('mut-grid',D.dashboards.metrics.filter(m=>/^mut\.\d+$/.test(m.id)).map(m=>`<li class="${m.value?'':'live'}" data-src="${esc(S(m.id))}"><b>${m.value?'CAUGHT':'SURVIVED'}</b>${esc(m.text.replace('mutant caught: ',''))}</li>`).join(''));
   h('tool-tests',tests(R.test_groups.tool_failures));
   const toolc=['tool_failure'];h('tool-bars',bars(toolc)+`<p class="note">${N('eval.tool_failure_safety',pct)} tool-failure safety in the evaluation. Failure classes recorded in the replayed scenarios: ${d.scenarios.filter(s=>s.failure_class).map(s=>`<code data-src="${esc(S('scn.'+s.id+'.failure_class'))}">${esc(s.failure_class)}</code>`).join(' ')}</p>`);
   h('auth-bars',bars(['authorization_failure','approval_bypass','cross_tenant'])+`<p class="note">Unauthorized-action rate: <strong>${N('eval.unauthorized_action_rate',pct)}</strong> · false-authorization rate ${N('eval.false_authorization_rate',pct)}</p>`);
@@ -29,9 +29,9 @@ function reliability(d,gate){
   h('abst-cases',caseTable(d,['abstention','missing_data','contradictory_evidence','retrieval_failure']));
   h('ground-bars',bars(['hallucination_detection','source_attribution','unsafe_proposal','prompt_injection'])+`<p class="note">Hallucination-detection rate ${N('eval.hallucination_detection_rate',pct)} · answer correctness ${N('eval.answer_correctness',pct)}</p>`);
   h('ground-tests',tests(R.test_groups.grounding));
-  const cov=D.metrics.filter(m=>/^cov\.file\./.test(m.id));
+  const cov=D.dashboards.metrics.filter(m=>/^cov\.file\./.test(m.id));
   h('cov',cov.length?`<div class="big-n">${N('cov.percent',v=>v+'%')}<small>line coverage of the governed package (${N('cov.statements')} statements)</small></div><div class="bars" style="margin-top:20px">${cov.map(m=>`<div class="bar"><span>${esc(m.text.split('/').pop())}</span><i><b style="width:${m.value}%"></b></i><span class="mono" data-src="${esc(S(m.id))}">${m.value}%</span></div>`).join('')}</div>`:'<p class="note">No coverage measurement is present in the evidence bundle.</p>');
-  h('mods',`<table class="ev"><thead><tr><th>Test module</th><th>Passed</th></tr></thead><tbody>${D.metrics.filter(m=>/^mod\./.test(m.id)).map(m=>`<tr><td><code>${esc(m.id.slice(4))}</code></td><td>${N(m.id)}</td></tr>`).join('')}</tbody></table>`);
+  h('mods',`<table class="ev"><thead><tr><th>Test module</th><th>Passed</th></tr></thead><tbody>${D.dashboards.metrics.filter(m=>/^mod\./.test(m.id)).map(m=>`<tr><td><code>${esc(m.id.slice(4))}</code></td><td>${N(m.id)}</td></tr>`).join('')}</tbody></table>`);
   h('limits',R.limitations.map(x=>`<li><span class="chip">Limit</span><span>${esc(x)}</span></li>`).join(''));
   renderGate(gate);
 }

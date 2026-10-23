@@ -44,7 +44,7 @@ window.PipelineFilm=function(root,data){
     root.querySelector('[data-act=prev]').disabled=cur===0;root.querySelector('[data-act=next]').disabled=cur===STAGES.length-1;
     if(!pinned&&!fromScroll){} }
   function setMode(){pinned=mq.matches;root.classList.toggle('pinned',pinned);panels.forEach(p=>p.hidden=pinned&&!p.classList.contains('on'));if(!pinned)panels.forEach(p=>p.hidden=false);show(cur,true)}
-  function goto(i){if(pinned){const top=root.getBoundingClientRect().top+scrollY,span=root.offsetHeight-innerHeight;scrollTo({top:top+span*(i/(STAGES.length-1)+.001),behavior:'auto'})}else{panels[i].scrollIntoView({block:'center'})}show(i,true)}
+  function goto(i){if(pinned){const top=root.getBoundingClientRect().top+scrollY,span=root.offsetHeight-innerHeight;scrollTo({top:top+span*(i/(STAGES.length-1)+.001),behavior:'instant'})}else{panels[i].scrollIntoView({block:'center'})}show(i,true)}
   nodes.forEach(n=>n.addEventListener('click',()=>goto(+n.dataset.i)));
   root.querySelector('[data-act=prev]').addEventListener('click',()=>goto(cur-1));root.querySelector('[data-act=next]').addEventListener('click',()=>goto(cur+1));
   root.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown'&&pinned){e.preventDefault();goto(cur+1)}else if(e.key==='ArrowLeft'||e.key==='ArrowUp'&&pinned){e.preventDefault();goto(cur-1)}});
