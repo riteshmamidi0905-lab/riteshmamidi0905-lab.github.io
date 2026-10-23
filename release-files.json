@@ -96,13 +96,13 @@
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 52606,
-    "sha256": "1ce10fcdc57d02bf8b21730372b76988cd0a6384a690a99e33705ff1396e9d42"
+    "bytes": 52603,
+    "sha256": "38ca77a81a041f60365ca323c8275e0850d9fbda9646d7050bcbe637b95f2b1c"
   },
   {
     "path": "data/release-gate-report.json",
-    "bytes": 6061,
-    "sha256": "0baaa2bddf58c6f70cb089be6b6d82825e8e990c54fcc7b977b78b0021825c27"
+    "bytes": 6448,
+    "sha256": "84cca3702582eecddb425d7329eaf15202cb1bd4394826ee69e820d813683aed"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
