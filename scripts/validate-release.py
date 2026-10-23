@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==36
+assert len(manifest)==46
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -22,7 +22,7 @@ pages={}
 for item in manifest:
  p=root/item['path'];b=p.read_bytes()
  assert len(b)==item['bytes'] and hashlib.sha256(b).hexdigest()==item['sha256'],item['path']+' changed without manifest review'
- if p.suffix not in ['.pdf','.woff2']:
+ if p.suffix not in ['.pdf','.woff2','.webp']:
   s=b.decode()
   for pattern in [r'-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----',r'gh[pousr]_[A-Za-z0-9]{30,}',r'github_pat_[A-Za-z0-9_]{40,}',r'AKIA[0-9A-Z]{16}',r'sk-(?:proj-)?[A-Za-z0-9_-]{40,}']:
    assert not re.search(pattern,s),'Secret signature in '+item['path']
@@ -49,4 +49,8 @@ cl=ev['claims']; assert cl and all({'id','text','value','source'}<=set(c) for c 
 assert ev['story']['draft']['external_transmissions']==0 and ev['story']['draft']['state']=='DRAFT_NOT_SENT'
 assert ev['metrics']['governed_evaluation']['mutants_killed']==ev['metrics']['governed_evaluation']['mutants_total']==len(ev['mutation_detail'])
 assert ev['metrics']['release_evidence']['tests_failed']==0 and 'UNVERIFIED' in ev['metrics']['release_evidence']['model_runtime']
-print('PASS: 36 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')
+gw=json.loads((root/'data/growth-os-evidence.json').read_text())
+assert gw['synthetic'] is True and gw['pushed'] is False and gw['all_expectations_met'] is True and 'dev-passcode' not in json.dumps(gw),'growth evidence invariants'
+w=gw['workflow'];assert all(m['killed'] for m in w['mutants']) and len(w['mutants'])==8 and all(o['match'] for o in w['oracle_evaluation']) and w['happy_path']['emails_or_messages_created']==0 and w['happy_path']['lead_after']['status']=='qualified'
+assert [c['n'] for c in gw['capabilities'] if c['status']=='INTEGRATED']==[14],'only CRM automation may be integrated'
+print('PASS: 46 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')

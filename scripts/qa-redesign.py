@@ -77,6 +77,20 @@ with sync_playwright() as p:
     # architecture explorer keyboard
     pg.focus(".gnode"); pg.keyboard.press("Enter"); pressed = pg.evaluate("document.querySelectorAll('.gnode[aria-pressed=true]').length")
     add("keyboard: architecture node can be selected with Enter", pressed == 1, str(pressed))
+    # Growth OS: replay steps and refusal cases operate from the keyboard, content comes from recorded evidence, screenshots load
+    pg.goto(BASE + "growthos.html", wait_until="networkidle")
+    pg.focus("#steps li:nth-child(5) button"); pg.keyboard.press("Enter"); panel = pg.evaluate("document.querySelector('#step-panel h3').textContent")
+    add("growthos: replay step 5 selected by keyboard shows the CRM update", panel == "CRM update", panel)
+    add("growthos: CRM-update step shows the recorded lead status and one audit row", pg.evaluate("(()=>{const s=[...document.querySelectorAll('#step-panel .wstate strong')].map(e=>e.textContent);return s[0]==='qualified'&&s[1]==='1'&&s[2]==='0'})()"))
+    pg.focus("#refusal-btns .fbtn >> nth=1"); pg.keyboard.press("Enter"); r = pg.evaluate("document.querySelector('#refusal-out h3').textContent")
+    add("growthos: refusal case selected by keyboard shows its recorded result", "Replay" in r and "APPROVAL_REPLAY" in pg.evaluate("document.querySelector('#refusal-out').textContent"), r)
+    bad = []
+    for i in range(pg.evaluate("document.querySelectorAll('#shot-btns .fbtn').length")):
+        pg.evaluate(f"document.querySelectorAll('#shot-btns .fbtn')[{i}].click()"); pg.wait_for_function("document.getElementById('shot-img').complete"); pg.wait_for_timeout(120)
+        if not pg.evaluate("document.getElementById('shot-img').naturalWidth > 0"):
+            bad.append(i)
+    add("growthos: every interface screenshot loads", not bad, str(bad))
+    add("growthos: every capability, mutant and oracle row is rendered from the evidence file", pg.evaluate("document.querySelectorAll('#caps .cap').length===25&&document.querySelectorAll('#wmut li').length===8&&document.querySelectorAll('#mut li').length===10&&document.querySelectorAll('#oracle tbody tr').length===5"))
     ctx.close()
     # reduced motion
     ctx = b.new_context(viewport={"width": 1280, "height": 800}, reduced_motion="reduce"); pg = ctx.new_page()

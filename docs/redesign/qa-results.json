@@ -1,5 +1,5 @@
 {
- "base": "http://127.0.0.1:8011/",
+ "base": "http://127.0.0.1:8801/",
  "checks": [
   {
    "check": "index.html desktop: no horizontal overflow",
@@ -877,6 +877,31 @@
    "detail": "1"
   },
   {
+   "check": "growthos: replay step 5 selected by keyboard shows the CRM update",
+   "pass": true,
+   "detail": "CRM update"
+  },
+  {
+   "check": "growthos: CRM-update step shows the recorded lead status and one audit row",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "growthos: refusal case selected by keyboard shows its recorded result",
+   "pass": true,
+   "detail": "Replay the approval after it ran"
+  },
+  {
+   "check": "growthos: every interface screenshot loads",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "growthos: every capability, mutant and oracle row is rendered from the evidence file",
+   "pass": true,
+   "detail": ""
+  },
+  {
    "check": "reduced motion: all content visible without scrolling triggers",
    "pass": true,
    "detail": ""
@@ -889,7 +914,7 @@
   {
    "check": "index.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1128 ms"
+   "detail": "1164 ms"
   },
   {
    "check": "index.html slow network: CLS <= 0.1",
@@ -899,12 +924,12 @@
   {
    "check": "index.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 11692 css 35631"
+   "detail": "js 11692 css 37324"
   },
   {
    "check": "nasha.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1012 ms"
+   "detail": "1112 ms"
   },
   {
    "check": "nasha.html slow network: CLS <= 0.1",
@@ -914,12 +939,12 @@
   {
    "check": "nasha.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 24007 css 35631"
+   "detail": "js 24007 css 37324"
   },
   {
    "check": "recruiter.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "864 ms"
+   "detail": "928 ms"
   },
   {
    "check": "recruiter.html slow network: CLS <= 0.1",
@@ -929,27 +954,27 @@
   {
    "check": "recruiter.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 1774 css 35631"
+   "detail": "js 1774 css 37324"
   },
   {
    "check": "reliability.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "912 ms"
+   "detail": "968 ms"
   },
   {
    "check": "reliability.html slow network: CLS <= 0.1",
    "pass": true,
-   "detail": "0.0389"
+   "detail": "0.0359"
   },
   {
    "check": "reliability.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 12019 css 35631"
+   "detail": "js 12019 css 37324"
   },
   {
    "check": "security.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "904 ms"
+   "detail": "1020 ms"
   },
   {
    "check": "security.html slow network: CLS <= 0.1",
@@ -959,12 +984,12 @@
   {
    "check": "security.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 12019 css 35631"
+   "detail": "js 12019 css 37324"
   },
   {
    "check": "growthos.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "872 ms"
+   "detail": "980 ms"
   },
   {
    "check": "growthos.html slow network: CLS <= 0.1",
@@ -974,12 +999,12 @@
   {
    "check": "growthos.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 6794 css 35631"
+   "detail": "js 14971 css 37324"
   },
   {
    "check": "projects.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "956 ms"
+   "detail": "1020 ms"
   },
   {
    "check": "projects.html slow network: CLS <= 0.1",
@@ -989,7 +1014,7 @@
   {
    "check": "projects.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 2805 css 35631"
+   "detail": "js 2805 css 37324"
   }
  ],
  "axe": [
@@ -1041,7 +1066,17 @@
   {
    "page": "growthos.html",
    "viewport": "desktop",
-   "violations": []
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "targets": [
+      "#oracle"
+     ]
+    }
+   ]
   },
   {
    "page": "projects.html",
@@ -1146,6 +1181,15 @@
    "viewport": "mobile",
    "violations": [
     {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "targets": [
+      "#oracle"
+     ]
+    },
+    {
      "id": "region",
      "impact": "moderate",
      "n": 1,
@@ -1175,78 +1219,78 @@
  "metrics": {
   "index.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1128,
+   "lcp_ms": 1164,
    "cls": 0,
-   "dom_content_loaded_ms": 1024,
-   "load_ms": 1586,
+   "dom_content_loaded_ms": 1028,
+   "load_ms": 1592,
    "js_bytes": 11692,
-   "css_bytes": 35631,
-   "total_bytes": 365608
+   "css_bytes": 37324,
+   "total_bytes": 375033
   },
   "nasha.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1012,
+   "lcp_ms": 1112,
    "cls": 0,
-   "dom_content_loaded_ms": 849,
-   "load_ms": 1444,
+   "dom_content_loaded_ms": 923,
+   "load_ms": 1530,
    "js_bytes": 24007,
-   "css_bytes": 35631,
-   "total_bytes": 376893
+   "css_bytes": 37324,
+   "total_bytes": 387005
   },
   "recruiter.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 864,
+   "lcp_ms": 928,
    "cls": 0,
-   "dom_content_loaded_ms": 719,
-   "load_ms": 1097,
+   "dom_content_loaded_ms": 784,
+   "load_ms": 1190,
    "js_bytes": 1774,
-   "css_bytes": 35631,
-   "total_bytes": 134773
+   "css_bytes": 37324,
+   "total_bytes": 136466
   },
   "reliability.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 912,
-   "cls": 0.0389,
-   "dom_content_loaded_ms": 789,
-   "load_ms": 1369,
+   "lcp_ms": 968,
+   "cls": 0.0359,
+   "dom_content_loaded_ms": 829,
+   "load_ms": 1434,
    "js_bytes": 12019,
-   "css_bytes": 35631,
-   "total_bytes": 358217
+   "css_bytes": 37324,
+   "total_bytes": 368329
   },
   "security.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 904,
+   "lcp_ms": 1020,
    "cls": 0,
-   "dom_content_loaded_ms": 773,
-   "load_ms": 1401,
+   "dom_content_loaded_ms": 820,
+   "load_ms": 1498,
    "js_bytes": 12019,
-   "css_bytes": 35631,
-   "total_bytes": 355993
+   "css_bytes": 37324,
+   "total_bytes": 366105
   },
   "growthos.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 872,
+   "lcp_ms": 980,
    "cls": 0,
-   "dom_content_loaded_ms": 750,
-   "load_ms": 1195,
-   "js_bytes": 6794,
-   "css_bytes": 35631,
-   "total_bytes": 158426
+   "dom_content_loaded_ms": 821,
+   "load_ms": 1674,
+   "js_bytes": 14971,
+   "css_bytes": 37324,
+   "total_bytes": 236293
   },
   "projects.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 956,
+   "lcp_ms": 1020,
    "cls": 0,
-   "dom_content_loaded_ms": 727,
-   "load_ms": 1207,
+   "dom_content_loaded_ms": 746,
+   "load_ms": 1293,
    "js_bytes": 2805,
-   "css_bytes": 35631,
-   "total_bytes": 166049
+   "css_bytes": 37324,
+   "total_bytes": 167742
   }
  },
  "summary": {
-  "checks": 198,
-  "passed": 198,
+  "checks": 203,
+  "passed": 203,
   "failed": []
  }
 }

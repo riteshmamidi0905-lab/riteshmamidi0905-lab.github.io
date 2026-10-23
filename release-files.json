@@ -1,8 +1,8 @@
 [
   {
     "path": "index.html",
-    "bytes": 23335,
-    "sha256": "e9d67a95d2710bb0be97248effc4136c08f2f93c2263a581f72971a7faa3eed0"
+    "bytes": 23645,
+    "sha256": "0a71ba222211a64e314ee939ceb8f2423467de5e78ebd182794452adae4f7a5e"
   },
   {
     "path": "nasha.html",
@@ -61,8 +61,8 @@
   },
   {
     "path": "css/system.css",
-    "bytes": 35631,
-    "sha256": "b81f3ed1976baea0d4488363d106657d80acc3ddeb4a48c79442c66b566f04c3"
+    "bytes": 37324,
+    "sha256": "d0b7db27d2f78521eedef074b331b70a6f5c9446027177e9b3777508d87d24b2"
   },
   {
     "path": "js/common.js",
@@ -106,18 +106,18 @@
   },
   {
     "path": "js/growth.js",
-    "bytes": 5020,
-    "sha256": "60cbceb5693322f9a7acb1d6e2bc8314bb4987740b9344021cb05cd238a0565a"
+    "bytes": 13197,
+    "sha256": "c6dd537829a0ef833c3b01b8c4377f535cf3a460660166f79718e1b0e1209885"
   },
   {
     "path": "growthos.html",
-    "bytes": 8559,
-    "sha256": "9a510fda742e7ab1ead0730df4606bad1cd1b5ce95830f90ee127a748fa0882e"
+    "bytes": 12303,
+    "sha256": "632b857b98008c278186ffe671995800e5f06bc3cb8e6d68a41fb92b09828b13"
   },
   {
     "path": "data/growth-os-evidence.json",
-    "bytes": 18557,
-    "sha256": "5d0b60135f99c9525d89e8d57f1be2f30fcd175f4e35755eadefc6bccff43a5a"
+    "bytes": 28882,
+    "sha256": "85efddc9cc8c27040f53335ed19052b581c5b3245b29916b74f1f128368f82ac"
   },
   {
     "path": "reliability.html",
@@ -131,13 +131,13 @@
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 206065,
-    "sha256": "ded9b3b51a6b3fbdd0ffbf444aa2924ab08cb5eb6b210f9d2f720b5ad589ba23"
+    "bytes": 213487,
+    "sha256": "b0c14a41c0ab2c7a6a2d26b8d579dd5c92fc3153a9bee0d76c484413347e7f7f"
   },
   {
     "path": "data/release-gate-report.json",
-    "bytes": 7533,
-    "sha256": "f5f85595c18592123264d5b9340670f8d889b395489946a23efe9284f0593130"
+    "bytes": 8530,
+    "sha256": "1cbdd5d2d6d25897c7b81df83458c935c15859af988b6a8e63222154e8f98525"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
@@ -168,6 +168,56 @@
     "path": "assets/js/nasha-ecosystem-core.js",
     "bytes": 4481,
     "sha256": "355b458337448c0890285af20c9a658ab58371d235a448958d1f6cc077346ed5"
+  },
+  {
+    "path": "assets/growth/crm-leads.webp",
+    "bytes": 47458,
+    "sha256": "690e39eb773ecd7d9f3ae44f1b6537e7098ad3a503519299f006b86845e40c57"
+  },
+  {
+    "path": "assets/growth/dashboard.webp",
+    "bytes": 53928,
+    "sha256": "5f0d87e230f9a6812912c9bbdb2ce30b0d3c42237c72e84a1b7a4dd70ec5e53f"
+  },
+  {
+    "path": "assets/growth/pipeline.webp",
+    "bytes": 37284,
+    "sha256": "6d33a7c17486615c9fd40b78eb22791cffcf3335628be0aea022f33b54351de1"
+  },
+  {
+    "path": "assets/growth/pricing.webp",
+    "bytes": 39728,
+    "sha256": "16e620c09c37b421b5bb81a6a581d874b9d537a6219098910f7888a89b8e86f0"
+  },
+  {
+    "path": "assets/growth/run-awaiting.webp",
+    "bytes": 64412,
+    "sha256": "df126d517781c69653229b28639bfb34f12ce5dc2eca26e84c9997ff9a8e22f2"
+  },
+  {
+    "path": "assets/growth/run-denied.webp",
+    "bytes": 71012,
+    "sha256": "e8c423ca1fe70833d00fb363d4ff02e23f65e835608036bdb3cdd3928149b38b"
+  },
+  {
+    "path": "assets/growth/run-executed.webp",
+    "bytes": 63252,
+    "sha256": "ad0dbe5b5ce936c28a0b1e2ed931b7d86a5b5a6627584d629aad7e341027a840"
+  },
+  {
+    "path": "assets/growth/run-rejected.webp",
+    "bytes": 72216,
+    "sha256": "0a4d0cfc799d10cb547a37b8a36b5a1d6bd8f2d38632dd4f54ba854f946a05be"
+  },
+  {
+    "path": "assets/growth/security.webp",
+    "bytes": 71868,
+    "sha256": "dfe6e4b963379f7d825e515948bb0fc9e3b18b1f39efea5a83848b257262c923"
+  },
+  {
+    "path": "assets/growth/workflows.webp",
+    "bytes": 41148,
+    "sha256": "ead353b63e612d2bfcdef27e4e7f08d1fd153c2b5cdc437e34e8d9539a332aa9"
   },
   {
     "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",

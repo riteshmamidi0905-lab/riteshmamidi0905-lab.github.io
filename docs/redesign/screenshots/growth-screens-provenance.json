@@ -1,0 +1,118 @@
+{
+ "source": "live application served by `python -m nasha_lab.growth.demo` on 127.0.0.1:8765 (synthetic tenants)",
+ "lab_commit": "dacc1dc",
+ "captured_at": "2026-10-23T14:56:34.668471Z",
+ "viewport": "1440x900",
+ "browser": "Chromium via Playwright",
+ "api_health": {
+  "status": "ok"
+ },
+ "screens": [
+  {
+   "file": "dashboard.webp",
+   "route": "#/dashboard",
+   "url": "http://127.0.0.1:8765/app#/dashboard",
+   "h1": "Executive dashboard",
+   "chips": [
+    "AWAITING APPROVAL",
+    "BLOCKED",
+    "EXECUTED",
+    "REJECTED"
+   ]
+  },
+  {
+   "file": "crm-leads.webp",
+   "route": "#/crm/leads",
+   "url": "http://127.0.0.1:8765/app#/crm/leads",
+   "h1": "CRM",
+   "chips": [
+    "new",
+    "new",
+    "new",
+    "new"
+   ]
+  },
+  {
+   "file": "pipeline.webp",
+   "route": "#/pipeline",
+   "url": "http://127.0.0.1:8765/app#/pipeline",
+   "h1": "Sales pipeline",
+   "chips": []
+  },
+  {
+   "file": "pricing.webp",
+   "route": "#/pricing",
+   "url": "http://127.0.0.1:8765/app#/pricing",
+   "h1": "Pricing studio",
+   "chips": []
+  },
+  {
+   "file": "workflows.webp",
+   "route": "#/workflows",
+   "url": "http://127.0.0.1:8765/app#/workflows",
+   "h1": "AI workflow center",
+   "chips": [
+    "BLOCKED",
+    "AWAITING APPROVAL",
+    "REJECTED",
+    "EXECUTED"
+   ]
+  },
+  {
+   "file": "security.webp",
+   "route": "#/security",
+   "url": "http://127.0.0.1:8765/app#/security",
+   "h1": "Security and audit",
+   "chips": [
+    "reject",
+    "approve",
+    "allow",
+    "allow"
+   ]
+  },
+  {
+   "file": "run-denied.webp",
+   "route": "#/workflows/wf-ea1cb15aae23",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-ea1cb15aae23",
+   "h1": "Run wf-ea1cb15aae23",
+   "chips": [
+    "BLOCKED",
+    "consent recorded",
+    "BLOCKED"
+   ]
+  },
+  {
+   "file": "run-awaiting.webp",
+   "route": "#/workflows/wf-706a7d9d1d96",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-706a7d9d1d96",
+   "h1": "Run wf-706a7d9d1d96",
+   "chips": [
+    "AWAITING APPROVAL",
+    "consent recorded",
+    "AWAITING APPROVAL"
+   ]
+  },
+  {
+   "file": "run-rejected.webp",
+   "route": "#/workflows/wf-7890cfa6b412",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-7890cfa6b412",
+   "h1": "Run wf-7890cfa6b412",
+   "chips": [
+    "REJECTED",
+    "consent recorded",
+    "REJECTED"
+   ]
+  },
+  {
+   "file": "run-executed.webp",
+   "route": "#/workflows/wf-c5821fa2ff74",
+   "url": "http://127.0.0.1:8765/app#/workflows/wf-c5821fa2ff74",
+   "h1": "Run wf-c5821fa2ff74",
+   "chips": [
+    "EXECUTED",
+    "consent recorded",
+    "EXECUTED"
+   ]
+  }
+ ]
+}
