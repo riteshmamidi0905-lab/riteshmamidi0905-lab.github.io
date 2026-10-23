@@ -152,6 +152,31 @@
    "detail": "[]"
   },
   {
+   "check": "launch.html desktop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1440 vs 1440"
+  },
+  {
+   "check": "launch.html desktop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html desktop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html desktop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html desktop: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "projects.html desktop: no horizontal overflow",
    "pass": true,
    "detail": "scrollWidth 1440 vs 1440"
@@ -307,6 +332,26 @@
    "detail": "[]"
   },
   {
+   "check": "launch.html laptop: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 1280 vs 1280"
+  },
+  {
+   "check": "launch.html laptop: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html laptop: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html laptop: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "projects.html laptop: no horizontal overflow",
    "pass": true,
    "detail": "scrollWidth 1280 vs 1280"
@@ -453,6 +498,26 @@
   },
   {
    "check": "growthos.html tablet: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html tablet: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 820 vs 820"
+  },
+  {
+   "check": "launch.html tablet: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html tablet: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html tablet: touch targets >= 36px (standalone controls)",
    "pass": true,
    "detail": "[]"
   },
@@ -637,6 +702,31 @@
    "detail": "[]"
   },
   {
+   "check": "launch.html mobile: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 390 vs 390"
+  },
+  {
+   "check": "launch.html mobile: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html mobile: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html mobile: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html mobile: axe serious/critical violations == 0",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "projects.html mobile: no horizontal overflow",
    "pass": true,
    "detail": "scrollWidth 390 vs 390"
@@ -792,6 +882,26 @@
    "detail": "[]"
   },
   {
+   "check": "launch.html narrow: no horizontal overflow",
+   "pass": true,
+   "detail": "scrollWidth 320 vs 320"
+  },
+  {
+   "check": "launch.html narrow: no clipped text",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html narrow: no element extends past the viewport edge (overflow-x is hidden, so scrollWidth alone cannot catch this)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch.html narrow: touch targets >= 36px (standalone controls)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
    "check": "projects.html narrow: no horizontal overflow",
    "pass": true,
    "detail": "scrollWidth 320 vs 320"
@@ -892,6 +1002,26 @@
    "detail": "Replay the approval after it ran"
   },
   {
+   "check": "launch: moving a slider shows a different recorded operating profit",
+   "pass": true,
+   "detail": "$6,994.58 -> $866.92"
+  },
+  {
+   "check": "launch: suppliers step labels real leads as not verified and states external verification is incomplete",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch: every interface screenshot loads",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "launch: all eight launch mutants are rendered",
+   "pass": true,
+   "detail": ""
+  },
+  {
    "check": "growthos: every interface screenshot loads",
    "pass": true,
    "detail": "[]"
@@ -914,7 +1044,7 @@
   {
    "check": "index.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1252 ms"
+   "detail": "1176 ms"
   },
   {
    "check": "index.html slow network: CLS <= 0.1",
@@ -924,12 +1054,12 @@
   {
    "check": "index.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 11692 css 37324"
+   "detail": "js 11692 css 38303"
   },
   {
    "check": "nasha.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1100 ms"
+   "detail": "1052 ms"
   },
   {
    "check": "nasha.html slow network: CLS <= 0.1",
@@ -939,12 +1069,12 @@
   {
    "check": "nasha.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 24014 css 37324"
+   "detail": "js 24014 css 38303"
   },
   {
    "check": "recruiter.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "928 ms"
+   "detail": "888 ms"
   },
   {
    "check": "recruiter.html slow network: CLS <= 0.1",
@@ -954,12 +1084,12 @@
   {
    "check": "recruiter.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 1774 css 37324"
+   "detail": "js 1774 css 38303"
   },
   {
    "check": "reliability.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "940 ms"
+   "detail": "956 ms"
   },
   {
    "check": "reliability.html slow network: CLS <= 0.1",
@@ -969,12 +1099,12 @@
   {
    "check": "reliability.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 12019 css 37324"
+   "detail": "js 12019 css 38303"
   },
   {
    "check": "security.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "972 ms"
+   "detail": "964 ms"
   },
   {
    "check": "security.html slow network: CLS <= 0.1",
@@ -984,12 +1114,12 @@
   {
    "check": "security.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 12019 css 37324"
+   "detail": "js 12019 css 38303"
   },
   {
    "check": "growthos.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "968 ms"
+   "detail": "940 ms"
   },
   {
    "check": "growthos.html slow network: CLS <= 0.1",
@@ -999,12 +1129,27 @@
   {
    "check": "growthos.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 15628 css 37324"
+   "detail": "js 15628 css 38303"
+  },
+  {
+   "check": "launch.html slow network: LCP <= 2500 ms",
+   "pass": true,
+   "detail": "928 ms"
+  },
+  {
+   "check": "launch.html slow network: CLS <= 0.1",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "check": "launch.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
+   "pass": true,
+   "detail": "js 14868 css 38303"
   },
   {
    "check": "projects.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1140 ms"
+   "detail": "1068 ms"
   },
   {
    "check": "projects.html slow network: CLS <= 0.1",
@@ -1014,7 +1159,7 @@
   {
    "check": "projects.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 2805 css 37324"
+   "detail": "js 2805 css 38303"
   }
  ],
  "axe": [
@@ -1079,6 +1224,11 @@
    ]
   },
   {
+   "page": "launch.html",
+   "viewport": "desktop",
+   "violations": []
+  },
+  {
    "page": "projects.html",
    "viewport": "desktop",
    "violations": []
@@ -1201,6 +1351,21 @@
    ]
   },
   {
+   "page": "launch.html",
+   "viewport": "mobile",
+   "violations": [
+    {
+     "id": "region",
+     "impact": "moderate",
+     "n": 1,
+     "help": "All page content should be contained by landmarks",
+     "targets": [
+      ".mbar"
+     ]
+    }
+   ]
+  },
+  {
    "page": "projects.html",
    "viewport": "mobile",
    "violations": [
@@ -1219,78 +1384,88 @@
  "metrics": {
   "index.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1252,
+   "lcp_ms": 1176,
    "cls": 0,
-   "dom_content_loaded_ms": 1083,
-   "load_ms": 1643,
+   "dom_content_loaded_ms": 1045,
+   "load_ms": 1613,
    "js_bytes": 11692,
-   "css_bytes": 37324,
-   "total_bytes": 375145
+   "css_bytes": 38303,
+   "total_bytes": 376162
   },
   "nasha.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1100,
+   "lcp_ms": 1052,
    "cls": 0,
-   "dom_content_loaded_ms": 875,
-   "load_ms": 1546,
+   "dom_content_loaded_ms": 890,
+   "load_ms": 1501,
    "js_bytes": 24014,
-   "css_bytes": 37324,
-   "total_bytes": 387153
+   "css_bytes": 38303,
+   "total_bytes": 388170
   },
   "recruiter.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 928,
+   "lcp_ms": 888,
    "cls": 0,
-   "dom_content_loaded_ms": 772,
-   "load_ms": 1176,
+   "dom_content_loaded_ms": 767,
+   "load_ms": 1155,
    "js_bytes": 1774,
-   "css_bytes": 37324,
-   "total_bytes": 136466
+   "css_bytes": 38303,
+   "total_bytes": 137483
   },
   "reliability.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 940,
+   "lcp_ms": 956,
    "cls": 0.0359,
-   "dom_content_loaded_ms": 821,
-   "load_ms": 1401,
+   "dom_content_loaded_ms": 822,
+   "load_ms": 1436,
    "js_bytes": 12019,
-   "css_bytes": 37324,
-   "total_bytes": 368331
+   "css_bytes": 38303,
+   "total_bytes": 369348
   },
   "security.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 972,
+   "lcp_ms": 964,
    "cls": 0,
-   "dom_content_loaded_ms": 820,
-   "load_ms": 1470,
+   "dom_content_loaded_ms": 825,
+   "load_ms": 1474,
    "js_bytes": 12019,
-   "css_bytes": 37324,
-   "total_bytes": 366107
+   "css_bytes": 38303,
+   "total_bytes": 367124
   },
   "growthos.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 968,
+   "lcp_ms": 940,
    "cls": 0,
-   "dom_content_loaded_ms": 841,
-   "load_ms": 1758,
+   "dom_content_loaded_ms": 816,
+   "load_ms": 1397,
    "js_bytes": 15628,
-   "css_bytes": 37324,
-   "total_bytes": 254099
+   "css_bytes": 38303,
+   "total_bytes": 322537
+  },
+  "launch.html": {
+   "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
+   "lcp_ms": 928,
+   "cls": 0,
+   "dom_content_loaded_ms": 832,
+   "load_ms": 1879,
+   "js_bytes": 14868,
+   "css_bytes": 38303,
+   "total_bytes": 317404
   },
   "projects.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1140,
+   "lcp_ms": 1068,
    "cls": 0,
-   "dom_content_loaded_ms": 795,
-   "load_ms": 1377,
+   "dom_content_loaded_ms": 764,
+   "load_ms": 1322,
    "js_bytes": 2805,
-   "css_bytes": 37324,
-   "total_bytes": 167742
+   "css_bytes": 38303,
+   "total_bytes": 168759
   }
  },
  "summary": {
-  "checks": 203,
-  "passed": 203,
+  "checks": 232,
+  "passed": 232,
   "failed": []
  }
 }

@@ -140,5 +140,93 @@
     3353
    ]
   }
- ]
+ ],
+ "launch_screens": {
+  "source": "live application served by `python -m nasha_lab.growth.demo` on 127.0.0.1:8765 (synthetic tenants)",
+  "lab_commit": "942c856",
+  "captured_at": "2026-10-23T16:40:03.116844Z",
+  "viewport": "1440x900",
+  "screens": [
+   {
+    "file": "launch-business.webp",
+    "route": "#/business",
+    "view": "business",
+    "h1": "My Business",
+    "size": [
+     1440,
+     900
+    ]
+   },
+   {
+    "file": "launch-research.webp",
+    "route": "#/research",
+    "view": "business",
+    "h1": "Market Research",
+    "size": [
+     1440,
+     900
+    ]
+   },
+   {
+    "file": "launch-suppliers.webp",
+    "route": "#/suppliers",
+    "view": "business",
+    "h1": "Suppliers",
+    "size": [
+     1440,
+     900
+    ]
+   },
+   {
+    "file": "launch-financial.webp",
+    "route": "#/financial",
+    "view": "business",
+    "h1": "Financial Plan",
+    "size": [
+     1440,
+     900
+    ]
+   },
+   {
+    "file": "launch-roadmap.webp",
+    "route": "#/roadmap",
+    "view": "business",
+    "h1": "Launch Roadmap",
+    "size": [
+     1440,
+     900
+    ]
+   },
+   {
+    "file": "launch-offers.webp",
+    "route": "#/marketing",
+    "view": "business",
+    "h1": "Offers and campaigns",
+    "size": [
+     1440,
+     900
+    ]
+   },
+   {
+    "file": "launch-procurement.webp",
+    "route": "#/procurement",
+    "view": "business",
+    "h1": "Procurement",
+    "size": [
+     1440,
+     900
+    ]
+   },
+   {
+    "file": "launch-procurement-run.webp",
+    "route": "#/procurement/pr-11783ce30d57",
+    "view": "business",
+    "h1": "Procurement: NASHA \u2014 The Courtyard",
+    "size": [
+     1440,
+     5645
+    ]
+   }
+  ]
+ }
 }

@@ -1,13 +1,13 @@
 [
   {
     "path": "index.html",
-    "bytes": 23755,
-    "sha256": "e689b191c3a2e5c075c3a87f9dbfa87f3a525ba8f9e06d2a0ff373eb4ea48102"
+    "bytes": 23793,
+    "sha256": "c7678e1750000bcea60cca1f39d50bb1c4c5095488130bd3296cdf86be8c8cb0"
   },
   {
     "path": "nasha.html",
-    "bytes": 14911,
-    "sha256": "42ffd988cfcbdaae202d95cc07d04fc6067de887c077dca9113c0e95e61185bc"
+    "bytes": 14949,
+    "sha256": "ba2fcb991501683b7476d01db9c9fa0629c71f83052d1657b7a3d12035e5499c"
   },
   {
     "path": "ai-engineering.html",
@@ -21,13 +21,13 @@
   },
   {
     "path": "projects.html",
-    "bytes": 38728,
-    "sha256": "ef05bb78830f447fb3a3afba69269541ed59bc3c18d359def5cd098b12a16dc0"
+    "bytes": 38766,
+    "sha256": "8e69e92d984e243c32cd00f50a51011fa3d3cb9175371857e1281997fbc38c0f"
   },
   {
     "path": "recruiter.html",
-    "bytes": 8483,
-    "sha256": "f08e56ae47b875cd5898ecc9316e53dfc04a00768cb1ff7f45fae6c3df248201"
+    "bytes": 8521,
+    "sha256": "27255851f9d171f44e8424530e8a746d2b5b5c4462ba5ff80fa182a44155713b"
   },
   {
     "path": "404.html",
@@ -61,8 +61,8 @@
   },
   {
     "path": "css/system.css",
-    "bytes": 37324,
-    "sha256": "d0b7db27d2f78521eedef074b331b70a6f5c9446027177e9b3777508d87d24b2"
+    "bytes": 38303,
+    "sha256": "fa56647f9b3bf475831cc852dd20cdaec564cd2de25046ef1b489c573fa28173"
   },
   {
     "path": "js/common.js",
@@ -111,23 +111,33 @@
   },
   {
     "path": "growthos.html",
-    "bytes": 12551,
-    "sha256": "99949e3a29cb6997d5c425465c19798d40dfc40cd9c140604aaf3e2d07723402"
+    "bytes": 12706,
+    "sha256": "acc1f78985240721dfeaaee854c75f0642e42a87cd53197da6a37de225369f9f"
+  },
+  {
+    "path": "js/launch.js",
+    "bytes": 13094,
+    "sha256": "308189115141a9e97c3fcc2727de375a16f7873d8430eaadbd8afbdb27052526"
+  },
+  {
+    "path": "launch.html",
+    "bytes": 7445,
+    "sha256": "4c38008c9d5be9d90668baa9e84ad7a983586a459cd587a87515a693f4d1a2eb"
   },
   {
     "path": "data/growth-os-evidence.json",
-    "bytes": 29679,
-    "sha256": "14b30861e38e5946bf36bb1bae7dc3cfa6060f9b8d4b1ef74bd11dc08747711d"
+    "bytes": 96983,
+    "sha256": "09117d14b6525f1389b08eef1873e4d4c7b46ebfa9fe8b73f9ad5ab1204acb3a"
   },
   {
     "path": "reliability.html",
-    "bytes": 8084,
-    "sha256": "07ed940078ca0155954144499f73ba2edea719344abd11b19b46c89fa2711c06"
+    "bytes": 8122,
+    "sha256": "8a1d04653810db2910abb9ba9ed5331a5772f6d948390ff90dcd11e102594eba"
   },
   {
     "path": "security.html",
-    "bytes": 5860,
-    "sha256": "04ced127f2fcfca04dad8ac9ee1fa0005ae62e135fd36c71e188f7c8c6566492"
+    "bytes": 5898,
+    "sha256": "79eb6dfb31a18fa18c89b8043f0f7de3d4b46d93d3cb855ec9a06dc82dc58013"
   },
   {
     "path": "data/nasha-governed-evidence.json",
@@ -178,6 +188,46 @@
     "path": "assets/growth/dashboard.webp",
     "bytes": 70032,
     "sha256": "142081783988498401e12c16ed76123aa01f6ae2027393a3fae4699702403134"
+  },
+  {
+    "path": "assets/growth/launch-business.webp",
+    "bytes": 70920,
+    "sha256": "f5b60b501d2635129fc36548b265db6376b45ff148738b5a133a8ce9e2bdc95c"
+  },
+  {
+    "path": "assets/growth/launch-financial.webp",
+    "bytes": 74888,
+    "sha256": "c3e807198b3fd6344bce299567ee6bd21c897e11ffb860f8f82836af21b385f9"
+  },
+  {
+    "path": "assets/growth/launch-offers.webp",
+    "bytes": 55230,
+    "sha256": "79267f17c7ab329715da3b98265149c49e922c51d1953bc0766c18c5814fb7d3"
+  },
+  {
+    "path": "assets/growth/launch-procurement-run.webp",
+    "bytes": 437226,
+    "sha256": "0eb78cfbc75e7ec848bc37c6a44ab6f69dbbcd254b0ba9450ca8858ddd687fff"
+  },
+  {
+    "path": "assets/growth/launch-procurement.webp",
+    "bytes": 64476,
+    "sha256": "d35f163f9ba09bc756a23eee1a60bf83c8f73a89aa16e8503993c2a703a972e5"
+  },
+  {
+    "path": "assets/growth/launch-research.webp",
+    "bytes": 72250,
+    "sha256": "1cf7e744c36ae62d7cb300ba41d43117dc2c24c77dd52aed991ebd352e7b6467"
+  },
+  {
+    "path": "assets/growth/launch-roadmap.webp",
+    "bytes": 48004,
+    "sha256": "cb3869b4d74618800ee6f33746f78dbbb72dd13de78df84967834ceb1b1efd04"
+  },
+  {
+    "path": "assets/growth/launch-suppliers.webp",
+    "bytes": 78000,
+    "sha256": "0ab84e58dcbaa3e522a62b9212eab7f06111d5c8a091bdbc45fc3785dfcf9d51"
   },
   {
     "path": "assets/growth/pipeline.webp",

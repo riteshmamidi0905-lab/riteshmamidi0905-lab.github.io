@@ -6,7 +6,7 @@ import json, os, sys, glob
 from playwright.sync_api import sync_playwright
 
 BASE = os.environ.get("QA_BASE", "http://127.0.0.1:8011/")
-PAGES = ["index.html", "nasha.html", "recruiter.html", "reliability.html", "security.html", "growthos.html", "projects.html"]
+PAGES = ["index.html", "nasha.html", "recruiter.html", "reliability.html", "security.html", "growthos.html", "launch.html", "projects.html"]
 VPS = {"desktop": (1440, 900), "laptop": (1280, 720), "tablet": (820, 1180), "mobile": (390, 844), "narrow": (320, 640)}
 CH = os.environ.get("CHROMIUM_PATH") or (glob.glob("/opt/pw-browsers/chromium-*/chrome-linux/chrome") or [None])[0]
 AXE = os.environ.get("AXE_PATH") or (glob.glob("/usr/local/lib/python3*/dist-packages/axe_playwright_python/axe.min.js") or [None])[0]
@@ -84,13 +84,31 @@ with sync_playwright() as p:
     add("growthos: CRM-update step shows the recorded lead status and one audit row", pg.evaluate("(()=>{const s=[...document.querySelectorAll('#step-panel .wstate strong')].map(e=>e.textContent);return s[0]==='qualified'&&s[1]==='1'&&s[2]==='0'})()"))
     pg.focus("#refusal-btns .fbtn >> nth=1"); pg.keyboard.press("Enter"); r = pg.evaluate("document.querySelector('#refusal-out h3').textContent")
     add("growthos: refusal case selected by keyboard shows its recorded result", "Replay" in r and "APPROVAL_REPLAY" in pg.evaluate("document.querySelector('#refusal-out').textContent"), r)
+    # entrepreneur platform case study: steps by keyboard; the financial sliders select recorded model outputs
+    pg.goto(BASE + "launch.html", wait_until="networkidle")
+    pg.focus("#lsteps li:nth-child(4) button"); pg.keyboard.press("Enter")
+    p0 = pg.evaluate("document.querySelector('#fres strong').textContent")
+    pg.evaluate("(()=>{const s=document.getElementById('s-c');s.value=3;s.dispatchEvent(new Event('input'))})()")
+    p1 = pg.evaluate("document.querySelector('#fres strong').textContent")
+    add("launch: moving a slider shows a different recorded operating profit", p0 != p1 and "$" in p1, f"{p0} -> {p1}")
+    pg.focus("#lsteps li:nth-child(3) button"); pg.keyboard.press("Enter")
+    t3 = pg.evaluate("document.querySelector('#lpanel').textContent")
+    add("launch: suppliers step labels real leads as not verified and states external verification is incomplete", "Lead, not verified" in t3 and "INCOMPLETE" in t3 and "none published" in t3)
+    bad2 = []
+    for i in range(pg.evaluate("document.querySelectorAll('#lshot-btns .fbtn').length")):
+        pg.evaluate(f"document.querySelectorAll('#lshot-btns .fbtn')[{i}].click()"); pg.wait_for_function("document.getElementById('lshot-img').complete"); pg.wait_for_timeout(100)
+        if not pg.evaluate("document.getElementById('lshot-img').naturalWidth > 0"):
+            bad2.append(i)
+    add("launch: every interface screenshot loads", not bad2, str(bad2))
+    add("launch: all eight launch mutants are rendered", pg.evaluate("document.querySelectorAll('#lmut li').length") == 8)
+    pg.goto(BASE + "growthos.html", wait_until="networkidle")
     bad = []
     for i in range(pg.evaluate("document.querySelectorAll('#shot-btns .fbtn').length")):
         pg.evaluate(f"document.querySelectorAll('#shot-btns .fbtn')[{i}].click()"); pg.wait_for_function("document.getElementById('shot-img').complete"); pg.wait_for_timeout(120)
         if not pg.evaluate("document.getElementById('shot-img').naturalWidth > 0"):
             bad.append(i)
     add("growthos: every interface screenshot loads", not bad, str(bad))
-    add("growthos: every capability, mutant and oracle row is rendered from the evidence file", pg.evaluate("document.querySelectorAll('#caps .cap').length===25&&document.querySelectorAll('#wmut li').length===8&&document.querySelectorAll('#mut li').length===10&&document.querySelectorAll('#oracle tbody tr').length===5"))
+    add("growthos: every capability, mutant and oracle row is rendered from the evidence file", pg.evaluate("document.querySelectorAll('#caps .cap').length===25&&document.querySelectorAll('#wmut li').length===8&&document.querySelectorAll('#mut li').length===11&&document.querySelectorAll('#oracle tbody tr').length===5"))
     ctx.close()
     # reduced motion
     ctx = b.new_context(viewport={"width": 1280, "height": 800}, reduced_motion="reduce"); pg = ctx.new_page()

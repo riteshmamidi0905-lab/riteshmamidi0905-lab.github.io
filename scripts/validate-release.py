@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==48
+assert len(manifest)==58
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -53,4 +53,7 @@ gw=json.loads((root/'data/growth-os-evidence.json').read_text())
 assert gw['synthetic'] is True and gw['pushed'] is False and gw['all_expectations_met'] is True and 'dev-passcode' not in json.dumps(gw),'growth evidence invariants'
 w=gw['workflow'];assert all(m['killed'] for m in w['mutants']) and len(w['mutants'])==8 and all(o['match'] for o in w['oracle_evaluation']) and w['happy_path']['emails_or_messages_created']==0 and w['happy_path']['lead_after']['status']=='qualified'
 assert [c['n'] for c in gw['capabilities'] if c['status']=='INTEGRATED']==[14],'only CRM automation may be integrated'
-print('PASS: 48 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')
+lc=gw['launch'];assert all(m['killed'] for m in lc['mutants']) and len(lc['mutants'])==8 and lc['model_tested'] is False and lc['approved']['side_effects']['orders_placed']==0 and lc['approved']['side_effects']['suppliers_contacted']==0,'launch evidence invariants'
+assert all(s['verification_status'] in ('synthetic_fixture','lead_unverified') and not s['website_verified'] and s['contact']=='none recorded' for s in lc['walkthrough']['suppliers']) and lc['suppliers']['external_verification']=='INCOMPLETE','no supplier may be shown as verified'
+assert lc['audit']['rows']==1 and lc['audit']['approval_matches'] is True and 'fusion' not in json.dumps(lc).lower()
+print('PASS: 58 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')
