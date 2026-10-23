@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security and governance dashboard · Ritesh Mamidi</title>
+<meta name="description" content="Recorded synthetic scenarios and executable test evidence for THE WEIR authorization, approvals, tenant isolation, audit trail and incident investigation.">
+<meta name="theme-color" content="#06090a">
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/system.css">
+</head>
+<body data-world="sys">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap">
+  <a class="id" href="index.html"><b>rm</b><span>RITESH MAMIDI<small>APPLIED AI · DATA · PLATFORM</small></span></a>
+  <button class="menu" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+  <nav class="nav" id="nav" aria-label="Primary"><a href="index.html">Overview</a><a href="index.html#worlds">Worlds</a><a href="nasha.html">Flagship: NASHA</a><a href="reliability.html">Reliability</a><a href="security.html" aria-current="page">Security</a><a href="growthos.html">Growth OS</a><a href="projects.html">Projects</a><a href="recruiter.html">Recruiters</a><a class="cta" href="recruiter.html">60-second brief</a></nav>
+</div></header>
+<main id="main">
+<section aria-labelledby="h1" style="padding-bottom:clamp(20px,3vw,50px)"><div class="wrap">
+ <p class="mono eyebrow"><span class="dot"></span>Security and governance · recorded synthetic scenarios</p>
+ <h1 id="h1">What happens when someone tries to <em>buy something they shouldn’t</em>?</h1>
+ <p class="lede">Eight scenarios were executed against two synthetic tenants and recorded. These are test scenarios, not real security incidents; there is no production system, no real user and no real supplier. Every number resolves to the recorded evidence.</p>
+ <div class="kpis"><div class="kpi"><div class="big-n" id="k-scn"></div></div><div class="kpi"><div class="big-n" id="k-den"></div></div><div class="kpi"><div class="big-n" id="k-appr"></div></div><div class="kpi"><div class="big-n" id="k-exp"></div></div><div class="kpi"><div class="big-n" id="k-tx"></div></div></div>
+ <div class="srcbar"><button class="pbtn" id="srcbtn" aria-pressed="false">Show sources</button><span class="note">Reveals the evidence file and pointer behind every number.</span></div>
+</div></section>
+<section aria-labelledby="s1" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>THE WEIR and denied actions</p><h2 id="s1">Every scenario, and the layer that stopped it.</h2></div><p class="lede">A purchase needs four independent layers to agree. The approved path ends in a draft order that is never transmitted.</p></div><div class="panelx" style="overflow:auto" id="scn-table"></div></div></section>
+<section aria-labelledby="s2"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Authorization and approvals</p><h2 id="s2">Who may do what, enforced and tested.</h2></div><p class="lede">Role policy, maker-checker, call-bound single-use approvals and scope tampering.</p></div><div class="two"><div class="panelx" id="g-auth"></div><div class="panelx" id="g-exp"></div></div></div></section>
+<section aria-labelledby="s3" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Cross-tenant isolation</p><h2 id="s3">Another tenant’s identity gets nothing.</h2></div><p class="lede">Separate signing secrets, warehouses, ledgers, approval stores, memory and private documents. Not isolated: one process, shared code and shared reference recipe files.</p></div><div class="two"><div class="panelx" id="g-tenant"></div><div class="panelx" id="g-sec"></div></div></div></section>
+<section aria-labelledby="s4"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Audit completeness</p><h2 id="s4">Every operation, including refusals, leaves a record.</h2></div><p class="lede">The ledger audit is hash-chained, so an edited row is detectable.</p></div><div class="panelx" id="g-audit"></div></div></section>
+<section aria-labelledby="s5" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Incident investigation</p><h2 id="s5">Reconstruct any run from its correlation id.</h2></div><p class="lede">Pick a recorded scenario to see who asked, which tools ran, which policy applied, why it stopped and whether any side effect occurred.</p></div><div class="panelx"><label for="inc-pick" class="mono dim">Recorded scenario</label><br><select id="inc-pick" class="sel"></select><div id="inc-out" style="margin-top:22px"></div></div></div></section>
+</main>
+<footer class="ftr"><div class="wrap"><span>© 2026 Ritesh Mamidi · Redesign candidate, not deployed</span><nav aria-label="Footer"><a href="https://github.com/riteshmamidi0905-lab">GitHub</a><a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a><a href="mailto:riteshmamidi0905@gmail.com">Email</a></nav></div></footer>
+<div class="mbar" aria-label="Quick actions"><a class="btn pri" href="recruiter.html">Recruiter brief</a><a class="btn" href="nasha.html">Flagship</a></div>
+<script src="js/common.js"></script><script src="js/dash.js" defer></script>
+<script defer>addEventListener('DOMContentLoaded',()=>{const m=document.querySelector('.menu');if(m)m.hidden=false;Dashboards('security')});</script>
+</body></html>

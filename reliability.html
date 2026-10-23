@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI reliability dashboard · Ritesh Mamidi</title>
+<meta name="description" content="Evaluation, mutation-test, authorization, abstention, grounding and release-gate evidence for a governed AI operations workflow, every number resolved to a recorded source.">
+<meta name="theme-color" content="#06090a">
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/system.css">
+</head>
+<body data-world="ai">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap">
+  <a class="id" href="index.html"><b>rm</b><span>RITESH MAMIDI<small>APPLIED AI · DATA · PLATFORM</small></span></a>
+  <button class="menu" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+  <nav class="nav" id="nav" aria-label="Primary"><a href="index.html">Overview</a><a href="index.html#worlds">Worlds</a><a href="nasha.html">Flagship: NASHA</a><a href="reliability.html" aria-current="page">Reliability</a><a href="security.html">Security</a><a href="growthos.html">Growth OS</a><a href="projects.html">Projects</a><a href="recruiter.html">Recruiters</a><a class="cta" href="recruiter.html">60-second brief</a></nav>
+</div></header>
+<main id="main">
+<section aria-labelledby="h1" style="padding-bottom:clamp(20px,3vw,50px)"><div class="wrap">
+ <p class="mono eyebrow"><span class="dot"></span>AI reliability · measured, with the caveats attached</p>
+ <h1 id="h1">Can the evaluation tell when the agent is <em>wrong</em>?</h1>
+ <p class="lede">These panels render the recorded evaluation, mutation-test, test and release-gate evidence for the governed NASHA workflow. Every number is a claim with a source pointer that the release gate re-checks. Nothing here is a live measurement, and the data behind it is synthetic.</p>
+ <div class="kpis"><div class="kpi"><div class="big-n" id="k-pass"></div></div><div class="kpi"><div class="big-n" id="k-cases"></div></div><div class="kpi"><div class="big-n" id="k-mut"></div></div><div class="kpi"><div class="big-n" id="k-tests"></div></div></div>
+ <div class="srcbar"><button class="pbtn" id="srcbtn" aria-pressed="false">Show sources</button><span class="note">Reveals the evidence file and pointer behind every number.</span></div>
+</div></section>
+<section aria-labelledby="c1" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Evaluation</p><h2 id="c1">Pass rates by category</h2></div><p class="lede">13 categories, independent oracles rebuilt from raw data (not from the tables the system reads).</p></div><div class="bars" id="cat-bars" aria-label="Evaluation pass counts by category"></div></div></section>
+<section aria-labelledby="c2"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Mutation testing</p><h2 id="c2">Does the evaluation catch deliberately broken systems?</h2></div><p class="lede">Each mutant switches off or weakens one control. A mutant that survives would be a fault the evaluation cannot see.</p></div><ul class="mut" id="mut-grid" aria-label="Mutants and detection"></ul><p class="note" style="margin-top:14px">Two of my first mutants survived; that exposed two weak test cases, which were then fixed. Nine hand-chosen mutants is a small set.</p></div></section>
+<section aria-labelledby="c3" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Tool execution failures</p><h2 id="c3">Fail safe, then recover exactly once.</h2></div><p class="lede">Read and write tool timeouts, malformed tool responses, database failures and an unavailable model: each must classify, leave no unauthorised effect and recover.</p></div><div class="two"><div class="panelx"><div class="bars" id="tool-bars"></div></div><div class="panelx"><h3>Tests that prove it</h3><div id="tool-tests"></div></div></div></div></section>
+<section aria-labelledby="c4"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Authorization outcomes</p><h2 id="c4">No unauthorised purchase order was created.</h2></div><p class="lede">Wrong role, bypassed approval, tampered scope, replay and another tenant’s session.</p></div><div class="two"><div class="panelx"><div class="bars" id="auth-bars"></div></div><div class="panelx" style="overflow:auto"><div id="auth-cases"></div></div></div></div></section>
+<section aria-labelledby="c5" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Abstention behaviour</p><h2 id="c5">When the evidence is missing or contradictory, it should say so.</h2></div><p class="lede">The agent proposes nothing when sources disagree, data is missing, or retrieval fails.</p></div><div class="two"><div class="panelx"><div class="bars" id="abst-bars"></div></div><div class="panelx" style="overflow:auto"><div id="abst-cases"></div></div></div></div></section>
+<section aria-labelledby="c6"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Grounding</p><h2 id="c6">Every claim must cite evidence and match it.</h2></div><p class="lede">Invented numbers, invented evidence ids, unsafe proposals and instructions hidden in untrusted text are rejected by the validation gate.</p></div><div class="two"><div class="panelx"><div class="bars" id="ground-bars"></div></div><div class="panelx"><div id="ground-tests"></div></div></div></div></section>
+<section aria-labelledby="c7" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Release gate</p><h2 id="c7">Twelve gates. Missing evidence never passes.</h2></div><p class="lede">The verdict below is computed from the evidence bundle by tools/release_gate.py. It is not softened to look better.</p></div><div class="gate-hd" id="ghd"></div><ul class="gates" id="gates"></ul><p class="note" style="margin-top:14px">Remote CI is NOT RUN until the workflows actually execute on GitHub. REVIEW means nothing failed but something required could not be verified in this environment.</p></div></section>
+<section aria-labelledby="c8"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Coverage and limitations</p><h2 id="c8">What the tests do and do not show.</h2></div><p class="lede">Line coverage was measured with coverage.py over the governed package; it says which lines ran, not that the assertions are strong.</p></div><div class="two"><div class="panelx"><div id="cov"></div></div><div class="panelx" style="overflow:auto"><div id="mods"></div></div></div><ul class="proofs" id="limits" style="max-width:900px;margin-top:28px"></ul></div></section>
+</main>
+<footer class="ftr"><div class="wrap"><span>© 2026 Ritesh Mamidi · Redesign candidate, not deployed</span><nav aria-label="Footer"><a href="https://github.com/riteshmamidi0905-lab">GitHub</a><a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a><a href="mailto:riteshmamidi0905@gmail.com">Email</a></nav></div></footer>
+<div class="mbar" aria-label="Quick actions"><a class="btn pri" href="recruiter.html">Recruiter brief</a><a class="btn" href="nasha.html">Flagship</a></div>
+<script src="js/common.js"></script><script src="js/dash.js" defer></script>
+<script defer>addEventListener('DOMContentLoaded',()=>{const m=document.querySelector('.menu');if(m)m.hidden=false;Dashboards('reliability')});</script>
+</body></html>

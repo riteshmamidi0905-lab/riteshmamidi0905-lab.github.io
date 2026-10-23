@@ -7,6 +7,12 @@ Static GitHub Pages site, no build step, no framework, no video. New in this bra
 ## Added at Milestone E
 `nasha.html` now opens with a scroll-pinned **pipeline film** (`js/pipeline.js`): synthetic orders → inventory → forecasting → AI planner → THE WEIR → human approval → draft procurement → audit trail, a replay of one recorded run whose every value is read from `data/nasha-governed-evidence.json` (`story` block). Scroll, buttons, rail and arrow keys drive it; reduced-motion and narrow screens show all stages stacked. A **verification** section (`js/verify.js`) shows the governed evaluation by category, the 9 mutants and the 12-gate release report (`data/release-gate-report.json`, currently REQUIRES_REVIEW; remote CI NOT_RUN). Nothing calls a backend. Rendered with Playwright Chromium (Claude in Chrome was not available in this environment); frames are in `docs/redesign/screenshots/`.
 
+## Added at the D-90 continuation
+* `reliability.html` and `security.html` (`js/dash.js`): dashboards whose every number is a claim with a source pointer into the evidence bundle (re-checked by the NASHA release gate); a *Show sources* mode prints the pointer under each metric; the security page has a recorded-incident explorer.
+* `growthos.html` (`js/growth.js`): the NASHA Growth OS foundation case study: a 25-capability board with honest statuses, the stage-machine rules enforced by PostgreSQL, recorded cross-tenant probes per table and the control-mutant results. Data: `data/growth-os-evidence.json`. No product interface exists yet and the page says so.
+* `projects.html` rebuilt as a discipline-grouped index (`js/projects.js`, all 24 projects and links preserved; a double-escaped `&amp;amp;` in the legacy text was corrected); home gained About and Contact sections; navigation lists every page.
+* `docs/redesign/RUNWAY-TARGETED-PLAN-D90.md`: three optional abstract sequences, nothing purchased; recommendation: do not spend for this release.
+
 ## Preview locally
 ```
 python3 -m http.server 8011        # the evidence JSON is fetched, so file:// will not work

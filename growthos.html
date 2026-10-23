@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NASHA Growth OS case study · Ritesh Mamidi</title>
+<meta name="description" content="A tenant-aware business-growth platform foundation on PostgreSQL: what is built, tested and designed, with recorded isolation probes and control mutants.">
+<meta name="theme-color" content="#06090a">
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/system.css">
+</head>
+<body data-world="prod">
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap">
+  <a class="id" href="index.html"><b>rm</b><span>RITESH MAMIDI<small>APPLIED AI · DATA · PLATFORM</small></span></a>
+  <button class="menu" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+  <nav class="nav" id="nav" aria-label="Primary"><a href="index.html">Overview</a><a href="index.html#worlds">Worlds</a><a href="nasha.html">Flagship: NASHA</a><a href="reliability.html">Reliability</a><a href="security.html">Security</a><a href="growthos.html" aria-current="page">Growth OS</a><a href="projects.html">Projects</a><a href="recruiter.html">Recruiters</a><a class="cta" href="recruiter.html">60-second brief</a></nav>
+</div></header>
+<main id="main">
+<section aria-labelledby="h1" style="padding-bottom:clamp(20px,3vw,50px)"><div class="wrap">
+ <p class="mono eyebrow"><span class="dot"></span>NASHA Growth OS · working name · foundation phase</p>
+ <h1 id="h1">A growth platform where the <em>database says no</em>.</h1>
+ <p class="lede">An AI-powered business growth platform has to be trustworthy before it is clever. This case study shows the foundation I built first: one shared, tenant-aware data model on PostgreSQL, a CRM and pricing core, and controls that hold even if the application code is wrong. NASHA is a proposed business; every tenant, customer and number here is synthetic, and the platform has no customers.</p>
+ <div class="kpis" id="k-board"></div>
+ <p class="note" id="commit" style="margin-top:18px"></p>
+ <p class="note">Of the 25 planned business capabilities, only the ones marked tested have automated evidence, and none is marked integrated: there is no product interface yet. Percentages are deliberately not shown.</p>
+</div></section>
+<section aria-labelledby="c1" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>25 capabilities, one honest board</p><h2 id="c1">What exists, what is designed, what is not started.</h2></div><p class="lede">Select a capability for what is built, what is missing and the tests that back it. The tracker refuses a status its evidence does not support.</p></div><div class="two"><div><div class="fl" id="cap-filter" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px" role="group" aria-label="Filter by status"></div><div class="caps" id="caps"></div></div><div class="panelx" id="cap-panel" aria-live="polite"></div></div></div></section>
+<section aria-labelledby="c2"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Architecture</p><h2 id="c2">Four layers; two are built.</h2></div><p class="lede">The database and the service layer are implemented and tested. THE WEIR approval for consequential actions and the agent runtime come next; they are shown as designed, not claimed.</p></div><ol class="layers">
+ <li data-s="built"><span class="mono">01 · BUILT</span><strong>PostgreSQL: tenant boundary</strong><p>Composite tenant keys and foreign keys, row-level security forced on every table, default deny, a non-privileged login role, append-only audit privileges.</p></li>
+ <li data-s="built"><span class="mono">02 · BUILT</span><strong>Service layer: role policy and rules</strong><p>Default-deny actions per role, every denial audited, consent and suppression rules, stage rules, no send or publish method.</p></li>
+ <li data-s="next"><span class="mono">03 · DESIGNED</span><strong>THE WEIR: approval for consequential actions</strong><p>The existing gateway holds writes with outside effects for a different person to approve. Not yet wired to Growth OS.</p></li>
+ <li data-s="next"><span class="mono">04 · DESIGNED</span><strong>Agents on the Production AI Agent Platform</strong><p>Read and analysis tools registered through its tool and risk contract; consequential tools never registered there.</p></li></ol></div></section>
+<section aria-labelledby="c3" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Pipeline rules</p><h2 id="c3">The stage machine lives in the database.</h2></div><p class="lede">A trigger checks every stage change against a rules table, so no application bug and no direct SQL can skip a stage. All 30 stage pairs were attempted against PostgreSQL and recorded.</p></div><div class="two"><div class="panelx" id="stage-grid"></div><ul class="stagelist" id="stage-out" aria-live="polite"></ul></div></div></section>
+<section aria-labelledby="c4"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Tenant isolation</p><h2 id="c4">Probed on every table, recorded.</h2></div><p class="lede">Two synthetic tenants with different products, prices, segments and customers. Tenant A looked for tenant B’s rows by tenant and by id; a session with no tenant set looked at everything.</p></div><div class="panelx" style="overflow:auto" id="iso"></div><h3 style="margin:28px 0 12px">Privileged actions the application role attempted</h3><ul class="tl2" id="priv"></ul><p class="note" style="margin-top:14px">Limits: one database and one process serve both tenants (logical, not physical isolation); the embedded test server uses trust authentication; no encryption-at-rest or key management; no external penetration test. Two working synthetic tenants do not make this a commercial SaaS.</p></div></section>
+<section aria-labelledby="c5" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Control mutants</p><h2 id="c5">Remove a control and the probes must notice.</h2></div><p class="lede">Each mutant deletes one protection: row-level security, a foreign key, the stage trigger, a policy entry, the consent check, audit of denials, a state constraint, the synthetic-email rule or the audit privilege.</p></div><ul class="mut" id="mut"></ul><p class="note" id="msum" style="margin-top:14px"></p></div></section>
+<section aria-labelledby="c6"><div class="wrap"><div class="sec-head"><div><p class="mono eyebrow"><span class="dot"></span>Not built yet</p><h2 id="c6">What this foundation does not do.</h2></div><p class="lede"></p></div><ul class="proofs" style="max-width:900px"><li><span class="chip">Not built</span><span>No product interface, no HTTP API, no workflow registry, no agents inside Growth OS yet.</span></li><li><span class="chip">Not built</span><span>No email, ad or publishing integration, by design: outbound communication stays disabled and unrepresentable until explicitly authorised.</span></li><li><span class="chip">Simulated</span><span>Lead scoring and segmentation are transparent rules over synthetic data, not validated models; pricing elasticity is an assumed input.</span></li><li><span class="chip">Next</span><span>Wire a first workflow (lead qualification) through the governed approval path, then the interface.</span></li></ul></div></section>
+</main>
+
+<footer class="ftr"><div class="wrap"><span>© 2026 Ritesh Mamidi · Redesign candidate, not deployed</span><nav aria-label="Footer"><a href="https://github.com/riteshmamidi0905-lab">GitHub</a><a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a><a href="mailto:riteshmamidi0905@gmail.com">Email</a></nav></div></footer>
+<div class="mbar" aria-label="Quick actions"><a class="btn pri" href="recruiter.html">Recruiter brief</a><a class="btn" href="nasha.html">Flagship</a></div>
+<script src="js/common.js"></script><script src="js/growth.js" defer></script>
+<script defer>addEventListener('DOMContentLoaded',()=>{const m=document.querySelector('.menu');if(m)m.hidden=false;GrowthCase()});</script>
+</body></html>

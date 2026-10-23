@@ -1,13 +1,13 @@
 [
   {
     "path": "index.html",
-    "bytes": 20998,
-    "sha256": "66ff384e7ae5e7d5b69566b9d6231f94f9aad42ac13878892f11cee1a038f2a9"
+    "bytes": 23335,
+    "sha256": "e9d67a95d2710bb0be97248effc4136c08f2f93c2263a581f72971a7faa3eed0"
   },
   {
     "path": "nasha.html",
-    "bytes": 14657,
-    "sha256": "a7a72e6d18040a801101730dd0b19fc662e60c9774aa9381412382b494c6ac78"
+    "bytes": 14772,
+    "sha256": "81523fac115d6af1a4c5809e187dabe1a163e66c57c61fd9626963921f831d72"
   },
   {
     "path": "ai-engineering.html",
@@ -21,13 +21,13 @@
   },
   {
     "path": "projects.html",
-    "bytes": 39916,
-    "sha256": "f4deb630a9e583bbcd272d38aff02e33eba69f98afb3c4cf492ea855875fe3df"
+    "bytes": 38728,
+    "sha256": "ef05bb78830f447fb3a3afba69269541ed59bc3c18d359def5cd098b12a16dc0"
   },
   {
     "path": "recruiter.html",
-    "bytes": 8368,
-    "sha256": "fa2772b942ee332bbf26947a68ef6c99840b9f74dcdf44e81e3c686b7986c615"
+    "bytes": 8483,
+    "sha256": "f08e56ae47b875cd5898ecc9316e53dfc04a00768cb1ff7f45fae6c3df248201"
   },
   {
     "path": "404.html",
@@ -61,8 +61,8 @@
   },
   {
     "path": "css/system.css",
-    "bytes": 26859,
-    "sha256": "55094dd8f6f8908c55fa65524a1f38b7a5c86d15bb71cd909d084e681118bc92"
+    "bytes": 35410,
+    "sha256": "94ca8c39e54634d253b12e77308c0831bec56263e96eaac79e150e2fb2141e32"
   },
   {
     "path": "js/common.js",
@@ -93,6 +93,41 @@
     "path": "js/verify.js",
     "bytes": 2272,
     "sha256": "badab51573dc4b87fd9dd3e2e70701fc6cb387370030091cf1ac88d0080e6403"
+  },
+  {
+    "path": "js/dash.js",
+    "bytes": 10212,
+    "sha256": "f6432e6c93ae211633e51c54b429bc62e592c49f832bd48e501772facc643539"
+  },
+  {
+    "path": "js/projects.js",
+    "bytes": 1031,
+    "sha256": "d2d833cecb734042715f944be75d30399f2e65f6698c9d9758977da7733e7c76"
+  },
+  {
+    "path": "js/growth.js",
+    "bytes": 5020,
+    "sha256": "60cbceb5693322f9a7acb1d6e2bc8314bb4987740b9344021cb05cd238a0565a"
+  },
+  {
+    "path": "growthos.html",
+    "bytes": 8495,
+    "sha256": "2f299b5fa17acdefff3b5e6b91686f11615f75cd67142f31d0a8617623fc63ad"
+  },
+  {
+    "path": "data/growth-os-evidence.json",
+    "bytes": 18557,
+    "sha256": "dfb6cc3986039377195773f9c3238bb9145b7aef7edc78b8b54f3949bd68d756"
+  },
+  {
+    "path": "reliability.html",
+    "bytes": 7892,
+    "sha256": "5045ed341607658c56748676489d32749ac68ef71db41824e1b1930753228c31"
+  },
+  {
+    "path": "security.html",
+    "bytes": 5796,
+    "sha256": "90b95956fcd711b6358dcc704f85423b0003761faf8f5bdd70cbb62c2025d8bd"
   },
   {
     "path": "data/nasha-governed-evidence.json",

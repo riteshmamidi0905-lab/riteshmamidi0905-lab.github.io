@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==29
+assert len(manifest)==36
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -49,4 +49,4 @@ cl=ev['claims']; assert cl and all({'id','text','value','source'}<=set(c) for c 
 assert ev['story']['draft']['external_transmissions']==0 and ev['story']['draft']['state']=='DRAFT_NOT_SENT'
 assert ev['metrics']['governed_evaluation']['mutants_killed']==ev['metrics']['governed_evaluation']['mutants_total']==len(ev['mutation_detail'])
 assert ev['metrics']['release_evidence']['tests_failed']==0 and 'UNVERIFIED' in ev['metrics']['release_evidence']['model_runtime']
-print('PASS: 29 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')
+print('PASS: 36 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')

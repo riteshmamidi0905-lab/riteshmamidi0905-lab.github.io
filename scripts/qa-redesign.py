@@ -6,7 +6,7 @@ import json, os, sys, glob
 from playwright.sync_api import sync_playwright
 
 BASE = os.environ.get("QA_BASE", "http://127.0.0.1:8011/")
-PAGES = ["index.html", "nasha.html", "recruiter.html"]
+PAGES = ["index.html", "nasha.html", "recruiter.html", "reliability.html", "security.html"]
 VPS = {"desktop": (1440, 900), "laptop": (1280, 720), "tablet": (820, 1180), "mobile": (390, 844), "narrow": (320, 640)}
 CH = os.environ.get("CHROMIUM_PATH") or (glob.glob("/opt/pw-browsers/chromium-*/chrome-linux/chrome") or [None])[0]
 AXE = os.environ.get("AXE_PATH") or (glob.glob("/usr/local/lib/python3*/dist-packages/axe_playwright_python/axe.min.js") or [None])[0]
@@ -58,6 +58,22 @@ with sync_playwright() as p:
     add("keyboard: Step button advances the replay", on == 1, str(on))
     first = pg.evaluate("(()=>{const e=document.querySelector('.skip');return e?e.getAttribute('href'):null})()")
     add("skip link present and targets #main", first == "#main", str(first))
+    # pipeline film: keyboard and buttons move the stage; stage content is present
+    pg.focus("#film [data-act=next]"); pg.keyboard.press("Enter"); st = pg.evaluate("document.querySelector('#film .rn.on').dataset.i")
+    add("film: Next button advances to stage 2", st == "1", st)
+    pg.focus("#film .rn >> nth=4") if False else pg.evaluate("document.querySelectorAll('#film .rn')[4].focus()"); pg.keyboard.press("Enter"); st = pg.evaluate("document.querySelector('#film .rn.on').dataset.i")
+    add("film: rail node is a keyboard-operable button to stage 5", st == "4", st)
+    add("film: exactly one stage visible while pinned", pg.evaluate("document.querySelectorAll('#film .fp:not([hidden])').length") == 1)
+    # dashboards: provenance toggle and incident selector work from the keyboard
+    pg.goto(BASE + "reliability.html", wait_until="networkidle")
+    pg.focus("#srcbtn"); pg.keyboard.press("Enter"); on = pg.evaluate("document.body.classList.contains('show-src')")
+    add("reliability: Show sources toggles provenance with the keyboard", on)
+    add("reliability: every rendered metric has a source pointer", pg.evaluate("[...document.querySelectorAll('.mv')].every(e=>e.dataset.src&&e.dataset.src.includes('#'))"), "")
+    pg.goto(BASE + "security.html", wait_until="networkidle")
+    n0 = pg.evaluate("document.querySelectorAll('#inc-out .qa div').length")
+    pg.select_option("#inc-pick", index=1); n1 = pg.evaluate("document.querySelectorAll('#inc-out .qa div').length")
+    add("security: incident explorer renders answers and switches scenario", n0 >= 6 and n1 >= 6, f"{n0},{n1}")
+    pg.goto(BASE + "nasha.html", wait_until="networkidle")
     # architecture explorer keyboard
     pg.focus(".gnode"); pg.keyboard.press("Enter"); pressed = pg.evaluate("document.querySelectorAll('.gnode[aria-pressed=true]').length")
     add("keyboard: architecture node can be selected with Enter", pressed == 1, str(pressed))
