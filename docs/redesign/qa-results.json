@@ -1042,6 +1042,61 @@
    "detail": ""
   },
   {
+   "check": "launch m4: the recorded journey has twelve keyboard-operable steps, all marked recorded and checked",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: the start-up step shows the requirement, the funding gap and its labelled-simulated formulas",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: the recommendation step says no language model was used and lists computed uncertainty",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: the supplier step shows information categories and that sources are search-result snippets",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: the model-status table states that no language model has run",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: the verdict filter works by keyboard and shows only rejected outputs",
+   "pass": true,
+   "detail": "19 of 28"
+  },
+  {
+   "check": "launch m4: three evaluation cards each list their mutants",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: both architecture flows render with their steps",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: phone captures load with descriptive alt text",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: the phone captures decode",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "launch m4: the page keeps its positioning (no cultural-fusion wording; NASHA shown as the flagship hospitality launch case study)",
+   "pass": true,
+   "detail": ""
+  },
+  {
    "check": "growthos: every interface screenshot loads",
    "pass": true,
    "detail": "[]"
@@ -1064,7 +1119,7 @@
   {
    "check": "index.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1220 ms"
+   "detail": "1204 ms"
   },
   {
    "check": "index.html slow network: CLS <= 0.1",
@@ -1074,12 +1129,12 @@
   {
    "check": "index.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 11692 css 39441"
+   "detail": "js 11692 css 40443"
   },
   {
    "check": "nasha.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1012 ms"
+   "detail": "1028 ms"
   },
   {
    "check": "nasha.html slow network: CLS <= 0.1",
@@ -1089,12 +1144,12 @@
   {
    "check": "nasha.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 24014 css 39441"
+   "detail": "js 24014 css 40443"
   },
   {
    "check": "recruiter.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "892 ms"
+   "detail": "904 ms"
   },
   {
    "check": "recruiter.html slow network: CLS <= 0.1",
@@ -1104,12 +1159,12 @@
   {
    "check": "recruiter.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 1774 css 39441"
+   "detail": "js 1774 css 40443"
   },
   {
    "check": "reliability.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "988 ms"
+   "detail": "1016 ms"
   },
   {
    "check": "reliability.html slow network: CLS <= 0.1",
@@ -1119,12 +1174,12 @@
   {
    "check": "reliability.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 14108 css 39441"
+   "detail": "js 14108 css 40443"
   },
   {
    "check": "security.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "964 ms"
+   "detail": "1004 ms"
   },
   {
    "check": "security.html slow network: CLS <= 0.1",
@@ -1134,12 +1189,12 @@
   {
    "check": "security.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 12019 css 39441"
+   "detail": "js 12019 css 40443"
   },
   {
    "check": "growthos.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "952 ms"
+   "detail": "960 ms"
   },
   {
    "check": "growthos.html slow network: CLS <= 0.1",
@@ -1149,12 +1204,12 @@
   {
    "check": "growthos.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 15628 css 39441"
+   "detail": "js 15628 css 40443"
   },
   {
    "check": "launch.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "952 ms"
+   "detail": "1056 ms"
   },
   {
    "check": "launch.html slow network: CLS <= 0.1",
@@ -1164,12 +1219,12 @@
   {
    "check": "launch.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 14868 css 39441"
+   "detail": "js 26058 css 40443"
   },
   {
    "check": "projects.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1008 ms"
+   "detail": "1100 ms"
   },
   {
    "check": "projects.html slow network: CLS <= 0.1",
@@ -1179,7 +1234,7 @@
   {
    "check": "projects.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 2805 css 39441"
+   "detail": "js 2805 css 40443"
   }
  ],
  "axe": [
@@ -1246,7 +1301,17 @@
   {
    "page": "launch.html",
    "viewport": "desktop",
-   "violations": []
+   "violations": [
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "targets": [
+      "#lpanel > .tablewrap[role=\"region\"][aria-label=\"Data table (scrollable)\"]"
+     ]
+    }
+   ]
   },
   {
    "page": "projects.html",
@@ -1375,6 +1440,15 @@
    "viewport": "mobile",
    "violations": [
     {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "n": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+     "targets": [
+      "#lpanel > .tablewrap[role=\"region\"][aria-label=\"Data table (scrollable)\"]"
+     ]
+    },
+    {
      "id": "region",
      "impact": "moderate",
      "n": 1,
@@ -1404,88 +1478,88 @@
  "metrics": {
   "index.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1220,
+   "lcp_ms": 1204,
    "cls": 0,
-   "dom_content_loaded_ms": 1096,
-   "load_ms": 1663,
+   "dom_content_loaded_ms": 1076,
+   "load_ms": 1641,
    "js_bytes": 11692,
-   "css_bytes": 39441,
-   "total_bytes": 389608
+   "css_bytes": 40443,
+   "total_bytes": 401285
   },
   "nasha.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1012,
+   "lcp_ms": 1028,
    "cls": 0,
-   "dom_content_loaded_ms": 891,
-   "load_ms": 1484,
+   "dom_content_loaded_ms": 894,
+   "load_ms": 1491,
    "js_bytes": 24014,
-   "css_bytes": 39441,
-   "total_bytes": 403666
+   "css_bytes": 40443,
+   "total_bytes": 417533
   },
   "recruiter.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 892,
+   "lcp_ms": 904,
    "cls": 0,
-   "dom_content_loaded_ms": 768,
-   "load_ms": 1166,
+   "dom_content_loaded_ms": 776,
+   "load_ms": 1167,
    "js_bytes": 1774,
-   "css_bytes": 39441,
-   "total_bytes": 138621
+   "css_bytes": 40443,
+   "total_bytes": 139623
   },
   "reliability.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 988,
+   "lcp_ms": 1016,
    "cls": 0.0359,
-   "dom_content_loaded_ms": 851,
-   "load_ms": 1644,
+   "dom_content_loaded_ms": 863,
+   "load_ms": 1664,
    "js_bytes": 14108,
-   "css_bytes": 39441,
-   "total_bytes": 494475
+   "css_bytes": 40443,
+   "total_bytes": 535148
   },
   "security.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 964,
+   "lcp_ms": 1004,
    "cls": 0,
-   "dom_content_loaded_ms": 836,
-   "load_ms": 1468,
+   "dom_content_loaded_ms": 848,
+   "load_ms": 1502,
    "js_bytes": 12019,
-   "css_bytes": 39441,
-   "total_bytes": 382620
+   "css_bytes": 40443,
+   "total_bytes": 396487
   },
   "growthos.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 952,
+   "lcp_ms": 960,
    "cls": 0,
-   "dom_content_loaded_ms": 837,
-   "load_ms": 1414,
+   "dom_content_loaded_ms": 852,
+   "load_ms": 1440,
    "js_bytes": 15628,
-   "css_bytes": 39441,
-   "total_bytes": 329491
+   "css_bytes": 40443,
+   "total_bytes": 357299
   },
   "launch.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 952,
+   "lcp_ms": 1056,
    "cls": 0,
-   "dom_content_loaded_ms": 862,
-   "load_ms": 1907,
-   "js_bytes": 14868,
-   "css_bytes": 39441,
-   "total_bytes": 324358
+   "dom_content_loaded_ms": 916,
+   "load_ms": 1960,
+   "js_bytes": 26058,
+   "css_bytes": 40443,
+   "total_bytes": 497677
   },
   "projects.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1008,
+   "lcp_ms": 1100,
    "cls": 0,
-   "dom_content_loaded_ms": 769,
-   "load_ms": 1270,
+   "dom_content_loaded_ms": 790,
+   "load_ms": 1335,
    "js_bytes": 2805,
-   "css_bytes": 39441,
-   "total_bytes": 169897
+   "css_bytes": 40443,
+   "total_bytes": 170899
   }
  },
  "summary": {
-  "checks": 236,
-  "passed": 236,
+  "checks": 247,
+  "passed": 247,
   "failed": []
  }
 }

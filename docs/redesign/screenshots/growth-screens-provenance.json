@@ -228,5 +228,102 @@
     ]
    }
   ]
+ },
+ "m4_screens": {
+  "source": "live application served by `python -m nasha_lab.growth.demo` on 127.0.0.1:8765 (synthetic tenants)",
+  "lab_commit": "1e2c661",
+  "captured_at": "2026-10-23T20:46:04.080769Z",
+  "screens": [
+   {
+    "file": "m4-business-journey.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "My Business"
+   },
+   {
+    "file": "m4-suppliers-compare.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Suppliers"
+   },
+   {
+    "file": "m4-supplier-sources.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Suppliers"
+   },
+   {
+    "file": "m4-financial-startup.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Financial Plan"
+   },
+   {
+    "file": "m4-financial-formulas.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Financial Plan"
+   },
+   {
+    "file": "m4-procurement-research.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Procurement: NASHA \u2014 The Courtyard"
+   },
+   {
+    "file": "m4-history-engineering.webp",
+    "view": "engineering",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "My Business"
+   },
+   {
+    "file": "m4-mobile-business.webp",
+    "view": "business",
+    "size": [
+     390,
+     844
+    ],
+    "h1": "My Business"
+   },
+   {
+    "file": "m4-mobile-suppliers.webp",
+    "view": "business",
+    "size": [
+     390,
+     844
+    ],
+    "h1": "Suppliers"
+   },
+   {
+    "file": "m4-mobile-financial.webp",
+    "view": "business",
+    "size": [
+     390,
+     844
+    ],
+    "h1": "Financial Plan"
+   }
+  ]
  }
 }

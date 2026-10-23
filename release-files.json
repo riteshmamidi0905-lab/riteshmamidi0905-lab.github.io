@@ -61,8 +61,8 @@
   },
   {
     "path": "css/system.css",
-    "bytes": 39441,
-    "sha256": "dbe4a61a10f06b5c9944ea5d9b29271a1f05cf6f23115ec45299640129c256d8"
+    "bytes": 40443,
+    "sha256": "ce04a8ad3abdf5d606b7913d895a48ecfe79fa876d941a76753d5566e2a7f423"
   },
   {
     "path": "js/common.js",
@@ -116,8 +116,8 @@
   },
   {
     "path": "js/launch.js",
-    "bytes": 13094,
-    "sha256": "308189115141a9e97c3fcc2727de375a16f7873d8430eaadbd8afbdb27052526"
+    "bytes": 14229,
+    "sha256": "b10501d7ba5d6b4d6cebf1f58809f9e2399a35d9a31a831cf7e97042293b2bc8"
   },
   {
     "path": "js/incident.js",
@@ -125,14 +125,19 @@
     "sha256": "9c35ca4003641848e7b5d5bfec9b9bfbe6a8dffb52dc82f13d4a7a3298435c6d"
   },
   {
+    "path": "js/journey.js",
+    "bytes": 10055,
+    "sha256": "ce4d57fed2107d27af1a30b3115a4c1fd2ddf905931c49e535104f2f90d9e3f9"
+  },
+  {
     "path": "launch.html",
-    "bytes": 7445,
-    "sha256": "4c38008c9d5be9d90668baa9e84ad7a983586a459cd587a87515a693f4d1a2eb"
+    "bytes": 12161,
+    "sha256": "2206a108561c76f1dff320cdc1744fcba983a136f3687ae9f8d98d3f5c7a140a"
   },
   {
     "path": "data/growth-os-evidence.json",
-    "bytes": 102799,
-    "sha256": "6b0f8a717a1b127b2132cbaa0174bd9296d42d9bfb4c66788eef3dfa44e67d1d"
+    "bytes": 129605,
+    "sha256": "19a762acec9d792ad8db08c0e2774ebb6dd8695b257b21798dca79c30947266f"
   },
   {
     "path": "reliability.html",
@@ -146,13 +151,13 @@
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 225797,
-    "sha256": "236a8a71794268e29c5a7df13cd545ae33b35624e21b85371fded38c82ba7062"
+    "bytes": 236472,
+    "sha256": "42b354c4919228b9276d259226a6c6b9c599be039413357e9299bce01ec106e4"
   },
   {
     "path": "data/release-gate-report.json",
-    "bytes": 10580,
-    "sha256": "7bc8a03b01d1640e71666c7661e74f75dffd16187c6bcf0208593ff65b9a5e84"
+    "bytes": 12770,
+    "sha256": "63c17860b2a95baeb1a012f1c3dab80d9c577f68bbb70d033f1fa8f4727d22cc"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
@@ -233,6 +238,56 @@
     "path": "assets/growth/launch-suppliers.webp",
     "bytes": 78000,
     "sha256": "0ab84e58dcbaa3e522a62b9212eab7f06111d5c8a091bdbc45fc3785dfcf9d51"
+  },
+  {
+    "path": "assets/growth/m4-business-journey.webp",
+    "bytes": 49102,
+    "sha256": "5b1dcac46e13b8de318d38037126fb9a5b10d1c289a551df0b6b06df00b9781c"
+  },
+  {
+    "path": "assets/growth/m4-financial-formulas.webp",
+    "bytes": 54116,
+    "sha256": "1281961744263c7d03fb9f9708346c60fa27beb63bc6f51e9b2a3a06ae6d36f4"
+  },
+  {
+    "path": "assets/growth/m4-financial-startup.webp",
+    "bytes": 62550,
+    "sha256": "e79f7676750e7126ad16b5be084e05cfe1fef9605459d04a8a917f28d055a1d4"
+  },
+  {
+    "path": "assets/growth/m4-history-engineering.webp",
+    "bytes": 63904,
+    "sha256": "c9e216954c28b4667a9cd93d768d9d2f5f2f32bfdc12a7b4643bdacee1d8db99"
+  },
+  {
+    "path": "assets/growth/m4-mobile-business.webp",
+    "bytes": 20640,
+    "sha256": "903fdb588926926a0ac8cc8be269dc17097c13fc06126f8156cac42ffc28c5e1"
+  },
+  {
+    "path": "assets/growth/m4-mobile-financial.webp",
+    "bytes": 26140,
+    "sha256": "0e513986baf0b41e42f90d8a18277f81e07dfb4474361c14a03ee1b29aa8bb59"
+  },
+  {
+    "path": "assets/growth/m4-mobile-suppliers.webp",
+    "bytes": 36902,
+    "sha256": "36f09ae789d679dfb87429d38f24ce159647d96b3deffce2df0a85880e34f916"
+  },
+  {
+    "path": "assets/growth/m4-procurement-research.webp",
+    "bytes": 87556,
+    "sha256": "f4ebec60e80b29598b048fcfab2c18306692ccefd53fcf83022bc5affa152958"
+  },
+  {
+    "path": "assets/growth/m4-supplier-sources.webp",
+    "bytes": 78276,
+    "sha256": "cf2d9ea487c566bb51b5b52d04f99b85da22f0a7034bd9036a8459f90344078f"
+  },
+  {
+    "path": "assets/growth/m4-suppliers-compare.webp",
+    "bytes": 81848,
+    "sha256": "ce1a161efb7e2d091631fc47830481082b0cb4dd0f360da3b14721f557f05600"
   },
   {
     "path": "assets/growth/pipeline.webp",
