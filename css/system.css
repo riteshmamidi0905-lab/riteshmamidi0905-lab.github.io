@@ -287,3 +287,11 @@ summary:before{content:"+ ";color:var(--accent)}details[open] summary:before{con
 .ctl{display:grid;gap:14px;margin:12px 0}.ctl label{display:grid;gap:6px;font-size:14px;color:var(--muted)}.ctl output{float:right;color:var(--text);font-family:Mono,monospace}.ctl input[type=range]{width:100%;accent-color:var(--accent);min-height:28px}
 .sh{font:500 11px Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:18px 0 8px}.limits{margin:6px 0;padding-left:18px;color:var(--muted);font-size:13px}.evs li.no{border-left-color:var(--bad)}
 @media(max-width:560px){.track{grid-template-columns:1fr}}
+/* audit-incident timelines */
+.tl{width:100%;border-collapse:collapse;font-size:13.5px;margin:0}.tl caption{text-align:left;font-weight:600;padding:0 0 10px}
+.tl th,.tl td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;overflow-wrap:anywhere}.tl thead th{font-family:Mono,monospace;font-size:11px;letter-spacing:.06em;color:var(--dim);font-weight:500}
+.tl td.bad{background:color-mix(in srgb,var(--bad) 14%,transparent)}.tl td.lock{background:color-mix(in srgb,var(--accent) 12%,transparent)}.tl td code{font-size:12px}
+.tlgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:22px;margin-top:22px}
+.inc-det{margin-top:26px;border:1px solid var(--line);border-radius:10px;padding:4px 18px}.inc-det summary{cursor:pointer;padding:12px 0;font-weight:600}.inc-det pre{overflow:auto;font-size:12px;padding:12px;background:var(--bg2);border:1px solid var(--line);border-radius:8px}
+.tl code,.inc-det code,#inc-evid code{overflow-wrap:anywhere;white-space:normal;word-break:break-word}
+.tl thead th{white-space:nowrap}.tl tbody th[scope=row]{width:3.2em;white-space:nowrap}

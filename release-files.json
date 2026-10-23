@@ -61,8 +61,8 @@
   },
   {
     "path": "css/system.css",
-    "bytes": 38303,
-    "sha256": "fa56647f9b3bf475831cc852dd20cdaec564cd2de25046ef1b489c573fa28173"
+    "bytes": 39441,
+    "sha256": "dbe4a61a10f06b5c9944ea5d9b29271a1f05cf6f23115ec45299640129c256d8"
   },
   {
     "path": "js/common.js",
@@ -120,19 +120,24 @@
     "sha256": "308189115141a9e97c3fcc2727de375a16f7873d8430eaadbd8afbdb27052526"
   },
   {
+    "path": "js/incident.js",
+    "bytes": 2089,
+    "sha256": "9c35ca4003641848e7b5d5bfec9b9bfbe6a8dffb52dc82f13d4a7a3298435c6d"
+  },
+  {
     "path": "launch.html",
     "bytes": 7445,
     "sha256": "4c38008c9d5be9d90668baa9e84ad7a983586a459cd587a87515a693f4d1a2eb"
   },
   {
     "path": "data/growth-os-evidence.json",
-    "bytes": 96983,
-    "sha256": "09117d14b6525f1389b08eef1873e4d4c7b46ebfa9fe8b73f9ad5ab1204acb3a"
+    "bytes": 102799,
+    "sha256": "6b0f8a717a1b127b2132cbaa0174bd9296d42d9bfb4c66788eef3dfa44e67d1d"
   },
   {
     "path": "reliability.html",
-    "bytes": 8122,
-    "sha256": "8a1d04653810db2910abb9ba9ed5331a5772f6d948390ff90dcd11e102594eba"
+    "bytes": 12865,
+    "sha256": "b1039d67f218b481a7c4d5ec2b4ef955f0a694698b92299154b01858a441650b"
   },
   {
     "path": "security.html",
@@ -141,13 +146,13 @@
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 213489,
-    "sha256": "54a223c04b4a792e72196aa170f97c15569add09b1d966237a2399dd602737fc"
+    "bytes": 225797,
+    "sha256": "236a8a71794268e29c5a7df13cd545ae33b35624e21b85371fded38c82ba7062"
   },
   {
     "path": "data/release-gate-report.json",
-    "bytes": 8530,
-    "sha256": "33488a24dea9f2e1c3baa6b235d455c344f9f8c728a36f8f9960f0d828161f0b"
+    "bytes": 10580,
+    "sha256": "7bc8a03b01d1640e71666c7661e74f75dffd16187c6bcf0208593ff65b9a5e84"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
