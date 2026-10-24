@@ -45,7 +45,7 @@ function gallery(){const bs=document.getElementById('lshot-btns'),img=document.g
 window.LaunchCase=async function(){gallery();const d=await load();if(!d||!d.launch){document.getElementById('main').insertAdjacentHTML('afterbegin','<p class="wrap note">Evidence unavailable. Serve the folder over http.</p>');return}
   const L=d.launch,mk=L.mutants.filter(m=>m.killed).length,leads=L.suppliers.real_leads;
   document.getElementById('k-launch').innerHTML=[[mk+'/'+L.mutants.length,'launch mutants caught'],[leads.length+' / 0','real supplier leads / verified'],['0','orders placed or suppliers contacted'],[L.agent_mode==='engine_offline_heuristic'?'offline':'—','agent provider (not a language model)']].map(([n,l])=>`<div class="kpi"><div class="big-n">${n}<small>${l}</small></div></div>`).join('');
-  document.getElementById('commit').textContent=`Recorded at NASHA local commit ${d.commit} (not pushed).`;
+  document.getElementById('commit').textContent=`Recorded from engineering commit ${d.commit}; evidence files are copied from that repository.`;
   document.getElementById('lmut').innerHTML=L.mutants.map(m=>`<li class="${m.killed?'':'live'}"><b>${m.killed?'CAUGHT':'SURVIVED'}</b>${esc(m.mutant)}</li>`).join('');
   const S=steps({...L,audit_guard:d.audit_guard,note:L.note}),list=document.getElementById('lsteps'),panel=document.getElementById('lpanel');
   list.innerHTML=S.map((s,i)=>`<li><button data-i="${i}" aria-pressed="${i===0}"><b>${String(i+1).padStart(2,'0')}</b><span>${esc(s[0])}</span></button></li>`).join('');

@@ -6,8 +6,8 @@
   },
   {
     "path": "nasha.html",
-    "bytes": 14949,
-    "sha256": "ba2fcb991501683b7476d01db9c9fa0629c71f83052d1657b7a3d12035e5499c"
+    "bytes": 14986,
+    "sha256": "c8d505f59da86d5659d9137e9f2cd5998df88673f938eb2cbb1fb71ded57a4b4"
   },
   {
     "path": "ai-engineering.html",
@@ -106,8 +106,8 @@
   },
   {
     "path": "js/growth.js",
-    "bytes": 13854,
-    "sha256": "cf058ad078ab0938b3d8a5fc9d8d958de2e67fd3d35b821822f6e4e407a0e523"
+    "bytes": 13843,
+    "sha256": "30a5fcd5a4ccfd55d46f4b56e18379837c832980f677e701b9afec219bda3bc3"
   },
   {
     "path": "growthos.html",
@@ -116,8 +116,8 @@
   },
   {
     "path": "js/launch.js",
-    "bytes": 14229,
-    "sha256": "b10501d7ba5d6b4d6cebf1f58809f9e2399a35d9a31a831cf7e97042293b2bc8"
+    "bytes": 14266,
+    "sha256": "29fc09ec568b83bc80337de05af377738f036f524be24b399c868dbda42ec5a1"
   },
   {
     "path": "js/incident.js",

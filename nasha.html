@@ -104,7 +104,7 @@
       <li><span class="chip">Not integrated</span><span>My Production AI Agent Platform is a separate repository. NASHA reuses ideas and adapted code from it; it does not import or run on it.</span></li>
       <li><span class="chip">Architectural only</span><span>Tenants share one process and code, plus the reference recipe files used to seed each scenario. There is no per-tenant recipe versioning.</span></li>
       <li><span class="chip">Synthetic</span><span>Sales, prices, quotes and anomalies are generated. The variance detector was scored against three injected anomalies, a small sample.</span></li>
-      <li><span class="chip">Local</span><span id="commitnote">The evidence comes from local commits that have not been pushed.</span></li></ul>
+      <li><span class="chip">Local</span><span id="commitnote">The evidence is generated from commits of the NASHA engineering repository; the commit is named below once the data loads.</span></li></ul>
   </div>
 </section>
 
@@ -130,7 +130,7 @@ addEventListener('DOMContentLoaded',async()=>{const m=document.querySelector('.m
  bars.innerHTML=Object.entries(e.by_category).map(([k,v])=>`<div class="bar"><span>${k}</span><i><b style="width:${100*v.pass/v.n}%"></b></i><span class="mono">${v.pass}/${v.n}</span></div>`).join('');
  document.getElementById('evalnote').textContent=e.caveat+' Result hash '+e.result_sha256+'.';
  const t=d.metrics.governed_workflow_tests;document.getElementById('mt').textContent=t.passed+' workflow tests passed, '+t.failed+' failed';document.getElementById('mp').textContent='Run when the evidence was exported ('+t.file+'): the happy path, fifteen failure and attack classes, security properties and tenant isolation. Median tool call '+d.measured.tool_ms_median+' ms (max '+d.measured.tool_ms_max+' ms) on the build machine.';
- document.getElementById('commitnote').textContent='Evidence generated from local commit '+d.repository.commit+' of the NASHA repository, which has not been pushed. Repository paths below are relative to that repository.';
+ document.getElementById('commitnote').textContent='Evidence generated from commit '+d.repository.commit+' of the NASHA engineering repository. Repository paths below are relative to that repository.';
  document.querySelector('#evtable tbody').innerHTML=d.architecture.nodes.map(n=>`<tr><td>${n.name}</td><td><span class="chip">${n.status.replace(/_/g,' ')}</span></td><td>${n.evidence.map(x=>'<code>'+x+'</code>').join('<br>')||'—'}</td><td>${n.tests.map(x=>'<code>'+x+'</code>').join('<br>')||'—'}</td></tr>`).join('')});
 </script>
 </body></html>

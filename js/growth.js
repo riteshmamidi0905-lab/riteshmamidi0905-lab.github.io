@@ -73,6 +73,6 @@ function gallery(){
   function show(i){const s=SHOTS[i];bs.querySelectorAll('.fbtn').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));img.src='assets/growth/'+s[0]+'.webp';img.alt='Growth OS screen: '+s[1]+' (synthetic demo data)';cap.textContent=s[2]+' Synthetic demo tenant.'}
   bs.addEventListener('click',e=>{const b=e.target.closest('.fbtn');if(b)show(+b.dataset.i)});show(0)}
 window.GrowthCase=async function(){const d=await load();if(!d){document.getElementById('main').insertAdjacentHTML('afterbegin','<p class="wrap note">Evidence unavailable. Serve the folder over http.</p>');return}
-  document.getElementById('commit').textContent=`Recorded at NASHA local commit ${d.commit} (not pushed), PostgreSQL ${d.postgres}.`;
+  document.getElementById('commit').textContent=`Recorded from engineering commit ${d.commit}, PostgreSQL ${d.postgres}.`;
   board(d);replay(d);refusals(d);gallery();oracle(d);stages(d);isolation(d);mutants(d)};
 })();
