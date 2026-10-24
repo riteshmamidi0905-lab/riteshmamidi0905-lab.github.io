@@ -69,6 +69,8 @@ with sync_playwright() as p:
     pg.focus("#srcbtn"); pg.keyboard.press("Enter"); on = pg.evaluate("document.body.classList.contains('show-src')")
     add("reliability: Show sources toggles provenance with the keyboard", on)
     add("reliability: every rendered metric has a source pointer", pg.evaluate("[...document.querySelectorAll('.mv')].every(e=>e.dataset.src&&e.dataset.src.includes('#'))"), "")
+    gh = pg.evaluate("document.getElementById('ghd').textContent")
+    add("reliability: the gate header reports REQUIRES REVIEW and the recorded remote CI result (lab-ci #139 passed), not the stale NOT_RUN", "REQUIRES REVIEW" in gh and "PASSED" in gh and "run #139" in gh and "NOT_RUN" not in gh and "not claimed" not in gh.lower(), gh[:160])
     add("reliability: audit-incident panel renders three recorded figures", pg.evaluate("document.querySelectorAll('#inc-kpis .kpi').length") == 3)
     add("reliability: audit-incident timelines are real tables with captions and column headers", pg.evaluate("[...document.querySelectorAll('#incident table.tl')].length==2&&[...document.querySelectorAll('#incident table.tl')].every(t=>t.caption&&t.querySelectorAll('thead th[scope=col]').length==3)"))
     pg.focus("#incident summary"); pg.keyboard.press("Enter"); add("reliability: engineering detail opens from the keyboard", pg.evaluate("document.querySelector('#incident details').open"))

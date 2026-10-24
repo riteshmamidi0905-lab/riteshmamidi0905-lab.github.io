@@ -1,6 +1,11 @@
 /* Reliability and security dashboards. Every number comes from data.dashboards.metrics (claims with a recorded source); this script renders only those and, in "show sources" mode, prints each source pointer.
    It computes nothing about the system: ratios are formatted, never derived. Recorded SYNTHETIC scenarios, not real incidents. */
 (()=>{'use strict';
+window.__RCI=window.__RCI||null;
+function remoteNote(rep){const c=window.__RCI;if(!c||!c.runs||!c.runs.length)return `Remote CI: <b>${esc(rep.remote_ci)}</b> — ${esc(rep.remote_ci_note)}`;
+  const r=c.runs[c.runs.length-1],ok=r.conclusion==='success'&&Object.values(r.jobs).every(v=>v==='success');
+  return `Remote CI: <b>${ok?'PASSED':'NOT PASSED'}</b> — GitHub Actions lab-ci run #${esc(r.run_number)} on commit ${esc(r.head_sha.slice(0,7))} (${Object.entries(r.jobs).map(([k,v])=>esc(k)+' '+esc(v)).join(', ')}); recorded from the run itself, separately from the local release gate, which does not read it.`}
+
 const esc=s=>String(s==null?'—':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let MAP={};
 const V=id=>{const m=MAP[id];if(!m)throw new Error('missing metric '+id);return m.value};
@@ -37,7 +42,7 @@ function reliability(d,gate){
 }
 function renderGate(rep){const gt=document.getElementById('gates'),hd=document.getElementById('ghd');if(!gt)return;
   if(!rep){gt.innerHTML='<li data-s="REQUIRES_REVIEW"><b>UNAVAILABLE</b><span>Release-gate report not loaded.</span></li>';return}
-  hd.innerHTML=`<strong class="${rep.overall==='PASS'?'PP':rep.overall==='FAIL'?'FF':'RR'}">${esc(rep.overall.replace('_',' '))}</strong><span class="note">Local run at ${esc(rep.evidence_commit)}. Remote CI: <b>${esc(rep.remote_ci)}</b> — ${esc(rep.remote_ci_note)}</span>`;
+  hd.innerHTML=`<strong class="${rep.overall==='PASS'?'PP':rep.overall==='FAIL'?'FF':'RR'}">${esc(rep.overall.replace('_',' '))}</strong><span class="note">Local run at ${esc(rep.evidence_commit)}. ${remoteNote(rep)}</span>`;
   gt.innerHTML=Object.entries(rep.gates).map(([k,v])=>`<li data-s="${v.status}"><b>${v.status==='REQUIRES_REVIEW'?'REVIEW':v.status}</b><strong>${esc(k.replace(/_/g,' '))}</strong><span>${esc(v.detail.length>170?v.detail.slice(0,167)+'…':v.detail)}</span></li>`).join('')}
 const LAYER={unauthorised_role_blocked:'THE WEIR policy (role has no write tool)',cross_tenant_blocked:'Identity: another tenant’s signature',expired_approval:'Approval expiry',modified_after_approval:'Call-bound approval (hash mismatch)',replayed_approval_and_duplicate_request:'Single-use approval + idempotency',malformed_agent_output:'Validation gate (abstain)',prompt_injection_in_supplier_note:'Untrusted label + validation gate',approved_draft_po:'Allowed path: human approval, draft only'};
 function security(d){
@@ -67,6 +72,7 @@ window.Dashboards=async function(kind){
   D=await loadEvidence();if(!D||!D.dashboards){document.querySelector('main').insertAdjacentHTML('afterbegin','<p class="wrap note">Evidence file unavailable. Serve the folder over http.</p>');return}
   MAP=Object.fromEntries(D.dashboards.metrics.map(m=>[m.id,m]));
   let gate=null;try{const r=await fetch('data/release-gate-report.json');if(r.ok)gate=await r.json()}catch(e){}
+  try{const r=await fetch('data/remote-ci.json');if(r.ok)window.__RCI=await r.json()}catch(e){}
   srcToggle();(kind==='security'?security:reliability)(D,gate);
 };
 })();

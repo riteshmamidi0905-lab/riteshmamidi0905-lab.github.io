@@ -1,11 +1,11 @@
 """Validate the reviewed static release without regenerating its design."""
 from pathlib import Path
-import json,hashlib,re
+import json,re,hashlib
 from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==81
+assert len(manifest)==82
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -57,6 +57,7 @@ lc=gw['launch'];assert all(m['killed'] for m in lc['mutants']) and len(lc['mutan
 assert all(s['verification_status'] in ('synthetic_fixture','lead_unverified') and not s['website_verified'] and s['contact']=='none recorded' for s in lc['walkthrough']['suppliers']) and lc['suppliers']['external_verification']=='INCOMPLETE','no supplier may be shown as verified'
 assert lc['audit']['rows']==1 and lc['audit']['approval_matches'] is True and 'fusion' not in json.dumps(lc).lower()
 m4=gw['m4'];assert m4['journey']['all_steps_ok'] is True and len(m4['journey']['steps'])==12 and m4['runtime']['model_backed_run_recorded'] is False and m4['runtime']['paid_provider_permitted'] is False and m4['boundary']['metrics']['false_accepts']==0 and m4['boundary']['metrics']['exact']==m4['boundary']['metrics']['cases']>=25 and all(x['killed'] for sec in ('boundary','supplier','finance') for x in m4[sec]['mutants']) and m4['supplier']['metrics']['dedupe']['false_positive']==0 and all(c['ok'] for c in m4['finance']['cases']) and not [c for c in m4['journey']['supplier_cards'] if c['official_website_verified']] and 'fusion' not in json.dumps(m4).lower(),'milestone 4 evidence invariants'
+rc=json.loads((root/'data/remote-ci.json').read_text());assert rc['schema']=='remote-ci/1' and rc['runs'] and all(re.fullmatch(r'[0-9a-f]{40}',r['head_sha']) and r['conclusion']=='success' and r['jobs'] and all(v=='success' for v in r['jobs'].values()) and r['url'].startswith('https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/') for r in rc['runs']) and any(r['head_sha']==rc['tested_source_commit'] for r in rc['runs']) and gw['commit'] in [r['head_sha'][:7] for r in rc['runs']]+[rc['tested_source_commit'][:7]],'recorded remote CI results'
 m5=gw['m5'];e5=m5['evaluations'];assert m5['journey']['all_steps_ok'] is True and len(m5['journey']['steps'])==9 and m5['model']['model_execution_recorded'] is False and m5['supplier_research']['verified_from_primary_page']==0 and sum(m5['supplier_research']['evidence_tiers'].values())==m5['supplier_research']['suppliers']>=5 and m5['authorization']['summary']['correct']==m5['authorization']['summary']['checks'] and all(x['killed'] for x in m5['authorization']['mutants']) and all(x['killed'] for x in e5['generalisation']['mutants']) and e5['financial']['held_out']['correct']==e5['financial']['held_out']['cases'] and e5['supplier']['held_out']['dedupe']['false_positive']==0 and m5['architecture']['tables_used_by_both_businesses']>=15 and 'fusion' not in json.dumps(m5).lower() and 'verified_public' not in json.dumps(m5['supplier_research']),'milestone 5 evidence invariants'
 inc=gw['incident'];assert inc['dirty_code'] is False and all(r['returncode']!=0 and r['failed_tests'] for r in inc['before_fix']['runs']) and inc['after_fix']['passed_runs']==inc['after_fix']['repeats']>=10 and 'audit_log_pkey' in inc['original_failure']['postgres_error'] and len(inc['limitations'])>=3,'audit incident evidence invariants'
 print('PASS: 58 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six index rows, reduced-motion stylesheets, evidence-file invariants')

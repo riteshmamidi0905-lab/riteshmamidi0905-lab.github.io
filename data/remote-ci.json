@@ -1,0 +1,14 @@
+{
+  "schema": "remote-ci/1",
+  "repository": "riteshmamidi0905-lab/INDO-MEX-BREWERY",
+  "workflow": "lab-ci",
+  "branch": "career/master-directive-phase0",
+  "source": "Recorded from the GitHub Actions run pages and job lists (not computed by the local release gate, which does not read remote results).",
+  "tested_source_commit": "67e356f0eb4feceea3b0da28842825d84c0be102",
+  "runs": [
+    {"run_number": 138, "id": 40065582586, "url": "https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/40065582586", "head_sha": "67e356f0eb4feceea3b0da28842825d84c0be102", "conclusion": "success", "jobs": {"test": "success", "docker": "success"}, "tests": {"passed": 918, "failed": 0, "skipped": 2}, "note": "the tested source: the run whose tree the engineering evidence was collected from"},
+    {"run_number": 139, "id": 40069318557, "url": "https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/40069318557", "head_sha": "f47415351202581aa0915bc7a8f239e5d7e8ee1a", "conclusion": "success", "jobs": {"test": "success", "docker": "success"}, "note": "the evidence commit: identical gated source tree, regenerated evidence files"}
+  ],
+  "skips": ["tests/test_growth_model_live.py: no local model runtime reachable", "tests/test_llm_planner.py: no local model runtime reachable"],
+  "evaluation_and_reproducibility_steps": "all five post-test steps (ops AI evaluation, warehouse rebuild identity, Block-1 data-quality, planner, retrieval) passed in both runs"
+}
