@@ -231,8 +231,8 @@
  },
  "m4_screens": {
   "source": "live application served by `python -m nasha_lab.growth.demo` on 127.0.0.1:8765 (synthetic tenants)",
-  "lab_commit": "1e2c661",
-  "captured_at": "2026-10-23T20:46:04.080769Z",
+  "lab_commit": "4f78200",
+  "captured_at": "2026-10-24T00:37:47.606896Z",
   "screens": [
    {
     "file": "m4-business-journey.webp",
@@ -323,6 +323,113 @@
      844
     ],
     "h1": "Financial Plan"
+   }
+  ]
+ },
+ "m5_screens": {
+  "source": "live application served by `python -m nasha_lab.growth.demo` on 127.0.0.1:8765 (synthetic tenants)",
+  "lab_commit": "4f78200",
+  "captured_at": "2026-10-24T00:38:35.100542Z",
+  "screens": [
+   {
+    "file": "m5-fit-business.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "My Business",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-fit-requirements.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "My Business",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-fit-procurement.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Procurement: Second studio location",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-fit-financial.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Financial Plan",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-fit-suppliers.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Suppliers",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-nasha-suppliers.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "Suppliers",
+    "workspace": "NASHA \u2014 The Courtyard (synthetic hospitality brand)"
+   },
+   {
+    "file": "m5-workspace-switch.webp",
+    "view": "business",
+    "size": [
+     1440,
+     900
+    ],
+    "h1": "My Business",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-tablet-business.webp",
+    "view": "business",
+    "size": [
+     820,
+     1100
+    ],
+    "h1": "My Business",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-mobile-business.webp",
+    "view": "business",
+    "size": [
+     390,
+     844
+    ],
+    "h1": "My Business",
+    "workspace": "Meridian Fitness (synthetic studio)"
+   },
+   {
+    "file": "m5-mobile-suppliers.webp",
+    "view": "business",
+    "size": [
+     390,
+     844
+    ],
+    "h1": "Suppliers",
+    "workspace": "Meridian Fitness (synthetic studio)"
    }
   ]
  }

@@ -126,18 +126,23 @@
   },
   {
     "path": "js/journey.js",
-    "bytes": 10055,
-    "sha256": "ce4d57fed2107d27af1a30b3115a4c1fd2ddf905931c49e535104f2f90d9e3f9"
+    "bytes": 10147,
+    "sha256": "b896f9358dff7276c2cd9ce40cbd8b3b2e3b4e05d102fd1dc17b5d7667277136"
+  },
+  {
+    "path": "js/twobiz.js",
+    "bytes": 8163,
+    "sha256": "5d4cb38df0e3a3eca416f4944ed94c142611b1d229c88080ba9599c18ec9ba53"
   },
   {
     "path": "launch.html",
-    "bytes": 12161,
-    "sha256": "2206a108561c76f1dff320cdc1744fcba983a136f3687ae9f8d98d3f5c7a140a"
+    "bytes": 13802,
+    "sha256": "c41d6c70799a259dd2cb1e9fc568056ddd017a55eee72029581c2c1b74c1fb08"
   },
   {
     "path": "data/growth-os-evidence.json",
-    "bytes": 129605,
-    "sha256": "19a762acec9d792ad8db08c0e2774ebb6dd8695b257b21798dca79c30947266f"
+    "bytes": 165088,
+    "sha256": "da801e2128762a020b79e6ca959d5314d5ba394b5f7a34aa4e2740ba1dcc3a00"
   },
   {
     "path": "reliability.html",
@@ -151,13 +156,13 @@
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 236472,
-    "sha256": "42b354c4919228b9276d259226a6c6b9c599be039413357e9299bce01ec106e4"
+    "bytes": 236469,
+    "sha256": "43b6128c444e35f97a13f128e2815a053fedcc9cdf9e4e10e241b283bfe88bd2"
   },
   {
     "path": "data/release-gate-report.json",
     "bytes": 12770,
-    "sha256": "63c17860b2a95baeb1a012f1c3dab80d9c577f68bbb70d033f1fa8f4727d22cc"
+    "sha256": "a2db686582b436f5fd3bdb207abb0ad61ad9668e735a6a2de1278bafaf8c0534"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
@@ -241,8 +246,8 @@
   },
   {
     "path": "assets/growth/m4-business-journey.webp",
-    "bytes": 49102,
-    "sha256": "5b1dcac46e13b8de318d38037126fb9a5b10d1c289a551df0b6b06df00b9781c"
+    "bytes": 49104,
+    "sha256": "9a0eb38fdf74afb433c4ab0650e055f11e7d52a15d85084bb1274fe70d85d2ba"
   },
   {
     "path": "assets/growth/m4-financial-formulas.webp",
@@ -251,13 +256,13 @@
   },
   {
     "path": "assets/growth/m4-financial-startup.webp",
-    "bytes": 62550,
-    "sha256": "e79f7676750e7126ad16b5be084e05cfe1fef9605459d04a8a917f28d055a1d4"
+    "bytes": 63314,
+    "sha256": "e8e9e24e5ad4f5052060996bd4f28488ad2a83e84a94968586a9cd77448aa51e"
   },
   {
     "path": "assets/growth/m4-history-engineering.webp",
-    "bytes": 63904,
-    "sha256": "c9e216954c28b4667a9cd93d768d9d2f5f2f32bfdc12a7b4643bdacee1d8db99"
+    "bytes": 65264,
+    "sha256": "a2431cf7e3fd0eea9ba6d0a45800c25bfb20d9ba9d2a5f875091ac4ca2b6ad1c"
   },
   {
     "path": "assets/growth/m4-mobile-business.webp",
@@ -266,28 +271,78 @@
   },
   {
     "path": "assets/growth/m4-mobile-financial.webp",
-    "bytes": 26140,
-    "sha256": "0e513986baf0b41e42f90d8a18277f81e07dfb4474361c14a03ee1b29aa8bb59"
+    "bytes": 25106,
+    "sha256": "1e49b3544ba7bc66c37c9e90810855e38d44ab51ca66b78b5522fcfe18beb83d"
   },
   {
     "path": "assets/growth/m4-mobile-suppliers.webp",
-    "bytes": 36902,
-    "sha256": "36f09ae789d679dfb87429d38f24ce159647d96b3deffce2df0a85880e34f916"
+    "bytes": 36020,
+    "sha256": "0accc9f7c814f874e2d3cdf09e281cb73697f5c9efd8ae892066d7dca280067d"
   },
   {
     "path": "assets/growth/m4-procurement-research.webp",
-    "bytes": 87556,
-    "sha256": "f4ebec60e80b29598b048fcfab2c18306692ccefd53fcf83022bc5affa152958"
+    "bytes": 88014,
+    "sha256": "871384f906bca87966eeb67fad5385575b90a90182754a6efcf11251c4be63dd"
   },
   {
     "path": "assets/growth/m4-supplier-sources.webp",
-    "bytes": 78276,
-    "sha256": "cf2d9ea487c566bb51b5b52d04f99b85da22f0a7034bd9036a8459f90344078f"
+    "bytes": 69612,
+    "sha256": "6fbe7e091a9db0cd8a83c2ae7ad418da9c629e07467370efeba2ead42580b4d9"
   },
   {
     "path": "assets/growth/m4-suppliers-compare.webp",
-    "bytes": 81848,
-    "sha256": "ce1a161efb7e2d091631fc47830481082b0cb4dd0f360da3b14721f557f05600"
+    "bytes": 81096,
+    "sha256": "8ec9995c978f0df931ff6d707c6f80fe502389d1cffd24ab54fedac1d8564dc3"
+  },
+  {
+    "path": "assets/growth/m5-fit-business.webp",
+    "bytes": 47102,
+    "sha256": "8479bf473239e91845035ce80551769de341977db8ca7794d5141126608aabb3"
+  },
+  {
+    "path": "assets/growth/m5-fit-financial.webp",
+    "bytes": 59794,
+    "sha256": "b34a50ed5bbb6d44ef0f9da4366cbbb8a247ed2568c279c4702d587997b2557d"
+  },
+  {
+    "path": "assets/growth/m5-fit-procurement.webp",
+    "bytes": 91102,
+    "sha256": "ae377b495ac10dd7b671d0fc1c602025f1bbbc1868de5e6a5782877e8340d992"
+  },
+  {
+    "path": "assets/growth/m5-fit-requirements.webp",
+    "bytes": 60754,
+    "sha256": "d245301fc1e441c475fb585972a5397330fe31b855fc7437bd3fab99750bd26b"
+  },
+  {
+    "path": "assets/growth/m5-fit-suppliers.webp",
+    "bytes": 56506,
+    "sha256": "fdb4f2605a500897e736513e1601a153af4cb7024f4ddbd81c13bc111478c0c2"
+  },
+  {
+    "path": "assets/growth/m5-mobile-business.webp",
+    "bytes": 19180,
+    "sha256": "099b00bcdc475a2cdb925411413fd3270feabde619330ab23ed0ff2732dfc996"
+  },
+  {
+    "path": "assets/growth/m5-mobile-suppliers.webp",
+    "bytes": 29102,
+    "sha256": "f9843b9cc10bf4ecb5ff398bd5e6efc82ec9d2aa8779d9a39ad74394dec3a670"
+  },
+  {
+    "path": "assets/growth/m5-nasha-suppliers.webp",
+    "bytes": 69612,
+    "sha256": "6fbe7e091a9db0cd8a83c2ae7ad418da9c629e07467370efeba2ead42580b4d9"
+  },
+  {
+    "path": "assets/growth/m5-tablet-business.webp",
+    "bytes": 37006,
+    "sha256": "c6f785d99920a9680cbe6d2726845e8bc825207a493976474f136303bd85ee5c"
+  },
+  {
+    "path": "assets/growth/m5-workspace-switch.webp",
+    "bytes": 61348,
+    "sha256": "61f803dbc81711048bdc2cb0999e56b12d6e3e2fa0e63230d7e1144bb867f5eb"
   },
   {
     "path": "assets/growth/pipeline.webp",

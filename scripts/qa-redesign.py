@@ -127,6 +127,22 @@ with sync_playwright() as p:
     pg.evaluate("document.querySelectorAll('#phones img').forEach(i=>{i.loading='eager'})"); pg.wait_for_timeout(600)
     add("launch m4: the phone captures decode", pg.evaluate("[...document.querySelectorAll('#phones img')].every(i=>i.complete&&i.naturalWidth>0)"))
     add("launch m4: the page keeps its positioning (no cultural-fusion wording; NASHA shown as the flagship hospitality launch case study)", "fusion" not in pg.evaluate("document.body.innerText").lower() and "Flagship Hospitality Launch Case Study" in pg.evaluate("document.body.innerText"))
+    # Milestone 5: one architecture, two businesses
+    add("launch m5: the studio journey has nine keyboard-operable steps, all recorded and checked", pg.evaluate("document.querySelectorAll('#bz-steps button').length") == 9 and pg.evaluate("document.querySelector('#bz-panel').textContent.includes('Recorded and checked')"))
+    pg.focus("#bz-steps li:nth-child(4) button"); pg.keyboard.press("Enter")
+    tb = pg.evaluate("document.querySelector('#bz-panel').textContent")
+    add("launch m5: the studio recommendation step says no recipe is used and names where needs came from", "No recipe is used" in tb and "requirements" in tb.lower())
+    sh = pg.evaluate("document.querySelector('#bz-shared').textContent")
+    add("launch m5: shared architecture lists shared code paths, tables and the configuration-only differences", "Shared" in sh and "Differs" in sh and pg.evaluate("document.querySelectorAll('#bz-shared tbody tr').length") >= 10)
+    sp = pg.evaluate("document.querySelector('#bz-suppliers').textContent")
+    add("launch m5: supplier research shows zero verified from a primary page and every evidence tier", "verified from a primary page" in sp and "Official page opened and read" in sp and "Directory, press or encyclopedia" in sp and pg.evaluate("document.querySelector('#bz-suppliers .kpi .big-n').textContent") == "12")
+    ev = pg.evaluate("document.querySelector('#bz-eval').textContent")
+    add("launch m5: development and held-out evaluations are shown side by side, with the held-out misses listed", "Held-out set" in ev and "Development set" in ev and "Not detected as the same business" in ev)
+    add("launch m5: the authorisation mutants are all caught", pg.evaluate("document.querySelectorAll('#bz-authz details li').length") == 6 and "SURVIVED" not in pg.evaluate("document.querySelector('#bz-authz').textContent"))
+    md = pg.evaluate("document.querySelector('#bz-model').textContent")
+    add("launch m5: model status states that no language model has run and names the decision needed", "No language model has run" in md and "huggingface.co" in md)
+    pg.evaluate("document.querySelectorAll('#bz-shots img').forEach(i=>{i.loading='eager'})"); pg.wait_for_timeout(700)
+    add("launch m5: captures decode and carry descriptive alt text", pg.evaluate("[...document.querySelectorAll('#bz-shots img')].length") == 3 and pg.evaluate("[...document.querySelectorAll('#bz-shots img')].every(i=>i.complete&&i.naturalWidth>0&&i.alt.length>30)"))
     pg.goto(BASE + "growthos.html", wait_until="networkidle")
     bad = []
     for i in range(pg.evaluate("document.querySelectorAll('#shot-btns .fbtn').length")):
