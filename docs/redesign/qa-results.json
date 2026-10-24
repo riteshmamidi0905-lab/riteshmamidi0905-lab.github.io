@@ -977,9 +977,9 @@
    "detail": ""
   },
   {
-   "check": "reliability: the gate header reports REQUIRES REVIEW and the recorded remote CI result (lab-ci #139 passed), not the stale NOT_RUN",
+   "check": "reliability: the gate header reports REQUIRES REVIEW and the recorded remote CI result (latest lab-ci run passed), not the stale NOT_RUN",
    "pass": true,
-   "detail": "REQUIRES REVIEWLocal run at 67e356f. Remote CI: PASSED \u2014 GitHub Actions lab-ci run #139 on commit f474153 (test success, docker success); recorded from the run "
+   "detail": "REQUIRES REVIEWLocal run at 77d15b0. Remote CI: PASSED \u2014 GitHub Actions lab-ci run #140 on commit 62cfb10 (test success, docker success); recorded from the run "
   },
   {
    "check": "reliability: audit-incident panel renders three recorded figures",
@@ -1132,6 +1132,11 @@
    "detail": ""
   },
   {
+   "check": "launch m5: the reproducibility panel shows zero ordering/outcome differences after the fix, one canonical hash across four exports, and says raw ids and times still differ",
+   "pass": true,
+   "detail": "14ordering, outcome or unexplained differences BEFORE the fix, summed over the three comparisons of four exports0such differences AFTER the fix (four fresh exports each)1 / 1distinct canonical hashes "
+  },
+  {
    "check": "launch m5: model status states that no language model has run and names the decision needed",
    "pass": true,
    "detail": ""
@@ -1164,7 +1169,7 @@
   {
    "check": "index.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1272 ms"
+   "detail": "1288 ms"
   },
   {
    "check": "index.html slow network: CLS <= 0.1",
@@ -1179,7 +1184,7 @@
   {
    "check": "nasha.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1080 ms"
+   "detail": "1108 ms"
   },
   {
    "check": "nasha.html slow network: CLS <= 0.1",
@@ -1194,7 +1199,7 @@
   {
    "check": "recruiter.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "968 ms"
+   "detail": "1000 ms"
   },
   {
    "check": "recruiter.html slow network: CLS <= 0.1",
@@ -1209,7 +1214,7 @@
   {
    "check": "reliability.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1000 ms"
+   "detail": "1008 ms"
   },
   {
    "check": "reliability.html slow network: CLS <= 0.1",
@@ -1224,7 +1229,7 @@
   {
    "check": "security.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "992 ms"
+   "detail": "1008 ms"
   },
   {
    "check": "security.html slow network: CLS <= 0.1",
@@ -1239,7 +1244,7 @@
   {
    "check": "growthos.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "980 ms"
+   "detail": "1040 ms"
   },
   {
    "check": "growthos.html slow network: CLS <= 0.1",
@@ -1254,7 +1259,7 @@
   {
    "check": "launch.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1112 ms"
+   "detail": "1108 ms"
   },
   {
    "check": "launch.html slow network: CLS <= 0.1",
@@ -1264,12 +1269,12 @@
   {
    "check": "launch.html: JavaScript <= 40 KB, CSS <= 45 KB (uncompressed, served by python http.server)",
    "pass": true,
-   "detail": "js 34350 css 40443"
+   "detail": "js 36216 css 40443"
   },
   {
    "check": "projects.html slow network: LCP <= 2500 ms",
    "pass": true,
-   "detail": "1144 ms"
+   "detail": "1060 ms"
   },
   {
    "check": "projects.html slow network: CLS <= 0.1",
@@ -1523,88 +1528,88 @@
  "metrics": {
   "index.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1272,
+   "lcp_ms": 1288,
    "cls": 0,
-   "dom_content_loaded_ms": 1141,
-   "load_ms": 1713,
+   "dom_content_loaded_ms": 1156,
+   "load_ms": 1724,
    "js_bytes": 11692,
    "css_bytes": 40443,
-   "total_bytes": 401272
+   "total_bytes": 401818
   },
   "nasha.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1080,
+   "lcp_ms": 1108,
    "cls": 0,
-   "dom_content_loaded_ms": 924,
-   "load_ms": 1530,
+   "dom_content_loaded_ms": 920,
+   "load_ms": 1523,
    "js_bytes": 24676,
    "css_bytes": 40443,
-   "total_bytes": 419705
+   "total_bytes": 421645
   },
   "recruiter.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 968,
+   "lcp_ms": 1000,
    "cls": 0,
-   "dom_content_loaded_ms": 806,
-   "load_ms": 1217,
+   "dom_content_loaded_ms": 819,
+   "load_ms": 1211,
    "js_bytes": 1774,
    "css_bytes": 40443,
    "total_bytes": 139623
   },
   "reliability.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1000,
+   "lcp_ms": 1008,
    "cls": 0.0359,
-   "dom_content_loaded_ms": 885,
-   "load_ms": 1671,
+   "dom_content_loaded_ms": 879,
+   "load_ms": 1670,
    "js_bytes": 14770,
    "css_bytes": 40443,
-   "total_bytes": 572723
+   "total_bytes": 575258
   },
   "security.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 992,
+   "lcp_ms": 1008,
    "cls": 0,
-   "dom_content_loaded_ms": 852,
-   "load_ms": 1502,
+   "dom_content_loaded_ms": 855,
+   "load_ms": 1507,
    "js_bytes": 12681,
    "css_bytes": 40443,
-   "total_bytes": 398622
+   "total_bytes": 400562
   },
   "growthos.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 980,
+   "lcp_ms": 1040,
    "cls": 0,
-   "dom_content_loaded_ms": 829,
-   "load_ms": 1409,
+   "dom_content_loaded_ms": 869,
+   "load_ms": 1470,
    "js_bytes": 15617,
    "css_bytes": 40443,
-   "total_bytes": 392675
+   "total_bytes": 393270
   },
   "launch.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1112,
+   "lcp_ms": 1108,
    "cls": 0,
-   "dom_content_loaded_ms": 958,
-   "load_ms": 2004,
-   "js_bytes": 34350,
+   "dom_content_loaded_ms": 967,
+   "load_ms": 2010,
+   "js_bytes": 36216,
    "css_bytes": 40443,
-   "total_bytes": 743376
+   "total_bytes": 754720
   },
   "projects.html": {
    "profile": "mobile 390x844, 150 ms RTT, 1.6 Mbps down, 4x CPU slowdown (emulated)",
-   "lcp_ms": 1144,
+   "lcp_ms": 1060,
    "cls": 0,
-   "dom_content_loaded_ms": 782,
-   "load_ms": 1378,
+   "dom_content_loaded_ms": 795,
+   "load_ms": 1316,
    "js_bytes": 2805,
    "css_bytes": 40443,
    "total_bytes": 170899
   }
  },
  "summary": {
-  "checks": 256,
-  "passed": 256,
+  "checks": 257,
+  "passed": 257,
   "failed": []
  }
 }

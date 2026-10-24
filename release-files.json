@@ -131,18 +131,18 @@
   },
   {
     "path": "js/twobiz.js",
-    "bytes": 8163,
-    "sha256": "5d4cb38df0e3a3eca416f4944ed94c142611b1d229c88080ba9599c18ec9ba53"
+    "bytes": 10029,
+    "sha256": "8a7ac87c25840caad889c433cddfd72400301a72f632a6a4dd6eabc6c976dd32"
   },
   {
     "path": "launch.html",
-    "bytes": 13802,
-    "sha256": "c41d6c70799a259dd2cb1e9fc568056ddd017a55eee72029581c2c1b74c1fb08"
+    "bytes": 13934,
+    "sha256": "eed0740edf0ea5795edbb314d3353a4fe3780c6a829e029456197cc225793a66"
   },
   {
     "path": "data/growth-os-evidence.json",
-    "bytes": 164992,
-    "sha256": "5c161606cc8991fce792405144db80c3350bfd17b5026a07f5cd2c7c1553dbc6"
+    "bytes": 165587,
+    "sha256": "6dd2285b899ecf24df2e7a8c4efe29257a1222fb074202b23a744b97c8744fbc"
   },
   {
     "path": "reliability.html",
@@ -156,18 +156,23 @@
   },
   {
     "path": "data/nasha-governed-evidence.json",
-    "bytes": 236459,
-    "sha256": "a7930b55c66f79745e8ddc6a877bbfe5a306cfa66af1fba3a5142668814ddb81"
+    "bytes": 237005,
+    "sha256": "92eb4e6b2874fcd583b872523ef585946a9db663a0079621e74ec1ac11dd978b"
   },
   {
     "path": "data/release-gate-report.json",
     "bytes": 12770,
-    "sha256": "5addf385f80af499dde8152becd8a9238e23282c50bea617fc3a398c23e0fb31"
+    "sha256": "d66e95a076b75c7bcc381cf5766686e78ce3fdcc3ed0c28dabe87529fa41ded8"
   },
   {
     "path": "data/remote-ci.json",
-    "bytes": 1486,
-    "sha256": "bbedb257b526bb92cdb365a4ebb22d3a2c9841557173820081f722c253a27500"
+    "bytes": 2880,
+    "sha256": "497b1452973b83149501ab0b19a90e5979f055cc64e0acfac3584bd82324aabd"
+  },
+  {
+    "path": "data/evidence-determinism.json",
+    "bytes": 7561,
+    "sha256": "29285d77fcfe9cb7f9c2b9293e574a88fe9647c1339b770b2e381f9dc533a8b0"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",

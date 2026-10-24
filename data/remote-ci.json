@@ -4,11 +4,65 @@
   "workflow": "lab-ci",
   "branch": "career/master-directive-phase0",
   "source": "Recorded from the GitHub Actions run pages and job lists (not computed by the local release gate, which does not read remote results).",
-  "tested_source_commit": "67e356f0eb4feceea3b0da28842825d84c0be102",
+  "tested_source_commit": "77d15b00cbecd7f90257eb7802ac82ef58bb1837",
   "runs": [
-    {"run_number": 138, "id": 40065582586, "url": "https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/40065582586", "head_sha": "67e356f0eb4feceea3b0da28842825d84c0be102", "conclusion": "success", "jobs": {"test": "success", "docker": "success"}, "tests": {"passed": 918, "failed": 0, "skipped": 2}, "note": "the tested source: the run whose tree the engineering evidence was collected from"},
-    {"run_number": 139, "id": 40069318557, "url": "https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/40069318557", "head_sha": "f47415351202581aa0915bc7a8f239e5d7e8ee1a", "conclusion": "success", "jobs": {"test": "success", "docker": "success"}, "note": "the evidence commit: identical gated source tree, regenerated evidence files"}
+    {
+      "run_number": 138,
+      "id": 40065582586,
+      "url": "https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/40065582586",
+      "head_sha": "67e356f0eb4feceea3b0da28842825d84c0be102",
+      "conclusion": "success",
+      "jobs": {
+        "test": "success",
+        "docker": "success"
+      },
+      "tests": {
+        "passed": 918,
+        "failed": 0,
+        "skipped": 2
+      },
+      "note": "the tested source: the run whose tree the engineering evidence was collected from",
+      "historical": true,
+      "gated_source_commit": "67e356f0eb4feceea3b0da28842825d84c0be102"
+    },
+    {
+      "run_number": 139,
+      "id": 40069318557,
+      "url": "https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/40069318557",
+      "head_sha": "f47415351202581aa0915bc7a8f239e5d7e8ee1a",
+      "conclusion": "success",
+      "jobs": {
+        "test": "success",
+        "docker": "success"
+      },
+      "note": "the evidence commit: identical gated source tree, regenerated evidence files",
+      "historical": true,
+      "gated_source_commit": "f47415351202581aa0915bc7a8f239e5d7e8ee1a"
+    },
+    {
+      "run_number": 140,
+      "id": 40074425721,
+      "url": "https://github.com/riteshmamidi0905-lab/INDO-MEX-BREWERY/actions/runs/40074425721",
+      "head_sha": "62cfb106a72ae2a932519f04bb66ba4a1e6d29ad",
+      "conclusion": "success",
+      "jobs": {
+        "test": "success",
+        "docker": "success"
+      },
+      "tests": {
+        "passed": 935,
+        "failed": 0,
+        "skipped": 2
+      },
+      "note": "the evidence commit: gated source identical to the tested source 77d15b0 (evidence, docs and example workflow files added)",
+      "gated_source_commit": "77d15b00cbecd7f90257eb7802ac82ef58bb1837",
+      "gated_source_note": "the evidence commit adds only evidence, documentation and an example workflow; the gated source tree (lab/nasha_lab, lab/tests, gate script and config, requirements) is byte-identical to 77d15b0"
+    }
   ],
-  "skips": ["tests/test_growth_model_live.py: no local model runtime reachable", "tests/test_llm_planner.py: no local model runtime reachable"],
-  "evaluation_and_reproducibility_steps": "all five post-test steps (ops AI evaluation, warehouse rebuild identity, Block-1 data-quality, planner, retrieval) passed in both runs"
+  "skips": [
+    "tests/test_growth_model_live.py: no local model runtime reachable",
+    "tests/test_llm_planner.py: no local model runtime reachable"
+  ],
+  "evaluation_and_reproducibility_steps": "all five post-test steps (ops AI evaluation, warehouse rebuild identity, Block-1 data-quality, planner, retrieval) passed in both runs",
+  "history_note": "Runs #138 and #139 are kept as history (they tested the previous source, 67e356f); the latest run is the one displayed."
 }
