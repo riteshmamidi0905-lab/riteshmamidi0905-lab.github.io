@@ -18,7 +18,10 @@ const VARIANTS = [
   { name: 'tracking+0.04em', css: '*{letter-spacing:.04em !important}' },
   { name: 'tracking+0.08em', css: '*{letter-spacing:.08em !important}' },
 ];
-if (process.env.FONT_FILE) VARIANTS.push({ name: 'font-file:' + require('path').basename(process.env.FONT_FILE), css: '@font-face{font-family:RegressionFont;src:url(/__regression-font)}html,body,body *{font-family:RegressionFont,sans-serif !important}', file: process.env.FONT_FILE });
+if (process.env.FONT_FILE) {
+  const face = '@font-face{font-family:RegressionFont;src:url(/__regression-font)}html,body,body *{font-family:RegressionFont,sans-serif !important}', name = require('path').basename(process.env.FONT_FILE);
+  VARIANTS.push({ name: 'font-file:' + name, css: face, file: process.env.FONT_FILE }, { name: 'font-file+0.08em:' + name, css: face + '*{letter-spacing:.08em !important}', file: process.env.FONT_FILE });
+}
 // closing can hang in headless WebKit when many pages were opened; never let that block the run
 const safeClose = x => Promise.race([Promise.resolve().then(() => x.close()).catch(() => {}), new Promise(r => setTimeout(r, 8000))]);
 if (process.env.FONT_VARIANTS) { const keep = process.env.FONT_VARIANTS.split(','); for (let i = VARIANTS.length - 1; i >= 0; i--) if (!keep.some(k => VARIANTS[i].name.startsWith(k))) VARIANTS.splice(i, 1); }   // optional: run a subset (comma-separated name prefixes)
@@ -71,6 +74,30 @@ const report = { engine: engineName, base: BASE, cases: 0, failures: [], fonts: 
             }
           }
         }
+        // Shared header: the Demo role select. Its longest option ("Owner (all demo permissions)") must stay fully visible and inside the page,
+        // the label must stack above it on narrow screens, its name and description must survive, and the keyboard must still change the role.
+        await p.goto(BASE + '#/dashboard'); await p.waitForSelector('#view h1'); await p.waitForTimeout(60);
+        const hdr = await p.evaluate(() => {
+          const s = document.getElementById('role'), l = s.labels && s.labels[0], c = s.getBoundingClientRect(), vw = document.documentElement.clientWidth;
+          const probe = s.cloneNode(true); probe.removeAttribute('id'); probe.style.cssText = 'position:absolute;visibility:hidden;width:auto;min-width:0;max-width:none;left:0;top:0'; s.parentElement.appendChild(probe);
+          const needed = probe.getBoundingClientRect().width; probe.remove();   // the width at which the longest option shows in full
+          const d = document.getElementById(s.getAttribute('aria-describedby') || '');
+          return { left: Math.round(c.left), right: Math.round(c.right), vw, width: Math.round(c.width), needed: Math.round(needed), labelText: l ? l.textContent.trim().replace(/\s+/g, ' ') : null, described: !!(d && d.textContent.trim()), labelAbove: l && l.querySelector('span') ? l.querySelector('span').getBoundingClientRect().bottom <= c.top + 1 : null, longest: [...s.options].map(o => o.text).sort((a, b) => b.length - a.length)[0] };
+        });
+        report.cases++;
+        const hhere = `${v.name} role-select @${width}`;
+        if (hdr.left < 0 || hdr.right > hdr.vw + 0.5) report.failures.push({ case: hhere, kind: 'role-select-outside-viewport', ...hdr });
+        if (hdr.width < hdr.needed - 1) report.failures.push({ case: hhere, kind: 'role-select-longest-option-clipped', width: hdr.width, needed: hdr.needed, longest: hdr.longest });
+        if (!hdr.labelText || !/Demo role/.test(hdr.labelText) || !hdr.described) report.failures.push({ case: hhere, kind: 'role-select-name-or-description-missing', labelText: hdr.labelText, described: hdr.described });
+        if (width <= 480 && hdr.labelAbove !== true) report.failures.push({ case: hhere, kind: 'role-label-not-stacked-on-narrow-screen', labelAbove: hdr.labelAbove });
+        if (width === 320 || width === 1440) {
+          const before = await p.evaluate(() => { const s = document.getElementById('role'); s.focus(); return { focused: document.activeElement === s, value: s.value }; });
+          await p.keyboard.type('F'); await p.waitForTimeout(150);
+          const after = await p.evaluate(() => ({ value: document.getElementById('role').value, toast: (document.getElementById('toast') && !document.getElementById('toast').hidden) ? document.getElementById('toast').textContent : '', over: document.documentElement.scrollWidth - innerWidth }));
+          if (!before.focused || after.value !== 'FINANCE_APPROVER' || !/Finance Approver/.test(after.toast) || after.over > 0) report.failures.push({ case: hhere, kind: 'role-select-keyboard', before, after });
+          await p.selectOption('#role', 'OPS_MANAGER');
+        }
+        report.samples.push({ variant: v.name, width, roleSelect: { width: hdr.width, needed: hdr.needed } });
         if (engineName === 'chromium' && width === 390) {   // the font the engine actually painted with (not just the CSS stack)
           const cdp = await ctx.newCDPSession(p); await cdp.send('DOM.enable'); await cdp.send('CSS.enable');
           const doc = await cdp.send('DOM.getDocument'), node = await cdp.send('DOM.querySelector', { nodeId: doc.root.nodeId, selector: '#view p' });
