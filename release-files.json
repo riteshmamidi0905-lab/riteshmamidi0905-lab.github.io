@@ -1,33 +1,33 @@
 [
   {
     "path": "index.html",
-    "bytes": 12778,
-    "sha256": "21800a9e88c7a3277d24b6e11aae2afcb3775430417afe1503d5cbeb2480c81a"
+    "bytes": 29798,
+    "sha256": "96c9124688f56f010904c7c02bf627f7f6038ce84892f4f01fc2a803216c42a2"
   },
   {
     "path": "ai-engineering.html",
-    "bytes": 9114,
-    "sha256": "cacdb59a48783469df00a2c0299ecd351e00395579ea78572971317760f8d81f"
+    "bytes": 9460,
+    "sha256": "b40ec65bbd8e607f47fe9df16bfdb0a3379c4500da6a6fcde6e54a1744b96115"
   },
   {
     "path": "nasha-lab.html",
-    "bytes": 32889,
-    "sha256": "de90442df47e578ca5ad4f89c6100277afa9dd6791d8d76bbb22121da628d32c"
+    "bytes": 33239,
+    "sha256": "13778e9dd670ba49872b584bc96336592c8b343579e5dd0f14ce95d091cdc22f"
   },
   {
     "path": "projects.html",
-    "bytes": 39916,
-    "sha256": "f4deb630a9e583bbcd272d38aff02e33eba69f98afb3c4cf492ea855875fe3df"
+    "bytes": 40262,
+    "sha256": "74b905ecca5243aea53aef4c706947263c066db2e986329e3e45291a56c5bfaf"
   },
   {
     "path": "recruiter.html",
-    "bytes": 8609,
-    "sha256": "f5da67c1e455722018edd889455b8695368edf6407b69e986b189b6422622538"
+    "bytes": 8945,
+    "sha256": "562c68b3469599834305bf7b575fee192219e04c524bb8889cda021951eabf77"
   },
   {
     "path": "404.html",
-    "bytes": 571,
-    "sha256": "b8ee95001741b049cd5971c6d51a44f5a42ae4a1bd23e12d435f619c0d092781"
+    "bytes": 776,
+    "sha256": "6686cd90bba8d2f3291d49b7439bfe395ed1aead33703bbc7d8f7f1b511adacd"
   },
   {
     "path": "robots.txt",
@@ -36,8 +36,8 @@
   },
   {
     "path": "sitemap.xml",
-    "bytes": 473,
-    "sha256": "48f03edcf804f13c57dc0a6aa2bf8e609097eb30cc096eefd5619847d6e1b957"
+    "bytes": 1412,
+    "sha256": "81e34f0fc35f8701983e3c895b1802c12eb64ea2b7c6b1f19bed07d7d3e9e3ad"
   },
   {
     "path": "mark.svg",
@@ -93,5 +93,150 @@
     "path": "recovered/nasha-b666563/docs/nasha-ecosystem/ARCHITECTURE.md",
     "bytes": 4120,
     "sha256": "21719d0733dcd3ce0bf27c21a8e462857020171906decd61d2f8ccdd5aeadd5b"
+  },
+  {
+    "path": "lab-explorer.html",
+    "bytes": 42490,
+    "sha256": "dacaafeb1faa06e0e01dbcf5cad3a7341b261a15820293c0d45c3a0f78cc1b65"
+  },
+  {
+    "path": "verified-projects.html",
+    "bytes": 31065,
+    "sha256": "60bb8fb61cc79b9a31a4c9b647fd1639c456122327d8abf50183252e7687c4c0"
+  },
+  {
+    "path": "lab.css",
+    "bytes": 17030,
+    "sha256": "ba0f9001b3a5fb9ea1ba20fdde06f22302a21fa7ba50caa103d9f8d7a2610b2e"
+  },
+  {
+    "path": "lab.js",
+    "bytes": 5093,
+    "sha256": "674f706e9e17e34030ff89d8fa2871e473aecf30faa4a1961c807d140e1b7894"
+  },
+  {
+    "path": "data/lab.json",
+    "bytes": 19624,
+    "sha256": "e1dc7033e905ab27b2229705971cd755be822fbb161f6b5046835125186af354"
+  },
+  {
+    "path": "data/projects.json",
+    "bytes": 18769,
+    "sha256": "4fd4e201a365d5dbc9ee8ae5dc651047927e41049291e7ea6ffa7acdf0724110"
+  },
+  {
+    "path": "case-genai-doc-assistant.html",
+    "bytes": 14695,
+    "sha256": "9dc5d0b44b444c548631791ff2723a49c491f59870b91d61c98e129ba0acfd92"
+  },
+  {
+    "path": "case-llm-eval-framework.html",
+    "bytes": 15138,
+    "sha256": "83047bae06268b1208bae5e0e51357badd9e9ba732be6031b3eda3dfd23208ba"
+  },
+  {
+    "path": "case-mcp-weir.html",
+    "bytes": 14853,
+    "sha256": "4a7a752675370e4603bbc0a6d9dbe30e588b8faba681d362b9dfd2a8064d632c"
+  },
+  {
+    "path": "case-nasha-ai-lab-architecture.html",
+    "bytes": 14834,
+    "sha256": "d254ba97b93e3f7144959248e0487f5e926bf6450e0de0e92ae7cf0b30f1e999"
+  },
+  {
+    "path": "case-production-ai-agent-platform.html",
+    "bytes": 16941,
+    "sha256": "79b144cce01ad73d3b878715e67470b5c9b888a8dd922640e3400e8823341832"
+  },
+  {
+    "path": "case-studies.html",
+    "bytes": 6470,
+    "sha256": "219cca7c4eccae1d2c748e241332edf148142fb930a6757a62dfce44458d0776"
+  },
+  {
+    "path": "case-support-escalation-copilot.html",
+    "bytes": 16036,
+    "sha256": "d130bbd1dd79a33ac6968771a7b57a7ec5f59565e0963883c6f63c5739109120"
+  },
+  {
+    "path": "assets/img/cases/cs-agent-platform-ui.jpg",
+    "bytes": 107110,
+    "sha256": "60f9a169e5bd906601af81992ec723d3560b0b9776a467812dc8235f201bb9de"
+  },
+  {
+    "path": "assets/img/cases/cs-copilot-approval.jpg",
+    "bytes": 86503,
+    "sha256": "36a665c0df63ccc23bbfd05e61a514c3fe108d9023d12da6e97b988c02c50762"
+  },
+  {
+    "path": "assets/img/cases/cs-copilot-uncertain.jpg",
+    "bytes": 89735,
+    "sha256": "efa8e790bd26aad5d4007d06877a3f30c07cf376ae778720b03de9cfa5ec07de"
+  },
+  {
+    "path": "assets/img/cases/cs-genai-chat.jpg",
+    "bytes": 219918,
+    "sha256": "b57c21372dcb0b2aa298e028aeae266ef4beb31835cbae0a39be5ab141aba347"
+  },
+  {
+    "path": "assets/img/cases/cs-llm-eval-report.jpg",
+    "bytes": 170413,
+    "sha256": "a966305a91509544759dd6e9d65ffcc5539509abdf8081f3e66e4ce8aca382df"
+  },
+  {
+    "path": "assets/img/cases/cs-weir-flow.jpg",
+    "bytes": 162256,
+    "sha256": "133ae00ac72eeea89b1da96da3303dc2527999db69db06421260b846cf62d049"
+  },
+  {
+    "path": "data/cases.json",
+    "bytes": 33479,
+    "sha256": "3d4c6c7f619f57a07282cdea87d743fb6b68b12625a3f0abf55191ec299a06a0"
+  },
+  {
+    "path": "data/image-register.json",
+    "bytes": 3067,
+    "sha256": "0b69aed65747f95b7eec0a93d9cbf546288225d7dcb6a5def2efd2fa11da3eb1"
+  },
+  {
+    "path": "demo/index.html",
+    "bytes": 4583,
+    "sha256": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4"
+  },
+  {
+    "path": "demo/demo.css",
+    "bytes": 10772,
+    "sha256": "9cad0a2aae48cae93b929b96149cc8c653a42d0efa139d697bc01e5850fb97f2"
+  },
+  {
+    "path": "demo/data.js",
+    "bytes": 24450,
+    "sha256": "e6a24c8e0fbd0fd4298d398cf36d687977ba172fef05fcd7d64f5689ab8f2457"
+  },
+  {
+    "path": "demo/engine.js",
+    "bytes": 35690,
+    "sha256": "696a7033d52274d3d73aa26ca13611ec46234c91e49c6017438417749ad74d8f"
+  },
+  {
+    "path": "demo/app.js",
+    "bytes": 68603,
+    "sha256": "3a4f14adfcbb098257f645d1c586ece95f28fcdc2d6b596a86248a6b5bbf96f1"
+  },
+  {
+    "path": "data-lab.html",
+    "bytes": 52399,
+    "sha256": "7812655452baa43967f898c99d7e4741167f5eb41f3d0cb0fd13eda4208f9be0"
+  },
+  {
+    "path": "datalab.js",
+    "bytes": 8219,
+    "sha256": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636"
+  },
+  {
+    "path": "data/datalab/lab-data.json",
+    "bytes": 132160,
+    "sha256": "d115ef8c5cba42ba57e9e92d9b7f8c036def97b24f4650c3a92cae027c06e695"
   }
 ]
