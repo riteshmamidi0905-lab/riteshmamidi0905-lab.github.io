@@ -206,8 +206,8 @@
   },
   {
     "path": "demo/demo.css",
-    "bytes": 10772,
-    "sha256": "9cad0a2aae48cae93b929b96149cc8c653a42d0efa139d697bc01e5850fb97f2"
+    "bytes": 10857,
+    "sha256": "9032adee31a081a20d7b5a212d139303907feee58fdbc209c83a11e0b39f4a60"
   },
   {
     "path": "demo/data.js",
@@ -221,8 +221,8 @@
   },
   {
     "path": "demo/app.js",
-    "bytes": 68628,
-    "sha256": "4ecf47873e1da8e50dbfd2aa0aeeb63c0269811d7a2da3aeea2132d165c03f5f"
+    "bytes": 68648,
+    "sha256": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102"
   },
   {
     "path": "data-lab.html",

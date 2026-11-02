@@ -9,7 +9,8 @@
     "test:a11y": "node scripts/test-browser.cjs",
     "test:demo": "node scripts/test-demo-browser.cjs",
     "test:datalab": "node scripts/test-datalab-browser.cjs",
-    "test:paint": "node scripts/test-first-paint.cjs"
+    "test:paint": "node scripts/test-first-paint.cjs",
+    "test:fonts": "node scripts/test-demo-fallback-fonts.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
