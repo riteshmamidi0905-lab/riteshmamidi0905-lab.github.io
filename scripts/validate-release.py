@@ -60,7 +60,7 @@ cases=[c for c in cases if c.name!='case-studies.html']
 assert len(cases)==6,[c.name for c in cases]
 for c in cases:
  s=c.read_text()
- for need in ['Independent project','07 / LIMITATIONS','06 / RUN IT','05 / VERIFICATION','02 / ARCHITECTURE','github.com/riteshmamidi0905-lab/','data-nodes=']:
+ for need in ['Independent project','07 / LIMITATIONS','06 / RUN IT','05 / VERIFICATION','02 / ARCHITECTURE','data-nodes='] + ([] if c.name=='case-nasha-ai-lab-architecture.html' else ['github.com/riteshmamidi0905-lab/']):
   assert need in s,(c.name,need)
  assert not re.search(r'production[- ]ready|commercially operating',s,re.I),c.name
  assert re.search(r'<img [^>]*alt="[^"]{10,}"',s) or c.name=='case-nasha-ai-lab-architecture.html',c.name
@@ -81,6 +81,23 @@ for c in json.loads((root/'data/cases.json').read_text()):
   assert 'class="runbox"' in s and 'Copied from the project' in s and ('README' in r['where'] or 'docs/' in r['where']),('run block',c['slug'])
  else:
   assert 'class="runbox"' not in s and 'no public run command' in s,('no invented commands',c['slug'])
+# PUBLIC DISCLOSURE RULES (public-preview review): no internal programme identifiers, no new links to the business repository, no withheld-image records or placeholders, supported identity wording
+import os as _os
+PUBLIC_TEXT=[p for p in root.rglob('*') if p.is_file() and p.suffix in ('.html','.js','.css','.json','.py','.cjs','.sh','.xml','.yml') and not any(x in p.parts for x in ('node_modules','.git','work','recovered')) and p.name!='validate-release.py']
+_idre=re.compile(r'M-OPS-\d|DX-\d|Amendment 1\.3|m_ops_\d|_dx1_|REQUIRES_REVIEW|NO_GO|Cloud smoke')
+for p in PUBLIC_TEXT:
+ s=p.read_text(errors='ignore'); rel=p.relative_to(root).as_posix()
+ assert not _idre.search(s),('internal programme identifier in public file',rel)
+ if rel!='assets/js/nasha-ecosystem-core.js': assert 'INDO-MEX-BREWERY' not in s,('link to or name of the business repository',rel)  # one pre-existing live link is allow-listed
+ assert 'nasha-concept-court' not in s and 'PROVISIONAL-LOCAL-ONLY' not in s and 'Concept image withheld' not in s,('withheld-image record or placeholder in public file',rel)
+for r in json.loads((root/'data/image-register.json').read_text()): assert r['cleared_for_public_release'] is True and r['kind']=='screenshot',('public register may list cleared screenshots only',r['file'])
+_pr=_os.environ.get('NASHA_PRIVATE_DIR')
+if _pr:  # optional extra check on the maintainer's machine: nothing listed as uncleared in the private register may exist under assets/
+ for r in json.loads((Path(_pr)/'image-register.original.json').read_text()):
+  if not r['cleared_for_public_release']: assert not (root/r['file']).exists(),('withheld image present in the public build',r['file'])
+_rec=(root/'recruiter.html').read_text()
+assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'
+assert 'Apple client engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
 # FONT PRELOAD GUARD: both webfonts preloaded on every top-level page (prevents a measured font-swap layout shift)
 for pg in sorted(root.glob('*.html')):
  s=pg.read_text(); assert 'inter-latin.woff2" as="font"' in s and 'jetbrains-mono-latin.woff2" as="font"' in s,('font preload missing',pg.name)

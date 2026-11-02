@@ -1,19 +1,17 @@
 """Shared helpers for the generated pages. Concept images appear only when cleared for public release, or in an explicit local preview (ALLOW_PROVISIONAL_IMAGES=1)."""
 import html, json, os, shutil
 from pathlib import Path
-def concept_ok(root, f):
-    reg = {i["file"]: i for i in json.loads((root / "data/image-register.json").read_text())}
-    return reg[f]["cleared_for_public_release"] or os.environ.get("ALLOW_PROVISIONAL_IMAGES") == "1"
 def concept_figures(root, E):
-    """Concept images appear only when cleared for public release, or in an explicit local preview (ALLOW_PROVISIONAL_IMAGES=1). Otherwise a labelled placeholder is shown."""
+    """Concept images are NOT part of the public build: nothing is shown and no placeholder is emitted. A local-only preview is possible when NASHA_PRIVATE_DIR points at the private folder
+    (outside this repository) and ALLOW_PROVISIONAL_IMAGES=1; the private folder holds the figure list and the full image register. Never commit preview output."""
+    d = os.environ.get("NASHA_PRIVATE_DIR")
+    if not d or os.environ.get("ALLOW_PROVISIONAL_IMAGES") != "1": return ""
+    spec = json.loads((Path(d) / "concept-preview.private.json").read_text())
     out = []
-    for f, alt, cap in (("assets/img/nasha-concept-court-brewhouse.webp", "AI-generated concept image of the proposed NASHA brewery court at blue hour", "Business concept image (AI-generated; not a photograph; not an operating brewery)."), ("assets/img/nasha-concept-court-golden-hour.webp", "AI-generated concept image of friends and a server in the proposed NASHA court at golden hour", "Business concept image (AI-generated; not a photograph).")):
-        if concept_ok(root, f):
-            src = root.parent / "pending-assets" / Path(f).name
-            if not (root / f).exists() and src.exists(): (root / f).parent.mkdir(parents=True, exist_ok=True); shutil.copy(src, root / f)
-            out.append(f'<figure><img src="{f}" width="1536" height="1024" loading="lazy" alt="{E(alt)}"><figcaption>{E(cap)}</figcaption></figure>')
-        else:
-            out.append('<figure class="pending"><div class="pending-box" role="img" aria-label="Placeholder for a business concept image that is not yet cleared for publication"><span>Concept image withheld</span><small>Usage rights for AI-generated concept images are not yet verified; they are not published.</small></div><figcaption>Business concept (image pending rights clearance).</figcaption></figure>')
+    for fg in spec["figures"]:
+        f = fg["file"]; src = root.parent / "pending-assets" / Path(f).name
+        if not (root / f).exists() and src.exists(): (root / f).parent.mkdir(parents=True, exist_ok=True); shutil.copy(src, root / f)
+        out.append(f'<figure><img src="{f}" width="1536" height="1024" loading="lazy" alt="{E(fg["alt"])}"><figcaption>{E(fg["caption"])}</figcaption></figure>')
     return "".join(out)
 
 

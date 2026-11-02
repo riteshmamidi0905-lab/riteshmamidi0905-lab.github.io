@@ -38,7 +38,7 @@
    "status": "VERIFIED",
    "summary": "Explains an inventory gap from verified facts; a strict validator checks every claim against the source and rewards abstention when evidence is missing.",
    "evidence": "953 offline tests pass at a local checkpoint; scripted end-to-end self-test passes (scripted evidence is never a result).",
-   "limits": "Live model evaluation has NOT passed (M-OPS-2: FAIL). Not deployed.",
+   "limits": "The live model evaluation has NOT met its acceptance criteria (failed). Not deployed.",
    "links": []
   },
   {

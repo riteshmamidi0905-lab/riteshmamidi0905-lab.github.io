@@ -1,8 +1,8 @@
 [
   {
     "path": "index.html",
-    "bytes": 29798,
-    "sha256": "96c9124688f56f010904c7c02bf627f7f6038ce84892f4f01fc2a803216c42a2"
+    "bytes": 29031,
+    "sha256": "14912198752a81e5eaa895a62b0d38f7aa6b06f6a285c4283fa2e21f8ccc3fe8"
   },
   {
     "path": "ai-engineering.html",
@@ -21,8 +21,8 @@
   },
   {
     "path": "recruiter.html",
-    "bytes": 8945,
-    "sha256": "562c68b3469599834305bf7b575fee192219e04c524bb8889cda021951eabf77"
+    "bytes": 8909,
+    "sha256": "88e13e6f1a695d3d383c8aec3c824c96463a968af75ab8eb4cd0690357be0011"
   },
   {
     "path": "404.html",
@@ -96,13 +96,13 @@
   },
   {
     "path": "lab-explorer.html",
-    "bytes": 42490,
-    "sha256": "dacaafeb1faa06e0e01dbcf5cad3a7341b261a15820293c0d45c3a0f78cc1b65"
+    "bytes": 41742,
+    "sha256": "9b9d2b827457e9cc9079f16fb0a2f8682d34ab9cf76dbddb29b4a9f0f01b7c07"
   },
   {
     "path": "verified-projects.html",
-    "bytes": 31065,
-    "sha256": "60bb8fb61cc79b9a31a4c9b647fd1639c456122327d8abf50183252e7687c4c0"
+    "bytes": 31089,
+    "sha256": "19818890d168ad96fee46cf9c37572c5ee545d134ad83de8b8a3b167bdf62c58"
   },
   {
     "path": "lab.css",
@@ -116,13 +116,13 @@
   },
   {
     "path": "data/lab.json",
-    "bytes": 19624,
-    "sha256": "e1dc7033e905ab27b2229705971cd755be822fbb161f6b5046835125186af354"
+    "bytes": 19642,
+    "sha256": "ffd92007c924f4ce9bcd949ed264bb463e56443e94e98f5c9add643a4e7f5a52"
   },
   {
     "path": "data/projects.json",
-    "bytes": 18769,
-    "sha256": "4fd4e201a365d5dbc9ee8ae5dc651047927e41049291e7ea6ffa7acdf0724110"
+    "bytes": 18829,
+    "sha256": "a4efc1f402002fb891785ad277e1db087ad4a48982c26a2c8c009ce239925b07"
   },
   {
     "path": "case-genai-doc-assistant.html",
@@ -141,8 +141,8 @@
   },
   {
     "path": "case-nasha-ai-lab-architecture.html",
-    "bytes": 14834,
-    "sha256": "d254ba97b93e3f7144959248e0487f5e926bf6450e0de0e92ae7cf0b30f1e999"
+    "bytes": 14717,
+    "sha256": "702ef3e53390918af9e885282751f189c9bcc97428567cfa93abcee51d6b8203"
   },
   {
     "path": "case-production-ai-agent-platform.html",
@@ -191,13 +191,13 @@
   },
   {
     "path": "data/cases.json",
-    "bytes": 33479,
-    "sha256": "3d4c6c7f619f57a07282cdea87d743fb6b68b12625a3f0abf55191ec299a06a0"
+    "bytes": 33458,
+    "sha256": "23968733f02766a431f80412d194a0214e6e5234e1c0697c2684e03c81a90415"
   },
   {
     "path": "data/image-register.json",
-    "bytes": 3067,
-    "sha256": "0b69aed65747f95b7eec0a93d9cbf546288225d7dcb6a5def2efd2fa11da3eb1"
+    "bytes": 1809,
+    "sha256": "a9d136c3419739ad135c0f05066ea5a37e2d8b714e5861fb3b736d8b181972e0"
   },
   {
     "path": "demo/index.html",
@@ -211,8 +211,8 @@
   },
   {
     "path": "demo/data.js",
-    "bytes": 24450,
-    "sha256": "e6a24c8e0fbd0fd4298d398cf36d687977ba172fef05fcd7d64f5689ab8f2457"
+    "bytes": 24464,
+    "sha256": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3"
   },
   {
     "path": "demo/engine.js",
@@ -221,13 +221,13 @@
   },
   {
     "path": "demo/app.js",
-    "bytes": 68603,
-    "sha256": "3a4f14adfcbb098257f645d1c586ece95f28fcdc2d6b596a86248a6b5bbf96f1"
+    "bytes": 68628,
+    "sha256": "4ecf47873e1da8e50dbfd2aa0aeeb63c0269811d7a2da3aeea2132d165c03f5f"
   },
   {
     "path": "data-lab.html",
-    "bytes": 52399,
-    "sha256": "7812655452baa43967f898c99d7e4741167f5eb41f3d0cb0fd13eda4208f9be0"
+    "bytes": 52435,
+    "sha256": "02a619f8ab0e788da5ac6a713ecc6facf0b61ef2a5dad0201c40b039d1dee319"
   },
   {
     "path": "datalab.js",
