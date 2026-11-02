@@ -18,14 +18,20 @@ jobs:
       - run: npm run build && npm test
       - run: npm audit --audit-level=low
       - run: npx playwright install --with-deps chromium
-      - name: Browser, responsive, accessibility and reduced-motion checks
+      - name: Browser, responsive, accessibility and reduced-motion checks (site, enterprise demo and data lab)
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
         run: |
           python3 -m http.server 8000 --bind 127.0.0.1 > /tmp/portfolio-http.log 2>&1 &
           npm run test:browser
+          npm run test:demo
+          npm run test:datalab
+          npm run test:paint
       - name: Lighthouse mobile and desktop release gates
         run: |
-          npx --yes lighthouse@13.5.0 http://127.0.0.1:8000/ --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-mobile.json --quiet
-          npx --yes lighthouse@13.5.0 http://127.0.0.1:8000/ --preset=desktop --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-desktop.json --quiet
-          node -e "for(const p of ['mobile','desktop']){const r=require('./work/lighthouse-'+p+'.json');for(const k of ['performance','accessibility','best-practices','seo'])if(r.categories[k].score<0.95)throw Error(p+' '+k+' below 95')}"
+          for page in home:/ demo:/demo/ lab:/data-lab.html; do
+            n=${page%%:*}; u=${page#*:}
+            npx --yes lighthouse@13.5.0 "http://127.0.0.1:8000$u" --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-$n-mobile.json --quiet
+            npx --yes lighthouse@13.5.0 "http://127.0.0.1:8000$u" --preset=desktop --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-$n-desktop.json --quiet
+          done
+          node -e "for(const n of ['home','demo','lab'])for(const p of ['mobile','desktop']){const r=require('./work/lighthouse-'+n+'-'+p+'.json');for(const k of ['performance','accessibility','best-practices','seo'])if(r.categories[k].score<0.95)throw Error(n+' '+p+' '+k+' below 95')}"
