@@ -96,8 +96,8 @@
   },
   {
     "path": "lab-explorer.html",
-    "bytes": 41742,
-    "sha256": "9b9d2b827457e9cc9079f16fb0a2f8682d34ab9cf76dbddb29b4a9f0f01b7c07"
+    "bytes": 41770,
+    "sha256": "52580d631a9ddc8ccbcd0d167f23e27488363c6f6113a8fb489ba772e0c336e5"
   },
   {
     "path": "verified-projects.html",
@@ -116,8 +116,8 @@
   },
   {
     "path": "data/lab.json",
-    "bytes": 19642,
-    "sha256": "ffd92007c924f4ce9bcd949ed264bb463e56443e94e98f5c9add643a4e7f5a52"
+    "bytes": 19670,
+    "sha256": "8f1a569762c2b9bc23444591f801e6c8b5a0162a21fb4a1318dfba184175d430"
   },
   {
     "path": "data/projects.json",
@@ -126,8 +126,8 @@
   },
   {
     "path": "case-genai-doc-assistant.html",
-    "bytes": 14695,
-    "sha256": "9dc5d0b44b444c548631791ff2723a49c491f59870b91d61c98e129ba0acfd92"
+    "bytes": 14986,
+    "sha256": "9407d3254500e4d7974d6c4570241b33f62b8663cc208c6b763eb1e6d48929b3"
   },
   {
     "path": "case-llm-eval-framework.html",
@@ -136,8 +136,8 @@
   },
   {
     "path": "case-mcp-weir.html",
-    "bytes": 14853,
-    "sha256": "4a7a752675370e4603bbc0a6d9dbe30e588b8faba681d362b9dfd2a8064d632c"
+    "bytes": 15196,
+    "sha256": "c848172cf21e75ce1aa40c34dc64c1a7e20bc3b3ca046a67d76d6a7270bba154"
   },
   {
     "path": "case-nasha-ai-lab-architecture.html",
@@ -151,8 +151,8 @@
   },
   {
     "path": "case-studies.html",
-    "bytes": 6470,
-    "sha256": "219cca7c4eccae1d2c748e241332edf148142fb930a6757a62dfce44458d0776"
+    "bytes": 6527,
+    "sha256": "9bb8c369eb86c7de9a61f22602d403523c0fa249c7362a7d8f593ad6aace2a7e"
   },
   {
     "path": "case-support-escalation-copilot.html",
@@ -191,8 +191,8 @@
   },
   {
     "path": "data/cases.json",
-    "bytes": 33458,
-    "sha256": "23968733f02766a431f80412d194a0214e6e5234e1c0697c2684e03c81a90415"
+    "bytes": 34085,
+    "sha256": "2350bf5663507d74c1c7659bd581b305b53775352e5fd501b225dfba95e6e6c3"
   },
   {
     "path": "data/image-register.json",
@@ -226,8 +226,8 @@
   },
   {
     "path": "data-lab.html",
-    "bytes": 52435,
-    "sha256": "02a619f8ab0e788da5ac6a713ecc6facf0b61ef2a5dad0201c40b039d1dee319"
+    "bytes": 52279,
+    "sha256": "520e4b64cd7ce1c6e688f4248df6542787d5e83ecd1325bd20eba849f51726bb"
   },
   {
     "path": "datalab.js",
@@ -236,7 +236,7 @@
   },
   {
     "path": "data/datalab/lab-data.json",
-    "bytes": 132160,
-    "sha256": "d115ef8c5cba42ba57e9e92d9b7f8c036def97b24f4650c3a92cae027c06e695"
+    "bytes": 132004,
+    "sha256": "35c1e97915c866c07eac79fc921d1877c9532cd45fb2986e4df9054d6bdeb57e"
   }
 ]

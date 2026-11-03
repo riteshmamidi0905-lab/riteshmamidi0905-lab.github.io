@@ -20,7 +20,7 @@ const ok = (n, c, x) => { report.checks.push({ name: n, pass: !!c, extra: x }); 
     const txt = () => p.locator('main').evaluate(e => e.textContent);
     let t = await txt();
     ok('status shows PASS WITH SKIPS, not plain PASS', /PASS WITH SKIPS/.test(t) && /12 tests were/.test(t));
-    ok('twelve skipped tests listed with the reason', (await p.locator('table[aria-label], div[aria-label="Skipped analytics tests (scrollable)"] tbody tr').count()) >= 12 && /NASHA_PRIVATE_KEYS not set/.test(t));
+    ok('twelve skipped tests listed with the reason', (await p.locator('table[aria-label], div[aria-label="Skipped analytics tests (scrollable)"] tbody tr').count()) >= 12 && /private answer keys not available \(kept private\)/.test(t));
     ok('states synthetic data and not production', /Every number comes from synthetic data/.test(t) && /none of this is production-deployed/.test(t));
     ok('states dbt and Airflow are not implemented', /Not implemented:<\/strong> dbt, Airflow|Not implemented: dbt, Airflow/.test(t));
     ok('no private answer-key content shown', !/solution\.sql|expected\.json/.test(t));

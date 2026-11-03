@@ -81,20 +81,18 @@ for c in json.loads((root/'data/cases.json').read_text()):
   assert 'class="runbox"' in s and 'Copied from the project' in s and ('README' in r['where'] or 'docs/' in r['where']),('run block',c['slug'])
  else:
   assert 'class="runbox"' not in s and 'no public run command' in s,('no invented commands',c['slug'])
-# PUBLIC DISCLOSURE RULES (public-preview review): no internal programme identifiers, no new links to the business repository, no withheld-image records or placeholders, supported identity wording
-import os as _os
-PUBLIC_TEXT=[p for p in root.rglob('*') if p.is_file() and p.suffix in ('.html','.js','.css','.json','.py','.cjs','.sh','.xml','.yml') and not any(x in p.parts for x in ('node_modules','.git','work','recovered')) and p.name!='validate-release.py']
-_idre=re.compile(r'M-OPS-\d|DX-\d|Amendment 1\.3|m_ops_\d|_dx1_|REQUIRES_REVIEW|NO_GO|Cloud smoke')
-for p in PUBLIC_TEXT:
- s=p.read_text(errors='ignore'); rel=p.relative_to(root).as_posix()
- assert not _idre.search(s),('internal programme identifier in public file',rel)
- if rel!='assets/js/nasha-ecosystem-core.js': assert 'INDO-MEX-BREWERY' not in s,('link to or name of the business repository',rel)  # one pre-existing live link is allow-listed
- assert 'nasha-concept-court' not in s and 'PROVISIONAL-LOCAL-ONLY' not in s and 'Concept image withheld' not in s,('withheld-image record or placeholder in public file',rel)
+# PUBLIC DISCLOSURE RULES (hashed rules in scripts/disclosure-rules.json, engine in scripts/disclosure.py): no internal programme identifiers, no names of private
+# repositories, records, files or environment variables, no withheld-image markers, anywhere in the repository source. Fail-closed: if the rules cannot be loaded the release fails.
+import sys as _sys; _sys.path.insert(0,str(Path(__file__).resolve().parent)); import disclosure as _D
+try: _rules=_D.load()
+except _D.RulesError as _e: raise AssertionError('disclosure rules unusable (fail-closed): '+str(_e))
+_TEXT_EXT=('.html','.js','.css','.json','.py','.cjs','.sh','.xml','.yml','.md','.txt','.svg')
+_SKIP_DIRS=('node_modules','.git','work','dist','__pycache__')
+PUBLIC_TEXT=sorted(p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file() and p.suffix in _TEXT_EXT and not any(x in p.parts for x in _SKIP_DIRS))
+_problems=_D.check_files(_rules,root,PUBLIC_TEXT,'file')
+assert not _problems,('disclosure rule violations (rule id and line only; the matched text is never printed)',_problems[:20])
+print('disclosure scan:',len(PUBLIC_TEXT),'text files,',_rules.private_summary())
 for r in json.loads((root/'data/image-register.json').read_text()): assert r['cleared_for_public_release'] is True and r['kind']=='screenshot',('public register may list cleared screenshots only',r['file'])
-_pr=_os.environ.get('NASHA_PRIVATE_DIR')
-if _pr:  # optional extra check on the maintainer's machine: nothing listed as uncleared in the private register may exist under assets/
- for r in json.loads((Path(_pr)/'image-register.original.json').read_text()):
-  if not r['cleared_for_public_release']: assert not (root/r['file']).exists(),('withheld image present in the public build',r['file'])
 _rec=(root/'recruiter.html').read_text()
 assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'
 assert 'Apple client engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
@@ -111,7 +109,7 @@ nsk=len(dl['run']['skips']); assert (dl['run']['overall']=='PASS')==(nsk==0 and 
 assert all(s['status']!='FAIL' for s in dl['run']['stages']),'a failed stage must not be published as evidence'
 assert all(x in dlp for x in ('SYNTHETIC','none of this is production-deployed','skipped','LIMITATIONS')),'lab page missing required honesty text'
 if nsk: assert 'PASS WITH SKIPS' in dlp and f'{nsk} tests were' in dlp,'skipped tests not disclosed on the page'
-blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders|NASHA_PRIVATE_KEYS=',blob),'local path or secret-like text in lab data'
+blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob),'local path in lab data'
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'

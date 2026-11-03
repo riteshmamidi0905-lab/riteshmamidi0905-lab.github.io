@@ -414,7 +414,7 @@
   "commit": "5df2745",
   "stack": "Python · MCP over stdio · SQLite audit chain · pytest · hypothesis",
   "status": "VERIFIED",
-  "evidence_line": "417 tests pass (1 skipped), including real subprocess tests; the built-in demo ran on 2026-11-01.",
+  "evidence_line": "417 of 418 collected tests pass (1 skipped), including real subprocess tests; the built-in demo ran on 2026-11-01.",
   "problem": "Per-tool permissions say which tools an agent may call. They do not say which data may go where given what the agent has already read. A web page the agent summarises can carry an instruction to read a secret and e-mail it out.",
   "diagram": {
    "nodes": [
@@ -562,8 +562,8 @@
   ],
   "verification": [
    [
-    "pytest (editable install; spawns subprocesses)",
-    "417 passed, 1 skipped"
+    "pytest (editable install; spawns subprocesses; 418 tests collected)",
+    "417 passed, 1 skipped (the headless-browser test, which needs Node and Playwright)"
    ],
    [
     "python -m weir_eval.demo",
@@ -578,7 +578,7 @@
   "limits": [
    "A research prototype and a same-author evaluation on a synthetic world (invented mailbox, files and pages) with toy tools.",
    "The demo is deterministic and uses no live model; the README's own evaluation used one small local model.",
-   "The README's older test count (342) is stale; 417 tests ran on 2026-11-01."
+   "The README's 342 is the suite recorded at release time (2026-10-09, in the project's eval/results/tests.json). 76 Control Center tests were added after it, so the repository now collects 418; in the recorded 2026-11-01 run 417 passed and 1 was skipped (the headless-browser test, which needs Node and Playwright)."
   ],
   "business": "Any business that lets an AI assistant read documents and send messages needs a rule for what must never leave: customer data, credentials, contracts. This is a worked, tested example of enforcing that outside the model.",
   "source": "project README and docs; verification logs 2026-11-01",
@@ -600,7 +600,7 @@
   "commit": "daba676",
   "stack": "Python · FastAPI · SSE · Docker · pgvector option · pytest (sister engine: rag-doc-qa, 14 tests)",
   "status": "VERIFIED",
-  "evidence_line": "40 tests pass (1 skipped); the evaluation on 8 items gives hit rate 1.0, MRR 1.0, faithfulness 1.0, relevance 0.581.",
+  "evidence_line": "40 of 41 collected tests pass (1 optional embedding test skipped); the evaluation on 8 items gives hit rate 1.0, MRR 1.0, faithfulness 1.0, relevance 0.581.",
   "problem": "Document assistants that cannot cite, abstain or be scored cannot be trusted. The aim was a complete small system: ingestion, retrieval, a grounded reader with citations, a router for arithmetic, streaming, and an evaluation gated in CI.",
   "diagram": {
    "nodes": [
@@ -748,8 +748,8 @@
   ],
   "verification": [
    [
-    "pytest",
-    "40 passed, 1 skipped"
+    "pytest (41 tests collected; the optional sentence-transformers package was not installed)",
+    "40 passed, 1 skipped (the optional embedding-model test)"
    ],
    [
     "python -m app.eval.run (backend/)",
@@ -764,7 +764,8 @@
   "limits": [
    "The 8-item evaluation set is tiny; perfect retrieval scores on it say little about arbitrary documents.",
    "The verified run used hashing embeddings and the in-memory store; the pgvector path and real embedders were not exercised.",
-   "Relevance 0.58 is the weakest number and is reported as such."
+   "Relevance 0.58 is the weakest number and is reported as such.",
+   "The project README quotes older test counts (29 in the quick start, 39 in the file listing); the recorded run collected 41."
   ],
   "business": "Teams with policy, menu, supplier or HR documents need answers with sources, and need to know when the system should say it does not know.",
   "source": "project docs/architecture.md; verification logs 2026-11-01",

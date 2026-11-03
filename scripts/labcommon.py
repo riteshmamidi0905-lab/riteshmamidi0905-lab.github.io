@@ -1,12 +1,15 @@
-"""Shared helpers for the generated pages. Concept images appear only when cleared for public release, or in an explicit local preview (ALLOW_PROVISIONAL_IMAGES=1)."""
+"""Shared helpers for the generated pages. Concept images appear only when cleared for public release; nothing is emitted otherwise."""
 import html, json, os, shutil
 from pathlib import Path
 def concept_figures(root, E):
-    """Concept images are NOT part of the public build: nothing is shown and no placeholder is emitted. A local-only preview is possible when NASHA_PRIVATE_DIR points at the private folder
-    (outside this repository) and ALLOW_PROVISIONAL_IMAGES=1; the private folder holds the figure list and the full image register. Never commit preview output."""
-    d = os.environ.get("NASHA_PRIVATE_DIR")
-    if not d or os.environ.get("ALLOW_PROVISIONAL_IMAGES") != "1": return ""
-    spec = json.loads((Path(d) / "concept-preview.private.json").read_text())
+    """Concept images are NOT part of the public build: nothing is shown and no placeholder is emitted. A local-only preview exists for the maintainer:
+    the private rules file named by PORTFOLIO_PRIVATE_RULES (kept outside this repository, see scripts/disclosure.py) may define "preview_spec", the path
+    of a private figure list. Without it this returns an empty string. Never commit preview output."""
+    cfg = os.environ.get("PORTFOLIO_PRIVATE_RULES")
+    if not cfg: return ""
+    spec_path = json.loads(Path(cfg).read_text()).get("preview_spec")
+    if not spec_path: return ""
+    spec = json.loads(Path(spec_path).read_text())
     out = []
     for fg in spec["figures"]:
         f = fg["file"]; src = root.parent / "pending-assets" / Path(f).name

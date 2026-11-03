@@ -103,7 +103,7 @@
   },
   {
    "layer": 3,
-   "id": "m-ops-2",
+   "id": "live-model-evaluation",
    "title": "NASHA live model evaluation",
    "status": "FAIL",
    "summary": "A pre-registered evaluation of whether a model can meet the explanation contract.",
@@ -339,7 +339,7 @@
    "basis": "The evaluation framework is verified; the live NASHA evaluation has NOT passed (FAIL).",
    "nodes": [
     "evals",
-    "m-ops-2"
+    "live-model-evaluation"
    ],
    "kinds": [
     "component"

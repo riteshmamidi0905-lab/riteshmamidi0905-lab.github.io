@@ -15,14 +15,17 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: npm run build && npm test
+      - name: Source validation (reviewed files, disclosure rules, publication-boundary tests, unit tests)
+        run: npm run build && npm test
       - run: npm audit --audit-level=low
+      - name: Publication validation (build the allowlisted GitHub Pages artifact and verify it; nothing is deployed or uploaded)
+        run: npm run build:pages
       - run: npx playwright install --with-deps chromium
       - name: Browser, responsive, accessibility and reduced-motion checks (site, enterprise demo and data lab)
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
         run: |
-          python3 -m http.server 8000 --bind 127.0.0.1 > /tmp/portfolio-http.log 2>&1 &
+          python3 -m http.server 8000 --bind 127.0.0.1 --directory dist > /tmp/portfolio-http.log 2>&1 &   # the browser, accessibility and Lighthouse gates test the artifact that would be published
           npm run test:browser
           npm run test:demo
           npm run test:datalab
