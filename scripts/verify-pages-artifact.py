@@ -188,10 +188,14 @@ def main():
     # 5 disclosure (fail-closed)
     try:
         rules = D.load()
-        notes.append("disclosure rules: %s" % rules.private_summary())
-        errs += D.check_files(rules, base, sorted(r for r in names if r.endswith(TEXT_SUFFIX)), "file")
+        scan_list = sorted(r for r in names if r.endswith(TEXT_SUFFIX))
+        D.check_coverage(scan_list, {e["path"] for e in manifest["files"] if e["path"].endswith(TEXT_SUFFIX)}, minimum=20)   # never a silent empty scan
+        notes.append("disclosure: %d artifact text files scanned, every manifest text file covered (%s)" % (len(scan_list), rules.private_summary()))
+        errs += D.check_files(rules, base, scan_list, "file")
     except D.RulesError as exc:
         errs.append("disclosure rules unusable (fail-closed): %s" % exc)
+    except D.CoverageError as exc:
+        errs.append("disclosure scan coverage (fail-closed): %s" % exc)
 
     # 6 required pages and honest statuses
     need = ["index.html", "recruiter.html", "projects.html", "lab-explorer.html", "verified-projects.html", "data-lab.html", "case-studies.html", "demo/index.html", "demo/app.js", "demo/engine.js", "demo/data.js", "data/lab.json", "data/cases.json", "data/datalab/lab-data.json", "robots.txt", "sitemap.xml", "404.html"]

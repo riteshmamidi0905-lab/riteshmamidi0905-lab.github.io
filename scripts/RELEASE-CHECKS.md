@@ -23,6 +23,11 @@ After the reviewed files change: regenerate the pages (`sh scripts/build-all.sh`
 Public rules are salted hashes in `scripts/disclosure-rules.json`, evaluated by `scripts/disclosure.py` over every text file in the repository and in the
 artifact. They always run; if the file is missing, malformed or incomplete the release fails. Failures print a rule id, file and line, never the text.
 
+The scan list is built from repository-relative paths only (the checkout directory's name never matters; GitHub runners check out under `.../work/...`).
+The run also fails closed on coverage: zero files, fewer than a floor, any file named by an independent list (reviewed release files, publication
+manifest, tooling, and the git index when present) that was not scanned, or any file that cannot be read as UTF-8. The validator prints how many files
+it scanned; `scripts/test-scan-coverage.py` pins all of this, including a checkout under a path containing `work`.
+
 Optional private rules (kept outside the repository) add literals, regexes and withheld file paths:
 
 ```json
@@ -38,33 +43,34 @@ Optional private rules (kept outside the repository) add literals, regexes and w
 ## GitHub Pages settings (requires separate authorization)
 
 Pages is currently a legacy build from `main` at `/`. A legacy build publishes the whole repository root as it is, so a workflow change alone cannot
-exclude files. The allowlisted artifact takes effect only after the repository's Pages source is switched to **GitHub Actions** (Settings > Pages >
-Build and deployment > Source; API: `PUT /repos/{owner}/{repo}/pages` with `build_type=workflow`). Until then, merging publishes everything at the root.
-The existing `github-pages` environment is already restricted to `main`. Proposed deploy workflow (not installed; action versions to be confirmed when adopted):
+exclude files. The allowlisted artifact takes effect only after the Pages source is switched to **GitHub Actions** (Settings > Pages > Build and
+deployment > Source; API: `PUT /repos/{owner}/{repo}/pages` with `build_type=workflow`). Until then, merging publishes everything at the root.
 
-```yaml
-name: Deploy to GitHub Pages
-on: { push: { branches: [main] }, workflow_dispatch: {} }
-permissions: { contents: read, pages: write, id-token: write }
-concurrency: { group: pages, cancel-in-progress: false }
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
-      - run: npm ci --ignore-scripts
-      - run: npm run build && npm test
-      - run: npm run build:pages
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with: { path: dist }
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: { name: github-pages, url: "${{ steps.deployment.outputs.page_url }}" }
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-```
+Order of operations (the live site keeps serving the last deployment when the source is switched):
+1. Add `scripts/proposed-workflows/pages.yml.proposed` as `.github/workflows/pages.yml` (in the pull request, so it is reviewed). It cannot deploy while the source is legacy.
+2. Switch the Pages source to GitHub Actions. Add required reviewers to the `github-pages` environment (a human approval before every deploy).
+3. Merge. The push to `main` runs the workflow, which deploys only the verified `dist/` artifact. No legacy build happens.
+4. Confirm the `verify-live` job passed: every manifest file is served byte-identical and every excluded development URL is unavailable.
+
+### Deployment design (`scripts/proposed-workflows/pages.yml.proposed`, not installed)
+* Triggers: push to `main` and a manual run of `main`. No pull request, comment or schedule trigger exists; every job also requires `refs/heads/main`, and the
+  `github-pages` environment is already restricted to `main`.
+* Token permissions start empty; `contents: read` for builds, `pages: read` for checks, and `pages: write` plus `id-token: write` only in the deploy job.
+  No secrets. Third-party actions are pinned to commit SHAs (`scripts/test-proposed-workflows.py` enforces the pins and these properties).
+* It fails before building if Pages is not set to "workflow", so it can never silently fall back to repository-root publication, and it checks again after deploying.
+* The deploy job publishes the artifact built by the same run from `npm run build:pages` (exactly the publication manifest). The build job records the commit and
+  tree digest in the job summary ("Release record") and keeps the artifact 90 days.
+* After deploying, `scripts/verify-live-site.py` compares the live site with the manifest of the deployed commit (byte-identical, SHA-256) and requires the excluded URLs to be unavailable.
+
+### Rollback (`scripts/proposed-workflows/rollback.yml.proposed`, not installed)
+Rollback restores a previous verified release by its exact commit; it never builds the current `main`.
+1. Find the release to restore: a deploy run's "Release record" gives its `release_sha` and `tree digest`.
+2. Run the "Roll back GitHub Pages to a verified release" workflow from `main` with both values. The guard job requires a full 40-character SHA and a full digest, refuses the
+   current `main`, requires Pages to be artifact-deployed, and requires a recorded successful production deployment of that commit.
+3. The workflow checks out that commit alone, proves `HEAD` equals the request and that it was released from `main`, runs source validation, builds and verifies the artifact there,
+   and refuses to continue unless the rebuilt tree digest equals the recorded one. Builds are deterministic, so this reproduces the original artifact without depending on artifact retention.
+4. The restored artifact goes through the same environment-gated deploy job. Then the verifier (taken from `main`, so it exists for older releases) compares the live site with
+   THAT release's manifest and confirms the excluded development URLs are unavailable.
+5. Never roll back by switching the Pages source back to a branch: that republishes the repository root. If the workflows themselves are unusable, revert the offending change
+   with a pull request and let the normal deploy run.
+Not covered: a release made before the publication boundary existed has no manifest and cannot be restored this way.

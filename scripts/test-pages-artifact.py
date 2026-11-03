@@ -116,4 +116,58 @@ with tempfile.TemporaryDirectory() as TMP:
     code, out = run(HERE / "build-pages-artifact.py", "--check")
     ok(code == 0 and "publication manifest OK" in out, "--check passes on the committed manifest")
 
+    # --- post-deployment verification of the live site against a SELECTED release manifest (used after a deploy and after a rollback)
+    import functools
+    import http.server
+    import threading
+    import time
+
+    class Quiet(http.server.SimpleHTTPRequestHandler):
+        def log_message(self, *args):
+            pass
+    live = TMP / "live" / "site"
+    shutil.copytree(a, live)
+    srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(Quiet, directory=str(live)))
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    url = "http://127.0.0.1:%d" % srv.server_address[1]
+    verify = lambda *extra: run(HERE / "verify-live-site.py", url, *extra)
+    code, out = verify()
+    ok(code == 0 and "LIVE SITE MATCHES THE RELEASE" in out and P.tree_digest(inv) in out, "a correct deployment matches its release manifest (and reports the same tree digest)")
+    css = live / "lab.css"
+    original = css.read_bytes()
+    css.write_bytes(original + b"/* changed */")
+    code, out = verify()
+    ok(code == 1 and "differs from the release manifest" in out, "live verification fails when a served file differs")
+    css.unlink()
+    code, out = verify()
+    ok(code == 1 and "GET /lab.css -> 404" in out, "live verification fails when a published file is missing")
+    css.write_bytes(original)
+    (live / "scripts").mkdir()
+    (live / "scripts" / "validate-release.py").write_text("x")
+    code, out = verify()
+    ok(code == 1 and "excluded development URL is reachable: /scripts/validate-release.py" in out, "live verification fails when a development URL becomes reachable")
+    (live / "scripts" / "validate-release.py").unlink()
+    (live / "scripts").rmdir()
+    ok(verify()[0] == 0, "live verification passes again after the live site is restored")
+    other = copy.deepcopy(manifest)                                         # a different release: what a rollback target's manifest would look like
+    for e in other["files"]:
+        if e["path"] == "lab.css":
+            e["sha256"] = "0" * 64
+    other_path = TMP / "other-release.json"
+    other_path.write_text(json.dumps(other))
+    code, out = verify("--manifest", other_path)
+    ok(code == 1 and "/lab.css is served but differs" in out, "the live site is compared with the SELECTED release manifest, not with whatever main currently is")
+    poisoned = copy.deepcopy(manifest)
+    poisoned["files"].append({"path": "scripts/x.py", "bytes": 1, "sha256": "0" * 64})
+    poisoned_path = TMP / "poisoned.json"
+    poisoned_path.write_text(json.dumps(poisoned))
+    code, out = verify("--manifest", poisoned_path)
+    ok(code == 1 and "refusing a manifest" in out, "a manifest that lists unpublishable paths is refused")
+    css.write_bytes(original + b"x")
+    started = time.time()
+    code, out = verify("--wait", 2)
+    ok(code == 1 and time.time() - started >= 1.5, "--wait retries for a while before failing")
+    css.write_bytes(original)
+    srv.shutdown()
+
 print("publication boundary: %d checks passed" % checks)

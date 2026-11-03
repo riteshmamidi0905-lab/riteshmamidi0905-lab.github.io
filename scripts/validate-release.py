@@ -86,12 +86,16 @@ for c in json.loads((root/'data/cases.json').read_text()):
 import sys as _sys; _sys.path.insert(0,str(Path(__file__).resolve().parent)); import disclosure as _D
 try: _rules=_D.load()
 except _D.RulesError as _e: raise AssertionError('disclosure rules unusable (fail-closed): '+str(_e))
-_TEXT_EXT=('.html','.js','.css','.json','.py','.cjs','.sh','.xml','.yml','.md','.txt','.svg')
-_SKIP_DIRS=('node_modules','.git','work','dist','__pycache__')
-PUBLIC_TEXT=sorted(p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file() and p.suffix in _TEXT_EXT and not any(x in p.parts for x in _SKIP_DIRS))
+# The scan list is built from REPOSITORY-RELATIVE paths only (the checkout directory's name never matters; runners check out under .../work/...),
+# and the run fails unless it was non-empty, above a floor, and included every file an independent listing says must be scanned.
+PUBLIC_TEXT=_D.source_files(root)
+try:
+    _expected,_how=_D.expected_files(root)
+    _D.check_coverage(PUBLIC_TEXT,_expected)
+except _D.CoverageError as _e: raise AssertionError('disclosure scan coverage (fail-closed): '+str(_e))
 _problems=_D.check_files(_rules,root,PUBLIC_TEXT,'file')
 assert not _problems,('disclosure rule violations (rule id and line only; the matched text is never printed)',_problems[:20])
-print('disclosure scan:',len(PUBLIC_TEXT),'text files,',_rules.private_summary())
+print('disclosure scan:',len(PUBLIC_TEXT),'text files scanned; every required file covered (%s);'%_how,_rules.private_summary())
 for r in json.loads((root/'data/image-register.json').read_text()): assert r['cleared_for_public_release'] is True and r['kind']=='screenshot',('public register may list cleared screenshots only',r['file'])
 _rec=(root/'recruiter.html').read_text()
 assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'

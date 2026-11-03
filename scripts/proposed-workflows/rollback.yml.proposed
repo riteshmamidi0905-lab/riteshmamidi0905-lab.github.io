@@ -1,0 +1,141 @@
+# PROPOSED, NOT INSTALLED. Restores a PREVIOUS verified release by its exact commit. It never builds the current main: it checks out the requested
+# commit, rebuilds the allowlisted artifact from it, requires the rebuilt tree digest to equal the digest recorded when that release was deployed,
+# deploys that artifact through the same artifact path as a normal release, and then compares the live site with THAT release's manifest.
+name: Roll back GitHub Pages to a verified release
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Full 40-character commit SHA of a previously deployed release (not a branch name)
+        required: true
+        type: string
+      expected_tree_digest:
+        description: Tree digest recorded in that release's deploy summary (64 hex characters)
+        required: true
+        type: string
+permissions: {}
+concurrency:
+  group: pages-production       # shared with the deploy workflow
+  cancel-in-progress: false
+env:
+  SITE_URL: https://riteshmamidi0905-lab.github.io
+jobs:
+  guard:
+    name: Validate the request before anything is built
+    if: github.repository == 'riteshmamidi0905-lab/riteshmamidi0905-lab.github.io' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: read
+      deployments: read
+    steps:
+      - name: The inputs are exact, and the target is a previous release
+        env:
+          SHA: ${{ inputs.release_sha }}
+          DIGEST: ${{ inputs.expected_tree_digest }}
+        run: |
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "release_sha must be a full 40-character commit SHA"; exit 1; }
+          [[ "$DIGEST" =~ ^[0-9a-f]{64}$ ]] || { echo "expected_tree_digest must be 64 hex characters"; exit 1; }
+          [ "$SHA" != "$GITHUB_SHA" ] || { echo "refusing: that is the current main, not a previous release"; exit 1; }
+      - name: Pages is artifact-deployed (a rollback must never fall back to repository-root publication)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+      - name: That commit was deployed to production successfully before
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ inputs.release_sha }}
+        run: |
+          ok=0
+          for id in $(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&sha=$SHA" -q '.[].id'); do
+            [ "$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses" -q '.[0].state')" = "success" ] && ok=1
+          done
+          [ "$ok" = 1 ] || { echo "no successful production deployment is recorded for that commit"; exit 1; }
+  rebuild-exact-release:
+    name: Rebuild the artifact from the requested commit and check its digest
+    needs: guard
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          ref: ${{ inputs.release_sha }}      # the exact release commit, never the branch
+          path: release
+          fetch-depth: 0
+          persist-credentials: false
+      - name: The checked-out commit is exactly the request, was released from main, and carries the publication boundary
+        working-directory: release
+        env:
+          SHA: ${{ inputs.release_sha }}
+        run: |
+          [ "$(git rev-parse HEAD)" = "$SHA" ]
+          git fetch --quiet origin main
+          git merge-base --is-ancestor "$SHA" origin/main
+          test -f scripts/publish-manifest.json
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: release/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: release
+      - name: Source validation at that commit
+        working-directory: release
+        run: npm run build && npm test
+      - name: Build and verify the artifact at that commit
+        working-directory: release
+        run: npm run build:pages
+      - name: The rebuilt artifact is byte-identical to the release that was deployed
+        working-directory: release
+        env:
+          EXPECTED: ${{ inputs.expected_tree_digest }}
+        run: |
+          d=$(python3 scripts/verify-pages-artifact.py dist --no-http | grep -o 'tree digest [0-9a-f]\{64\}' | head -1 | awk '{print $3}')
+          [ "$d" = "$EXPECTED" ] || { echo "tree digest mismatch: refusing to deploy"; exit 1; }
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
+        with:
+          path: release/dist
+          retention-days: 90
+  deploy:
+    name: Deploy the restored release
+    needs: rebuild-exact-release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages        # same branch restriction and reviewers as a normal release
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e  # v4.0.5
+  verify-live:
+    name: Live site equals the restored release; development URLs are unavailable
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          ref: ${{ inputs.release_sha }}      # the manifest to compare against belongs to the restored release
+          path: release
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          path: tools                         # the verifier itself comes from main, so it exists even for an older release
+          persist-credentials: false
+      - name: Pages is still artifact-deployed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+      - name: Compare the live site with the restored release's manifest
+        run: python3 tools/scripts/verify-live-site.py "$SITE_URL" --manifest release/scripts/publish-manifest.json --wait 300

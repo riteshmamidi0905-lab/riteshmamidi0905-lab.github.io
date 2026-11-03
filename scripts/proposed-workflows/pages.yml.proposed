@@ -1,0 +1,101 @@
+# PROPOSED, NOT INSTALLED. The .proposed suffix and the scripts/ location keep GitHub from running it. To adopt: move to .github/workflows/pages.yml
+# AFTER the repository's Pages source has been switched to "GitHub Actions" (see scripts/RELEASE-CHECKS.md). Deploys ONLY the allowlisted dist/ artifact.
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]            # the approved release path is a merged pull request. There is no pull_request, pull_request_target, workflow_run or schedule trigger.
+  workflow_dispatch: {}         # manual re-run of the current main only; every job below still requires refs/heads/main
+permissions: {}                 # nothing by default; each job asks for the minimum
+concurrency:
+  group: pages-production       # shared with the rollback workflow: a deploy and a rollback can never interleave
+  cancel-in-progress: false
+env:
+  SITE_URL: https://riteshmamidi0905-lab.github.io
+jobs:
+  guard:
+    name: Pages must be artifact-deployed (no fallback to repository-root publication)
+    if: github.repository == 'riteshmamidi0905-lab/riteshmamidi0905-lab.github.io' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: read
+    steps:
+      - name: Refuse to run if Pages is not set to deploy from Actions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+  build:
+    name: Build and verify the publication artifact
+    needs: guard
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    outputs:
+      tree_digest: ${{ steps.digest.outputs.tree_digest }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Source validation
+        run: npm run build && npm test
+      - run: npm audit --audit-level=low
+      - name: Build the allowlisted artifact and verify it (exactly the publication manifest, nothing else)
+        run: npm run build:pages
+      - name: Record the release (commit and tree digest are what a rollback needs)
+        id: digest
+        run: |
+          d=$(python3 scripts/verify-pages-artifact.py dist --no-http | grep -o 'tree digest [0-9a-f]\{64\}' | head -1 | awk '{print $3}')
+          test -n "$d"
+          echo "tree_digest=$d" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Release record"
+            echo "- commit: \`$GITHUB_SHA\`"
+            echo "- tree digest: \`$d\`"
+            echo "- run: $GITHUB_RUN_ID"
+            echo "- roll back to this release with release_sha=\`$GITHUB_SHA\` and expected_tree_digest=\`$d\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
+        with:
+          path: dist
+          retention-days: 90
+  deploy:
+    name: Deploy the verified artifact
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write              # publish to Pages (this job only)
+      id-token: write           # prove the deployment comes from this workflow (this job only)
+    environment:
+      name: github-pages        # restricted to the main branch; add required reviewers for a human approval before every deploy
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e  # v4.0.5
+  verify-live:
+    name: Live site equals this release; development URLs are unavailable
+    needs: [build, deploy]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          persist-credentials: false
+      - name: Pages is still artifact-deployed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+      - name: Compare the live site with this commit's publication manifest
+        run: python3 scripts/verify-live-site.py "$SITE_URL" --manifest scripts/publish-manifest.json --wait 300

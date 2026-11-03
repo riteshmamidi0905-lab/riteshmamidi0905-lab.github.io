@@ -23,7 +23,7 @@ DENY_SUBSTR = ("selftest", ".private", ".local", "secret", "credential")
 ALLOWED_SUFFIX = {".html", ".css", ".js", ".json", ".xml", ".txt", ".svg", ".pdf", ".woff2", ".jpg", ".png", ".webp", ".md"}
 MD_ONLY_UNDER = ("recovered/",)           # the one pre-existing published document type that is not a page; everywhere else .md is documentation
 EXCLUDED_URLS = ("/scripts/validate-release.py", "/scripts/selftest-lab.html", "/scripts/selftest-overflow.html", "/package.json", "/package-lock.json",
-                 "/release-files.json", "/README.md", "/.gitignore", "/.github/workflows/validate.yml", "/scripts/disclosure-rules.json", "/scripts/publish-manifest.json")
+                 "/release-files.json", "/README.md", "/.gitignore", "/.github/workflows/validate.yml", "/scripts/disclosure-rules.json", "/scripts/publish-manifest.json", "/scripts/verify-live-site.py", "/scripts/RELEASE-CHECKS.md", "/scripts/disclosure.py", "/scripts/pages_policy.py")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
 

@@ -20,6 +20,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 from pathlib import Path
 
 SALT = "portfolio-disclosure-v1:"
@@ -31,6 +32,68 @@ _SEP = re.compile(r"([_.\-])")
 _TAGS = re.compile(r"<[^>]*>")
 _WORD = re.compile(r"[^\s<>\"'()\[\]{},;:!?]+")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
+
+
+# Which repository files the source scan covers. Exclusions are decided from REPOSITORY-RELATIVE paths only: the name of the directory the
+# repository happens to be checked out into must never matter (GitHub runners check out under /home/runner/work/...).
+TEXT_SUFFIX = (".html", ".js", ".css", ".json", ".py", ".cjs", ".sh", ".xml", ".yml", ".yaml", ".md", ".txt", ".svg", ".proposed")
+SKIP_ANYWHERE = {"node_modules", ".git", "__pycache__"}        # directory names skipped at any depth
+SKIP_TOP_LEVEL = {"work", "dist"}                               # build output, skipped only directly under the repository root
+MIN_SOURCE_FILES = 40                                           # a floor far below today's count, far above an empty or truncated scan
+
+
+class CoverageError(Exception):
+    """The scan did not cover what it must. Callers must treat this as a failed check."""
+
+
+def source_files(root):
+    """Sorted repository-relative POSIX paths of every text file the source scan covers."""
+    root, out = Path(root), []
+    for dirpath, dirnames, filenames in os.walk(root, followlinks=False):
+        rel_dir = Path(dirpath).relative_to(root)
+        dirnames[:] = sorted(d for d in dirnames if d not in SKIP_ANYWHERE and not (rel_dir == Path(".") and d in SKIP_TOP_LEVEL))
+        out += [(rel_dir / f).as_posix() for f in filenames if f.lower().endswith(TEXT_SUFFIX)]
+    return sorted(out)
+
+
+def expected_files(root):
+    """Files that MUST be scanned, listed WITHOUT source_files(), so a bug in the enumeration cannot hide itself.
+    Returns (set of relative paths, short description of where they came from)."""
+    root, want, parts = Path(root), set(), []
+    for manifest, label in (("release-files.json", "reviewed release files"), ("scripts/publish-manifest.json", "publication manifest")):
+        try:
+            data = json.loads((root / manifest).read_text(encoding="utf-8"))
+            entries = data["files"] if isinstance(data, dict) else data
+            got = {e["path"] for e in entries if e["path"].lower().endswith(TEXT_SUFFIX)}
+        except (OSError, ValueError, KeyError, TypeError):
+            raise CoverageError("%s unreadable: the required-file list cannot be built" % manifest)
+        want |= got
+        parts.append("%d %s" % (len(got), label))
+    tool = {f for d in ("scripts", ".github/workflows") if (root / d).is_dir() for f in (d + "/" + n for n in os.listdir(root / d) if n.lower().endswith(TEXT_SUFFIX))}
+    want |= tool
+    parts.append("%d tooling files" % len(tool))
+    if (root / ".git").exists():
+        try:
+            tracked = subprocess.run(["git", "ls-files", "-z"], cwd=root, capture_output=True, check=True).stdout.decode("utf-8").split("\0")
+            tracked = {t for t in tracked if t and t.lower().endswith(TEXT_SUFFIX) and t.split("/")[0] not in SKIP_TOP_LEVEL and not (set(t.split("/")) & SKIP_ANYWHERE)}
+            want |= tracked
+            parts.append("%d git-tracked text files" % len(tracked))
+        except (OSError, ValueError, subprocess.CalledProcessError):
+            parts.append("git index unavailable")
+    return want, ", ".join(parts)
+
+
+def check_coverage(scanned, expected, minimum=MIN_SOURCE_FILES):
+    """Raise CoverageError unless the scan was non-empty, above the floor, and included every expected file. Returns the number scanned."""
+    scanned = set(scanned)
+    if not scanned:
+        raise CoverageError("the disclosure scan covered 0 files")
+    if len(scanned) < minimum:
+        raise CoverageError("the disclosure scan covered only %d files (floor %d)" % (len(scanned), minimum))
+    missing = sorted(set(expected) - scanned)
+    if missing:
+        raise CoverageError("the disclosure scan skipped %d required file(s), first: %s" % (len(missing), ", ".join(missing[:5])))
+    return len(scanned)
 
 
 class RulesError(Exception):
@@ -156,13 +219,14 @@ def scan(rules, text, rel=""):
 
 
 def check_files(rules, root, rels, label="file"):
-    """Scan text files under root. Returns a list of 'rel:line rule' strings; empty means clean."""
+    """Scan text files under root. Returns a list of problems ('rel:line rule', or an unreadable file); empty means clean."""
     problems = []
     for rel in rels:
         p = Path(root) / rel
         try:
             text = p.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
+            problems.append("%s: could not be read as UTF-8 text, so it could not be scanned" % rel)       # never skip silently
             continue
         for f in scan(rules, text, rel):
             problems.append("%s:%d disclosure rule %s" % (rel, f["line"], f["rule"]))
