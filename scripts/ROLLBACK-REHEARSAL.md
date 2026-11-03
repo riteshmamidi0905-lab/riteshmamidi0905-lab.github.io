@@ -61,10 +61,26 @@ Status: steps 1 and 3 were completed and read back before any content was pushed
 ## Pass criteria
 Every "expect" above held, and no job was `skipped` where success was claimed. Any deviation (especially a refusal that did not happen, or a completion claimed without `record-rollback`) blocks production use and is fixed first in `scripts/` with a new failing test, then re-rehearsed.
 
-## Results log (fill in)
-| # | Date | Run ID(s) | Jobs and conclusions (note any `skipped`) | Matched expectation? | Notes / API differences |
-|---|---|---|---|---|---|
-| setup | 2026-11-03 | none | none (no workflow has run) | yes | Repository created empty and public; Pages `build_type: workflow`; environment read back: admin bypass off, owner sole required reviewer, self-review not prevented, deployment branch `main` only. No secrets or variables; workflow token default `read`. |
+## Results log
+Stage 1 negative controls were run against the live rehearsal repository on 2026-11-03 with release A live. After all eight negative runs: 8 new runs (13 total), 3 deployments (unchanged), 0 pending approvals, 1 rollback-record artifact (the successful rollback's), the live site still matches `fc71be31…b122b056` and the live `404.html` has no release-B marker.
+
+| Scenario | Run ID | Expected | Actual | Deployment attempted? | Record created? | Live site changed? | Result |
+|---|---|---|---|---|---|---|---|
+| Setup (2026-11-03) | none | Repository empty and public; Pages `workflow`; environment: admin bypass off, owner sole reviewer, self-review allowed, branch `main` only | As expected; no secrets, no variables, token default read | No | No | No | PASS |
+| Release A deploy (step 4) | 41719092937 (validate 41719092946) | guard, build, deploy, verify-live, record-release success after approval; record artifact; digest `fc71be31…` | All five jobs success, none skipped; artifact `release-record-<A>-41719092937-1` (13272915136); live matches; 12 dev paths 404 | Yes (approved) | Release record only | Yes (first release) | PASS |
+| Verify record (step 5) | local, real API | `RELEASE EVIDENCE VERIFIED`; wrong digest, unknown SHA, other repository refused | As expected | No | No | No | PASS |
+| Release B deploy (step 6) | 41721443867 (validate 41721444197) | Same five jobs; digest `94ebd0f4…` | As expected; one transient 503 in a local check, runner check passed first time | Yes (approved) | Release record only | Yes (A to B) | PASS |
+| Rollback to A (step 7) | 41722856847 | Evidence accepted, rebuild reproduces `fc71be31…`, deploy, live check, rollback record `COMPLETED` | As expected; artifact `rollback-record-41722856847-1` (13273138266); B marker gone; A's file hash restored | Yes (approved) | Yes | Yes (B to A) | PASS |
+| 8a Wrong digest (zeros) | 41724221837 | Refused at evidence job; later jobs skipped | `ROLLBACK REFUSED (fail closed): … the supplied digest does not equal the digest in the release record`; evidence job failed, 4 later jobs skipped | No | No | No | PASS |
+| 8a' Wrong digest (B's real digest) | 41724322339 | Same refusal | Same message | No | No | No | PASS |
+| 8b Unreleased full SHA (`1111…`) | 41724434213 | Refused before any evidence or build | Request validation failed at 'The commit was released from main'; message is the raw `gh: Not Found (HTTP 404)` (the friendly 'not an ancestor' text is not reached). Fails closed; message quality is a discrepancy | No | No | No | PASS (message discrepancy) |
+| 8-input Short SHA `50580ce` | 41724502014 | Refused by input validation | `release_sha must be a full 40-character commit SHA` | No | No | No | PASS |
+| 8-input Uppercase SHA | 41724580259 | Refused by input validation | Same message | No | No | No | PASS |
+| 8-input Digest of 63 characters | 41724629500 | Refused by input validation | `expected_tree_digest must be 64 hex characters` | No | No | No | PASS |
+| 8-input Branch name `main` as SHA | 41724676663 | Refused by input validation | `release_sha must be a full 40-character commit SHA` | No | No | No | PASS |
+| 8-input Current main as target (B) | 41724719576 | Refused: not a previous release | `refusing: that is the current main, not a previous release` | No | No | No | PASS |
+| 8-input Unsupported ref | not run | Every job requires `refs/heads/main` | Needs a non-main branch in the rehearsal repository, which was not created; covered statically by `scripts/test-workflows.py` only | n/a | n/a | n/a | NOT RUN |
+| 8c-8g Deleted record, failing verify-live, rejected deploy, supersession, legacy source | not run | Stage 2 (destructive) | Not executed | n/a | n/a | n/a | NOT RUN |
 
 ## Not covered by the rehearsal
 Production-only settings (production environment reviewers, rulesets), the real site's cache behaviour, a release older than a few days, and anything about the production repository's history. Re-verify those in
