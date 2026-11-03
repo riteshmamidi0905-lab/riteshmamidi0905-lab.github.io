@@ -1,55 +1,71 @@
 # Rehearsal of the deployment and rollback workflows in a disposable repository
 
-Purpose: exercise, on real GitHub Actions, the paths that local tests can only simulate (the Pages deployment, the release record upload, `gh run download`, the Actions
-runs/jobs/artifacts API shapes, and the rollback). Nothing here is done by the repository tooling: creating the disposable repository and every step below needs the
-operator's separate authorisation. A passing local test or fake-`gh` run does NOT prove production behaviour; only this rehearsal and the first real release do.
+Purpose: exercise, on real GitHub Actions, the paths that local tests can only simulate: the Pages deployment, the release record upload, `gh run download`, the real
+runs/jobs/artifacts API shapes, and the rollback. A passing local test or fake-`gh` run does NOT prove production behaviour; only this rehearsal and the first real release do.
+Nothing in this file is done by the repository tooling. Steps marked **[APPROVAL]** need the repository owner's explicit go-ahead; steps marked [local] touch nothing on GitHub.
 
-## Setup (operator)
-1. Create a new, empty, **public** repository named `ORG/ORG.github.io` in a **separate** account or a free organisation (recommended: a new organisation, so the production
-   account and its token are never involved). A user or organisation site repository is unique per account, so the production account cannot host a second one, and
-   `make-rehearsal-tree.py` refuses the production account. Public so the 90-day artifact and API behaviour match production (Pages on a private repository needs a paid plan).
-   Use `gh` authenticated as the rehearsal account only; never set a remote to the production repository.
-2. Locally, from the release candidate: `python3 scripts/make-rehearsal-tree.py --repo OWNER/OWNER.github.io --out <dir> --variant a`. It copies the committed files, points the
-   two deployment workflows and the safety rules at the rehearsal repository, and re-runs the workflow, evidence and publication-boundary tests there. The content is the
-   already-approved public site (so the real verifier and the pinned digest are exercised); nothing private is added. The tree has no history: `git init` it yourself.
-3. In the rehearsal repository: Settings > Pages > Source = GitHub Actions; create the environment `github-pages` limited to `main` (add yourself as reviewer to rehearse approval).
-4. Push the tree to `main` as release **A**.
+## Feasibility and the simplest safe configuration
 
-## Safety properties
-* The rewritten workflows run only where `github.repository` is the rehearsal repository; pushed anywhere else (including by mistake to production) every job skips.
-* The tree contains tracked files only: no history, no credentials, no secrets (the workflows use none; the default token is scoped per job).
-* The published pages still contain the production site's canonical and sitemap URLs and the author's real profile links, because the content is deliberately unchanged
-  (changing it would change the digest and the verifier's expectations). The rehearsal site is therefore a public duplicate: delete the repository or unpublish it when done.
+| Question | Finding |
+|---|---|
+| Pages | Free for public repositories. A **project site** is served at `https://OWNER.github.io/NAME`; the live verifier works under that path (tested locally against a subpath: 48 files identical, 15 excluded URLs unavailable). A user/organisation site (`OWNER.github.io`) is unique per account, so a second one would need another account or organisation. |
+| Environment reviewers | GitHub documents required reviewers, wait timers and deployment-branch restrictions as available for **public** repositories on Free, Pro and Team (up to six reviewers). |
+| Self-review | The "prevent self-review" option, when on, stops the person who started the deployment from approving it. A sole owner therefore needs it **off**. (Environment settings can only be confirmed by trying them.) |
+| Admin bypass | On by default; can be disabled for public repositories on Free. Turn it off for the rehearsal to match the intended production setting. |
+| Repository permissions | The rehearsal workflows use the repository's own `GITHUB_TOKEN` with the per-job permissions in the files (top level `{}`; only `deploy` has `pages: write` and `id-token: write`). No secrets, no personal tokens. |
+| Artifacts and logs | Retention is up to 90 days on public repositories. The rehearsal's records and logs vanish after that or when the repository is deleted. |
+| Public-site duplication | The rehearsal site is a public duplicate of the portfolio (canonical and sitemap URLs still name the production host, because the content is deliberately unchanged so the pinned digest is exercised). Mitigation: short-lived repository, deleted at the end (step 10). |
+| Is a second account or organisation necessary? | **No.** The procedure below uses a project-site repository under the existing account. (A user-site repository `ORG/ORG.github.io` in another account is also supported by the generator, but is not used here.) |
 
-## Scenarios (record run IDs and conclusions for each)
-| # | Do | Expect |
-|---|---|---|
-| 1 | Push A to `main`; approve the environment | `guard`, `build`, `deploy`, `verify-live`, `record-release` all `success`; artifact `release-record-<sha>-<run>-<attempt>`; summary shows 49 files and the digest |
-| 2 | `python3 scripts/verify-live-site.py https://OWNER.github.io --manifest scripts/publish-manifest.json --expect-digest <digest>` | 48 files identical, excluded URLs 404, non-allowlisted paths 404 |
-| 3 | `gh run download <run> -n release-record-…` and `python3 scripts/verify-release-record.py --repo OWNER/OWNER.github.io --sha <A> --digest <digest> --release-dir <checkout of A>` | `RELEASE EVIDENCE VERIFIED` (first proof of the real API path) |
-| 4 | Make release **B**: `make-rehearsal-tree.py … --variant b`, copy the changed files over A, commit, push, approve | A new record for B; the live site now has a different digest |
-| 5 | Run `rollback.yml` with `release_sha=<A>`, `expected_tree_digest=<A digest>` | evidence job verifies A; rebuild reproduces the recorded digest; deploy, live verification and `record-rollback` succeed; artifact `rollback-record-…`; site back to A's digest |
-| 6 | Run the rollback with a wrong digest | refused at the evidence job; nothing deployed |
-| 7 | Run the rollback for a commit with no run (e.g. an unreleased commit) and for a commit older than 90 days if available | refused: no run / expired record |
-| 8 | Re-run only `record-release` or only `verify-live` of a finished run and delete its record artifact in the UI, then roll back to it | refused: record missing, no completion claimed |
-| 9 | Push a change that makes `verify-live` fail (e.g. temporarily point `SITE_URL` at an unrelated host in a throw-away branch of the rehearsal repo, merged to rehearsal `main`) | `deploy` may succeed, `verify-live` fails, `record-release` is skipped, **no record exists**, and rollback to that commit is refused |
-| 10 | Make `deploy` fail (reject the environment approval) | later jobs skipped, no record |
-| 11 | Start a rollback and push a new commit while it waits or runs; then another | at most one running and one pending run; the superseded rollback is cancelled and leaves no `record-rollback`; its summary says nothing was deployed |
-| 12 | Switch the rehearsal Pages source back to legacy and push | `guard` fails and nothing is deployed |
+Residual risk of the same-account option: the `gh` login that creates the repository also has admin on the production repository. Mitigations: always pass `-R "$REH"`, never add a
+remote for the production repository to the rehearsal directory, and note that the rewritten workflows only run where `github.repository` equals the rehearsal repository (pushed
+anywhere else, every job skips). `make-rehearsal-tree.py` refuses the production repository itself.
 
-## What to capture
-Run IDs, job and step conclusions (check that nothing is `skipped` where success is claimed), the artifact list for each run, the exact refusal messages, and any difference between
-the real API responses and `scripts/test-release-evidence.py`'s fake `gh` shapes. If real responses differ, fix the fake first, then the gate, and re-run the local suite.
+Repository: `riteshmamidi0905-lab/nasha-pages-rehearsal`. Site: `https://riteshmamidi0905-lab.github.io/nasha-pages-rehearsal`.
 
-## Not covered by a rehearsal
-Production-only settings (the production environment reviewers, rulesets, the real site's cache and CDN behaviour), a real release older than a few days, and anything about the
-production repository's history. Re-verify those during the first production release using `scripts/FIRST-DEPLOYMENT.md`.
+## Execution plan
 
-## Results log (fill in; keep failures as carefully as successes)
+Set variables once (shell): `REH=riteshmamidi0905-lab/nasha-pages-rehearsal`, `SITE=https://riteshmamidi0905-lab.github.io/nasha-pages-rehearsal`, `PROD=riteshmamidi0905-lab/riteshmamidi0905-lab.github.io`, `WORK=<an empty scratch directory outside the repository>`.
+
+Status: steps 1 and 3 were completed and read back before any content was pushed (see the results log); nothing has been deployed.
+
+1. **Create the disposable repository [APPROVAL].** `gh repo create "$REH" --public --description "Disposable rehearsal of release workflows. Delete after use."` (no README, no clone: the repository stays empty and no remote is configured anywhere). Stop and inspect instead if it already exists.
+2. **Generate variants A and B [local].** From a checkout of the clean release candidate:
+   `python3 scripts/make-rehearsal-tree.py --repo "$REH" --out "$WORK/a" --variant a` and `… --out "$WORK/b" --variant b`. Each run re-runs the workflow, evidence and publication-boundary
+   tests inside the tree and builds its artifact. Expected digests: A `fc71be31…b122b056` (the pinned digest), B `94ebd0f4…` (differs on purpose). `git init` inside `$WORK/a`; B is applied later as a second commit
+   (`cp -R "$WORK/b/." "$WORK/a/"`; only `404.html`, `release-files.json` and `scripts/publish-manifest.json` differ).
+3. **Configure Pages and the environment [APPROVAL].**
+   - Pages: `gh api -X POST repos/$REH/pages -f build_type=workflow` (accepted on the empty repository; reads back `build_type: workflow`). This also creates the `github-pages` environment with the single deployment branch policy `main`.
+   - Environment: `printf '{"can_admins_bypass":false,"prevent_self_review":false,"reviewers":[{"type":"User","id":%s}],"deployment_branch_policy":{"protected_branches":false,"custom_branch_policies":true}}' "$(gh api user -q .id)" | gh api -X PUT repos/$REH/environments/github-pages --input -`.
+   - Read back: `gh api repos/$REH/pages -q .build_type` is `workflow`; `gh api repos/$REH/environments/github-pages` shows `can_admins_bypass: false`, a `required_reviewers` rule with `prevent_self_review: false` and the owner as the only reviewer, and `custom_branch_policies: true`; `gh api repos/$REH/environments/github-pages/deployment-branch-policies` lists exactly `main`.
+4. **Deploy A [APPROVAL: push, then approval of the deployment].** In `$WORK/a`: `git add -A && git commit -m "release A" && git branch -M main && git remote add origin https://github.com/$REH.git && git push -u origin main`. Approve the `github-pages`
+   deployment when the run waits (UI, or `gh api -X POST repos/$REH/actions/runs/<run>/pending_deployments` with `environment_ids`, `state=approved`, `comment`). Record the run ID: `gh run list -R "$REH" --workflow pages.yml --json databaseId,conclusion,event,headSha`.
+   Expect `guard`, `build`, `deploy`, `verify-live`, `record-release` all `success`, none skipped (`gh api repos/$REH/actions/runs/<run>/jobs`).
+5. **Verify the release record [local, read-only].** `gh run download <run> -R "$REH" -n release-record-<A sha>-<run>-1 -D "$WORK/rec"`; `python3 scripts/verify-live-site.py "$SITE" --manifest scripts/publish-manifest.json --expect-digest <A digest>`;
+   `python3 scripts/verify-release-record.py --repo "$REH" --sha <A sha> --digest <A digest> --release-dir "$WORK/a"` must print `RELEASE EVIDENCE VERIFIED`. This is the first proof of the real API path; compare every response shape with
+   `scripts/test-release-evidence.py`'s fake and fix the fake first if they differ.
+6. **Deploy B [APPROVAL: push and deployment approval].** Copy variant B over A, commit "release B", push, approve. Expect a second record and the live digest to change to B's.
+7. **Roll back to A [APPROVAL: workflow run and deployment approval].** `gh workflow run rollback.yml -R "$REH" -f release_sha=<A sha> -f expected_tree_digest=<A digest>`; approve the deployment. Expect the evidence job to verify A, the rebuild to reproduce A's recorded digest,
+   `deploy`, `verify-live` and `record-rollback` all `success`, a `rollback-record-<run>-<attempt>` artifact, and the live digest back to A's.
+8. **Invalid and missing evidence [APPROVAL for each run; none of 8a-8c deploys].**
+   a. Rollback with a wrong digest → refused at `verify-release-evidence`, later jobs skipped.
+   b. Rollback to a commit with no production run (a full SHA that was never pushed to `main`) → refused: no run.
+   c. Delete the record artifact of release B (`gh api -X DELETE repos/$REH/actions/artifacts/<id>`), then roll back to B → refused: record missing.
+   d. Failed verification: on rehearsal `main` change `SITE_URL` in `pages.yml` to a wrong path and push; approve. Expect `deploy` success, `verify-live` failure, `record-release` skipped, **no record**; roll back to that commit → refused. Then restore the file in a new commit.
+   e. Failed deployment: reject the environment approval of a push → later jobs skipped, no record.
+   f. Supersession: start a rollback and queue two further runs while it waits; confirm at most one running plus one pending, the superseded run is cancelled with no `record-rollback` job and its summary says nothing was deployed.
+   g. Legacy guard: set the Pages source back to legacy and push → `guard` fails, nothing deployed; switch back to Actions.
+9. **Record everything.** For each scenario keep the run ID(s), every job and step conclusion (flag any `skipped`), the artifact list and the exact refusal message, in the log below. Keep failures as carefully as successes.
+10. **Remove the temporary public site [APPROVAL].** `gh auth refresh -s delete_repo` (the owner), then `gh repo delete "$REH" --yes`. Deleting the repository unpublishes the site and removes its runs, artifacts and records. Confirm `curl -sI "$SITE/" | head -1` returns 404 after a few minutes, and delete `$WORK`.
+
+## Pass criteria
+Every "expect" above held, and no job was `skipped` where success was claimed. Any deviation (especially a refusal that did not happen, or a completion claimed without `record-rollback`) blocks production use and is fixed first in `scripts/` with a new failing test, then re-rehearsed.
+
+## Results log (fill in)
 | # | Date | Run ID(s) | Jobs and conclusions (note any `skipped`) | Matched expectation? | Notes / API differences |
 |---|---|---|---|---|---|
+| setup | 2026-11-03 | none | none (no workflow has run) | yes | Repository created empty and public; Pages `build_type: workflow`; environment read back: admin bypass off, owner sole required reviewer, self-review not prevented, deployment branch `main` only. No secrets or variables; workflow token default `read`. |
 
-## Cost and account limits
-No charge expected: public repositories get free standard-runner minutes, free Pages and free artifact storage (retention up to 90 days). A free organisation can hold the
-site repository and the `github-pages` environment with required reviewers. Limits to confirm during setup: reviewer rules on the free plan, and that a sole member may
-approve their own deployment (leave "prevent self-review" off).
+## Not covered by the rehearsal
+Production-only settings (production environment reviewers, rulesets), the real site's cache behaviour, a release older than a few days, and anything about the production repository's history. Re-verify those in
+the first production release using `scripts/FIRST-DEPLOYMENT.md`. Costs: none expected (public repository standard runners, Pages and artifact storage are free).
