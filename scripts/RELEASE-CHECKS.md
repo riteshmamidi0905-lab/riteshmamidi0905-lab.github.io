@@ -43,12 +43,14 @@ Optional private rules (kept outside the repository) add literals, regexes and w
 ## GitHub Pages deployment and rollback
 
 Workflows: `.github/workflows/pages.yml` (production deployment) and `.github/workflows/rollback.yml` (manual rollback). `validate.yml` is the pull-request CI and only reads.
-`scripts/test-workflows.py` parses all three with a real YAML parser and enforces everything below (it also proves each rule bites with 65 unsafe variants).
+`scripts/test-workflows.py` parses all three with a real YAML parser and enforces everything below, and proves each rule bites with unsafe variants (continue-on-error, extra skip
+conditions, a record created before live verification, a rollback that trusts a workflow-level success or the operator's digest, ...). The rollback evidence gate and the release
+record are tested in `scripts/test-release-evidence.py` against a fake `gh` and against deliberately weakened gates. The shared rules are in `scripts/workflow_rules.py`.
 
 ### Why adding the workflows to a branch or pull request cannot deploy anything
 * `pages.yml` triggers only on a push to `main` and on a manual run. `rollback.yml` is manual only. Neither has a `pull_request`, `pull_request_target`, `workflow_run`
   or `schedule` trigger, so a pull request, a branch push or a comment never starts them.
-* Every job in both files requires `github.ref == 'refs/heads/main'`; a manual run started from any other branch skips every job.
+* Every job requires exactly `github.ref == 'refs/heads/main'`; a manual run started from any other branch skips every job.
 * The first job (`guard`) fails unless the repository's Pages source is "GitHub Actions". While Pages is still the legacy branch build, a push to `main` runs the guard,
   the guard fails, and nothing is built or deployed.
 * The deploy job runs in the `github-pages` environment, which is restricted to the `main` branch (and can add required reviewers).
@@ -61,27 +63,52 @@ reviewers on the `github-pages` environment, and branch protection on `main` req
 Order of operations (the live site keeps serving the last deployment when the source is switched):
 1. Review and approve the pull request that contains these workflows.
 2. Switch the Pages source to GitHub Actions; add environment reviewers.
-3. Merge. The push to `main` runs `pages.yml`: guard, build and verify, deploy, live verification.
-4. Confirm `verify-live` passed: every manifest file served byte-identical, the manifest's tree digest equal to the recorded one, every excluded development URL unavailable.
+3. Merge. The push to `main` runs `pages.yml`: guard, build and verify, deploy, live verification, release record.
+4. Confirm `record-release` succeeded: that run now has a release record and is a restorable release.
 
-### Deployment (`pages.yml`)
+### Deployment (`pages.yml`) and the release record
 * Permissions start empty. `contents: read` for builds, `pages: read` for checks, `pages: write` and `id-token: write` only in the deploy job. No secrets. Actions are pinned to commit SHAs.
-* `build` runs source validation, `npm audit`, then `npm run build:pages` (build the allowlisted `dist/` and verify it independently), records the commit and tree digest in the
-  "Release record" and uploads only `dist/` (kept 90 days). `deploy` is the single deploy step. `verify-live` checks out the deployed commit and compares the live site with its
-  `scripts/publish-manifest.json` and the digest the build recorded.
-* `deploy` and `rollback` share the concurrency group `pages-production` (never cancelled), so they can never run at the same time.
+* Jobs, in order: `guard` -> `build` (source validation, `npm audit`, build and verify the allowlisted `dist/`, record its tree digest, upload only `dist/`) -> `deploy` (the single deploy step) ->
+  `verify-live` (compare the live site with this commit's `scripts/publish-manifest.json` and the digest the build recorded) -> `record-release`.
+* The job names and the names of the required steps are fixed: the rollback evidence gate matches them. Nothing in these workflows may hide a failure: no `continue-on-error`, no step conditions,
+  no job condition other than the main-only one, no `always()`/`failure()`/`cancelled()`; the tests enforce this.
+* `record-release` depends on `build`, `deploy` AND `verify-live`, so it cannot run (and a record cannot exist) unless the site was deployed and verified live. `scripts/release_record.py` additionally
+  refuses to write a record unless both results are literally `success`, the run is on `refs/heads/main`, and the digest equals the digest derived from `scripts/publish-manifest.json`.
+  The record (artifact `release-record-<sha>-<run id>-<attempt>`, kept 90 days) holds: repository, commit, ref, workflow ref, event, run id and attempt, tree digest, manifest path and SHA-256, file count,
+  the deploy and live-verification results, and the jobs it was recorded after. Artifacts are immutable per name, so each attempt has its own.
+* `deploy` and `rollback` share the concurrency group `pages-production`, so they can never run at the same time.
+
+### Rollback eligibility (`scripts/verify-release-record.py`, run by `rollback.yml`)
+A successful workflow conclusion alone is never accepted: a run can be green with skipped jobs or steps, and `continue-on-error` is invisible in the API. A commit may be restored only if ALL hold:
+1. The input is a full 40-character SHA, it is not the current `main`, and it is an ancestor of `main`.
+2. The workflow definition at that commit satisfies today's deployment safety rules (`scripts/workflow_rules.py`): no `continue-on-error`, no extra conditions that could skip a job, no missing dependency.
+3. A run of the production deploy workflow (matched by workflow id and file, so an unrelated workflow cannot qualify) exists for that exact commit on `main`, from a push or a manual run, in this repository (not a fork),
+   whose latest attempt completed successfully.
+4. That attempt's jobs are exactly `guard`, `build`, `deploy`, `verify-live`, `record-release`, each completed with conclusion success (none skipped), and every required step (the deploy step, the live
+   verification step, the record upload, ...) succeeded.
+5. Exactly one non-expired release-record artifact exists for that attempt and belongs to that run.
+6. Every field of the record matches what was established independently (repository, commit, run id, attempt, event, workflow, manifest SHA-256 at that commit, file count, results) and its tree digest equals the digest
+   derived from the manifest at that commit.
+7. The operator-supplied digest equals the recorded digest. It is a claim that is checked, never evidence.
+Anything missing, expired, ambiguous, inconsistent or unverifiable refuses the rollback (fail closed). Deployment records from the Deployments API are not used: they carry the commit of the workflow run, which for a rollback is the current `main`.
 
 ### Rollback (`rollback.yml`)
-It restores a previous release by its exact commit and never builds or deploys the current `main`.
 1. Take `release_sha` and the tree digest from that release's "Release record" (job summary of its `pages.yml` run) and start the workflow from `main`.
-2. `guard` requires a full 40-character SHA and a full 64-character digest, refuses the current `main`, requires Pages to be artifact-deployed, requires the commit to be an ancestor of
-   `main`, and requires a successful `pages.yml` run for that commit on `main` (built, deployed and verified live). Deployment records are not used for this: they carry the commit
-   of the workflow run, which for a rollback would be the current `main`, not the content deployed.
-3. `rebuild-exact-release` checks out that commit alone into `release/`, proves `HEAD` equals the request and that it is an ancestor of `main`, runs source validation, builds and
-   verifies the artifact there, and refuses to continue unless the rebuilt tree digest equals the supplied one. It writes a "Rollback record" (restored commit and digest, run, actor, and
-   the current `main`, which is not built). Builds are deterministic, so this reproduces the original artifact without depending on artifact retention.
-4. `deploy` uses the same environment-gated step. `verify-live` then compares the live site with the RESTORED release's manifest and recorded digest, using the verifier from `main`
-   so it exists even for an older release, and re-checks that Pages is still artifact-deployed.
-5. A rollback never changes the Pages source. Never roll back by switching the source to a branch: that republishes the repository root. If the workflows themselves are unusable, revert the
-   offending change with a pull request and let the normal deployment run.
-Not covered: a release made before the publication boundary existed has no manifest and cannot be restored this way; the first release has nothing to roll back to.
+2. `guard` checks the inputs, that Pages is artifact-deployed, and that the commit is an ancestor of `main`. `verify-release-evidence` checks out the release commit and the verifier from `main` and applies the eligibility rules above.
+3. `rebuild-exact-release` checks out that commit alone, proves `HEAD` equals the request, runs source validation, builds and verifies the artifact there, and refuses to continue unless the rebuilt tree digest equals the digest in the
+   verified release record. Builds are deterministic, so this reproduces the original artifact without depending on artifact retention. Its summary says the rollback is IN PROGRESS and that nothing is deployed yet.
+4. `deploy` uses the same environment-gated step. `verify-live` compares the live site with the RESTORED release's manifest and recorded digest, using the verifier from `main`.
+5. `record-rollback` runs only if all of that succeeded and writes the rollback record (artifact `rollback-record-<run id>-<attempt>`, summary "Rollback COMPLETED and verified live"). It is the only place that reports completion.
+6. A rollback never changes the Pages source. Never roll back by switching the source to a branch: that republishes the repository root.
+
+### Limits and operations
+* Retention: release records, Pages artifacts and run logs are kept 90 days (the maximum on a public repository). After that the record is expired and a rollback to that release fails closed; restore it by reverting the
+  offending change on `main` with a pull request and letting the normal deployment run. The first release has nothing to roll back to, and a release made before the publication boundary has no record.
+* Integrity: a release record is an Actions artifact, not a signature. Its trust rests on the run it came from, which the gate cross-checks, and on who can change workflows or delete artifacts (repository write and
+  administration access); deletion makes a rollback fail closed. Cryptographic artifact attestations would add tamper evidence and are a possible upgrade.
+* Concurrency: `cancel-in-progress: false` does NOT guarantee that every queued run executes. GitHub keeps at most one running and one pending run per group; when another run queues, the previously pending run is
+  cancelled. A rollback queued behind a running deployment can therefore be cancelled by a later push or run, and a queued deployment can be dropped when a newer push queues behind it. A cancelled, superseded or
+  failed rollback has no `record-rollback` job and no rollback record, and its "IN PROGRESS" summary is explicit that nothing was deployed by that step: it must never be read as a completed rollback. Check the site with
+  `python3 scripts/verify-live-site.py https://riteshmamidi0905-lab.github.io --manifest <that release's scripts/publish-manifest.json> --expect-digest <digest>` before assuming anything.
+* A rollback restores an old release; it does not change `main`. The next push to `main` deploys `main` again and replaces it, so revert or fix `main` straight after rolling back. A rollback record proves the
+  rollback finished at that time, not that the site still serves it.
