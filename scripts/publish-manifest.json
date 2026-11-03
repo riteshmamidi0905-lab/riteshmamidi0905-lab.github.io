@@ -1,0 +1,251 @@
+{
+ "version": 1,
+ "description": "Exact allowlist of files published to GitHub Pages. Regenerate with: python3 scripts/build-pages-artifact.py --write-manifest",
+ "files": [
+  {
+   "path": ".nojekyll",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "path": "404.html",
+   "bytes": 776,
+   "sha256": "6686cd90bba8d2f3291d49b7439bfe395ed1aead33703bbc7d8f7f1b511adacd"
+  },
+  {
+   "path": "ai-engineering.html",
+   "bytes": 9460,
+   "sha256": "b40ec65bbd8e607f47fe9df16bfdb0a3379c4500da6a6fcde6e54a1744b96115"
+  },
+  {
+   "path": "assets/fonts/Inter-LICENSE.txt",
+   "bytes": 4477,
+   "sha256": "3b0a5fca3d17942cde889069889dedbbbd075e9b599968c82a95f4d944e9b345"
+  },
+  {
+   "path": "assets/fonts/JetBrains-Mono-LICENSE.txt",
+   "bytes": 4524,
+   "sha256": "403581b69dac5cff4079205e01c6b467e56af449ecbd7247693ddb1baafa005b"
+  },
+  {
+   "path": "assets/fonts/inter-latin.woff2",
+   "bytes": 48256,
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+  },
+  {
+   "path": "assets/fonts/jetbrains-mono-latin.woff2",
+   "bytes": 40404,
+   "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
+  },
+  {
+   "path": "assets/img/cases/cs-agent-platform-ui.jpg",
+   "bytes": 107110,
+   "sha256": "60f9a169e5bd906601af81992ec723d3560b0b9776a467812dc8235f201bb9de"
+  },
+  {
+   "path": "assets/img/cases/cs-copilot-approval.jpg",
+   "bytes": 86503,
+   "sha256": "36a665c0df63ccc23bbfd05e61a514c3fe108d9023d12da6e97b988c02c50762"
+  },
+  {
+   "path": "assets/img/cases/cs-copilot-uncertain.jpg",
+   "bytes": 89735,
+   "sha256": "efa8e790bd26aad5d4007d06877a3f30c07cf376ae778720b03de9cfa5ec07de"
+  },
+  {
+   "path": "assets/img/cases/cs-genai-chat.jpg",
+   "bytes": 219918,
+   "sha256": "b57c21372dcb0b2aa298e028aeae266ef4beb31835cbae0a39be5ab141aba347"
+  },
+  {
+   "path": "assets/img/cases/cs-llm-eval-report.jpg",
+   "bytes": 170413,
+   "sha256": "a966305a91509544759dd6e9d65ffcc5539509abdf8081f3e66e4ce8aca382df"
+  },
+  {
+   "path": "assets/img/cases/cs-weir-flow.jpg",
+   "bytes": 162256,
+   "sha256": "133ae00ac72eeea89b1da96da3303dc2527999db69db06421260b846cf62d049"
+  },
+  {
+   "path": "assets/js/nasha-ecosystem-core.js",
+   "bytes": 4481,
+   "sha256": "355b458337448c0890285af20c9a658ab58371d235a448958d1f6cc077346ed5"
+  },
+  {
+   "path": "case-genai-doc-assistant.html",
+   "bytes": 14986,
+   "sha256": "9407d3254500e4d7974d6c4570241b33f62b8663cc208c6b763eb1e6d48929b3"
+  },
+  {
+   "path": "case-llm-eval-framework.html",
+   "bytes": 15138,
+   "sha256": "83047bae06268b1208bae5e0e51357badd9e9ba732be6031b3eda3dfd23208ba"
+  },
+  {
+   "path": "case-mcp-weir.html",
+   "bytes": 15196,
+   "sha256": "c848172cf21e75ce1aa40c34dc64c1a7e20bc3b3ca046a67d76d6a7270bba154"
+  },
+  {
+   "path": "case-nasha-ai-lab-architecture.html",
+   "bytes": 14717,
+   "sha256": "702ef3e53390918af9e885282751f189c9bcc97428567cfa93abcee51d6b8203"
+  },
+  {
+   "path": "case-production-ai-agent-platform.html",
+   "bytes": 16941,
+   "sha256": "79b144cce01ad73d3b878715e67470b5c9b888a8dd922640e3400e8823341832"
+  },
+  {
+   "path": "case-studies.html",
+   "bytes": 6527,
+   "sha256": "9bb8c369eb86c7de9a61f22602d403523c0fa249c7362a7d8f593ad6aace2a7e"
+  },
+  {
+   "path": "case-support-escalation-copilot.html",
+   "bytes": 16036,
+   "sha256": "d130bbd1dd79a33ac6968771a7b57a7ec5f59565e0963883c6f63c5739109120"
+  },
+  {
+   "path": "cinematic.css",
+   "bytes": 19475,
+   "sha256": "7e8ec07a6a348bf2594c41e4509727bcc88ff032604171a9ab1dff77c8724aad"
+  },
+  {
+   "path": "cinematic.js",
+   "bytes": 5516,
+   "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
+  },
+  {
+   "path": "data-lab.html",
+   "bytes": 52279,
+   "sha256": "520e4b64cd7ce1c6e688f4248df6542787d5e83ecd1325bd20eba849f51726bb"
+  },
+  {
+   "path": "data/cases.json",
+   "bytes": 34085,
+   "sha256": "2350bf5663507d74c1c7659bd581b305b53775352e5fd501b225dfba95e6e6c3"
+  },
+  {
+   "path": "data/datalab/lab-data.json",
+   "bytes": 132004,
+   "sha256": "35c1e97915c866c07eac79fc921d1877c9532cd45fb2986e4df9054d6bdeb57e"
+  },
+  {
+   "path": "data/image-register.json",
+   "bytes": 1809,
+   "sha256": "a9d136c3419739ad135c0f05066ea5a37e2d8b714e5861fb3b736d8b181972e0"
+  },
+  {
+   "path": "data/lab.json",
+   "bytes": 19670,
+   "sha256": "8f1a569762c2b9bc23444591f801e6c8b5a0162a21fb4a1318dfba184175d430"
+  },
+  {
+   "path": "data/projects.json",
+   "bytes": 18829,
+   "sha256": "a4efc1f402002fb891785ad277e1db087ad4a48982c26a2c8c009ce239925b07"
+  },
+  {
+   "path": "datalab.js",
+   "bytes": 8219,
+   "sha256": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636"
+  },
+  {
+   "path": "demo/app.js",
+   "bytes": 68648,
+   "sha256": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102"
+  },
+  {
+   "path": "demo/data.js",
+   "bytes": 24464,
+   "sha256": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3"
+  },
+  {
+   "path": "demo/demo.css",
+   "bytes": 11075,
+   "sha256": "53042715e33ed0ba0680add99a0b8195aad66484872b2bef651b96d22699c996"
+  },
+  {
+   "path": "demo/engine.js",
+   "bytes": 35690,
+   "sha256": "696a7033d52274d3d73aa26ca13611ec46234c91e49c6017438417749ad74d8f"
+  },
+  {
+   "path": "demo/index.html",
+   "bytes": 4583,
+   "sha256": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4"
+  },
+  {
+   "path": "index.html",
+   "bytes": 29031,
+   "sha256": "14912198752a81e5eaa895a62b0d38f7aa6b06f6a285c4283fa2e21f8ccc3fe8"
+  },
+  {
+   "path": "lab-explorer.html",
+   "bytes": 41770,
+   "sha256": "52580d631a9ddc8ccbcd0d167f23e27488363c6f6113a8fb489ba772e0c336e5"
+  },
+  {
+   "path": "lab.css",
+   "bytes": 17030,
+   "sha256": "ba0f9001b3a5fb9ea1ba20fdde06f22302a21fa7ba50caa103d9f8d7a2610b2e"
+  },
+  {
+   "path": "lab.js",
+   "bytes": 5093,
+   "sha256": "674f706e9e17e34030ff89d8fa2871e473aecf30faa4a1961c807d140e1b7894"
+  },
+  {
+   "path": "mark.svg",
+   "bytes": 225,
+   "sha256": "c27d8542a67d0cf0e43affce27ee2a5754c44163bbced4cd0e790afc65102819"
+  },
+  {
+   "path": "nasha-lab.html",
+   "bytes": 33239,
+   "sha256": "13778e9dd670ba49872b584bc96336592c8b343579e5dd0f14ce95d091cdc22f"
+  },
+  {
+   "path": "projects.html",
+   "bytes": 40262,
+   "sha256": "74b905ecca5243aea53aef4c706947263c066db2e986329e3e45291a56c5bfaf"
+  },
+  {
+   "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",
+   "bytes": 12426,
+   "sha256": "7c6b04267ed43658b5d440fbe638faf96294dd94d5662509ac50df4668cf1267"
+  },
+  {
+   "path": "recovered/nasha-b666563/docs/nasha-ecosystem/ARCHITECTURE.md",
+   "bytes": 4120,
+   "sha256": "21719d0733dcd3ce0bf27c21a8e462857020171906decd61d2f8ccdd5aeadd5b"
+  },
+  {
+   "path": "recruiter.html",
+   "bytes": 8909,
+   "sha256": "88e13e6f1a695d3d383c8aec3c824c96463a968af75ab8eb4cd0690357be0011"
+  },
+  {
+   "path": "ritesh_mamidi_resume.pdf",
+   "bytes": 82249,
+   "sha256": "5be37bc18841479c9ed33049dec9fe9401d6ecb4c25fd07629f3555afbce5a7b"
+  },
+  {
+   "path": "robots.txt",
+   "bytes": 83,
+   "sha256": "88e196370b02cecbce6a05558949cc63e789146657effad9704ccdcfef51edfa"
+  },
+  {
+   "path": "sitemap.xml",
+   "bytes": 1412,
+   "sha256": "81e34f0fc35f8701983e3c895b1802c12eb64ea2b7c6b1f19bed07d7d3e9e3ad"
+  },
+  {
+   "path": "verified-projects.html",
+   "bytes": 31089,
+   "sha256": "19818890d168ad96fee46cf9c37572c5ee545d134ad83de8b8a3b167bdf62c58"
+  }
+ ]
+}

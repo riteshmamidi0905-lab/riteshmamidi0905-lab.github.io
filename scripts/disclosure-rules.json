@@ -1,0 +1,98 @@
+{
+ "version": 1,
+ "note": "Salted SHA-256 of private terms (see scripts/disclosure.py). Rule ids are neutral; the terms are intentionally not spelled out here.",
+ "salt_id": "portfolio-disclosure-v1",
+ "rules": [
+  {
+   "id": "D01",
+   "kind": "term",
+   "hash": "c4c959f10af207a6a917ca3c79f3958ecf8ec85001efbd86b010a4a7a3de0975"
+  },
+  {
+   "id": "D02",
+   "kind": "term",
+   "hash": "bff9943e47098f851d4c1302680d128c1f011e01bc52ff5d432c2c8f068cd515"
+  },
+  {
+   "id": "D03",
+   "kind": "term",
+   "hash": "7e71fc1fd35c25074f7cd1b02aa484db5f9eea53725511f9330cea23119011b1"
+  },
+  {
+   "id": "D04",
+   "kind": "term",
+   "hash": "aa274731b53a2cc85c67d2548a5819868388fb62137918127ca97961b7155ef4"
+  },
+  {
+   "id": "D05",
+   "kind": "term",
+   "hash": "d664a1b7612209009b25b945e6b15ef6aa0dee870168346450e2b700ba20592a"
+  },
+  {
+   "id": "D06",
+   "kind": "term",
+   "hash": "a6a221c96a05a48c51d56f0769bcf4da6df1dd8be93e1c142c51095eedd06362"
+  },
+  {
+   "id": "D07",
+   "kind": "term",
+   "hash": "ab24281886585a531f8e25a633297bc0009d7261a261fa19386cb8593b62a7e8"
+  },
+  {
+   "id": "D08",
+   "kind": "term",
+   "hash": "1b09666f4c9439a7fef93ceb815ed7a8d13221fa2974d347090d5d391c9028dd"
+  },
+  {
+   "id": "D09",
+   "kind": "term",
+   "hash": "101101095738e9365b695662efd9b053670b4ecaecf3bb59af3e40eea57236ff"
+  },
+  {
+   "id": "D10",
+   "kind": "term",
+   "hash": "f35c46ce118081c4598c84bfd73bd83f39488fdeb4b0bff6da1597b051c5a8fe"
+  },
+  {
+   "id": "D11",
+   "kind": "term",
+   "hash": "3c5f10f79fb8bfd8cdfd10267e5d19b0d771ffca21f5a0ce3e55788eaf9dfa9e"
+  },
+  {
+   "id": "D12",
+   "kind": "prefix-digit",
+   "hash": "bba472a180e2920af82025a4f75bdb989885ed78ad6c1305ddc5dc5603a103ce"
+  },
+  {
+   "id": "D13",
+   "kind": "prefix-digit",
+   "hash": "2404df50bb17a7add75299368ceea06c82843b8c54a865d8e8f8d62b93effbe7"
+  },
+  {
+   "id": "D14",
+   "kind": "prefix-digit",
+   "hash": "002ce95463348b9de456090d1c7442b3cfead098e16285346cd15737e0618965"
+  },
+  {
+   "id": "D15",
+   "kind": "phrase",
+   "hash": "8b115c93c2fba2cba9e0c808d5961e07ea60ebeab3f75380d0cc81fe4dbafc37"
+  },
+  {
+   "id": "D16",
+   "kind": "phrase",
+   "hash": "ae8c4a8df0e29ccd5c76fecad121bed4374e5cf9ea91c726174916a35d0671d5"
+  },
+  {
+   "id": "D17",
+   "kind": "phrase",
+   "hash": "465a6aec3395a5478fac7625e5cbf483d7d16c85a7b6bebee79c219394e6c7cf"
+  }
+ ],
+ "allow": [
+  {
+   "rule": "D03",
+   "path": "assets/js/nasha-ecosystem-core.js"
+  }
+ ]
+}

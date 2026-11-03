@@ -1,0 +1,546 @@
+{
+ "source": "local checkpoint 5fe624a (register not yet published)",
+ "layers": [
+  "Business concept",
+  "Agents and workflows",
+  "Knowledge and retrieval",
+  "Evaluation and reliability",
+  "Governance and security",
+  "Data, analytics and BI",
+  "Human oversight",
+  "Platform vision"
+ ],
+ "nodes": [
+  {
+   "layer": 0,
+   "id": "concept",
+   "title": "NASHA brewery concept",
+   "status": "CONCEPT",
+   "summary": "A proposed Indo-Mex brewery: brand, menu, space and operations studies used as the business scenario.",
+   "evidence": "Concept documents and visual studies in the repository.",
+   "limits": "Not an operating business: no customers, suppliers or revenue. Images are concept visuals.",
+   "links": []
+  },
+  {
+   "layer": 0,
+   "id": "planning",
+   "title": "Business and financial planning models",
+   "status": "UNVERIFIED",
+   "summary": "Pricing, offers and financial-model code for the synthetic business.",
+   "evidence": "Code and tests exist in the lab; the capability register lists pricing and offers as TESTED.",
+   "limits": "Not re-run in the 2026-11-01 verification. Synthetic data.",
+   "links": []
+  },
+  {
+   "layer": 1,
+   "id": "ops-explainer",
+   "title": "Operations explainer and validator",
+   "status": "VERIFIED",
+   "summary": "Explains an inventory gap from verified facts; a strict validator checks every claim against the source and rewards abstention when evidence is missing.",
+   "evidence": "953 offline tests pass at a local checkpoint; scripted end-to-end self-test passes (scripted evidence is never a result).",
+   "limits": "The live model evaluation has NOT met its acceptance criteria (failed). Not deployed.",
+   "links": []
+  },
+  {
+   "layer": 1,
+   "id": "agent-platform",
+   "title": "Evidence-grounded research agent",
+   "status": "VERIFIED",
+   "summary": "Planner, tools, retrieval on Postgres/pgvector, human approvals, citations and a regression gate.",
+   "evidence": "production-ai-agent-platform: 78 tests on a real embedded Postgres; smoke run with 3 cited claims.",
+   "limits": "Default provider is a deterministic heuristic, not an LLM.",
+   "links": [
+    "production-ai-agent-platform"
+   ]
+  },
+  {
+   "layer": 1,
+   "id": "toolkit",
+   "title": "Tool-using agent loop",
+   "status": "VERIFIED",
+   "summary": "A small ReAct loop where one tool's output feeds the next.",
+   "evidence": "ai-agent-toolkit: 11 tests; built-in benchmark 10/10.",
+   "limits": "Rule-based planner.",
+   "links": [
+    "ai-agent-toolkit"
+   ]
+  },
+  {
+   "layer": 1,
+   "id": "specialists",
+   "title": "Twelve specialist services",
+   "status": "UNVERIFIED",
+   "summary": "Deterministic callable specialists inside one accountable workflow. Not twelve autonomous LLMs.",
+   "evidence": "Recorded offline results on the lab page; historical evidence, not a rerun.",
+   "limits": "Synthetic scenarios only.",
+   "links": []
+  },
+  {
+   "layer": 2,
+   "id": "rag",
+   "title": "Retrieval and knowledge",
+   "status": "VERIFIED",
+   "summary": "From-scratch TF-IDF retrieval and a document assistant with citations and a scored evaluation.",
+   "evidence": "rag-doc-qa 14 tests; genai-doc-assistant 40 tests, eval hit rate 1.0 on 8 items.",
+   "limits": "Tiny evaluation sets; hashing embeddings in the verified run.",
+   "links": [
+    "rag-doc-qa",
+    "genai-doc-assistant"
+   ]
+  },
+  {
+   "layer": 3,
+   "id": "evals",
+   "title": "LLM evaluation and reliability",
+   "status": "VERIFIED",
+   "summary": "Rubrics, weighted criteria, hard gates, a CI threshold, and run-level evaluation of agent trajectories.",
+   "evidence": "llm-eval-framework 33 tests and a re-run benchmark; maref 35 tests.",
+   "limits": "Benchmarks use bundled samples. maref is a research prototype.",
+   "links": [
+    "llm-eval-framework",
+    "maref"
+   ]
+  },
+  {
+   "layer": 3,
+   "id": "live-model-evaluation",
+   "title": "NASHA live model evaluation",
+   "status": "FAIL",
+   "summary": "A pre-registered evaluation of whether a model can meet the explanation contract.",
+   "evidence": "Recorded: run 1 scored 0 of 30 supported cases (every attempt truncated, cause unknown).",
+   "limits": "Result: FAIL. A GPU re-run is planned and not yet authorised.",
+   "links": []
+  },
+  {
+   "layer": 4,
+   "id": "gateway",
+   "title": "Governance for tool calls",
+   "status": "VERIFIED",
+   "summary": "Information-flow labels, policy rules and approvals bound to the exact call.",
+   "evidence": "mcp-weir: 417 tests including real subprocess tests; built-in demo.",
+   "limits": "Deterministic scenarios, no live model.",
+   "links": [
+    "mcp-weir"
+   ]
+  },
+  {
+   "layer": 4,
+   "id": "security",
+   "title": "Evidence security controls",
+   "status": "VERIFIED",
+   "summary": "Hash-chained audit ledger, single-use approvals, fail-closed locking and secret handling.",
+   "evidence": "Four rounds of independent AI-assisted review; the last passed within documented assumptions (not a formal external audit).",
+   "limits": "The reviewed checkpoint is local and not yet published.",
+   "links": []
+  },
+  {
+   "layer": 4,
+   "id": "copilot",
+   "title": "Approval-gated workflow",
+   "status": "VERIFIED",
+   "summary": "A support workflow where the model has no write capability; policy is deterministic; tenants are isolated.",
+   "evidence": "support-escalation-copilot: 489 tests on a real embedded Postgres; 21 of 21 demo checks.",
+   "limits": "Rule-based stand-in model by default.",
+   "links": [
+    "support-escalation-copilot"
+   ]
+  },
+  {
+   "layer": 5,
+   "id": "data-eng",
+   "title": "Data engineering",
+   "status": "VERIFIED",
+   "summary": "Medallion lakehouse transformations, streaming fraud-rule transforms, a SQL warehouse and an MLOps registry.",
+   "evidence": "spark-data-lakehouse 4, realtime-streaming-pipeline 3 (transforms only), sql-analytics-warehouse 8, mlops-platform 12.",
+   "limits": "The Kafka/Cassandra stack was not run; not production scale.",
+   "links": [
+    "spark-data-lakehouse",
+    "realtime-streaming-pipeline",
+    "sql-analytics-warehouse",
+    "mlops-platform"
+   ]
+  },
+  {
+   "layer": 5,
+   "id": "bi",
+   "title": "Business intelligence and product analytics",
+   "status": "VERIFIED",
+   "summary": "Revenue KPIs, funnels and retention, and experiment analysis.",
+   "evidence": "saas-kpi-dashboard 6, product-analytics-funnel-retention 6, experimentation-toolkit 11.",
+   "limits": "Synthetic data; demonstration effect sizes.",
+   "links": [
+    "saas-kpi-dashboard",
+    "product-analytics-funnel-retention",
+    "experimentation-toolkit"
+   ]
+  },
+  {
+   "layer": 5,
+   "id": "forecast",
+   "title": "Forecasting and prediction",
+   "status": "PLANNED",
+   "summary": "Revenue and demand forecasting for the NASHA scenario.",
+   "evidence": "Related verified pieces: customer-churn-prediction (5 tests) and experiment tooling. No NASHA forecasting model is verified.",
+   "limits": "Planned; not built for NASHA.",
+   "links": [
+    "customer-churn-prediction"
+   ]
+  },
+  {
+   "layer": 6,
+   "id": "human",
+   "title": "Human oversight",
+   "status": "VERIFIED",
+   "summary": "Approvals bound to the exact action, reviewer roles and audit trails.",
+   "evidence": "Implemented in mcp-weir, support-escalation-copilot and the evidence controls (see above).",
+   "limits": "Approval is an internal consistency control, not authentication of a cloud provider.",
+   "links": [
+    "mcp-weir",
+    "support-escalation-copilot"
+   ]
+  },
+  {
+   "layer": 7,
+   "id": "platform",
+   "title": "Reusable business-creation platform",
+   "status": "PLANNED",
+   "summary": "The same pipeline applied to other business ideas: research, planning, brand, finance, operations, analytics.",
+   "evidence": "None: this is the direction, not a built system.",
+   "limits": "Conceptual. Not deployed.",
+   "links": []
+  }
+ ],
+ "scenarios": [
+  {
+   "name": "Marketing intelligence",
+   "status": "PLANNED",
+   "what": "Segment customers and test messages for the concept.",
+   "basis": "The register lists marketing content as DESIGNED and performance tracking as TESTED.",
+   "nodes": [
+    "bi"
+   ],
+   "kinds": [
+    "concept",
+    "planned"
+   ]
+  },
+  {
+   "name": "Customer analytics",
+   "status": "VERIFIED",
+   "what": "Churn, funnels and retention on synthetic customers.",
+   "basis": "Verified analytics projects; not NASHA customer data (there is none).",
+   "nodes": [
+    "bi",
+    "forecast"
+   ],
+   "kinds": [
+    "simulation",
+    "component"
+   ]
+  },
+  {
+   "name": "Inventory management",
+   "status": "VERIFIED",
+   "what": "Explain a stock gap from verified facts; abstain when facts conflict.",
+   "basis": "Operations explainer with a strict validator (offline components verified).",
+   "nodes": [
+    "ops-explainer"
+   ],
+   "kinds": [
+    "concept",
+    "simulation",
+    "component"
+   ]
+  },
+  {
+   "name": "Supplier workflows",
+   "status": "UNVERIFIED",
+   "what": "Compare quotes and flag supplier risk.",
+   "basis": "Supplier code and evaluations exist in the lab; not re-run in this verification.",
+   "nodes": [
+    "planning"
+   ],
+   "kinds": [
+    "concept",
+    "simulation"
+   ]
+  },
+  {
+   "name": "Financial planning",
+   "status": "UNVERIFIED",
+   "what": "Pricing, offers and scenario margins.",
+   "basis": "Financial-model code with tests listed in the register; not re-run here.",
+   "nodes": [
+    "planning"
+   ],
+   "kinds": [
+    "concept",
+    "simulation"
+   ]
+  },
+  {
+   "name": "Revenue forecasting",
+   "status": "PLANNED",
+   "what": "Forecast revenue for the concept.",
+   "basis": "Planned. Verified forecasting-adjacent tooling only.",
+   "nodes": [
+    "forecast"
+   ],
+   "kinds": [
+    "concept",
+    "planned"
+   ]
+  },
+  {
+   "name": "Operations automation",
+   "status": "VERIFIED",
+   "what": "Automate repetitive, approval-gated tasks.",
+   "basis": "Approval-gated workflow with audit trail and tenant isolation.",
+   "nodes": [
+    "copilot",
+    "human"
+   ],
+   "kinds": [
+    "simulation",
+    "component"
+   ]
+  },
+  {
+   "name": "Customer support",
+   "status": "VERIFIED",
+   "what": "Triage and draft, with humans approving actions.",
+   "basis": "support-escalation-copilot (synthetic B2B scenario).",
+   "nodes": [
+    "copilot"
+   ],
+   "kinds": [
+    "simulation",
+    "component"
+   ]
+  },
+  {
+   "name": "AI governance",
+   "status": "VERIFIED",
+   "what": "Control what an agent may read, send or do.",
+   "basis": "Governance gateway and evidence security controls.",
+   "nodes": [
+    "gateway",
+    "security"
+   ],
+   "kinds": [
+    "simulation",
+    "component"
+   ]
+  },
+  {
+   "name": "Model evaluation",
+   "status": "VERIFIED",
+   "what": "Measure whether a model meets a written contract.",
+   "basis": "The evaluation framework is verified; the live NASHA evaluation has NOT passed (FAIL).",
+   "nodes": [
+    "evals",
+    "live-model-evaluation"
+   ],
+   "kinds": [
+    "component"
+   ]
+  },
+  {
+   "name": "Decision-support agents",
+   "status": "VERIFIED",
+   "what": "Evidence-grounded answers with citations and approvals.",
+   "basis": "Research agent and tool loop, tested offline.",
+   "nodes": [
+    "agent-platform",
+    "toolkit"
+   ],
+   "kinds": [
+    "simulation",
+    "component"
+   ]
+  }
+ ],
+ "register": [
+  {
+   "n": 1,
+   "name": "Identify ideal customers",
+   "status": "TESTED",
+   "done": "RFM behavioural segmentation over the synthetic order history, persisted as tenant segments with evidence basis and size-based confidence; an assumption-labelled ICP segment.",
+   "missing": "No firmographic/demographic ICP modelling, no profitability-per-segment model, no UI."
+  },
+  {
+   "n": 2,
+   "name": "Research competition",
+   "status": "DESIGNED",
+   "done": "A research-findings store with source kind, URL, retrieval date, confidence and a mandatory limitation (search results are leads, not facts); three supplier leads and their source pages recorded with dates.",
+   "missing": "No competitor dataset, no competitor comparison and no automated research; findings are entered by people or seeded."
+  },
+  {
+   "n": 3,
+   "name": "Find a profitable niche",
+   "status": "DESIGNED",
+   "done": "Unit-economics primitives plus a stored-data financial model: gross and contribution margin, fixed costs, break-even, payback, price sensitivity and scenario comparison, shown in the Financial Plan. Milestone 4 adds start-up cost categories, working capital, contingency, a break-even grid over price and cost changes, and formulas with the stored numbers substituted; every expected number was worked by hand before the code was run.",
+   "missing": "No niche scoring model, no CAC/LTV model, no market-size claims; scenarios describe one project, they do not rank niches."
+  },
+  {
+   "n": 4,
+   "name": "Build a website",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": "Local preview from structured data not built; publishing must stay a separate, explicitly authorised mechanism."
+  },
+  {
+   "n": 5,
+   "name": "Set my pricing",
+   "status": "TESTED",
+   "done": "Margin, discount break-even, bundles, inflation, break-even units, assumption-labelled elasticity grid and revenue scenarios; NASHA costs from the existing recipe-costing module; versioned prices per tenant. Milestone 4: a supplier price effect (cheapest valid quote against the next cheapest, labelled as an illustration when prices are synthetic).",
+   "missing": "No UI; no measured willingness to pay (elasticity is an assumption)."
+  },
+  {
+   "n": 6,
+   "name": "Create my offers",
+   "status": "TESTED",
+   "done": "Offer table with its economics computed from stored prices and unit costs through the pricing engine (margin before and after, volume uplift needed to hold profit), shown on the Offers and campaigns screen; campaign drafts linked to an offer and audience.",
+   "missing": "Offers are seeded drafts: no create/edit screen, no approval flow, no redemption tracking, nothing is published."
+  },
+  {
+   "n": 7,
+   "name": "Generate leads",
+   "status": "DESIGNED",
+   "done": "Lead table with source; creation audited.",
+   "missing": "No attribution model, no campaign-to-lead linkage, no workflow."
+  },
+  {
+   "n": 8,
+   "name": "Find potential customers",
+   "status": "TESTED",
+   "done": "Rule-based lead qualification (hand-computed oracle), run through the governed workflow: evidence-backed recommendation, source/consent/suppression validation, THE WEIR hold, human approval, audited CRM update.",
+   "missing": "No prospect discovery by design (no scraping); the score is an unvalidated rule set, not a learned model; synthetic leads only."
+  },
+  {
+   "n": 9,
+   "name": "Build a landing page",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": ""
+  },
+  {
+   "n": 10,
+   "name": "Sales proposals",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": "Needs the governed approval workflow (THE WEIR) and a proposal entity."
+  },
+  {
+   "n": 11,
+   "name": "Personalize outreach",
+   "status": "NOT STARTED",
+   "done": "Consent/suppression gate for drafts exists (see 12).",
+   "missing": "No drafting model or templates; no fabricated customer claims policy check yet."
+  },
+  {
+   "n": 12,
+   "name": "Cold email sequences",
+   "status": "DESIGNED",
+   "done": "Consent and suppression enforcement for email DRAFTS; no send path exists by construction.",
+   "missing": "No sequence entity, scheduling or sending (sending is intentionally not implemented)."
+  },
+  {
+   "n": 13,
+   "name": "Marketing content",
+   "status": "DESIGNED",
+   "done": "content_items table with draft/in_review/approved/rejected states and a claims_checked flag.",
+   "missing": "No generation, no claim checker, no approval flow, no UI."
+  },
+  {
+   "n": 14,
+   "name": "CRM automation",
+   "status": "INTEGRATED",
+   "done": "Accounts, contacts, leads, opportunities, activities; DB-enforced stage rules; audited, versioned writes; role policy; RLS tenant isolation; HTTP API; web screens (CRM, pipeline, AI workflow center); governed lead-qualification workflow whose only CRM write passes THE WEIR and a human approval; mutation-tested.",
+   "missing": "No reminders, scheduled triggers or event-driven automation; synthetic data only; local demo, not a deployed service."
+  },
+  {
+   "n": 15,
+   "name": "Build a sales funnel",
+   "status": "TESTED",
+   "done": "Stage pipeline with a DB-enforced transition graph and append-only transition log, a Sales Pipeline screen whose moves are validated by the backend.",
+   "missing": "No funnel analytics or pipeline forecast."
+  },
+  {
+   "n": 16,
+   "name": "Design ad creatives",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": "No spend or generation is authorised; Runway remains unpurchased."
+  },
+  {
+   "n": 17,
+   "name": "Follow-up sequences",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": "Needs the workflow registry (see 25)."
+  },
+  {
+   "n": 18,
+   "name": "Customer onboarding",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": ""
+  },
+  {
+   "n": 19,
+   "name": "Create case studies",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": ""
+  },
+  {
+   "n": 20,
+   "name": "Handle objections",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": "Would reuse the existing status-aware retrieval stack."
+  },
+  {
+   "n": 21,
+   "name": "Sales call scripts",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": ""
+  },
+  {
+   "n": 22,
+   "name": "Retain customers",
+   "status": "DESIGNED",
+   "done": "RFM segments include at-risk and lapsed groups.",
+   "missing": "No churn model, no retention workflow; any churn score would be simulated, not validated."
+  },
+  {
+   "n": 23,
+   "name": "Improve conversion rate",
+   "status": "NOT STARTED",
+   "done": "",
+   "missing": "The separate experimentation-toolkit repository exists but is not integrated."
+  },
+  {
+   "n": 24,
+   "name": "Track performance",
+   "status": "TESTED",
+   "done": "Growth OS Executive Dashboard whose numbers are computed from tenant data and checked against the database; plus the existing sourced NASHA operations, reliability and security dashboards (portfolio).",
+   "missing": "Narrow KPI set; no experiments or attribution; synthetic data."
+  },
+  {
+   "n": 25,
+   "name": "Automate repetitive tasks",
+   "status": "TESTED",
+   "done": "Two governed workflows run through THE WEIR with a human decision: lead qualification and, new, an agent-assisted procurement recommendation (research brief on the Production AI Agent Platform engine with read-only tools, independent claim verification, deterministic recommendation re-derived independently, deterministic fallback, audited recording). Both have API, interface, failure-path and mutation tests. Milestone 4: every agent or model output crosses a strict boundary (structure, grounding, number and price checks, injection and overreach refusal, read-only tool allowlist, computed uncertainty, paid providers refused without approval) with a 28-output evaluation and one mutant per rule; the approval now advances the project in the same transaction; a 12-step journey test runs over HTTP across roles.",
+   "missing": "Two hard-coded workflows, not a generic workflow registry or scheduler; the agent provider is an offline heuristic (a real model provider has still not been exercised (no local runtime, no weights, hosted providers need approval); the live-model test is skipped and reported unverified); no triggers or reminders."
+  }
+ ],
+ "register_rules": {
+  "TESTED": "needs >=1 existing test; no UI is implied",
+  "INTEGRATED": "needs tests AND a working UI AND enforced authorization and audit end to end",
+  "IMPLEMENTED": "needs existing code",
+  "DESIGNED": "design or partial building blocks only"
+ }
+}
