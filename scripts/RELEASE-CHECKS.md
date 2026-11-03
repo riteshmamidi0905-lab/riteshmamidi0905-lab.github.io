@@ -40,37 +40,48 @@ Optional private rules (kept outside the repository) add literals, regexes and w
 * Add a public rule without writing the term in source: `python3 scripts/disclosure.py hash "TERM"`, then add an entry to the rules file.
   Hashes are not secrecy; never put a credential or a long private value in a rule.
 
-## GitHub Pages settings (requires separate authorization)
+## GitHub Pages deployment and rollback
 
-Pages is currently a legacy build from `main` at `/`. A legacy build publishes the whole repository root as it is, so a workflow change alone cannot
-exclude files. The allowlisted artifact takes effect only after the Pages source is switched to **GitHub Actions** (Settings > Pages > Build and
-deployment > Source; API: `PUT /repos/{owner}/{repo}/pages` with `build_type=workflow`). Until then, merging publishes everything at the root.
+Workflows: `.github/workflows/pages.yml` (production deployment) and `.github/workflows/rollback.yml` (manual rollback). `validate.yml` is the pull-request CI and only reads.
+`scripts/test-workflows.py` parses all three with a real YAML parser and enforces everything below (it also proves each rule bites with 65 unsafe variants).
+
+### Why adding the workflows to a branch or pull request cannot deploy anything
+* `pages.yml` triggers only on a push to `main` and on a manual run. `rollback.yml` is manual only. Neither has a `pull_request`, `pull_request_target`, `workflow_run`
+  or `schedule` trigger, so a pull request, a branch push or a comment never starts them.
+* Every job in both files requires `github.ref == 'refs/heads/main'`; a manual run started from any other branch skips every job.
+* The first job (`guard`) fails unless the repository's Pages source is "GitHub Actions". While Pages is still the legacy branch build, a push to `main` runs the guard,
+  the guard fails, and nothing is built or deployed.
+* The deploy job runs in the `github-pages` environment, which is restricted to the `main` branch (and can add required reviewers).
+
+### Repository setting required (not changed by this work; needs separate authorization)
+Pages is currently a legacy build from `main` at `/`, which publishes the whole repository root. The allowlisted artifact takes effect only after the source is switched to
+**GitHub Actions** (Settings > Pages > Build and deployment > Source; API: `PUT /repos/{owner}/{repo}/pages` with `build_type=workflow`). Recommended at the same time: required
+reviewers on the `github-pages` environment, and branch protection on `main` requiring the pull-request check, with `.github/**` under code-owner review.
 
 Order of operations (the live site keeps serving the last deployment when the source is switched):
-1. Add `scripts/proposed-workflows/pages.yml.proposed` as `.github/workflows/pages.yml` (in the pull request, so it is reviewed). It cannot deploy while the source is legacy.
-2. Switch the Pages source to GitHub Actions. Add required reviewers to the `github-pages` environment (a human approval before every deploy).
-3. Merge. The push to `main` runs the workflow, which deploys only the verified `dist/` artifact. No legacy build happens.
-4. Confirm the `verify-live` job passed: every manifest file is served byte-identical and every excluded development URL is unavailable.
+1. Review and approve the pull request that contains these workflows.
+2. Switch the Pages source to GitHub Actions; add environment reviewers.
+3. Merge. The push to `main` runs `pages.yml`: guard, build and verify, deploy, live verification.
+4. Confirm `verify-live` passed: every manifest file served byte-identical, the manifest's tree digest equal to the recorded one, every excluded development URL unavailable.
 
-### Deployment design (`scripts/proposed-workflows/pages.yml.proposed`, not installed)
-* Triggers: push to `main` and a manual run of `main`. No pull request, comment or schedule trigger exists; every job also requires `refs/heads/main`, and the
-  `github-pages` environment is already restricted to `main`.
-* Token permissions start empty; `contents: read` for builds, `pages: read` for checks, and `pages: write` plus `id-token: write` only in the deploy job.
-  No secrets. Third-party actions are pinned to commit SHAs (`scripts/test-proposed-workflows.py` enforces the pins and these properties).
-* It fails before building if Pages is not set to "workflow", so it can never silently fall back to repository-root publication, and it checks again after deploying.
-* The deploy job publishes the artifact built by the same run from `npm run build:pages` (exactly the publication manifest). The build job records the commit and
-  tree digest in the job summary ("Release record") and keeps the artifact 90 days.
-* After deploying, `scripts/verify-live-site.py` compares the live site with the manifest of the deployed commit (byte-identical, SHA-256) and requires the excluded URLs to be unavailable.
+### Deployment (`pages.yml`)
+* Permissions start empty. `contents: read` for builds, `pages: read` for checks, `pages: write` and `id-token: write` only in the deploy job. No secrets. Actions are pinned to commit SHAs.
+* `build` runs source validation, `npm audit`, then `npm run build:pages` (build the allowlisted `dist/` and verify it independently), records the commit and tree digest in the
+  "Release record" and uploads only `dist/` (kept 90 days). `deploy` is the single deploy step. `verify-live` checks out the deployed commit and compares the live site with its
+  `scripts/publish-manifest.json` and the digest the build recorded.
+* `deploy` and `rollback` share the concurrency group `pages-production` (never cancelled), so they can never run at the same time.
 
-### Rollback (`scripts/proposed-workflows/rollback.yml.proposed`, not installed)
-Rollback restores a previous verified release by its exact commit; it never builds the current `main`.
-1. Find the release to restore: a deploy run's "Release record" gives its `release_sha` and `tree digest`.
-2. Run the "Roll back GitHub Pages to a verified release" workflow from `main` with both values. The guard job requires a full 40-character SHA and a full digest, refuses the
-   current `main`, requires Pages to be artifact-deployed, and requires a recorded successful production deployment of that commit.
-3. The workflow checks out that commit alone, proves `HEAD` equals the request and that it was released from `main`, runs source validation, builds and verifies the artifact there,
-   and refuses to continue unless the rebuilt tree digest equals the recorded one. Builds are deterministic, so this reproduces the original artifact without depending on artifact retention.
-4. The restored artifact goes through the same environment-gated deploy job. Then the verifier (taken from `main`, so it exists for older releases) compares the live site with
-   THAT release's manifest and confirms the excluded development URLs are unavailable.
-5. Never roll back by switching the Pages source back to a branch: that republishes the repository root. If the workflows themselves are unusable, revert the offending change
-   with a pull request and let the normal deploy run.
-Not covered: a release made before the publication boundary existed has no manifest and cannot be restored this way.
+### Rollback (`rollback.yml`)
+It restores a previous release by its exact commit and never builds or deploys the current `main`.
+1. Take `release_sha` and the tree digest from that release's "Release record" (job summary of its `pages.yml` run) and start the workflow from `main`.
+2. `guard` requires a full 40-character SHA and a full 64-character digest, refuses the current `main`, requires Pages to be artifact-deployed, requires the commit to be an ancestor of
+   `main`, and requires a successful `pages.yml` run for that commit on `main` (built, deployed and verified live). Deployment records are not used for this: they carry the commit
+   of the workflow run, which for a rollback would be the current `main`, not the content deployed.
+3. `rebuild-exact-release` checks out that commit alone into `release/`, proves `HEAD` equals the request and that it is an ancestor of `main`, runs source validation, builds and
+   verifies the artifact there, and refuses to continue unless the rebuilt tree digest equals the supplied one. It writes a "Rollback record" (restored commit and digest, run, actor, and
+   the current `main`, which is not built). Builds are deterministic, so this reproduces the original artifact without depending on artifact retention.
+4. `deploy` uses the same environment-gated step. `verify-live` then compares the live site with the RESTORED release's manifest and recorded digest, using the verifier from `main`
+   so it exists even for an older release, and re-checks that Pages is still artifact-deployed.
+5. A rollback never changes the Pages source. Never roll back by switching the source to a branch: that republishes the repository root. If the workflows themselves are unusable, revert the
+   offending change with a pull request and let the normal deployment run.
+Not covered: a release made before the publication boundary existed has no manifest and cannot be restored this way; the first release has nothing to roll back to.

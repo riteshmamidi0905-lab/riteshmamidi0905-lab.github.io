@@ -1,21 +1,24 @@
-# PROPOSED, NOT INSTALLED. Restores a PREVIOUS verified release by its exact commit. It never builds the current main: it checks out the requested
-# commit, rebuilds the allowlisted artifact from it, requires the rebuilt tree digest to equal the digest recorded when that release was deployed,
-# deploys that artifact through the same artifact path as a normal release, and then compares the live site with THAT release's manifest.
+# Restores a PREVIOUS production release of the GitHub Pages site. Manual only.
+#
+# It never builds the current main. It checks out the exact commit that was requested, rebuilds the allowlisted artifact from it, and refuses to
+# deploy unless the rebuilt tree digest equals the digest recorded when that release was deployed. It never changes the Pages source or any setting.
+# Adding this file to a branch cannot start it: it has only a manual trigger and every job requires refs/heads/main.
 name: Roll back GitHub Pages to a verified release
+run-name: Roll back to ${{ inputs.release_sha }}
 on:
   workflow_dispatch:
     inputs:
       release_sha:
-        description: Full 40-character commit SHA of a previously deployed release (not a branch name)
+        description: Full 40-character commit SHA of a previous production release (not a branch name)
         required: true
         type: string
       expected_tree_digest:
-        description: Tree digest recorded in that release's deploy summary (64 hex characters)
+        description: The tree digest recorded in that release's "Release record" (64 hex characters)
         required: true
         type: string
 permissions: {}
 concurrency:
-  group: pages-production       # shared with the deploy workflow
+  group: pages-production       # shared with pages.yml: a rollback and a deployment can never run at the same time
   cancel-in-progress: false
 env:
   SITE_URL: https://riteshmamidi0905-lab.github.io
@@ -26,8 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
+      contents: read
       pages: read
-      deployments: read
+      actions: read
     steps:
       - name: The inputs are exact, and the target is a previous release
         env:
@@ -41,16 +45,20 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
-      - name: That commit was deployed to production successfully before
+      - name: The commit was released from main
         env:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ inputs.release_sha }}
         run: |
-          ok=0
-          for id in $(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&sha=$SHA" -q '.[].id'); do
-            [ "$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses" -q '.[0].state')" = "success" ] && ok=1
-          done
-          [ "$ok" = 1 ] || { echo "no successful production deployment is recorded for that commit"; exit 1; }
+          status=$(gh api "repos/$GITHUB_REPOSITORY/compare/$SHA...main" -q .status)
+          [ "$status" = "ahead" ] || { echo "that commit is not an ancestor of main (compare status: $status)"; exit 1; }
+      - name: The commit had a successful production release (built, deployed and verified live by the deploy workflow)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ inputs.release_sha }}
+        run: |
+          n=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pages.yml/runs?head_sha=$SHA&branch=main&status=success&per_page=1" -q .total_count)
+          [ "$n" -ge 1 ] || { echo "no successful run of the production deploy workflow exists for that commit"; exit 1; }
   rebuild-exact-release:
     name: Rebuild the artifact from the requested commit and check its digest
     needs: guard
@@ -62,11 +70,11 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
         with:
-          ref: ${{ inputs.release_sha }}      # the exact release commit, never the branch
+          ref: ${{ inputs.release_sha }}      # the exact release commit, never a branch
           path: release
           fetch-depth: 0
           persist-credentials: false
-      - name: The checked-out commit is exactly the request, was released from main, and carries the publication boundary
+      - name: The checked-out commit is exactly the request and carries the publication boundary
         working-directory: release
         env:
           SHA: ${{ inputs.release_sha }}
@@ -92,9 +100,17 @@ jobs:
         working-directory: release
         env:
           EXPECTED: ${{ inputs.expected_tree_digest }}
+          SHA: ${{ inputs.release_sha }}
         run: |
           d=$(python3 scripts/verify-pages-artifact.py dist --no-http | grep -o 'tree digest [0-9a-f]\{64\}' | head -1 | awk '{print $3}')
           [ "$d" = "$EXPECTED" ] || { echo "tree digest mismatch: refusing to deploy"; exit 1; }
+          {
+            echo "### Rollback record"
+            echo "- restoring release commit: \`$SHA\`"
+            echo "- tree digest (rebuilt, equals the recorded digest): \`$d\`"
+            echo "- rollback run: $GITHUB_RUN_ID, started by $GITHUB_ACTOR"
+            echo "- current main when the rollback ran: \`$GITHUB_SHA\` (not built, not deployed)"
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
         with:
           path: release/dist
@@ -137,5 +153,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
-      - name: Compare the live site with the restored release's manifest
-        run: python3 tools/scripts/verify-live-site.py "$SITE_URL" --manifest release/scripts/publish-manifest.json --wait 300
+      - name: Compare the live site with the restored release's manifest and the recorded tree digest
+        env:
+          EXPECTED_DIGEST: ${{ inputs.expected_tree_digest }}
+        run: python3 tools/scripts/verify-live-site.py "$SITE_URL" --manifest release/scripts/publish-manifest.json --expect-digest "$EXPECTED_DIGEST" --summary "$GITHUB_STEP_SUMMARY" --wait 300

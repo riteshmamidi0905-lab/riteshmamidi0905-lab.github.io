@@ -170,4 +170,44 @@ with tempfile.TemporaryDirectory() as TMP:
     css.write_bytes(original)
     srv.shutdown()
 
+    # --- the release digest, the summary file and redirects
+    srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(Quiet, directory=str(live)))
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    url = "http://127.0.0.1:%d" % srv.server_address[1]
+    good = P.tree_digest(inv)
+    code, out = verify("--expect-digest", good)
+    ok(code == 0 and "LIVE SITE MATCHES THE RELEASE" in out, "the live site passes when the release manifest has the recorded tree digest")
+    code, out = verify("--expect-digest", "0" * 64)
+    ok(code == 1 and "DOES NOT MATCH THE RECORDED DIGEST" in out, "a release manifest whose digest differs from the recorded one is refused")
+    code, out = verify("--expect-digest", "XYZ")
+    ok(code == 1 and "64 lowercase hex" in out, "a malformed expected digest is refused")
+    swapped = copy.deepcopy(manifest)
+    swapped["files"][2]["sha256"] = "1" * 64
+    swapped_path = TMP / "swapped.json"
+    swapped_path.write_text(json.dumps(swapped))
+    code, out = verify("--manifest", swapped_path, "--expect-digest", good)
+    ok(code == 1 and "DOES NOT MATCH THE RECORDED DIGEST" in out, "a swapped manifest cannot pass even if the live site matches it")
+    summary = TMP / "summary.md"
+    code, out = verify("--summary", summary)
+    ok(code == 0 and "PASSED" in summary.read_text() and good in summary.read_text(), "a passing run writes a summary with the digest")
+    css.write_bytes(original + b"y")
+    code, out = verify("--summary", summary)
+    ok(code == 1 and "FAILED" in summary.read_text(), "a failing run writes a failing summary")
+    css.write_bytes(original)
+
+    class Redirecting(Quiet):
+        def do_GET(self):
+            if self.path.startswith("/lab.css"):
+                self.send_response(302)
+                self.send_header("Location", "http://localhost:9/elsewhere.css")
+                self.end_headers()
+            else:
+                super().do_GET()
+    srv2 = http.server.ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(Redirecting, directory=str(live)))
+    threading.Thread(target=srv2.serve_forever, daemon=True).start()
+    code, out = run(HERE / "verify-live-site.py", "http://127.0.0.1:%d" % srv2.server_address[1])
+    ok(code == 1 and "GET /lab.css -> no response" in out, "a redirect to a different host is refused")
+    srv2.shutdown()
+    srv.shutdown()
+
 print("publication boundary: %d checks passed" % checks)

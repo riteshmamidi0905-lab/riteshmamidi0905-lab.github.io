@@ -1,13 +1,19 @@
-# PROPOSED, NOT INSTALLED. The .proposed suffix and the scripts/ location keep GitHub from running it. To adopt: move to .github/workflows/pages.yml
-# AFTER the repository's Pages source has been switched to "GitHub Actions" (see scripts/RELEASE-CHECKS.md). Deploys ONLY the allowlisted dist/ artifact.
+# Production deployment of the allowlisted GitHub Pages artifact.
+#
+# Adding this file to a branch or pull request cannot deploy anything:
+#   * it triggers only on a push to main and on a manual run; there is no pull_request, pull_request_target, workflow_run or schedule trigger;
+#   * every job requires refs/heads/main, so a manual run started from any other branch skips every job;
+#   * the first job fails unless the repository's Pages source is "GitHub Actions" (while it is still the legacy branch build, nothing is built or deployed);
+#   * the deploy job runs in the github-pages environment, which is restricted to the main branch.
+# It publishes ONLY dist/, built from scripts/publish-manifest.json and verified by scripts/verify-pages-artifact.py.
 name: Deploy to GitHub Pages
 on:
   push:
-    branches: [main]            # the approved release path is a merged pull request. There is no pull_request, pull_request_target, workflow_run or schedule trigger.
-  workflow_dispatch: {}         # manual re-run of the current main only; every job below still requires refs/heads/main
-permissions: {}                 # nothing by default; each job asks for the minimum
+    branches: [main]
+  workflow_dispatch: {}
+permissions: {}
 concurrency:
-  group: pages-production       # shared with the rollback workflow: a deploy and a rollback can never interleave
+  group: pages-production       # shared with rollback.yml: a deployment and a rollback can never run at the same time
   cancel-in-progress: false
 env:
   SITE_URL: https://riteshmamidi0905-lab.github.io
@@ -20,7 +26,7 @@ jobs:
     permissions:
       pages: read
     steps:
-      - name: Refuse to run if Pages is not set to deploy from Actions
+      - name: Refuse to run unless Pages is set to deploy from GitHub Actions
         env:
           GH_TOKEN: ${{ github.token }}
         run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
@@ -48,7 +54,7 @@ jobs:
       - run: npm audit --audit-level=low
       - name: Build the allowlisted artifact and verify it (exactly the publication manifest, nothing else)
         run: npm run build:pages
-      - name: Record the release (commit and tree digest are what a rollback needs)
+      - name: Record the release (the commit and tree digest are what a rollback needs)
         id: digest
         run: |
           d=$(python3 scripts/verify-pages-artifact.py dist --no-http | grep -o 'tree digest [0-9a-f]\{64\}' | head -1 | awk '{print $3}')
@@ -59,7 +65,7 @@ jobs:
             echo "- commit: \`$GITHUB_SHA\`"
             echo "- tree digest: \`$d\`"
             echo "- run: $GITHUB_RUN_ID"
-            echo "- roll back to this release with release_sha=\`$GITHUB_SHA\` and expected_tree_digest=\`$d\`"
+            echo "- to restore this release, run the rollback workflow with release_sha=\`$GITHUB_SHA\` and expected_tree_digest=\`$d\`"
           } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
         with:
@@ -75,13 +81,13 @@ jobs:
       pages: write              # publish to Pages (this job only)
       id-token: write           # prove the deployment comes from this workflow (this job only)
     environment:
-      name: github-pages        # restricted to the main branch; add required reviewers for a human approval before every deploy
+      name: github-pages        # restricted to the main branch; required reviewers here add a human approval before every deploy
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e  # v4.0.5
   verify-live:
-    name: Live site equals this release; development URLs are unavailable
+    name: Live site equals this exact release; development URLs are unavailable
     needs: [build, deploy]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -92,10 +98,12 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
         with:
-          persist-credentials: false
+          persist-credentials: false      # default ref: the very commit that was built and deployed
       - name: Pages is still artifact-deployed
         env:
           GH_TOKEN: ${{ github.token }}
         run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
-      - name: Compare the live site with this commit's publication manifest
-        run: python3 scripts/verify-live-site.py "$SITE_URL" --manifest scripts/publish-manifest.json --wait 300
+      - name: Compare the live site with this commit's publication manifest and the recorded tree digest
+        env:
+          EXPECTED_DIGEST: ${{ needs.build.outputs.tree_digest }}
+        run: python3 scripts/verify-live-site.py "$SITE_URL" --manifest scripts/publish-manifest.json --expect-digest "$EXPECTED_DIGEST" --summary "$GITHUB_STEP_SUMMARY" --wait 300
