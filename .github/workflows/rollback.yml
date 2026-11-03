@@ -1,0 +1,219 @@
+# Restores a PREVIOUS production release of the GitHub Pages site. Manual only.
+#
+# It never builds the current main. A commit may be restored only if the evidence gate (scripts/verify-release-record.py) proves from the Actions API,
+# the workflow definition at that commit and a release record that it was really deployed and verified live: a successful run is not enough. The
+# artifact is then rebuilt from that exact commit and must reproduce the digest in the release record; the operator-supplied digest is only a claim
+# that is checked against the record. It never changes the Pages source or any setting.
+# Adding this file to a branch cannot start it: it has only a manual trigger and every job requires refs/heads/main.
+#
+# A rollback is COMPLETE only when the record-rollback job succeeded and its rollback-record artifact exists. A rollback that was cancelled, superseded
+# (see the concurrency note) or failed leaves no such record: check the site with scripts/verify-live-site.py before assuming anything.
+name: Roll back GitHub Pages to a verified release
+run-name: Roll back to ${{ inputs.release_sha }}
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Full 40-character commit SHA of a previous production release (not a branch name)
+        required: true
+        type: string
+      expected_tree_digest:
+        description: The tree digest from that release's job summary (64 hex characters); it is checked against the release record
+        required: true
+        type: string
+permissions: {}
+concurrency:
+  group: pages-production       # shared with pages.yml: a rollback and a deployment can never run at the same time
+  cancel-in-progress: false     # note: GitHub still cancels a PENDING run when a newer one queues behind the one in progress; see scripts/RELEASE-CHECKS.md
+env:
+  SITE_URL: https://riteshmamidi0905-lab.github.io
+jobs:
+  guard:
+    name: Validate the request before anything is built
+    if: github.repository == 'riteshmamidi0905-lab/riteshmamidi0905-lab.github.io' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - name: The inputs are exact, and the target is a previous release
+        env:
+          SHA: ${{ inputs.release_sha }}
+          DIGEST: ${{ inputs.expected_tree_digest }}
+        run: |
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "release_sha must be a full 40-character commit SHA"; exit 1; }
+          [[ "$DIGEST" =~ ^[0-9a-f]{64}$ ]] || { echo "expected_tree_digest must be 64 hex characters"; exit 1; }
+          [ "$SHA" != "$GITHUB_SHA" ] || { echo "refusing: that is the current main, not a previous release"; exit 1; }
+      - name: Pages is artifact-deployed (a rollback must never fall back to repository-root publication)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+      - name: The commit was released from main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ inputs.release_sha }}
+        run: |
+          status=$(gh api "repos/$GITHUB_REPOSITORY/compare/$SHA...main" -q .status)
+          [ "$status" = "ahead" ] || { echo "that commit is not an ancestor of main (compare status: $status)"; exit 1; }
+  verify-release-evidence:
+    name: Prove from evidence that the commit was deployed and verified live
+    needs: guard
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      tree_digest: ${{ steps.evidence.outputs.tree_digest }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          ref: ${{ inputs.release_sha }}      # the release commit: its workflow definition and manifest are judged
+          path: release
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          path: tools                         # the evidence gate itself comes from main, so it exists even for an older release
+          persist-credentials: false
+      - name: Verify the release evidence
+        id: evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ inputs.release_sha }}
+          DIGEST: ${{ inputs.expected_tree_digest }}
+        run: python3 tools/scripts/verify-release-record.py --repo "$GITHUB_REPOSITORY" --sha "$SHA" --digest "$DIGEST" --release-dir release --github-output "$GITHUB_OUTPUT"
+  rebuild-exact-release:
+    name: Rebuild the artifact from the requested commit and check its digest
+    needs: verify-release-evidence
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          ref: ${{ inputs.release_sha }}      # the exact release commit, never a branch
+          path: release
+          fetch-depth: 0
+          persist-credentials: false
+      - name: The checked-out commit is exactly the request and carries the publication boundary
+        working-directory: release
+        env:
+          SHA: ${{ inputs.release_sha }}
+        run: |
+          [ "$(git rev-parse HEAD)" = "$SHA" ]
+          git fetch --quiet origin main
+          git merge-base --is-ancestor "$SHA" origin/main
+          test -f scripts/publish-manifest.json
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: release/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: release
+      - name: Source validation at that commit
+        working-directory: release
+        run: npm run build && npm test
+      - name: Build and verify the artifact at that commit
+        working-directory: release
+        run: npm run build:pages
+      - name: The rebuilt artifact reproduces the digest in the verified release record
+        working-directory: release
+        env:
+          EXPECTED: ${{ needs.verify-release-evidence.outputs.tree_digest }}
+          SHA: ${{ inputs.release_sha }}
+        run: |
+          d=$(python3 scripts/verify-pages-artifact.py dist --no-http | grep -o 'tree digest [0-9a-f]\{64\}' | head -1 | awk '{print $3}')
+          [ "$d" = "$EXPECTED" ] || { echo "tree digest mismatch: refusing to deploy"; exit 1; }
+          {
+            echo "### Rollback IN PROGRESS (nothing is deployed yet)"
+            echo "- release commit: \`$SHA\`"
+            echo "- rebuilt tree digest equals the one in the verified release record: \`$d\`"
+            echo "- rollback run: $GITHUB_RUN_ID, started by $GITHUB_ACTOR"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
+        with:
+          path: release/dist
+          retention-days: 90
+  deploy:
+    name: Deploy the restored release
+    needs: rebuild-exact-release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages        # same branch restriction and reviewers as a normal release
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e  # v4.0.5
+  verify-live:
+    name: Live site equals the restored release; development URLs are unavailable
+    needs: [verify-release-evidence, deploy]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          ref: ${{ inputs.release_sha }}      # the manifest to compare against belongs to the restored release
+          path: release
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          path: tools                         # the verifier itself comes from main, so it exists even for an older release
+          persist-credentials: false
+      - name: Pages is still artifact-deployed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+      - name: Compare the live site with the restored release's manifest and the recorded tree digest
+        env:
+          EXPECTED_DIGEST: ${{ needs.verify-release-evidence.outputs.tree_digest }}
+        run: python3 tools/scripts/verify-live-site.py "$SITE_URL" --manifest release/scripts/publish-manifest.json --expect-digest "$EXPECTED_DIGEST" --summary "$GITHUB_STEP_SUMMARY" --wait 300
+  record-rollback:
+    name: Record the completed rollback (only after the live site was verified)
+    needs: [verify-release-evidence, rebuild-exact-release, deploy, verify-live]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          path: tools
+          persist-credentials: false
+      - name: Compose the rollback record
+        env:
+          TREE_DIGEST: ${{ needs.verify-release-evidence.outputs.tree_digest }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          VERIFY_RESULT: ${{ needs.verify-live.result }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          python3 tools/scripts/release_record.py create-rollback --out rollback-record.json --release-sha "$RELEASE_SHA" --tree-digest "$TREE_DIGEST" --deploy-result "$DEPLOY_RESULT" --verify-result "$VERIFY_RESULT"
+          {
+            echo "### Rollback COMPLETED and verified live"
+            echo "- restored release commit: \`$RELEASE_SHA\`"
+            echo "- tree digest: \`$TREE_DIGEST\`"
+            echo "- rollback run: $GITHUB_RUN_ID (attempt $GITHUB_RUN_ATTEMPT), started by $GITHUB_ACTOR"
+            echo "- current main when the rollback ran (not built, not deployed): \`$GITHUB_SHA\`"
+            echo "- the next push to main deploys main again and replaces this release: revert or fix main first"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload the rollback record
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: rollback-record-${{ github.run_id }}-${{ github.run_attempt }}
+          path: rollback-record.json
+          retention-days: 90
+          if-no-files-found: error

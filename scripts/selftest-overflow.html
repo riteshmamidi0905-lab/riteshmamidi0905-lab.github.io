@@ -1,0 +1,6 @@
+<!doctype html><meta charset=utf-8><title>overflow</title><pre id=out>running</pre><div id=f></div>
+<script>
+const pages=['index.html','ai-engineering.html','nasha-lab.html','projects.html','recruiter.html','lab-explorer.html','verified-projects.html','case-studies.html','case-production-ai-agent-platform.html','case-llm-eval-framework.html','case-mcp-weir.html','case-genai-doc-assistant.html','case-support-escalation-copilot.html','case-nasha-ai-lab-architecture.html'],widths=[1440,820,390,320],res=[];
+const mk=(p,w)=>new Promise(r=>{const i=document.createElement('iframe');i.style.cssText='border:0;width:'+w+'px;height:900px;display:block';i.src='../'+p;i.onload=()=>setTimeout(()=>{const d=i.contentDocument.documentElement;res.push((d.scrollWidth<=d.clientWidth?'PASS ':'FAIL ')+p+' @'+w+' (scrollWidth '+d.scrollWidth+' vs '+d.clientWidth+')');i.remove();r()},250);document.getElementById('f').appendChild(i)});
+(async()=>{for(const p of pages)for(const w of widths)await mk(p,w);document.getElementById('out').textContent=res.join('\n')+'\nDONE '+res.filter(x=>x.startsWith('FAIL')).length+' failures'})();
+</script>

@@ -4,9 +4,15 @@
   "version": "3.0.0",
   "scripts": {
     "build": "python3 scripts/validate-release.py",
-    "test": "python3 scripts/validate-release.py && node --test scripts/test-model.cjs",
+    "test": "python3 scripts/validate-release.py && python3 scripts/test-disclosure.py && python3 scripts/test-scan-coverage.py && python3 scripts/test-pages-artifact.py && python3 scripts/test-workflows.py && python3 scripts/test-release-evidence.py && node --test scripts/test-model.cjs scripts/test-demo-engine.cjs",
     "test:browser": "node scripts/test-browser.cjs",
-    "test:a11y": "node scripts/test-browser.cjs"
+    "test:a11y": "node scripts/test-browser.cjs",
+    "test:demo": "node scripts/test-demo-browser.cjs",
+    "test:datalab": "node scripts/test-datalab-browser.cjs",
+    "test:paint": "node scripts/test-first-paint.cjs",
+    "test:fonts": "node scripts/test-demo-fallback-fonts.cjs",
+    "build:pages": "python3 scripts/build-pages-artifact.py --out dist && python3 scripts/verify-pages-artifact.py dist",
+    "verify:pages": "python3 scripts/verify-pages-artifact.py dist"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

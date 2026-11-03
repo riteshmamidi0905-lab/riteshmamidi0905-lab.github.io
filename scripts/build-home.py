@@ -1,0 +1,82 @@
+"""Rebuild index.html from the reviewed original (git show origin/main:index.html) plus the recruiter-first sections. Idempotent; stdlib only.
+Run from the repo root after scripts/build-lab.py: python3 scripts/build-home.py"""
+import os, shutil, html, json, re, subprocess, sys
+from pathlib import Path
+root = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(root / 'scripts'))
+from labcommon import concept_figures
+E = html.escape
+orig = subprocess.run(["git", "show", "origin/main:index.html"], cwd=root, capture_output=True, text=True, check=True).stdout
+ARROW = '<svg class="arrow-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 14 14 4M4 4h10v10"/></svg>'
+LABEL = dict(VERIFIED="Verified implementation", UNVERIFIED="Unverified", PROTOTYPE="Tested prototype", PLANNED="Planned", CONCEPT="Business concept", FAIL="Evaluation not passed")
+chip = lambda s: f'<span class="chip {s}">{LABEL[s]}</span>'
+t = orig
+# ---- head: add lab styles and script
+t = t.replace('<link rel="stylesheet" href="cinematic.css">', '<link rel="stylesheet" href="cinematic.css"><link rel="stylesheet" href="lab.css">', 1)
+t = t.replace('<script src="cinematic.js" defer></script>', '<script src="cinematic.js" defer></script><script src="lab.js" defer></script>', 1)
+t = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Ritesh Mamidi: independent AI engineer and data and AI analyst. AI output evaluation, data quality, analytics and the NASHA AI Lab, with 29 projects whose tests were re-run and whose limits are stated.">', t, count=1)
+# ---- nav
+t = re.sub(r'<a href="nasha-lab\.html"( aria-current="page")?>NASHA AI</a>', lambda m: '<a href="nasha-lab.html">NASHA AI Lab</a><a href="lab-explorer.html">Lab explorer</a><a href="verified-projects.html">Verified projects</a>', t)
+# ---- hero
+t = t.replace('<p class="position">AI Engineering × Product Analytics<br>× Real-World Problem Solving</p>', '<p class="position">AI Systems × Product Intelligence<br>× Analytics × Business Operations</p>')
+t = t.replace('<p class="hero-description">I’m Ritesh. I connect AI engineering and product thinking to build systems you can inspect, evaluate, and trust.</p>', '<p class="hero-description">I’m Ritesh Mamidi, a data and AI analyst and independent AI engineer. I evaluate AI outputs, investigate data and model failures, and build systems you can inspect, test, and trust.</p>')
+hero_actions = ('<div class="actions"><a class="button primary" href="demo/index.html">Launch NASHA AI Enterprise Demo ' + f'<span>{ARROW}</span></a><a class="button" href="data-lab.html">Data &amp; Product Intelligence Lab</a><a class="button" href="lab-explorer.html">Explore NASHA AI Lab</a><a class="button" href="ritesh_mamidi_resume.pdf">View résumé</a><a class="button" href="verified-projects.html">Explore projects</a></div>'
+                '<p class="quick-links"><a href="https://github.com/riteshmamidi0905-lab">View GitHub</a> · <a href="https://linkedin.com/in/riteshmamidi0905">Connect on LinkedIn</a> · <a href="mailto:riteshmamidi0905@gmail.com">Contact me</a> · <a href="recruiter.html">The recruiter brief</a></p>')
+t = re.sub(r'<div class="actions"><a class="button primary" href="#selected">.*?</a><a class="text-link" href="recruiter\.html">.*?</a></div>', lambda m: hero_actions, t, count=1, flags=re.S)
+# ---- 30-second band after hero
+glance = '''<section class="wrap glance" aria-labelledby="glance-h"><h2 id="glance-h" class="eyebrow">THE 30-SECOND VERSION</h2><div class="glance-grid">
+<article><h3>What I do</h3><p>I validate AI and ML outputs against quality rubrics, investigate where they fail, and build the data-quality checks and reporting that catch it. Python, SQL, Power BI.</p></article>
+<article><h3>Where I have done it</h3><p>An Apple client engagement in product operations and AI/ML quality evaluation; business analytics in hospitality; data analytics and ETL. <a href="recruiter.html">Full brief</a></p></article>
+<article><h3>What I build on my own</h3><p>NASHA AI Lab and 28 other projects. I re-ran their tests in clean environments and publish what passed, what failed, and the limits. <a href="verified-projects.html">See the evidence</a></p></article></div><p class="quick-links band-links"><a href="ritesh_mamidi_resume.pdf">View résumé</a> · <a href="case-studies.html">Case studies</a> · <a href="https://github.com/riteshmamidi0905-lab">View GitHub</a> · <a href="https://linkedin.com/in/riteshmamidi0905">Connect on LinkedIn</a> · <a href="mailto:riteshmamidi0905@gmail.com">Contact me</a></p></section>'''
+t = t.replace('<section id="perspective"', glance + '<section id="perspective"', 1)
+# ---- NASHA AI Lab centerpiece (replaces the original feature block, keeping its disclosure)
+eco = [
+ ("agents", "AI agents", ["VERIFIED"], "Tool-using agents with retrieval, human approvals and a regression gate.", "production-ai-agent-platform: 78 tests on a real embedded Postgres; ai-agent-toolkit: 11 tests.", "Default provider is a deterministic heuristic, not an LLM.", "agent-platform"),
+ ("evaluation", "Evaluation", ["VERIFIED", "FAIL"], "Rubrics and hard gates, plus a strict claim validator for the NASHA operations explainer.", "llm-eval-framework: 33 tests. NASHA harness: 953 offline tests at a local checkpoint (not yet public).", "The live model evaluation has NOT met its acceptance criteria (failed). Passing offline tests is not model capability.", "evals"),
+ ("governance", "Governance", ["VERIFIED"], "Information-flow rules, approvals bound to the exact action, audit trails, fail-closed controls.", "mcp-weir: 417 tests; support-escalation-copilot: 489 tests; four rounds of independent AI-assisted review of the evidence controls.", "Not a formal external audit; the reviewed checkpoint is local and unpublished.", "gateway"),
+ ("rag", "RAG and knowledge", ["VERIFIED"], "Retrieval with citations and a scored evaluation.", "rag-doc-qa: 14 tests; genai-doc-assistant: 40 tests, hit rate 1.0 on an 8-item set.", "Tiny evaluation sets; hashing embeddings in the verified run.", "rag"),
+ ("data", "Data engineering", ["VERIFIED"], "Lakehouse transforms, streaming rules, a SQL warehouse, an MLOps registry.", "spark-data-lakehouse 4, sql-analytics-warehouse 8, mlops-platform 12; streaming: 3 transform tests.", "Kafka and Cassandra stack not run; not production scale.", "data-eng"),
+ ("bi", "Business intelligence", ["VERIFIED"], "KPIs, funnels, retention and experiment analysis.", "saas-kpi-dashboard 6, product-analytics-funnel-retention 6, experimentation-toolkit 11.", "Synthetic data.", "bi"),
+ ("automation", "Operational automation", ["VERIFIED"], "Approval-gated workflows where the model cannot write.", "support-escalation-copilot: 21 of 21 demo checks, hash-chained audit verifies.", "Rule-based stand-in model by default.", "copilot"),
+ ("business", "Business applications", ["CONCEPT", "PLANNED"], "Marketing, finance, inventory, suppliers and forecasting for a proposed brewery.", "Concept documents and planning code; no operating business and no NASHA forecasting model.", "A concept and simulations on synthetic data.", "concept"),
+]
+btns = "".join(f'<button type="button" class="eco-btn" data-eco="{i}" aria-pressed="{"true" if i==0 else "false"}">{E(n)}</button>' for i, (k, n, *_r) in enumerate(eco))
+panels = "".join(f'<article class="eco-panel" data-eco-panel="{i}"{"" if i==0 else " hidden"}><h3>{E(n)}</h3><p>{" ".join(chip(s) for s in st)}</p><p>{E(sm)}</p><p><strong>Evidence:</strong> {E(ev)}</p><p class="limits"><strong>Limits:</strong> {E(li)}</p><p><a class="text-link" href="lab-explorer.html#{E(nid)}">Open in the explorer {ARROW}</a></p></article>' for i, (k, n, st, sm, ev, li, nid) in enumerate(eco))
+import math
+SHORT = ["AGENTS", "EVAL", "GOVERN", "RAG", "DATA", "BI", "AUTOMATE", "BUSINESS"]
+cx, cy, R = 200, 200, 138
+nodes = "".join(f'<g class="eco-node" data-eco-node="{i}"><line x1="{cx}" y1="{cy}" x2="{cx+R*math.cos(math.radians(-90+i*45)):.0f}" y2="{cy+R*math.sin(math.radians(-90+i*45)):.0f}" class="eco-line"/><circle cx="{cx+R*math.cos(math.radians(-90+i*45)):.0f}" cy="{cy+R*math.sin(math.radians(-90+i*45)):.0f}" r="32" class="eco-dot"/><text x="{cx+R*math.cos(math.radians(-90+i*45)):.0f}" y="{cy+R*math.sin(math.radians(-90+i*45)):.0f}" text-anchor="middle" dominant-baseline="middle" class="eco-label small">{E(SHORT[i])}</text></g>' for i, (k, n, *_r) in enumerate(eco))
+_fig = concept_figures(root, E); concept_row = f'<div class="concept-row">{_fig}</div>' if _fig else ''
+lab = f'''<section class="nasha-feature lab-centre" id="nasha-ai-lab"><div class="wrap"><p class="eyebrow">03 / NASHA AI LAB</p><h2>One concept.<br><em>A connected engineering ecosystem.</em></h2>
+<p class="lead">NASHA AI Lab is my independent AI engineering laboratory. A proposed brewery gives it a realistic business scenario; the engineering underneath is what I can show, test and measure.</p>
+<p class="disclosure">Independent experimental system · Synthetic data · The NASHA brewery is a concept, not an operating business · Live model evaluation has not met its acceptance criteria (failed) · Not deployed.</p>
+<div class="eco" data-eco-root><svg class="eco-map" viewBox="0 0 400 400" role="img" aria-label="Diagram: eight areas of the NASHA AI Lab connected to a centre labelled human oversight. Use the buttons below to read each area.">{nodes}<circle cx="200" cy="200" r="46" class="eco-core"/><text x="200" y="196" text-anchor="middle" class="eco-label">HUMAN</text><text x="200" y="212" text-anchor="middle" class="eco-label">OVERSIGHT</text></svg>
+<div class="eco-side"><div class="filters" role="group" aria-label="Choose an area of the NASHA AI Lab">{btns}</div><div aria-live="polite">{panels}</div></div></div>
+<div class="actions"><a class="button primary" href="demo/index.html">Launch NASHA AI Enterprise Demo {ARROW}</a><a class="button" href="lab-explorer.html">Open the full ecosystem explorer</a><a class="button" href="nasha-lab.html">Read the NASHA AI Lab story</a></div></div></section>'''
+t = re.sub(r'<section class="nasha-feature">.*?</section>', lambda m: lab, t, count=1, flags=re.S)
+# ---- evidence lines on the six flagship cards
+EV = {"realtime-streaming-pipeline": ("UNVERIFIED", "3 transform tests pass; the Kafka and Cassandra stack was not run."), "spark-data-lakehouse": ("VERIFIED", "4 tests pass on local Spark; not production scale."), "llm-eval-framework": ("VERIFIED", "33 tests; benchmark re-run (61% pass rate on its own sample set)."), "genai-doc-assistant": ("VERIFIED", "40 tests; 8-item evaluation, hit rate 1.0, relevance 0.58."), "mlops-platform": ("VERIFIED", "12 tests; “production” is a registry stage name, not a deployment."), "experimentation-toolkit": ("VERIFIED", "11 tests; effect sizes are demonstration output.")}
+for k, (s, txt) in EV.items():
+    t = re.sub(r'(<a class="flag-card" href="projects\.html#' + k + r'">.*?)(<div class="tags">)', lambda m: m.group(1) + f'<p class="evid">{chip(s)} {E(txt)}</p>' + m.group(2), t, count=1, flags=re.S)
+t = t.replace('<a class="text-link all-projects" href="projects.html">Explore all 24 projects', '<a class="text-link all-projects" href="verified-projects.html">Explore the 29-project evidence inventory')
+# ---- more verified evidence + business lab + experience, inserted before the contact section
+more = [("production-ai-agent-platform", "VERIFIED", "78 tests on a real embedded Postgres; live smoke run, 3 cited claims.", "Default provider is a heuristic, not an LLM."), ("mcp-weir", "VERIFIED", "417 tests incl. real subprocess tests; a three-way governance demo.", "Deterministic scenarios; no live model."), ("support-escalation-copilot", "VERIFIED", "489 tests on a real embedded Postgres; 21 of 21 demo checks.", "Rule-based stand-in model by default."), ("NASHA AI Lab", "FAIL", "953 offline tests at a local checkpoint; independent AI-assisted review of the evidence controls.", "Model evaluation not passed; not deployed; checkpoint not yet public.")]
+cards = "".join(f'<article class="evi"><h3>{E(n)}</h3><p>{chip(s)}</p><p>{E(e)}</p><p class="limits"><strong>Limits:</strong> {E(l)}</p></article>' for n, s, e, l in more)
+evidence = f'<section class="wrap content-section" id="evidence"><p class="eyebrow">04 / MORE VERIFIED EVIDENCE</p><h2>Tests I re-ran,<br><em>and what they do not prove.</em></h2><p class="note">Offline tests on synthetic or bundled data show the code behaves as tested. They are not evidence of production readiness.</p><div class="cards cards4">{cards}</div><p><a class="text-link" href="case-studies.html">Read the six engineering case studies {ARROW}</a> <a class="text-link" href="verified-projects.html">All 29 projects with commits, demo commands and limits {ARROW}</a></p></section>'
+scen = [("Marketing", "PLANNED", "Segment customers, test messages."), ("Customer analytics", "VERIFIED", "Churn, funnels, retention (synthetic)."), ("Financial planning", "UNVERIFIED", "Pricing and margin models."), ("Inventory", "VERIFIED", "Explain stock gaps from verified facts."), ("Supplier management", "UNVERIFIED", "Quote comparison and risk flags."), ("Operations", "VERIFIED", "Approval-gated task automation."), ("Customer support", "VERIFIED", "Triage and drafts with human approval."), ("Forecasting", "PLANNED", "Revenue and demand forecasts."), ("AI-assisted decisions", "VERIFIED", "Evidence-grounded answers with citations.")]
+sc = "".join(f'<li><strong>{E(n)}</strong> {chip(s)}<span>{E(d)}</span></li>' for n, s, d in scen)
+biz = f'''<section class="wrap content-section" id="business-lab"><p class="eyebrow">05 / NASHA BUSINESS LAB</p><h2>A proposed brewery,<br><em>as a test case for AI in operations.</em></h2>
+<p class="note">NASHA is a business concept: no customers, suppliers or revenue. Each scenario below is labelled by what exists (some are simulations on synthetic data, some are only planned) and tied to the engineering that would support it.</p>
+{concept_row}
+<ul class="scen-list">{sc}</ul><p><a class="text-link" href="lab-explorer.html#business-lab">Explore each scenario and its basis {ARROW}</a></p></section>
+<section class="wrap content-section" id="experience"><p class="eyebrow">06 / PROFESSIONAL EXPERIENCE</p><h2>Where the engineering<br><em>comes from.</em></h2>
+<ol class="xp"><li><h3>Apple client engagement <span class="note">· Austin, TX · Sep 2025 to present</span></h3><p>Product operations and AI/ML quality evaluation: validating model and pipeline outputs against quality rubrics, investigating edge cases and systematic failures, data validation, and QA/QC checks and reporting in Python, SQL and Power BI. Not a direct Apple role.</p></li>
+<li><h3>Business Analyst, Heart Hospitality <span class="note">· Austin, TX · Jan 2024 to Aug 2025</span></h3><p>Python and SQL reporting pipelines, KPI dashboards, forecasting models and requirements work with stakeholders.</p></li>
+<li><h3>Data Analyst, Liberated Monks <span class="note">· Hyderabad, India · Jan 2022 to Dec 2023</span></h3><p>ETL, Tableau dashboards, customer segmentation, lead-scoring models and data validation.</p></li></ol>
+<p class="note">How it connects: evaluating AI output at work is why my independent projects measure first, publish failures, and state their limits. <a href="recruiter.html">Full recruiter brief</a></p></section>'''
+t = t.replace('<section class="wrap contact-section">', evidence + biz + '<section class="wrap contact-section">', 1)
+# ---- contact: six calls to action
+t = re.sub(r'<div class="contact-bottom">.*?</div></section>', lambda m: '<div class="contact-bottom"><p>Open to AI operations, AI quality and evaluation, product analytics<br>and business analyst roles across the US.</p><div class="actions"><a class="button primary" href="ritesh_mamidi_resume.pdf">View résumé</a><a class="button" href="lab-explorer.html">Explore NASHA AI Lab</a><a class="button" href="verified-projects.html">Explore projects</a><a class="button" href="https://github.com/riteshmamidi0905-lab">View GitHub</a><a class="button" href="https://linkedin.com/in/riteshmamidi0905">Connect on LinkedIn</a><a class="button" href="mailto:riteshmamidi0905@gmail.com">Contact me</a></div></div></section>', t, count=1, flags=re.S)
+t = t.replace('<p class="eyebrow">04 / WHAT’S NEXT</p>', '<p class="eyebrow">07 / WHAT’S NEXT</p>')
+(root / "index.html").write_text(t)
+print("index.html rebuilt:", len(t), "bytes")
