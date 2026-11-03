@@ -235,7 +235,9 @@ def check_rollback(wf):
         return v
     g = " ".join(st.get("run", "") for st in steps(jobs["guard"]))
     for needle, why in (("[0-9a-f]{40}", "a full 40-character SHA"), ("[0-9a-f]{64}", "a full 64-character digest"), ('"$SHA" != "$GITHUB_SHA"', "refusing the current main"),
-                        ("compare/$SHA...main", "proof the commit was released from main")):
+                        ("compare/$SHA...main", "proof the commit was released from main"),
+                        ('grep -q "HTTP 404"', "a distinct diagnosis for a commit that does not exist"),
+                        ("API call failed", "a distinct diagnosis for GitHub API failures"), ("behind | diverged", "a diagnosis for a commit that is not an ancestor of main")):
         if needle not in g:
             v.append("rollback guard: must require %s" % why)
     ev = jobs["verify-release-evidence"]

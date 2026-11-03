@@ -54,8 +54,23 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ inputs.release_sha }}
         run: |
-          status=$(gh api "repos/$GITHUB_REPOSITORY/compare/$SHA...main" -q .status)
-          [ "$status" = "ahead" ] || { echo "that commit is not an ancestor of main (compare status: $status)"; exit 1; }
+          err="$RUNNER_TEMP/compare.err"
+          rc=0
+          status=$(gh api "repos/$GITHUB_REPOSITORY/compare/$SHA...main" -q .status 2>"$err") || rc=$?
+          if [ "$rc" -ne 0 ]; then
+            if grep -q "HTTP 404" "$err"; then
+              echo "REFUSED: GitHub reports no commit $SHA in this repository (HTTP 404), so it cannot be verified as an eligible historical release"
+            else
+              echo "REFUSED: the commit could not be checked because the GitHub API call failed; this is not a verdict on the commit: $(head -c 200 "$err")"
+            fi
+            exit 1
+          fi
+          case "$status" in
+            ahead) ;;
+            identical) echo "REFUSED: that commit is the current main, not a previous release"; exit 1 ;;
+            behind | diverged) echo "REFUSED: commit $SHA exists but is not an ancestor of main (compare status: $status), so it is not an eligible historical release"; exit 1 ;;
+            *) echo "REFUSED: unexpected compare status '$status'; the commit cannot be verified (failing closed)"; exit 1 ;;
+          esac
   verify-release-evidence:
     name: Prove from evidence that the commit was deployed and verified live
     needs: guard

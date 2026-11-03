@@ -92,6 +92,12 @@ A successful workflow conclusion alone is never accepted: a run can be green wit
 7. The operator-supplied digest equals the recorded digest. It is a claim that is checked, never evidence.
 Anything missing, expired, ambiguous, inconsistent or unverifiable refuses the rollback (fail closed). Deployment records from the Deployments API are not used: they carry the commit of the workflow run, which for a rollback is the current `main`.
 
+### Rollback request validation diagnostics
+The guard step "The commit was released from main" separates four outcomes and always fails closed: no such commit (GitHub answers HTTP 404: "no commit … in this repository"), a GitHub API, authentication, rate-limit
+or network failure (reported as a failed check, explicitly not a verdict on the commit), a commit that exists but is not an ancestor of main (`behind`, `diverged`) or is main itself (`identical`), and an unrecognised answer.
+Only compare status `ahead` passes. A commit that passes this step still needs valid release evidence (a later, separate job). `scripts/test-rollback-guard.py` runs the real step against a fake `gh` and proves that
+unsafe variants (the old raw-404 step, blaming every failure on a missing commit, ignoring API failures, accepting any status) are caught.
+
 ### Rollback (`rollback.yml`)
 1. Take `release_sha` and the tree digest from that release's "Release record" (job summary of its `pages.yml` run) and start the workflow from `main`.
 2. `guard` checks the inputs, that Pages is artifact-deployed, and that the commit is an ancestor of `main`. `verify-release-evidence` checks out the release commit and the verifier from `main` and applies the eligibility rules above.
