@@ -12,6 +12,8 @@ The historical Stage 1 table below records observations at that time. Its `NOT R
 | Old-attempt job rerun | Job `126346802358` | HTTP 403: `Only jobs from the current attempt can be re-run` | GitHub API refusal; not a successful rerun |
 | Live legacy-source configuration | No guard run under legacy source | Pages settings PUT returned HTTP 403; readback stayed `workflow` | BLOCKED by integration permission; no production setting changed |
 | Exact production legacy-source guard | Local controlled `gh` responses | `workflow` exit 0; `legacy`, empty and unexpected values exit 1 | Local command execution only; does not prove live source-switch behavior |
+| Non-main ref | `41885965137`, branch `guard-nonmain-fixture` | Workflow completed skipped; all five jobs skipped; no approval or artifact | PASS: main-only conditions prevent off-main deployment |
+| Missing release-record artifact (historical run, reverified) | Run `41737099573`, evidence job `126269037835` | Job log explicitly says `ROLLBACK REFUSED (fail closed): no run of the production deploy workflow qualifies for that commit. run 41731687806: the release record artifact is missing`; later jobs skipped; no deployment or record | Existing evidence inspected; no artifact deleted in this continuation |
 | First-release Git recovery | Local isolated squash then revert | Tree exactly equals `783ba6464e20ebf064da4448c94d5461fb358ab4`; original validator passed | No previous production Actions release fabricated; live restoration not attempted |
 | Physical Safari | No run | No accessible physical Apple hardware or device service | BLOCKED; no emulator or WebKit result is presented as real-device coverage |
 
