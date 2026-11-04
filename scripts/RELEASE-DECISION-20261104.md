@@ -53,3 +53,7 @@ The existing expected-head squash-merge authorization remains conditional and ap
 Next needed: a GitHub connection with disposable Pages administration and deployment reviewer-decision permissions, plus access to physical Safari hardware. These are capability/evidence blockers, not a need to reauthorize routine tests. If the owner instead wants to change the release requirements, that requires an explicit scoped decision identifying each unverified requirement accepted and its residual risk; this report grants no such exception. Production deployment always requires separate explicit authorization after merge/build evidence and the owner gate are verified.
 
 Existing model-evaluation findings remain unchanged. Passing portfolio checks do not establish model-evaluation acceptance.
+
+## Access diagnosis follow-up
+
+The exact missing delegated permissions and owner-only resolution paths are documented in [ACCESS-RESOLUTION-20261104.md](ACCESS-RESOLUTION-20261104.md). The owner identity has repository admin access; the installed connector grant lacks Pages, Administration and Deployments. No environment protection change is required. No new live rehearsal or physical Safari test occurred, so NO-GO remains in force.
