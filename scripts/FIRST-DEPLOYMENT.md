@@ -1,6 +1,26 @@
 # First production deployment from GitHub Actions: preservation and recovery
 
-Applies once, to the move from the legacy branch build (today) to the workflow deployment in `.github/workflows/pages.yml`. The first release has no release record, so the
+## Verification checkpoint — 2026-11-04
+
+This supplement supersedes historical configuration statements below; the numbered first-deployment and recovery steps remain procedures, not evidence that an action occurred.
+
+* Authorized release candidate: `6391698c738cab21bc60771b1035240a0c9cbd61`. Production baseline and recovery tag target: `783ba6464e20ebf064da4448c94d5461fb358ab4`.
+* Production Pages is already `workflow`; do not switch it back merely to repeat the initial source-switch procedure. A fresh baseline check found 28 files byte-identical to production Git and the workflow file unavailable (404).
+* Production main has an active ruleset requiring a pull request and current `validate`, blocking deletion and force pushes, with no bypass actors. The deployment environment requires the owner reviewer, permits only main, and disables admin bypass. Self-review is allowed for the sole owner.
+* The owner accepted the existing public preview history for this release. This does not remove cached content or authorize publishing private material.
+* Independent artifact verification: 49 files, 1,791,138 bytes, tree SHA-256 `fc71be319008b783e8e72a0ad6857975cc50b9eb4322d7f3d13f8a19b122b056`. All 98 candidate source files match the authorized commit.
+* A local isolated squash-and-revert rehearsal restored the production tree exactly, and the restored tree's original validator passed. This proves Git tree recovery, not a previous successful production Actions release.
+* Remote supersession and a current-attempt deploy rerun were exercised in the disposable repository. The rerun reached a fresh reviewer gate; no deployment was approved for that rerun. See the rehearsal table for run IDs, attempts and limitations.
+* The live legacy-source scenario is BLOCKED: the Pages settings PUT returned HTTP 403 (`Resource not accessible by integration`). Readback remained `workflow`. The exact production guard command was tested locally with controlled API responses: only `workflow` passed; legacy, empty and unexpected values failed. This does not establish GitHub's live source-transition behavior.
+* The isolated failed-live-verification run `41884575264` built successfully and waited at the reviewer gate. Submitting a rehearsal reviewer decision returned HTTP 403, so deploy and live verification were not exercised; the run was cancelled and no release record exists. Do not mark this remote scenario passed.
+* Independently downloaded Actions artifact `13351220954` from that run matches all 49 authorized files, 1,791,138 bytes and the pinned tree digest. Its archive SHA-256 is `83bc5629c0fc284c88c8d6312185719f241915769e9da8e5ae5e6c77e7191cb8`; this archive digest is distinct from the publication tree digest.
+* Local HTTP fault tests used the real verifier: missing file, corrupted file and exposed tooling each failed. The real record writer refused failed, skipped and cancelled verification, and created no record. These local tests do not substitute for the blocked remote deployment/failure path.
+* Real-device Safari remains BLOCKED: no physical Apple device, Safari installation, device bridge or physical-device browser service is available. Chromium/WebKit/emulation cannot close that coverage gap.
+* Source-switch serving continuity, partial-rerun provenance, failed live verification and concurrency must be judged only from the detailed evidence in the rehearsal log. Do not treat a green workflow alone as proof of deployment or rollback eligibility.
+* Production deployment approval remains a separate owner action. Nothing in this supplement authorizes deployment or changes the approved candidate.
+
+
+Historical procedure for the move from the legacy branch build (before the source migration) to the workflow deployment in `.github/workflows/pages.yml`. The first release has no release record, so the
 rollback workflow cannot help; this procedure replaces it for that one release. Nothing here is done by the build tooling: every step marked **[OPERATOR]** changes repository
 settings or production and needs explicit approval from the repository owner.
 
@@ -15,7 +35,7 @@ settings or production and needs explicit approval from the repository owner.
 
 ## Why the order matters
 
-* Today Pages is a **legacy build of `main` at `/`**: it publishes every file on `main` that is not in a dot-directory. Merging the release pull request while the source is still legacy publishes
+* Before the source migration, Pages used a **legacy build of `main` at `/`**: it publishes every file on `main` that is not in a dot-directory. Merging the release pull request while the source is still legacy publishes
   the whole repository root, including tooling, tests and runbooks. The allowlisted 49-file artifact only applies after the source is **GitHub Actions**.
 * `pages.yml` runs a guard that fails while the source is legacy, so a merge in that state deploys nothing through Actions but still triggers the legacy build.
 * Therefore: switch the source first, merge second. Never merge first.
@@ -29,7 +49,7 @@ migration those return 404; that change is intended and is not a regression. Any
 ## 1. Preserve the current live site (before any change)
 
 1. Confirm the recovery tag exists on the remote and peels to `783ba6464e20ebf064da4448c94d5461fb358ab4`, that `git rev-parse origin/main` equals that SHA, and that
-   `gh api repos/<owner>/<repo>/pages` shows `build_type: legacy`, source `main` `/`. Stop if any of these differ.
+   `gh api repos/<owner>/<repo>/pages` shows `build_type: workflow` at the current checkpoint. This source migration is already complete; do not revert to legacy just to repeat baseline capture. Stop if the recovery tag or production commit differs.
 2. Save a byte-level baseline of what is live: for every path in `git ls-tree -r --name-only legacy-pages-783ba64` fetch `https://<site>/<path>` and store its SHA-256 (record the 404 for dot-directory files
    as expected). Keep it outside the repository. Expected result today: 28 identical, 1 not served.
 3. Confirm the known-good tree is reproducible from Git alone: `git diff --stat legacy-pages-783ba64 origin/main` is empty until the merge.
@@ -38,7 +58,7 @@ migration those return 404; that change is intended and is not a regression. Any
 ## 2. Rehearsal status
 
 The workflows were exercised on real GitHub Actions in a disposable repository (`scripts/ROLLBACK-REHEARSAL.md` has the results log): deployment with a protected reviewer gate, authentic release
-records, rollback to a verified release, refusals for wrong digest, malformed input, a never-released commit, a deleted record, a cancelled run and a rejected approval. **Not covered by that
+records, rollback to a verified release, refusals for wrong digest, malformed input, a never-released commit, and the additional scenarios itemized in `ROLLBACK-REHEARSAL.md`. Coverage is established by that results table; planned scenarios are not completed tests. **Not covered by that
 rehearsal, and still unverified:** (a) whether the site keeps serving between the Pages source switch and the first Actions deployment (GitHub's documentation does not say, and the rehearsal never had a
 legacy site to switch from); (b) behaviour of a partial re-run of a failed deployment with respect to the release record. Treat the interruption window as possible downtime, and prefer re-running **all**
 jobs over re-running only the failed ones.
@@ -52,7 +72,7 @@ jobs over re-running only the failed ones.
 
 ## 4. Cut over **[OPERATOR, each step separately approved]**
 
-1. Switch the Pages source to GitHub Actions (`PUT /repos/<owner>/<repo>/pages` with `build_type=workflow`). Immediately run `verify-live-site.py` against the baseline: the
+1. If Pages is still legacy, switch the source to GitHub Actions (`PUT /repos/<owner>/<repo>/pages` with `build_type=workflow`). If it is already `workflow`, verify that read-only and do not repeat the source change. Immediately run `verify-live-site.py` against the baseline: the
    live site should be unchanged. If the site is down or different, revert the source to legacy (section 6a) before anything else.
 2. Merge the pull request through the ruleset (a normal pull request merge). The push to `main` starts `pages.yml`; approve the `github-pages` deployment in the environment when prompted, after checking the build
    job's summary shows 49 files and the pinned digest. Confirm `git diff` between the merged `main` and the tested pull request head is empty (a squash merge gives different SHAs but the same tree).

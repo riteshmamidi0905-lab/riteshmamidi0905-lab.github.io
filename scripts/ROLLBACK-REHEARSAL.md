@@ -1,5 +1,29 @@
 # Rehearsal of the deployment and rollback workflows in a disposable repository
 
+## Verification checkpoint — 2026-11-04
+
+The historical Stage 1 table below records observations at that time. Its `NOT RUN` entries are not claims that newer tests were performed; the continuation table here is authoritative for the later work. `FIRST-DEPLOYMENT.md` uses the same coverage and blockers. No production content or authorized release-candidate file was changed by these rehearsals.
+
+| Scenario | Run / attempt | Observed outcome | Scope / remaining limitation |
+|---|---|---|---|
+| Partial retry queued behind active workflow | `41760318679`, attempt 2 | Pending retry was cancelled when a newer pending run arrived; no jobs or release record | Real GitHub concurrency observation; this attempt did not reach deployment |
+| Workflow supersession | Active `41883714882`; pending `41884085828`, then `41884178351` | Active workflow stayed at reviewer gate; older pending run was cancelled without jobs or release record | Real GitHub; pending runs were explicitly cancelled after evidence capture |
+| Current-attempt deploy-only rerun | `41883714882`, attempt 2 | Successful build reused; deploy waited at a fresh required reviewer gate; cancelled without approval | Proves that rerunning deploy does not bypass the environment gate |
+| Old-attempt job rerun | Job `126346802358` | HTTP 403: `Only jobs from the current attempt can be re-run` | GitHub API refusal; not a successful rerun |
+| Live legacy-source configuration | No guard run under legacy source | Pages settings PUT returned HTTP 403; readback stayed `workflow` | BLOCKED by integration permission; no production setting changed |
+| Exact production legacy-source guard | Local controlled `gh` responses | `workflow` exit 0; `legacy`, empty and unexpected values exit 1 | Local command execution only; does not prove live source-switch behavior |
+| First-release Git recovery | Local isolated squash then revert | Tree exactly equals `783ba6464e20ebf064da4448c94d5461fb358ab4`; original validator passed | No previous production Actions release fabricated; live restoration not attempted |
+| Physical Safari | No run | No accessible physical Apple hardware or device service | BLOCKED; no emulator or WebKit result is presented as real-device coverage |
+
+| Failed live verification on GitHub | `41884575264`, attempt 1, commit `f605d04b347c4f8961d500658ce7e4d9a414d039` | Guard and build succeeded; deploy waited for reviewer; reviewer-decision POST returned HTTP 403; cancelled with deploy, verify-live and record-release cancelled; no release record | BLOCKED before deployment, not a passed failed-verification scenario. Environment protections were not weakened. |
+| Downloaded Actions artifact | Run `41884575264`, artifact `13351220954` | ZIP and contained tar inspected independently: 49 exact manifest files, 1,791,138 bytes, pinned tree digest `fc71be319008b783e8e72a0ad6857975cc50b9eb4322d7f3d13f8a19b122b056`; no symlinks, extra files or duplicate paths | Build-artifact evidence only, not deployment evidence |
+| Failed live verification locally | Real candidate verifier; isolated HTTP server | Missing file, corrupt bytes and reachable excluded tooling each returned exit 1; real record writer refused each failed verification, created no file, and also refused skipped/cancelled results | PASS for local failure propagation. Successful deploy is a controlled local input, not a deployment claim. |
+| Partial rerun after failed live verification / direct retry of record job | No remote execution | Cannot reach the failed-live-verification state without the blocked deployment-review operation | BLOCKED; exact release-evidence and rollback-guard tests already passed in the prior checkpoint, but do not establish this live GitHub scenario |
+| Rehearsal cleanup | Restore commit `021e9a9bfabee707d4b021076620665b283d933e` | Normal revert restores the exact tree of `6d8fd1984b1845610024490e84404fdaac1db2a8`; source remains workflow; follow-up workflow runs cancelled; no production mutation | Test fixture branch retained as evidence; no release evidence deleted |
+
+The source-switch continuity scenario remains unverified. Remote tests blocked by HTTP 403 require access that can administer Pages and submit deployment reviewer decisions in the disposable repository. Do not change production protections to work around this restriction. Real-device Safari requires physical Apple hardware or a physical-device service that is not currently available. Production deployment remains separately authorized and gated.
+
+
 Purpose: exercise, on real GitHub Actions, the paths that local tests can only simulate: the Pages deployment, the release record upload, `gh run download`, the real
 runs/jobs/artifacts API shapes, and the rollback. A passing local test or fake-`gh` run does NOT prove production behaviour; only this rehearsal and the first real release do.
 Nothing in this file is done by the repository tooling. Steps marked **[APPROVAL]** need the repository owner's explicit go-ahead; steps marked [local] touch nothing on GitHub.
@@ -80,7 +104,7 @@ Stage 1 negative controls were run against the live rehearsal repository on 2026
 | 8-input Branch name `main` as SHA | 41724676663 | Refused by input validation | `release_sha must be a full 40-character commit SHA` | No | No | No | PASS |
 | 8-input Current main as target (B) | 41724719576 | Refused: not a previous release | `refusing: that is the current main, not a previous release` | No | No | No | PASS |
 | 8-input Unsupported ref | not run | Every job requires `refs/heads/main` | Needs a non-main branch in the rehearsal repository, which was not created; covered statically by `scripts/test-workflows.py` only | n/a | n/a | n/a | NOT RUN |
-| 8c-8g Deleted record, failing verify-live, rejected deploy, supersession, legacy source | not run | Stage 2 (destructive) | Not executed | n/a | n/a | n/a | NOT RUN |
+| 8c-8g Deleted record, failing verify-live, rejected deploy, supersession, legacy source | historical Stage 1 status | Stage 2 (destructive) | Not executed at Stage 1; see the 2026-11-04 continuation table for newer observations and explicit blockers | n/a | n/a | n/a | HISTORICAL; see continuation |
 
 ## Not covered by the rehearsal
 Production-only settings (production environment reviewers, rulesets), the real site's cache behaviour, a release older than a few days, and anything about the production repository's history. Re-verify those in
