@@ -1,0 +1,613 @@
+{
+ "runs": [
+  {
+   "system": "baseline (Mission B pipeline)",
+   "dataset": {
+    "name": "claim-grounding-v1",
+    "role": "historical",
+    "items": 20,
+    "sha256": "4cdddd49b828e13117822a67db5f795153b218356c5c1f7ab2d9ac58c2f90938"
+   },
+   "checker_code_sha256": "d67efb6229d00454afacbf132df0d2acd83bbf5fe888c22573b59506a869ed14",
+   "generated_at": "2026-11-05T22:39:46Z",
+   "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+   "status": "RAN",
+   "metrics": {
+    "n": 20,
+    "accuracy": 0.6,
+    "false_acceptance_rate": 0.3333,
+    "false_rejection_rate": 0.5,
+    "precision_supported": 0.5,
+    "recall_supported": 0.5,
+    "unsupported_recall": 0.6667,
+    "abstention_rate": 0.0,
+    "false_acceptances": 4,
+    "items_supported": 8,
+    "items_unsupported": 12
+   },
+   "criteria": {
+    "false_acceptance_rate": {
+     "value": 0.3333,
+     "threshold": "<= 0.05",
+     "passed": false
+    },
+    "false_rejection_rate": {
+     "value": 0.5,
+     "threshold": "<= 0.4",
+     "passed": false
+    },
+    "accuracy": {
+     "value": 0.6,
+     "threshold": ">= 0.8",
+     "passed": false
+    },
+    "category_false_acceptance": {
+     "value": {
+      "uncategorised": 0.3333
+     },
+     "threshold": "<= 0.15 where >= 3 unsupported items",
+     "passed": false,
+     "failing": [
+      "uncategorised"
+     ]
+    }
+   },
+   "meets_acceptance": false,
+   "by_category_unsupported": {
+    "uncategorised": {
+     "unsupported": 12,
+     "false_accepted": 4,
+     "false_acceptance_rate": 0.3333
+    }
+   },
+   "by_category_supported": {
+    "uncategorised": {
+     "supported": 8,
+     "rejected": 4
+    }
+   },
+   "holdout_pristine": true,
+   "misclassified": [
+    {
+     "id": "s02",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "uncategorised",
+     "claim": "The beer may not be fined with gelatin.",
+     "reasons": null
+    },
+    {
+     "id": "s03",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "uncategorised",
+     "claim": "Whether isinglass-fined beer can be labelled vegetarian is an open question.",
+     "reasons": null
+    },
+    {
+     "id": "s07",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "uncategorised",
+     "claim": "The opening beer list is limited to ten taps or fewer.",
+     "reasons": null
+    },
+    {
+     "id": "s08",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNGROUNDED_FIGURE",
+     "category": "uncategorised",
+     "claim": "The 24-handle bar is the visual canon for the locked DNA bar.",
+     "reasons": null
+    },
+    {
+     "id": "u02",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "uncategorised",
+     "claim": "The kitchen cooks with beef tallow.",
+     "reasons": null
+    },
+    {
+     "id": "u04",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "uncategorised",
+     "claim": "The final NASHA logo was approved last month.",
+     "reasons": null
+    },
+    {
+     "id": "u09",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "uncategorised",
+     "claim": "NASHA operates a brewery in Dallas.",
+     "reasons": null
+    },
+    {
+     "id": "u10",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "uncategorised",
+     "claim": "The brewery is licensed by TABC.",
+     "reasons": null
+    }
+   ],
+   "preregistration_sha256": "bacf4550a3b9be1a1c5b770dd225fe9103f030febb1a0546f9cc4ad66edd9799"
+  },
+  {
+   "system": "improved (claimcheck.py)",
+   "dataset": {
+    "name": "claim-grounding-v1",
+    "role": "historical",
+    "items": 20,
+    "sha256": "4cdddd49b828e13117822a67db5f795153b218356c5c1f7ab2d9ac58c2f90938"
+   },
+   "checker_code_sha256": "2c8bc130043f17f642bfcf589c01c7c2c1f6720065d2f3094c74ba9a62f193b4",
+   "generated_at": "2026-11-05T22:39:46Z",
+   "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+   "status": "RAN",
+   "metrics": {
+    "n": 20,
+    "accuracy": 0.9,
+    "false_acceptance_rate": 0.0,
+    "false_rejection_rate": 0.25,
+    "precision_supported": 1.0,
+    "recall_supported": 0.75,
+    "unsupported_recall": 1.0,
+    "abstention_rate": 0.0,
+    "false_acceptances": 0,
+    "items_supported": 8,
+    "items_unsupported": 12
+   },
+   "criteria": {
+    "false_acceptance_rate": {
+     "value": 0.0,
+     "threshold": "<= 0.05",
+     "passed": true
+    },
+    "false_rejection_rate": {
+     "value": 0.25,
+     "threshold": "<= 0.4",
+     "passed": true
+    },
+    "accuracy": {
+     "value": 0.9,
+     "threshold": ">= 0.8",
+     "passed": true
+    },
+    "category_false_acceptance": {
+     "value": {
+      "uncategorised": 0.0
+     },
+     "threshold": "<= 0.15 where >= 3 unsupported items",
+     "passed": true,
+     "failing": []
+    }
+   },
+   "meets_acceptance": true,
+   "by_category_unsupported": {
+    "uncategorised": {
+     "unsupported": 12,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    }
+   },
+   "by_category_supported": {
+    "uncategorised": {
+     "supported": 8,
+     "rejected": 2
+    }
+   },
+   "holdout_pristine": true,
+   "misclassified": [
+    {
+     "id": "s07",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "uncategorised",
+     "claim": "The opening beer list is limited to ten taps or fewer.",
+     "reasons": [
+      "MISSING_EVIDENCE"
+     ]
+    },
+    {
+     "id": "s08",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "uncategorised",
+     "claim": "The 24-handle bar is the visual canon for the locked DNA bar.",
+     "reasons": [
+      "MISSING_EVIDENCE"
+     ]
+    }
+   ],
+   "preregistration_sha256": "bacf4550a3b9be1a1c5b770dd225fe9103f030febb1a0546f9cc4ad66edd9799"
+  },
+  {
+   "system": "baseline (Mission B pipeline)",
+   "dataset": {
+    "name": "claim-grounding-v2-holdout",
+    "role": "holdout",
+    "items": 37,
+    "sha256": "2d97d0dc948662f83a8ef0b56d9880646824bc2a98e96be9a1a3c8aca60cc271"
+   },
+   "checker_code_sha256": "d67efb6229d00454afacbf132df0d2acd83bbf5fe888c22573b59506a869ed14",
+   "generated_at": "2026-11-05T22:39:46Z",
+   "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+   "status": "RAN",
+   "metrics": {
+    "n": 37,
+    "accuracy": 0.7297,
+    "false_acceptance_rate": 0.4091,
+    "false_rejection_rate": 0.0667,
+    "precision_supported": 0.6087,
+    "recall_supported": 0.9333,
+    "unsupported_recall": 0.5909,
+    "abstention_rate": 0.0,
+    "false_acceptances": 9,
+    "items_supported": 15,
+    "items_unsupported": 22
+   },
+   "criteria": {
+    "false_acceptance_rate": {
+     "value": 0.4091,
+     "threshold": "<= 0.05",
+     "passed": false
+    },
+    "false_rejection_rate": {
+     "value": 0.0667,
+     "threshold": "<= 0.4",
+     "passed": true
+    },
+    "accuracy": {
+     "value": 0.7297,
+     "threshold": ">= 0.8",
+     "passed": false
+    },
+    "category_false_acceptance": {
+     "value": {
+      "negation": 0.8,
+      "geographic": 0.0,
+      "entity": 0.4,
+      "numeric": 0.0,
+      "temporal": 0.4,
+      "wording": 1.0
+     },
+     "threshold": "<= 0.15 where >= 3 unsupported items",
+     "passed": false,
+     "failing": [
+      "negation",
+      "entity",
+      "temporal"
+     ]
+    }
+   },
+   "meets_acceptance": false,
+   "by_category_unsupported": {
+    "negation": {
+     "unsupported": 5,
+     "false_accepted": 4,
+     "false_acceptance_rate": 0.8
+    },
+    "geographic": {
+     "unsupported": 2,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    },
+    "entity": {
+     "unsupported": 5,
+     "false_accepted": 2,
+     "false_acceptance_rate": 0.4
+    },
+    "numeric": {
+     "unsupported": 4,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    },
+    "temporal": {
+     "unsupported": 5,
+     "false_accepted": 2,
+     "false_acceptance_rate": 0.4
+    },
+    "wording": {
+     "unsupported": 1,
+     "false_accepted": 1,
+     "false_acceptance_rate": 1.0
+    }
+   },
+   "by_category_supported": {
+    "negation": {
+     "supported": 2,
+     "rejected": 0
+    },
+    "entity": {
+     "supported": 6,
+     "rejected": 0
+    },
+    "wording": {
+     "supported": 3,
+     "rejected": 0
+    },
+    "numeric": {
+     "supported": 2,
+     "rejected": 1
+    },
+    "temporal": {
+     "supported": 1,
+     "rejected": 0
+    },
+    "geographic": {
+     "supported": 1,
+     "rejected": 0
+    }
+   },
+   "holdout_pristine": true,
+   "misclassified": [
+    {
+     "id": "h09",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "AMBIGUOUS_FIGURE",
+     "category": "numeric",
+     "claim": "The feasibility baseline uses 15 to 30 barrel scenarios.",
+     "reasons": null
+    },
+    {
+     "id": "h16",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "negation",
+     "claim": "The kitchen uses lard in its tortillas.",
+     "reasons": null
+    },
+    {
+     "id": "h17",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "negation",
+     "claim": "The concept is certified halal.",
+     "reasons": null
+    },
+    {
+     "id": "h19",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "negation",
+     "claim": "Pork is a primary protein on the menu.",
+     "reasons": null
+    },
+    {
+     "id": "h20",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "negation",
+     "claim": "The kids menu is exempt from the dietary policy.",
+     "reasons": null
+    },
+    {
+     "id": "h22",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "entity",
+     "claim": "Raja lager was removed and replaced by Mango Gold.",
+     "reasons": null
+    },
+    {
+     "id": "h26",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "entity",
+     "claim": "Dunkelweizen, Pilsner and Vienna were promoted and Raja lager became the flagship.",
+     "reasons": null
+    },
+    {
+     "id": "h27",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "temporal",
+     "claim": "NASHA holds a TABC permit for its Austin location.",
+     "reasons": null
+    },
+    {
+     "id": "h31",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "temporal",
+     "claim": "The brewer has signed off the vessel sizing.",
+     "reasons": null
+    },
+    {
+     "id": "h37",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "SUPPORTED",
+     "category": "wording",
+     "claim": "The menu is mostly vegetarian.",
+     "reasons": null
+    }
+   ],
+   "preregistration_sha256": "bacf4550a3b9be1a1c5b770dd225fe9103f030febb1a0546f9cc4ad66edd9799"
+  },
+  {
+   "system": "improved (claimcheck.py)",
+   "dataset": {
+    "name": "claim-grounding-v2-holdout",
+    "role": "holdout",
+    "items": 37,
+    "sha256": "2d97d0dc948662f83a8ef0b56d9880646824bc2a98e96be9a1a3c8aca60cc271"
+   },
+   "checker_code_sha256": "2c8bc130043f17f642bfcf589c01c7c2c1f6720065d2f3094c74ba9a62f193b4",
+   "generated_at": "2026-11-05T22:39:46Z",
+   "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+   "status": "RAN",
+   "metrics": {
+    "n": 37,
+    "accuracy": 0.9189,
+    "false_acceptance_rate": 0.0,
+    "false_rejection_rate": 0.2,
+    "precision_supported": 1.0,
+    "recall_supported": 0.8,
+    "unsupported_recall": 1.0,
+    "abstention_rate": 0.0,
+    "false_acceptances": 0,
+    "items_supported": 15,
+    "items_unsupported": 22
+   },
+   "criteria": {
+    "false_acceptance_rate": {
+     "value": 0.0,
+     "threshold": "<= 0.05",
+     "passed": true
+    },
+    "false_rejection_rate": {
+     "value": 0.2,
+     "threshold": "<= 0.4",
+     "passed": true
+    },
+    "accuracy": {
+     "value": 0.9189,
+     "threshold": ">= 0.8",
+     "passed": true
+    },
+    "category_false_acceptance": {
+     "value": {
+      "negation": 0.0,
+      "geographic": 0.0,
+      "entity": 0.0,
+      "numeric": 0.0,
+      "temporal": 0.0,
+      "wording": 0.0
+     },
+     "threshold": "<= 0.15 where >= 3 unsupported items",
+     "passed": true,
+     "failing": []
+    }
+   },
+   "meets_acceptance": true,
+   "by_category_unsupported": {
+    "negation": {
+     "unsupported": 5,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    },
+    "geographic": {
+     "unsupported": 2,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    },
+    "entity": {
+     "unsupported": 5,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    },
+    "numeric": {
+     "unsupported": 4,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    },
+    "temporal": {
+     "unsupported": 5,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    },
+    "wording": {
+     "unsupported": 1,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    }
+   },
+   "by_category_supported": {
+    "negation": {
+     "supported": 2,
+     "rejected": 0
+    },
+    "entity": {
+     "supported": 6,
+     "rejected": 2
+    },
+    "wording": {
+     "supported": 3,
+     "rejected": 0
+    },
+    "numeric": {
+     "supported": 2,
+     "rejected": 1
+    },
+    "temporal": {
+     "supported": 1,
+     "rejected": 0
+    },
+    "geographic": {
+     "supported": 1,
+     "rejected": 0
+    }
+   },
+   "holdout_pristine": true,
+   "misclassified": [
+    {
+     "id": "h02",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "entity",
+     "claim": "The dietary policy applies to the kids menu as well.",
+     "reasons": [
+      "MISSING_EVIDENCE",
+      "UNSUPPORTED_ADDITION"
+     ]
+    },
+    {
+     "id": "h06",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "numeric",
+     "claim": "Beer portfolio v2 replaced the twelve Phase One beers.",
+     "reasons": [
+      "MISSING_EVIDENCE",
+      "UNSUPPORTED_ADDITION"
+     ]
+    },
+    {
+     "id": "h07",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "UNSUPPORTED",
+     "category": "entity",
+     "claim": "The Raja lager was removed from the beer portfolio.",
+     "reasons": [
+      "MISSING_EVIDENCE",
+      "UNSUPPORTED_ADDITION"
+     ]
+    }
+   ],
+   "preregistration_sha256": "bacf4550a3b9be1a1c5b770dd225fe9103f030febb1a0546f9cc4ad66edd9799"
+  }
+ ],
+ "note": "Append-only history of claim-checker evaluations. The original baseline failures on the historical benchmark are kept as evidence; thresholds are in eval/PREREGISTRATION.md.",
+ "limits": [
+  "labels were written by the project author (the same author as the checker)",
+  "both datasets are small and about one frozen synthetic corpus",
+  "meeting the thresholds is not evidence of production readiness",
+  "the holdout is pristine only for the checker version whose code hash is recorded with it"
+ ]
+}

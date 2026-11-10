@@ -1,0 +1,1955 @@
+{
+ "recording": {
+  "slug": "mission-b-clean-response",
+  "title": "AI Quality Incident: clean response",
+  "scenario": "clean_response",
+  "scenario_note": "A drafted answer whose claims are all supported: the checks pass, yet a person still decides before even a draft statement is recorded.",
+  "mission": "mission-b-quality-incident",
+  "decision": "approve",
+  "final_status": "DRAFT_CREATED",
+  "recorded_at": "2026-11-09T21:53:32Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 70,
+  "note": "All claims are supported and the checks pass; a person still approves the draft. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0001",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:32.256Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "AI Quality Incident",
+    "scenario": "clean_response",
+    "scenario_note": "A drafted answer whose claims are all supported: the checks pass, yet a person still decides before even a draft statement is recorded.",
+    "trigger": "A drafted response is waiting for release; the response is a scripted fixture, not the output of a language model",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the incident and coordinate the review"
+     },
+     {
+      "agent": "novara",
+      "task": "Submit the draft response for release"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check every claim against its evidence"
+     },
+     {
+      "agent": "cortex",
+      "task": "Retrieve evidence from the NASHA knowledge base"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check security and policy with THE WEIR"
+     },
+     {
+      "agent": "aethon",
+      "task": "Lay out remediation options"
+     }
+    ],
+    "planner": "rules and the lab's rule-based retrieval (no language model)",
+    "reliability_note": "original checker on claim-grounding-v1: did NOT meet its acceptance criteria (false-support rate 0.3333, unsupported recall 0.6667); the improved second-opinion checker on the same-author holdout: false-acceptance 0.0, false-rejection 0.2 (it sends some true claims to a person); a demonstration, not a fact-checker, and a person approves every outcome"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "457aba5a0de1e08fca6b7fbbd838ce1609e8423d2e188106773a4594745c227b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0002",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:32.256Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the incident and coordinate the review",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "457aba5a0de1e08fca6b7fbbd838ce1609e8423d2e188106773a4594745c227b",
+   "hash": "d32c6d8bcf3f15dca4c8841ea9e3f48c8c981667319256f40008f80025e36e7e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0003",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:32.260Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the incident and coordinate the review",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "d32c6d8bcf3f15dca4c8841ea9e3f48c8c981667319256f40008f80025e36e7e",
+   "hash": "442d3b4cb5050fffe0d9eedb53dabf8773e71a8855d4854e0ba9be0f706c12d2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0004",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:32.260Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Submit the draft response for release",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "442d3b4cb5050fffe0d9eedb53dabf8773e71a8855d4854e0ba9be0f706c12d2",
+   "hash": "7e019e51b8ca54709f42ee3b85c3564fb19a16c0e564b9f1ba72fa2f59b2f100"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0005",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Draft response submitted",
+    "result": {
+     "response_id": "resp-be0d7dd9",
+     "characters": 134,
+     "sha256": "be0d7dd9f5539b74e470b9a63ce2e634724e560806eafd35b4aa2a1bef5dcdea",
+     "fixture": true
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "7e019e51b8ca54709f42ee3b85c3564fb19a16c0e564b9f1ba72fa2f59b2f100",
+   "hash": "80c2e1333c4d50e135fcae698f7c9501b59c3599065b282f7aa79417d0d99ff0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0006",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Submit the draft response for release",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "80c2e1333c4d50e135fcae698f7c9501b59c3599065b282f7aa79417d0d99ff0",
+   "hash": "87bbb605fc775a02d2e5953bfb037fb21e0aea14a946e6fa0974cb397b55e3ef"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0007",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check every claim against its evidence",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "87bbb605fc775a02d2e5953bfb037fb21e0aea14a946e6fa0974cb397b55e3ef",
+   "hash": "093a8e84c03b3788542eed0d9ac909b7bd06975964ca8eafea6cac753f2be435"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0008",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "extract_claims",
+    "stage": "B1",
+    "args": {
+     "response_id": "resp-be0d7dd9"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "093a8e84c03b3788542eed0d9ac909b7bd06975964ca8eafea6cac753f2be435",
+   "hash": "8d92aaefaf68c504df4da4b7b537150a9ee03be66d536fe6c77ce6b566dcfe8a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0009",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "extract_claims",
+    "stage": "B1",
+    "ok": true,
+    "claims": 2,
+    "figures": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "8d92aaefaf68c504df4da4b7b537150a9ee03be66d536fe6c77ce6b566dcfe8a",
+   "hash": "c052d3c081d2279ef30ca97d39f1fa90d9e3ae0813255956bab4692cf0279777"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0010",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check every claim against its evidence",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "c052d3c081d2279ef30ca97d39f1fa90d9e3ae0813255956bab4692cf0279777",
+   "hash": "53eb4ab14aaff8dcaf2628857b8fc827e19b209552eb4b6dd474f27c4f7560d1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0011",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "cortex",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Retrieve evidence from the NASHA knowledge base",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "53eb4ab14aaff8dcaf2628857b8fc827e19b209552eb4b6dd474f27c4f7560d1",
+   "hash": "106aecc28f35f10bbd85342d00045e1d634bdf3de2f2c308aea28e547b02b77c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0012",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:32.261Z",
+   "mode": "live",
+   "agent": "cortex",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "knowledge_ask",
+    "stage": "B2",
+    "args": {
+     "claim": "c1",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "claim",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "106aecc28f35f10bbd85342d00045e1d634bdf3de2f2c308aea28e547b02b77c",
+   "hash": "e32c26be5e4af080052ee3c2bbacce9fa4d9a332388b8008567bcb160d2f10f4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0013",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:32.269Z",
+   "mode": "live",
+   "agent": "cortex",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "knowledge_ask",
+    "stage": "B2",
+    "ok": true,
+    "abstained": false,
+    "citations": [
+     {
+      "chunk_id": "D-54",
+      "status": "CURRENT"
+     },
+     {
+      "chunk_id": "research/CORE5-PRODUCT-SYSTEM.md#21",
+      "status": "CURRENT"
+     },
+     {
+      "chunk_id": "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4",
+      "status": "CURRENT"
+     },
+     {
+      "chunk_id": "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#3",
+      "status": "CURRENT"
+     }
+    ],
+    "injection_flagged": [],
+    "ms": 8.22
+   },
+   "evidence_refs": [
+    {
+     "type": "kb_chunk",
+     "id": "D-54"
+    },
+    {
+     "type": "kb_chunk",
+     "id": "research/CORE5-PRODUCT-SYSTEM.md#21"
+    },
+    {
+     "type": "kb_chunk",
+     "id": "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+    },
+    {
+     "type": "kb_chunk",
+     "id": "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#3"
+    }
+   ],
+   "prev_hash": "e32c26be5e4af080052ee3c2bbacce9fa4d9a332388b8008567bcb160d2f10f4",
+   "hash": "8d9980db8e09aa7117d5508676026d6beb6ae53ba6e973c78893599a6df9277d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0014",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:32.271Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "claim_verify",
+    "stage": "B2b",
+    "args": {
+     "claim": "c1"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "claim",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "8d9980db8e09aa7117d5508676026d6beb6ae53ba6e973c78893599a6df9277d",
+   "hash": "b06905cd1e16476fead15257c3ae14032b116ea6e5fca91453e8e8845e58ae18"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0015",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:32.271Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "claim_verify",
+    "stage": "B2b",
+    "ok": true,
+    "verdict": "SUPPORTED",
+    "reasons": [
+     "COVERED_BY_AUTHORITATIVE_SENTENCE"
+    ],
+    "original_status": "SUPPORTED",
+    "final_status": "SUPPORTED",
+    "downgraded": false
+   },
+   "evidence_refs": [
+    {
+     "type": "claim",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "b06905cd1e16476fead15257c3ae14032b116ea6e5fca91453e8e8845e58ae18",
+   "hash": "3ee7a37dde3c005e763922d5bd6e325e247a60ea97751899c5f2b7c60ff05bc8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0016",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:32.271Z",
+   "mode": "live",
+   "agent": "cortex",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "knowledge_ask",
+    "stage": "B2",
+    "args": {
+     "claim": "c2",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "claim",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "3ee7a37dde3c005e763922d5bd6e325e247a60ea97751899c5f2b7c60ff05bc8",
+   "hash": "359250bbe820a2cb5cd0e26e84d8023b0b7452ba26c966a59dec72cff19a2e1c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0017",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:32.277Z",
+   "mode": "live",
+   "agent": "cortex",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "knowledge_ask",
+    "stage": "B2",
+    "ok": true,
+    "abstained": false,
+    "citations": [
+     {
+      "chunk_id": "D-66",
+      "status": "CURRENT"
+     },
+     {
+      "chunk_id": "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1",
+      "status": "SUPPORTING"
+     }
+    ],
+    "injection_flagged": [],
+    "ms": 6.38
+   },
+   "evidence_refs": [
+    {
+     "type": "kb_chunk",
+     "id": "D-66"
+    },
+    {
+     "type": "kb_chunk",
+     "id": "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1"
+    }
+   ],
+   "prev_hash": "359250bbe820a2cb5cd0e26e84d8023b0b7452ba26c966a59dec72cff19a2e1c",
+   "hash": "b140ddc792768a91a4bd9d50f8d8dc68dd56e7dc1c145dfb579c03634a158f47"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0018",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "claim_verify",
+    "stage": "B2b",
+    "args": {
+     "claim": "c2"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "claim",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "b140ddc792768a91a4bd9d50f8d8dc68dd56e7dc1c145dfb579c03634a158f47",
+   "hash": "037152a654a641997149ef0aa1c0219558a77317adcba97e161d3b4de75adcf7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0019",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "claim_verify",
+    "stage": "B2b",
+    "ok": true,
+    "verdict": "SUPPORTED",
+    "reasons": [
+     "COVERED_BY_AUTHORITATIVE_SENTENCE"
+    ],
+    "original_status": "SUPPORTED",
+    "final_status": "SUPPORTED",
+    "downgraded": false
+   },
+   "evidence_refs": [
+    {
+     "type": "claim",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "037152a654a641997149ef0aa1c0219558a77317adcba97e161d3b4de75adcf7",
+   "hash": "acc2f29e7749fdcda2d111f9bf60fcc7899db38b252cdc3d1c687849427203bb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0020",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "cortex",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Retrieve evidence from the NASHA knowledge base",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "acc2f29e7749fdcda2d111f9bf60fcc7899db38b252cdc3d1c687849427203bb",
+   "hash": "8f7379647b6dbd8a356736a63b6cdee377666d6bfb1b1e8ec5e9f2011ff8204f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0021",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Evaluate the claims against the documented criteria",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "8f7379647b6dbd8a356736a63b6cdee377666d6bfb1b1e8ec5e9f2011ff8204f",
+   "hash": "86336965a9cc8729261e002decf8a141ced92546de60159384026799bd7f26ad"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0022",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "claim_check",
+    "passed": true,
+    "claim": "c1",
+    "status": "SUPPORTED",
+    "text": "The NASHA concept is beef-free and pork-free.",
+    "evidence": [
+     "D-54",
+     "research/CORE5-PRODUCT-SYSTEM.md#21",
+     "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+    ],
+    "ungrounded": [],
+    "ambiguous": [],
+    "claims_kept": 1,
+    "claims_dropped": 0,
+    "second_opinion": {
+     "verdict": "SUPPORTED",
+     "reasons": [
+      "COVERED_BY_AUTHORITATIVE_SENTENCE"
+     ],
+     "evidence": [
+      "D-54",
+      "D-54"
+     ],
+     "original": "SUPPORTED"
+    },
+    "needs_review": false
+   },
+   "evidence_refs": [
+    {
+     "type": "kb_chunk",
+     "id": "D-54"
+    },
+    {
+     "type": "kb_chunk",
+     "id": "research/CORE5-PRODUCT-SYSTEM.md#21"
+    },
+    {
+     "type": "kb_chunk",
+     "id": "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+    }
+   ],
+   "prev_hash": "86336965a9cc8729261e002decf8a141ced92546de60159384026799bd7f26ad",
+   "hash": "c589a49bc5357651364f2a77f8c7ba2307d361c574e120c41dfbb1a2c4508f1b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0023",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "claim_check",
+    "passed": true,
+    "claim": "c2",
+    "status": "SUPPORTED",
+    "text": "No NASHA logo exists and the lettering is a disclosed temporary typographic placeholder.",
+    "evidence": [
+     "D-66",
+     "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1"
+    ],
+    "ungrounded": [],
+    "ambiguous": [],
+    "claims_kept": 1,
+    "claims_dropped": 0,
+    "second_opinion": {
+     "verdict": "SUPPORTED",
+     "reasons": [
+      "COVERED_BY_AUTHORITATIVE_SENTENCE"
+     ],
+     "evidence": [
+      "D-66",
+      "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1"
+     ],
+     "original": "SUPPORTED"
+    },
+    "needs_review": false
+   },
+   "evidence_refs": [
+    {
+     "type": "kb_chunk",
+     "id": "D-66"
+    },
+    {
+     "type": "kb_chunk",
+     "id": "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1"
+    }
+   ],
+   "prev_hash": "c589a49bc5357651364f2a77f8c7ba2307d361c574e120c41dfbb1a2c4508f1b",
+   "hash": "98d420602e1fa0bd64503540af33dab5148f1dcb1446d200320d56e2b3c59c92"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0024",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "checker_agreement",
+    "passed": true,
+    "claims": 2,
+    "original_supported": 2,
+    "confirmed_by_improved": 2,
+    "downgraded_for_review": 0,
+    "improved_unsupported": 0,
+    "policy": "a claim stays SUPPORTED only if both checkers support it; uncertain claims are never converted to supported"
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "98d420602e1fa0bd64503540af33dab5148f1dcb1446d200320d56e2b3c59c92",
+   "hash": "7030571a8a54a9cbd08f38f0d3488dafdce6b5b1e558d383210469e337219325"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0025",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "criterion Q1",
+    "passed": true,
+    "criterion": "Every claim cites an authoritative current source",
+    "failing": [],
+    "source": "docs/RAG-EVALUATION.md: answers come only from authoritative current chunks"
+   },
+   "evidence_refs": [
+    {
+     "type": "criterion",
+     "id": "Q1"
+    }
+   ],
+   "prev_hash": "7030571a8a54a9cbd08f38f0d3488dafdce6b5b1e558d383210469e337219325",
+   "hash": "e612d05943b3f9e9b73abba6e03232e866257b8d15077e4afd1c5a52861d1533"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0026",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "criterion Q2",
+    "passed": true,
+    "criterion": "Abstention is respected",
+    "failing": [],
+    "source": "docs/RAG-EVALUATION.md: with no authoritative support the system must say INSUFFICIENT VERIFIED EVIDENCE"
+   },
+   "evidence_refs": [
+    {
+     "type": "criterion",
+     "id": "Q2"
+    }
+   ],
+   "prev_hash": "e612d05943b3f9e9b73abba6e03232e866257b8d15077e4afd1c5a52861d1533",
+   "hash": "8f9f43401c7c54b50a396647a1d3dd74917dd4a2a204f41269be2241875b790c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0027",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "criterion Q3",
+    "passed": true,
+    "criterion": "Every figure is stated plainly in the cited evidence",
+    "failing": [],
+    "source": "added for Mission B: a number, amount or percentage must appear in a cited sentence about the same thing, without a conflicting figure or limit"
+   },
+   "evidence_refs": [
+    {
+     "type": "criterion",
+     "id": "Q3"
+    }
+   ],
+   "prev_hash": "8f9f43401c7c54b50a396647a1d3dd74917dd4a2a204f41269be2241875b790c",
+   "hash": "6dbc3b4cb481347c312ab4e9f7f63555d2b22a9e6799008453b8fa7a2bec7f44"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0028",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "criterion Q4",
+    "passed": true,
+    "criterion": "No claim rests on a non-authoritative source",
+    "failing": [],
+    "source": "docs/RAG-EVALUATION.md: superseded, pending, historical and vision material is never evidence"
+   },
+   "evidence_refs": [
+    {
+     "type": "criterion",
+     "id": "Q4"
+    }
+   ],
+   "prev_hash": "6dbc3b4cb481347c312ab4e9f7f63555d2b22a9e6799008453b8fa7a2bec7f44",
+   "hash": "318e955e6ea47374c82051b6d337e82374d6a734927c09cd71aa76f3e1ed7f52"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0029",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "criterion Q5",
+    "passed": true,
+    "criterion": "No instruction-like text in the response or its evidence",
+    "failing": [],
+    "source": "lab trust boundary (knowledge.INJECTION_RE): text from sources is data, never instructions"
+   },
+   "evidence_refs": [
+    {
+     "type": "criterion",
+     "id": "Q5"
+    }
+   ],
+   "prev_hash": "318e955e6ea47374c82051b6d337e82374d6a734927c09cd71aa76f3e1ed7f52",
+   "hash": "aa472b0cb10b4f5b798777804d778d0913dd2128a373604e86f856a73e173472"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0030",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:32.278Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "release_gate",
+    "passed": true,
+    "verdict": "PASS",
+    "severity": "none",
+    "supported": 2,
+    "total": 2,
+    "failed_criteria": [],
+    "subject": "scripted fixture response (no language model was evaluated)"
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "aa472b0cb10b4f5b798777804d778d0913dd2128a373604e86f856a73e173472",
+   "hash": "01f4fd05650c8f8a90fb71ca887f5e3660d3f305da46d212a03a627a19bef65f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0031",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:32.279Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Evaluate the claims against the documented criteria",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "01f4fd05650c8f8a90fb71ca887f5e3660d3f305da46d212a03a627a19bef65f",
+   "hash": "0a746771dc74eae819700e4415a2a838c0c1880017937afb4fa120dbf22ae4b5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0032",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:32.279Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check security and policy with THE WEIR",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0a746771dc74eae819700e4415a2a838c0c1880017937afb4fa120dbf22ae4b5",
+   "hash": "932ce36f93fa9d2b09fec2d6c3da93598d9fcdba92833f35ec9cf37e0e792a8c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0033",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:32.279Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "injection_scan",
+    "stage": "B4",
+    "args": {
+     "sources": 7
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "932ce36f93fa9d2b09fec2d6c3da93598d9fcdba92833f35ec9cf37e0e792a8c",
+   "hash": "976174a114fb691e48231a59673ddcfd9e712727ba2951e1c770544f55f80037"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0034",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:32.279Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "injection_scan",
+    "stage": "B4",
+    "ok": true,
+    "instruction_like_in_response": false,
+    "flagged_evidence": []
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "976174a114fb691e48231a59673ddcfd9e712727ba2951e1c770544f55f80037",
+   "hash": "c5536590404b463ee5d9fa535554f98e970c85777b51a509bdada7a537b07046"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0035",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:32.279Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "B5",
+    "args": {
+     "probe": true
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "probe",
+     "id": "out-of-policy tool"
+    }
+   ],
+   "prev_hash": "c5536590404b463ee5d9fa535554f98e970c85777b51a509bdada7a537b07046",
+   "hash": "b904cc5ba3863ecdf10c575bf7454fe96dcd1f759dccb4032365cf7bf9b7e04c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0036",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:32.279Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "B5",
+    "ok": false,
+    "forwarded": false,
+    "failure": "TOOL_DENIED",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "b904cc5ba3863ecdf10c575bf7454fe96dcd1f759dccb4032365cf7bf9b7e04c",
+   "hash": "8013da37bf46eb8503ab6326f2a04a8c181385495a103eceb4981b7e672dbb23"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0037",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:32.279Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "bounded probe: a tool outside the policy is refused by default, before any upstream runs",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "8013da37bf46eb8503ab6326f2a04a8c181385495a103eceb4981b7e672dbb23",
+   "hash": "245c7c78a7ff64e1b00e0d868832cadde58fd1d8c0244f3af1a3a5eef19218f8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0038",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check security and policy with THE WEIR",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "245c7c78a7ff64e1b00e0d868832cadde58fd1d8c0244f3af1a3a5eef19218f8",
+   "hash": "0e97e7328b51ee7e1d6795d01a06c9a3c640a7d21dafd905c4217cff1b598a62"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0039",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Lay out remediation options",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0e97e7328b51ee7e1d6795d01a06c9a3c640a7d21dafd905c4217cff1b598a62",
+   "hash": "fc673837a854b50a6c0b4ca2cf8a1a057252a4e6e8a7c3a7d1aa4e12c266aa9c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0040",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Remediation options",
+    "result": {
+     "options": [
+      {
+       "id": "O1",
+       "action": "Record the verified response as a DRAFT statement after a person approves",
+       "recommended": true
+      },
+      {
+       "id": "O2",
+       "action": "Withhold the response",
+       "recommended": false
+      }
+     ],
+     "recommended": "O1",
+     "basis": "rule-based; no language model"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "response",
+     "id": "resp-be0d7dd9"
+    }
+   ],
+   "prev_hash": "fc673837a854b50a6c0b4ca2cf8a1a057252a4e6e8a7c3a7d1aa4e12c266aa9c",
+   "hash": "1f9ca16bd4d6fd64fcdc8bb28b594567192afac214ef20fec608e7cbbd3afeef"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0041",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Lay out remediation options",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "1f9ca16bd4d6fd64fcdc8bb28b594567192afac214ef20fec608e7cbbd3afeef",
+   "hash": "60f95ebc1b6e70fccfb2bc54af04de7b61a43aa02c28c84b91b2e4d895ff123d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0042",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Prepare the corrected statement",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "60f95ebc1b6e70fccfb2bc54af04de7b61a43aa02c28c84b91b2e4d895ff123d",
+   "hash": "39ebc52e3de1ade792ccfb916f1247eafcf87fc6bbef1ef430f5831049f9fcec"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0043",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Corrected statement prepared",
+    "result": {
+     "statement_id": "stmt-be0d7dd9",
+     "characters": 134,
+     "claims_kept": [
+      "c1",
+      "c2"
+     ],
+     "claims_removed": [],
+     "adds_no_new_claims": true
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "stmt-be0d7dd9"
+    }
+   ],
+   "prev_hash": "39ebc52e3de1ade792ccfb916f1247eafcf87fc6bbef1ef430f5831049f9fcec",
+   "hash": "0aa5548f60def0487071d56eee890157d618b779dfe23130abeff867f60a9b4f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0044",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Prepare the corrected statement",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0aa5548f60def0487071d56eee890157d618b779dfe23130abeff867f60a9b4f",
+   "hash": "93775b12d6eba3adbf36762dc74366248fc035d8fa058eb0a337aec70014063d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0045",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 45,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Ask THE WEIR to hold the release for a person",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "93775b12d6eba3adbf36762dc74366248fc035d8fa058eb0a337aec70014063d",
+   "hash": "022776bb1e10582a2df80409187a6b0aef3ec2f34ec0326f731b7c05f614dd60"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0046",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 46,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "B6",
+    "args": {
+     "statement_id": "stmt-be0d7dd9"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "stmt-be0d7dd9"
+    }
+   ],
+   "prev_hash": "022776bb1e10582a2df80409187a6b0aef3ec2f34ec0326f731b7c05f614dd60",
+   "hash": "8e9119b0902c83542dac784b324108076389df55a5daab3ca615c9c3183c943e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0047",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 47,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "B6",
+    "ok": false,
+    "forwarded": false,
+    "held_for_approval": true,
+    "codes": [
+     "R-GATE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "8e9119b0902c83542dac784b324108076389df55a5daab3ca615c9c3183c943e",
+   "hash": "80452ec9421532e32f2e3dacb044e6c71157814466f2fbb09d5ecf2536e92ae1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0048",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 48,
+   "ts": "2026-11-09T21:53:32.280Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "hold_for_approval",
+    "policy": "THE WEIR: a write needs a human approval of this exact call",
+    "codes": [
+     "R-GATE"
+    ],
+    "approval_id": "ap_4d5ac831"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "80452ec9421532e32f2e3dacb044e6c71157814466f2fbb09d5ecf2536e92ae1",
+   "hash": "6799a6c9fd3475e157ce01caeed0df6f8f6cef8a8f21c341bc3a1c2a9048f105"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0049",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 49,
+   "ts": "2026-11-09T21:53:32.281Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "incident_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "1e7ce5416f394f3cef785572695c9840fa75e2edc00cff995417852f85a889c4"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "6799a6c9fd3475e157ce01caeed0df6f8f6cef8a8f21c341bc3a1c2a9048f105",
+   "hash": "fe22a6354ac73a08b03a5db8fd4abb925a460d0e0d590b4b9048e6788fa4e7e0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0050",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 50,
+   "ts": "2026-11-09T21:53:32.281Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "claims_extracted",
+    "actor": "veritas",
+    "role": "SYSTEM",
+    "hash": "c15b78b51e6a263d679e248088c61d0db27893c51341167bbc41223fbbd9bb4c"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "fe22a6354ac73a08b03a5db8fd4abb925a460d0e0d590b4b9048e6788fa4e7e0",
+   "hash": "e2f13b450b19296aa5411530cf03ed573ddadc4c8a90aa9400f1c3198dd4ee9a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0051",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 51,
+   "ts": "2026-11-09T21:53:32.281Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "evaluation_pass",
+    "actor": "veritas",
+    "role": "SYSTEM",
+    "hash": "7f5036464b462c9ede611c7957c3aae99339e9e3359557caf440d0da18e9a492"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "e2f13b450b19296aa5411530cf03ed573ddadc4c8a90aa9400f1c3198dd4ee9a",
+   "hash": "05cbfc129be225ab39c6c3e616a4f832337e180ca3121e1e9e557c2cb1bc33e4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0052",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 52,
+   "ts": "2026-11-09T21:53:32.281Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "guardrail_probe_denied",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "aaefc38d6bfd26a36c0408d5d49aff73ba8fae352b0864d66359b51ec7bff5cd"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "05cbfc129be225ab39c6c3e616a4f832337e180ca3121e1e9e557c2cb1bc33e4",
+   "hash": "bcd0229e7c33880e7376b9f3e3498cf4207ceb66e79a66eaa737282c12971a1b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0053",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 53,
+   "ts": "2026-11-09T21:53:32.281Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "approval_requested",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "75cbba9786f88d2d9bd32c728dc77022a52c997b271d773068815a3d04bbaefe"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    }
+   ],
+   "prev_hash": "bcd0229e7c33880e7376b9f3e3498cf4207ceb66e79a66eaa737282c12971a1b",
+   "hash": "2b2450a67e275589627706dcd5f18b7e3e92de4e310a12a0e087e18af7be69cb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0054",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 54,
+   "ts": "2026-11-09T21:53:32.281Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-response-b-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-response-b"
+    }
+   ],
+   "prev_hash": "2b2450a67e275589627706dcd5f18b7e3e92de4e310a12a0e087e18af7be69cb",
+   "hash": "8023508c69912d5a1ecd2fb81767f7178875b7d867d70758fefea7572b3e9040"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0055",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 55,
+   "ts": "2026-11-09T21:53:32.281Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "approval_requested",
+   "payload": {
+    "approval_id": "ap_4d5ac831",
+    "requires": "owner",
+    "ttl_s": 900,
+    "consequential_action": "record a draft statement",
+    "summary": {
+     "action": "Record a DRAFT statement (never published or sent)",
+     "details": [
+      "2 of 2 claims kept; removed: none",
+      "gate verdict: PASS (severity none)",
+      "statement id stmt-be0d7dd9"
+     ],
+     "claims": [
+      {
+       "text": "The NASHA concept is beef-free and pork-free.",
+       "evidence": [
+        "D-54",
+        "research/CORE5-PRODUCT-SYSTEM.md#21",
+        "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+       ]
+      },
+      {
+       "text": "No NASHA logo exists and the lettering is a disclosed temporary typographic placeholder.",
+       "evidence": [
+        "D-66",
+        "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1"
+       ]
+      }
+     ]
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_4d5ac831"
+    },
+    {
+     "type": "statement",
+     "id": "stmt-be0d7dd9"
+    }
+   ],
+   "prev_hash": "8023508c69912d5a1ecd2fb81767f7178875b7d867d70758fefea7572b3e9040",
+   "hash": "a0b9c9c333b7dee1c200b221827eea659168f708343d8deb8df9d46eadfe39d9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0056",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 56,
+   "ts": "2026-11-09T21:53:32.305Z",
+   "mode": "live",
+   "agent": "owner",
+   "kind": "approval_decided",
+   "payload": {
+    "approval_id": "ap_4d5ac831",
+    "decision": "approve",
+    "by": "incident-owner",
+    "role": "FOUNDER",
+    "comment": "recorded run"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_4d5ac831"
+    }
+   ],
+   "prev_hash": "a0b9c9c333b7dee1c200b221827eea659168f708343d8deb8df9d46eadfe39d9",
+   "hash": "ecc6c95754d948ea1bb2e662f40b42735e0e24e24de773f9410c0de71fc85b05"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0057",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 57,
+   "ts": "2026-11-09T21:53:32.306Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Ask THE WEIR to hold the release for a person",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ecc6c95754d948ea1bb2e662f40b42735e0e24e24de773f9410c0de71fc85b05",
+   "hash": "0269ebe7772b7c5b712265a3540f5ad04cc4885f8641e3ab0f57830629bb024c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0058",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 58,
+   "ts": "2026-11-09T21:53:32.306Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Record the approved draft statement",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0269ebe7772b7c5b712265a3540f5ad04cc4885f8641e3ab0f57830629bb024c",
+   "hash": "7e524e64344ec954ccd96f0b95551c3799d6530cf7cefdc91499a4b1560e2db3"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0059",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 59,
+   "ts": "2026-11-09T21:53:32.306Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "B7",
+    "args": {
+     "statement_id": "stmt-be0d7dd9"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "stmt-be0d7dd9"
+    }
+   ],
+   "prev_hash": "7e524e64344ec954ccd96f0b95551c3799d6530cf7cefdc91499a4b1560e2db3",
+   "hash": "f5ac4bb4b707a02e8f020348178cfa75bfc33fb86f0a57047e858cac3dbb62ae"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0060",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 60,
+   "ts": "2026-11-09T21:53:32.307Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "B7",
+    "ok": true,
+    "forwarded": true,
+    "codes": [
+     "R-GATE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c3"
+    }
+   ],
+   "prev_hash": "f5ac4bb4b707a02e8f020348178cfa75bfc33fb86f0a57047e858cac3dbb62ae",
+   "hash": "910bd0b638928e5b6f0a4226d2dfd03d055f047586b5bad63a906c1008402aef"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0061",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 61,
+   "ts": "2026-11-09T21:53:32.307Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Draft statement recorded",
+    "result": {
+     "draft_id": "ST-DRAFT-be0d7dd9f5",
+     "state": "DRAFT_NOT_RELEASED",
+     "released": false,
+     "sent": false
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement_draft",
+     "id": "ST-DRAFT-be0d7dd9f5"
+    }
+   ],
+   "prev_hash": "910bd0b638928e5b6f0a4226d2dfd03d055f047586b5bad63a906c1008402aef",
+   "hash": "36db3c3cb6dc70386f57e097ba1d29cbe75ef6458960c09e845b8152b369df3b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0062",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 62,
+   "ts": "2026-11-09T21:53:32.307Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "no_external_transmission",
+    "policy": "a statement cannot be published or sent from this workflow",
+    "external_transmissions": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "statement_draft",
+     "id": "ST-DRAFT-be0d7dd9f5"
+    }
+   ],
+   "prev_hash": "36db3c3cb6dc70386f57e097ba1d29cbe75ef6458960c09e845b8152b369df3b",
+   "hash": "9f6bca262ac3c034d42f963fc972492f07978af1746c9658a80550bdeb1edd24"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0063",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 63,
+   "ts": "2026-11-09T21:53:32.307Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Record the approved draft statement",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "9f6bca262ac3c034d42f963fc972492f07978af1746c9658a80550bdeb1edd24",
+   "hash": "9ef48b0d5feca85b94ba9219f1a0efb9f754d92502c7d7d5cd7d6030e17f8d69"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0064",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 64,
+   "ts": "2026-11-09T21:53:32.307Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Assemble the incident report",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "9ef48b0d5feca85b94ba9219f1a0efb9f754d92502c7d7d5cd7d6030e17f8d69",
+   "hash": "7f012b173706f0064d06424ab012db7032e2628d777ad8649f02001784a127e5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0065",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 65,
+   "ts": "2026-11-09T21:53:32.307Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Incident report",
+    "result": {
+     "report": {
+      "response_id": "resp-be0d7dd9",
+      "subject": "scripted fixture response standing in for a model output; no language model was run",
+      "overall": {
+       "verdict": "PASS",
+       "failed": [],
+       "severity": "none",
+       "release_allowed": true,
+       "supported": 2,
+       "total": 2
+      },
+      "claims": [
+       {
+        "id": "c1",
+        "text": "The NASHA concept is beef-free and pork-free.",
+        "status": "SUPPORTED",
+        "evidence": [
+         "D-54",
+         "research/CORE5-PRODUCT-SYSTEM.md#21",
+         "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+        ],
+        "ungrounded": [],
+        "ambiguous": []
+       },
+       {
+        "id": "c2",
+        "text": "No NASHA logo exists and the lettering is a disclosed temporary typographic placeholder.",
+        "status": "SUPPORTED",
+        "evidence": [
+         "D-66",
+         "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1"
+        ],
+        "ungrounded": [],
+        "ambiguous": []
+       }
+      ],
+      "criteria": [
+       {
+        "id": "Q1",
+        "name": "Every claim cites an authoritative current source",
+        "passed": true,
+        "failing": []
+       },
+       {
+        "id": "Q2",
+        "name": "Abstention is respected",
+        "passed": true,
+        "failing": []
+       },
+       {
+        "id": "Q3",
+        "name": "Every figure is stated plainly in the cited evidence",
+        "passed": true,
+        "failing": []
+       },
+       {
+        "id": "Q4",
+        "name": "No claim rests on a non-authoritative source",
+        "passed": true,
+        "failing": []
+       },
+       {
+        "id": "Q5",
+        "name": "No instruction-like text in the response or its evidence",
+        "passed": true,
+        "failing": []
+       }
+      ],
+      "recommendations": [],
+      "controls": {
+       "release gate": "passed",
+       "guardrail probe (send_external_email)": "denied by default",
+       "write tool (release_statement)": "held for a human approval",
+       "publication": "impossible from this workflow (draft state only)",
+       "checker reliability": "original checker on claim-grounding-v1: did NOT meet its acceptance criteria (false-support rate 0.3333, unsupported recall 0.6667); the improved second-opinion checker on the same-author holdout: false-acceptance 0.0, false-rejection 0.2 (it sends some true claims to a person); a demonstration, not a fact-checker, and a person approves every outcome"
+      },
+      "side_effects": {
+       "statements_released": 0,
+       "drafts_created": 1,
+       "external_transmissions": 0
+      },
+      "digest": "393818b61804f749d51e580936af804b422434ee1ee539dc77de99946a590d5e"
+     },
+     "digest": "393818b61804f749d51e580936af804b422434ee1ee539dc77de99946a590d5e"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "incident_report",
+     "id": "393818b61804f749"
+    }
+   ],
+   "prev_hash": "7f012b173706f0064d06424ab012db7032e2628d777ad8649f02001784a127e5",
+   "hash": "9313ba9a45927ff29fe70ded1bb1dddeebeb2869d875464d6526552360b2f4ea"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0066",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 66,
+   "ts": "2026-11-09T21:53:32.308Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "6",
+    "action": "approval_approved",
+    "actor": "incident-owner",
+    "role": "FOUNDER",
+    "hash": "9dca4e18f8ae6ae79df0c1e50c22a5899e0a793373d003a6393cc6a1c809d431"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "6"
+    }
+   ],
+   "prev_hash": "9313ba9a45927ff29fe70ded1bb1dddeebeb2869d875464d6526552360b2f4ea",
+   "hash": "fb1e45f80fade349e065a6dde7be5f06d0643b569e7a0a49eae426f62c14ce8a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0067",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 67,
+   "ts": "2026-11-09T21:53:32.308Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "7",
+    "action": "incident_report_built",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "7d3b46be93a333915659b948651d9eb7fcee9d0e18f93ee697320a9912820842"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "7"
+    }
+   ],
+   "prev_hash": "fb1e45f80fade349e065a6dde7be5f06d0643b569e7a0a49eae426f62c14ce8a",
+   "hash": "4628587366d4ddf29395c10a2b3f116cb95788d8fa7495c0b333673d2a25e8b9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0068",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 68,
+   "ts": "2026-11-09T21:53:32.308Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-response-b-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-response-b"
+    }
+   ],
+   "prev_hash": "4628587366d4ddf29395c10a2b3f116cb95788d8fa7495c0b333673d2a25e8b9",
+   "hash": "a2b97a2763bcad4660e29718f43722d62b60a1b97591a6199b8a963e8100d317"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0069",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 69,
+   "ts": "2026-11-09T21:53:32.308Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Assemble the incident report",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "a2b97a2763bcad4660e29718f43722d62b60a1b97591a6199b8a963e8100d317",
+   "hash": "a379d8cc2b331e53b6e20c7d03d157b0adb2e256a0fdac5e7dabeb0720dc0e13"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-response-b-0070",
+   "run_id": "rec-response-b",
+   "mission": "mission-b-quality-incident",
+   "seq": 70,
+   "ts": "2026-11-09T21:53:32.308Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "DRAFT_CREATED",
+    "side_effects": {
+     "statements_released": 0,
+     "drafts_created": 1,
+     "external_transmissions": 0
+    },
+    "recommendation": "A DRAFT corrected statement ST-DRAFT-be0d7dd9f5 was recorded after approval. It has not been published; publishing is a separate human step.",
+    "report_digest": "393818b61804f749d51e580936af804b422434ee1ee539dc77de99946a590d5e",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "a379d8cc2b331e53b6e20c7d03d157b0adb2e256a0fdac5e7dabeb0720dc0e13",
+   "hash": "0039c6e3d0eee8b4c08c72bdecd357a91f435cd97fbc0e32b4e4afac2e20f390"
+  }
+ ]
+}

@@ -1,0 +1,633 @@
+{
+ "version": "phase7-2",
+ "prompt_version": "prompt-2 (revised once after prompt-1 results: the allowlist states what each task needs; the explanation prompt forbids steering the approver and new numbers)",
+ "label": "VERIFIED",
+ "kind": "real local-model inference: planner and explainer validity",
+ "generated_at": "2026-11-06T04:38:53Z",
+ "runtime": {
+  "runtime": "ollama",
+  "runtime_version": "0.40.15",
+  "endpoint": "http://127.0.0.1:11434",
+  "model": "qwen2.5:1.5b-instruct",
+  "model_digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "model_bytes": 986061892,
+  "parameter_size": "1.5B",
+  "quantization": "Q4_K_M",
+  "family": "qwen2"
+ },
+ "plan": {
+  "requests": 10,
+  "attempts_per_request": 2,
+  "per_call_timeout_s": 60,
+  "temperature": 0,
+  "seed": 7,
+  "note": "temperature 0: repeating a request gives the same reply, so the requests vary the surge figure"
+ },
+ "planner": {
+  "requests": 10,
+  "valid_first_try": 10,
+  "valid_after_retry": 0,
+  "never_valid": 0,
+  "fallback_rate": 0.0,
+  "model_calls": 10,
+  "violation_classes": {},
+  "latency_ms": {
+   "mean": 6424.1,
+   "p50": 7010.0,
+   "max": 8042.8
+  }
+ },
+ "explainer": {
+  "requests": 10,
+  "valid_first_try": 5,
+  "valid_after_retry": 0,
+  "never_valid": 5,
+  "fallback_rate": 0.5,
+  "model_calls": 15,
+  "violation_classes": {
+   "UNGROUNDED_NUMBER": 10
+  },
+  "latency_ms": {
+   "mean": 6168.9,
+   "p50": 5752.7,
+   "max": 8745.9
+  }
+ },
+ "planner_rows": [
+  {
+   "surge_pct": 20,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 4262.6,
+     "violations": [],
+     "n_prompt": 294,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 30,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 4645.2,
+     "violations": [],
+     "n_prompt": 294,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 40,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 4829.4,
+     "violations": [],
+     "n_prompt": 294,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 55,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 5644.8,
+     "violations": [],
+     "n_prompt": 294,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 70,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 8042.8,
+     "violations": [],
+     "n_prompt": 294,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 80,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 7010.0,
+     "violations": [],
+     "n_prompt": 294,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 90,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 7877.0,
+     "violations": [],
+     "n_prompt": 294,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 105,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 7171.1,
+     "violations": [],
+     "n_prompt": 295,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 125,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 7876.3,
+     "violations": [],
+     "n_prompt": 295,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 155,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 6882.0,
+     "violations": [],
+     "n_prompt": 295,
+     "n_completion": 173,
+     "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  }
+ ],
+ "explainer_rows": [
+  {
+   "surge_pct": 20,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": false,
+     "ms": 4246.0,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 250,
+     "n_completion": 164,
+     "output_sha256": "4dde6f975957431fccfb1167478e0d6eb1b011c9526650b1ed35b2174f913e37"
+    },
+    {
+     "attempt": 2,
+     "ok": false,
+     "ms": 4779.8,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 272,
+     "n_completion": 202,
+     "output_sha256": "1b15240b156ab228d6490de5493a4fba1332f5cbdacc2e8866f05ca43707ac73"
+    }
+   ],
+   "valid": false,
+   "first_try": false
+  },
+  {
+   "surge_pct": 30,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": false,
+     "ms": 3771.3,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 250,
+     "n_completion": 141,
+     "output_sha256": "767d77e61eaa81997f9e06949f01efc88924c4e964f1108c3f876b5c8a166778"
+    },
+    {
+     "attempt": 2,
+     "ok": false,
+     "ms": 5168.4,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 272,
+     "n_completion": 202,
+     "output_sha256": "a2e1d14373f1dc43dfb5018d9cef427b9fe43d20337e584a3a4c473dfd8daee9"
+    }
+   ],
+   "valid": false,
+   "first_try": false
+  },
+  {
+   "surge_pct": 40,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": false,
+     "ms": 5683.2,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 250,
+     "n_completion": 141,
+     "output_sha256": "767d77e61eaa81997f9e06949f01efc88924c4e964f1108c3f876b5c8a166778"
+    },
+    {
+     "attempt": 2,
+     "ok": false,
+     "ms": 5306.5,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 272,
+     "n_completion": 202,
+     "output_sha256": "a2e1d14373f1dc43dfb5018d9cef427b9fe43d20337e584a3a4c473dfd8daee9"
+    }
+   ],
+   "valid": false,
+   "first_try": false
+  },
+  {
+   "surge_pct": 55,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 7988.7,
+     "violations": [],
+     "n_prompt": 250,
+     "n_completion": 175,
+     "output_sha256": "290c17807736dc518295c95107d2310ae86b48b11e131a48bb321f5656329467"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 70,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 5419.2,
+     "violations": [],
+     "n_prompt": 250,
+     "n_completion": 134,
+     "output_sha256": "7609b9a8b105f97b8ed39e5d9af65a723b3ce9464d41cc0f1562e82f988a802f"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 80,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": false,
+     "ms": 5752.7,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 250,
+     "n_completion": 127,
+     "output_sha256": "089881509ba2b369d430427230b244444c6e4472d5ca859ecf9c3ee84607918c"
+    },
+    {
+     "attempt": 2,
+     "ok": false,
+     "ms": 8696.9,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 272,
+     "n_completion": 203,
+     "output_sha256": "0af3ccfe7263ea5a2c0f753b55a9a7634fc23fd088a8ff0486e151674ccaad14"
+    }
+   ],
+   "valid": false,
+   "first_try": false
+  },
+  {
+   "surge_pct": 90,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": false,
+     "ms": 5762.2,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 250,
+     "n_completion": 127,
+     "output_sha256": "903ddf0502be4466e1e0f2ca37ebdecb9484c91b4239382a8bc292688f25bf87"
+    },
+    {
+     "attempt": 2,
+     "ok": false,
+     "ms": 8745.9,
+     "violations": [
+      "UNGROUNDED_NUMBER"
+     ],
+     "n_prompt": 272,
+     "n_completion": 203,
+     "output_sha256": "0af3ccfe7263ea5a2c0f753b55a9a7634fc23fd088a8ff0486e151674ccaad14"
+    }
+   ],
+   "valid": false,
+   "first_try": false
+  },
+  {
+   "surge_pct": 105,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 7258.9,
+     "violations": [],
+     "n_prompt": 251,
+     "n_completion": 173,
+     "output_sha256": "631ec2f666ad0ef726f09dd47d958bc266b4124f5f45877130a52b6b01a81e73"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 125,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 7802.3,
+     "violations": [],
+     "n_prompt": 251,
+     "n_completion": 178,
+     "output_sha256": "867277818c5d8369911329e62203cfbc8cfcd050bf3426c77d9c6edcb319b29b"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  },
+  {
+   "surge_pct": 155,
+   "attempts": [
+    {
+     "attempt": 1,
+     "ok": true,
+     "ms": 6150.8,
+     "violations": [],
+     "n_prompt": 251,
+     "n_completion": 156,
+     "output_sha256": "29a6c83c1962b4c8ca416b5b0cea5ebc32c2050f690f7c46bf4b27300b0fb6e5"
+    }
+   ],
+   "valid": true,
+   "first_try": true
+  }
+ ],
+ "validators_sha256": "280b8648447d6f662bcd3cefbcaf0ceb2e8a28aeb5c2b57e32dc6389e27362fa",
+ "limits": [
+  "the prompts were revised once after seeing the prompt-1 results on these SAME ten requests (model-plan-eval-prompt1.json), so this is a development-set measure, not a held-out one",
+  "ten synthetic requests, one model: a measurement, not a distribution",
+  "validators check structure, allowlist, dependencies, approval ordering, numeric grounding and action claims; they do not check that a grounded sentence is TRUE (a sentence can reuse correct numbers and still misstate their direction)",
+  "a valid plan only reorders or omits optional steps of a fixed graph; the model cannot add capabilities",
+  "the explanation is advisory text shown to the approver; it never approves or executes anything"
+ ],
+ "planner_identity_check": {
+  "generated_at": "2026-11-09T20:06:59Z",
+  "requests": 10,
+  "valid": 10,
+  "identical_to_fixed_graph": 10,
+  "reproduced_recorded_replies": 10,
+  "rows": [
+   {
+    "surge_pct": 20,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 30,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 40,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 55,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 70,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 80,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 90,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 105,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 125,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   },
+   {
+    "surge_pct": 155,
+    "valid": true,
+    "identical_to_fixed_graph": true,
+    "tasks": [
+     "inventory",
+     "demand",
+     "brewery",
+     "finance",
+     "cx",
+     "proposal",
+     "governance",
+     "report"
+    ],
+    "output_sha256": "6c2b2c406604765a2360385a90fb05f74cad5d9d1e0b0e0f3369a0207d993c2d",
+    "matches_recorded_hash": true
+   }
+  ],
+  "note": "a valid plan can only reorder or omit optional steps; this checks whether the model did anything other than reproduce the fixed graph"
+ }
+}

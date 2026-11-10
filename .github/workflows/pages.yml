@@ -1,0 +1,143 @@
+# Production deployment of the allowlisted GitHub Pages artifact.
+#
+# Adding this file to a branch or pull request cannot deploy anything:
+#   * it triggers only on a push to main and on a manual run; there is no pull_request, pull_request_target, workflow_run or schedule trigger;
+#   * every job requires refs/heads/main, so a manual run started from any other branch skips every job;
+#   * the first job fails unless the repository's Pages source is "GitHub Actions" (while it is still the legacy branch build, nothing is built or deployed);
+#   * the deploy job runs in the github-pages environment, which is restricted to the main branch.
+# It publishes ONLY dist/, built from scripts/publish-manifest.json and verified by scripts/verify-pages-artifact.py.
+#
+# The job names and the names of the required steps are fixed on purpose: the rollback workflow decides whether a commit was really released by
+# reading this workflow's run (every job and required step must have succeeded, none skipped) and a release record that the last job writes only
+# after the live site was verified. scripts/test-workflows.py enforces that nothing here can hide a failure (no continue-on-error, no extra
+# conditions, no step conditions).
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+permissions: {}
+concurrency:
+  group: pages-production       # shared with rollback.yml: a deployment and a rollback can never run at the same time
+  cancel-in-progress: false     # note: GitHub still cancels a PENDING run when a newer one queues behind the one in progress; see scripts/RELEASE-CHECKS.md
+env:
+  SITE_URL: https://riteshmamidi0905-lab.github.io
+jobs:
+  guard:
+    name: guard
+    if: github.repository == 'riteshmamidi0905-lab/riteshmamidi0905-lab.github.io' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: read
+    steps:
+      - name: Refuse to run unless Pages is set to deploy from GitHub Actions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+  build:
+    name: build
+    needs: guard
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    outputs:
+      tree_digest: ${{ steps.digest.outputs.tree_digest }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Source validation
+        run: npm run build && npm test
+      - run: npm audit --audit-level=low
+      - name: Build and verify the publication artifact
+        run: npm run build:pages
+      - name: Record the release tree digest
+        id: digest
+        run: |
+          d=$(python3 scripts/verify-pages-artifact.py dist --no-http | grep -o 'tree digest [0-9a-f]\{64\}' | head -1 | awk '{print $3}')
+          test -n "$d"
+          echo "tree_digest=$d" >> "$GITHUB_OUTPUT"
+      - name: Upload the Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa  # v3.0.1
+        with:
+          path: dist
+          retention-days: 90
+  deploy:
+    name: deploy
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write              # publish to Pages (this job only)
+      id-token: write           # prove the deployment comes from this workflow (this job only)
+    environment:
+      name: github-pages        # restricted to the main branch; required reviewers here add a human approval before every deploy
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e  # v4.0.5
+  verify-live:
+    name: verify-live
+    needs: [build, deploy]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          persist-credentials: false      # default ref: the very commit that was built and deployed
+      - name: Pages is still artifact-deployed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY/pages" -q .build_type)" = "workflow"
+      - name: Verify the live site
+        env:
+          EXPECTED_DIGEST: ${{ needs.build.outputs.tree_digest }}
+        run: python3 scripts/verify-live-site.py "$SITE_URL" --manifest scripts/publish-manifest.json --expect-digest "$EXPECTED_DIGEST" --summary "$GITHUB_STEP_SUMMARY" --wait 300
+  record-release:
+    name: record-release
+    needs: [build, deploy, verify-live]       # runs only if all three succeeded, so a record can never exist before the live site was verified
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
+        with:
+          persist-credentials: false
+      - name: Compose the release record
+        env:
+          TREE_DIGEST: ${{ needs.build.outputs.tree_digest }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          VERIFY_RESULT: ${{ needs.verify-live.result }}
+        run: |
+          python3 scripts/release_record.py create --out release-record.json --tree-digest "$TREE_DIGEST" --deploy-result "$DEPLOY_RESULT" --verify-result "$VERIFY_RESULT" --manifest scripts/publish-manifest.json
+          {
+            echo "### Release record (the site was deployed and verified live)"
+            echo "- commit: \`$GITHUB_SHA\`"
+            echo "- tree digest: \`$TREE_DIGEST\`"
+            echo "- run: $GITHUB_RUN_ID (attempt $GITHUB_RUN_ATTEMPT)"
+            echo "- artifact: release-record-$GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT (kept 90 days)"
+            echo "- to restore this release run the rollback workflow with release_sha=\`$GITHUB_SHA\` and expected_tree_digest=\`$TREE_DIGEST\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload the release record
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: release-record-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release-record.json
+          retention-days: 90
+          if-no-files-found: error

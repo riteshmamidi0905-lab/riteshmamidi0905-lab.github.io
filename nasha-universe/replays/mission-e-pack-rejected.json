@@ -1,0 +1,1127 @@
+{
+ "recording": {
+  "slug": "mission-e-pack-rejected",
+  "title": "Concept Menu Test Pack: owner rejects",
+  "scenario": "nominal",
+  "scenario_note": "Fifteen concept dishes: allergen sheets derived from the ingredients, dietary flags, chef test notes; a person approves before a draft pack is recorded.",
+  "mission": "mission-e-chef-test-pack",
+  "decision": "reject",
+  "final_status": "REJECTED",
+  "recorded_at": "2026-11-09T21:53:34Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 42,
+  "note": "The same pack; the owner rejects it and nothing is recorded. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0001",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:34.250Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Concept Menu Test Pack",
+    "scenario": "nominal",
+    "scenario_note": "Fifteen concept dishes: allergen sheets derived from the ingredients, dietary flags, chef test notes; a person approves before a draft pack is recorded.",
+    "trigger": "A chef test pack is requested for the concept menu. The recipes are concepts: nobody has cooked or tasted them",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the chef test-pack mission"
+     },
+     {
+      "agent": "pyrix",
+      "task": "Load recipes, derive allergens and compose the test pack"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check consistency, wording and recipe validity"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check dietary policy and ask THE WEIR to hold the draft pack"
+     }
+    ],
+    "planner": "the lab's recipe model and fixed rules (no language model)"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "c986fa31a81a1a018d7db1f0d4c54b8928c2d0e57fbc9dd69d0ee44a6c7989d7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0002",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:34.250Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the chef test-pack mission",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "c986fa31a81a1a018d7db1f0d4c54b8928c2d0e57fbc9dd69d0ee44a6c7989d7",
+   "hash": "107441059a809959be44431be53d5ab73544a1df0f81c807f67f4c099fb00c73"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0003",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:34.255Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the chef test-pack mission",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "107441059a809959be44431be53d5ab73544a1df0f81c807f67f4c099fb00c73",
+   "hash": "788877b241f20238a53f855b698d7808c65d4b599399da38fa171f8bfcdcb3c4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0004",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:34.255Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Load recipes, derive allergens and compose the test pack",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "788877b241f20238a53f855b698d7808c65d4b599399da38fa171f8bfcdcb3c4",
+   "hash": "f2d91278c976898acca685860f4927de7463837ab64cdad0b46c28395cfa8b0b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0005",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:34.255Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "load_recipes",
+    "stage": "E1",
+    "args": {
+     "source": "nasha_lab.recipes.model"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.model"
+    }
+   ],
+   "prev_hash": "f2d91278c976898acca685860f4927de7463837ab64cdad0b46c28395cfa8b0b",
+   "hash": "7a4b87dd2073b1331ba641e15f2d9365fc235da84cd0c7cdc99e82ab6a8860cb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0006",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:34.257Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "load_recipes",
+    "stage": "E1",
+    "ok": true,
+    "recipes": 27,
+    "dishes": 15,
+    "ingredients": 72,
+    "synthetic": true,
+    "status": "concept recipes: nobody has cooked or tasted them"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.model"
+    }
+   ],
+   "prev_hash": "7a4b87dd2073b1331ba641e15f2d9365fc235da84cd0c7cdc99e82ab6a8860cb",
+   "hash": "6471f367988eeb30f9757f4803f2cebc66c1dda8b679e5c4616a0199b5ca3538"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0007",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:34.257Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Load recipes, derive allergens and compose the test pack",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "6471f367988eeb30f9757f4803f2cebc66c1dda8b679e5c4616a0199b5ca3538",
+   "hash": "97047c838c9ce4109dd1b25672a47c7226f80081957cf04bdb7cf605d2b9d9d2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0008",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:34.257Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check consistency, wording and recipe validity",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "97047c838c9ce4109dd1b25672a47c7226f80081957cf04bdb7cf605d2b9d9d2",
+   "hash": "3d2dc6110fa197531e7ca460fea48ed1e8025455333d5e0ba943ec6ec331ed40"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0009",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "recipe_validation",
+    "passed": true,
+    "errors": [],
+    "method": "the lab's model.validate over every recipe and the ingredient master",
+    "claims_kept": 27,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.model.validate"
+    }
+   ],
+   "prev_hash": "3d2dc6110fa197531e7ca460fea48ed1e8025455333d5e0ba943ec6ec331ed40",
+   "hash": "e4db0df32ebbc94adf947e48a4f1cc7ad3dccd3d18d9b81c5ce916f28e37a51c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0010",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check consistency, wording and recipe validity",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "e4db0df32ebbc94adf947e48a4f1cc7ad3dccd3d18d9b81c5ce916f28e37a51c",
+   "hash": "9ac4aa6a0e4a61a2af750cdeca42af3aa742947de3b36977127ad04fb406b234"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0011",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Load recipes, derive allergens and compose the test pack",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "9ac4aa6a0e4a61a2af750cdeca42af3aa742947de3b36977127ad04fb406b234",
+   "hash": "b7546311e8fdd3b9676fa4495800d5e77d12487be281403eb49162d0c983243a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0012",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "derive_allergens",
+    "stage": "E2",
+    "args": {
+     "dishes": 15
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.allergens"
+    }
+   ],
+   "prev_hash": "b7546311e8fdd3b9676fa4495800d5e77d12487be281403eb49162d0c983243a",
+   "hash": "e89a39205510a1dba6941a60e3811a45ab60fadce5bd9eca63020296171df94c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0013",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "derive_allergens",
+    "stage": "E2",
+    "ok": true,
+    "dishes": 15,
+    "dishes_per_allergen": {
+     "milk": 14,
+     "egg": 0,
+     "fish": 1,
+     "shellfish": 0,
+     "tree_nut": 1,
+     "peanut": 0,
+     "wheat": 4,
+     "soy": 0,
+     "sesame": 0
+    },
+    "label_checks": 57,
+    "method": "derived from ingredient declarations; not a validation"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.allergens"
+    }
+   ],
+   "prev_hash": "e89a39205510a1dba6941a60e3811a45ab60fadce5bd9eca63020296171df94c",
+   "hash": "7aded403a87e62bc22d74579524bbfeef3085d4e59fcc598e3c93a596961cd17"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0014",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Concept menu and test notes",
+    "result": {
+     "dishes": 15,
+     "test_notes": 103,
+     "pack_characters": 17708,
+     "draft_version": 1,
+     "pairing_hypotheses": 30,
+     "pairing_status": "every pairing in the recipes is labelled NOT SENSORY TESTED; the beers do not exist yet"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.allergens"
+    }
+   ],
+   "prev_hash": "7aded403a87e62bc22d74579524bbfeef3085d4e59fcc598e3c93a596961cd17",
+   "hash": "2003d52e130223e8a0ef4d149fb494a95b5442255983a0ae84c13e9f2435e3c8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0015",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Load recipes, derive allergens and compose the test pack",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "2003d52e130223e8a0ef4d149fb494a95b5442255983a0ae84c13e9f2435e3c8",
+   "hash": "aa0e869fd5b9bc73c4a23ceecc141790a62d6e8664e3f4b62748d1d1d70f1092"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0016",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check consistency, wording and recipe validity",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "aa0e869fd5b9bc73c4a23ceecc141790a62d6e8664e3f4b62748d1d1d70f1092",
+   "hash": "98f6ed55e7fab8834785a8635fd5120a1eb83188a0aae4256513dbb2d83e1f34"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0017",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:34.264Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "allergen_consistency",
+    "passed": true,
+    "mismatches": [],
+    "declared_extra": 0,
+    "rule": "every allergen derived from the ingredients must be declared on the recipe",
+    "claims_kept": 15,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.allergens"
+    }
+   ],
+   "prev_hash": "98f6ed55e7fab8834785a8635fd5120a1eb83188a0aae4256513dbb2d83e1f34",
+   "hash": "1fc6555ac8dc67663ac93b6a0d31a171e50924e658e5c61d1bbb40b61589bb9d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0018",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:34.266Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "claim_language",
+    "passed": true,
+    "violations": [],
+    "draft_version": 1,
+    "rule": "no cook/taste/test result (the lab's overclaim detector) and no allergen-free, gluten-free, allergy-safe or halal claim (PYRIX's absence-claim rule)",
+    "claims_kept": 1,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.model.overclaims"
+    }
+   ],
+   "prev_hash": "1fc6555ac8dc67663ac93b6a0d31a171e50924e658e5c61d1bbb40b61589bb9d",
+   "hash": "f2a5044256e5fab1659537493aaf3fe428da7db3f2cf7a11cdb5dd0389d44842"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0019",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:34.266Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check consistency, wording and recipe validity",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "f2a5044256e5fab1659537493aaf3fe428da7db3f2cf7a11cdb5dd0389d44842",
+   "hash": "c6f0957599dfff86cf6d355013eed3e2c646de240e22b0e702c283d15c3d7695"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0020",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:34.266Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check dietary policy and ask THE WEIR to hold the draft pack",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "c6f0957599dfff86cf6d355013eed3e2c646de240e22b0e702c283d15c3d7695",
+   "hash": "98ce6384fbe9bcb79400e026aa3473ed16372b6f5ae9eaeffa1d95fa5a1f7bd1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0021",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:34.266Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "dietary_review",
+    "policy": "founder policy D-54 (no beef or pork derivative; lard and gelatin need confirmation)",
+    "non_compliant_records": [],
+    "dishes_with_flags": 0,
+    "flags_sample": [],
+    "note": "flags ask a chef to confirm a supplier statement; they are not findings of non-compliance"
+   },
+   "evidence_refs": [
+    {
+     "type": "policy",
+     "id": "D-54"
+    }
+   ],
+   "prev_hash": "98ce6384fbe9bcb79400e026aa3473ed16372b6f5ae9eaeffa1d95fa5a1f7bd1",
+   "hash": "d25074528d862027d44edd1dc2e22d3465b03856b4bbb1aa3277a5a6cc8ca08f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0022",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:34.266Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "E8",
+    "args": {
+     "probe": true
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "probe",
+     "id": "out-of-policy tool"
+    }
+   ],
+   "prev_hash": "d25074528d862027d44edd1dc2e22d3465b03856b4bbb1aa3277a5a6cc8ca08f",
+   "hash": "8bb715b403627f2cd493c781a28f2bab1134a1e4d47bc39c41c1b33fa1ab8cf0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0023",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:34.267Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "E8",
+    "ok": false,
+    "forwarded": false,
+    "failure": "TOOL_DENIED",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "8bb715b403627f2cd493c781a28f2bab1134a1e4d47bc39c41c1b33fa1ab8cf0",
+   "hash": "58cc2e64a19153fffe8360e4bc2d9c8b322247e49794c70295566409f6f31cd2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0024",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:34.267Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "bounded probe: sending is not in the policy at all, so it is refused by default",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "58cc2e64a19153fffe8360e4bc2d9c8b322247e49794c70295566409f6f31cd2",
+   "hash": "bf89232391738ce4c1d89fd43fd3a9f7d07e9f8e570749fb3ce80dbb90beb265"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0025",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:34.267Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "E9",
+    "args": {
+     "statement_id": "pack-247326a7"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "pack-247326a7"
+    }
+   ],
+   "prev_hash": "bf89232391738ce4c1d89fd43fd3a9f7d07e9f8e570749fb3ce80dbb90beb265",
+   "hash": "ad6ec7c404c040e3ffa804cd2f37319ebce4b3523846e6f4c4abf135087f6bea"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0026",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:34.268Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "E9",
+    "ok": false,
+    "forwarded": false,
+    "held_for_approval": true,
+    "codes": [
+     "R-GATE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "ad6ec7c404c040e3ffa804cd2f37319ebce4b3523846e6f4c4abf135087f6bea",
+   "hash": "9896191022ed705d1eedbf9b6699f55e30cb8fb170a71228a86764575fa9ab49"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0027",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:34.268Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "hold_for_approval",
+    "policy": "THE WEIR: an outward draft needs a human approval of this exact text",
+    "codes": [
+     "R-GATE"
+    ],
+    "approval_id": "ap_0cbaa8fe"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "9896191022ed705d1eedbf9b6699f55e30cb8fb170a71228a86764575fa9ab49",
+   "hash": "f188e671fec758cc6afd5e9d8f3c83ca7f73ec8dca941f220beda88c71ba1a41"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0028",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:34.268Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "mission_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "06ec72fbbdfa849b80a0dad10773684babcacdf5fb2839805f54f33cd79c0c5a"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "f188e671fec758cc6afd5e9d8f3c83ca7f73ec8dca941f220beda88c71ba1a41",
+   "hash": "e6be1ae93277b9ac20b796554977f8c1790d2021403c5548cfb53faaf95bce2b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0029",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:34.268Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "dietary_reviewed",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "ba470b26648bb0b522d27e7488534205df63c9a568e30959a1ec4d33a1e58153"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "e6be1ae93277b9ac20b796554977f8c1790d2021403c5548cfb53faaf95bce2b",
+   "hash": "856a043c8df3b071d79ec6e72679400c27570a3e2a6a89c0df0527c64ca655a8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0030",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:34.268Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "guardrail_probe_denied",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "bc9a18e5cbf12615d4f397727c2f3af25d9a0f0c3551942a85423a2a8c8c5176"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "856a043c8df3b071d79ec6e72679400c27570a3e2a6a89c0df0527c64ca655a8",
+   "hash": "b089b5bc740ed8288b93b60d3404bd4fa1b938c8980eca35170d2e8e76c3537e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0031",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:34.268Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "approval_requested",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "d5d012607867a973bd11d89ffea2b3e3439eb4b7545c0bed0b9caab6df5ac477"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "b089b5bc740ed8288b93b60d3404bd4fa1b938c8980eca35170d2e8e76c3537e",
+   "hash": "625b223acad1764c8f71696f396be14b313b2babe813de3f704f49775bfbdf74"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0032",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:34.269Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-rejected-e-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-rejected-e"
+    }
+   ],
+   "prev_hash": "625b223acad1764c8f71696f396be14b313b2babe813de3f704f49775bfbdf74",
+   "hash": "90f1bf08dfd2b3a8dc0a2272568178171f260edc4c01b80167dc7cb0de79a436"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0033",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:34.269Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "approval_requested",
+   "payload": {
+    "approval_id": "ap_0cbaa8fe",
+    "requires": "owner",
+    "ttl_s": 900,
+    "consequential_action": "Record a DRAFT chef test pack (never released to guests)",
+    "summary": {
+     "action": "Record a DRAFT chef test pack (never released to guests)",
+     "details": [
+      "15 dishes, 103 chef test notes",
+      "allergen consistency: no mismatch",
+      "0 dishes carry D-54 label checks",
+      "never an allergen-free claim; not a certification"
+     ],
+     "claims": [
+      {
+       "text": "DRAFT chef test pack v1: 15 concept dishes; allergens derived per dish (not a validation, no claim of absence); 103 test notes; 0 allergen mismatches need review; 0 dishes carry D-54 label checks; pack digest 247326a71ec4f7a5. Concept recipes nobody has cooked. Not a certification.",
+       "evidence": [
+        "recipes.allergens",
+        "recipes.model"
+       ]
+      }
+     ]
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_0cbaa8fe"
+    },
+    {
+     "type": "statement",
+     "id": "pack-247326a7"
+    }
+   ],
+   "prev_hash": "90f1bf08dfd2b3a8dc0a2272568178171f260edc4c01b80167dc7cb0de79a436",
+   "hash": "1f2b4fb0e3f00cb6b00b063e4020296ebad19eeaf52b267ff345b58fb6b75806"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0034",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:34.275Z",
+   "mode": "live",
+   "agent": "owner",
+   "kind": "approval_decided",
+   "payload": {
+    "approval_id": "ap_0cbaa8fe",
+    "decision": "reject",
+    "by": "pyrix-owner",
+    "role": "FOUNDER",
+    "comment": "recorded run"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_0cbaa8fe"
+    }
+   ],
+   "prev_hash": "1f2b4fb0e3f00cb6b00b063e4020296ebad19eeaf52b267ff345b58fb6b75806",
+   "hash": "0e405e1093575504090e9a35f51c080dab5a75714a8a4996186c54833812529b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0035",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:34.275Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check dietary policy and ask THE WEIR to hold the draft pack",
+    "outcome": "rejected"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0e405e1093575504090e9a35f51c080dab5a75714a8a4996186c54833812529b",
+   "hash": "53087d17474450a8273f4dd73f6f86c0b0201b2ec00540bf105dec9e802683be"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0036",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:34.276Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "53087d17474450a8273f4dd73f6f86c0b0201b2ec00540bf105dec9e802683be",
+   "hash": "864c14d62e6d36f0daf408fa4820e78896faeb970293372b64c9aa056eb9ced9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0037",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:34.276Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Incident report",
+    "result": {
+     "report": {
+      "kind": "generic",
+      "subject": "PYRIX's chef test pack from the lab's concept recipes; a derivation, not a certification",
+      "headline": "Concept menu test pack",
+      "sections": [
+       {
+        "title": "Allergens derived (dishes per allergen)",
+        "items": [
+         "milk: 14",
+         "fish: 1",
+         "tree nut: 1",
+         "wheat: 4"
+        ]
+       },
+       {
+        "title": "Consistency with what each recipe declares",
+        "items": [
+         "no mismatch"
+        ]
+       },
+       {
+        "title": "Dietary (D-54) label checks",
+        "items": [
+         "none"
+        ]
+       },
+       {
+        "title": "Limits",
+        "items": [
+         "a derivation from ingredient declarations, not an allergen validation",
+         "concept recipes nobody has cooked or tasted",
+         "never an allergen-free or allergy-safe claim; not a food-safety certification"
+        ]
+       }
+      ],
+      "controls": {
+       "claim rules": "the lab's overclaim detector plus the absence-claim rule",
+       "guardrail probe (send_external_email)": "denied by default",
+       "write tool (release_statement)": "held for a human approval",
+       "release": "nothing is released to guests; no certification is issued"
+      },
+      "side_effects": {
+       "sheets_released": 0,
+       "drafts_created": 0,
+       "certifications_issued": 0,
+       "external_transmissions": 0
+      },
+      "digest": "baf6e4a61d9fe6d6a5fc3fe0e10d5198c6b57900326200c431a1beb97e02bcd3"
+     },
+     "digest": "baf6e4a61d9fe6d6a5fc3fe0e10d5198c6b57900326200c431a1beb97e02bcd3"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "incident_report",
+     "id": "baf6e4a61d9fe6d6"
+    }
+   ],
+   "prev_hash": "864c14d62e6d36f0daf408fa4820e78896faeb970293372b64c9aa056eb9ced9",
+   "hash": "1ba78f6a02c041d4a24eadcf4d6409956c93469b54c4033421b9c5e51496707b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0038",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:34.276Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "approval_denied",
+    "actor": "pyrix-owner",
+    "role": "FOUNDER",
+    "hash": "abeb803192a1937b8919a649ac601681627be6a56a7729443cc2588c8565397b"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    }
+   ],
+   "prev_hash": "1ba78f6a02c041d4a24eadcf4d6409956c93469b54c4033421b9c5e51496707b",
+   "hash": "3ab6608f66b2ca6060db7d73ae05dbef06c1fe3706005e0613e995aee7cdaee2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0039",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:34.276Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "6",
+    "action": "report_built",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "31facbb9020a1433dced3ca5bf24daa40f7a3da4fe319de9154155ac33250399"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "6"
+    }
+   ],
+   "prev_hash": "3ab6608f66b2ca6060db7d73ae05dbef06c1fe3706005e0613e995aee7cdaee2",
+   "hash": "98dc73e88d1f461f897ad58a0983ea26f5842e7742ee33e2d67537db039a2f3c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0040",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:34.276Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-rejected-e-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-rejected-e"
+    }
+   ],
+   "prev_hash": "98dc73e88d1f461f897ad58a0983ea26f5842e7742ee33e2d67537db039a2f3c",
+   "hash": "996ed458d94a0218a7cf248e47516e9daa85d9927ca8bdb93ca7b91350f7866e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0041",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:34.276Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "996ed458d94a0218a7cf248e47516e9daa85d9927ca8bdb93ca7b91350f7866e",
+   "hash": "013b9b2ee59f0baa71be9fc7baf822c8c82875bd31f4782a39ffa2eb930851b2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-e-0042",
+   "run_id": "rec-rejected-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:34.276Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "REJECTED",
+    "side_effects": {
+     "sheets_released": 0,
+     "drafts_created": 0,
+     "certifications_issued": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The owner rejected the pack. Nothing was recorded.",
+    "report_digest": "baf6e4a61d9fe6d6a5fc3fe0e10d5198c6b57900326200c431a1beb97e02bcd3",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "013b9b2ee59f0baa71be9fc7baf822c8c82875bd31f4782a39ffa2eb930851b2",
+   "hash": "b37cbad6fb543bdfd04fb230fa971b24beff77d92f8d855e1f9cd75c5cbab84f"
+  }
+ ]
+}

@@ -1,0 +1,496 @@
+{
+ "recording": {
+  "slug": "mission-d-brew-outage",
+  "title": "Brewery Production Planning: warehouse outage, fail closed",
+  "scenario": "data_outage",
+  "scenario_note": "The warehouse stops answering: after the retry limit the mission fails closed and plans nothing.",
+  "mission": "mission-d-brewery-planning",
+  "decision": "none",
+  "final_status": "BLOCKED_NO_DATA",
+  "recorded_at": "2026-11-09T21:53:34Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 19,
+  "note": "The warehouse stops answering; after the retry limit nothing is planned. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0001",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:33.843Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Brewery Production Planning",
+    "scenario": "data_outage",
+    "scenario_note": "The warehouse stops answering: after the retry limit the mission fails closed and plans nothing.",
+    "trigger": "An eight-week production plan is requested for the two concept beers. Inputs are synthetic; nothing has been brewed",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the production-planning mission"
+     },
+     {
+      "agent": "aethon",
+      "task": "Establish beer demand from warehouse orders"
+     },
+     {
+      "agent": "zybrew",
+      "task": "Plan batches and schedule the fermenters"
+     },
+     {
+      "agent": "vectra",
+      "task": "Check ingredient inventory against requirements"
+     },
+     {
+      "agent": "quantix",
+      "task": "Estimate ingredient cost"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check formulas, schedule and risks"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check policy and ask THE WEIR to hold the draft schedule"
+     }
+    ],
+    "planner": "documented formulas and a deterministic scheduler (no language model)",
+    "assumptions": [
+     "fermentation plus conditioning days per style are placeholders (10 for the wheat beer, 16 for the hazy IPA)",
+     "two fermenters of 120 L; the real pilot scale and capacity are an unresolved decision (G-6)",
+     "transfer loss 5% and packaging loss 3% of the batch",
+     "glass size 473 mL; beer glasses per week = orders x attach rate 0.25 (the same assumption as the digital twin)",
+     "style split 50/50",
+     "on-hand inventory is a seeded synthetic fixture",
+     "ingredient lead time 7 days when anything is short",
+     "no packaged beer is in stock at the start, so early weeks show as uncovered"
+    ]
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "a7c59cb16cfb78a475d70e4e692dbbbbad40bedd3146971cf5fde3fe12c3ddaa"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0002",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:33.843Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the production-planning mission",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "a7c59cb16cfb78a475d70e4e692dbbbbad40bedd3146971cf5fde3fe12c3ddaa",
+   "hash": "78adab020c5123441bd5c0647d5627676c32cdccdff5893cbe3777222ad8f8a1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0003",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:33.849Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the production-planning mission",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "78adab020c5123441bd5c0647d5627676c32cdccdff5893cbe3777222ad8f8a1",
+   "hash": "a1d1ca8c55e65ac16a1a72a51adf545e7f1b6836426045efe32fddb27cbfeea9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0004",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:33.849Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Establish beer demand from warehouse orders",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "a1d1ca8c55e65ac16a1a72a51adf545e7f1b6836426045efe32fddb27cbfeea9",
+   "hash": "8b1b1ded0d50cdd9d1f57d1f61f505b4e82d51329fcd2c65abb7b20f9dbbddae"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0005",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:33.849Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "D0",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "8b1b1ded0d50cdd9d1f57d1f61f505b4e82d51329fcd2c65abb7b20f9dbbddae",
+   "hash": "9017323195f99ac7d84ee93f5ac0e73a1eba43013c25a87fd0752659961745be"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0006",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:33.849Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "D0",
+    "ok": false,
+    "failure": "TOOL_TIMEOUT",
+    "error": "TimeoutError",
+    "ms": 0.0
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "9017323195f99ac7d84ee93f5ac0e73a1eba43013c25a87fd0752659961745be",
+   "hash": "bf0f1828643017a8b63bd655f9cb13b41f41906a66581578fe0d1c3db0ec2cd5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0007",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:33.849Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "workflow_failed",
+   "payload": {
+    "failure_class": "TOOL_TIMEOUT",
+    "retryable": true,
+    "detail": "list_months failed"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "bf0f1828643017a8b63bd655f9cb13b41f41906a66581578fe0d1c3db0ec2cd5",
+   "hash": "799faeb49ee8ddd9e84343682343c81b5d30a70f550c93405f598f533cad45d8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0008",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:33.849Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "retry_scheduled",
+   "payload": {
+    "attempt": 2,
+    "max_attempts": 2,
+    "reason": "TOOL_TIMEOUT",
+    "backoff_ms": 300
+   },
+   "evidence_refs": [],
+   "prev_hash": "799faeb49ee8ddd9e84343682343c81b5d30a70f550c93405f598f533cad45d8",
+   "hash": "72d08375ba643f153bec668b0af76131aed723812e0092d5a10f383435d29367"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0009",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:34.154Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "D0",
+    "args": {
+     "attempt": 2
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "72d08375ba643f153bec668b0af76131aed723812e0092d5a10f383435d29367",
+   "hash": "78f7be120d45dc50f0954529910fcfabbdf566f3cdf18e9fae89094a81131e88"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0010",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:34.155Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "D0",
+    "ok": false,
+    "failure": "TOOL_TIMEOUT",
+    "error": "TimeoutError",
+    "ms": 0.01
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "78f7be120d45dc50f0954529910fcfabbdf566f3cdf18e9fae89094a81131e88",
+   "hash": "eae3ff0d97079f978d763d1263acff5ad2db5c98983c97881b90d3e0e22fc312"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0011",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:34.155Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "workflow_failed",
+   "payload": {
+    "failure_class": "TOOL_TIMEOUT",
+    "retryable": false,
+    "detail": "list_months failed"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "eae3ff0d97079f978d763d1263acff5ad2db5c98983c97881b90d3e0e22fc312",
+   "hash": "d6328fbffd3be138c50dffdaf186942ff36c7a8fe1a81688eaf6b572a9c39118"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0012",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:34.156Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Establish beer demand from warehouse orders",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "d6328fbffd3be138c50dffdaf186942ff36c7a8fe1a81688eaf6b572a9c39118",
+   "hash": "dddbd44251df682f6b19be626185812f155b0219b2485466af106cecb236ac3c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0013",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:34.156Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Fail closed",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "dddbd44251df682f6b19be626185812f155b0219b2485466af106cecb236ac3c",
+   "hash": "8a009ff8f29d86fc7a8ab29ef516cb2c3c2a5aec7ed2c317b2b370ce7c2e4e4a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0014",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:34.156Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "fail closed: no remediation is proposed without operational evidence"
+   },
+   "evidence_refs": [
+    {
+     "type": "policy",
+     "id": "fail closed"
+    }
+   ],
+   "prev_hash": "8a009ff8f29d86fc7a8ab29ef516cb2c3c2a5aec7ed2c317b2b370ce7c2e4e4a",
+   "hash": "6aa8d396e13eefbe0b651bd535702c1c1a3177a0d0ea964e4ef2469cefb02394"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0015",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:34.159Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Fail closed",
+    "outcome": "stopped"
+   },
+   "evidence_refs": [],
+   "prev_hash": "6aa8d396e13eefbe0b651bd535702c1c1a3177a0d0ea964e4ef2469cefb02394",
+   "hash": "4544fa637d1fb24c4dc5685b9db4b41f09f14bcf770f157ae168d6373d8f0281"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0016",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:34.159Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "mission_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "512fa56ac03d7f742670c3d99674b09f5afe35a5c29416abe74d0a75c55d544a"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "4544fa637d1fb24c4dc5685b9db4b41f09f14bcf770f157ae168d6373d8f0281",
+   "hash": "b213ce5687be1a387464697ecb32b60ca3e6a6a401839583633bc064782731a6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0017",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:34.160Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "failed_closed",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "dce56ede6d8e9253becb632af93ed1f9becbd36bffcb985df0a3642802fc1ee3"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "b213ce5687be1a387464697ecb32b60ca3e6a6a401839583633bc064782731a6",
+   "hash": "5ad18147314d692d916847a4fb10c094a642949d8bf4064b5219469bfe6bd518"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0018",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:34.160Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-w-outage-d-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-w-outage-d"
+    }
+   ],
+   "prev_hash": "5ad18147314d692d916847a4fb10c094a642949d8bf4064b5219469bfe6bd518",
+   "hash": "1d2f675c7172fd4f1010148e76289af634823357e0c601c081dd74fed5951593"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-w-outage-d-0019",
+   "run_id": "rec-w-outage-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:34.161Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "BLOCKED_NO_DATA",
+    "side_effects": {
+     "batches_started": 0,
+     "purchases_made": 0,
+     "drafts_created": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The warehouse could not be read, so nothing was proposed. Restore the data source and run the mission again.",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "1d2f675c7172fd4f1010148e76289af634823357e0c601c081dd74fed5951593",
+   "hash": "0b8c15603efae9076c75a9af8386185b2726f2c374e16410d316e285b1758f7a"
+  }
+ ]
+}
