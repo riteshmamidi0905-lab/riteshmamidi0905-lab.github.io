@@ -1,0 +1,2760 @@
+{
+ "recording": {
+  "slug": "mission-f-surge-approved",
+  "title": "Demand Surge Response: graph completes, owner approves a draft",
+  "scenario": "nominal",
+  "scenario_note": "A synthetic +80% demand surge flows through eight tasks across inventory, demand, brewery, finance, customer experience, a proposal, governance and a human approval; every dependency is visible.",
+  "mission": "mission-f-demand-surge-response",
+  "decision": "approve",
+  "final_status": "DRAFT_CREATED",
+  "recorded_at": "2026-11-09T21:53:34Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 88,
+  "note": "Eight tasks across inventory, demand, brewery, finance, customer experience, a proposal, governance and approval; a fixed dependency graph, not autonomous delegation. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0001",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:34.376Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Demand Surge Response",
+    "scenario": "nominal",
+    "scenario_note": "A synthetic +80% demand surge flows through eight tasks across inventory, demand, brewery, finance, customer experience, a proposal, governance and a human approval; every dependency is visible.",
+    "trigger": "A synthetic +80% demand surge is declared. The graph below is fixed in code; this is not autonomous delegation",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "surge_pct": 80,
+    "graph": [
+     {
+      "node": "inventory",
+      "title": "Inventory analysis",
+      "agent": "vectra",
+      "depends_on": []
+     },
+     {
+      "node": "demand",
+      "title": "Demand surge",
+      "agent": "aethon",
+      "depends_on": []
+     },
+     {
+      "node": "brewery",
+      "title": "Brewery production planning",
+      "agent": "zybrew",
+      "depends_on": [
+       "demand"
+      ]
+     },
+     {
+      "node": "finance",
+      "title": "Financial impact",
+      "agent": "quantix",
+      "depends_on": [
+       "inventory",
+       "demand"
+      ]
+     },
+     {
+      "node": "cx",
+      "title": "Customer experience impact",
+      "agent": "echon",
+      "depends_on": [
+       "finance"
+      ]
+     },
+     {
+      "node": "proposal",
+      "title": "Proposed operational response",
+      "agent": "synapse",
+      "depends_on": [
+       "inventory",
+       "brewery",
+       "finance",
+       "cx"
+      ]
+     },
+     {
+      "node": "governance",
+      "title": "Governance review and human approval",
+      "agent": "aegis",
+      "depends_on": [
+       "proposal"
+      ]
+     },
+     {
+      "node": "report",
+      "title": "Traceable report",
+      "agent": "synapse",
+      "depends_on": [
+       "governance"
+      ]
+     }
+    ],
+    "execution": "sequential in a deterministic order; waves show readiness, not parallelism",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the response and assemble the proposal"
+     },
+     {
+      "agent": "vectra",
+      "task": "Analyse inventory"
+     },
+     {
+      "agent": "aethon",
+      "task": "Establish the demand surge"
+     },
+     {
+      "agent": "zybrew",
+      "task": "Plan brewery production"
+     },
+     {
+      "agent": "quantix",
+      "task": "Assess financial impact"
+     },
+     {
+      "agent": "echon",
+      "task": "Assess customer experience"
+     },
+     {
+      "agent": "aegis",
+      "task": "Review the proposal and hold it for a person"
+     }
+    ],
+    "planner": "a fixed dependency graph over documented models (no language model)",
+    "mode": "deterministic",
+    "model": null
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "9d928d4ec702b9937accaf843b71498ba49474b16a4a81717ed41ed7ca57a7d4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0002",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:34.377Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the response and assemble the proposal",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "9d928d4ec702b9937accaf843b71498ba49474b16a4a81717ed41ed7ca57a7d4",
+   "hash": "a40cb49d4bddb2d252638cebddce6e19bdb9fa57eb32f11f0c2b032a70dbb549"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0003",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:34.381Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "queued",
+    "depends_on": [],
+    "title": "Inventory analysis"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "a40cb49d4bddb2d252638cebddce6e19bdb9fa57eb32f11f0c2b032a70dbb549",
+   "hash": "d2be6a5df2be48325a12ec858240706f5265c6a4098774eb33d59b011c854d48"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0004",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:34.381Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "queued",
+    "depends_on": [],
+    "title": "Demand surge"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "d2be6a5df2be48325a12ec858240706f5265c6a4098774eb33d59b011c854d48",
+   "hash": "abde358caa15c718884156eac4decdf44b0091148c49d9e5a511e5b108ab9976"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0005",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:34.381Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "queued",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "abde358caa15c718884156eac4decdf44b0091148c49d9e5a511e5b108ab9976",
+   "hash": "7826b8a37edfb1be9735af1e365e5cde5fd6766b16d9a0e327dcb4ed865bae15"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0006",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:34.381Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "queued",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "7826b8a37edfb1be9735af1e365e5cde5fd6766b16d9a0e327dcb4ed865bae15",
+   "hash": "64895a49f5d245040c087a133b90bda9f6837b5d076de2f6f331bdde9a77a7f1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0007",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:34.381Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_state",
+   "payload": {
+    "node": "cx",
+    "state": "queued",
+    "depends_on": [
+     "finance"
+    ],
+    "title": "Customer experience impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "64895a49f5d245040c087a133b90bda9f6837b5d076de2f6f331bdde9a77a7f1",
+   "hash": "1945b8efca8f21f9a55b67251bcdcb4e937ec2f95db9a9b92979c9330bbe7293"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0008",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:34.381Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "proposal",
+    "state": "queued",
+    "depends_on": [
+     "inventory",
+     "brewery",
+     "finance",
+     "cx"
+    ],
+    "title": "Proposed operational response"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "1945b8efca8f21f9a55b67251bcdcb4e937ec2f95db9a9b92979c9330bbe7293",
+   "hash": "b6933e39673834cac9f0b602ce355099314afe395c262a9450a1628d9a52cbe7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0009",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:34.381Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "queued",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "b6933e39673834cac9f0b602ce355099314afe395c262a9450a1628d9a52cbe7",
+   "hash": "f0807fd43df1df02bbac03ec5e02d55bf7084bdd7646d84d1987c8193a177997"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0010",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:34.382Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "report",
+    "state": "queued",
+    "depends_on": [
+     "governance"
+    ],
+    "title": "Traceable report"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "f0807fd43df1df02bbac03ec5e02d55bf7084bdd7646d84d1987c8193a177997",
+   "hash": "089d18f8e2d4231b4a50214b43642cd5be01c1415bc5d9121f6e8d3de5bed1a0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0011",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:34.382Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "running",
+    "depends_on": [],
+    "title": "Inventory analysis",
+    "wave": 1,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "089d18f8e2d4231b4a50214b43642cd5be01c1415bc5d9121f6e8d3de5bed1a0",
+   "hash": "979fc4697a71723e05e45aa2a6cbccdfe79f4b6a925bc7b030d590773d963ff3"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0012",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:34.382Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the response and assemble the proposal",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "979fc4697a71723e05e45aa2a6cbccdfe79f4b6a925bc7b030d590773d963ff3",
+   "hash": "a8b4130d01bcf0a9c230b0dba12db2baf32d1715b676cd574c6f38a2f957f4e7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0013",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:34.382Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Inventory analysis",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "a8b4130d01bcf0a9c230b0dba12db2baf32d1715b676cd574c6f38a2f957f4e7",
+   "hash": "44b29b79cf8e2d49f42c2fc1f4f0d36f7799ea3e01aa0290eaecc0135118222d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0014",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:34.382Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "F1",
+    "args": {
+     "limit": 5,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "variance_flags"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "44b29b79cf8e2d49f42c2fc1f4f0d36f7799ea3e01aa0290eaecc0135118222d",
+   "hash": "e594f0ca0f235a5453ea4f4e246dd38331eab969115ca66cfdd5b0f1e74361f7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0015",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:34.383Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "F1",
+    "ok": true,
+    "rows": 5,
+    "ms": 0.92,
+    "source": "scn_variance_flag",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "58a2e9525501"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "e594f0ca0f235a5453ea4f4e246dd38331eab969115ca66cfdd5b0f1e74361f7",
+   "hash": "6000b7ef721d817b01cb2996d0d965ef4530bfe781495e25901bb6e538e02ea1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0016",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:34.383Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "F2",
+    "args": {
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "limit": 1,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "reorder_recommendations"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "6000b7ef721d817b01cb2996d0d965ef4530bfe781495e25901bb6e538e02ea1",
+   "hash": "864a0f265a906fe26e0ea18c4b884203d0b40660fb5adba8c218356eba99c0e8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0017",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "F2",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.34,
+    "source": "scn_procurement_reco",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "590d1e3a80bb"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "864a0f265a906fe26e0ea18c4b884203d0b40660fb5adba8c218356eba99c0e8",
+   "hash": "0c033b9ee1b78e79cdf407e286a7a5e7e146bfce4479a648847ed9f82cc09a28"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0018",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Inventory analysis",
+    "result": {
+     "node": "inventory",
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "on_hand_kg": 9.9565,
+     "need_7d_kg": 13.9753,
+     "proposed_reorder_kg": 10.0,
+     "est_cost_usd": 74.0,
+     "reco_status": "PROPOSED",
+     "note": "the reorder is only PROPOSED in the warehouse; no order exists"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "0c033b9ee1b78e79cdf407e286a7a5e7e146bfce4479a648847ed9f82cc09a28",
+   "hash": "f000bb3fe33ccc5c1326e05a66fc999345ba5d08c639344c12f2eac54add10ab"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0019",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "completed",
+    "depends_on": [],
+    "title": "Inventory analysis",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "f000bb3fe33ccc5c1326e05a66fc999345ba5d08c639344c12f2eac54add10ab",
+   "hash": "4482a6a15ea76e082d11e3f13ec968ddcfd7466c65744e54130dfd75e1caf67a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0020",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "running",
+    "depends_on": [],
+    "title": "Demand surge",
+    "wave": 1,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "4482a6a15ea76e082d11e3f13ec968ddcfd7466c65744e54130dfd75e1caf67a",
+   "hash": "7acc7e2bb1672b0312afa9a51db1f285786267037e8f56957f73338b5bc5da67"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0021",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Inventory analysis",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "7acc7e2bb1672b0312afa9a51db1f285786267037e8f56957f73338b5bc5da67",
+   "hash": "e9be66e2a4fe7e1e1b5ef67fabaeb53b1e95d120538ab7aac688842cffdfa6fe"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0022",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Demand surge",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "e9be66e2a4fe7e1e1b5ef67fabaeb53b1e95d120538ab7aac688842cffdfa6fe",
+   "hash": "2f21252942d22a0e75a781df57b89d8db9b1923e35e2247b6e01b523386351f6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0023",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "F3",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "2f21252942d22a0e75a781df57b89d8db9b1923e35e2247b6e01b523386351f6",
+   "hash": "bb7aeb8153cbd92da1150ff55581aafc347e6b6d2d38fb3b060083a2ab81821e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0024",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "F3",
+    "ok": true,
+    "rows": 10,
+    "ms": 0.3,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "9fe130844531"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "bb7aeb8153cbd92da1150ff55581aafc347e6b6d2d38fb3b060083a2ab81821e",
+   "hash": "ac65b9ce49fd9bfab8b88bb78c8adaaddb3c5adf9510ebe889cbf4f6ac3a8cb8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0025",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:34.384Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "company_month",
+    "stage": "F4",
+    "args": {
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "company_month"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "ac65b9ce49fd9bfab8b88bb78c8adaaddb3c5adf9510ebe889cbf4f6ac3a8cb8",
+   "hash": "6c5536f012f7fe72d3e2fe3f75e8be093b97699ea7e8bf18cf3f8daf2317085c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0026",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "company_month",
+    "stage": "F4",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.28,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "cc5a88bea615"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "6c5536f012f7fe72d3e2fe3f75e8be093b97699ea7e8bf18cf3f8daf2317085c",
+   "hash": "ab730dd2acd19baa0fc0992ddcdd31cf62e2e203f844f2374c670f7f12c7db19"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0027",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Demand surge",
+    "result": {
+     "node": "demand",
+     "month": "2024-10",
+     "orders": 2254,
+     "locations": 4,
+     "surge_pct": 80,
+     "surged_orders": 4057,
+     "basis": "warehouse orders; the surge is a declared scenario input"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "ab730dd2acd19baa0fc0992ddcdd31cf62e2e203f844f2374c670f7f12c7db19",
+   "hash": "75049d4dcd461a856cd7370f0ecc8f1c9d9c06ef9da798eb5176835f098025a5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0028",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "completed",
+    "depends_on": [],
+    "title": "Demand surge",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "75049d4dcd461a856cd7370f0ecc8f1c9d9c06ef9da798eb5176835f098025a5",
+   "hash": "4cf333328b3f108739400240098ca14e93775cfd6cbe6e5dde17b6888b1eb019"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0029",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "running",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning",
+    "wave": 2,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "4cf333328b3f108739400240098ca14e93775cfd6cbe6e5dde17b6888b1eb019",
+   "hash": "ebb16f5d0d7ab6460e6c21c3c46b2fbad15afd11b9053385fc85bcc2b1246b36"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0030",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Demand surge",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "ebb16f5d0d7ab6460e6c21c3c46b2fbad15afd11b9053385fc85bcc2b1246b36",
+   "hash": "bd93ff87a724b777d1d0b27e8d6f5f3827bafad17444be5d588f43d8035be1c8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0031",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Brewery production planning",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "bd93ff87a724b777d1d0b27e8d6f5f3827bafad17444be5d588f43d8035be1c8",
+   "hash": "926010db1bbab7701fe21a14dfc7b458f5cd6c5702982c9c529fdace44483e6c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0032",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "plan_batches",
+    "stage": "F5",
+    "args": {
+     "demand_pct": 80,
+     "weeks": 8
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    },
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "926010db1bbab7701fe21a14dfc7b458f5cd6c5702982c9c529fdace44483e6c",
+   "hash": "6f3aef251151e771a5c6c745edffa9d6899f48028294f686bec534b492ea592e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0033",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:34.385Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "plan_batches",
+    "stage": "F5",
+    "ok": true,
+    "batches": {
+     "badshah": 5,
+     "amba-haze": 5
+    },
+    "utilisation": 0.875,
+    "schedule_violations": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    },
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "6f3aef251151e771a5c6c745edffa9d6899f48028294f686bec534b492ea592e",
+   "hash": "d0bab2486dd15a198bed0eecb87cbb0c703d04e33cf072925815c5ce318cd21f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0034",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Brewery production planning",
+    "result": {
+     "node": "brewery",
+     "batches": {
+      "badshah": 5,
+      "amba-haze": 5
+     },
+     "utilisation": 0.875,
+     "risks": 4,
+     "alerts": [
+      "demand is not covered by packaged beer in 8 of 8 weeks (first: week 1)"
+     ],
+     "shortfalls": 5,
+     "note": "planning support on synthetic inputs; nothing is brewed or ordered"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "d0bab2486dd15a198bed0eecb87cbb0c703d04e33cf072925815c5ce318cd21f",
+   "hash": "68f3b296cc92d5207de7353372ade8512a8fafc320d0c075b7d705238ddf064b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0035",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "completed",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "68f3b296cc92d5207de7353372ade8512a8fafc320d0c075b7d705238ddf064b",
+   "hash": "15773908b91fd335ec9c76b642a4a6604f7a94660086dc4096e0dad2af52ff6b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0036",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "running",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact",
+    "wave": 2,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "15773908b91fd335ec9c76b642a4a6604f7a94660086dc4096e0dad2af52ff6b",
+   "hash": "d66dc941d391293e20630264b5289c4512b5c6f1f4921a35186ddee6e5b4f41b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0037",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Brewery production planning",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "d66dc941d391293e20630264b5289c4512b5c6f1f4921a35186ddee6e5b4f41b",
+   "hash": "d11db55e879293108a09a06a16f8d07caf18ed0370cb97f7f0b69d8a0d77e833"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0038",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Financial impact",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "d11db55e879293108a09a06a16f8d07caf18ed0370cb97f7f0b69d8a0d77e833",
+   "hash": "5741a6b715670c9edba1b8ffddd42ba8aae472a5793bc792ca8e9f6abafb7bcd"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0039",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "assess_financial_impact",
+    "stage": "F6",
+    "args": {
+     "attempt": 1,
+     "surge_pct": 80
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "twin"
+    },
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "5741a6b715670c9edba1b8ffddd42ba8aae472a5793bc792ca8e9f6abafb7bcd",
+   "hash": "cbf9805d3b9ca6304db579f79abee350398230724e260f25361215dcbb345b77"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0040",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "assess_financial_impact",
+    "stage": "F6",
+    "ok": true,
+    "ms": 0.1
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "twin"
+    },
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "cbf9805d3b9ca6304db579f79abee350398230724e260f25361215dcbb345b77",
+   "hash": "c483bcee5a3809708cfa77fe198bd779f57ff25ec120c78ef10e9050bf0ad569"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0041",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Financial impact",
+    "result": {
+     "node": "finance",
+     "without_action": {
+      "availability": 0.396,
+      "revenue_delta_usd": 1725,
+      "gp_effect_usd": 1166
+     },
+     "with_reorder": {
+      "availability": 0.741,
+      "revenue_delta_usd": 2886,
+      "gp_effect_usd": 2175,
+      "cash_out_usd": 148.0,
+      "within_planning_cap": true
+     },
+     "basis": "the digital twin's reference model on its synthetic dataset; a concept and a simulation, not a forecast"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "c483bcee5a3809708cfa77fe198bd779f57ff25ec120c78ef10e9050bf0ad569",
+   "hash": "f291cbee0b01d5e2b74915553deda997ed494c02fb1545568e610783666df16d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0042",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:34.386Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "completed",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "f291cbee0b01d5e2b74915553deda997ed494c02fb1545568e610783666df16d",
+   "hash": "f6a79e85e7e83611a73e6db684787df505ae90690caca67c9692faa501523963"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0043",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_state",
+   "payload": {
+    "node": "cx",
+    "state": "running",
+    "depends_on": [
+     "finance"
+    ],
+    "title": "Customer experience impact",
+    "wave": 3,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "f6a79e85e7e83611a73e6db684787df505ae90690caca67c9692faa501523963",
+   "hash": "bfd5855efbbbcf8c41dd2d7083e74c7b6ef6fe3c891e1d3ad7a590933585a6ea"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0044",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Financial impact",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "bfd5855efbbbcf8c41dd2d7083e74c7b6ef6fe3c891e1d3ad7a590933585a6ea",
+   "hash": "30c23ce86be7b1e7016bb2306ff162062f81157b77290d25ad948e30be1f8b58"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0045",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 45,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Customer experience impact",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "30c23ce86be7b1e7016bb2306ff162062f81157b77290d25ad948e30be1f8b58",
+   "hash": "639018b1a61eb0926e09408c7f31794d4e37e172573f4e4e8c2f9a9814dfd2e4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0046",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 46,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Customer experience impact",
+    "result": {
+     "node": "cx",
+     "negative_share_without_action": 0.729,
+     "negative_share_with_reorder": 0.479,
+     "baseline": 0.5,
+     "basis": "the twin's availability-to-complaints slope, calibrated to the Mission C synthetic batch; constructed, not observed"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "639018b1a61eb0926e09408c7f31794d4e37e172573f4e4e8c2f9a9814dfd2e4",
+   "hash": "44e3353a1cb45dc8022a6e2545ff91de7d7566d0b226e3306dddce0c43ee3d0e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0047",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 47,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_state",
+   "payload": {
+    "node": "cx",
+    "state": "completed",
+    "depends_on": [
+     "finance"
+    ],
+    "title": "Customer experience impact",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "44e3353a1cb45dc8022a6e2545ff91de7d7566d0b226e3306dddce0c43ee3d0e",
+   "hash": "67da964b6e8cef29c162daf29ad56d00fa8ca0135a3f4653ecb3ca06cbcc2409"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0048",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 48,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "proposal",
+    "state": "running",
+    "depends_on": [
+     "inventory",
+     "brewery",
+     "finance",
+     "cx"
+    ],
+    "title": "Proposed operational response",
+    "wave": 4,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "67da964b6e8cef29c162daf29ad56d00fa8ca0135a3f4653ecb3ca06cbcc2409",
+   "hash": "e92a7fd6b85d811e9e5e85663b0548f3810f87e818ba2e01817e657bd579453a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0049",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 49,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Customer experience impact",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "e92a7fd6b85d811e9e5e85663b0548f3810f87e818ba2e01817e657bd579453a",
+   "hash": "8563d5005c7e56663f04e326d7dcb6013233e7d6ef7f847476dd8a4c69648f4e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0050",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 50,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Proposed operational response",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "8563d5005c7e56663f04e326d7dcb6013233e7d6ef7f847476dd8a4c69648f4e",
+   "hash": "825c3e3c2e6e96d53d14d7c2953e0f347c900aaaf4211b6ae80c745f1eebe44f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0051",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 51,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Proposed operational response",
+    "result": {
+     "node": "proposal",
+     "actions": [
+      {
+       "id": "A1",
+       "action": "Open a governed reorder review for i-chicken-thigh: 10.0 kg, about $74.0, within the planning cap",
+       "consequential": true
+      },
+      {
+       "id": "A2",
+       "action": "Review the draft brewery production schedule for the surge (planning support)",
+       "consequential": true
+      },
+      {
+       "id": "A3",
+       "action": "Pause promotions on dishes that are largely unavailable",
+       "consequential": false
+      },
+      {
+       "id": "A4",
+       "action": "Show an out-of-stock notice on the ordering menu while stock is low",
+       "consequential": false
+      }
+     ],
+     "characters": 408,
+     "executed": false
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "825c3e3c2e6e96d53d14d7c2953e0f347c900aaaf4211b6ae80c745f1eebe44f",
+   "hash": "f91b0da7d822a9e80599b444e91a8389af82d8441417ca5f9e348c7e4be4d782"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0052",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 52,
+   "ts": "2026-11-09T21:53:34.387Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "proposal",
+    "state": "completed",
+    "depends_on": [
+     "inventory",
+     "brewery",
+     "finance",
+     "cx"
+    ],
+    "title": "Proposed operational response",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "f91b0da7d822a9e80599b444e91a8389af82d8441417ca5f9e348c7e4be4d782",
+   "hash": "2a9e2b06b3457e937c7c9da792f76811fa7cc8964ffb21a3fe359fe431d2df4d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0053",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 53,
+   "ts": "2026-11-09T21:53:34.388Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "running",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval",
+    "wave": 5,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "2a9e2b06b3457e937c7c9da792f76811fa7cc8964ffb21a3fe359fe431d2df4d",
+   "hash": "53e2f2d8d39cad59b6317f2864211329c198317f6b607595976223e3b17259eb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0054",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 54,
+   "ts": "2026-11-09T21:53:34.388Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Proposed operational response",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "53e2f2d8d39cad59b6317f2864211329c198317f6b607595976223e3b17259eb",
+   "hash": "7a3d4e3e35bd4d5ad8be898b4de963bc746d33376983acf74734d719c6fa82d2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0055",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 55,
+   "ts": "2026-11-09T21:53:34.388Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Review the proposal and hold it for a person",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "7a3d4e3e35bd4d5ad8be898b4de963bc746d33376983acf74734d719c6fa82d2",
+   "hash": "a83ad55bcfe073f228447ace4eb4f7049e29f317762c88edc046c1f325867f09"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0056",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 56,
+   "ts": "2026-11-09T21:53:34.388Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "review",
+    "policy": "planning cap, no monetary promise to guests, every consequential action needs its own approval",
+    "within_planning_cap": true,
+    "violations": [],
+    "consequential": [
+     "A1",
+     "A2"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "a83ad55bcfe073f228447ace4eb4f7049e29f317762c88edc046c1f325867f09",
+   "hash": "1ebfe841cbc5d381aaecff962555941e500d26c64231b6885cc1576d0b47abd4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0057",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 57,
+   "ts": "2026-11-09T21:53:34.388Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "awaiting_approval",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "1ebfe841cbc5d381aaecff962555941e500d26c64231b6885cc1576d0b47abd4",
+   "hash": "48e125f311c57c472b78a77571afbdfc00d05e42813e1517353807d151ffcbf2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0058",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 58,
+   "ts": "2026-11-09T21:53:34.388Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "F8",
+    "args": {
+     "probe": true
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "probe",
+     "id": "out-of-policy tool"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "48e125f311c57c472b78a77571afbdfc00d05e42813e1517353807d151ffcbf2",
+   "hash": "bc688ea7b0b8072507ccaae783b0d518d0755e4acc60178292bbddb4f9e9dc50"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0059",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 59,
+   "ts": "2026-11-09T21:53:34.388Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "F8",
+    "ok": false,
+    "forwarded": false,
+    "failure": "TOOL_DENIED",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "bc688ea7b0b8072507ccaae783b0d518d0755e4acc60178292bbddb4f9e9dc50",
+   "hash": "223a63b421aeec03e263d94db3f13c7151aae94066b3e1cd5bf5df641d268144"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0060",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 60,
+   "ts": "2026-11-09T21:53:34.389Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "bounded probe: sending is not in the policy at all, so it is refused by default",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "223a63b421aeec03e263d94db3f13c7151aae94066b3e1cd5bf5df641d268144",
+   "hash": "0c2eee7cf7f0963e2f80b0840f682ae9d905345221bb32e47ff1cf7e41f90fbe"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0061",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 61,
+   "ts": "2026-11-09T21:53:34.389Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "F9",
+    "args": {
+     "statement_id": "resp-f1cdee4d"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "resp-f1cdee4d"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "0c2eee7cf7f0963e2f80b0840f682ae9d905345221bb32e47ff1cf7e41f90fbe",
+   "hash": "46b95919c3242c80270cd8e7c70240810a63b36e3d116a8deec6a6a7d4a16019"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0062",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 62,
+   "ts": "2026-11-09T21:53:34.389Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "F9",
+    "ok": false,
+    "forwarded": false,
+    "held_for_approval": true,
+    "codes": [
+     "R-GATE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "46b95919c3242c80270cd8e7c70240810a63b36e3d116a8deec6a6a7d4a16019",
+   "hash": "962eceb779e2e49196c9e085d92585a387bbc439542ff53696d15bc813d409c2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0063",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 63,
+   "ts": "2026-11-09T21:53:34.389Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "hold_for_approval",
+    "policy": "THE WEIR: an outward draft needs a human approval of this exact text",
+    "codes": [
+     "R-GATE"
+    ],
+    "approval_id": "ap_84a1e84d"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "962eceb779e2e49196c9e085d92585a387bbc439542ff53696d15bc813d409c2",
+   "hash": "1b171d1de3b943e3e7f73c2cb3dbcf58ee099d062a8d9189f73c4741ed3ef329"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0064",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 64,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "orchestration_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "408d6785d13d2142bdb1b40b63c0eab06a2f78c3e1e1cefdd057d4179c104913"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "1b171d1de3b943e3e7f73c2cb3dbcf58ee099d062a8d9189f73c4741ed3ef329",
+   "hash": "08cb9100983dfe1d12f6ab8c98bf70acdf47e4ec23e65831518589899d9a6457"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0065",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 65,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "node_inventory_completed",
+    "actor": "vectra",
+    "role": "SYSTEM",
+    "hash": "4f764b8a0de9a70f19f0f777c9868f3a17c1455b9fe677b042b4add374272c24"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "08cb9100983dfe1d12f6ab8c98bf70acdf47e4ec23e65831518589899d9a6457",
+   "hash": "f8d168aa1fe1b6202b83a156f7f7fbd997073324dfb48738c00178c43f41e8c0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0066",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 66,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "node_demand_completed",
+    "actor": "aethon",
+    "role": "SYSTEM",
+    "hash": "2417ebc089b2505b8f6f4eae01970bb641a868060f026d23d1ac83ecd8e59e2a"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "f8d168aa1fe1b6202b83a156f7f7fbd997073324dfb48738c00178c43f41e8c0",
+   "hash": "b49a0d53ef2e4ecd328f17eaf713c3713b52cf6271bc5d50984508e508a56d3b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0067",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 67,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "node_brewery_completed",
+    "actor": "zybrew",
+    "role": "SYSTEM",
+    "hash": "5f232de70315cc01c33a96683f897766e65c37236afc67f2015fd58777a8b5b7"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "b49a0d53ef2e4ecd328f17eaf713c3713b52cf6271bc5d50984508e508a56d3b",
+   "hash": "231cb4f0959b779b2c64449afbdf5e6de90bbaf3d80479986bf18df19dcb2a5d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0068",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 68,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "node_finance_completed",
+    "actor": "quantix",
+    "role": "SYSTEM",
+    "hash": "f7f44e5ce12af0e18500b32771b1f7ca52b207daf21befd5c33a4a9e624e4218"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "231cb4f0959b779b2c64449afbdf5e6de90bbaf3d80479986bf18df19dcb2a5d",
+   "hash": "097021f1f80e501bfb0ba49212c6251b27a8fd4eaf82b133f69fa068278360b2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0069",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 69,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "6",
+    "action": "node_cx_completed",
+    "actor": "echon",
+    "role": "SYSTEM",
+    "hash": "f2f8fb9156997938f1860881af7767c27ed9df0ba6b76578076ba3933858e370"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "6"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "097021f1f80e501bfb0ba49212c6251b27a8fd4eaf82b133f69fa068278360b2",
+   "hash": "47a5b876314e010a8d092464afda17964c23de1c7d4205fa10e87c55c3a31611"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0070",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 70,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "7",
+    "action": "node_proposal_completed",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "d55b1f2e8ba237977e0836cf29265f5bc0c7415f49af4e800c6c7c95367e740a"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "7"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "47a5b876314e010a8d092464afda17964c23de1c7d4205fa10e87c55c3a31611",
+   "hash": "927cd50be1cc01d3fb8b03f06cc5d404ce475c51a016693f77404b72b94e4267"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0071",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 71,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "8",
+    "action": "proposal_reviewed",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "83dace2f091827e03853f1a7095b8c9caf939a8d6938b3bd80e8d2b4e2700d18"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "8"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "927cd50be1cc01d3fb8b03f06cc5d404ce475c51a016693f77404b72b94e4267",
+   "hash": "5bc6d9bf240628fb03fd0f9cc9e8024632864a43ca84ee743a41e476c39887d3"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0072",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 72,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "9",
+    "action": "guardrail_probe_denied",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "d3d510386176bcfce24907e9ebb0d863a36483b9e6e51e26f18433abafa1d628"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "9"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "5bc6d9bf240628fb03fd0f9cc9e8024632864a43ca84ee743a41e476c39887d3",
+   "hash": "0e80ffaba61cc54c6b35caa16eb9366a03804ad8f19d4337c03483b3802676f1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0073",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 73,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "10",
+    "action": "approval_requested",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "429c30289a3fa4c57786b525e54b0192980afaa6d2746a2b6028d0d37b05405c"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "10"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "0e80ffaba61cc54c6b35caa16eb9366a03804ad8f19d4337c03483b3802676f1",
+   "hash": "8e5501df7225558707c301ddcf41333c55a06218abaf6510bc1cf502524afd9f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0074",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 74,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-approved-f-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-approved-f"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "8e5501df7225558707c301ddcf41333c55a06218abaf6510bc1cf502524afd9f",
+   "hash": "f38872efa20af525479079e99c8a8c2c4419ff0e39280547cb84175e76a7203c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0075",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 75,
+   "ts": "2026-11-09T21:53:34.390Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "approval_requested",
+   "payload": {
+    "approval_id": "ap_84a1e84d",
+    "requires": "owner",
+    "ttl_s": 900,
+    "consequential_action": "Record a DRAFT operational response (nothing is executed)",
+    "summary": {
+     "action": "Record a DRAFT operational response (nothing is executed)",
+     "details": [
+      "4 proposed actions, 2 consequential, none executed",
+      "each consequential action still needs its own mission and approval"
+     ],
+     "claims": [
+      {
+       "text": "Open a governed reorder review for i-chicken-thigh: 10.0 kg, about $74.0, within the planning cap",
+       "evidence": [
+        "twin",
+        "brewplan",
+        "warehouse"
+       ]
+      },
+      {
+       "text": "Review the draft brewery production schedule for the surge (planning support)",
+       "evidence": [
+        "twin",
+        "brewplan",
+        "warehouse"
+       ]
+      },
+      {
+       "text": "Pause promotions on dishes that are largely unavailable",
+       "evidence": [
+        "twin",
+        "brewplan",
+        "warehouse"
+       ]
+      },
+      {
+       "text": "Show an out-of-stock notice on the ordering menu while stock is low",
+       "evidence": [
+        "twin",
+        "brewplan",
+        "warehouse"
+       ]
+      }
+     ]
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_84a1e84d"
+    },
+    {
+     "type": "statement",
+     "id": "resp-f1cdee4d"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "f38872efa20af525479079e99c8a8c2c4419ff0e39280547cb84175e76a7203c",
+   "hash": "7b34ddaad9dd4306210a44f9d9fdabd7716247de749b7a2adb083965736a6a91"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0076",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 76,
+   "ts": "2026-11-09T21:53:34.402Z",
+   "mode": "live",
+   "agent": "owner",
+   "kind": "approval_decided",
+   "payload": {
+    "approval_id": "ap_84a1e84d",
+    "decision": "approve",
+    "by": "orchestration-owner",
+    "role": "FOUNDER",
+    "comment": "recorded run"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_84a1e84d"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "7b34ddaad9dd4306210a44f9d9fdabd7716247de749b7a2adb083965736a6a91",
+   "hash": "36f56c251c4a1b192263f84fd206cb0257abecd7ff0b1b0b8511b190315af760"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0077",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 77,
+   "ts": "2026-11-09T21:53:34.402Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "F10",
+    "args": {
+     "statement_id": "resp-f1cdee4d"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "resp-f1cdee4d"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "36f56c251c4a1b192263f84fd206cb0257abecd7ff0b1b0b8511b190315af760",
+   "hash": "030a65c1163ac57afb4665ed0c353977830434c4cc03ca6281d8897c46793f32"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0078",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 78,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "F10",
+    "ok": true,
+    "forwarded": true,
+    "codes": [
+     "R-GATE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c3"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "030a65c1163ac57afb4665ed0c353977830434c4cc03ca6281d8897c46793f32",
+   "hash": "60cf22d7369ec89cfb85300ff648de825ac1913aa0f9f94a75f74e924e9471d5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0079",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 79,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Draft recorded",
+    "result": {
+     "draft_id": "ST-DRAFT-f1cdee4ddd",
+     "state": "DRAFT_NOT_RELEASED",
+     "sent": false,
+     "released": false
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement_draft",
+     "id": "ST-DRAFT-f1cdee4ddd"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "60cf22d7369ec89cfb85300ff648de825ac1913aa0f9f94a75f74e924e9471d5",
+   "hash": "b7f5b0a6094d0d18b28142c111f70d1fe3538b4c8963ec4b67a274169554bce5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0080",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 80,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "no_external_transmission",
+    "policy": "a draft cannot be released or sent from this workflow",
+    "external_transmissions": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "statement_draft",
+     "id": "ST-DRAFT-f1cdee4ddd"
+    },
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "b7f5b0a6094d0d18b28142c111f70d1fe3538b4c8963ec4b67a274169554bce5",
+   "hash": "d8e577f45383ee7def3c8241e1c17c3a82ea7f3a395dc78a7950425dab5e4935"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0081",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 81,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "completed",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "d8e577f45383ee7def3c8241e1c17c3a82ea7f3a395dc78a7950425dab5e4935",
+   "hash": "6e9e25b20de2510dae0a4e42ec09f6228f377bc46fd474f1d80fed4402c23914"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0082",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 82,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "report",
+    "state": "running",
+    "depends_on": [
+     "governance"
+    ],
+    "title": "Traceable report",
+    "wave": 100,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "6e9e25b20de2510dae0a4e42ec09f6228f377bc46fd474f1d80fed4402c23914",
+   "hash": "2bd52f12bc6ea4c115351fddcf576d8962590efadb6068b6e0b8a8cb5675e536"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0083",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 83,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Report",
+    "result": {
+     "node": "report",
+     "report": {
+      "kind": "generic",
+      "subject": "An orchestrated response on synthetic inputs through a fixed dependency graph; not autonomous delegation and not a forecast",
+      "headline": "Demand surge response",
+      "sections": [
+       {
+        "title": "Dependencies (graph executed in this order)",
+        "items": [
+         "inventory <- no dependency: completed",
+         "demand <- no dependency: completed",
+         "brewery <- demand: completed",
+         "finance <- inventory, demand: completed",
+         "cx <- finance: completed",
+         "proposal <- inventory, brewery, finance, cx: completed",
+         "governance <- proposal: completed",
+         "report <- governance: running"
+        ]
+       },
+       {
+        "title": "Inventory",
+        "items": [
+         "i-chicken-thigh at L02: on hand 9.9565 kg, need 13.9753 kg"
+        ]
+       },
+       {
+        "title": "Financial impact (twin, a concept)",
+        "items": [
+         "without action: availability 0.396, revenue 1725 USD, gross profit 1166 USD",
+         "with the reorder: availability 0.741, cash out 148.0 USD"
+        ]
+       },
+       {
+        "title": "Brewery (planning support)",
+        "items": [
+         "batches {'badshah': 5, 'amba-haze': 5}, utilisation 0.875, alerts 1"
+        ]
+       },
+       {
+        "title": "Outcome",
+        "items": [
+         "DRAFT_CREATED"
+        ]
+       }
+      ],
+      "controls": {
+       "dependency graph": "fixed in code, shown in the first event",
+       "execution": "sequential, deterministic; nothing runs in parallel",
+       "approval": "a person decides before even a DRAFT is recorded",
+       "execution of actions": "none: every consequential action needs its own mission and approval"
+      },
+      "side_effects": {
+       "actions_executed": 0,
+       "purchases_made": 0,
+       "drafts_created": 1,
+       "external_transmissions": 0
+      },
+      "digest": "15fc2099f744feee73fad51d89d00510447d1aa8af4ed04965c59ae00a6800ba"
+     },
+     "digest": "15fc2099f744feee73fad51d89d00510447d1aa8af4ed04965c59ae00a6800ba"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "2bd52f12bc6ea4c115351fddcf576d8962590efadb6068b6e0b8a8cb5675e536",
+   "hash": "0ddc8a9ff7a1ce2128fa2047c4144fff074febf9648c925613179dc1de603d97"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0084",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 84,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "report",
+    "state": "completed",
+    "depends_on": [
+     "governance"
+    ],
+    "title": "Traceable report"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "0ddc8a9ff7a1ce2128fa2047c4144fff074febf9648c925613179dc1de603d97",
+   "hash": "83694fcd0dc258fb88281f71009c5cbc5c1eecbad847e8fe7ffe001d50f21ac8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0085",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 85,
+   "ts": "2026-11-09T21:53:34.403Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "11",
+    "action": "approval_approved",
+    "actor": "orchestration-owner",
+    "role": "FOUNDER",
+    "hash": "c581e7a54bd739ddcfd120564857bd20f943c053f8d0132085e74178fa86fa57"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "11"
+    }
+   ],
+   "prev_hash": "83694fcd0dc258fb88281f71009c5cbc5c1eecbad847e8fe7ffe001d50f21ac8",
+   "hash": "d3283da4f49113ed060ee2aa7015a753bd0c3c671e151219a7b452226d12cfd0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0086",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 86,
+   "ts": "2026-11-09T21:53:34.404Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-approved-f-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-approved-f"
+    }
+   ],
+   "prev_hash": "d3283da4f49113ed060ee2aa7015a753bd0c3c671e151219a7b452226d12cfd0",
+   "hash": "ba91e07f968f19f2ba44e5dc8441621a1e008c6308e773bdf80837abb4bae837"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0087",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 87,
+   "ts": "2026-11-09T21:53:34.404Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Review the proposal and hold it for a person",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ba91e07f968f19f2ba44e5dc8441621a1e008c6308e773bdf80837abb4bae837",
+   "hash": "b80b71abb727238c67af350339ae87de85352fd4de6564b7d62b2974310f88b2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-approved-f-0088",
+   "run_id": "rec-approved-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 88,
+   "ts": "2026-11-09T21:53:34.404Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "DRAFT_CREATED",
+    "side_effects": {
+     "actions_executed": 0,
+     "purchases_made": 0,
+     "drafts_created": 1,
+     "external_transmissions": 0
+    },
+    "recommendation": "A DRAFT operational response ST-DRAFT-f1cdee4ddd was recorded after approval. Nothing was executed.",
+    "report_digest": "15fc2099f744feee73fad51d89d00510447d1aa8af4ed04965c59ae00a6800ba",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    },
+    "states": {
+     "inventory": "completed",
+     "demand": "completed",
+     "brewery": "completed",
+     "finance": "completed",
+     "cx": "completed",
+     "proposal": "completed",
+     "governance": "completed",
+     "report": "completed"
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "b80b71abb727238c67af350339ae87de85352fd4de6564b7d62b2974310f88b2",
+   "hash": "75e0eadd641cf8ba394ae1ebe81d165335b6de4d231d040c8e4ab92aefe789f0"
+  }
+ ]
+}

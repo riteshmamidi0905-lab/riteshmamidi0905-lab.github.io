@@ -1,0 +1,2267 @@
+{
+ "recording": {
+  "slug": "mission-c-cx-discount",
+  "title": "Customer Experience Recovery: discount promise blocked",
+  "scenario": "discount_promise",
+  "scenario_note": "As nominal, but the first outreach draft promises a discount: the policy check blocks it, the draft is revised without the promise, and only then does a person decide.",
+  "mission": "mission-c-customer-recovery",
+  "decision": "reject",
+  "final_status": "REJECTED",
+  "recorded_at": "2026-11-09T21:53:33Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 80,
+  "note": "The first draft promises a discount; policy blocks it, it is revised and re-checked before a person decides. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0001",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:33.187Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Customer Experience Recovery",
+    "scenario": "discount_promise",
+    "scenario_note": "As nominal, but the first outreach draft promises a discount: the policy check blocks it, the draft is revised without the promise, and only then does a person decide.",
+    "trigger": "A batch of synthetic customer feedback arrived. The comments are generated from a seed and from the warehouse calendar so they can be joined to operations; the link is constructed",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the customer-experience incident"
+     },
+     {
+      "agent": "echon",
+      "task": "Ingest and classify the feedback"
+     },
+     {
+      "agent": "quantix",
+      "task": "Measure customer-experience and operations metrics"
+     },
+     {
+      "agent": "vectra",
+      "task": "Check stock evidence for availability complaints"
+     },
+     {
+      "agent": "aethon",
+      "task": "Analyse root causes and lay out options"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check the analysis and the draft against policy"
+     },
+     {
+      "agent": "novara",
+      "task": "Draft the customer outreach"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check policy and ask THE WEIR to hold the outreach"
+     }
+    ],
+    "planner": "keyword rules and rule-based joins (no language model)"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "919e8fbd81cc43f1ea3e4e0fecdb20881549e8d54933f52927cb3a3a0da11cc7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0002",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:33.187Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the customer-experience incident",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "919e8fbd81cc43f1ea3e4e0fecdb20881549e8d54933f52927cb3a3a0da11cc7",
+   "hash": "b03a5cff8bd68fa2877c06ec333db484ed4e4535a01ded38060abd599af17b94"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0003",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:33.193Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "b03a5cff8bd68fa2877c06ec333db484ed4e4535a01ded38060abd599af17b94",
+   "hash": "a1795856baa83588b1519321ae1ead95c20413f586c053506ec304b373b115ae"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0004",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:33.194Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "ok": true,
+    "rows": 10,
+    "ms": 1.23,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "f68143360c97"
+    }
+   ],
+   "prev_hash": "a1795856baa83588b1519321ae1ead95c20413f586c053506ec304b373b115ae",
+   "hash": "2ae0d2bdd260e69eb78481ff16eee6fae5fcefffaaa3bd2df2666f741b7f35e6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0005",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:33.195Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C0",
+    "args": {
+     "limit": 5,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "variance_flags"
+    }
+   ],
+   "prev_hash": "2ae0d2bdd260e69eb78481ff16eee6fae5fcefffaaa3bd2df2666f741b7f35e6",
+   "hash": "2df121532469504792b41f1184985aae98c697dca1ea5fac8ddb08676d30dc0c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0006",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:33.195Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C0",
+    "ok": true,
+    "rows": 5,
+    "ms": 0.4,
+    "source": "scn_variance_flag",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "ca6d474795c2"
+    }
+   ],
+   "prev_hash": "2df121532469504792b41f1184985aae98c697dca1ea5fac8ddb08676d30dc0c",
+   "hash": "8d5d0e9b9c217bdcb4f38f9a0ccbc0ba53f21e70356f45396c34a8f45579a007"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0007",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:33.195Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C0",
+    "args": {
+     "location_id": "L02",
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "daily_series"
+    }
+   ],
+   "prev_hash": "8d5d0e9b9c217bdcb4f38f9a0ccbc0ba53f21e70356f45396c34a8f45579a007",
+   "hash": "c566337e6a058df1653fc29fdfd1cbb88614eefb7cd527753fe1150a425fc8e7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0008",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:33.196Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C0",
+    "ok": true,
+    "rows": 31,
+    "ms": 0.41,
+    "source": "mart_daily_location",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "1da64304e35f"
+    }
+   ],
+   "prev_hash": "c566337e6a058df1653fc29fdfd1cbb88614eefb7cd527753fe1150a425fc8e7",
+   "hash": "1a5189d22cdeccffa70bf81888549c41e8ab956492c1c6aaa512323555cc12b0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0009",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:33.196Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the customer-experience incident",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "1a5189d22cdeccffa70bf81888549c41e8ab956492c1c6aaa512323555cc12b0",
+   "hash": "c0fc4bbfd7ab6a1c6a0768beac7afba290fa1612622d3ee6c9d390cd74936451"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0010",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:33.196Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Ingest the feedback batch",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "c0fc4bbfd7ab6a1c6a0768beac7afba290fa1612622d3ee6c9d390cd74936451",
+   "hash": "1befc964ed3379398c7c3298d6d6850809a828b983cd91c3d5a69dd179be7fef"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0011",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:33.196Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "ingest_feedback",
+    "stage": "C1",
+    "args": {
+     "batch": "batch-0e179378"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "1befc964ed3379398c7c3298d6d6850809a828b983cd91c3d5a69dd179be7fef",
+   "hash": "bebea633431a9396f62c924a539f17f10a5947fcc2ff9f2a3c2baec0fd855197"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0012",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:33.196Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "ingest_feedback",
+    "stage": "C1",
+    "ok": true,
+    "comments": 48,
+    "first_date": "2024-10-02",
+    "last_date": "2024-10-31",
+    "synthetic": true,
+    "location_id": "L02",
+    "month": "2024-10"
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "bebea633431a9396f62c924a539f17f10a5947fcc2ff9f2a3c2baec0fd855197",
+   "hash": "0f992ff3423a7b551960d2f804f2a14a74ed1ed6ddbba43832feefc5abb8e9f7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0013",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:33.196Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "classify_feedback",
+    "stage": "C2",
+    "args": {
+     "batch": "batch-0e179378",
+     "method": "keyword rules"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "0f992ff3423a7b551960d2f804f2a14a74ed1ed6ddbba43832feefc5abb8e9f7",
+   "hash": "d89377740cd368a2e25eacb012f6528a7dc810180473085ca65579067b1c4cf8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0014",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:33.197Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "classify_feedback",
+    "stage": "C2",
+    "ok": true,
+    "negative": 24,
+    "neutral": 6,
+    "positive": 18,
+    "issues": {
+     "availability": 10,
+     "wait_time": 8,
+     "food_quality": 4,
+     "service": 2
+    },
+    "method": "keyword rules, not a language model"
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "d89377740cd368a2e25eacb012f6528a7dc810180473085ca65579067b1c4cf8",
+   "hash": "7676b5e5e8f8402e5e2d1af4f38731ad7ce8999ab5c9c176d6287943a30485a5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0015",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:33.197Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Ingest the feedback batch",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "7676b5e5e8f8402e5e2d1af4f38731ad7ce8999ab5c9c176d6287943a30485a5",
+   "hash": "3af5425e218b8b7d6b791a6122b730b1fdf31b96e3ec8dec2a411596fb47c97e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0016",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:33.197Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check the classifier against the synthetic ground truth",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "3af5425e218b8b7d6b791a6122b730b1fdf31b96e3ec8dec2a411596fb47c97e",
+   "hash": "c53b2117e3c4efbaae0c6f582e483c5090382d2149effc77895adc2b571301bc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0017",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:33.197Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "classifier_check",
+    "passed": true,
+    "sentiment_accuracy": 0.938,
+    "issue_recall": 1.0,
+    "issue_precision": 0.929,
+    "misclassified": [
+     "f14",
+     "f21",
+     "f26"
+    ],
+    "thresholds": {
+     "sentiment_accuracy": 0.85,
+     "issue_recall": 0.8
+    },
+    "scope": "synthetic text written by the same author as the rules; real-world accuracy is unknown",
+    "claims_kept": 45,
+    "claims_dropped": 3
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "c53b2117e3c4efbaae0c6f582e483c5090382d2149effc77895adc2b571301bc",
+   "hash": "b52ff4144a5868162b4527a8100123ea3a32c94fc5a83e1125723073856e9106"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0018",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:33.198Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check the classifier against the synthetic ground truth",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "b52ff4144a5868162b4527a8100123ea3a32c94fc5a83e1125723073856e9106",
+   "hash": "ee1572e4af5e77ad7d6f4aab44118e3af163ead4aae6142480b2887b7531bc2d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0019",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:33.198Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Measure customer-experience and operations metrics",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ee1572e4af5e77ad7d6f4aab44118e3af163ead4aae6142480b2887b7531bc2d",
+   "hash": "c829769b4871d0d1af33a7ee23fcee7dee1a4ebd67e82cd4624c0a3b4277fee0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0020",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:33.198Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "cx_metrics",
+    "stage": "C3",
+    "args": {
+     "batch": "batch-0e179378"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "c829769b4871d0d1af33a7ee23fcee7dee1a4ebd67e82cd4624c0a3b4277fee0",
+   "hash": "1f197e1d7cbda702b1783c08426a18c9f233c091d6e23d241b5a6ff798bc0e99"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0021",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:33.198Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "cx_metrics",
+    "stage": "C3",
+    "ok": true,
+    "negative_share": 0.5,
+    "net_sentiment": -0.125,
+    "avg_rating": 2.69
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "1f197e1d7cbda702b1783c08426a18c9f233c091d6e23d241b5a6ff798bc0e99",
+   "hash": "664d5c964f8a7d7b03fb577d5c6cd04be0fdedf2a472d8c2d73e57fce3a04091"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0022",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:33.198Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "location_month",
+    "stage": "C4",
+    "args": {
+     "location_id": "L02",
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "location_month"
+    }
+   ],
+   "prev_hash": "664d5c964f8a7d7b03fb577d5c6cd04be0fdedf2a472d8c2d73e57fce3a04091",
+   "hash": "4ecbab1bfc43010e9bb750e90b247051b08c606556fd4507e12e29ea0678085d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0023",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:33.198Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "location_month",
+    "stage": "C4",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.34,
+    "source": "mart_location_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "2543b37ac23c"
+    }
+   ],
+   "prev_hash": "4ecbab1bfc43010e9bb750e90b247051b08c606556fd4507e12e29ea0678085d",
+   "hash": "704c4ac2443b579959d606c5c872c8d4a4d127b9ae2364578e813dbb57cdad8a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0024",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:33.198Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C5",
+    "args": {
+     "location_id": "L02",
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "daily_series"
+    }
+   ],
+   "prev_hash": "704c4ac2443b579959d606c5c872c8d4a4d127b9ae2364578e813dbb57cdad8a",
+   "hash": "3cf0f8ccaaf312cb6d3f7d2d1b01865ae08e2d6b6a54eda300c453805b061f22"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0025",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:33.199Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C5",
+    "ok": true,
+    "rows": 31,
+    "ms": 0.36,
+    "source": "mart_daily_location",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "39d266fedc17"
+    }
+   ],
+   "prev_hash": "3cf0f8ccaaf312cb6d3f7d2d1b01865ae08e2d6b6a54eda300c453805b061f22",
+   "hash": "8d5065404e5eee3916c245be4983f0b148d6d0279c1ef22faa219f873135a146"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0026",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:33.199Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Customer-experience and operations metrics",
+    "result": {
+     "cx": {
+      "n": 48,
+      "negative": 24,
+      "neutral": 6,
+      "positive": 18,
+      "negative_share": 0.5,
+      "net_sentiment": -0.125,
+      "avg_rating": 2.69,
+      "issues": {
+       "availability": 10,
+       "wait_time": 8,
+       "food_quality": 4,
+       "service": 2
+      }
+     },
+     "ops": {
+      "orders": 639,
+      "avg_ticket_cents": 3254.0,
+      "quality_events": 0,
+      "labor_pct_of_sales": 2.9848,
+      "location_id": "L02",
+      "month": "2024-10"
+     }
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "location_month"
+    }
+   ],
+   "prev_hash": "8d5065404e5eee3916c245be4983f0b148d6d0279c1ef22faa219f873135a146",
+   "hash": "81d3ed4e887210087810a4c10f73c6de18d4000e9f5f486ac3ee0a9a12bd3ae0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0027",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:33.199Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Measure customer-experience and operations metrics",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "81d3ed4e887210087810a4c10f73c6de18d4000e9f5f486ac3ee0a9a12bd3ae0",
+   "hash": "40253e781340e1ee1bc6635bd6a9789ca217855781a4159b4aa70aa0170750c0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0028",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:33.199Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check stock evidence for availability complaints",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "40253e781340e1ee1bc6635bd6a9789ca217855781a4159b4aa70aa0170750c0",
+   "hash": "aa439f1620cfdb74a1726f883c2972945cb47b67cb1e7ac964cafa8c21828596"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0029",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:33.199Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C6",
+    "args": {
+     "location_id": "L02",
+     "limit": 10,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "variance_flags"
+    }
+   ],
+   "prev_hash": "aa439f1620cfdb74a1726f883c2972945cb47b67cb1e7ac964cafa8c21828596",
+   "hash": "02154ee71fc1fe6645da022e52a8b5b04e028e6345c3afcce76774bb8c1bafd4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0030",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:33.199Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C6",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.33,
+    "source": "scn_variance_flag",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "f5af18dceb41"
+    }
+   ],
+   "prev_hash": "02154ee71fc1fe6645da022e52a8b5b04e028e6345c3afcce76774bb8c1bafd4",
+   "hash": "6fa05eea697f2fbea37a1f893bf924854a4548b39b72a9e62ff5f0a07260c3ed"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0031",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:33.199Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "C7",
+    "args": {
+     "location_id": "L02",
+     "limit": 10,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "reorder_recommendations"
+    }
+   ],
+   "prev_hash": "6fa05eea697f2fbea37a1f893bf924854a4548b39b72a9e62ff5f0a07260c3ed",
+   "hash": "d985adc5aab7af9b47c733009ce6c163d1ddeb9968a7d0446a56dc488506c9eb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0032",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:33.200Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "C7",
+    "ok": true,
+    "rows": 10,
+    "ms": 0.45,
+    "source": "scn_procurement_reco",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "34dfca726189"
+    }
+   ],
+   "prev_hash": "d985adc5aab7af9b47c733009ce6c163d1ddeb9968a7d0446a56dc488506c9eb",
+   "hash": "1bccb9d426e36e3a6be657bfc6c87f6320754e72cc2a5a5db07db8d5fa1fd158"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0033",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:33.200Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check stock evidence for availability complaints",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "1bccb9d426e36e3a6be657bfc6c87f6320754e72cc2a5a5db07db8d5fa1fd158",
+   "hash": "54623720fa1e778b93d60f2a033917b14fed61ad2868c18ce8fd1f3e5d882157"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0034",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:33.200Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Analyse root causes and lay out options",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "54623720fa1e778b93d60f2a033917b14fed61ad2868c18ce8fd1f3e5d882157",
+   "hash": "e9cd875d215af40f9e08fd9be4f8973a91db448aa44c3df062bfeb2bb7e9cf52"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0035",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:33.200Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Root-cause analysis",
+    "result": {
+     "causes": [
+      {
+       "issue": "availability",
+       "complaints": 10,
+       "status": "SUPPORTED",
+       "detail": "stock on hand 9.9565 was below the forecast need 13.9753 and the reorder is only PROPOSED, not placed; an unexplained usage spike of 71 points above baseline was flagged",
+       "evidence": [
+        "variance_flag:L02/22/i-chicken-thigh",
+        "reorder_reco:R-c632d53432b4b99a"
+       ]
+      },
+      {
+       "issue": "wait_time",
+       "complaints": 8,
+       "status": "SUPPORTED",
+       "detail": "88% of wait complaints fall on the 5 busiest days (orders >= 26), which are 16% of the month",
+       "evidence": [
+        "daily_peak_day:2024-10-09",
+        "daily_peak_day:2024-10-17",
+        "daily_peak_day:2024-10-19",
+        "daily_peak_day:2024-10-23"
+       ]
+      },
+      {
+       "issue": "food_quality",
+       "complaints": 4,
+       "status": "NOT_SUPPORTED",
+       "detail": "no operational record in the warehouse explains this; a person should investigate",
+       "evidence": []
+      },
+      {
+       "issue": "service",
+       "complaints": 2,
+       "status": "NOT_SUPPORTED",
+       "detail": "no operational record in the warehouse explains this; a person should investigate",
+       "evidence": []
+      }
+     ],
+     "method": "keyword themes joined to warehouse rows by fixed rules; a cause without a cited row is labelled unexplained"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "variance_flag",
+     "id": "L02/22/i-chicken-thigh"
+    },
+    {
+     "type": "reorder_reco",
+     "id": "R-c632d53432b4b99a"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-09"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-17"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-19"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-23"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-25"
+    }
+   ],
+   "prev_hash": "e9cd875d215af40f9e08fd9be4f8973a91db448aa44c3df062bfeb2bb7e9cf52",
+   "hash": "51cd957e433377dd41ee6d8356e10c33fb446186b7d4c8af2a51eaf84b38d206"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0036",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:33.200Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Remediation options",
+    "result": {
+     "options": [
+      {
+       "trigger": "availability",
+       "action": "Open a governed procurement review for i-chicken-thigh (the Inventory Crisis workflow); it needs its own human approval and is NOT executed here",
+       "consequential": true,
+       "executed": false
+      },
+      {
+       "trigger": "availability",
+       "action": "Show an out-of-stock notice on the ordering menu while stock is low",
+       "consequential": false,
+       "executed": false
+      },
+      {
+       "trigger": "wait_time",
+       "action": "Review staffing on peak days: 2024-10-09, 2024-10-17, 2024-10-19",
+       "consequential": false,
+       "executed": false
+      },
+      {
+       "trigger": "food_quality",
+       "action": "Investigate food quality manually; no operational evidence explains it",
+       "consequential": false,
+       "executed": false
+      },
+      {
+       "trigger": "service",
+       "action": "Investigate service manually; no operational evidence explains it",
+       "consequential": false,
+       "executed": false
+      }
+     ],
+     "basis": "rule-based; nothing here is executed"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "51cd957e433377dd41ee6d8356e10c33fb446186b7d4c8af2a51eaf84b38d206",
+   "hash": "724eff4e82719bf665777e9e4dad83972fbe9bdddf13f2bd6f861a1c32aca19c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0037",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Analyse root causes and lay out options",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "724eff4e82719bf665777e9e4dad83972fbe9bdddf13f2bd6f861a1c32aca19c",
+   "hash": "bcfbe075d73c5245a041332aa5816a67b45065527529b64cb3eacfb1609b67cd"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0038",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check the analysis and the draft against policy",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "bcfbe075d73c5245a041332aa5816a67b45065527529b64cb3eacfb1609b67cd",
+   "hash": "25e6bab600ede74263f5cc1e438bd3354e96b3e1a28f00df947183dda9127cc5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0039",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "root_cause_labelling",
+    "passed": true,
+    "supported": 2,
+    "unexplained": 2,
+    "unexplained_issues": [
+     "food_quality",
+     "service"
+    ],
+    "rule": "a cause is SUPPORTED only when it cites operational rows; otherwise it is labelled unexplained",
+    "claims_kept": 2,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "variance_flag",
+     "id": "L02/22/i-chicken-thigh"
+    },
+    {
+     "type": "reorder_reco",
+     "id": "R-c632d53432b4b99a"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-09"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-17"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-19"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-23"
+    }
+   ],
+   "prev_hash": "25e6bab600ede74263f5cc1e438bd3354e96b3e1a28f00df947183dda9127cc5",
+   "hash": "2717f8bc1b695a4719b78a1f4640dcc9b6ea81d8fd12de47d8935601e22cccae"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0040",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check the analysis and the draft against policy",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "2717f8bc1b695a4719b78a1f4640dcc9b6ea81d8fd12de47d8935601e22cccae",
+   "hash": "f0aaa617724bd6943eae21d178e52cd5bfa9c3fb40a3d4f8e5ab36af1bc96a05"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0041",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Draft the customer outreach",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "f0aaa617724bd6943eae21d178e52cd5bfa9c3fb40a3d4f8e5ab36af1bc96a05",
+   "hash": "532c59562832f59cfef3fb4ce9ad216982586ef1cbe40782b5ca79f7db5b8534"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0042",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Outreach draft v1",
+    "result": {
+     "characters": 191,
+     "customers": 10,
+     "kind": "customer outreach draft"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "532c59562832f59cfef3fb4ce9ad216982586ef1cbe40782b5ca79f7db5b8534",
+   "hash": "df2e28877916c02791afe5d3a7867f9f2144d730432484c9279e04fb01795455"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0043",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Draft the customer outreach",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "df2e28877916c02791afe5d3a7867f9f2144d730432484c9279e04fb01795455",
+   "hash": "c38690f600b7ebaba6ce7f9882a790cbebe96ec5f99fb0f865c1dfdb6161369a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0044",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check the draft against policy",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "c38690f600b7ebaba6ce7f9882a790cbebe96ec5f99fb0f865c1dfdb6161369a",
+   "hash": "86ba737100b84f416144cad2eafdf4e12b246e6b9a37838a8b03be418574a8f5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0045",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 45,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "outreach_policy",
+    "passed": false,
+    "violations": [
+     "MONETARY_PROMISE"
+    ],
+    "rule": "no monetary promise, no statement the evidence does not support",
+    "draft_version": 1,
+    "claims_kept": 0,
+    "claims_dropped": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "86ba737100b84f416144cad2eafdf4e12b246e6b9a37838a8b03be418574a8f5",
+   "hash": "4460c47aa607392aa7de6d54748f826b4b14b03388a7dbde712f143fcce877ee"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0046",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 46,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check the draft against policy",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "4460c47aa607392aa7de6d54748f826b4b14b03388a7dbde712f143fcce877ee",
+   "hash": "16a1e03165ddc28f780c4cfa7feb3acf9b452e5cd3768f3fedef2970c7341289"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0047",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 47,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Block the draft",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "16a1e03165ddc28f780c4cfa7feb3acf9b452e5cd3768f3fedef2970c7341289",
+   "hash": "0ea1c52288eb339c28e411c4a5bbd0c5ae67cbadbf4fcc2282620d9ebed7fdb9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0048",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 48,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "block_draft",
+    "policy": "a monetary promise needs a separate finance decision; the draft may not go to a person for approval as written",
+    "violations": [
+     "MONETARY_PROMISE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "0ea1c52288eb339c28e411c4a5bbd0c5ae67cbadbf4fcc2282620d9ebed7fdb9",
+   "hash": "0737581a50ef1c2288e81b645ac32c6d8c24b806db1ac54e8ff118a4338478dc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0049",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 49,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Block the draft",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0737581a50ef1c2288e81b645ac32c6d8c24b806db1ac54e8ff118a4338478dc",
+   "hash": "e909ecc2b88d6e5e128e14cb1c1e52ce14ca68715772e798c41fb7efd3693979"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0050",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 50,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Revise the draft without the promise",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "e909ecc2b88d6e5e128e14cb1c1e52ce14ca68715772e798c41fb7efd3693979",
+   "hash": "6c9cfb16f86e1c4435599ec70a3ba8ad0f4adbc4678480862a8a3e658bab5abc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0051",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 51,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Outreach draft v2",
+    "result": {
+     "characters": 160,
+     "removed": [
+      "MONETARY_PROMISE"
+     ],
+     "kind": "customer outreach draft"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "6c9cfb16f86e1c4435599ec70a3ba8ad0f4adbc4678480862a8a3e658bab5abc",
+   "hash": "c8a651e870f537c95047e99f1ba0fcbe727384cb11227354b3246452326a07f5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0052",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 52,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "novara",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Revise the draft without the promise",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "c8a651e870f537c95047e99f1ba0fcbe727384cb11227354b3246452326a07f5",
+   "hash": "ca1b2a3bac3b9689f664a3b4ff2907c40c31c06539e2c6eceb9b38ba372765ca"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0053",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 53,
+   "ts": "2026-11-09T21:53:33.201Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Re-check the revised draft",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ca1b2a3bac3b9689f664a3b4ff2907c40c31c06539e2c6eceb9b38ba372765ca",
+   "hash": "1ba10b898dcb74d546565976b27dff058e63f34a65bd9f53cb357cb525dc2858"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0054",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 54,
+   "ts": "2026-11-09T21:53:33.202Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "outreach_policy",
+    "passed": true,
+    "violations": [],
+    "rule": "no monetary promise, no statement the evidence does not support",
+    "draft_version": 2,
+    "claims_kept": 1,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "batch",
+     "id": "batch-0e179378"
+    }
+   ],
+   "prev_hash": "1ba10b898dcb74d546565976b27dff058e63f34a65bd9f53cb357cb525dc2858",
+   "hash": "33ae0d216cd5e1bc7ef645b2a4d92e6c92c4bd75398a689fe614880e722ce9fd"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0055",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 55,
+   "ts": "2026-11-09T21:53:33.202Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Re-check the revised draft",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "33ae0d216cd5e1bc7ef645b2a4d92e6c92c4bd75398a689fe614880e722ce9fd",
+   "hash": "36f47ba681f0bd8003593cb0e7f6e03cc5537c97fb24c9e78a8c8e7b27046ac3"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0056",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 56,
+   "ts": "2026-11-09T21:53:33.202Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check policy and ask THE WEIR to hold the outreach",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "36f47ba681f0bd8003593cb0e7f6e03cc5537c97fb24c9e78a8c8e7b27046ac3",
+   "hash": "d24d176a0cabda8e68558aff26f13f7b9d0527f304c325c82638d51792dabf80"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0057",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 57,
+   "ts": "2026-11-09T21:53:33.202Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "C8",
+    "args": {
+     "probe": true
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "probe",
+     "id": "out-of-policy tool"
+    }
+   ],
+   "prev_hash": "d24d176a0cabda8e68558aff26f13f7b9d0527f304c325c82638d51792dabf80",
+   "hash": "2927c0413b7ad0a7cf5f133b658425c2330e8f2ca34861f720debacafc55fc14"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0058",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 58,
+   "ts": "2026-11-09T21:53:33.202Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "C8",
+    "ok": false,
+    "forwarded": false,
+    "failure": "TOOL_DENIED",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "2927c0413b7ad0a7cf5f133b658425c2330e8f2ca34861f720debacafc55fc14",
+   "hash": "4b2716e93d073ee66521bbb3af8ed34847fd908df5a0b307595babf2bf96f847"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0059",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 59,
+   "ts": "2026-11-09T21:53:33.202Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "bounded probe: sending email is not in the policy at all, so it is refused by default",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "4b2716e93d073ee66521bbb3af8ed34847fd908df5a0b307595babf2bf96f847",
+   "hash": "c27faa6d3bde1bdb39cba2767ebc0aec4f9d02739d8028437d333438dad9f270"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0060",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 60,
+   "ts": "2026-11-09T21:53:33.203Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "C9",
+    "args": {
+     "statement_id": "outreach-42d8aeeb"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "outreach-42d8aeeb"
+    }
+   ],
+   "prev_hash": "c27faa6d3bde1bdb39cba2767ebc0aec4f9d02739d8028437d333438dad9f270",
+   "hash": "64ad45ab7cfcfb3ed5c7040e014e345c3280bcb1af0df4be214860dc7587e629"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0061",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 61,
+   "ts": "2026-11-09T21:53:33.203Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "C9",
+    "ok": false,
+    "forwarded": false,
+    "held_for_approval": true,
+    "codes": [
+     "R-GATE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "64ad45ab7cfcfb3ed5c7040e014e345c3280bcb1af0df4be214860dc7587e629",
+   "hash": "89ec9ba1ca3939d0ced04b4c282cf1e3f7f08d8703dc26e0a5586ed0735c9f72"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0062",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 62,
+   "ts": "2026-11-09T21:53:33.203Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "hold_for_approval",
+    "policy": "THE WEIR: an outward message needs a human approval of this exact text",
+    "codes": [
+     "R-GATE"
+    ],
+    "approval_id": "ap_f99ad6ae"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "89ec9ba1ca3939d0ced04b4c282cf1e3f7f08d8703dc26e0a5586ed0735c9f72",
+   "hash": "4a07d7b0995dc41f665db27af643df06c016d49a9fe27a454c652a560b501972"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0063",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 63,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "incident_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "c895db5654f4efc260f5f1e3e1a306695e70694eb04743889df4a3030406e782"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "4a07d7b0995dc41f665db27af643df06c016d49a9fe27a454c652a560b501972",
+   "hash": "bda33c38812381cbf7164347636bc3a560a5e2c07861105d17cd253b7ad19da6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0064",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 64,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "feedback_ingested",
+    "actor": "echon",
+    "role": "SYSTEM",
+    "hash": "8d318e3cc9712ed6f6b44f07c691c9841dcb0d41c26c9c66e4099f25f22c4bb8"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "bda33c38812381cbf7164347636bc3a560a5e2c07861105d17cd253b7ad19da6",
+   "hash": "c9482f259a720e1ec96f768e3ceefbfb3e31c703237bc5927a97937f8b11ec67"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0065",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 65,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "classifier_pass",
+    "actor": "veritas",
+    "role": "SYSTEM",
+    "hash": "0c0387c4ae160f8884879976c8dfa27d8d594aa781fc850da9cb2eabb116589d"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "c9482f259a720e1ec96f768e3ceefbfb3e31c703237bc5927a97937f8b11ec67",
+   "hash": "2112f54461281101e4fa5e4d44792fd4fe7cbe0fb98a844165c3eecde6c29960"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0066",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 66,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "root_causes_ranked",
+    "actor": "aethon",
+    "role": "SYSTEM",
+    "hash": "06cf394fcd7cf1733a7ef8da7be653db5765f768cf3fa8a60df6581bb18b21bf"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "2112f54461281101e4fa5e4d44792fd4fe7cbe0fb98a844165c3eecde6c29960",
+   "hash": "557794ca7c2eb543d57b61cd62f4544674f1f68c0dfc27a9cac8307350df730b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0067",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 67,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "draft_blocked",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "0036bfbee5f4d400293ea7bb4723deb5c300c34c8923954815ab32f076e791e0"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    }
+   ],
+   "prev_hash": "557794ca7c2eb543d57b61cd62f4544674f1f68c0dfc27a9cac8307350df730b",
+   "hash": "19525db3edf28a0679bb413c71f9110aa3f49814425691a0a4fdf94ae59f7416"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0068",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 68,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "6",
+    "action": "guardrail_probe_denied",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "1412ee18bb3ac38b380db0ff383af18faba89dce495f848020ba3d6844f1d11b"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "6"
+    }
+   ],
+   "prev_hash": "19525db3edf28a0679bb413c71f9110aa3f49814425691a0a4fdf94ae59f7416",
+   "hash": "16f6dd449bc947cdebf2bafa440f201cec51f28e24c8ff3eaf936e5349a2460f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0069",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 69,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "7",
+    "action": "approval_requested",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "a2f2104b528d99ce2b01dea87fea375303285b0da4f44f9df54f45d4646ac856"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "7"
+    }
+   ],
+   "prev_hash": "16f6dd449bc947cdebf2bafa440f201cec51f28e24c8ff3eaf936e5349a2460f",
+   "hash": "f3b74b99c8a096d9a6d4de05166aa1b051100d1e97aac852e855593167b13db4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0070",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 70,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-discount-c-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-discount-c"
+    }
+   ],
+   "prev_hash": "f3b74b99c8a096d9a6d4de05166aa1b051100d1e97aac852e855593167b13db4",
+   "hash": "bd1d7f98527b262170225bfc230b93657d5038a2cfc21a2fc854ec5f18a19482"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0071",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 71,
+   "ts": "2026-11-09T21:53:33.204Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "approval_requested",
+   "payload": {
+    "approval_id": "ap_f99ad6ae",
+    "requires": "owner",
+    "ttl_s": 900,
+    "consequential_action": "record a draft customer message",
+    "summary": {
+     "action": "Record a DRAFT outreach message (never sent)",
+     "details": [
+      "for 10 synthetic customers who reported chicken unavailable",
+      "policy check: passed (no monetary promise, no unsupported statement)",
+      "draft id outreach-42d8aeeb"
+     ],
+     "claims": [
+      {
+       "text": "We are sorry that chicken was unavailable when you visited. Our stock ran lower than our forecast and we are working on restocking. Thank you for your patience.",
+       "evidence": [
+        "variance_flag:L02/22/i-chicken-thigh",
+        "reorder_reco:R-c632d53432b4b99a"
+       ]
+      }
+     ]
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_f99ad6ae"
+    },
+    {
+     "type": "statement",
+     "id": "outreach-42d8aeeb"
+    }
+   ],
+   "prev_hash": "bd1d7f98527b262170225bfc230b93657d5038a2cfc21a2fc854ec5f18a19482",
+   "hash": "24441bdfad60a73d97a642f2d5aa5077b99b25b788087503f35aca799e23121a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0072",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 72,
+   "ts": "2026-11-09T21:53:33.212Z",
+   "mode": "live",
+   "agent": "owner",
+   "kind": "approval_decided",
+   "payload": {
+    "approval_id": "ap_f99ad6ae",
+    "decision": "reject",
+    "by": "cx-owner",
+    "role": "FOUNDER",
+    "comment": "recorded run"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_f99ad6ae"
+    }
+   ],
+   "prev_hash": "24441bdfad60a73d97a642f2d5aa5077b99b25b788087503f35aca799e23121a",
+   "hash": "2810655712333255333ac019c57f0b3bd1d67ffced749a48d7fd792808d42c7c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0073",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 73,
+   "ts": "2026-11-09T21:53:33.213Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check policy and ask THE WEIR to hold the outreach",
+    "outcome": "rejected"
+   },
+   "evidence_refs": [],
+   "prev_hash": "2810655712333255333ac019c57f0b3bd1d67ffced749a48d7fd792808d42c7c",
+   "hash": "37dd06df8d12bcc9e1fd94c152eb98425e822172f2739882530dd53c7c3dd1d9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0074",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 74,
+   "ts": "2026-11-09T21:53:33.213Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "37dd06df8d12bcc9e1fd94c152eb98425e822172f2739882530dd53c7c3dd1d9",
+   "hash": "02962707a27934b6b71126197b2b65982ffefe86ddab86fa4bcea72f6f533422"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0075",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 75,
+   "ts": "2026-11-09T21:53:33.213Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Incident report",
+    "result": {
+     "report": {
+      "subject": "synthetic feedback (seeded generator) joined with the synthetic warehouse; rule-based analysis, no language model",
+      "location": "L02",
+      "month": "2024-10",
+      "metrics": {
+       "n": 48,
+       "negative": 24,
+       "neutral": 6,
+       "positive": 18,
+       "negative_share": 0.5,
+       "net_sentiment": -0.125,
+       "avg_rating": 2.69,
+       "issues": {
+        "availability": 10,
+        "wait_time": 8,
+        "food_quality": 4,
+        "service": 2
+       }
+      },
+      "classifier": {
+       "sentiment_accuracy": 0.938,
+       "issue_recall": 1.0,
+       "issue_precision": 0.929,
+       "passed": true,
+       "scope": "synthetic text written by the same author as the rules; real-world accuracy is unknown"
+      },
+      "causes": [
+       {
+        "issue": "availability",
+        "complaints": 10,
+        "status": "SUPPORTED",
+        "detail": "stock on hand 9.9565 was below the forecast need 13.9753 and the reorder is only PROPOSED, not placed; an unexplained usage spike of 71 points above baseline wa",
+        "evidence": [
+         "variance_flag:L02/22/i-chicken-thigh",
+         "reorder_reco:R-c632d53432b4b99a"
+        ]
+       },
+       {
+        "issue": "wait_time",
+        "complaints": 8,
+        "status": "SUPPORTED",
+        "detail": "88% of wait complaints fall on the 5 busiest days (orders >= 26), which are 16% of the month",
+        "evidence": [
+         "daily_peak_day:2024-10-09",
+         "daily_peak_day:2024-10-17",
+         "daily_peak_day:2024-10-19"
+        ]
+       },
+       {
+        "issue": "food_quality",
+        "complaints": 4,
+        "status": "NOT_SUPPORTED",
+        "detail": "no operational record in the warehouse explains this; a person should investigate",
+        "evidence": []
+       },
+       {
+        "issue": "service",
+        "complaints": 2,
+        "status": "NOT_SUPPORTED",
+        "detail": "no operational record in the warehouse explains this; a person should investigate",
+        "evidence": []
+       }
+      ],
+      "recommendations": [
+       {
+        "trigger": "availability",
+        "action": "Open a governed procurement review for i-chicken-thigh (the Inventory Crisis workflow); it needs its own human approval and is NOT executed here",
+        "executed": false
+       },
+       {
+        "trigger": "availability",
+        "action": "Show an out-of-stock notice on the ordering menu while stock is low",
+        "executed": false
+       },
+       {
+        "trigger": "wait_time",
+        "action": "Review staffing on peak days: 2024-10-09, 2024-10-17, 2024-10-19",
+        "executed": false
+       },
+       {
+        "trigger": "food_quality",
+        "action": "Investigate food quality manually; no operational evidence explains it",
+        "executed": false
+       },
+       {
+        "trigger": "service",
+        "action": "Investigate service manually; no operational evidence explains it",
+        "executed": false
+       }
+      ],
+      "controls": {
+       "outreach policy check": "no monetary promise, no unsupported statement",
+       "guardrail probe (send_external_email)": "denied by default",
+       "write tool (release_statement)": "held for a human approval",
+       "sending": "impossible from this workflow (draft state only)",
+       "remediation actions": "recommendations only, none executed",
+       "outreach": "rejected by the owner"
+      },
+      "side_effects": {
+       "messages_sent": 0,
+       "drafts_created": 0,
+       "purchases_made": 0,
+       "external_transmissions": 0
+      },
+      "digest": "c0b47e1bdcd61e413a8fc75b3970a0991127c2406e464e7fb8eacb1d03cb4309"
+     },
+     "digest": "c0b47e1bdcd61e413a8fc75b3970a0991127c2406e464e7fb8eacb1d03cb4309"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "incident_report",
+     "id": "c0b47e1bdcd61e41"
+    }
+   ],
+   "prev_hash": "02962707a27934b6b71126197b2b65982ffefe86ddab86fa4bcea72f6f533422",
+   "hash": "8fb8d7abe76ba1e534d90fc608d9bfd9744cff2375e902b88f918f0f8da6eb75"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0076",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 76,
+   "ts": "2026-11-09T21:53:33.214Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "8",
+    "action": "approval_denied",
+    "actor": "cx-owner",
+    "role": "FOUNDER",
+    "hash": "8028cdf976d32e54f184e2e2ead601cfdfb7c7b5fc33b90911feaadc2449b20d"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "8"
+    }
+   ],
+   "prev_hash": "8fb8d7abe76ba1e534d90fc608d9bfd9744cff2375e902b88f918f0f8da6eb75",
+   "hash": "8a13f8115580c7d7f6081949028309c65b292e76897589541d4a1b407033b2ce"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0077",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 77,
+   "ts": "2026-11-09T21:53:33.214Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "9",
+    "action": "report_built",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "45a77eadf21a9b99a1ccb84cf12e59daa8db1e953c2c4d666d102c7bbbf4e8ed"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "9"
+    }
+   ],
+   "prev_hash": "8a13f8115580c7d7f6081949028309c65b292e76897589541d4a1b407033b2ce",
+   "hash": "4e2fab390ef59522c8d52b5a86755199e018f3f38924e9969ee02b8119d2cc9d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0078",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 78,
+   "ts": "2026-11-09T21:53:33.214Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-discount-c-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-discount-c"
+    }
+   ],
+   "prev_hash": "4e2fab390ef59522c8d52b5a86755199e018f3f38924e9969ee02b8119d2cc9d",
+   "hash": "27039aaed683bc8ff1c463d5a93ba2058c890e289e6ece02d2e8075f31bba3b7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0079",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 79,
+   "ts": "2026-11-09T21:53:33.214Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "27039aaed683bc8ff1c463d5a93ba2058c890e289e6ece02d2e8075f31bba3b7",
+   "hash": "c8e145ded696a0cfb271917a1171a30215674f2c1f9e3348f82911a24a449ba5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-discount-c-0080",
+   "run_id": "rec-discount-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 80,
+   "ts": "2026-11-09T21:53:33.214Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "REJECTED",
+    "side_effects": {
+     "messages_sent": 0,
+     "drafts_created": 0,
+     "purchases_made": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The owner rejected the outreach draft. Nothing was recorded or sent.",
+    "report_digest": "c0b47e1bdcd61e413a8fc75b3970a0991127c2406e464e7fb8eacb1d03cb4309",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "c8e145ded696a0cfb271917a1171a30215674f2c1f9e3348f82911a24a449ba5",
+   "hash": "044b75ec31b4610981e9666f1c2a1155ab1d1ca057d45bc9352c18debb22b062"
+  }
+ ]
+}

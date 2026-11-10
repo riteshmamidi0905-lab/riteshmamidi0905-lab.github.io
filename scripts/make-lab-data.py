@@ -1,0 +1,44 @@
+"""Author-side: build data/lab.json (ecosystem map, business scenarios, capability register). The register is copied unchanged (name, status, done, missing) from lab/nasha_lab/growth/capabilities.json at the local checkpoint named in the output."""
+import json,sys
+reg=json.load(open(sys.argv[1]))
+V,U,P,PL,C="VERIFIED","UNVERIFIED","PROTOTYPE","PLANNED","CONCEPT"
+nodes=[
+# layer, id, title, status, summary, evidence, limits, links
+(0,"concept","NASHA brewery concept",C,"A proposed Indo-Mex brewery: brand, menu, space and operations studies used as the business scenario.","Concept documents and visual studies in the repository.","Not an operating business: no customers, suppliers or revenue. Images are concept visuals.",[]),
+(0,"planning","Business and financial planning models",U,"Pricing, offers and financial-model code for the synthetic business.","Code and tests exist in the lab; the capability register lists pricing and offers as TESTED.","Not re-run in the 2026-11-01 verification. Synthetic data.",[]),
+(1,"ops-explainer","Operations explainer and validator",V,"Explains an inventory gap from verified facts; a strict validator checks every claim against the source and rewards abstention when evidence is missing.","953 offline tests pass at a local checkpoint; scripted end-to-end self-test passes (scripted evidence is never a result).","The live model evaluation has NOT met its acceptance criteria (failed). Not deployed.",[]),
+(1,"agent-platform","Evidence-grounded research agent",V,"Planner, tools, retrieval on Postgres/pgvector, human approvals, citations and a regression gate.","production-ai-agent-platform: 78 tests on a real embedded Postgres; smoke run with 3 cited claims.","Default provider is a deterministic heuristic, not an LLM.",["production-ai-agent-platform"]),
+(1,"toolkit","Tool-using agent loop",V,"A small ReAct loop where one tool's output feeds the next.","ai-agent-toolkit: 11 tests; built-in benchmark 10/10.","Rule-based planner.",["ai-agent-toolkit"]),
+(1,"specialists","Twelve specialist services",U,"Deterministic callable specialists inside one accountable workflow. Not twelve autonomous LLMs.","Recorded offline results on the lab page; historical evidence, not a rerun.","Synthetic scenarios only.",[]),
+(2,"rag","Retrieval and knowledge",V,"From-scratch TF-IDF retrieval and a document assistant with citations and a scored evaluation.","rag-doc-qa 14 tests; genai-doc-assistant 40 tests, eval hit rate 1.0 on 8 items.","Tiny evaluation sets; hashing embeddings in the verified run.",["rag-doc-qa","genai-doc-assistant"]),
+(3,"evals","LLM evaluation and reliability",V,"Rubrics, weighted criteria, hard gates, a CI threshold, and run-level evaluation of agent trajectories.","llm-eval-framework 33 tests and a re-run benchmark; maref 35 tests.","Benchmarks use bundled samples. maref is a research prototype.",["llm-eval-framework","maref"]),
+(3,"live-model-evaluation","NASHA live model evaluation","FAIL","A pre-registered evaluation of whether a model can meet the explanation contract.","Recorded: run 1 scored 0 of 30 supported cases (every attempt truncated, cause unknown).","Result: FAIL. A GPU re-run is planned and not yet authorised.",[]),
+(4,"gateway","Governance for tool calls",V,"Information-flow labels, policy rules and approvals bound to the exact call.","mcp-weir: 417 tests including real subprocess tests; built-in demo.","Deterministic scenarios, no live model.",["mcp-weir"]),
+(4,"security","Evidence security controls",V,"Hash-chained audit ledger, single-use approvals, fail-closed locking and secret handling.","Four rounds of independent AI-assisted review; the last passed within documented assumptions (not a formal external audit).","The reviewed checkpoint is local and not yet published.",[]),
+(4,"copilot","Approval-gated workflow",V,"A support workflow where the model has no write capability; policy is deterministic; tenants are isolated.","support-escalation-copilot: 489 tests on a real embedded Postgres; 21 of 21 demo checks.","Rule-based stand-in model by default.",["support-escalation-copilot"]),
+(5,"data-eng","Data engineering",V,"Medallion lakehouse transformations, streaming fraud-rule transforms, a SQL warehouse and an MLOps registry.","spark-data-lakehouse 4, realtime-streaming-pipeline 3 (transforms only), sql-analytics-warehouse 8, mlops-platform 12.","The Kafka/Cassandra stack was not run; not production scale.",["spark-data-lakehouse","realtime-streaming-pipeline","sql-analytics-warehouse","mlops-platform"]),
+(5,"bi","Business intelligence and product analytics",V,"Revenue KPIs, funnels and retention, and experiment analysis.","saas-kpi-dashboard 6, product-analytics-funnel-retention 6, experimentation-toolkit 11.","Synthetic data; demonstration effect sizes.",["saas-kpi-dashboard","product-analytics-funnel-retention","experimentation-toolkit"]),
+(5,"forecast","Forecasting and prediction",PL,"Revenue and demand forecasting for the NASHA scenario.","Related verified pieces: customer-churn-prediction (5 tests) and experiment tooling. No NASHA forecasting model is verified.","Planned; not built for NASHA.",["customer-churn-prediction"]),
+(6,"human","Human oversight",V,"Approvals bound to the exact action, reviewer roles and audit trails.","Implemented in mcp-weir, support-escalation-copilot and the evidence controls (see above).","Approval is an internal consistency control, not authentication of a cloud provider.",["mcp-weir","support-escalation-copilot"]),
+(7,"platform","Reusable business-creation platform",PL,"The same pipeline applied to other business ideas: research, planning, brand, finance, operations, analytics.","None: this is the direction, not a built system.","Conceptual. Not deployed.",[]),
+]
+layers=["Business concept","Agents and workflows","Knowledge and retrieval","Evaluation and reliability","Governance and security","Data, analytics and BI","Human oversight","Platform vision"]
+sc=[
+("Marketing intelligence",PL,"Segment customers and test messages for the concept.","The register lists marketing content as DESIGNED and performance tracking as TESTED.",["bi"]),
+("Customer analytics",V,"Churn, funnels and retention on synthetic customers.","Verified analytics projects; not NASHA customer data (there is none).",["bi","forecast"]),
+("Inventory management",V,"Explain a stock gap from verified facts; abstain when facts conflict.","Operations explainer with a strict validator (offline components verified).",["ops-explainer"]),
+("Supplier workflows",U,"Compare quotes and flag supplier risk.","Supplier code and evaluations exist in the lab; not re-run in this verification.",["planning"]),
+("Financial planning",U,"Pricing, offers and scenario margins.","Financial-model code with tests listed in the register; not re-run here.",["planning"]),
+("Revenue forecasting",PL,"Forecast revenue for the concept.","Planned. Verified forecasting-adjacent tooling only.",["forecast"]),
+("Operations automation",V,"Automate repetitive, approval-gated tasks.","Approval-gated workflow with audit trail and tenant isolation.",["copilot","human"]),
+("Customer support",V,"Triage and draft, with humans approving actions.","support-escalation-copilot (synthetic B2B scenario).",["copilot"]),
+("AI governance",V,"Control what an agent may read, send or do.","Governance gateway and evidence security controls.",["gateway","security"]),
+("Model evaluation",V,"Measure whether a model meets a written contract.","The evaluation framework is verified; the live NASHA evaluation has NOT passed (FAIL).",["evals","live-model-evaluation"]),
+("Decision-support agents",V,"Evidence-grounded answers with citations and approvals.","Research agent and tool loop, tested offline.",["agent-platform","toolkit"]),
+]
+KINDS={'Marketing intelligence': ['concept', 'planned'], 'Customer analytics': ['simulation', 'component'], 'Inventory management': ['concept', 'simulation', 'component'], 'Supplier workflows': ['concept', 'simulation'], 'Financial planning': ['concept', 'simulation'], 'Revenue forecasting': ['concept', 'planned'], 'Operations automation': ['simulation', 'component'], 'Customer support': ['simulation', 'component'], 'AI governance': ['simulation', 'component'], 'Model evaluation': ['component'], 'Decision-support agents': ['simulation', 'component']}
+out=dict(source=sys.argv[2],layers=layers,nodes=[dict(layer=a,id=b,title=c,status=d,summary=e,evidence=f,limits=g,links=h) for a,b,c,d,e,f,g,h in nodes],
+ scenarios=[dict(name=a,status=b,what=c,basis=d,nodes=e,kinds=KINDS[a]) for a,b,c,d,e in sc],
+ register=[dict(n=c["n"],name=c["capability"],status=c["status"],done=c["done"],missing=c["missing"]) for c in reg["capabilities"]],register_rules=reg["rules"])
+json.dump(out,open("data/lab.json","w"),indent=1,ensure_ascii=False)
+print(len(out["nodes"]),"nodes",len(out["scenarios"]),"scenarios",len(out["register"]),"capabilities")

@@ -1,0 +1,1976 @@
+{
+ "version": "phase7-1-promptB",
+ "prompt_variant": "B (explicit decision rule)",
+ "label": "VERIFIED",
+ "kind": "real local-model inference",
+ "generated_at": "2026-11-06T03:28:42Z",
+ "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+ "runtime": {
+  "runtime": "ollama",
+  "runtime_version": "0.40.15",
+  "endpoint": "http://127.0.0.1:11434",
+  "model": "qwen2.5:1.5b-instruct",
+  "model_digest": "65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b",
+  "model_bytes": 986061892,
+  "parameter_size": "1.5B",
+  "quantization": "Q4_K_M",
+  "family": "qwen2"
+ },
+ "plan": {
+  "attempts_per_item": 2,
+  "per_call_timeout_s": 60,
+  "total_budget_s": 1200,
+  "temperature": 0,
+  "seed": 7,
+  "num_ctx": 6144,
+  "max_output_tokens": 80,
+  "parallel_requests": 1,
+  "passages_k": 3,
+  "memory_stop_free_pct": 8
+ },
+ "cold_start_ms": 456.5,
+ "harness_code_sha256": "de67a24b056c2acfc27c576731c9180faf847f7ab9686a7db9522d32aa748d3f",
+ "prompt_sha256": "e65f596040ac9e29a1f1faa942775a2371262967c89ba27b26fb41b8062b7097",
+ "wall_clock_s": 106.0,
+ "sets": [
+  {
+   "dataset": {
+    "name": "claim-grounding-v1",
+    "role": "historical",
+    "items": 20,
+    "sha256": "4cdddd49b828e13117822a67db5f795153b218356c5c1f7ab2d9ac58c2f90938"
+   },
+   "metrics": {
+    "n": 20,
+    "accuracy": 0.8,
+    "false_acceptance_rate": 0.1667,
+    "false_rejection_rate": 0.25,
+    "precision_supported": 0.75,
+    "recall_supported": 0.75,
+    "unsupported_recall": 0.8333,
+    "abstention_rate": 0.35,
+    "false_acceptances": 2,
+    "items_supported": 8,
+    "items_unsupported": 12
+   },
+   "criteria_preregistered_holdout_thresholds": {
+    "false_acceptance_rate": {
+     "value": 0.1667,
+     "threshold": "<= 0.05",
+     "passed": false
+    },
+    "false_rejection_rate": {
+     "value": 0.25,
+     "threshold": "<= 0.4",
+     "passed": true
+    },
+    "accuracy": {
+     "value": 0.8,
+     "threshold": ">= 0.8",
+     "passed": true
+    },
+    "category_false_acceptance": {
+     "value": {
+      "uncategorised": 0.1667
+     },
+     "threshold": "<= 0.15 where >= 3 unsupported items",
+     "passed": false,
+     "failing": [
+      "uncategorised"
+     ]
+    }
+   },
+   "meets_preregistered_holdout_thresholds": false,
+   "criteria_v1_harness": {
+    "false_support_rate": {
+     "value": 0.1667,
+     "threshold": "<= 0.1",
+     "passed": false
+    },
+    "unsupported_recall": {
+     "value": 0.8333,
+     "threshold": ">= 0.9",
+     "passed": false
+    },
+    "supported_recall": {
+     "value": 0.75,
+     "threshold": ">= 0.6",
+     "passed": true
+    },
+    "accuracy": {
+     "value": 0.8,
+     "threshold": ">= 0.8",
+     "passed": true
+    }
+   },
+   "meets_v1_harness_criteria": false,
+   "by_category_unsupported": {
+    "uncategorised": {
+     "unsupported": 12,
+     "false_accepted": 2,
+     "false_acceptance_rate": 0.1667
+    }
+   },
+   "by_category_supported": {
+    "uncategorised": {
+     "supported": 8,
+     "rejected": 2
+    }
+   },
+   "summary": {
+    "items": 20,
+    "completed": 13,
+    "failed_items": 7,
+    "not_completed": 0,
+    "structured_output_valid_first_try": 12,
+    "structured_output_valid_after_retry": 1,
+    "invalid_after_retries": 7,
+    "timeouts": 0,
+    "retries": 8,
+    "error_classes": {
+     "UNGROUNDED_EVIDENCE_ID": 13,
+     "MALFORMED_JSON": 2
+    },
+    "latency_ms": {
+     "n": 20,
+     "mean": 1164.3,
+     "p50": 959.5,
+     "p95": 3781.7,
+     "max": 3781.7
+    },
+    "total_prompt_tokens": 15694,
+    "total_completion_tokens": 834,
+    "grounding_on_supported_items": {
+     "items": 8,
+     "reference_chunk_retrieved": 5,
+     "reference_chunk_cited_by_model": 4,
+     "detail": [
+      {
+       "id": "s01",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "s02",
+       "retrieval_hit": false,
+       "cited_reference_chunk": false,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "s03",
+       "retrieval_hit": false,
+       "cited_reference_chunk": false,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "s04",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "s05",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "s06",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "s07",
+       "retrieval_hit": true,
+       "cited_reference_chunk": false,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "s08",
+       "retrieval_hit": false,
+       "cited_reference_chunk": false,
+       "predicted": "SUPPORTED"
+      }
+     ]
+    }
+   },
+   "per_item": [
+    {
+     "id": "s01",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 509.3,
+     "prompt_tokens": 591,
+     "completion_tokens": 20,
+     "retrieved": [
+      "D-54",
+      "docs/decisions/DIETARY-AUDIT-D54.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+     ],
+     "evidence_ids": [
+      "D-54"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "The NASHA concept is beef-free and pork-free."
+    },
+    {
+     "id": "s02",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 959.5,
+     "prompt_tokens": 1099,
+     "completion_tokens": 34,
+     "retrieved": [
+      "docs/company/BEER-AND-NA-BUSINESS-SYSTEM.md#5",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+     ],
+     "evidence_ids": [
+      "5"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "The beer may not be fined with gelatin."
+    },
+    {
+     "id": "s03",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 963.3,
+     "prompt_tokens": 1082,
+     "completion_tokens": 35,
+     "retrieved": [
+      "docs/company/BEER-AND-NA-BUSINESS-SYSTEM.md#5",
+      "docs/decisions/OPEN-QUESTIONS.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1"
+     ],
+     "evidence_ids": [
+      "1"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "Whether isinglass-fined beer can be labelled vegetarian is an open question."
+    },
+    {
+     "id": "s04",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 551.0,
+     "prompt_tokens": 466,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-26",
+      "D-66",
+      "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1"
+     ],
+     "evidence_ids": [
+      "D-66"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "No NASHA logo exists and the lettering is a disclosed temporary typographic placeholder."
+    },
+    {
+     "id": "s05",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 536.0,
+     "prompt_tokens": 543,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-66",
+      "docs/company/BRAND-EXPERIENCE-AND-RESPONSIBLE-ALCOHOL.md#1",
+      "docs/decisions/DECISION-GATES.md#10"
+     ],
+     "evidence_ids": [
+      "D-66"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "A Logo Protection Directive has been adopted."
+    },
+    {
+     "id": "s06",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 543.7,
+     "prompt_tokens": 549,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-81",
+      "D-82",
+      "README.md#4"
+     ],
+     "evidence_ids": [
+      "D-81"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "Sprint 22 was a founder direction change to a zero-dollar pre-capital build."
+    },
+    {
+     "id": "s07",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 721.2,
+     "prompt_tokens": 577,
+     "completion_tokens": 30,
+     "retrieved": [
+      "beer/OPENING-BEER-PROGRAM-V1.md#2",
+      "docs/company/AUSTIN-COMMISSARY-RESEARCH.md#2",
+      "research/CORE5-PRODUCT-SYSTEM.md#17"
+     ],
+     "evidence_ids": [
+      "research/CORE5-PRODUCT-SYSTEM.md#17"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "The opening beer list is limited to ten taps or fewer."
+    },
+    {
+     "id": "s08",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1005.8,
+     "prompt_tokens": 554,
+     "completion_tokens": 41,
+     "retrieved": [
+      "D-39",
+      "README.md#7",
+      "docs/decisions/BREWERY-SCALE-DECISION-ANALYSIS.md#1"
+     ],
+     "evidence_ids": [
+      "README.md#7",
+      "docs/decisions/BREWERY-SCALE-DECISION-ANALYSIS.md#1"
+     ],
+     "label": "SUPPORTED",
+     "category": null,
+     "claim": "The 24-handle bar is the visual canon for the locked DNA bar."
+    },
+    {
+     "id": "u01",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 1128.0,
+     "prompt_tokens": 1215,
+     "completion_tokens": 40,
+     "retrieved": [
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4",
+      "food/PHOTOGRAPHY-PROTOCOL-T1.md#2"
+     ],
+     "evidence_ids": [
+      "4"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "The beer is fined with gelatin."
+    },
+    {
+     "id": "u02",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 533.9,
+     "prompt_tokens": 488,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#2",
+      "food/t1-test-sheets/11-chicken-65-totopos-prototype-protocol-FROZEN.md#0"
+     ],
+     "evidence_ids": [
+      "D-54"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "The kitchen cooks with beef tallow."
+    },
+    {
+     "id": "u03",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "MALFORMED_JSON",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "MALFORMED_JSON"
+     ],
+     "attempts": 2,
+     "ms": 3544.3,
+     "prompt_tokens": 1256,
+     "completion_tokens": 143,
+     "retrieved": [
+      "docs/CULTURAL-REVIEW-PACK.md#4",
+      "docs/company/COMPETITIVE-DIFFERENTIATION.md#6",
+      "docs/decisions/DIETARY-AUDIT-D54.md#1"
+     ],
+     "evidence_ids": [],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "NASHA serves pork belly tacos."
+    },
+    {
+     "id": "u04",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 575.3,
+     "prompt_tokens": 590,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-66",
+      "README.md#13",
+      "docs/company/AUSTIN-COMMISSARY-RESEARCH.md#5"
+     ],
+     "evidence_ids": [
+      "D-66"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "The final NASHA logo was approved last month."
+    },
+    {
+     "id": "u05",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 882.7,
+     "prompt_tokens": 677,
+     "completion_tokens": 32,
+     "retrieved": [
+      "D-83",
+      "beer/OPENING-BEER-PROGRAM-V1.md#2",
+      "beer/OPENING-BEER-PROGRAM-V1.md#6"
+     ],
+     "evidence_ids": [
+      "beer/OPENING-BEER-PROGRAM-V1.md#2"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "The flagship will open with 24 beer taps."
+    },
+    {
+     "id": "u06",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 640.7,
+     "prompt_tokens": 479,
+     "completion_tokens": 20,
+     "retrieved": [
+      "D-81",
+      "docs/CULTURAL-REVIEW-PACK.md#0",
+      "docs/decisions/DECISION-GATES.md#4"
+     ],
+     "evidence_ids": [
+      "D-81"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "NASHA has raised 5 million dollars of funding."
+    },
+    {
+     "id": "u07",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 1826.4,
+     "prompt_tokens": 981,
+     "completion_tokens": 63,
+     "retrieved": [
+      "docs/OPERATIONAL-REQUIREMENTS-CORE5.md#0",
+      "docs/company/NASHA-CONFLICT-FACTS.md#2",
+      "docs/company/OPERATING-DAY-MODEL.md#6"
+     ],
+     "evidence_ids": [
+      "docs/company/NASHA-CONFLICT-FACTS.md#2",
+      "docs/OPERATIONAL-REQUIREMENTS-CORE5.md#0"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "NASHA operates 12 restaurants."
+    },
+    {
+     "id": "u08",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 1499.2,
+     "prompt_tokens": 1239,
+     "completion_tokens": 51,
+     "retrieved": [
+      "docs/company/NASHA-CONFLICT-FACTS.md#2",
+      "docs/company/NASHA-CONFLICT-FACTS.md#6",
+      "docs/company/NASHA-CONFLICT-FACTS.md#7"
+     ],
+     "evidence_ids": [
+      "7",
+      "2",
+      "6"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "The Austin restaurant opens in the second quarter."
+    },
+    {
+     "id": "u09",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1368.4,
+     "prompt_tokens": 405,
+     "completion_tokens": 17,
+     "retrieved": [
+      "docs/company/OPERATING-DAY-MODEL.md#0",
+      "docs/company/OPERATING-DAY-MODEL.md#3",
+      "docs/company/OPERATING-DAY-MODEL.md#6"
+     ],
+     "evidence_ids": [],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "NASHA operates a brewery in Dallas."
+    },
+    {
+     "id": "u10",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 596.7,
+     "prompt_tokens": 529,
+     "completion_tokens": 22,
+     "retrieved": [
+      "README.md#2",
+      "docs/decisions/ATTORNEY-QUESTIONS.md#1",
+      "docs/decisions/DECISION-GATES.md#7"
+     ],
+     "evidence_ids": [
+      "README.md#2"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "The brewery is licensed by TABC."
+    },
+    {
+     "id": "u11",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "MALFORMED_JSON",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 3781.7,
+     "prompt_tokens": 1258,
+     "completion_tokens": 143,
+     "retrieved": [
+      "D-37",
+      "docs/decisions/DIETARY-AUDIT-D54.md#1",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1"
+     ],
+     "evidence_ids": [
+      "D-37",
+      "docs/decisions/OPEN-QUESTIONS.md",
+      "docs/decisions/REJECTED.md",
+      "phase-one/06-food-program.md",
+      "phase-one/01-regional-research-and-pairings.md"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "Supplier S99 gives a 90 percent discount."
+    },
+    {
+     "id": "u12",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 1118.7,
+     "prompt_tokens": 1116,
+     "completion_tokens": 35,
+     "retrieved": [
+      "docs/company/BEER-AND-NA-BUSINESS-SYSTEM.md#9",
+      "docs/company/OPERATING-DAY-MODEL.md#1",
+      "docs/company/OPERATING-DAY-MODEL.md#5"
+     ],
+     "evidence_ids": [
+      "9"
+     ],
+     "label": "UNSUPPORTED",
+     "category": null,
+     "claim": "NASHA sells beer in cans nationwide."
+    }
+   ],
+   "misclassified": [
+    {
+     "id": "s02",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "FAILED",
+     "category": "uncategorised",
+     "claim": "The beer may not be fined with gelatin.",
+     "reasons": null
+    },
+    {
+     "id": "s03",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "FAILED",
+     "category": "uncategorised",
+     "claim": "Whether isinglass-fined beer can be labelled vegetarian is an open question.",
+     "reasons": null
+    },
+    {
+     "id": "u05",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "uncategorised",
+     "claim": "The flagship will open with 24 beer taps.",
+     "reasons": null
+    },
+    {
+     "id": "u06",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "uncategorised",
+     "claim": "NASHA has raised 5 million dollars of funding.",
+     "reasons": null
+    }
+   ]
+  },
+  {
+   "dataset": {
+    "name": "claim-grounding-v2-holdout",
+    "role": "holdout",
+    "items": 37,
+    "sha256": "2d97d0dc948662f83a8ef0b56d9880646824bc2a98e96be9a1a3c8aca60cc271"
+   },
+   "metrics": {
+    "n": 37,
+    "accuracy": 0.5676,
+    "false_acceptance_rate": 0.3636,
+    "false_rejection_rate": 0.5333,
+    "precision_supported": 0.4667,
+    "recall_supported": 0.4667,
+    "unsupported_recall": 0.6364,
+    "abstention_rate": 0.1622,
+    "false_acceptances": 8,
+    "items_supported": 15,
+    "items_unsupported": 22
+   },
+   "criteria_preregistered_holdout_thresholds": {
+    "false_acceptance_rate": {
+     "value": 0.3636,
+     "threshold": "<= 0.05",
+     "passed": false
+    },
+    "false_rejection_rate": {
+     "value": 0.5333,
+     "threshold": "<= 0.4",
+     "passed": false
+    },
+    "accuracy": {
+     "value": 0.5676,
+     "threshold": ">= 0.8",
+     "passed": false
+    },
+    "category_false_acceptance": {
+     "value": {
+      "negation": 0.2,
+      "geographic": 0.5,
+      "entity": 0.6,
+      "numeric": 0.25,
+      "temporal": 0.4,
+      "wording": 0.0
+     },
+     "threshold": "<= 0.15 where >= 3 unsupported items",
+     "passed": false,
+     "failing": [
+      "negation",
+      "entity",
+      "numeric",
+      "temporal"
+     ]
+    }
+   },
+   "meets_preregistered_holdout_thresholds": false,
+   "criteria_v1_harness": {
+    "false_support_rate": {
+     "value": 0.3636,
+     "threshold": "<= 0.1",
+     "passed": false
+    },
+    "unsupported_recall": {
+     "value": 0.6364,
+     "threshold": ">= 0.9",
+     "passed": false
+    },
+    "supported_recall": {
+     "value": 0.4667,
+     "threshold": ">= 0.6",
+     "passed": false
+    },
+    "accuracy": {
+     "value": 0.5676,
+     "threshold": ">= 0.8",
+     "passed": false
+    }
+   },
+   "meets_v1_harness_criteria": false,
+   "by_category_unsupported": {
+    "negation": {
+     "unsupported": 5,
+     "false_accepted": 1,
+     "false_acceptance_rate": 0.2
+    },
+    "geographic": {
+     "unsupported": 2,
+     "false_accepted": 1,
+     "false_acceptance_rate": 0.5
+    },
+    "entity": {
+     "unsupported": 5,
+     "false_accepted": 3,
+     "false_acceptance_rate": 0.6
+    },
+    "numeric": {
+     "unsupported": 4,
+     "false_accepted": 1,
+     "false_acceptance_rate": 0.25
+    },
+    "temporal": {
+     "unsupported": 5,
+     "false_accepted": 2,
+     "false_acceptance_rate": 0.4
+    },
+    "wording": {
+     "unsupported": 1,
+     "false_accepted": 0,
+     "false_acceptance_rate": 0.0
+    }
+   },
+   "by_category_supported": {
+    "negation": {
+     "supported": 2,
+     "rejected": 0
+    },
+    "entity": {
+     "supported": 6,
+     "rejected": 4
+    },
+    "wording": {
+     "supported": 3,
+     "rejected": 1
+    },
+    "numeric": {
+     "supported": 2,
+     "rejected": 1
+    },
+    "temporal": {
+     "supported": 1,
+     "rejected": 1
+    },
+    "geographic": {
+     "supported": 1,
+     "rejected": 1
+    }
+   },
+   "summary": {
+    "items": 37,
+    "completed": 31,
+    "failed_items": 6,
+    "not_completed": 0,
+    "structured_output_valid_first_try": 25,
+    "structured_output_valid_after_retry": 6,
+    "invalid_after_retries": 6,
+    "timeouts": 0,
+    "retries": 12,
+    "error_classes": {
+     "UNGROUNDED_EVIDENCE_ID": 18
+    },
+    "latency_ms": {
+     "n": 37,
+     "mean": 2213.2,
+     "p50": 2114.4,
+     "p95": 3068.1,
+     "max": 3422.4
+    },
+    "total_prompt_tokens": 27162,
+    "total_completion_tokens": 1263,
+    "grounding_on_supported_items": {
+     "items": 15,
+     "reference_chunk_retrieved": 14,
+     "reference_chunk_cited_by_model": 10,
+     "detail": [
+      {
+       "id": "h01",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "h02",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h03",
+       "retrieval_hit": true,
+       "cited_reference_chunk": false,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "h04",
+       "retrieval_hit": true,
+       "cited_reference_chunk": false,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h05",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "h06",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h07",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h08",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "h09",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "h10",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "SUPPORTED"
+      },
+      {
+       "id": "h11",
+       "retrieval_hit": true,
+       "cited_reference_chunk": false,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h12",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h13",
+       "retrieval_hit": false,
+       "cited_reference_chunk": false,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h14",
+       "retrieval_hit": true,
+       "cited_reference_chunk": true,
+       "predicted": "UNSUPPORTED"
+      },
+      {
+       "id": "h15",
+       "retrieval_hit": true,
+       "cited_reference_chunk": false,
+       "predicted": "SUPPORTED"
+      }
+     ]
+    }
+   },
+   "per_item": [
+    {
+     "id": "h01",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1666.5,
+     "prompt_tokens": 486,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#2"
+     ],
+     "evidence_ids": [
+      "D-54"
+     ],
+     "label": "SUPPORTED",
+     "category": "negation",
+     "claim": "The concept is not called halal; a no-beef, no-pork policy is not halal."
+    },
+    {
+     "id": "h02",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2521.4,
+     "prompt_tokens": 1168,
+     "completion_tokens": 40,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#3"
+     ],
+     "evidence_ids": [
+      "D-54"
+     ],
+     "label": "SUPPORTED",
+     "category": "entity",
+     "claim": "The dietary policy applies to the kids menu as well."
+    },
+    {
+     "id": "h03",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1956.7,
+     "prompt_tokens": 584,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1",
+      "food/t1-test-sheets/11-chicken-65-totopos-prototype-protocol-FROZEN.md#0"
+     ],
+     "evidence_ids": [
+      "D-54"
+     ],
+     "label": "SUPPORTED",
+     "category": "negation",
+     "claim": "Hidden derivatives such as lard, tallow, suet and gelatin are excluded."
+    },
+    {
+     "id": "h04",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2455.3,
+     "prompt_tokens": 1166,
+     "completion_tokens": 36,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0",
+      "food/MENU-STORYTELLING-V1.md#2"
+     ],
+     "evidence_ids": [
+      "0"
+     ],
+     "label": "SUPPORTED",
+     "category": "entity",
+     "claim": "Paneer, cauliflower, mushrooms, lentils and beans are among the primary proteins."
+    },
+    {
+     "id": "h05",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2836.8,
+     "prompt_tokens": 1152,
+     "completion_tokens": 54,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1"
+     ],
+     "evidence_ids": [
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0"
+     ],
+     "label": "SUPPORTED",
+     "category": "wording",
+     "claim": "Vegetarian food is a major pillar of the menu, not an accommodation."
+    },
+    {
+     "id": "h06",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1387.9,
+     "prompt_tokens": 396,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-14",
+      "D-17",
+      "beer/OPENING-BEER-PROGRAM-V1.md#1"
+     ],
+     "evidence_ids": [
+      "D-17"
+     ],
+     "label": "SUPPORTED",
+     "category": "numeric",
+     "claim": "Beer portfolio v2 replaced the twelve Phase One beers."
+    },
+    {
+     "id": "h07",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1432.5,
+     "prompt_tokens": 434,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-17",
+      "beer/OPENING-BEER-PROGRAM-V1.md#1",
+      "docs/company/BEER-AND-NA-BUSINESS-SYSTEM.md#5"
+     ],
+     "evidence_ids": [
+      "D-17"
+     ],
+     "label": "SUPPORTED",
+     "category": "entity",
+     "claim": "The Raja lager was removed from the beer portfolio."
+    },
+    {
+     "id": "h08",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1822.8,
+     "prompt_tokens": 549,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-17",
+      "beer/OPENING-BEER-PROGRAM-V1.md#12",
+      "beer/pilot-briefs/00-BREWER-HANDOFF.md#11"
+     ],
+     "evidence_ids": [
+      "D-17"
+     ],
+     "label": "SUPPORTED",
+     "category": "entity",
+     "claim": "Dunkelweizen, Pilsner and Vienna were promoted."
+    },
+    {
+     "id": "h09",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2681.4,
+     "prompt_tokens": 708,
+     "completion_tokens": 39,
+     "retrieved": [
+      "D-51",
+      "beer/OPENING-BEER-PROGRAM-V1.md#14",
+      "docs/decisions/CORRECTIONS.md#3"
+     ],
+     "evidence_ids": [
+      "D-51",
+      "beer/OPENING-BEER-PROGRAM-V1.md#14"
+     ],
+     "label": "SUPPORTED",
+     "category": "numeric",
+     "claim": "The feasibility baseline uses 15 to 30 barrel scenarios."
+    },
+    {
+     "id": "h10",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2022.0,
+     "prompt_tokens": 605,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-51",
+      "docs/decisions/BREWERY-SCALE-DECISION-ANALYSIS.md#6",
+      "docs/decisions/DECISION-GATES.md#11"
+     ],
+     "evidence_ids": [
+      "D-51"
+     ],
+     "label": "SUPPORTED",
+     "category": "wording",
+     "claim": "Real vessel sizing is a brewer's decision driven by demand."
+    },
+    {
+     "id": "h11",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 3068.1,
+     "prompt_tokens": 1215,
+     "completion_tokens": 60,
+     "retrieved": [
+      "beer/OPENING-BEER-PROGRAM-V1.md#17",
+      "beer/pilot-briefs/00-BREWER-HANDOFF.md#11",
+      "beer/pilot-briefs/00-BREWER-HANDOFF.md#15"
+     ],
+     "evidence_ids": [
+      "beer/OPENING-BEER-PROGRAM-V1.md#17"
+     ],
+     "label": "SUPPORTED",
+     "category": "temporal",
+     "claim": "Ingredient-driven beers need a TTB formula review first."
+    },
+    {
+     "id": "h12",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1974.1,
+     "prompt_tokens": 598,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-75",
+      "README.md#16",
+      "docs/company/BEER-AND-NA-BUSINESS-SYSTEM.md#11"
+     ],
+     "evidence_ids": [
+      "D-75"
+     ],
+     "label": "SUPPORTED",
+     "category": "entity",
+     "claim": "The Core 5 development program is founder-selected."
+    },
+    {
+     "id": "h13",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2746.2,
+     "prompt_tokens": 592,
+     "completion_tokens": 56,
+     "retrieved": [
+      "docs/company/AUSTIN-COMMISSARY-RESEARCH.md#4",
+      "docs/company/COMMISSARY-SHORTLIST.md#1",
+      "research/CORE5-PRODUCT-SYSTEM.md#13"
+     ],
+     "evidence_ids": [
+      "docs/company/AUSTIN-COMMISSARY-RESEARCH.md#4",
+      "docs/company/COMMISSARY-SHORTLIST.md#1",
+      "research/CORE5-PRODUCT-SYSTEM.md#13"
+     ],
+     "label": "SUPPORTED",
+     "category": "geographic",
+     "claim": "Austin hood and fire rules and tandoor safety were not found in the research."
+    },
+    {
+     "id": "h14",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2483.4,
+     "prompt_tokens": 498,
+     "completion_tokens": 53,
+     "retrieved": [
+      "docs/EVIDENCE-INTAKE.md#0",
+      "docs/company/OPERATING-DAY-MODEL.md#6",
+      "research/CORE5-PRODUCT-SYSTEM.md#14"
+     ],
+     "evidence_ids": [
+      "research/CORE5-PRODUCT-SYSTEM.md#14",
+      "docs/EVIDENCE-INTAKE.md#0",
+      "docs/company/OPERATING-DAY-MODEL.md#6"
+     ],
+     "label": "SUPPORTED",
+     "category": "wording",
+     "claim": "The financial model refuses to run without sourced inputs."
+    },
+    {
+     "id": "h15",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2136.7,
+     "prompt_tokens": 586,
+     "completion_tokens": 29,
+     "retrieved": [
+      "docs/CULTURAL-REVIEW-PACK.md#7",
+      "research/CORE5-PRODUCT-SYSTEM.md#18",
+      "research/CORE5-PRODUCT-SYSTEM.md#4"
+     ],
+     "evidence_ids": [
+      "research/CORE5-PRODUCT-SYSTEM.md#18"
+     ],
+     "label": "SUPPORTED",
+     "category": "entity",
+     "claim": "The quesadilla puts cheese against both tortilla faces as a moisture barrier."
+    },
+    {
+     "id": "h16",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2532.9,
+     "prompt_tokens": 1230,
+     "completion_tokens": 36,
+     "retrieved": [
+      "docs/OPERATIONAL-REQUIREMENTS-CORE5.md#2",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1",
+      "research/CORE5-PRODUCT-SYSTEM.md#12"
+     ],
+     "evidence_ids": [
+      "1"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "negation",
+     "claim": "The kitchen uses lard in its tortillas."
+    },
+    {
+     "id": "h17",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1646.6,
+     "prompt_tokens": 490,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-54",
+      "docs/company/STAFFING-ARCHITECTURE.md#4",
+      "docs/decisions/DECISION-GATES.md#13"
+     ],
+     "evidence_ids": [
+      "D-54"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "negation",
+     "claim": "The concept is certified halal."
+    },
+    {
+     "id": "h18",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2495.5,
+     "prompt_tokens": 1180,
+     "completion_tokens": 35,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+     ],
+     "evidence_ids": [
+      "4"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "negation",
+     "claim": "Gelatin is used to clarify the beer."
+    },
+    {
+     "id": "h19",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1930.8,
+     "prompt_tokens": 568,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-54",
+      "docs/decisions/DIETARY-AUDIT-D54.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0"
+     ],
+     "evidence_ids": [
+      "D-54"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "negation",
+     "claim": "Pork is a primary protein on the menu."
+    },
+    {
+     "id": "h20",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2985.7,
+     "prompt_tokens": 1166,
+     "completion_tokens": 52,
+     "retrieved": [
+      "D-54",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#3"
+     ],
+     "evidence_ids": [
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "negation",
+     "claim": "The kids menu is exempt from the dietary policy."
+    },
+    {
+     "id": "h21",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2731.0,
+     "prompt_tokens": 710,
+     "completion_tokens": 39,
+     "retrieved": [
+      "D-51",
+      "beer/OPENING-BEER-PROGRAM-V1.md#14",
+      "docs/decisions/CORRECTIONS.md#3"
+     ],
+     "evidence_ids": [
+      "D-51",
+      "beer/OPENING-BEER-PROGRAM-V1.md#14"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "geographic",
+     "claim": "The feasibility baseline uses 15 to 30 barrel scenarios in Houston."
+    },
+    {
+     "id": "h22",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1847.4,
+     "prompt_tokens": 541,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-17",
+      "beer/OPENING-BEER-PROGRAM-V1.md#2",
+      "docs/decisions/REJECTED.md#1"
+     ],
+     "evidence_ids": [
+      "D-17"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "entity",
+     "claim": "Raja lager was removed and replaced by Mango Gold."
+    },
+    {
+     "id": "h23",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1417.4,
+     "prompt_tokens": 384,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-14",
+      "D-17",
+      "README.md#3"
+     ],
+     "evidence_ids": [
+      "D-17"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "entity",
+     "claim": "Beer portfolio v3 replaced the twelve Phase One beers."
+    },
+    {
+     "id": "h24",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2009.4,
+     "prompt_tokens": 624,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-51",
+      "docs/decisions/CORRECTIONS.md#3",
+      "research/CORE5-PRODUCT-SYSTEM.md#6"
+     ],
+     "evidence_ids": [
+      "D-51"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "numeric",
+     "claim": "The feasibility baseline uses 5 to 10 barrel scenarios."
+    },
+    {
+     "id": "h25",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1392.6,
+     "prompt_tokens": 398,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-14",
+      "D-17",
+      "beer/OPENING-BEER-PROGRAM-V1.md#1"
+     ],
+     "evidence_ids": [
+      "D-17"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "numeric",
+     "claim": "Beer portfolio v2 replaces Phase One's 20 beers."
+    },
+    {
+     "id": "h26",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1905.8,
+     "prompt_tokens": 574,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-17",
+      "beer/OPENING-BEER-PROGRAM-V1.md#2",
+      "beer/pilot-briefs/00-BREWER-HANDOFF.md#11"
+     ],
+     "evidence_ids": [
+      "D-17"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "entity",
+     "claim": "Dunkelweizen, Pilsner and Vienna were promoted and Raja lager became the flagship."
+    },
+    {
+     "id": "h27",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2560.6,
+     "prompt_tokens": 1178,
+     "completion_tokens": 40,
+     "retrieved": [
+      "docs/company/NASHA-CONFLICT-FACTS.md#5",
+      "docs/company/NASHA-CONFLICT-FACTS.md#7",
+      "docs/company/STAFFING-ARCHITECTURE.md#4"
+     ],
+     "evidence_ids": [
+      "5",
+      "7"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "temporal",
+     "claim": "NASHA holds a TABC permit for its Austin location."
+    },
+    {
+     "id": "h28",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2555.2,
+     "prompt_tokens": 1197,
+     "completion_tokens": 40,
+     "retrieved": [
+      "docs/company/AUSTIN-MARKET-MAP.md#2",
+      "docs/company/COMPETITIVE-DIFFERENTIATION.md#2",
+      "docs/company/COMPETITIVE-DIFFERENTIATION.md#6"
+     ],
+     "evidence_ids": [
+      "Nasha, a restaurant"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "geographic",
+     "claim": "The brewery opened in Round Rock last spring."
+    },
+    {
+     "id": "h29",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 3026.5,
+     "prompt_tokens": 591,
+     "completion_tokens": 56,
+     "retrieved": [
+      "beer/OPENING-BEER-PROGRAM-V1.md#0",
+      "food/MENU-STORYTELLING-V1.md#0",
+      "research/CORE5-PRODUCT-SYSTEM.md#14"
+     ],
+     "evidence_ids": [
+      "beer/OPENING-BEER-PROGRAM-V1.md#0",
+      "food/MENU-STORYTELLING-V1.md#0",
+      "research/CORE5-PRODUCT-SYSTEM.md#14"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "temporal",
+     "claim": "The Core 5 development program has been completed and every item is on the permanent menu."
+    },
+    {
+     "id": "h30",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1823.9,
+     "prompt_tokens": 540,
+     "completion_tokens": 22,
+     "retrieved": [
+      "D-15",
+      "docs/company/COMPETITIVE-DIFFERENTIATION.md#5",
+      "food/MENU-STORYTELLING-V1.md#5"
+     ],
+     "evidence_ids": [
+      "D-15"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "temporal",
+     "claim": "The tandoor throughput has been tested and approved."
+    },
+    {
+     "id": "h31",
+     "predicted": "SUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 2114.4,
+     "prompt_tokens": 525,
+     "completion_tokens": 37,
+     "retrieved": [
+      "beer/pilot-briefs/00-BREWER-HANDOFF.md#16",
+      "docs/decisions/BREWERY-SCALE-DECISION-ANALYSIS.md#6",
+      "docs/decisions/DECISION-GATES.md#11"
+     ],
+     "evidence_ids": [
+      "docs/decisions/BREWERY-SCALE-DECISION-ANALYSIS.md#6"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "temporal",
+     "claim": "The brewer has signed off the vessel sizing."
+    },
+    {
+     "id": "h32",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1894.9,
+     "prompt_tokens": 487,
+     "completion_tokens": 31,
+     "retrieved": [
+      "docs/company/STAFFING-ARCHITECTURE.md#1",
+      "docs/company/STAFFING-ARCHITECTURE.md#2",
+      "docs/company/STAFFING-ARCHITECTURE.md#5"
+     ],
+     "evidence_ids": [
+      "docs/company/STAFFING-ARCHITECTURE.md#2"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "entity",
+     "claim": "NASHA employs forty staff."
+    },
+    {
+     "id": "h33",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1504.6,
+     "prompt_tokens": 403,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-20",
+      "D-26",
+      "D-66"
+     ],
+     "evidence_ids": [
+      "D-66"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "temporal",
+     "claim": "The brand logo was trademarked in 2026."
+    },
+    {
+     "id": "h34",
+     "predicted": "UNSUPPORTED",
+     "status": "FAILED",
+     "error": "UNGROUNDED_EVIDENCE_ID",
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID",
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2641.5,
+     "prompt_tokens": 1215,
+     "completion_tokens": 41,
+     "retrieved": [
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#1",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#4"
+     ],
+     "evidence_ids": [
+      "0"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "entity",
+     "claim": "The chicken supplier is Acme Farms."
+    },
+    {
+     "id": "h35",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 2266.4,
+     "prompt_tokens": 713,
+     "completion_tokens": 48,
+     "retrieved": [
+      "docs/company/MINIMUM-LAWFUL-FOOD-TEST.md#0",
+      "docs/company/MINIMUM-LAWFUL-FOOD-TEST.md#1",
+      "food/MENU-STORYTELLING-V1.md#7"
+     ],
+     "evidence_ids": [
+      "docs/company/MINIMUM-LAWFUL-FOOD-TEST.md#1"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "numeric",
+     "claim": "Customer satisfaction is 92 percent."
+    },
+    {
+     "id": "h36",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [],
+     "attempts": 1,
+     "ms": 1990.4,
+     "prompt_tokens": 599,
+     "completion_tokens": 21,
+     "retrieved": [
+      "D-51",
+      "beer/pilot-briefs/00-BREWER-HANDOFF.md#13",
+      "docs/OPERATIONAL-REQUIREMENTS-CORE5.md#8"
+     ],
+     "evidence_ids": [
+      "D-51"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "numeric",
+     "claim": "The flagship seats 200 guests."
+    },
+    {
+     "id": "h37",
+     "predicted": "UNSUPPORTED",
+     "status": "OK",
+     "error": null,
+     "errors_seen": [
+      "UNGROUNDED_EVIDENCE_ID"
+     ],
+     "attempts": 2,
+     "ms": 3422.4,
+     "prompt_tokens": 1112,
+     "completion_tokens": 75,
+     "retrieved": [
+      "D-54",
+      "docs/company/CORE5-COMMERCIAL-LOGIC.md#10",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0"
+     ],
+     "evidence_ids": [
+      "docs/company/CORE5-COMMERCIAL-LOGIC.md#10",
+      "food/DIETARY-POLICY-AND-INGREDIENT-SPEC.md#0",
+      "D-54"
+     ],
+     "label": "UNSUPPORTED",
+     "category": "wording",
+     "claim": "The menu is mostly vegetarian."
+    }
+   ],
+   "misclassified": [
+    {
+     "id": "h02",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "OK",
+     "category": "entity",
+     "claim": "The dietary policy applies to the kids menu as well.",
+     "reasons": null
+    },
+    {
+     "id": "h04",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "FAILED",
+     "category": "entity",
+     "claim": "Paneer, cauliflower, mushrooms, lentils and beans are among the primary proteins.",
+     "reasons": null
+    },
+    {
+     "id": "h06",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "OK",
+     "category": "numeric",
+     "claim": "Beer portfolio v2 replaced the twelve Phase One beers.",
+     "reasons": null
+    },
+    {
+     "id": "h07",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "OK",
+     "category": "entity",
+     "claim": "The Raja lager was removed from the beer portfolio.",
+     "reasons": null
+    },
+    {
+     "id": "h11",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "OK",
+     "category": "temporal",
+     "claim": "Ingredient-driven beers need a TTB formula review first.",
+     "reasons": null
+    },
+    {
+     "id": "h12",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "OK",
+     "category": "entity",
+     "claim": "The Core 5 development program is founder-selected.",
+     "reasons": null
+    },
+    {
+     "id": "h13",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "OK",
+     "category": "geographic",
+     "claim": "Austin hood and fire rules and tandoor safety were not found in the research.",
+     "reasons": null
+    },
+    {
+     "id": "h14",
+     "label": "SUPPORTED",
+     "predicted": "UNSUPPORTED",
+     "detail": "OK",
+     "category": "wording",
+     "claim": "The financial model refuses to run without sourced inputs.",
+     "reasons": null
+    },
+    {
+     "id": "h19",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "negation",
+     "claim": "Pork is a primary protein on the menu.",
+     "reasons": null
+    },
+    {
+     "id": "h21",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "geographic",
+     "claim": "The feasibility baseline uses 15 to 30 barrel scenarios in Houston.",
+     "reasons": null
+    },
+    {
+     "id": "h22",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "entity",
+     "claim": "Raja lager was removed and replaced by Mango Gold.",
+     "reasons": null
+    },
+    {
+     "id": "h23",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "entity",
+     "claim": "Beer portfolio v3 replaced the twelve Phase One beers.",
+     "reasons": null
+    },
+    {
+     "id": "h24",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "numeric",
+     "claim": "The feasibility baseline uses 5 to 10 barrel scenarios.",
+     "reasons": null
+    },
+    {
+     "id": "h26",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "entity",
+     "claim": "Dunkelweizen, Pilsner and Vienna were promoted and Raja lager became the flagship.",
+     "reasons": null
+    },
+    {
+     "id": "h30",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "temporal",
+     "claim": "The tandoor throughput has been tested and approved.",
+     "reasons": null
+    },
+    {
+     "id": "h31",
+     "label": "UNSUPPORTED",
+     "predicted": "SUPPORTED",
+     "detail": "OK",
+     "category": "temporal",
+     "claim": "The brewer has signed off the vessel sizing.",
+     "reasons": null
+    }
+   ]
+  }
+ ],
+ "limits": [
+  "labels were written by the project author; both datasets are small and about one frozen synthetic corpus",
+  "one model, one prompt, one run at temperature 0: this is a single measurement, not a distribution",
+  "this prompt variant was chosen after exploring prompts on the v1 development set, AFTER the holdout had been run once with prompt A: the holdout is no longer unseen for this model task",
+  "retrieval (top-3 authoritative passages) is shared with the deterministic harness; a model cannot be right about a passage it was not shown",
+  "meeting thresholds would not make a 1.5B model production-ready"
+ ]
+}

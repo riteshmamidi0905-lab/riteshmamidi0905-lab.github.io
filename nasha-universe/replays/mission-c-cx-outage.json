@@ -1,0 +1,454 @@
+{
+ "recording": {
+  "slug": "mission-c-cx-outage",
+  "title": "Customer Experience Recovery: warehouse outage, fail closed",
+  "scenario": "ops_outage",
+  "scenario_note": "The warehouse tools stop answering: after the retry limit the mission fails closed and proposes nothing.",
+  "mission": "mission-c-customer-recovery",
+  "decision": "none",
+  "final_status": "BLOCKED_NO_DATA",
+  "recorded_at": "2026-11-09T21:53:33Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 17,
+  "note": "The warehouse tools stop answering; after the retry limit nothing is proposed. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0001",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:33.268Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Customer Experience Recovery",
+    "scenario": "ops_outage",
+    "scenario_note": "The warehouse tools stop answering: after the retry limit the mission fails closed and proposes nothing.",
+    "trigger": "A batch of synthetic customer feedback arrived. The comments are generated from a seed and from the warehouse calendar so they can be joined to operations; the link is constructed",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the customer-experience incident"
+     },
+     {
+      "agent": "echon",
+      "task": "Ingest and classify the feedback"
+     },
+     {
+      "agent": "quantix",
+      "task": "Measure customer-experience and operations metrics"
+     },
+     {
+      "agent": "vectra",
+      "task": "Check stock evidence for availability complaints"
+     },
+     {
+      "agent": "aethon",
+      "task": "Analyse root causes and lay out options"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check the analysis and the draft against policy"
+     },
+     {
+      "agent": "novara",
+      "task": "Draft the customer outreach"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check policy and ask THE WEIR to hold the outreach"
+     }
+    ],
+    "planner": "keyword rules and rule-based joins (no language model)"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "fdc2251bc8dbc29c2d4be9193a7c10fadfef950a2c1f8cdb2bf2703b46b6d3e3"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0002",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:33.268Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the customer-experience incident",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "fdc2251bc8dbc29c2d4be9193a7c10fadfef950a2c1f8cdb2bf2703b46b6d3e3",
+   "hash": "e632dcfd23dbf256aa8171692a7227e7c91b121768a023c9da1dc7ccc8bad5ab"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0003",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:33.272Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "e632dcfd23dbf256aa8171692a7227e7c91b121768a023c9da1dc7ccc8bad5ab",
+   "hash": "ba372ab4550a8bc696dddb5b626fabcd3c8ea12311bbd36bc106e3e89453b68a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0004",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:33.272Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "ok": false,
+    "failure": "TOOL_TIMEOUT",
+    "error": "TimeoutError",
+    "ms": 0.0
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "ba372ab4550a8bc696dddb5b626fabcd3c8ea12311bbd36bc106e3e89453b68a",
+   "hash": "ae1f6b8ac931237fff42510258885c59c5604029f4827d077cb35f9271bebb30"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0005",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:33.272Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "workflow_failed",
+   "payload": {
+    "failure_class": "TOOL_TIMEOUT",
+    "retryable": true,
+    "detail": "list_months failed"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "ae1f6b8ac931237fff42510258885c59c5604029f4827d077cb35f9271bebb30",
+   "hash": "597206074214adf08413bbdb9a7f5140e5eeafa76eedc4c84471388dcc0e2e88"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0006",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:33.272Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "retry_scheduled",
+   "payload": {
+    "attempt": 2,
+    "max_attempts": 2,
+    "reason": "TOOL_TIMEOUT",
+    "backoff_ms": 300
+   },
+   "evidence_refs": [],
+   "prev_hash": "597206074214adf08413bbdb9a7f5140e5eeafa76eedc4c84471388dcc0e2e88",
+   "hash": "54c6014eb075e182e98d1b21011f2b120e3278e44f81b0e8d00b868c61ac7514"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0007",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:33.577Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "args": {
+     "attempt": 2
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "54c6014eb075e182e98d1b21011f2b120e3278e44f81b0e8d00b868c61ac7514",
+   "hash": "5a5b6be469e2d151c29b9319e3926ddbc0af78dad80f96df48a90cfb1020b75b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0008",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:33.578Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "ok": false,
+    "failure": "TOOL_TIMEOUT",
+    "error": "TimeoutError",
+    "ms": 0.02
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "5a5b6be469e2d151c29b9319e3926ddbc0af78dad80f96df48a90cfb1020b75b",
+   "hash": "1963d836f07e6c1479c67497b9d5a9f039150fdf1b9855b1047a02e9b142ab1f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0009",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:33.578Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "workflow_failed",
+   "payload": {
+    "failure_class": "TOOL_TIMEOUT",
+    "retryable": false,
+    "detail": "list_months failed"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "1963d836f07e6c1479c67497b9d5a9f039150fdf1b9855b1047a02e9b142ab1f",
+   "hash": "a3c766c7af80de6d88f21acbd68952062d80c23dea24756e83c6fec01f34cf14"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0010",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:33.578Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the customer-experience incident",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "a3c766c7af80de6d88f21acbd68952062d80c23dea24756e83c6fec01f34cf14",
+   "hash": "6a15ea96a3438047bec83d160a7e78b11e981492c4d64345f364b5323fef2b51"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0011",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:33.579Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Fail closed",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "6a15ea96a3438047bec83d160a7e78b11e981492c4d64345f364b5323fef2b51",
+   "hash": "190aaceffd9a6f0ee726569e8591e4355337dccaa38a597d93a4cb3f7a14c8a4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0012",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:33.579Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "fail closed: no remediation is proposed without operational evidence"
+   },
+   "evidence_refs": [
+    {
+     "type": "policy",
+     "id": "fail closed"
+    }
+   ],
+   "prev_hash": "190aaceffd9a6f0ee726569e8591e4355337dccaa38a597d93a4cb3f7a14c8a4",
+   "hash": "92cd413d805a9458e6829a408b532cdf9cb1ebb0afd56fc6b98464f5d37bee86"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0013",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:33.582Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Fail closed",
+    "outcome": "stopped"
+   },
+   "evidence_refs": [],
+   "prev_hash": "92cd413d805a9458e6829a408b532cdf9cb1ebb0afd56fc6b98464f5d37bee86",
+   "hash": "d580042bd52db074906b75644a8a83065da661cde471af5d1067dd33f78fd48d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0014",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:33.582Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "incident_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "7b287cc8369d89ed01327e7934bf6548b128206bca6eddea9d93ee61352bd7f6"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "d580042bd52db074906b75644a8a83065da661cde471af5d1067dd33f78fd48d",
+   "hash": "795b8239a1502cd219b34ee41e56d3672270c05ce734317c2c48ee5a6b5ba267"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0015",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:33.582Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "failed_closed",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "bf468419f31db56ffd604797b7b4ed46e44d41638367d1a501c4996a7342e727"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "795b8239a1502cd219b34ee41e56d3672270c05ce734317c2c48ee5a6b5ba267",
+   "hash": "16dcfd8437a2157cd6bddebeeafd2b985f0e243bdedc90001a3610ac063a27c3"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0016",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:33.582Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-x-outage-c-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-x-outage-c"
+    }
+   ],
+   "prev_hash": "16dcfd8437a2157cd6bddebeeafd2b985f0e243bdedc90001a3610ac063a27c3",
+   "hash": "8734086f5ed2b6239fe818dfc346744e26086b94f1e30dc1d42f002ff3bd1fd2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-x-outage-c-0017",
+   "run_id": "rec-x-outage-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:33.582Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "BLOCKED_NO_DATA",
+    "side_effects": {
+     "messages_sent": 0,
+     "drafts_created": 0,
+     "purchases_made": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The warehouse could not be read, so nothing was proposed. Restore the data source and run the mission again.",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "8734086f5ed2b6239fe818dfc346744e26086b94f1e30dc1d42f002ff3bd1fd2",
+   "hash": "3380ca2685492c61f14c98f3a9c6ba9fc77f76a07fe70fa45e6035d951a7bb17"
+  }
+ ]
+}

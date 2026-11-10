@@ -1,0 +1,1747 @@
+{
+ "recording": {
+  "slug": "mission-d-brew-capacity",
+  "title": "Brewery Production Planning: a fermenter is down",
+  "scenario": "capacity_loss",
+  "scenario_note": "One of two fermenters is down: utilisation passes 100% and batches finish after the horizon.",
+  "mission": "mission-d-brewery-planning",
+  "decision": "reject",
+  "final_status": "REJECTED",
+  "recorded_at": "2026-11-09T21:53:33Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 60,
+  "note": "One of two fermenters is down: utilisation and lateness risks appear. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0001",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:33.790Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Brewery Production Planning",
+    "scenario": "capacity_loss",
+    "scenario_note": "One of two fermenters is down: utilisation passes 100% and batches finish after the horizon.",
+    "trigger": "An eight-week production plan is requested for the two concept beers. Inputs are synthetic; nothing has been brewed",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the production-planning mission"
+     },
+     {
+      "agent": "aethon",
+      "task": "Establish beer demand from warehouse orders"
+     },
+     {
+      "agent": "zybrew",
+      "task": "Plan batches and schedule the fermenters"
+     },
+     {
+      "agent": "vectra",
+      "task": "Check ingredient inventory against requirements"
+     },
+     {
+      "agent": "quantix",
+      "task": "Estimate ingredient cost"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check formulas, schedule and risks"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check policy and ask THE WEIR to hold the draft schedule"
+     }
+    ],
+    "planner": "documented formulas and a deterministic scheduler (no language model)",
+    "assumptions": [
+     "fermentation plus conditioning days per style are placeholders (10 for the wheat beer, 16 for the hazy IPA)",
+     "two fermenters of 120 L; the real pilot scale and capacity are an unresolved decision (G-6)",
+     "transfer loss 5% and packaging loss 3% of the batch",
+     "glass size 473 mL; beer glasses per week = orders x attach rate 0.25 (the same assumption as the digital twin)",
+     "style split 50/50",
+     "on-hand inventory is a seeded synthetic fixture",
+     "ingredient lead time 7 days when anything is short",
+     "no packaged beer is in stock at the start, so early weeks show as uncovered"
+    ]
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "d5bb7087baf2f4204bf7c99c4d42813c32822a8f39debfbd2e852e713d9f53da"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0002",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:33.790Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the production-planning mission",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "d5bb7087baf2f4204bf7c99c4d42813c32822a8f39debfbd2e852e713d9f53da",
+   "hash": "dc283a45201eef3b525f45638588c348ae1c4acbcacebb1ba32271879c65eca9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0003",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:33.796Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the production-planning mission",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "dc283a45201eef3b525f45638588c348ae1c4acbcacebb1ba32271879c65eca9",
+   "hash": "644bfccc50dddd45fab75c677bab4f4d61f531247474331ec0d6fac704aabab1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0004",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:33.796Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Establish beer demand from warehouse orders",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "644bfccc50dddd45fab75c677bab4f4d61f531247474331ec0d6fac704aabab1",
+   "hash": "282457dce6769cbac905df7054e91b64c65a397b85b2e3137c02b1295b5bc220"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0005",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:33.796Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "D0",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "282457dce6769cbac905df7054e91b64c65a397b85b2e3137c02b1295b5bc220",
+   "hash": "21b6186d9fefc00fd279e0b9b4b29433a818039b81204c4f3845e74d4ebc466e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0006",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:33.797Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "D0",
+    "ok": true,
+    "rows": 10,
+    "ms": 1.2,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "fdccd2b506ce"
+    }
+   ],
+   "prev_hash": "21b6186d9fefc00fd279e0b9b4b29433a818039b81204c4f3845e74d4ebc466e",
+   "hash": "f0511955e3ce1509bb261f9cb6ea507f7cdec6794dbec103b223a82d7551e83a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0007",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:33.797Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "company_month",
+    "stage": "D1",
+    "args": {
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "company_month"
+    }
+   ],
+   "prev_hash": "f0511955e3ce1509bb261f9cb6ea507f7cdec6794dbec103b223a82d7551e83a",
+   "hash": "2d820c434d740bfbf236e67b8cb734bf7d146e63fe4e808132907e55a29432a8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0008",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:33.797Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "company_month",
+    "stage": "D1",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.36,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "c574c9115fe2"
+    }
+   ],
+   "prev_hash": "2d820c434d740bfbf236e67b8cb734bf7d146e63fe4e808132907e55a29432a8",
+   "hash": "f8c29dbb51480351c2ed3e4195fb19d0d2a8b3943a83900670fad3b8d0085bae"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0009",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Beer demand",
+    "result": {
+     "month": "2024-10",
+     "orders": 2254,
+     "locations": 4,
+     "weekly_glasses": 127.2,
+     "weekly_l": 60.2,
+     "horizon_weeks": 8,
+     "total_l": 481.7,
+     "by_style_l": {
+      "badshah": 240.8,
+      "amba-haze": 240.8
+     },
+     "demand_change_pct": 0,
+     "basis": "warehouse orders x attach rate 0.25 x 473 mL glass (the attach rate is an assumption)"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "company_month"
+    }
+   ],
+   "prev_hash": "f8c29dbb51480351c2ed3e4195fb19d0d2a8b3943a83900670fad3b8d0085bae",
+   "hash": "ecabbfddccf3a77161b9129936ed57f4e7a35490afda67225b65c4a898980c92"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0010",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Establish beer demand from warehouse orders",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ecabbfddccf3a77161b9129936ed57f4e7a35490afda67225b65c4a898980c92",
+   "hash": "eefbb3c6da24b9047b1fcddb82c688a766c25b21b3a07c451d2025c7f3450d55"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0011",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Plan batches and schedule the fermenters",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "eefbb3c6da24b9047b1fcddb82c688a766c25b21b3a07c451d2025c7f3450d55",
+   "hash": "6e8ecdb32a61b2d4a706fde8fde972ebfd8bdb982aaeadec5404e6fde7231314"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0012",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "load_beer_specs",
+    "stage": "D2",
+    "args": {
+     "source": "nasha_lab.beer_specs"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "beer_specs"
+    }
+   ],
+   "prev_hash": "6e8ecdb32a61b2d4a706fde8fde972ebfd8bdb982aaeadec5404e6fde7231314",
+   "hash": "6037e77bba0475db38f103eebdadaad9a9ea3254f40055ac791bf952fabbb63d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0013",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "load_beer_specs",
+    "stage": "D2",
+    "ok": true,
+    "beers": [
+     "badshah",
+     "amba-haze"
+    ],
+    "pilot_batch_l": 100,
+    "status": "Concept formulation, not brewed or tested",
+    "synthetic": true
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "beer_specs"
+    }
+   ],
+   "prev_hash": "6037e77bba0475db38f103eebdadaad9a9ea3254f40055ac791bf952fabbb63d",
+   "hash": "73387dea5d47e3fcefbcec7c56bcc95ce713ee7eb702178c7243abed86374108"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0014",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "plan_batches",
+    "stage": "D3",
+    "args": {
+     "weeks": 8,
+     "fermenters": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    }
+   ],
+   "prev_hash": "73387dea5d47e3fcefbcec7c56bcc95ce713ee7eb702178c7243abed86374108",
+   "hash": "ff3eb03bc2119002a8a4713e7e0de8c278ee3876ef4b5f46a7a64eec498884f6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0015",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "plan_batches",
+    "stage": "D3",
+    "ok": true,
+    "batches": {
+     "badshah": 3,
+     "amba-haze": 3
+    },
+    "utilisation": 0.875,
+    "schedule_violations": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    }
+   ],
+   "prev_hash": "ff3eb03bc2119002a8a4713e7e0de8c278ee3876ef4b5f46a7a64eec498884f6",
+   "hash": "018f8e13845201b31fa85f732aa4d10c3fd0e685085535b612354c69eb9f3679"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0016",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:33.798Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Batch plan",
+    "result": {
+     "batches": {
+      "badshah": 3,
+      "amba-haze": 3
+     },
+     "packaged_l_per_batch": 92.0,
+     "requirements": {
+      "wheat malt": 44.16,
+      "pilsner malt": 81.48,
+      "bittering hops (g)": 339.0,
+      "flaked oats": 11.31,
+      "dextrin malt": 2.25,
+      "mango puree": 30.0
+     }
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    }
+   ],
+   "prev_hash": "018f8e13845201b31fa85f732aa4d10c3fd0e685085535b612354c69eb9f3679",
+   "hash": "826d5ef44f3f4cd135f89d76c4af61f9c2743869a9003d1fe8ddd2ff73a2dd3c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0017",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Plan batches and schedule the fermenters",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "826d5ef44f3f4cd135f89d76c4af61f9c2743869a9003d1fe8ddd2ff73a2dd3c",
+   "hash": "47d475cbe7b0699872b22024370d3c61d06c0ca9a6236b291f536a7113342ced"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0018",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check ingredient inventory against requirements",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "47d475cbe7b0699872b22024370d3c61d06c0ca9a6236b291f536a7113342ced",
+   "hash": "965fb60a437189fbff3e2f9c1408e028035504b08679d322b337683be708e646"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0019",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "check_inventory",
+    "stage": "D4",
+    "args": {
+     "source": "seeded synthetic fixture"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "fixture",
+     "id": "inventory seed 11"
+    }
+   ],
+   "prev_hash": "965fb60a437189fbff3e2f9c1408e028035504b08679d322b337683be708e646",
+   "hash": "3906949a043c8caff1ae44aa5ea1d026e484b6e86e02af7dbbe8a2caa13c481a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0020",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "check_inventory",
+    "stage": "D4",
+    "ok": true,
+    "short": {
+     "wheat malt": 3.01,
+     "pilsner malt": 9.77,
+     "bittering hops (g)": 52.87,
+     "dextrin malt": 0.19,
+     "mango puree": 4.42
+    },
+    "items": 6,
+    "synthetic": true
+   },
+   "evidence_refs": [
+    {
+     "type": "fixture",
+     "id": "inventory seed 11"
+    }
+   ],
+   "prev_hash": "3906949a043c8caff1ae44aa5ea1d026e484b6e86e02af7dbbe8a2caa13c481a",
+   "hash": "f42792ccf5078b08afd09fe7f78c4648a357025503ce66212d4bc0a7c473f4d8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0021",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Ingredient constraints",
+    "result": {
+     "on_hand": {
+      "bittering hops (g)": 286.13,
+      "dextrin malt": 2.06,
+      "flaked oats": 13.01,
+      "mango puree": 25.58,
+      "pilsner malt": 71.71,
+      "wheat malt": 41.15
+     },
+     "shortfalls": {
+      "wheat malt": 3.01,
+      "pilsner malt": 9.77,
+      "bittering hops (g)": 52.87,
+      "dextrin malt": 0.19,
+      "mango puree": 4.42
+     },
+     "first_brew_day": 7.0,
+     "action": "shortfalls are LISTED for a person; nothing is ordered",
+     "lead_days": 7
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "fixture",
+     "id": "inventory seed 11"
+    }
+   ],
+   "prev_hash": "f42792ccf5078b08afd09fe7f78c4648a357025503ce66212d4bc0a7c473f4d8",
+   "hash": "0e990561942f1b67c81c669374033d0eb959cc0a694f367532a3e979d07a21e0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0022",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check ingredient inventory against requirements",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0e990561942f1b67c81c669374033d0eb959cc0a694f367532a3e979d07a21e0",
+   "hash": "612a5cd101cc8f373870b3e1875f1489d7a88c20ca75fb9e7f2ffda78524edff"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0023",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Estimate ingredient cost",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "612a5cd101cc8f373870b3e1875f1489d7a88c20ca75fb9e7f2ffda78524edff",
+   "hash": "de538bc92f75fc778f29d4e96e21b05f93b19469fd5c6711c4fa0bfd9c55660e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0024",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "beer_economics",
+    "stage": "D5",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "beer_economics"
+    }
+   ],
+   "prev_hash": "de538bc92f75fc778f29d4e96e21b05f93b19469fd5c6711c4fa0bfd9c55660e",
+   "hash": "4c0409876d30e3b274364ee2de52d257f55ced89dad60eb82bbf51e21fcf83d1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0025",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "beer_economics",
+    "stage": "D5",
+    "ok": true,
+    "rows": 4,
+    "ms": 0.41,
+    "source": "scn_beer_economics",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "ac2876bd56e7"
+    }
+   ],
+   "prev_hash": "4c0409876d30e3b274364ee2de52d257f55ced89dad60eb82bbf51e21fcf83d1",
+   "hash": "0897a64407d463138b5ef723a052632aa04cd40ba1858aae4983622e74441f72"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0026",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Ingredient cost estimate",
+    "result": {
+     "per_glass_usd": {
+      "amba-haze": 1.07,
+      "badshah": 0.611
+     },
+     "estimate_usd": {
+      "badshah": 311.08,
+      "amba-haze": 544.39
+     },
+     "total_usd": 855.47,
+     "basis": "the lab's PRELIMINARY planning estimate per glass (ex labor) times planned glasses; not a verified cost, no quote, no purchase"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "beer_economics"
+    }
+   ],
+   "prev_hash": "0897a64407d463138b5ef723a052632aa04cd40ba1858aae4983622e74441f72",
+   "hash": "559ddafba1f42f6336bad20ae3a84315f4b697ff6db03d9df89ec2b687c5429b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0027",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Estimate ingredient cost",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "559ddafba1f42f6336bad20ae3a84315f4b697ff6db03d9df89ec2b687c5429b",
+   "hash": "e9b79245bee5eca0af8b60427e15125f7d3f0d798f3b10a1d1b0d32714174259"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0028",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:33.799Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Schedule and risks",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "e9b79245bee5eca0af8b60427e15125f7d3f0d798f3b10a1d1b0d32714174259",
+   "hash": "04bc200678e4ceb2b11aa086b337f0411423b6e67947afff418f1935fc3696e0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0029",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Fermenter schedule",
+    "result": {
+     "jobs": [
+      {
+       "beer": "badshah",
+       "n": 1,
+       "fermenter": 1,
+       "start": 7.0,
+       "end": 17.0
+      },
+      {
+       "beer": "amba-haze",
+       "n": 1,
+       "fermenter": 1,
+       "start": 18.0,
+       "end": 34.0
+      },
+      {
+       "beer": "badshah",
+       "n": 2,
+       "fermenter": 1,
+       "start": 35.0,
+       "end": 45.0
+      },
+      {
+       "beer": "amba-haze",
+       "n": 2,
+       "fermenter": 1,
+       "start": 46.0,
+       "end": 62.0
+      },
+      {
+       "beer": "badshah",
+       "n": 3,
+       "fermenter": 1,
+       "start": 63.0,
+       "end": 73.0
+      },
+      {
+       "beer": "amba-haze",
+       "n": 3,
+       "fermenter": 1,
+       "start": 74.0,
+       "end": 90.0
+      }
+     ],
+     "batches": 6,
+     "utilisation": 0.875,
+     "coverage_weeks_ok": 0,
+     "weeks": 8,
+     "waste": {
+      "transfer_l": 30.0,
+      "packaging_l": 18.0,
+      "brewed_l": 600
+     },
+     "risks": [
+      {
+       "level": "warn",
+       "text": "fermenter utilisation 88% leaves little slack"
+      },
+      {
+       "level": "alert",
+       "text": "demand is not covered by packaged beer in 8 of 8 weeks (first: week 1)"
+      },
+      {
+       "level": "warn",
+       "text": "5 ingredient(s) short, so the first brew waits 7 days for a purchase a person must approve: bittering hops (g), dextrin malt, mango puree, pilsner malt, wheat malt"
+      },
+      {
+       "level": "warn",
+       "text": "3 batch(es) finish after the 8-week horizon"
+      }
+     ]
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    }
+   ],
+   "prev_hash": "04bc200678e4ceb2b11aa086b337f0411423b6e67947afff418f1935fc3696e0",
+   "hash": "fb19213ebaa2214ba3c4127e14a1bb1f81f3292ea83294719bd45fdf7d62b5f6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0030",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Schedule and risks",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "fb19213ebaa2214ba3c4127e14a1bb1f81f3292ea83294719bd45fdf7d62b5f6",
+   "hash": "e623ce26db691c844c63977521e7349188dc03865378b8ae8e11112ae2325ddc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0031",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check formulas, schedule and risks",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "e623ce26db691c844c63977521e7349188dc03865378b8ae8e11112ae2325ddc",
+   "hash": "bf343606f78c41d884c6f490d6505be59067c4954b7e656c8612ffb3ad76ebda"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0032",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "formulation_check",
+    "beer": "badshah",
+    "passed": true,
+    "expected_abv": 4.725,
+    "target_abv": 4.7,
+    "grist_total_kg": 21.3,
+    "grist_sum_kg": 21.27,
+    "method": "the lab's own Formulation.within(0.1) and grist sums",
+    "claims_kept": 1,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "brewing.Formulation"
+    }
+   ],
+   "prev_hash": "bf343606f78c41d884c6f490d6505be59067c4954b7e656c8612ffb3ad76ebda",
+   "hash": "6235c4abd25fecbc13caf3aaefa5193de4981dfa18d17c7947feb9933f5a3d49"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0033",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "formulation_check",
+    "beer": "amba-haze",
+    "passed": true,
+    "expected_abv": 5.998,
+    "target_abv": 6.0,
+    "grist_total_kg": 25.1,
+    "grist_sum_kg": 25.13,
+    "method": "the lab's own Formulation.within(0.1) and grist sums",
+    "claims_kept": 1,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "brewing.Formulation"
+    }
+   ],
+   "prev_hash": "6235c4abd25fecbc13caf3aaefa5193de4981dfa18d17c7947feb9933f5a3d49",
+   "hash": "56dd7f9c05d102f62ae1ddf845824d4ebf097c3c2831028713e6667bff88f3b5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0034",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "schedule_invariants",
+    "passed": true,
+    "violations": [],
+    "rule": "no fermenter overlap, capacity respected, every needed batch scheduled once",
+    "claims_kept": 6,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    }
+   ],
+   "prev_hash": "56dd7f9c05d102f62ae1ddf845824d4ebf097c3c2831028713e6667bff88f3b5",
+   "hash": "a313418c9da169194ce3d88e55ce2d2d878433a5df6c0737cd2368225de38e71"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0035",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "mass_balance",
+    "passed": true,
+    "brewed_l": 600,
+    "packaged_l": 552.0,
+    "losses_l": 48.0,
+    "claims_kept": 1,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    }
+   ],
+   "prev_hash": "a313418c9da169194ce3d88e55ce2d2d878433a5df6c0737cd2368225de38e71",
+   "hash": "dab118468d93c598ad53c48e26757dd03f00ddbf46144e50913968079f5a1be1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0036",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "operational_risks",
+    "passed": false,
+    "alerts": [
+     "demand is not covered by packaged beer in 8 of 8 weeks (first: week 1)"
+    ],
+    "warnings": [
+     "fermenter utilisation 88% leaves little slack",
+     "5 ingredient(s) short, so the first brew waits 7 days for a purchase a person must approve: bittering hops (g), dextrin malt, mango puree, pilsner malt, wheat malt",
+     "3 batch(es) finish after the 8-week horizon"
+    ],
+    "claims_kept": 3,
+    "claims_dropped": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    }
+   ],
+   "prev_hash": "dab118468d93c598ad53c48e26757dd03f00ddbf46144e50913968079f5a1be1",
+   "hash": "4b84b5369600515418a1ca1af39c48b9ff45cfed02f57e9c2b62d296bffe9bf5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0037",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:33.800Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check formulas, schedule and risks",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "4b84b5369600515418a1ca1af39c48b9ff45cfed02f57e9c2b62d296bffe9bf5",
+   "hash": "2531c7326889e7d8810598f90990230e20841c3b0d275f6bc9d1e635a687736a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0038",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:33.801Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check policy and ask THE WEIR to hold the release",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "2531c7326889e7d8810598f90990230e20841c3b0d275f6bc9d1e635a687736a",
+   "hash": "ab61ca1caf536adba004f6384bb5ccd9fb01c54fd0e396e614e83bb6dc653552"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0039",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:33.801Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "D8",
+    "args": {
+     "probe": true
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "probe",
+     "id": "out-of-policy tool"
+    }
+   ],
+   "prev_hash": "ab61ca1caf536adba004f6384bb5ccd9fb01c54fd0e396e614e83bb6dc653552",
+   "hash": "018603d367c92f4523bf8a1ee006f91b3a052517d3ab6e639c9c6012307d1f34"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0040",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:33.801Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "send_external_email",
+    "stage": "D8",
+    "ok": false,
+    "forwarded": false,
+    "failure": "TOOL_DENIED",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "018603d367c92f4523bf8a1ee006f91b3a052517d3ab6e639c9c6012307d1f34",
+   "hash": "87da9d76a5609311a7ce49fbe0d638c67908f51c669abd3926b82cb758c127fb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0041",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:33.801Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "bounded probe: sending is not in the policy at all, so it is refused by default",
+    "codes": [
+     "R-UNKNOWN"
+    ],
+    "probe": true
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    }
+   ],
+   "prev_hash": "87da9d76a5609311a7ce49fbe0d638c67908f51c669abd3926b82cb758c127fb",
+   "hash": "a8103e81ea0d1aa90350c0fb9a516df5eb9c23445ca21c9a8b5dc15dde237cc5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0042",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:33.802Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "D9",
+    "args": {
+     "statement_id": "sched-11721443"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "statement",
+     "id": "sched-11721443"
+    }
+   ],
+   "prev_hash": "a8103e81ea0d1aa90350c0fb9a516df5eb9c23445ca21c9a8b5dc15dde237cc5",
+   "hash": "492c2fb9e8d364c5e12ba3c13a15f106a45a4872870d2f8ee5b90f3da9f5fe43"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0043",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:33.802Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "release_statement",
+    "stage": "D9",
+    "ok": false,
+    "forwarded": false,
+    "held_for_approval": true,
+    "codes": [
+     "R-GATE"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "492c2fb9e8d364c5e12ba3c13a15f106a45a4872870d2f8ee5b90f3da9f5fe43",
+   "hash": "0e725ee5cb1d492a2f6d5c48f4ebda575bc73d66b8bd818301e4426068bc1f81"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0044",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:33.802Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "hold_for_approval",
+    "policy": "THE WEIR: an outward draft needs a human approval of this exact text",
+    "codes": [
+     "R-GATE"
+    ],
+    "approval_id": "ap_5d45c78b"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    }
+   ],
+   "prev_hash": "0e725ee5cb1d492a2f6d5c48f4ebda575bc73d66b8bd818301e4426068bc1f81",
+   "hash": "4a2ec093a01c34ed9c0a95764aec04e7a19de2517f76bedc6e7fafbd80cd0713"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0045",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 45,
+   "ts": "2026-11-09T21:53:33.803Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "mission_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "ee773cfcd7656866604a04f7f4c7eeed5066addcd9dd3ad587054740c76ac7d8"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "4a2ec093a01c34ed9c0a95764aec04e7a19de2517f76bedc6e7fafbd80cd0713",
+   "hash": "0789720c58b5a28d2f2cf36c7022e91a90124996c9a36441799e9f7d57278604"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0046",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 46,
+   "ts": "2026-11-09T21:53:33.803Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "demand_established",
+    "actor": "aethon",
+    "role": "SYSTEM",
+    "hash": "f8daa856ec2253e1577909de450f0c91755f81f89320f48625fbbd94582d69bd"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "0789720c58b5a28d2f2cf36c7022e91a90124996c9a36441799e9f7d57278604",
+   "hash": "3764edefb8d63fa4ea890091ed003aeff017e7934bf148a062d2e6efbfe03cc9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0047",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 47,
+   "ts": "2026-11-09T21:53:33.803Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "plan_checked",
+    "actor": "veritas",
+    "role": "SYSTEM",
+    "hash": "0bb87dd8cb678658e35c5dcae9ea6fd22e53fa1427a6212715f27c960fc6b791"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "3764edefb8d63fa4ea890091ed003aeff017e7934bf148a062d2e6efbfe03cc9",
+   "hash": "7d761c8f91ee9ff54cf4886c85a1e2013f1d28a59e59a34e9770950caa139d51"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0048",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 48,
+   "ts": "2026-11-09T21:53:33.803Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "guardrail_probe_denied",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "08c21d46bab42495e596742e052ec46a54c1dc41259a37bd99ab1ce68c03bd95"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "7d761c8f91ee9ff54cf4886c85a1e2013f1d28a59e59a34e9770950caa139d51",
+   "hash": "225d5cfb084720f0950efcca94878835662a839ae6e8750bf73db8526f3b63ea"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0049",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 49,
+   "ts": "2026-11-09T21:53:33.803Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "approval_requested",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "942413decc65f6c55338297f80d69985318e588984ed2dac181bd2be65783e95"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    }
+   ],
+   "prev_hash": "225d5cfb084720f0950efcca94878835662a839ae6e8750bf73db8526f3b63ea",
+   "hash": "84612627dae77c053e49ed4d9656d1cb021704b542757186c51af75fd626b6d9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0050",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 50,
+   "ts": "2026-11-09T21:53:33.803Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-capacity-d-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-capacity-d"
+    }
+   ],
+   "prev_hash": "84612627dae77c053e49ed4d9656d1cb021704b542757186c51af75fd626b6d9",
+   "hash": "36d6e07ac6b8994ca74216e34228a8cfa667f3469f6464d8dc75ccb97d295668"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0051",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 51,
+   "ts": "2026-11-09T21:53:33.803Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "approval_requested",
+   "payload": {
+    "approval_id": "ap_5d45c78b",
+    "requires": "owner",
+    "ttl_s": 900,
+    "consequential_action": "Record a DRAFT production schedule (never a production order)",
+    "summary": {
+     "action": "Record a DRAFT production schedule (never a production order)",
+     "details": [
+      "utilisation 88% over 8 weeks",
+      "4 risks (1 alerts)",
+      "5 ingredient shortfalls listed, none ordered"
+     ],
+     "claims": [
+      {
+       "text": "badshah: 3 batches of 100 L",
+       "evidence": [
+        "brewplan",
+        "beer_specs"
+       ]
+      },
+      {
+       "text": "amba-haze: 3 batches of 100 L",
+       "evidence": [
+        "brewplan",
+        "beer_specs"
+       ]
+      }
+     ]
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_5d45c78b"
+    },
+    {
+     "type": "statement",
+     "id": "sched-11721443"
+    }
+   ],
+   "prev_hash": "36d6e07ac6b8994ca74216e34228a8cfa667f3469f6464d8dc75ccb97d295668",
+   "hash": "1e337a0186b046b851f2fae5493f153be5a84787dc8d47a2135ea498746f3cfa"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0052",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 52,
+   "ts": "2026-11-09T21:53:33.815Z",
+   "mode": "live",
+   "agent": "owner",
+   "kind": "approval_decided",
+   "payload": {
+    "approval_id": "ap_5d45c78b",
+    "decision": "reject",
+    "by": "brew-owner",
+    "role": "FOUNDER",
+    "comment": "recorded run"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_5d45c78b"
+    }
+   ],
+   "prev_hash": "1e337a0186b046b851f2fae5493f153be5a84787dc8d47a2135ea498746f3cfa",
+   "hash": "b841c09f3156a414e305a278ab809dfca2da3fee622707fdfaa9f09fba15a5d1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0053",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 53,
+   "ts": "2026-11-09T21:53:33.815Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check policy and ask THE WEIR to hold the release",
+    "outcome": "rejected"
+   },
+   "evidence_refs": [],
+   "prev_hash": "b841c09f3156a414e305a278ab809dfca2da3fee622707fdfaa9f09fba15a5d1",
+   "hash": "0c7764963b5766ca3939bad2eb6bc2da9739d7506029fa6ff502d450e17dd49e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0054",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 54,
+   "ts": "2026-11-09T21:53:33.816Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0c7764963b5766ca3939bad2eb6bc2da9739d7506029fa6ff502d450e17dd49e",
+   "hash": "5f1a1d10342ff9cbeeeac5bb966fed8045c1e63db5b1e9e637a6ad78d9c5e192"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0055",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 55,
+   "ts": "2026-11-09T21:53:33.816Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Incident report",
+    "result": {
+     "report": {
+      "kind": "generic",
+      "subject": "ZYBREW's plan on synthetic inputs; planning support, not brewing, food-safety or regulatory advice",
+      "headline": "Brewery production plan",
+      "sections": [
+       {
+        "title": "Demand",
+        "items": [
+         "orders 2254 in 2024-10 across 4 locations; 482 L over 8 weeks"
+        ]
+       },
+       {
+        "title": "Batches",
+        "items": [
+         "badshah: 3 x 100 L, 92.0 L packaged each",
+         "amba-haze: 3 x 100 L, 92.0 L packaged each"
+        ]
+       },
+       {
+        "title": "Ingredients short (listed, not ordered)",
+        "items": [
+         "wheat malt: 3.01",
+         "pilsner malt: 9.77",
+         "bittering hops (g): 52.87",
+         "dextrin malt: 0.19",
+         "mango puree: 4.42"
+        ]
+       },
+       {
+        "title": "Risks",
+        "items": [
+         "WARN: fermenter utilisation 88% leaves little slack",
+         "ALERT: demand is not covered by packaged beer in 8 of 8 weeks (first: week 1)",
+         "WARN: 5 ingredient(s) short, so the first brew waits 7 days for a purchase a person must approve: bittering hops (g), dextrin malt, mango puree, pilsner malt, wheat malt",
+         "WARN: 3 batch(es) finish after the 8-week horizon"
+        ]
+       },
+       {
+        "title": "Assumptions",
+        "items": [
+         "fermentation plus conditioning days per style are placeholders (10 for the wheat beer, 16 for the hazy IPA)",
+         "two fermenters of 120 L; the real pilot scale and capacity are an unresolved decision (G-6)",
+         "transfer loss 5% and packaging loss 3% of the batch",
+         "glass size 473 mL; beer glasses per week = orders x attach rate 0.25 (the same assumption as the digital twin)",
+         "style split 50/50",
+         "on-hand inventory is a seeded synthetic fixture"
+        ]
+       }
+      ],
+      "controls": {
+       "formula checks": "the lab's Formulation.within(0.1)",
+       "schedule checks": "independent invariants",
+       "guardrail probe (send_external_email)": "denied by default",
+       "write tool (release_statement)": "held for a human approval",
+       "production": "nothing is brewed, ordered or released"
+      },
+      "side_effects": {
+       "batches_started": 0,
+       "purchases_made": 0,
+       "drafts_created": 0,
+       "external_transmissions": 0
+      },
+      "digest": "e3828c71ba915febf43d089ec6eb4cdf2ebef8b34acde55463cc622550fbc748"
+     },
+     "digest": "e3828c71ba915febf43d089ec6eb4cdf2ebef8b34acde55463cc622550fbc748"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "incident_report",
+     "id": "e3828c71ba915feb"
+    }
+   ],
+   "prev_hash": "5f1a1d10342ff9cbeeeac5bb966fed8045c1e63db5b1e9e637a6ad78d9c5e192",
+   "hash": "faf1a10fe0c3b867c46ce5b8cb43f51d11b90e8329777cc4dd6648770e207e07"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0056",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 56,
+   "ts": "2026-11-09T21:53:33.816Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "6",
+    "action": "approval_denied",
+    "actor": "brew-owner",
+    "role": "FOUNDER",
+    "hash": "ce8d35c7b59dece01eab71b85fd167b87a6f4c9320b994952d64f229fe3aec39"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "6"
+    }
+   ],
+   "prev_hash": "faf1a10fe0c3b867c46ce5b8cb43f51d11b90e8329777cc4dd6648770e207e07",
+   "hash": "26b35451f2ce957ac182da4576ff342f28683e059f3e8abfc957af556a2cc805"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0057",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 57,
+   "ts": "2026-11-09T21:53:33.816Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "7",
+    "action": "report_built",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "527a364e8c5e6bc17e13eb6e72c044c7d636e0a7211179517860ce4affd5c762"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "7"
+    }
+   ],
+   "prev_hash": "26b35451f2ce957ac182da4576ff342f28683e059f3e8abfc957af556a2cc805",
+   "hash": "9c9c313b88862299cc45e5881842901bc10993f976290f6c38379ab96ca156ad"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0058",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 58,
+   "ts": "2026-11-09T21:53:33.816Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-capacity-d-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-capacity-d"
+    }
+   ],
+   "prev_hash": "9c9c313b88862299cc45e5881842901bc10993f976290f6c38379ab96ca156ad",
+   "hash": "3506f2db9d12e18daab25432f1aed5c68f32cf80d1583ad5e46379da5b910119"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0059",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 59,
+   "ts": "2026-11-09T21:53:33.816Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "3506f2db9d12e18daab25432f1aed5c68f32cf80d1583ad5e46379da5b910119",
+   "hash": "59734a2aa402186e3f2d9d81ee4d09835075534f00a0c6b18d7ae53882a284bd"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-capacity-d-0060",
+   "run_id": "rec-capacity-d",
+   "mission": "mission-d-brewery-planning",
+   "seq": 60,
+   "ts": "2026-11-09T21:53:33.817Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "REJECTED",
+    "side_effects": {
+     "batches_started": 0,
+     "purchases_made": 0,
+     "drafts_created": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The owner rejected the schedule. Nothing was recorded.",
+    "report_digest": "e3828c71ba915febf43d089ec6eb4cdf2ebef8b34acde55463cc622550fbc748",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "59734a2aa402186e3f2d9d81ee4d09835075534f00a0c6b18d7ae53882a284bd",
+   "hash": "4c9929c8ab45a4b1dc80785a7da69d4310e2d747dcb3b9406a5f13e055c8b93d"
+  }
+ ]
+}

@@ -1,0 +1,541 @@
+{
+ "version": 1,
+ "description": "Exact allowlist of files published to GitHub Pages. Regenerate with: python3 scripts/build-pages-artifact.py --write-manifest",
+ "files": [
+  {
+   "path": ".nojekyll",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "path": "404.html",
+   "bytes": 776,
+   "sha256": "6686cd90bba8d2f3291d49b7439bfe395ed1aead33703bbc7d8f7f1b511adacd"
+  },
+  {
+   "path": "ai-engineering.html",
+   "bytes": 9524,
+   "sha256": "20ce9a391bd89aa37e838a3c698735e59d4c9f765f62a4eec98aced0fb3ffc4d"
+  },
+  {
+   "path": "assets/fonts/Inter-LICENSE.txt",
+   "bytes": 4477,
+   "sha256": "3b0a5fca3d17942cde889069889dedbbbd075e9b599968c82a95f4d944e9b345"
+  },
+  {
+   "path": "assets/fonts/JetBrains-Mono-LICENSE.txt",
+   "bytes": 4524,
+   "sha256": "403581b69dac5cff4079205e01c6b467e56af449ecbd7247693ddb1baafa005b"
+  },
+  {
+   "path": "assets/fonts/inter-latin.woff2",
+   "bytes": 48256,
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+  },
+  {
+   "path": "assets/fonts/jetbrains-mono-latin.woff2",
+   "bytes": 40404,
+   "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
+  },
+  {
+   "path": "assets/img/cases/cs-agent-platform-ui.jpg",
+   "bytes": 107110,
+   "sha256": "60f9a169e5bd906601af81992ec723d3560b0b9776a467812dc8235f201bb9de"
+  },
+  {
+   "path": "assets/img/cases/cs-copilot-approval.jpg",
+   "bytes": 86503,
+   "sha256": "36a665c0df63ccc23bbfd05e61a514c3fe108d9023d12da6e97b988c02c50762"
+  },
+  {
+   "path": "assets/img/cases/cs-copilot-uncertain.jpg",
+   "bytes": 89735,
+   "sha256": "efa8e790bd26aad5d4007d06877a3f30c07cf376ae778720b03de9cfa5ec07de"
+  },
+  {
+   "path": "assets/img/cases/cs-genai-chat.jpg",
+   "bytes": 219918,
+   "sha256": "b57c21372dcb0b2aa298e028aeae266ef4beb31835cbae0a39be5ab141aba347"
+  },
+  {
+   "path": "assets/img/cases/cs-llm-eval-report.jpg",
+   "bytes": 170413,
+   "sha256": "a966305a91509544759dd6e9d65ffcc5539509abdf8081f3e66e4ce8aca382df"
+  },
+  {
+   "path": "assets/img/cases/cs-weir-flow.jpg",
+   "bytes": 162256,
+   "sha256": "133ae00ac72eeea89b1da96da3303dc2527999db69db06421260b846cf62d049"
+  },
+  {
+   "path": "assets/img/universe/universe-hq-atrium.jpg",
+   "bytes": 147745,
+   "sha256": "58c6f71ac00665d70667af3201efeab8735a62b7049989022da95aaddf6961ce"
+  },
+  {
+   "path": "assets/img/universe/universe-twelve-worlds.jpg",
+   "bytes": 93129,
+   "sha256": "cdaaf24aedbb2a60198805cf039a650b3c7946f1ff5a1f13ef1d2395579b4063"
+  },
+  {
+   "path": "assets/js/nasha-ecosystem-core.js",
+   "bytes": 4481,
+   "sha256": "355b458337448c0890285af20c9a658ab58371d235a448958d1f6cc077346ed5"
+  },
+  {
+   "path": "case-genai-doc-assistant.html",
+   "bytes": 15050,
+   "sha256": "d47eebc099ee42c6ef03d358085ce26a44bee6c1c9a0056ea56b991e478518a3"
+  },
+  {
+   "path": "case-llm-eval-framework.html",
+   "bytes": 15202,
+   "sha256": "af791b2cb440fea71494ae9a4e432959c936dac4acc0ddc3e99540cb6b77f0fd"
+  },
+  {
+   "path": "case-mcp-weir.html",
+   "bytes": 15260,
+   "sha256": "1cb76ea5406192456fdb3ea9023e3073913b26105bc1eee73c26bf8e3863ccc8"
+  },
+  {
+   "path": "case-nasha-ai-lab-architecture.html",
+   "bytes": 14781,
+   "sha256": "2e022051479c9aab5925f7db4fcb8bf2b9624919e8799c230aa8098eff11d5ef"
+  },
+  {
+   "path": "case-production-ai-agent-platform.html",
+   "bytes": 17005,
+   "sha256": "cb96abf56a4c8978a667bb0a7e690cd64ad0011355f5bf4ed72ce1d0c9743626"
+  },
+  {
+   "path": "case-studies.html",
+   "bytes": 6591,
+   "sha256": "7c80e158f70bdc5a83396e84d70c7c59059e11a59fdae77fba47f7183bfa04bd"
+  },
+  {
+   "path": "case-support-escalation-copilot.html",
+   "bytes": 16100,
+   "sha256": "4a2b309eaf6190ad9140582fcb2d5d35eca3de12fc1947d81737eb5aa6d65eee"
+  },
+  {
+   "path": "cinematic.css",
+   "bytes": 19475,
+   "sha256": "7e8ec07a6a348bf2594c41e4509727bcc88ff032604171a9ab1dff77c8724aad"
+  },
+  {
+   "path": "cinematic.js",
+   "bytes": 5516,
+   "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
+  },
+  {
+   "path": "data-lab.html",
+   "bytes": 52343,
+   "sha256": "555738e1c927a12cfab5e1ef599ebbe1e369c1644bb27d65dc98a81fbc08a10e"
+  },
+  {
+   "path": "data/cases.json",
+   "bytes": 34085,
+   "sha256": "2350bf5663507d74c1c7659bd581b305b53775352e5fd501b225dfba95e6e6c3"
+  },
+  {
+   "path": "data/datalab/lab-data.json",
+   "bytes": 132004,
+   "sha256": "35c1e97915c866c07eac79fc921d1877c9532cd45fb2986e4df9054d6bdeb57e"
+  },
+  {
+   "path": "data/image-register.json",
+   "bytes": 2781,
+   "sha256": "410550f985149b78da75ce1d70b0632f7739264a17041b9b35e4855e7de4b25c"
+  },
+  {
+   "path": "data/lab.json",
+   "bytes": 19670,
+   "sha256": "8f1a569762c2b9bc23444591f801e6c8b5a0162a21fb4a1318dfba184175d430"
+  },
+  {
+   "path": "data/projects.json",
+   "bytes": 18829,
+   "sha256": "a4efc1f402002fb891785ad277e1db087ad4a48982c26a2c8c009ce239925b07"
+  },
+  {
+   "path": "datalab.js",
+   "bytes": 8219,
+   "sha256": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636"
+  },
+  {
+   "path": "demo/app.js",
+   "bytes": 68648,
+   "sha256": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102"
+  },
+  {
+   "path": "demo/data.js",
+   "bytes": 24464,
+   "sha256": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3"
+  },
+  {
+   "path": "demo/demo.css",
+   "bytes": 11075,
+   "sha256": "53042715e33ed0ba0680add99a0b8195aad66484872b2bef651b96d22699c996"
+  },
+  {
+   "path": "demo/engine.js",
+   "bytes": 35690,
+   "sha256": "696a7033d52274d3d73aa26ca13611ec46234c91e49c6017438417749ad74d8f"
+  },
+  {
+   "path": "demo/index.html",
+   "bytes": 4583,
+   "sha256": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4"
+  },
+  {
+   "path": "index.html",
+   "bytes": 32202,
+   "sha256": "2c600222863d9032f9262b64f0edfb84a73ee6e7269d2369668fe652dbd29c8d"
+  },
+  {
+   "path": "lab-explorer.html",
+   "bytes": 41834,
+   "sha256": "c376af582b4e27aa7fb489e72c77bfee6fb2ba65836e2fcccdecfac97bee419b"
+  },
+  {
+   "path": "lab.css",
+   "bytes": 17967,
+   "sha256": "ea4896f00d8f72e2e0dd9b934055f4d8c1b78e7568d0a1b1c4d8dc8570bae68c"
+  },
+  {
+   "path": "lab.js",
+   "bytes": 5093,
+   "sha256": "674f706e9e17e34030ff89d8fa2871e473aecf30faa4a1961c807d140e1b7894"
+  },
+  {
+   "path": "mark.svg",
+   "bytes": 225,
+   "sha256": "c27d8542a67d0cf0e43affce27ee2a5754c44163bbced4cd0e790afc65102819"
+  },
+  {
+   "path": "nasha-lab.html",
+   "bytes": 33303,
+   "sha256": "1e388c6d9768bb9081aa00a5779055bbb04b7b70f100ead213124c45e1851e84"
+  },
+  {
+   "path": "nasha-universe/event-verify.js",
+   "bytes": 6997,
+   "sha256": "79e00197ac646ed14e0f1fa2f1af0ab96311d8f14b1febcad3972a2cbeb9ed1d"
+  },
+  {
+   "path": "nasha-universe/evidence/test-results.json",
+   "bytes": 9871,
+   "sha256": "25893417f3e8f673817414d11ccbe8fdf8f5ed68dc30e77b081af40c2281aeeb"
+  },
+  {
+   "path": "nasha-universe/living-hq/hq-app.js",
+   "bytes": 93212,
+   "sha256": "1c26143e593d4d579d8e4304ef4845563ce55719c554c1d844b5bfba4c17e13a"
+  },
+  {
+   "path": "nasha-universe/living-hq/hq-data.json",
+   "bytes": 213197,
+   "sha256": "49a2a3f32ddc35b5d08b0773e8940b5a7469de1b5ac1082ad9119907ab9fbb3e"
+  },
+  {
+   "path": "nasha-universe/living-hq/hq-events.js",
+   "bytes": 9147,
+   "sha256": "b474cb1f0b28d7677b0266c633a16bdf2cbb72a82f3dd7ba815bc355be84e518"
+  },
+  {
+   "path": "nasha-universe/living-hq/hq-gl.js",
+   "bytes": 16638,
+   "sha256": "9040971c86498997ef33cb2a84b30c7326ef808416dc0427428fd7af10f59974"
+  },
+  {
+   "path": "nasha-universe/living-hq/hq-scene.js",
+   "bytes": 31122,
+   "sha256": "2d9f553acb440aa491bcbaf579ed6dc0a67ab04b8a326c45d56ba65c245f0d70"
+  },
+  {
+   "path": "nasha-universe/living-hq/hq-worlds.js",
+   "bytes": 20738,
+   "sha256": "b39d35eab99904de1a511f56e25c1d587a0b777bae90ec4c5fb04acb2af112ef"
+  },
+  {
+   "path": "nasha-universe/living-hq/index.html",
+   "bytes": 3022,
+   "sha256": "2bd3ca831027d53209d36735ba1716a298714c89a4e00a3e882ec85935b1ee5c"
+  },
+  {
+   "path": "nasha-universe/living-hq/living-hq.css",
+   "bytes": 7564,
+   "sha256": "a6f243f07c04e89917563f05257944254bd7b09cbbf05131cbbdc478eb0f5d1f"
+  },
+  {
+   "path": "nasha-universe/recruiter/steps.json",
+   "bytes": 13854,
+   "sha256": "256abb3b48869536f4912ba5a05d3fba5eb7a78b745064f79a25f3fff067aff6"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-approved.json",
+   "bytes": 43945,
+   "sha256": "eafd4db5a64d1724d35037fc8b197f18fbb4048a2b57809a6ca1fdd516348d43"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-evaluation-alert.json",
+   "bytes": 39076,
+   "sha256": "24ea25324694cfefb3cd3b3400f4d12f57555cce55554981619d913c64230ddd"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-failure.json",
+   "bytes": 41910,
+   "sha256": "254e1f250691953778d72296928a8c2b961f846dfaad07d58437aed25d514f15"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-model-fallback.json",
+   "bytes": 62166,
+   "sha256": "57a411caf406b2e8150a46ab906c060b5b20f1eee4e0c822579d0e23cf73e372"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-model-malformed.json",
+   "bytes": 29033,
+   "sha256": "2a61da8dfc9b68a92cd67f19b25a79cf1a75219b133deccfa0f4362a334e7f18"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-model-unavailable.json",
+   "bytes": 29212,
+   "sha256": "a5bfc7303c8bcd8a730f8185964b73637bdaf315bece921a07f5acaf9384c4b9"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-model-ungrounded.json",
+   "bytes": 28514,
+   "sha256": "35bff4184c89eff4f8174325ede8b469e6887cfa052462962c2b0f83340049d0"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-rejected.json",
+   "bytes": 38771,
+   "sha256": "84e84d04e154d16732e70fed7ee56f8fa875f767e50e9dacc3e966b376e7f09c"
+  },
+  {
+   "path": "nasha-universe/replays/mission-a-retry.json",
+   "bytes": 61701,
+   "sha256": "961f723310946a03b5943c41ffcb96942e3965eb4c53a173ff5cc39c05c091d1"
+  },
+  {
+   "path": "nasha-universe/replays/mission-b-clean-response.json",
+   "bytes": 55318,
+   "sha256": "b90bdb66d178bd3a141e48c5d589dacf8eb264679b00c5827682c2337218bde5"
+  },
+  {
+   "path": "nasha-universe/replays/mission-b-compound-claims.json",
+   "bytes": 58355,
+   "sha256": "481374144d1e55b419e29138753fc3c1a4a451c940f399b8a57cee6ee2e000db"
+  },
+  {
+   "path": "nasha-universe/replays/mission-b-incident-approved.json",
+   "bytes": 71293,
+   "sha256": "a4d2b737de93ed8f81da2ec05f766fd02b9d6dff4795a24f58d260d83d6818e3"
+  },
+  {
+   "path": "nasha-universe/replays/mission-b-incident-rejected.json",
+   "bytes": 67276,
+   "sha256": "4382ebeec40f4e867ad3f608015fd3ee1cb38843e4df6bfefb3f8ad9879b69ff"
+  },
+  {
+   "path": "nasha-universe/replays/mission-b-injected-evidence.json",
+   "bytes": 69229,
+   "sha256": "721eb306762c5c608675b7f9154c6d2bef2cfe373efea367d66ef64f2b27baca"
+  },
+  {
+   "path": "nasha-universe/replays/mission-b-legacy-checker.json",
+   "bytes": 62530,
+   "sha256": "75812c27e430fe7cfcb30783c85b380e4644e656bb536f8824faf533af57f6db"
+  },
+  {
+   "path": "nasha-universe/replays/mission-b-retrieval-outage.json",
+   "bytes": 26361,
+   "sha256": "e2718145c5926eb5e13ca7c314ad06f2bc0efd013bee12e9a3c3f63077c0622e"
+  },
+  {
+   "path": "nasha-universe/replays/mission-c-cx-approved.json",
+   "bytes": 61421,
+   "sha256": "0d17b46d31b8eceafb996018bc0d2384516622e0cbd55c995b30a0be5dc9a86c"
+  },
+  {
+   "path": "nasha-universe/replays/mission-c-cx-discount.json",
+   "bytes": 63895,
+   "sha256": "f8c73c964a73575bf4b03c9182b5ecc55561231215d0b7297f01df0c3ff1ccf4"
+  },
+  {
+   "path": "nasha-universe/replays/mission-c-cx-outage.json",
+   "bytes": 13165,
+   "sha256": "1981b03cfde188831fadf870003f3eae370ca311954b72f97d28fcffe7f6e628"
+  },
+  {
+   "path": "nasha-universe/replays/mission-c-cx-rejected.json",
+   "bytes": 57437,
+   "sha256": "cb5af9d5780eaa1529397a9644dd18050a202237ed98cd3909d9c602bc70f503"
+  },
+  {
+   "path": "nasha-universe/replays/mission-c-cx-unexplained.json",
+   "bytes": 42177,
+   "sha256": "09cc28c0e440d8ccba2cc6a1925b0f2a6574f9e5dc7b6c47031e4b57dfbe3613"
+  },
+  {
+   "path": "nasha-universe/replays/mission-d-brew-approved.json",
+   "bytes": 51465,
+   "sha256": "b0ec0ee0b8277617aa08fb594159ab4710dea6aa7619d116f2fb483334fb367c"
+  },
+  {
+   "path": "nasha-universe/replays/mission-d-brew-capacity.json",
+   "bytes": 48863,
+   "sha256": "5a02350597b783f5b4cfe5891b82c45f44dda899402cbbd8f62e5b46f06edbdd"
+  },
+  {
+   "path": "nasha-universe/replays/mission-d-brew-outage.json",
+   "bytes": 14749,
+   "sha256": "8918e479bc7defb5fed2279711f2a1c80f8a2311a911038ed9f07069fd0635f9"
+  },
+  {
+   "path": "nasha-universe/replays/mission-d-brew-rejected.json",
+   "bytes": 48555,
+   "sha256": "9c348191d0d800226adedc9e8f13d6bd499138eeff01f2294922676f7bdcc628"
+  },
+  {
+   "path": "nasha-universe/replays/mission-d-brew-surge.json",
+   "bytes": 49994,
+   "sha256": "a72dc0c1b498527a2c73f94d6172d61b701b9e206c33c77c61beea03d3ebf66c"
+  },
+  {
+   "path": "nasha-universe/replays/mission-e-pack-approved.json",
+   "bytes": 35722,
+   "sha256": "a7dc5f968f1bcf938b68981de0a7b0b689250c8d50ba4e68a8cf52a9f2433e91"
+  },
+  {
+   "path": "nasha-universe/replays/mission-e-pack-invalid.json",
+   "bytes": 12895,
+   "sha256": "0da4141de0d56a991867d4b817a84eff62610564cf8ff03c3aaf125cb5f106b3"
+  },
+  {
+   "path": "nasha-universe/replays/mission-e-pack-mismatch.json",
+   "bytes": 12928,
+   "sha256": "45250900c07705adbba9f06f370a882b0594ffa3356e867bdb397d2f02d88823"
+  },
+  {
+   "path": "nasha-universe/replays/mission-e-pack-overclaim.json",
+   "bytes": 39354,
+   "sha256": "730e9047abec5034bb8a0c4108d5c24e115cf05e271ee820a4c77f7460c6075d"
+  },
+  {
+   "path": "nasha-universe/replays/mission-e-pack-rejected.json",
+   "bytes": 32811,
+   "sha256": "bc4dd43ce76beb0d6c6e9cc951ce126384a970f35e78dd7e5feb0f78342da24d"
+  },
+  {
+   "path": "nasha-universe/replays/mission-f-model-assisted-real.json",
+   "bytes": 88708,
+   "sha256": "0b3b12cf6b3891c30757071294f1fd5ef0c0b42615229049f58bca48de136df8"
+  },
+  {
+   "path": "nasha-universe/replays/mission-f-surge-approved.json",
+   "bytes": 71479,
+   "sha256": "a1ebf8ad2ef33950739ad989bc523ab5b037c4c9ed4b03539a67e76fea42149a"
+  },
+  {
+   "path": "nasha-universe/replays/mission-f-surge-cancelled.json",
+   "bytes": 34411,
+   "sha256": "4d9dafb47ce3ec781cf02c0f84a7154d48c2931b05fee7ff9fa90bd5c9a4b495"
+  },
+  {
+   "path": "nasha-universe/replays/mission-f-surge-failure.json",
+   "bytes": 46917,
+   "sha256": "f62bdeccc653b4b1b3ce27acf853b2b907a44040078dce40536311cc620afd7c"
+  },
+  {
+   "path": "nasha-universe/replays/mission-f-surge-rejected.json",
+   "bytes": 68342,
+   "sha256": "c0c179d26d10e0b2417c60772a6e79315c287dee1143bb7a7d80ec0afd4d7b27"
+  },
+  {
+   "path": "nasha-universe/research/claimcheck-eval.json",
+   "bytes": 15234,
+   "sha256": "1b33ca32b38bcd7c104a0554a6e83903c08de3e6cc1019b4411f4a8608c76dbb"
+  },
+  {
+   "path": "nasha-universe/research/claimcheck-p8.json",
+   "bytes": 7129,
+   "sha256": "f1807677ef735d973d828d51763188b13b2957359a3cdb90bf502fedba647494"
+  },
+  {
+   "path": "nasha-universe/research/evidence-index.json",
+   "bytes": 27111,
+   "sha256": "254644d0747859565e89a02b450dc61bb36848de153ee4bf107b2264c27ba77b"
+  },
+  {
+   "path": "nasha-universe/research/independent-package.json",
+   "bytes": 888,
+   "sha256": "fb03fb04d4a069aa626373ba9d210ed462d800d1ad2d5398d47e35407ebda59e"
+  },
+  {
+   "path": "nasha-universe/research/model-eval-phase7-promptB.json",
+   "bytes": 49205,
+   "sha256": "28d6de5b0b8c779e360ecd82de0d7125cf8cf141a1008dbbf3b0e88298ca21af"
+  },
+  {
+   "path": "nasha-universe/research/model-eval-phase7.json",
+   "bytes": 47705,
+   "sha256": "17ca62c910da12b8829240721ff2020d438965236691585714e0b1d9e9d77d95"
+  },
+  {
+   "path": "nasha-universe/research/model-plan-eval.json",
+   "bytes": 14101,
+   "sha256": "7208964786fa36a616f399178117a64d80fd9974ac58de1b406bee6d0c24c320"
+  },
+  {
+   "path": "nasha-universe/research/rag-traces.json",
+   "bytes": 258287,
+   "sha256": "96dffd7dc5034093b43fa79cec73290ae2ab3c23b3eb5d5b8783898824e6666c"
+  },
+  {
+   "path": "nasha-universe/research/reliability-index.json",
+   "bytes": 32869,
+   "sha256": "859b898fec0aaf9227acc665bdd5d593eaf22b8a1a158afaddcfa0e6d6bbeff7"
+  },
+  {
+   "path": "projects.html",
+   "bytes": 40326,
+   "sha256": "a45673d0a954ce9793186fb479d0de6e3e4b12ad93fbd52df51beda00afcddee"
+  },
+  {
+   "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",
+   "bytes": 12426,
+   "sha256": "7c6b04267ed43658b5d440fbe638faf96294dd94d5662509ac50df4668cf1267"
+  },
+  {
+   "path": "recovered/nasha-b666563/docs/nasha-ecosystem/ARCHITECTURE.md",
+   "bytes": 4120,
+   "sha256": "21719d0733dcd3ce0bf27c21a8e462857020171906decd61d2f8ccdd5aeadd5b"
+  },
+  {
+   "path": "recruiter.html",
+   "bytes": 9034,
+   "sha256": "797079508a18f560d2c2fb4fb2374f491563d131620a95593a7c843f240c2489"
+  },
+  {
+   "path": "ritesh_mamidi_resume.pdf",
+   "bytes": 97071,
+   "sha256": "eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92"
+  },
+  {
+   "path": "robots.txt",
+   "bytes": 83,
+   "sha256": "88e196370b02cecbce6a05558949cc63e789146657effad9704ccdcfef51edfa"
+  },
+  {
+   "path": "sitemap.xml",
+   "bytes": 1508,
+   "sha256": "907b3027a09282fac7cf33b991dfa7d17c504339dd9db16ab0e43dfdf062f6eb"
+  },
+  {
+   "path": "verified-projects.html",
+   "bytes": 31153,
+   "sha256": "6d7b749ac11815ae2a89c33ebd88e0e8772356e90b8b0bfd73ea215012f00a57"
+  }
+ ]
+}

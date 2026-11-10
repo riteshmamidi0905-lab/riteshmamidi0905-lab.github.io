@@ -1,0 +1,422 @@
+{
+ "recording": {
+  "slug": "mission-e-pack-invalid",
+  "title": "Concept Menu Test Pack: invalid recipe, fail closed",
+  "scenario": "inconsistent_recipe",
+  "scenario_note": "A recipe refers to an ingredient that does not exist: validation fails and the mission fails closed without drafting anything.",
+  "mission": "mission-e-chef-test-pack",
+  "decision": "none",
+  "final_status": "BLOCKED_INVALID",
+  "recorded_at": "2026-11-09T21:53:50Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 17,
+  "note": "A recipe refers to an ingredient that does not exist: validation fails and nothing is drafted. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0001",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:50.113Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Concept Menu Test Pack",
+    "scenario": "inconsistent_recipe",
+    "scenario_note": "A recipe refers to an ingredient that does not exist: validation fails and the mission fails closed without drafting anything.",
+    "trigger": "A chef test pack is requested for the concept menu. The recipes are concepts: nobody has cooked or tasted them",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the chef test-pack mission"
+     },
+     {
+      "agent": "pyrix",
+      "task": "Load recipes, derive allergens and compose the test pack"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check consistency, wording and recipe validity"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check dietary policy and ask THE WEIR to hold the draft pack"
+     }
+    ],
+    "planner": "the lab's recipe model and fixed rules (no language model)"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "8eeb1e2f77c0b8fa32730bd447674a2ea98eb5ea59f6b812a07d13423ce285e8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0002",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:50.113Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the chef test-pack mission",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "8eeb1e2f77c0b8fa32730bd447674a2ea98eb5ea59f6b812a07d13423ce285e8",
+   "hash": "14dd3c9c38b7a8233d0a939e088fbc668838b6042402701b31d1416f829573db"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0003",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:50.119Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the chef test-pack mission",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "14dd3c9c38b7a8233d0a939e088fbc668838b6042402701b31d1416f829573db",
+   "hash": "02f3b5a7c13591bd098e8f67bdf6476d23b5c73348703b9b030900978fb2fee4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0004",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:50.119Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Load recipes, derive allergens and compose the test pack",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "02f3b5a7c13591bd098e8f67bdf6476d23b5c73348703b9b030900978fb2fee4",
+   "hash": "fd4922222065df309eefbcf789a9cc90843c54ee250a3c406993329727e01371"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0005",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:50.120Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "load_recipes",
+    "stage": "E1",
+    "args": {
+     "source": "nasha_lab.recipes.model"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.model"
+    }
+   ],
+   "prev_hash": "fd4922222065df309eefbcf789a9cc90843c54ee250a3c406993329727e01371",
+   "hash": "075b03a6b570c4a327ef559c638f49a5009db06282906315da7a77eaa82550cc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0006",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:50.134Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "load_recipes",
+    "stage": "E1",
+    "ok": true,
+    "recipes": 27,
+    "dishes": 15,
+    "ingredients": 72,
+    "synthetic": true,
+    "status": "concept recipes: nobody has cooked or tasted them"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.model"
+    }
+   ],
+   "prev_hash": "075b03a6b570c4a327ef559c638f49a5009db06282906315da7a77eaa82550cc",
+   "hash": "9d017656407f325d48d4b24c78267b3ed562dc185cef45c44f12ef8f33b78df6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0007",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:50.134Z",
+   "mode": "live",
+   "agent": "pyrix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Load recipes, derive allergens and compose the test pack",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "9d017656407f325d48d4b24c78267b3ed562dc185cef45c44f12ef8f33b78df6",
+   "hash": "aef7e1fb33152e445d70f9091c90691bf1886932ead281295c4e4c919d9140ba"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0008",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:50.134Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check consistency, wording and recipe validity",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "aef7e1fb33152e445d70f9091c90691bf1886932ead281295c4e4c919d9140ba",
+   "hash": "38ec71b6ea916bc6d1f889aa07140da86e8d72c73b56eeae889bd3d1c626dd66"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0009",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:50.141Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "recipe_validation",
+    "passed": false,
+    "errors": [
+     "butter-chicken-quesadilla: unknown ingredient i-does-not-exist",
+     "butter-chicken-quesadilla: 'i-does-not-exist'"
+    ],
+    "method": "the lab's model.validate over every recipe and the ingredient master",
+    "claims_kept": 25,
+    "claims_dropped": 2
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_module",
+     "id": "recipes.model.validate"
+    }
+   ],
+   "prev_hash": "38ec71b6ea916bc6d1f889aa07140da86e8d72c73b56eeae889bd3d1c626dd66",
+   "hash": "61fc733d35d1b1005618d55dfadeaf0c7b3d524648855fca93ae98976474a7fe"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0010",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:50.141Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check consistency, wording and recipe validity",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "61fc733d35d1b1005618d55dfadeaf0c7b3d524648855fca93ae98976474a7fe",
+   "hash": "9214fa175b4200b0d81ed29580464ca4aa0eeeb5aa7191e22695d36d26925c2e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0011",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:50.141Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Fail closed",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "9214fa175b4200b0d81ed29580464ca4aa0eeeb5aa7191e22695d36d26925c2e",
+   "hash": "3ef2b99b5aa26ba6b4b689ba40646506dd9db0366f304bf8a67725d9cda6af19"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0012",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:50.141Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "fail closed: allergen sheets are never derived from recipes that fail validation",
+    "errors": 2
+   },
+   "evidence_refs": [
+    {
+     "type": "policy",
+     "id": "fail closed"
+    }
+   ],
+   "prev_hash": "3ef2b99b5aa26ba6b4b689ba40646506dd9db0366f304bf8a67725d9cda6af19",
+   "hash": "a539031d3269d96a148639d3504d52c9449af5eca53066922fbd13f39d263735"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0013",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:50.141Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Fail closed",
+    "outcome": "stopped"
+   },
+   "evidence_refs": [],
+   "prev_hash": "a539031d3269d96a148639d3504d52c9449af5eca53066922fbd13f39d263735",
+   "hash": "e145e898db0b6c098f5760abba609de627a2ad8e1f58b445708de56324a411f2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0014",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:50.141Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "mission_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "eeaf2c53bc9fef56f6d50a0d6d1d1727f7594c61e591e68136362bac2c968ff4"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "e145e898db0b6c098f5760abba609de627a2ad8e1f58b445708de56324a411f2",
+   "hash": "63a65a2a7bbcb45ebc7cec7883a1fab1beb82ecb83c87117d61f4375414ec157"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0015",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:50.142Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "failed_closed",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "7a7b612b8e3bd3fe78536489644665f2cdc793a45fddeab9992b3645c302a400"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "63a65a2a7bbcb45ebc7cec7883a1fab1beb82ecb83c87117d61f4375414ec157",
+   "hash": "d95ab73790b1dcc8351bac3ac2f3bab2d53cdcea259a377f8a25cea9b9accfd5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0016",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:50.142Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec--invalid-e-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec--invalid-e"
+    }
+   ],
+   "prev_hash": "d95ab73790b1dcc8351bac3ac2f3bab2d53cdcea259a377f8a25cea9b9accfd5",
+   "hash": "c8af935ecddf4141bb7b6120bac3b7867cf06864db298a63f55d9b925f9b3a07"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--invalid-e-0017",
+   "run_id": "rec--invalid-e",
+   "mission": "mission-e-chef-test-pack",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:50.142Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "BLOCKED_INVALID",
+    "side_effects": {
+     "sheets_released": 0,
+     "drafts_created": 0,
+     "certifications_issued": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The recipe data failed validation, so nothing was derived or drafted. Fix the recipes and run the mission again.",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "c8af935ecddf4141bb7b6120bac3b7867cf06864db298a63f55d9b925f9b3a07",
+   "hash": "3a12fdb95513db35afe70ca5af753f1d2caaeae67f808a3006b1afd250b3853b"
+  }
+ ]
+}

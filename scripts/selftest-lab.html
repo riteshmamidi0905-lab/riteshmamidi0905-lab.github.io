@@ -1,0 +1,52 @@
+<!doctype html><meta charset=utf-8><title>selftest</title><body><pre id=out>running</pre>
+<iframe id=a src="../lab-explorer.html" style="width:1200px;height:900px"></iframe><iframe id=b src="../verified-projects.html" style="width:1200px;height:900px"></iframe><iframe id=c src="../index.html" style="width:1200px;height:900px"></iframe><iframe id=d src="../case-production-ai-agent-platform.html" style="width:1200px;height:900px"></iframe>
+<script>
+const res=[];const ok=(n,c)=>res.push((c?'PASS ':'FAIL ')+n);
+const load=f=>new Promise(r=>f.addEventListener('load',()=>setTimeout(r,300)));
+(async()=>{
+ const a=document.getElementById('a'),b=document.getElementById('b'),c=document.getElementById('c'),dd=document.getElementById('d');await Promise.all([load(a),load(b),load(c),load(dd)]);
+ const A=a.contentDocument,B=b.contentDocument;
+ const vis=(d,s)=>[...d.querySelectorAll(s)].filter(e=>!e.hidden).length;
+ ok('explorer: 17 nodes initially shown',vis(A,'.node')===17);
+ [...A.querySelectorAll('[data-filter-bar] button')].find(x=>x.dataset.value==='FAIL').click();
+ ok('explorer: FAIL filter shows exactly 1 node',vis(A,'.node')===1);
+ ok('explorer: pressed state set',A.querySelector('[data-filter-bar] button[data-value=FAIL]').getAttribute('aria-pressed')==='true');
+ [...A.querySelectorAll('[data-filter-bar] button')].find(x=>x.dataset.value==='ALL').click();
+ ok('explorer: ALL restores 17',vis(A,'.node')===17);
+ const tabs=[...A.querySelectorAll('[role=tab]')];ok('explorer: 11 scenario tabs',tabs.length===11);
+ ok('explorer: only first scenario visible',vis(A,'.scenario')===1&&tabs[0].getAttribute('aria-selected')==='true');
+ tabs[0].focus();tabs[0].dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));
+ ok('explorer: ArrowRight selects second tab',tabs[1].getAttribute('aria-selected')==='true'&&!A.querySelector('#sc1').hidden&&A.querySelector('#sc0').hidden);
+ tabs[1].dispatchEvent(new KeyboardEvent('keydown',{key:'End',bubbles:true}));
+ ok('explorer: End selects last tab',tabs[10].getAttribute('aria-selected')==='true');
+ A.querySelector('[data-toggle-all=open]').click();ok('explorer: expand all opens every card',[...A.querySelectorAll('details.node')].every(d=>d.open));
+ A.querySelector('[data-toggle-all=close]').click();ok('explorer: collapse all closes cards',[...A.querySelectorAll('details.node')].every(d=>!d.open));
+ ok('projects: 29 shown initially',vis(B,'.proj')===29);
+ const q=B.getElementById('project-search');q.value='spark';q.dispatchEvent(new Event('input',{bubbles:true}));
+ ok('projects: search "spark" narrows to 2',vis(B,'.proj')===2);
+ q.value='';q.dispatchEvent(new Event('input',{bubbles:true}));
+ [...B.querySelectorAll('[data-filter-bar] button')].find(x=>x.dataset.value==='UNVERIFIED').click();
+ ok('projects: UNVERIFIED filter shows 2',vis(B,'.proj')===2);
+ ok('no inline overflow: explorer scrollWidth<=clientWidth',A.documentElement.scrollWidth<=A.documentElement.clientWidth);
+ const H=c.contentDocument;const ep=()=>[...H.querySelectorAll('[data-eco-panel]')].filter(p=>!p.hidden);
+ ok('home: 8 ecosystem buttons and one visible panel',H.querySelectorAll('.eco-btn').length===8&&ep().length===1);
+ H.querySelectorAll('.eco-btn')[1].click();
+ ok('home: Evaluation panel shows verified AND not-passed chips',ep().length===1&&ep()[0].querySelector('.chip.VERIFIED')&&ep()[0].querySelector('.chip.FAIL'));
+ ok('home: map node mirrors the choice',H.querySelectorAll('.eco-node.on').length===1&&H.querySelectorAll('.eco-btn')[1].getAttribute('aria-pressed')==='true');
+ H.querySelectorAll('[data-eco-node]')[7].dispatchEvent(new Event('click',{bubbles:true}));
+ ok('home: clicking a map node selects Business applications (concept + planned)',ep().length===1&&ep()[0].querySelector('.chip.CONCEPT')&&ep()[0].querySelector('.chip.PLANNED'));
+ ok('home: six CTAs in the contact section',H.querySelectorAll('.contact-section .actions a').length===6);
+ ok('home: six flagship cards still present',H.querySelectorAll('.flag-card').length===6);
+ ok('home: no employer name anywhere',!new RegExp(String.fromCharCode(77,111,118,97,116,101)).test(H.documentElement.outerHTML));
+ const K=dd.contentDocument;const bt=[...K.querySelectorAll('.step')];
+ ok('case: 5 explanation steps and a diagram',bt.length===5&&K.querySelectorAll('svg.dg .dg-n').length===8);
+ ok('case: first step preselected, one text visible',bt[0].getAttribute('aria-pressed')==='true'&&[...K.querySelectorAll('.step-text')].filter(x=>!x.hidden).length===1);
+ bt[2].click();
+ ok('case: step 3 highlights exactly its 3 nodes',K.querySelectorAll('svg.dg .dg-n.hl').length===3&&K.querySelector('svg.dg').classList.contains('has-hl'));
+ ok('case: text alternative present',!!K.querySelector('details.plain'));
+ ok('case: repository link and verification table',!!K.querySelector('a[href*="github.com/riteshmamidi0905-lab/production-ai-agent-platform"]')&&K.querySelectorAll('table.reg tbody tr').length>=2);
+ ok('case: screenshot has alt text',/not an LLM/.test(K.querySelector('.shot img').alt));
+ const sc0=A.querySelector('#sc0');ok('explorer: scenario shows four stage indicators',sc0.querySelectorAll('.kinds li').length===4&&sc0.querySelectorAll('.kinds li.on').length>=1);
+ document.getElementById('out').textContent=res.join('\n')+'\nDONE '+res.filter(x=>x.startsWith('FAIL')).length+' failures';
+})();
+</script>

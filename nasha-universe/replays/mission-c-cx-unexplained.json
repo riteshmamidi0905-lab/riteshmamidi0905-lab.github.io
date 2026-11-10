@@ -1,0 +1,1505 @@
+{
+ "recording": {
+  "slug": "mission-c-cx-unexplained",
+  "title": "Customer Experience Recovery: unexplained complaints",
+  "scenario": "unexplained_complaints",
+  "scenario_note": "Complaints with no matching operational record: the causes are labelled unexplained, no outreach is drafted, and a person is asked to investigate.",
+  "mission": "mission-c-customer-recovery",
+  "decision": "none",
+  "final_status": "NO_OUTREACH",
+  "recorded_at": "2026-11-09T21:53:33Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 51,
+  "note": "No operational record matches the complaints, so no outreach is drafted and a person must investigate. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0001",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:33.240Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Customer Experience Recovery",
+    "scenario": "unexplained_complaints",
+    "scenario_note": "Complaints with no matching operational record: the causes are labelled unexplained, no outreach is drafted, and a person is asked to investigate.",
+    "trigger": "A batch of synthetic customer feedback arrived. The comments are generated from a seed and from the warehouse calendar so they can be joined to operations; the link is constructed",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the customer-experience incident"
+     },
+     {
+      "agent": "echon",
+      "task": "Ingest and classify the feedback"
+     },
+     {
+      "agent": "quantix",
+      "task": "Measure customer-experience and operations metrics"
+     },
+     {
+      "agent": "vectra",
+      "task": "Check stock evidence for availability complaints"
+     },
+     {
+      "agent": "aethon",
+      "task": "Analyse root causes and lay out options"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check the analysis and the draft against policy"
+     },
+     {
+      "agent": "novara",
+      "task": "Draft the customer outreach"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check policy and ask THE WEIR to hold the outreach"
+     }
+    ],
+    "planner": "keyword rules and rule-based joins (no language model)"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "1da334c41d3261bbc925c5d4287a1b52bf1dbc65037cb2be31b8dae527855b02"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0002",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:33.240Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the customer-experience incident",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "1da334c41d3261bbc925c5d4287a1b52bf1dbc65037cb2be31b8dae527855b02",
+   "hash": "58f64bbc8af479990c9277307299d2be83e9e375badfc0b49de70dcf62073ddf"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0003",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:33.246Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    }
+   ],
+   "prev_hash": "58f64bbc8af479990c9277307299d2be83e9e375badfc0b49de70dcf62073ddf",
+   "hash": "a7ec12f1acd08e61e0d04168cd257b50db7be06604e5cf061ae848506f939446"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0004",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:33.246Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "C0",
+    "ok": true,
+    "rows": 10,
+    "ms": 0.84,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "612c8bb8ae3b"
+    }
+   ],
+   "prev_hash": "a7ec12f1acd08e61e0d04168cd257b50db7be06604e5cf061ae848506f939446",
+   "hash": "d0d000d9beaab469eeff88dee43073a0659482f258883a45d20c7791e188c3e6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0005",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:33.247Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C0",
+    "args": {
+     "limit": 5,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "variance_flags"
+    }
+   ],
+   "prev_hash": "d0d000d9beaab469eeff88dee43073a0659482f258883a45d20c7791e188c3e6",
+   "hash": "d160e0a43061836aa468b2bcbcfc1ca52a754a0da1f32a6bc0b3de600bff9531"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0006",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:33.247Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C0",
+    "ok": true,
+    "rows": 5,
+    "ms": 0.33,
+    "source": "scn_variance_flag",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "1e86f73e97f6"
+    }
+   ],
+   "prev_hash": "d160e0a43061836aa468b2bcbcfc1ca52a754a0da1f32a6bc0b3de600bff9531",
+   "hash": "2d69f85489f14de29730dac2d435278e53e742d8b19ee9426b91b2679a81d2b8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0007",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:33.247Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C0",
+    "args": {
+     "location_id": "L02",
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "daily_series"
+    }
+   ],
+   "prev_hash": "2d69f85489f14de29730dac2d435278e53e742d8b19ee9426b91b2679a81d2b8",
+   "hash": "b35b08d0118693d8667044a16a150b1e37d19a070723ca9bda52a3269c7dffeb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0008",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:33.247Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C0",
+    "ok": true,
+    "rows": 31,
+    "ms": 0.35,
+    "source": "mart_daily_location",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "c8050cffc546"
+    }
+   ],
+   "prev_hash": "b35b08d0118693d8667044a16a150b1e37d19a070723ca9bda52a3269c7dffeb",
+   "hash": "ca873c6826a7bc2d877064f21064e904d6b60a9d492100e1514e34d8d3feabcc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0009",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:33.247Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the customer-experience incident",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ca873c6826a7bc2d877064f21064e904d6b60a9d492100e1514e34d8d3feabcc",
+   "hash": "6817251b5031f41bcfdc29099a109c5c896117e1b0281c4972493cb88a4b8871"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0010",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:33.248Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Ingest the feedback batch",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "6817251b5031f41bcfdc29099a109c5c896117e1b0281c4972493cb88a4b8871",
+   "hash": "d12a8784f324a656ba6ce3e18730fd17860f42833763dafc7df4062f21b6c1e5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0011",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:33.248Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "ingest_feedback",
+    "stage": "C1",
+    "args": {
+     "batch": "batch-012d25ce"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "d12a8784f324a656ba6ce3e18730fd17860f42833763dafc7df4062f21b6c1e5",
+   "hash": "53053a9f6784783382efcbf578e28912f5351604df26c2ae230c1e68dbd4b2a4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0012",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:33.248Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "ingest_feedback",
+    "stage": "C1",
+    "ok": true,
+    "comments": 48,
+    "first_date": "2024-10-02",
+    "last_date": "2024-10-31",
+    "synthetic": true,
+    "location_id": "L02",
+    "month": "2024-10"
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "53053a9f6784783382efcbf578e28912f5351604df26c2ae230c1e68dbd4b2a4",
+   "hash": "4f797f8c6ef9c33e67d21626f8f8054bfe7ccc1ccd9d582d497df57cd35bc57a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0013",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:33.248Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "classify_feedback",
+    "stage": "C2",
+    "args": {
+     "batch": "batch-012d25ce",
+     "method": "keyword rules"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "4f797f8c6ef9c33e67d21626f8f8054bfe7ccc1ccd9d582d497df57cd35bc57a",
+   "hash": "a2b1d02600685c5a10459d42302d70dec1d4aa4be9a5b7c2c15f5223064cc13c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0014",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "classify_feedback",
+    "stage": "C2",
+    "ok": true,
+    "negative": 14,
+    "neutral": 6,
+    "positive": 28,
+    "issues": {
+     "wait_time": 8,
+     "food_quality": 4,
+     "service": 2
+    },
+    "method": "keyword rules, not a language model"
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "a2b1d02600685c5a10459d42302d70dec1d4aa4be9a5b7c2c15f5223064cc13c",
+   "hash": "97e6bba2a77d0967dd6ad5f010286b0e9bb63d0f6dd1c50f48169f88853efc7b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0015",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Ingest the feedback batch",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "97e6bba2a77d0967dd6ad5f010286b0e9bb63d0f6dd1c50f48169f88853efc7b",
+   "hash": "ffe03ff82072e2966db0c6d6566ba60beadbc30156c250534ed01aa4ead7fe87"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0016",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check the classifier against the synthetic ground truth",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ffe03ff82072e2966db0c6d6566ba60beadbc30156c250534ed01aa4ead7fe87",
+   "hash": "f7f0514b3af3640c66217ac9d127a075b755935ebcb3179ca600cc4ecac2031f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0017",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "classifier_check",
+    "passed": true,
+    "sentiment_accuracy": 0.938,
+    "issue_recall": 1.0,
+    "issue_precision": 0.889,
+    "misclassified": [
+     "f07",
+     "f13",
+     "f20"
+    ],
+    "thresholds": {
+     "sentiment_accuracy": 0.85,
+     "issue_recall": 0.8
+    },
+    "scope": "synthetic text written by the same author as the rules; real-world accuracy is unknown",
+    "claims_kept": 45,
+    "claims_dropped": 3
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "f7f0514b3af3640c66217ac9d127a075b755935ebcb3179ca600cc4ecac2031f",
+   "hash": "e4bad7269c73fd3da9305c2e9c2a8154bf470602ec95c394ae17e1c627c3c946"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0018",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check the classifier against the synthetic ground truth",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "e4bad7269c73fd3da9305c2e9c2a8154bf470602ec95c394ae17e1c627c3c946",
+   "hash": "6c9e18cf2af7d303fe8d54db58064bc056d4e6f5dd42d2d0e6066da5d50c8b9d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0019",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Measure customer-experience and operations metrics",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "6c9e18cf2af7d303fe8d54db58064bc056d4e6f5dd42d2d0e6066da5d50c8b9d",
+   "hash": "cd93af7baf7537e50da773af2fef999482e9fb532610210996f8d6e65d101542"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0020",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "cx_metrics",
+    "stage": "C3",
+    "args": {
+     "batch": "batch-012d25ce"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "cd93af7baf7537e50da773af2fef999482e9fb532610210996f8d6e65d101542",
+   "hash": "150e7bae5f1afe287fa8f363b069120724aed3a572796db8c7e5f22a673ad7f1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0021",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "cx_metrics",
+    "stage": "C3",
+    "ok": true,
+    "negative_share": 0.292,
+    "net_sentiment": 0.292,
+    "avg_rating": 3.4
+   },
+   "evidence_refs": [
+    {
+     "type": "feedback_batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "150e7bae5f1afe287fa8f363b069120724aed3a572796db8c7e5f22a673ad7f1",
+   "hash": "4ad9951dde562e267bd931c894df28a648fdcd3f0e6e4fc7512d426577e6fd14"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0022",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:33.249Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "location_month",
+    "stage": "C4",
+    "args": {
+     "location_id": "L02",
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "location_month"
+    }
+   ],
+   "prev_hash": "4ad9951dde562e267bd931c894df28a648fdcd3f0e6e4fc7512d426577e6fd14",
+   "hash": "9021b160fe7b834827f2a45e263494e574f0441057076ef9a106c14acb2c145a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0023",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "location_month",
+    "stage": "C4",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.28,
+    "source": "mart_location_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "e9b9d98d5bcd"
+    }
+   ],
+   "prev_hash": "9021b160fe7b834827f2a45e263494e574f0441057076ef9a106c14acb2c145a",
+   "hash": "794f3d69457d4fd8a1e9f6009a64e148a3adee373f913365179f65e99010f4ec"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0024",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C5",
+    "args": {
+     "location_id": "L02",
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "daily_series"
+    }
+   ],
+   "prev_hash": "794f3d69457d4fd8a1e9f6009a64e148a3adee373f913365179f65e99010f4ec",
+   "hash": "0ce570dd1ff958dbe8f49e0eb5a066fe29a790d9b9e892470711fc767e7378ba"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0025",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "daily_series",
+    "stage": "C5",
+    "ok": true,
+    "rows": 31,
+    "ms": 0.29,
+    "source": "mart_daily_location",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "e926ee8ebf43"
+    }
+   ],
+   "prev_hash": "0ce570dd1ff958dbe8f49e0eb5a066fe29a790d9b9e892470711fc767e7378ba",
+   "hash": "e790b245968eb0c7154d25fd032043f3052b1adef53e04c1f1ad7b9543db5dc2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0026",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Customer-experience and operations metrics",
+    "result": {
+     "cx": {
+      "n": 48,
+      "negative": 14,
+      "neutral": 6,
+      "positive": 28,
+      "negative_share": 0.292,
+      "net_sentiment": 0.292,
+      "avg_rating": 3.4,
+      "issues": {
+       "wait_time": 8,
+       "food_quality": 4,
+       "service": 2
+      }
+     },
+     "ops": {
+      "orders": 639,
+      "avg_ticket_cents": 3254.0,
+      "quality_events": 0,
+      "labor_pct_of_sales": 2.9848,
+      "location_id": "L02",
+      "month": "2024-10"
+     }
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "location_month"
+    }
+   ],
+   "prev_hash": "e790b245968eb0c7154d25fd032043f3052b1adef53e04c1f1ad7b9543db5dc2",
+   "hash": "8682548c9f1079f0ec5832290bf931938530d07d2c4054f447b819a84741456f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0027",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Measure customer-experience and operations metrics",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "8682548c9f1079f0ec5832290bf931938530d07d2c4054f447b819a84741456f",
+   "hash": "69f708553b1236942aa7954c03522d09783f46eb45dc4ffec316312413b1840d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0028",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check stock evidence for availability complaints",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "69f708553b1236942aa7954c03522d09783f46eb45dc4ffec316312413b1840d",
+   "hash": "30586fb849fa459cbd8f28688d1dc4528dfa36c56d80dd41cfe28b8f951589e6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0029",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C6",
+    "args": {
+     "location_id": "L02",
+     "limit": 10,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "variance_flags"
+    }
+   ],
+   "prev_hash": "30586fb849fa459cbd8f28688d1dc4528dfa36c56d80dd41cfe28b8f951589e6",
+   "hash": "e41c766873a0986e2545979363a861217baf07b6675060ceb79c1d007856c5c5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0030",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:33.250Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "C6",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.3,
+    "source": "scn_variance_flag",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "87352e266b67"
+    }
+   ],
+   "prev_hash": "e41c766873a0986e2545979363a861217baf07b6675060ceb79c1d007856c5c5",
+   "hash": "87398cbe40bdca5980281dc3e9c7f6f11d3436a88c89dd356bd35a9265964614"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0031",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:33.251Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "C7",
+    "args": {
+     "location_id": "L02",
+     "limit": 10,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "reorder_recommendations"
+    }
+   ],
+   "prev_hash": "87398cbe40bdca5980281dc3e9c7f6f11d3436a88c89dd356bd35a9265964614",
+   "hash": "b4570008b2b3c97190da7448bfb7ab7f34bd839a8fd25ba8b625060b6b02f2da"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0032",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:33.251Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "C7",
+    "ok": true,
+    "rows": 10,
+    "ms": 0.39,
+    "source": "scn_procurement_reco",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "3f506b11bb89"
+    }
+   ],
+   "prev_hash": "b4570008b2b3c97190da7448bfb7ab7f34bd839a8fd25ba8b625060b6b02f2da",
+   "hash": "0216d3de2660df3e068318554ad6e66104516a242331c3d24d266938e9d409ff"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0033",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:33.251Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check stock evidence for availability complaints",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0216d3de2660df3e068318554ad6e66104516a242331c3d24d266938e9d409ff",
+   "hash": "8a2b9acbb9c4f99b1dd8bebabac0b52f9068fb17b38ebd7c6812df50bc68685a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0034",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:33.251Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Analyse root causes and lay out options",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "8a2b9acbb9c4f99b1dd8bebabac0b52f9068fb17b38ebd7c6812df50bc68685a",
+   "hash": "531663e807fb9ca2fef380b4067a2310b8b28207d4b57dea10bedfad487f565f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0035",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:33.251Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Root-cause analysis",
+    "result": {
+     "causes": [
+      {
+       "issue": "wait_time",
+       "complaints": 8,
+       "status": "SUPPORTED",
+       "detail": "75% of wait complaints fall on the 5 busiest days (orders >= 26), which are 16% of the month",
+       "evidence": [
+        "daily_peak_day:2024-10-09",
+        "daily_peak_day:2024-10-17",
+        "daily_peak_day:2024-10-19",
+        "daily_peak_day:2024-10-23"
+       ]
+      },
+      {
+       "issue": "food_quality",
+       "complaints": 4,
+       "status": "NOT_SUPPORTED",
+       "detail": "no operational record in the warehouse explains this; a person should investigate",
+       "evidence": []
+      },
+      {
+       "issue": "service",
+       "complaints": 2,
+       "status": "NOT_SUPPORTED",
+       "detail": "no operational record in the warehouse explains this; a person should investigate",
+       "evidence": []
+      }
+     ],
+     "method": "keyword themes joined to warehouse rows by fixed rules; a cause without a cited row is labelled unexplained"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-09"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-17"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-19"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-23"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-25"
+    }
+   ],
+   "prev_hash": "531663e807fb9ca2fef380b4067a2310b8b28207d4b57dea10bedfad487f565f",
+   "hash": "9e2f9a66aade2e45cf06d29d6bf641f6bd339c840460b2a675c6f1bada108fd8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0036",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:33.251Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Remediation options",
+    "result": {
+     "options": [
+      {
+       "trigger": "wait_time",
+       "action": "Review staffing on peak days: 2024-10-09, 2024-10-17, 2024-10-19",
+       "consequential": false,
+       "executed": false
+      },
+      {
+       "trigger": "food_quality",
+       "action": "Investigate food quality manually; no operational evidence explains it",
+       "consequential": false,
+       "executed": false
+      },
+      {
+       "trigger": "service",
+       "action": "Investigate service manually; no operational evidence explains it",
+       "consequential": false,
+       "executed": false
+      }
+     ],
+     "basis": "rule-based; nothing here is executed"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "batch",
+     "id": "batch-012d25ce"
+    }
+   ],
+   "prev_hash": "9e2f9a66aade2e45cf06d29d6bf641f6bd339c840460b2a675c6f1bada108fd8",
+   "hash": "ed80f329ad8b3ecfd9014c176509b657695bd2fa0bb37300371a857d480d8385"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0037",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Analyse root causes and lay out options",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "ed80f329ad8b3ecfd9014c176509b657695bd2fa0bb37300371a857d480d8385",
+   "hash": "e781c12bd0d6f1aefcba6aad42790ae24131679d8180390ac5147456f1a517d8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0038",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check the analysis and the draft against policy",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "e781c12bd0d6f1aefcba6aad42790ae24131679d8180390ac5147456f1a517d8",
+   "hash": "92cb2bb1918dc06a8d48d74a86a616e10bac9ff03377838369d9b663f334b783"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0039",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "root_cause_labelling",
+    "passed": true,
+    "supported": 1,
+    "unexplained": 2,
+    "unexplained_issues": [
+     "food_quality",
+     "service"
+    ],
+    "rule": "a cause is SUPPORTED only when it cites operational rows; otherwise it is labelled unexplained",
+    "claims_kept": 1,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-09"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-17"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-19"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-23"
+    },
+    {
+     "type": "daily_peak_day",
+     "id": "2024-10-25"
+    }
+   ],
+   "prev_hash": "92cb2bb1918dc06a8d48d74a86a616e10bac9ff03377838369d9b663f334b783",
+   "hash": "dd22d4d3ffa215055a003a1a108121d1eebf881244a9abca8290d2aa28c6bc9c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0040",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "outreach_needed",
+    "passed": true,
+    "needed": false,
+    "reason": "no supported availability cause, so no outward message is justified",
+    "claims_kept": 0,
+    "claims_dropped": 0
+   },
+   "evidence_refs": [],
+   "prev_hash": "dd22d4d3ffa215055a003a1a108121d1eebf881244a9abca8290d2aa28c6bc9c",
+   "hash": "4c29a73452aafb990f0f273b5107a2e6a83d13c345111d48f9a0944da4a47f12"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0041",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check the analysis and the draft against policy",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "4c29a73452aafb990f0f273b5107a2e6a83d13c345111d48f9a0944da4a47f12",
+   "hash": "a9f5dc04d96294e6316e20f83583f48ba30cc37bf748fe9306be645e3c47a342"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0042",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "a9f5dc04d96294e6316e20f83583f48ba30cc37bf748fe9306be645e3c47a342",
+   "hash": "ab9eb8ed6dd8acf3b7fcc830ddd9209eb5532554f58621b8ec1941cb7df1f781"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0043",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Incident report",
+    "result": {
+     "report": {
+      "subject": "synthetic feedback (seeded generator) joined with the synthetic warehouse; rule-based analysis, no language model",
+      "location": "L02",
+      "month": "2024-10",
+      "metrics": {
+       "n": 48,
+       "negative": 14,
+       "neutral": 6,
+       "positive": 28,
+       "negative_share": 0.292,
+       "net_sentiment": 0.292,
+       "avg_rating": 3.4,
+       "issues": {
+        "wait_time": 8,
+        "food_quality": 4,
+        "service": 2
+       }
+      },
+      "classifier": {
+       "sentiment_accuracy": 0.938,
+       "issue_recall": 1.0,
+       "issue_precision": 0.889,
+       "passed": true,
+       "scope": "synthetic text written by the same author as the rules; real-world accuracy is unknown"
+      },
+      "causes": [
+       {
+        "issue": "wait_time",
+        "complaints": 8,
+        "status": "SUPPORTED",
+        "detail": "75% of wait complaints fall on the 5 busiest days (orders >= 26), which are 16% of the month",
+        "evidence": [
+         "daily_peak_day:2024-10-09",
+         "daily_peak_day:2024-10-17",
+         "daily_peak_day:2024-10-19"
+        ]
+       },
+       {
+        "issue": "food_quality",
+        "complaints": 4,
+        "status": "NOT_SUPPORTED",
+        "detail": "no operational record in the warehouse explains this; a person should investigate",
+        "evidence": []
+       },
+       {
+        "issue": "service",
+        "complaints": 2,
+        "status": "NOT_SUPPORTED",
+        "detail": "no operational record in the warehouse explains this; a person should investigate",
+        "evidence": []
+       }
+      ],
+      "recommendations": [
+       {
+        "trigger": "wait_time",
+        "action": "Review staffing on peak days: 2024-10-09, 2024-10-17, 2024-10-19",
+        "executed": false
+       },
+       {
+        "trigger": "food_quality",
+        "action": "Investigate food quality manually; no operational evidence explains it",
+        "executed": false
+       },
+       {
+        "trigger": "service",
+        "action": "Investigate service manually; no operational evidence explains it",
+        "executed": false
+       }
+      ],
+      "controls": {
+       "outreach policy check": "no monetary promise, no unsupported statement",
+       "guardrail probe (send_external_email)": "denied by default",
+       "write tool (release_statement)": "held for a human approval",
+       "sending": "impossible from this workflow (draft state only)",
+       "remediation actions": "recommendations only, none executed",
+       "outreach": "none drafted"
+      },
+      "side_effects": {
+       "messages_sent": 0,
+       "drafts_created": 0,
+       "purchases_made": 0,
+       "external_transmissions": 0
+      },
+      "digest": "c6a6c8e28d773c94d8b32b38477cc3ffd47148328bd37882eca44a805aba6fc4"
+     },
+     "digest": "c6a6c8e28d773c94d8b32b38477cc3ffd47148328bd37882eca44a805aba6fc4"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "incident_report",
+     "id": "c6a6c8e28d773c94"
+    }
+   ],
+   "prev_hash": "ab9eb8ed6dd8acf3b7fcc830ddd9209eb5532554f58621b8ec1941cb7df1f781",
+   "hash": "cb018376d211c6eb0709742b6ddea925bf61f19ade7031d16e1acfc90a970461"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0044",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "incident_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "4c04296820fd2009928d9ef73d26adbccb988ed0a58170b96d77ee1b68200408"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "cb018376d211c6eb0709742b6ddea925bf61f19ade7031d16e1acfc90a970461",
+   "hash": "ab2c1137fc12f38c79374e74a47b08c6f13b0dd084c7dcf32111cb6a8189adf6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0045",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 45,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "feedback_ingested",
+    "actor": "echon",
+    "role": "SYSTEM",
+    "hash": "2e1b37d7806ba04a28deace0e01442c45742bdac11ead96ede1291d9386e68e8"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "ab2c1137fc12f38c79374e74a47b08c6f13b0dd084c7dcf32111cb6a8189adf6",
+   "hash": "24189002d24140e9f400282dc22a58d4ad8324c2dda6f4f110690082a11a2596"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0046",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 46,
+   "ts": "2026-11-09T21:53:33.252Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "classifier_pass",
+    "actor": "veritas",
+    "role": "SYSTEM",
+    "hash": "e975135363ba2848e68c58931cddfaa0a151d2708d55843bfa47afc3890c23a4"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "24189002d24140e9f400282dc22a58d4ad8324c2dda6f4f110690082a11a2596",
+   "hash": "8ca3829c110747d17ecbbeae8a9cc126310769bdbec4e4d1e5cf86fbd38c3737"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0047",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 47,
+   "ts": "2026-11-09T21:53:33.253Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "root_causes_ranked",
+    "actor": "aethon",
+    "role": "SYSTEM",
+    "hash": "fcafa9ffc4f88b9b70b5ec990954fc25854d667a687104c4ee4e7591bba7a0fd"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "8ca3829c110747d17ecbbeae8a9cc126310769bdbec4e4d1e5cf86fbd38c3737",
+   "hash": "6f0b5c69aec2a004392c35e039df00f088faf7c55996daa287d6e4e8410f56ab"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0048",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 48,
+   "ts": "2026-11-09T21:53:33.253Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "report_built",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "1b2328a5aa36c981c6ae65a09cd5dbf46dacd14eefc80fb63e3d74ed01a4544e"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    }
+   ],
+   "prev_hash": "6f0b5c69aec2a004392c35e039df00f088faf7c55996daa287d6e4e8410f56ab",
+   "hash": "2c9bd76b03f859cf16bf30847cd92db599a33efb72b413e3bf3ae1b4e73183d2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0049",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 49,
+   "ts": "2026-11-09T21:53:33.253Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-xplained-c-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-xplained-c"
+    }
+   ],
+   "prev_hash": "2c9bd76b03f859cf16bf30847cd92db599a33efb72b413e3bf3ae1b4e73183d2",
+   "hash": "b6b1193da634d274e629104e47e07fe777781027b3d21a3fdcfe071350f4c089"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0050",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 50,
+   "ts": "2026-11-09T21:53:33.253Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Assemble the traceable report",
+    "outcome": "done"
+   },
+   "evidence_refs": [],
+   "prev_hash": "b6b1193da634d274e629104e47e07fe777781027b3d21a3fdcfe071350f4c089",
+   "hash": "16aa048df56108b18b73a468bc66df03e0b4a50a97429cdeaff95ccdfe042380"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-xplained-c-0051",
+   "run_id": "rec-xplained-c",
+   "mission": "mission-c-customer-recovery",
+   "seq": 51,
+   "ts": "2026-11-09T21:53:33.253Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "NO_OUTREACH",
+    "side_effects": {
+     "messages_sent": 0,
+     "drafts_created": 0,
+     "purchases_made": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "No outward message is justified by the evidence. The unexplained complaint themes need a person to investigate. Nothing was sent or recorded.",
+    "report_digest": "c6a6c8e28d773c94d8b32b38477cc3ffd47148328bd37882eca44a805aba6fc4",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "16aa048df56108b18b73a468bc66df03e0b4a50a97429cdeaff95ccdfe042380",
+   "hash": "40a1be38708bb0e1e82f9c75f3d2c6eba34f45ccce207f23b33d370ecb5fc307"
+  }
+ ]
+}

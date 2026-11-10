@@ -1,0 +1,273 @@
+{
+  "total_seconds": 180,
+  "generated_from": {
+    "tests": true,
+    "governance": true,
+    "replays": 36,
+    "twin": true
+  },
+  "repos": [
+    {
+      "name": "rag-doc-qa",
+      "url": "https://github.com/riteshmamidi0905-lab/rag-doc-qa",
+      "about": "Retrieval-augmented Q&A with from-scratch TF-IDF retrieval and grounded, citable answers (reused by the NASHA lab)."
+    },
+    {
+      "name": "mcp-weir",
+      "url": "https://github.com/riteshmamidi0905-lab/mcp-weir",
+      "about": "THE WEIR: a gateway for MCP tool calls with information-flow labels, session rules, human approval and audit (a research prototype; the Fortress here exercises it)."
+    },
+    {
+      "name": "production-ai-agent-platform",
+      "url": "https://github.com/riteshmamidi0905-lab/production-ai-agent-platform",
+      "about": "A tool-using, evidence-grounded agent platform: FastAPI, hybrid RAG, MCP, approvals, SSE streaming, tracing, automated evals."
+    },
+    {
+      "name": "riteshmamidi0905-lab.github.io",
+      "url": "https://github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io",
+      "about": "The public portfolio site and its release engineering."
+    }
+  ],
+  "steps": [
+    {
+      "id": "hq",
+      "title": "The NASHA Headquarters",
+      "seconds": 15,
+      "room": "hq",
+      "chips": [
+        "SYNTHETIC"
+      ],
+      "text": "A cinematic, original 3D headquarters for a concept brewery-and-kitchen business. It is a static front end: no framework, no tracking, CSS 3D, SVG and a small raw-WebGL scene engine (the Living Headquarters), with a complete 2D fallback.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "The front end passes its browser suite on Chromium, WebKit and Firefox, with axe accessibility checks at three screen widths."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "The Living Headquarters is tested on Chromium, WebKit and Firefox with WebGL (automated; physical Safari and iPhone are not tested): twelve structurally distinct agent worlds each with exhibits counted from recordings, a synthetic digital-twin district, a spatial hand-off network, research-institute stations and a nine-scene recruiter journey, with keyboard navigation, browser history, reduced motion, a forced no-WebGL fallback, axe checks and a tampered-recording refusal."
+        },
+        {
+          "cls": "SYNTHETIC",
+          "text": "The business is a concept; no real company, customers or data are shown."
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "agents",
+      "title": "Twelve agents, one city",
+      "seconds": 20,
+      "room": "city",
+      "chips": [
+        "VERIFIED",
+        "SYNTHETIC"
+      ],
+      "text": "Twelve named agents live in four districts around a mission-control tower. 12 of them appear in recorded runs of real workflows (aegis, aethon, cortex, echon, nexora, novara, pyrix, quantix, synapse, vectra, veritas, zybrew); the others only appear in the invented schedule simulation.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "Counted from 36 recorded runs (2102 events, hash-chained and re-verified in your browser)."
+        },
+        {
+          "cls": "SYNTHETIC",
+          "text": "The invented week in Offline mode is labelled a simulation with invented tasks."
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "workflow",
+      "title": "A real governed workflow",
+      "seconds": 25,
+      "room": "city",
+      "chips": [
+        "VERIFIED"
+      ],
+      "text": "Inventory Crisis runs the lab's governed procurement workflow: evidence through THE WEIR, a proposal, a hold for human approval, an audited draft purchase order that can never be sent. Rule-based planner; no language model.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "9 recorded runs including approval, rejection, retry and fail-safe paths; the draft table cannot hold any state but DRAFT_NOT_SENT."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "2806 automated checks across 33 suites, 0 failed, 0 suites skipped (generated 2026-11-10T17:52:45Z, tests/run_all.py)"
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "missions",
+      "title": "Six missions, one orchestrated",
+      "seconds": 20,
+      "room": "city",
+      "chips": [
+        "VERIFIED"
+      ],
+      "text": "Six real missions run on the lab's components: A Inventory Crisis, B AI Quality Incident, C Customer Experience Recovery, D Brewery Production Planning, E Concept Menu Test Pack and F Demand Surge Response. F is an orchestrated workflow of eight dependent tasks: a fixed graph with retries, cancellation, a human approval hold and failure propagation. It is not autonomous delegation.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "Recordings per mission: A Inventory Crisis x9; B AI Quality Incident x7; mission-c-customer-recovery x5; D Brewery Production Planning x5; mission-e-chef-test-pack x5; mission-f-demand-surge-response x5. Each is replayed after its hash chain verifies in the browser."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "Every mission ends in a draft or a refusal. Nothing is sent, ordered, published or paid; the approval gate is exercised in the recordings, including rejection and expiry."
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "evaluation",
+      "title": "AI evaluation and reliability",
+      "seconds": 25,
+      "room": "fortress",
+      "chips": [
+        "VERIFIED",
+        "SYNTHETIC"
+      ],
+      "text": "AI Quality Incident checks a drafted answer claim by claim against the lab's status-aware knowledge base, applies five written criteria, blocks the release, and leaves a person to approve a corrected draft. Mission B now also runs the improved claim checker as a second opinion that can only downgrade a claim. The response under review is a scripted fixture.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "The Governance Fortress ran 19 of 19 bounded scenarios against the real components, and each scenario is shown to fail when its control is removed."
+        },
+        {
+          "cls": "SYNTHETIC",
+          "text": "Customer-feedback classifier: sentiment accuracy 0.938, issue recall 1.0, measured on synthetic text written by the same author as the rules; real-world accuracy is unknown."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "Own evaluation (claim-grounding-v1, 20 author-written items): the Mission B checker did NOT meet its acceptance criteria (false-support rate 0.3333); both negative controls fail, so the harness is sound. Language-model result: see the Research Laboratory (a real local model was run in Phase 7; it did not meet the thresholds)."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "Evaluation outcomes are shown as they ended, not as successes: the live model evaluation has not met its acceptance criteria (failed), and the remaining evaluation and cloud work is unfinished or not approved."
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "research",
+      "title": "AI Research Laboratory",
+      "seconds": 25,
+      "room": "lab",
+      "chips": [
+        "VERIFIED",
+        "PLANNED"
+      ],
+      "text": "Six stations over stored results: claim verification (the four historical false acceptances stay visible), RAG investigation of the real knowledge base with visible abstention, agent reliability over every recording, model comparison, a regression laboratory and an evidence vault with four labels.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "The original claim checker accepted 4 unsupported claims on the historical benchmark (false-acceptance rate 0.3333) and false-acceptance rate 0.4091 on a separately written holdout. The remediated checker scores 0.0 on the holdout with 20% of true claims sent to a person."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "Limits stated in the lab: labels are author-written (same author as the checker), the datasets are small and about one synthetic corpus, so this is not independent validation."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "REAL local inference (qwen2.5:1.5b-instruct, digest 65ec06548149, ollama 0.40.15, loopback only) on all 57 items: with the unchanged prompt the model declared 0 claims SUPPORTED (it behaves like an always-UNSUPPORTED control; holdout accuracy 0.5946 against 0.9189 for the improved deterministic checker). A second prompt tuned on the development set reached holdout false-acceptance 0.3636. Neither meets the pre-registered thresholds; only the deterministic checker does."
+        },
+        {
+          "cls": "VERIFIED",
+          "text": "Model-assisted Mission F (experimental): with the revised prompt the model produced a valid plan in 10 of 10 requests, but 10 of 10 valid plans were identical to the fixed graph, so no benefit is shown; only 5 of 10 explanations passed grounding. Every output is validated, the fixed graph is the fallback, and a person approves. The prompts were revised on the same requests, so this is a development-set measure."
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "analytics",
+      "title": "Business analytics and automation",
+      "seconds": 20,
+      "room": "twin",
+      "chips": [
+        "SYNTHETIC"
+      ],
+      "text": "One synthetic dataset from the lab's warehouse feeds eight departments. Change a stock level, demand, a supplier price or a brewery outage and see availability, procurement, cost, guest feedback and marketing respond. Customer Experience Recovery joins synthetic feedback to the same warehouse.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "The twin's baseline reorder and negative-feedback share equal what the recorded missions produced; its JavaScript matches a Python reference on golden vectors."
+        },
+        {
+          "cls": "SYNTHETIC",
+          "text": "NASHA is a concept; this is a simulation of a business that does not exist. Not a forecast."
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "architecture",
+      "title": "The technical architecture",
+      "seconds": 15,
+      "room": "city",
+      "chips": [
+        "VERIFIED"
+      ],
+      "text": "An optional WebGL prototype exists as an isolated experiment; the CSS 3D Agent City remains the supported view. Seven separated layers: a cinematic front end; an event-driven presentation layer that is a pure function of nasha.event.v1 events; backend orchestration; agent and analytical capabilities; governance and approval; evaluation and observability; synthetic business data. Standard-library Python, server-sent events, SHA-256 hash chains, loopback-only and token-protected.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "The event contract is versioned, schema-validated on both ends, and replay is deterministic."
+        },
+        {
+          "cls": "PLANNED",
+          "text": "Not built: a language-model planner that adds value over the fixed graph (the experimental one validates but does not improve it), multi-user identity, a trusted-network deployment for phones, and independent evaluation by someone other than the author."
+        }
+      ],
+      "links": []
+    },
+    {
+      "id": "contributions",
+      "title": "Engineering contributions and independent projects",
+      "seconds": 15,
+      "room": null,
+      "chips": [
+        "VERIFIED",
+        "EXPERIENCE"
+      ],
+      "text": "Independent, public projects underpin this work: a from-scratch RAG engine, a tool-call gateway with human approval, an agent platform, and the release engineering of the portfolio site.",
+      "proof": [
+        {
+          "cls": "VERIFIED",
+          "text": "The linked repositories are public; judge them directly."
+        },
+        {
+          "cls": "EXPERIENCE",
+          "text": "Professional background, as stated by the owner and NOT evidenced by this project (no supporting documents are attached here, and no dates, metrics, responsibilities or certifications are claimed): an Apple Maps \u2014 Client Engagement in Product and GenAI Operations (a client assignment, not direct Apple employment); Business and Operations Analytics at Heart Hospitality; Data and Business Analytics at Liberated Monks; a Master's in Business Analytics; an Integrated M.Tech in Software Engineering; working skills in Python, SQL, analytics, automation and AI evaluation. Everything on the NASHA side is an independent project and separate from this list."
+        },
+        {
+          "cls": "PLANNED",
+          "text": "Unverified: employment dates, scope, outcomes and credentials are left blank until the owner supplies documents; none are invented."
+        }
+      ],
+      "links": [
+        {
+          "text": "rag-doc-qa",
+          "href": "https://github.com/riteshmamidi0905-lab/rag-doc-qa"
+        },
+        {
+          "text": "mcp-weir",
+          "href": "https://github.com/riteshmamidi0905-lab/mcp-weir"
+        },
+        {
+          "text": "production-ai-agent-platform",
+          "href": "https://github.com/riteshmamidi0905-lab/production-ai-agent-platform"
+        },
+        {
+          "text": "riteshmamidi0905-lab.github.io",
+          "href": "https://github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io"
+        }
+      ]
+    }
+  ],
+  "legend": {
+    "VERIFIED": "backed by an automated test result in this repository",
+    "SYNTHETIC": "a demonstration on synthetic data or a scripted fixture",
+    "PLANNED": "not built",
+    "EXPERIENCE": "the owner's professional experience; not evidenced here"
+  }
+}

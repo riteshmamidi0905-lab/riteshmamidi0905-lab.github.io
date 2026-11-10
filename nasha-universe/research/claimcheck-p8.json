@@ -1,0 +1,216 @@
+{
+ "generated_at": "2026-11-09T21:53:52Z",
+ "label": "VERIFIED",
+ "checker_code_sha256": "2c8bc130043f17f642bfcf589c01c7c2c1f6720065d2f3094c74ba9a62f193b4",
+ "checker_frozen": true,
+ "holdout_loaded": false,
+ "compound_regression": {
+  "note": "The original Phase 3 fixtures replaced in the Mission B nominal and clean scenarios in Phase 7 are restored here, and run as the `compound_claims` Mission B scenario. The atomic replacements are kept.",
+  "rows": [
+   {
+    "fixture": "original nominal fixture (Phase 3)",
+    "claim_id": "c1",
+    "claim": "NASHA's dietary policy excludes beef and pork derivatives and gelatin fining.",
+    "original_checker": "SUPPORTED",
+    "improved_verdict": "UNSUPPORTED",
+    "improved_outcome": "rejects",
+    "reasons": [
+     "MISSING_EVIDENCE"
+    ]
+   },
+   {
+    "fixture": "original nominal fixture (Phase 3)",
+    "claim_id": "c2",
+    "claim": "The flagship will open with 24 beer taps.",
+    "original_checker": "AMBIGUOUS_FIGURE",
+    "improved_verdict": "UNSUPPORTED",
+    "improved_outcome": "rejects",
+    "reasons": [
+     "MISSING_EVIDENCE",
+     "UNSUPPORTED_ADDITION"
+    ]
+   },
+   {
+    "fixture": "original nominal fixture (Phase 3)",
+    "claim_id": "c3",
+    "claim": "The Austin restaurant opens in the second quarter.",
+    "original_checker": "UNSUPPORTED",
+    "improved_verdict": "UNSUPPORTED",
+    "improved_outcome": "rejects",
+    "reasons": [
+     "MISSING_EVIDENCE",
+     "UNSUPPORTED_ADDITION"
+    ]
+   },
+   {
+    "fixture": "original nominal fixture (Phase 3)",
+    "claim_id": "c4",
+    "claim": "No NASHA logo exists yet and the lettering is a temporary placeholder.",
+    "original_checker": "SUPPORTED",
+    "improved_verdict": "UNSUPPORTED",
+    "improved_outcome": "rejects",
+    "reasons": [
+     "MISSING_EVIDENCE",
+     "UNSUPPORTED_ADDITION"
+    ]
+   },
+   {
+    "fixture": "original nominal fixture (Phase 3)",
+    "claim_id": "c5",
+    "claim": "The venture is backed by a $2 million investment.",
+    "original_checker": "UNSUPPORTED",
+    "improved_verdict": "UNSUPPORTED",
+    "improved_outcome": "rejects",
+    "reasons": [
+     "MISSING_EVIDENCE"
+    ]
+   },
+   {
+    "fixture": "original clean fixture (Phase 3)",
+    "claim_id": "c1",
+    "claim": "NASHA's dietary policy excludes beef and pork derivatives and gelatin fining.",
+    "original_checker": "SUPPORTED",
+    "improved_verdict": "UNSUPPORTED",
+    "improved_outcome": "rejects",
+    "reasons": [
+     "MISSING_EVIDENCE"
+    ]
+   },
+   {
+    "fixture": "original clean fixture (Phase 3)",
+    "claim_id": "c2",
+    "claim": "No NASHA logo exists yet and the lettering is a temporary placeholder.",
+    "original_checker": "SUPPORTED",
+    "improved_verdict": "UNSUPPORTED",
+    "improved_outcome": "rejects",
+    "reasons": [
+     "MISSING_EVIDENCE",
+     "UNSUPPORTED_ADDITION"
+    ]
+   }
+  ]
+ },
+ "failure_analysis": {
+  "categories": {
+   "no_evidence_sentence": "No retrieved sentence reached the coverage threshold: the source states the fact tersely or symbolically (for example 'Taps ≤ 10'), so the claim's wording does not overlap enough.",
+   "number_normalisation": "A number word or numeral was normalised differently on the two sides (for example the proper name 'Phase One' read as the digit 1).",
+   "elliptical_evidence": "A sentence covers most of the claim but the claim carries context words that the terse source sentence leaves implicit (it relies on the surrounding passage), so the addition limit rejects it.",
+   "other": "None of the above."
+  },
+  "counts": {
+   "no_evidence_sentence": 2,
+   "number_normalisation": 1,
+   "elliptical_evidence": 2,
+   "other": 0
+  },
+  "total": 5,
+  "rows": [
+   {
+    "id": "s07",
+    "dataset": "historical benchmark",
+    "claim": "The opening beer list is limited to ten taps or fewer.",
+    "category": "no_evidence_sentence",
+    "reasons": [
+     "MISSING_EVIDENCE"
+    ],
+    "reference_quote": "Taps ≤ 10"
+   },
+   {
+    "id": "s08",
+    "dataset": "historical benchmark",
+    "claim": "The 24-handle bar is the visual canon for the locked DNA bar.",
+    "category": "no_evidence_sentence",
+    "reasons": [
+     "MISSING_EVIDENCE"
+    ],
+    "reference_quote": "24 handles is the visual canon"
+   },
+   {
+    "id": "h02",
+    "dataset": "holdout",
+    "claim": "The dietary policy applies to the kids menu as well.",
+    "category": "elliptical_evidence",
+    "reasons": [
+     "MISSING_EVIDENCE",
+     "UNSUPPORTED_ADDITION"
+    ],
+    "reference_quote": "kids menu"
+   },
+   {
+    "id": "h06",
+    "dataset": "holdout",
+    "claim": "Beer portfolio v2 replaced the twelve Phase One beers.",
+    "category": "number_normalisation",
+    "reasons": [
+     "MISSING_EVIDENCE",
+     "UNSUPPORTED_ADDITION"
+    ],
+    "reference_quote": "Beer portfolio v2 replaces Phase One's 12 beers"
+   },
+   {
+    "id": "h07",
+    "dataset": "holdout",
+    "claim": "The Raja lager was removed from the beer portfolio.",
+    "category": "elliptical_evidence",
+    "reasons": [
+     "MISSING_EVIDENCE",
+     "UNSUPPORTED_ADDITION"
+    ],
+    "reference_quote": "Raja lager removed"
+   }
+  ],
+  "note": "Analysis of stored outputs. The improved checker's false-rejection rate is 0.2 on the holdout and 0.25 on the development set."
+ },
+ "candidates": {
+  "baseline_frozen_checker_on_development_set": {
+   "false_acceptance_rate": 0.0,
+   "false_rejection_rate": 0.25,
+   "accuracy": 0.9,
+   "false_acceptances": 0
+  },
+  "variants": [
+   {
+    "variant": "A: read symbolic comparators as words (≤ N → N or fewer)",
+    "development_set": "claim-grounding-v1",
+    "metrics": {
+     "false_acceptance_rate": 0.0,
+     "false_rejection_rate": 0.25,
+     "accuracy": 0.9,
+     "false_acceptances": 0
+    },
+    "change_from_frozen_checker": [],
+    "safe_on_development_set": true,
+    "adopted": false,
+    "why_not_adopted": "a development-set result cannot validate a change; the holdout has been used and the labels share an author. Adoption needs the independent labelled set (eval/independent/)."
+   },
+   {
+    "variant": "B: a capitalised ordinal in a proper name is not a number (Phase One)",
+    "development_set": "claim-grounding-v1",
+    "metrics": {
+     "false_acceptance_rate": 0.0,
+     "false_rejection_rate": 0.25,
+     "accuracy": 0.9,
+     "false_acceptances": 0
+    },
+    "change_from_frozen_checker": [],
+    "safe_on_development_set": true,
+    "adopted": false,
+    "why_not_adopted": "a development-set result cannot validate a change; the holdout has been used and the labels share an author. Adoption needs the independent labelled set (eval/independent/)."
+   },
+   {
+    "variant": "A+B",
+    "development_set": "claim-grounding-v1",
+    "metrics": {
+     "false_acceptance_rate": 0.0,
+     "false_rejection_rate": 0.25,
+     "accuracy": 0.9,
+     "false_acceptances": 0
+    },
+    "change_from_frozen_checker": [],
+    "safe_on_development_set": true,
+    "adopted": false,
+    "why_not_adopted": "a development-set result cannot validate a change; the holdout has been used and the labels share an author. Adoption needs the independent labelled set (eval/independent/)."
+   }
+  ]
+ }
+}

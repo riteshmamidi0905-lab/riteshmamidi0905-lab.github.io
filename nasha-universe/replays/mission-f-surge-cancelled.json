@@ -1,0 +1,1325 @@
+{
+ "recording": {
+  "slug": "mission-f-surge-cancelled",
+  "title": "Demand Surge Response: cancelled after the first wave",
+  "scenario": "cancel_after_inventory",
+  "scenario_note": "The run is cancelled by the operator after the first wave: every task that had not started is cancelled and nothing is recorded.",
+  "mission": "mission-f-demand-surge-response",
+  "decision": "none",
+  "final_status": "CANCELLED",
+  "recorded_at": "2026-11-09T21:53:34Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 44,
+  "note": "The operator cancels after the first wave; every task that had not started is cancelled. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0001",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:34.837Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Demand Surge Response",
+    "scenario": "cancel_after_inventory",
+    "scenario_note": "The run is cancelled by the operator after the first wave: every task that had not started is cancelled and nothing is recorded.",
+    "trigger": "A synthetic +80% demand surge is declared. The graph below is fixed in code; this is not autonomous delegation",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "surge_pct": 80,
+    "graph": [
+     {
+      "node": "inventory",
+      "title": "Inventory analysis",
+      "agent": "vectra",
+      "depends_on": []
+     },
+     {
+      "node": "demand",
+      "title": "Demand surge",
+      "agent": "aethon",
+      "depends_on": []
+     },
+     {
+      "node": "brewery",
+      "title": "Brewery production planning",
+      "agent": "zybrew",
+      "depends_on": [
+       "demand"
+      ]
+     },
+     {
+      "node": "finance",
+      "title": "Financial impact",
+      "agent": "quantix",
+      "depends_on": [
+       "inventory",
+       "demand"
+      ]
+     },
+     {
+      "node": "cx",
+      "title": "Customer experience impact",
+      "agent": "echon",
+      "depends_on": [
+       "finance"
+      ]
+     },
+     {
+      "node": "proposal",
+      "title": "Proposed operational response",
+      "agent": "synapse",
+      "depends_on": [
+       "inventory",
+       "brewery",
+       "finance",
+       "cx"
+      ]
+     },
+     {
+      "node": "governance",
+      "title": "Governance review and human approval",
+      "agent": "aegis",
+      "depends_on": [
+       "proposal"
+      ]
+     },
+     {
+      "node": "report",
+      "title": "Traceable report",
+      "agent": "synapse",
+      "depends_on": [
+       "governance"
+      ]
+     }
+    ],
+    "execution": "sequential in a deterministic order; waves show readiness, not parallelism",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the response and assemble the proposal"
+     },
+     {
+      "agent": "vectra",
+      "task": "Analyse inventory"
+     },
+     {
+      "agent": "aethon",
+      "task": "Establish the demand surge"
+     },
+     {
+      "agent": "zybrew",
+      "task": "Plan brewery production"
+     },
+     {
+      "agent": "quantix",
+      "task": "Assess financial impact"
+     },
+     {
+      "agent": "echon",
+      "task": "Assess customer experience"
+     },
+     {
+      "agent": "aegis",
+      "task": "Review the proposal and hold it for a person"
+     }
+    ],
+    "planner": "a fixed dependency graph over documented models (no language model)",
+    "mode": "deterministic",
+    "model": null
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "dfc07b9e6fcae55d07ab56195ece152f0cffd19169c396b91b301fe8675dafcc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0002",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:34.837Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the response and assemble the proposal",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "dfc07b9e6fcae55d07ab56195ece152f0cffd19169c396b91b301fe8675dafcc",
+   "hash": "37f07d28c7471b290f332d220741b5ca4670e99f02c48e74196561cb0c38d33e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0003",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "queued",
+    "depends_on": [],
+    "title": "Inventory analysis"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "37f07d28c7471b290f332d220741b5ca4670e99f02c48e74196561cb0c38d33e",
+   "hash": "ef9ed44786ab67fa2600d21c62c2e0677f8815807fa95798bf41e666e06953cf"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0004",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "queued",
+    "depends_on": [],
+    "title": "Demand surge"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "ef9ed44786ab67fa2600d21c62c2e0677f8815807fa95798bf41e666e06953cf",
+   "hash": "cd5bfb58c6fbbccd6390cf94b05356fcbb0e32a51cff4ab7040d411524afee84"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0005",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "queued",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "cd5bfb58c6fbbccd6390cf94b05356fcbb0e32a51cff4ab7040d411524afee84",
+   "hash": "db792ba62f4bf6691edd1779778f783284788d3d9184823b66b7bb607ee7b29d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0006",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "queued",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "db792ba62f4bf6691edd1779778f783284788d3d9184823b66b7bb607ee7b29d",
+   "hash": "81625696604396d8a91630ad32c628eb32bc58265e744c9e5aff290178c337e1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0007",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_state",
+   "payload": {
+    "node": "cx",
+    "state": "queued",
+    "depends_on": [
+     "finance"
+    ],
+    "title": "Customer experience impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "81625696604396d8a91630ad32c628eb32bc58265e744c9e5aff290178c337e1",
+   "hash": "07686904aeb124fc43247986db5d7078f64e9fa57260849179e61066df6ed84a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0008",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "proposal",
+    "state": "queued",
+    "depends_on": [
+     "inventory",
+     "brewery",
+     "finance",
+     "cx"
+    ],
+    "title": "Proposed operational response"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "07686904aeb124fc43247986db5d7078f64e9fa57260849179e61066df6ed84a",
+   "hash": "5ab4fcb8edf6c44741cb4182f2fc563792ea4a582b013f7446a708b7c65a9623"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0009",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "queued",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "5ab4fcb8edf6c44741cb4182f2fc563792ea4a582b013f7446a708b7c65a9623",
+   "hash": "55c1ccf23a725006c8b096a19a86929a7a4ecb458efae16d64ba9c0dfbb0d5e5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0010",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:34.849Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "report",
+    "state": "queued",
+    "depends_on": [
+     "governance"
+    ],
+    "title": "Traceable report"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "55c1ccf23a725006c8b096a19a86929a7a4ecb458efae16d64ba9c0dfbb0d5e5",
+   "hash": "536f448f7f80f6c1ee6f00e018f5b96c460f6946d54b8e1c0b548b0886d4baf4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0011",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:34.850Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "running",
+    "depends_on": [],
+    "title": "Inventory analysis",
+    "wave": 1,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "536f448f7f80f6c1ee6f00e018f5b96c460f6946d54b8e1c0b548b0886d4baf4",
+   "hash": "c697c32bab0df8d392c432f652dc25484d49a5a17505c2b0c5e9bd622c2040bb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0012",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:34.850Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the response and assemble the proposal",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "c697c32bab0df8d392c432f652dc25484d49a5a17505c2b0c5e9bd622c2040bb",
+   "hash": "51c7061871c4a718dab3b370d969fac098fb39c3fd5cb8aac65c99559103547f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0013",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:34.850Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Inventory analysis",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "51c7061871c4a718dab3b370d969fac098fb39c3fd5cb8aac65c99559103547f",
+   "hash": "9a49f1ce71500222a9a9ab2c8a581d5c6fd645917f8ae6347223728d0879e945"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0014",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:34.850Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "F1",
+    "args": {
+     "limit": 5,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "variance_flags"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "9a49f1ce71500222a9a9ab2c8a581d5c6fd645917f8ae6347223728d0879e945",
+   "hash": "565b1747f8ea7c4bded338a3e6af067b2b30d192d648af471c4b925f25d1ba5e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0015",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:34.852Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "F1",
+    "ok": true,
+    "rows": 5,
+    "ms": 1.82,
+    "source": "scn_variance_flag",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "46e58b8d7de1"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "565b1747f8ea7c4bded338a3e6af067b2b30d192d648af471c4b925f25d1ba5e",
+   "hash": "550051ef9c9a0e1f7d88893689d21f7ff0e9a0c3c980039a4211e4805b57948a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0016",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:34.852Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "F2",
+    "args": {
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "limit": 1,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "reorder_recommendations"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "550051ef9c9a0e1f7d88893689d21f7ff0e9a0c3c980039a4211e4805b57948a",
+   "hash": "fdf5c0eb04364c21246560002911691ed3da0bc58cf9960854690b374bbecba1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0017",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:34.853Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "F2",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.68,
+    "source": "scn_procurement_reco",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "833a6edfc5e2"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "fdf5c0eb04364c21246560002911691ed3da0bc58cf9960854690b374bbecba1",
+   "hash": "213a080cbbf9f29c39cac0364e39ecfca462735ce263eb1d9a0f1e395d7ff93e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0018",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:34.853Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Inventory analysis",
+    "result": {
+     "node": "inventory",
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "on_hand_kg": 9.9565,
+     "need_7d_kg": 13.9753,
+     "proposed_reorder_kg": 10.0,
+     "est_cost_usd": 74.0,
+     "reco_status": "PROPOSED",
+     "note": "the reorder is only PROPOSED in the warehouse; no order exists"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "213a080cbbf9f29c39cac0364e39ecfca462735ce263eb1d9a0f1e395d7ff93e",
+   "hash": "0b198945667f891d98d69dd22c02d3e9b1410b89f14011f702a2bfefe0a3ba30"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0019",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:34.853Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "completed",
+    "depends_on": [],
+    "title": "Inventory analysis",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "0b198945667f891d98d69dd22c02d3e9b1410b89f14011f702a2bfefe0a3ba30",
+   "hash": "bf7aeafd48db6ed17f1d338e974a4a245e900eddcd4cda5f5adf47f55433a09e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0020",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:34.854Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "running",
+    "depends_on": [],
+    "title": "Demand surge",
+    "wave": 1,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "bf7aeafd48db6ed17f1d338e974a4a245e900eddcd4cda5f5adf47f55433a09e",
+   "hash": "5ea2a75feab0f75ed0c916c0e9cecc530aee17a4f5bb8b008ca8ca8776444e08"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0021",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:34.854Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Inventory analysis",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "5ea2a75feab0f75ed0c916c0e9cecc530aee17a4f5bb8b008ca8ca8776444e08",
+   "hash": "f9bdf12b5b186bf448fca8910ef8644c55d611c512a4b2db82369bfc2ebb0e0a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0022",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:34.854Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Demand surge",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "f9bdf12b5b186bf448fca8910ef8644c55d611c512a4b2db82369bfc2ebb0e0a",
+   "hash": "5b0033c08a8e849e4fb82f34b3cf648f33cd0f86938c86bf7b18a24d3c92b023"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0023",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:34.854Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "F3",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "5b0033c08a8e849e4fb82f34b3cf648f33cd0f86938c86bf7b18a24d3c92b023",
+   "hash": "82a3c1449639da3a9f7e67070988e674014ba75c1852987f920e487a666b4721"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0024",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:34.854Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "F3",
+    "ok": true,
+    "rows": 10,
+    "ms": 0.5,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "e1db6ca1d2a0"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "82a3c1449639da3a9f7e67070988e674014ba75c1852987f920e487a666b4721",
+   "hash": "bb3d8b86cb7c8516b625b047e77ab65cb5fadb80e865b48d7c35b4f5d817169c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0025",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:34.854Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "company_month",
+    "stage": "F4",
+    "args": {
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "company_month"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "bb3d8b86cb7c8516b625b047e77ab65cb5fadb80e865b48d7c35b4f5d817169c",
+   "hash": "7ef66e162d9d47518d2da45f7e02829ab08a2d2a8500b0e94c471dbdf4846dd4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0026",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:34.855Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "company_month",
+    "stage": "F4",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.46,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "5d51aee521e0"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "7ef66e162d9d47518d2da45f7e02829ab08a2d2a8500b0e94c471dbdf4846dd4",
+   "hash": "25629a96421bab4111187bdd7a1226fe7a5f99dd5e6f0532558994bcb313d2dc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0027",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:34.855Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Demand surge",
+    "result": {
+     "node": "demand",
+     "month": "2024-10",
+     "orders": 2254,
+     "locations": 4,
+     "surge_pct": 80,
+     "surged_orders": 4057,
+     "basis": "warehouse orders; the surge is a declared scenario input"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "25629a96421bab4111187bdd7a1226fe7a5f99dd5e6f0532558994bcb313d2dc",
+   "hash": "3445f41276cffb8b367d6181ffd4bd9cd9efdb1d4393cd61075d59fadc76f02f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0028",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:34.855Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "completed",
+    "depends_on": [],
+    "title": "Demand surge",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "3445f41276cffb8b367d6181ffd4bd9cd9efdb1d4393cd61075d59fadc76f02f",
+   "hash": "ccc36782f7ed3e985c1812bf3883ef723be40f75069a796e806264d7616fea97"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0029",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "cancelled",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "ccc36782f7ed3e985c1812bf3883ef723be40f75069a796e806264d7616fea97",
+   "hash": "c0ebfd91fbc036cdebe9b1f77ec1549115468c031358d05b44144c84937b91a4"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0030",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "cancelled",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "c0ebfd91fbc036cdebe9b1f77ec1549115468c031358d05b44144c84937b91a4",
+   "hash": "8f3634eebd1b3bb02dba535b39dbfb93e1ff32a5c38d13ea27f6b07d2e0ae179"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0031",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_state",
+   "payload": {
+    "node": "cx",
+    "state": "cancelled",
+    "depends_on": [
+     "finance"
+    ],
+    "title": "Customer experience impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "8f3634eebd1b3bb02dba535b39dbfb93e1ff32a5c38d13ea27f6b07d2e0ae179",
+   "hash": "28488e28ce15bf755be7011e89124973101d39120c53ecbba33c29d3cd0ea948"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0032",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "proposal",
+    "state": "cancelled",
+    "depends_on": [
+     "inventory",
+     "brewery",
+     "finance",
+     "cx"
+    ],
+    "title": "Proposed operational response"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "28488e28ce15bf755be7011e89124973101d39120c53ecbba33c29d3cd0ea948",
+   "hash": "293080b04259f5415c7b1b243b9def5b30e39eab54cc5eca486f599d327b0545"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0033",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "cancelled",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "293080b04259f5415c7b1b243b9def5b30e39eab54cc5eca486f599d327b0545",
+   "hash": "6cac531b173606a66fdbf087b1de9433c87a3754db0ee36e4f1a97bd4bdccec2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0034",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "report",
+    "state": "cancelled",
+    "depends_on": [
+     "governance"
+    ],
+    "title": "Traceable report"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "6cac531b173606a66fdbf087b1de9433c87a3754db0ee36e4f1a97bd4bdccec2",
+   "hash": "251f716988f1eb6ce059af58850ab48848853342a8087b5f44ebe8955f9bd805"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0035",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Demand surge",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "251f716988f1eb6ce059af58850ab48848853342a8087b5f44ebe8955f9bd805",
+   "hash": "f3f26c39c37cfb99e2c7cbe144795a93d13d24241755b93fe597505d61e03a30"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0036",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Cancel",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "f3f26c39c37cfb99e2c7cbe144795a93d13d24241755b93fe597505d61e03a30",
+   "hash": "e67d4337138db8e3fc2e070c4b7b1ec61343da3bacadf2367a32ce3bb5201fd6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0037",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:34.856Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "cancelled",
+    "policy": "the operator cancelled the run; nothing in flight was interrupted and nothing further was started",
+    "states": {
+     "inventory": "completed",
+     "demand": "completed",
+     "brewery": "cancelled",
+     "finance": "cancelled",
+     "cx": "cancelled",
+     "proposal": "cancelled",
+     "governance": "cancelled",
+     "report": "cancelled"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "operator",
+     "id": "cancel"
+    }
+   ],
+   "prev_hash": "e67d4337138db8e3fc2e070c4b7b1ec61343da3bacadf2367a32ce3bb5201fd6",
+   "hash": "b1bca72d3932fcebf3ad00881717275eab4049d6eb539ee28c46c1d1903fb205"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0038",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:34.857Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Cancel",
+    "outcome": "stopped"
+   },
+   "evidence_refs": [],
+   "prev_hash": "b1bca72d3932fcebf3ad00881717275eab4049d6eb539ee28c46c1d1903fb205",
+   "hash": "147d3c91762a94caa6096adf5ddfb7186764164c169c07200a221800fee0c324"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0039",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:34.857Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "orchestration_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "95b26a2aa8efbf7a3a7dc9a9534f30f34ff71a8183247dc44e7b029e6ebe5724"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "147d3c91762a94caa6096adf5ddfb7186764164c169c07200a221800fee0c324",
+   "hash": "d5fc730fff60353a1af7e593764331f32b0f75b2a28079b9ab40dc7e83bfd005"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0040",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:34.857Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "node_inventory_completed",
+    "actor": "vectra",
+    "role": "SYSTEM",
+    "hash": "18305e17d5eb839ef3fab34b08a5daf0a473d9a2db047d0cd04e8721cd460ae1"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "d5fc730fff60353a1af7e593764331f32b0f75b2a28079b9ab40dc7e83bfd005",
+   "hash": "bc653fc452a7560ef62af3ff4983eb795482807fef85578ff2bbf0b17e035801"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0041",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:34.857Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "node_demand_completed",
+    "actor": "aethon",
+    "role": "SYSTEM",
+    "hash": "1a50b46bcc5e9801adbfd6abccaca416ddea6332afd2421ec9bb2cd4a82a9dd8"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "bc653fc452a7560ef62af3ff4983eb795482807fef85578ff2bbf0b17e035801",
+   "hash": "928e7dd34f03ad08e1f08525eec974435a26390013ec368865527cd91de0ade1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0042",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:34.857Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "cancelled",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "4f5041316bbf4ef15843bb4a84ee7a76058dbfa09f4c05ffcbfcee250271c30b"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "928e7dd34f03ad08e1f08525eec974435a26390013ec368865527cd91de0ade1",
+   "hash": "03035b2b107fbdbf4af92d3ca69908ec5228a3dbb3516ba1b95632191e13542e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0043",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:34.857Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-ancelled-f-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-ancelled-f"
+    }
+   ],
+   "prev_hash": "03035b2b107fbdbf4af92d3ca69908ec5228a3dbb3516ba1b95632191e13542e",
+   "hash": "1ff1f741bc715d432bed0d73398f91b69075c2c1c3ca4b6d43daa769c7e0963d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-ancelled-f-0044",
+   "run_id": "rec-ancelled-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:34.857Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "CANCELLED",
+    "side_effects": {
+     "actions_executed": 0,
+     "purchases_made": 0,
+     "drafts_created": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The run was cancelled. Nothing was proposed, recorded or executed.",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    },
+    "states": {
+     "inventory": "completed",
+     "demand": "completed",
+     "brewery": "cancelled",
+     "finance": "cancelled",
+     "cx": "cancelled",
+     "proposal": "cancelled",
+     "governance": "cancelled",
+     "report": "cancelled"
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "1ff1f741bc715d432bed0d73398f91b69075c2c1c3ca4b6d43daa769c7e0963d",
+   "hash": "68734438e028efd75c0a15540a078cabb5eadfd92c3aff5e4c621f4a2c1bfe2f"
+  }
+ ]
+}

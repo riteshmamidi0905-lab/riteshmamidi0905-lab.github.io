@@ -1,0 +1,1449 @@
+{
+ "recording": {
+  "slug": "mission-a-rejected",
+  "title": "Inventory Crisis: rejected",
+  "scenario": "nominal",
+  "scenario_note": "Everything works; the proposal waits for the owner.",
+  "mission": "mission-a-inventory-crisis",
+  "decision": "reject",
+  "final_status": "REJECTED",
+  "recorded_at": "2026-11-09T21:53:29Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 50,
+  "note": "The owner rejects the proposal; nothing is created. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0001",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:29.025Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Inventory Crisis",
+    "scenario": "nominal",
+    "scenario_note": "Everything works; the proposal waits for the owner.",
+    "trigger": "A synthetic supplier delivery was reported failed (scenario input; the lab does not detect deliveries)",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the mission and authenticate the requester"
+     },
+     {
+      "agent": "vectra",
+      "task": "Check inventory availability and the discrepancy"
+     },
+     {
+      "agent": "aethon",
+      "task": "Establish demand requirements"
+     },
+     {
+      "agent": "nexora",
+      "task": "Find procurement alternatives"
+     },
+     {
+      "agent": "quantix",
+      "task": "Quantify financial exposure"
+     },
+     {
+      "agent": "veritas",
+      "task": "Check every claim against its evidence"
+     },
+     {
+      "agent": "aegis",
+      "task": "Check policy compliance with THE WEIR"
+     }
+    ],
+    "planner": "rules (no language model)"
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "af933aacc5b8a31c4006eab8ec62d5b214ca70bcb1eb246c5bfe6fe324d1836f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0002",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:29.025Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the mission and authenticate the requester",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "af933aacc5b8a31c4006eab8ec62d5b214ca70bcb1eb246c5bfe6fe324d1836f",
+   "hash": "8580f698d9014d4f1371e33a86745f4a06c672a9484f0651a822355c96da6f6d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0003",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:29.030Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Request received",
+    "result": {
+     "tenant": "tenant-a",
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S01"
+    }
+   ],
+   "prev_hash": "8580f698d9014d4f1371e33a86745f4a06c672a9484f0651a822355c96da6f6d",
+   "hash": "20f0a981992289912bcc82b037d49ea289a4b7796ce263a9bd18fc29b8c219f6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0004",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:29.030Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "allow",
+    "policy": "identity and role check",
+    "role": "BUYER",
+    "code": "None"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "auth"
+    }
+   ],
+   "prev_hash": "20f0a981992289912bcc82b037d49ea289a4b7796ce263a9bd18fc29b8c219f6",
+   "hash": "11e450768fdeeec822a997f70d6360122b166636e5dbddcfb5f2ccf7e28f2ece"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0005",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:29.033Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "dataset_provenance",
+    "ref_id": "scn-price-v3-menu-d88",
+    "synthetic": true,
+    "warehouse": "warehouse.db"
+   },
+   "evidence_refs": [
+    {
+     "type": "dataset",
+     "id": "scn-price-v3-menu-d88"
+    }
+   ],
+   "prev_hash": "11e450768fdeeec822a997f70d6360122b166636e5dbddcfb5f2ccf7e28f2ece",
+   "hash": "9a23fc5b26b27c35ac7dac07759cbb1950239e30ba0195412ec441da6eda978b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0006",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:29.034Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the mission and authenticate the requester",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "9a23fc5b26b27c35ac7dac07759cbb1950239e30ba0195412ec441da6eda978b",
+   "hash": "3d44430bacede6ef15d6367d0db655d8ebbe8de2618af8ea0e907c078dae62fb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0007",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:29.034Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check inventory availability and the discrepancy",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "3d44430bacede6ef15d6367d0db655d8ebbe8de2618af8ea0e907c078dae62fb",
+   "hash": "a1b4385dc9e0c469c8378dcdb26c791431d1b8aa15af6c4095b360210666bc70"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0008",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:29.034Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "S08",
+    "args": {
+     "location_id": "L02",
+     "limit": 25
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S08"
+    }
+   ],
+   "prev_hash": "a1b4385dc9e0c469c8378dcdb26c791431d1b8aa15af6c4095b360210666bc70",
+   "hash": "c28e947c8414fd0bb01a215d0db411acabecc088ef0fd22bbe18efb1e02755f7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0009",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:29.036Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "S08",
+    "ok": true,
+    "forwarded": true,
+    "failure": null,
+    "held_for_approval": false,
+    "codes": [],
+    "ms": 1.42,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c1"
+    },
+    {
+     "type": "call_hash",
+     "id": "21281a18d3e715b3"
+    }
+   ],
+   "prev_hash": "c28e947c8414fd0bb01a215d0db411acabecc088ef0fd22bbe18efb1e02755f7",
+   "hash": "0156e8033082b839a40a4b6d4fbc433ae4f17796002be15de0c9f8d69a80f1e6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0010",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:29.036Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "ingredient_usage",
+    "stage": "S08",
+    "args": {
+     "location_id": "L02",
+     "week": 22,
+     "limit": 25
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S08"
+    }
+   ],
+   "prev_hash": "0156e8033082b839a40a4b6d4fbc433ae4f17796002be15de0c9f8d69a80f1e6",
+   "hash": "293a9a2de853ee1dd80ac0cebbce450be95f9aaaafe5781ad71487d0ab131e1c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0011",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:29.039Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "ingredient_usage",
+    "stage": "S08",
+    "ok": true,
+    "forwarded": true,
+    "failure": null,
+    "held_for_approval": false,
+    "codes": [],
+    "ms": 2.61,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c2"
+    },
+    {
+     "type": "call_hash",
+     "id": "f839ff58d0cbf747"
+    }
+   ],
+   "prev_hash": "293a9a2de853ee1dd80ac0cebbce450be95f9aaaafe5781ad71487d0ab131e1c",
+   "hash": "4a25058cc7a8520ba6328d2383dc059ad2dea70e70b7c52d0dcba8876c414741"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0012",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:29.039Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check inventory availability and the discrepancy",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "4a25058cc7a8520ba6328d2383dc059ad2dea70e70b7c52d0dcba8876c414741",
+   "hash": "118612185503277c3fcc35e88bf660cffaf13cd256b18b1225ee028518dbde59"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0013",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:29.039Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Establish demand requirements",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "118612185503277c3fcc35e88bf660cffaf13cd256b18b1225ee028518dbde59",
+   "hash": "dc9213a43c2236f89fc001d3f027d17b8481834417676d666130836a2c4219a1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0014",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:29.039Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "dishes_using_ingredient",
+    "stage": "S08",
+    "args": {
+     "ingredient_id": "i-chicken-thigh"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S08"
+    }
+   ],
+   "prev_hash": "dc9213a43c2236f89fc001d3f027d17b8481834417676d666130836a2c4219a1",
+   "hash": "081323d1d6d8cd9075c1aa84af63b28ed56292543f4f5612e564c6c546e8a8e8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0015",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:29.041Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "dishes_using_ingredient",
+    "stage": "S08",
+    "ok": true,
+    "forwarded": true,
+    "failure": null,
+    "held_for_approval": false,
+    "codes": [],
+    "ms": 1.24,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c3"
+    },
+    {
+     "type": "call_hash",
+     "id": "3d2c1bb301d6363e"
+    }
+   ],
+   "prev_hash": "081323d1d6d8cd9075c1aa84af63b28ed56292543f4f5612e564c6c546e8a8e8",
+   "hash": "62c24d79caa458a04525ce1d24850a507aeccc3b8ec1192409f418b4e701f6b9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0016",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:29.041Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "demand_forecast",
+    "stage": "S08",
+    "args": {
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S08"
+    }
+   ],
+   "prev_hash": "62c24d79caa458a04525ce1d24850a507aeccc3b8ec1192409f418b4e701f6b9",
+   "hash": "718a8f40c67779eb6bd26267bd76737f4f4f5f8c50d1ffb4a610c7107b077560"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0017",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:29.042Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "demand_forecast",
+    "stage": "S08",
+    "ok": true,
+    "forwarded": true,
+    "failure": null,
+    "held_for_approval": false,
+    "codes": [],
+    "ms": 1.02,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c4"
+    },
+    {
+     "type": "call_hash",
+     "id": "8cc34cfe882bbaaa"
+    }
+   ],
+   "prev_hash": "718a8f40c67779eb6bd26267bd76737f4f4f5f8c50d1ffb4a610c7107b077560",
+   "hash": "dd509a3ede3a28eca244bbfa5d09731aaee7adbbe5982a25a6a3dc34d30e7be3"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0018",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:29.042Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Establish demand requirements",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "dd509a3ede3a28eca244bbfa5d09731aaee7adbbe5982a25a6a3dc34d30e7be3",
+   "hash": "886d791df09b8002865288760c2153768201e2ea78e23f89dbb46bf0c94e5b0b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0019",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:29.042Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Find procurement alternatives",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "886d791df09b8002865288760c2153768201e2ea78e23f89dbb46bf0c94e5b0b",
+   "hash": "ce1a369f3e861fc9f821631fc7166d99e5ed7123e19855cc3bbfd58501568d38"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0020",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:29.042Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "S08",
+    "args": {
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "limit": 5
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S08"
+    }
+   ],
+   "prev_hash": "ce1a369f3e861fc9f821631fc7166d99e5ed7123e19855cc3bbfd58501568d38",
+   "hash": "4f262060300eb6a9ea45c498218c325e5f8cbde78a547f737ce2ef94278ea343"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0021",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:29.044Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "S08",
+    "ok": true,
+    "forwarded": true,
+    "failure": null,
+    "held_for_approval": false,
+    "codes": [],
+    "ms": 1.07,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c5"
+    },
+    {
+     "type": "call_hash",
+     "id": "05f2f49a61f890d1"
+    }
+   ],
+   "prev_hash": "4f262060300eb6a9ea45c498218c325e5f8cbde78a547f737ce2ef94278ea343",
+   "hash": "b862a60ce24bad7b8e80a9a8cb1525c89200ee18a92afba4fc3b5325e47ddd8a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0022",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:29.044Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "supplier_comparison",
+    "stage": "S08",
+    "args": {
+     "ingredient_id": "i-chicken-thigh"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S08"
+    }
+   ],
+   "prev_hash": "b862a60ce24bad7b8e80a9a8cb1525c89200ee18a92afba4fc3b5325e47ddd8a",
+   "hash": "a1c2da281d4e19ba14589b429d292dd62415bc758f4306afd4f90b60263bc5b2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0023",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:29.045Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "supplier_comparison",
+    "stage": "S08",
+    "ok": true,
+    "forwarded": true,
+    "failure": null,
+    "held_for_approval": false,
+    "codes": [],
+    "ms": 1.03,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c6"
+    },
+    {
+     "type": "call_hash",
+     "id": "184f1f9e1b001046"
+    }
+   ],
+   "prev_hash": "a1c2da281d4e19ba14589b429d292dd62415bc758f4306afd4f90b60263bc5b2",
+   "hash": "1f22f7f4b8dd7a35b942936146090278a59f4aabd28c2785daf502a65a5b92ca"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0024",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:29.045Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "supplier_notes",
+    "stage": "S08",
+    "args": {
+     "supplier_id": "FS02"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S08"
+    }
+   ],
+   "prev_hash": "1f22f7f4b8dd7a35b942936146090278a59f4aabd28c2785daf502a65a5b92ca",
+   "hash": "6bd9b7e2ee0f14f633c5c49d10fe209624ef35366265e5d7658da9987d2a50fe"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0025",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:29.046Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "supplier_notes",
+    "stage": "S08",
+    "ok": true,
+    "forwarded": true,
+    "failure": null,
+    "held_for_approval": false,
+    "codes": [],
+    "ms": 0.99,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c7"
+    },
+    {
+     "type": "call_hash",
+     "id": "3b4c9e80afeb560d"
+    }
+   ],
+   "prev_hash": "6bd9b7e2ee0f14f633c5c49d10fe209624ef35366265e5d7658da9987d2a50fe",
+   "hash": "624f7b2adc96198a56611f119d722f499ee757036ca609faf30c91fe847e71f9"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0026",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:29.046Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "evidence_book",
+    "ref_id": "rec-rejected-a-evidence",
+    "items": [
+     {
+      "id": "E1:variance_flags",
+      "ok": true,
+      "trust": "trusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E2:ingredient_usage",
+      "ok": true,
+      "trust": "trusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E3:dishes_using_ingredient",
+      "ok": true,
+      "trust": "trusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E4:demand_forecast",
+      "ok": true,
+      "trust": "trusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E5:reorder_recommendations",
+      "ok": true,
+      "trust": "trusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E6:supplier_comparison",
+      "ok": true,
+      "trust": "trusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E7:supplier_notes",
+      "ok": true,
+      "trust": "untrusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E8:tenant_document",
+      "ok": true,
+      "trust": "untrusted",
+      "injection_suspected": false
+     },
+     {
+      "id": "E9:tenant_document",
+      "ok": true,
+      "trust": "untrusted",
+      "injection_suspected": false
+     }
+    ],
+    "gaps": []
+   },
+   "evidence_refs": [
+    {
+     "type": "evidence",
+     "id": "E1:variance_flags"
+    },
+    {
+     "type": "evidence",
+     "id": "E2:ingredient_usage"
+    },
+    {
+     "type": "evidence",
+     "id": "E3:dishes_using_ingredient"
+    },
+    {
+     "type": "evidence",
+     "id": "E4:demand_forecast"
+    },
+    {
+     "type": "evidence",
+     "id": "E5:reorder_recommendations"
+    },
+    {
+     "type": "evidence",
+     "id": "E6:supplier_comparison"
+    },
+    {
+     "type": "evidence",
+     "id": "E7:supplier_notes"
+    },
+    {
+     "type": "evidence",
+     "id": "E8:tenant_document"
+    },
+    {
+     "type": "evidence",
+     "id": "E9:tenant_document"
+    }
+   ],
+   "prev_hash": "624f7b2adc96198a56611f119d722f499ee757036ca609faf30c91fe847e71f9",
+   "hash": "de9fd13419d5c7ddbf14f9f59b351597c4a10df0f8dbf51b1d2af658ec15724b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0027",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:29.048Z",
+   "mode": "live",
+   "agent": "nexora",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Find procurement alternatives",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "de9fd13419d5c7ddbf14f9f59b351597c4a10df0f8dbf51b1d2af658ec15724b",
+   "hash": "fc1206d0ab5c69eaf78a6b3e0ee058bfb37dea385b6ee11d5ca9f1eeaefc4932"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0028",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:29.048Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check every claim against its evidence",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "fc1206d0ab5c69eaf78a6b3e0ee058bfb37dea385b6ee11d5ca9f1eeaefc4932",
+   "hash": "d710e528f9b0d1048e085482b91f46ce1e2123b3a8acc33b360c6663fd678a28"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0029",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:29.048Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "evaluation",
+   "payload": {
+    "name": "evidence_grounding",
+    "passed": true,
+    "claims_kept": 4,
+    "claims_dropped": 0,
+    "violations": [],
+    "planner": "rules",
+    "planner_is_language_model": false,
+    "planner_kind": "deterministic rules",
+    "fallback": false,
+    "action": "PROPOSE_REORDER"
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S09"
+    }
+   ],
+   "prev_hash": "d710e528f9b0d1048e085482b91f46ce1e2123b3a8acc33b360c6663fd678a28",
+   "hash": "c80d7ecd1cd05b5a554a8313586f8ada5ad7219e5701f12a42904d42b57b311f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0030",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:29.048Z",
+   "mode": "live",
+   "agent": "veritas",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check every claim against its evidence",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "c80d7ecd1cd05b5a554a8313586f8ada5ad7219e5701f12a42904d42b57b311f",
+   "hash": "b1922ba678aeb35f97ef37af20ff18ba7589a7e0976a489699b6886a62000495"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0031",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:29.049Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Quantify financial exposure",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "b1922ba678aeb35f97ef37af20ff18ba7589a7e0976a489699b6886a62000495",
+   "hash": "5a6496b7bd59726dacd55da457add2eb84ed0d8be250912ce48a926589891c2f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0032",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:29.049Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Financial exposure",
+    "result": {
+     "est_cost_usd": 74.0,
+     "planning_cap_usd": 2000.0,
+     "cap_used_pct": 3.7,
+     "price_class": "SYNTHETIC_QUOTE",
+     "basis": "computed from the lab proposal; a synthetic quote, not a payment"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "proposal",
+     "id": "PR-8a27a77323c8"
+    }
+   ],
+   "prev_hash": "5a6496b7bd59726dacd55da457add2eb84ed0d8be250912ce48a926589891c2f",
+   "hash": "86e005c102c70697952fd146d51612995db89c5be562b84010822efca07a6b67"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0033",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:29.049Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Quantify financial exposure",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "86e005c102c70697952fd146d51612995db89c5be562b84010822efca07a6b67",
+   "hash": "3a12c13fdaa66224412d5c8d11f569176a9781d1afaf8e03f95890b78f75cb72"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0034",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:29.049Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Check policy compliance with THE WEIR",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "3a12c13fdaa66224412d5c8d11f569176a9781d1afaf8e03f95890b78f75cb72",
+   "hash": "e85a7a8761c8da1cc91f7eb0db0c74073d3a943f3a86f37957f4b43c7a328b5c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0035",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:29.049Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "create_draft_purchase_order",
+    "stage": "S11",
+    "args": {
+     "proposal_id": "PR-8a27a77323c8",
+     "qty": 10.0,
+     "est_cost_usd": 74.0,
+     "supplier_id": "FS02"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_stage",
+     "id": "S11"
+    }
+   ],
+   "prev_hash": "e85a7a8761c8da1cc91f7eb0db0c74073d3a943f3a86f37957f4b43c7a328b5c",
+   "hash": "65f8242fdde372e48819596c565c9798dce7a3cb4d274e4371493ee1cc446217"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0036",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:29.049Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "create_draft_purchase_order",
+    "stage": "S11",
+    "ok": false,
+    "forwarded": false,
+    "failure": null,
+    "held_for_approval": true,
+    "codes": [
+     "R-GATE"
+    ],
+    "ms": 0.42,
+    "error": null
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c8"
+    },
+    {
+     "type": "call_hash",
+     "id": "8194542ba90cfb86"
+    }
+   ],
+   "prev_hash": "65f8242fdde372e48819596c565c9798dce7a3cb4d274e4371493ee1cc446217",
+   "hash": "e7fc0cab8946469add371d307b38fa46efc7eee53980f90b9071c1d6d273d0db"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0037",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:29.049Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "hold_for_approval",
+    "policy": "THE WEIR: writes need a human approval of this exact call",
+    "codes": [
+     "R-GATE"
+    ],
+    "approval_id": "ap_c7b4427f"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_call",
+     "id": "c8"
+    },
+    {
+     "type": "call_hash",
+     "id": "8194542ba90cfb86"
+    }
+   ],
+   "prev_hash": "e7fc0cab8946469add371d307b38fa46efc7eee53980f90b9071c1d6d273d0db",
+   "hash": "57b9993a6e2a38d9bde2565aff70f2d29545d9050a0f2affc4af55e953d33758"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0038",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:29.050Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "run_started",
+    "actor": "tenant-a-buyer",
+    "role": "BUYER",
+    "hash": "44e390f757c0afc4cecd4ea23554cec36759dd775db0a4d9c60930cb5637d5f2"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "57b9993a6e2a38d9bde2565aff70f2d29545d9050a0f2affc4af55e953d33758",
+   "hash": "3e9feefef7150917232f330db1569e8d2c73c03f5c08ce22d26f32425260a392"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0039",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:29.050Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "state:EVIDENCE_COLLECTED",
+    "actor": "tenant-a-buyer",
+    "role": "BUYER",
+    "hash": "8b7f4d7832b6ad32ec4ed218e578f193c3322e197d3f7c3b047aeccad29a5353"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "3e9feefef7150917232f330db1569e8d2c73c03f5c08ce22d26f32425260a392",
+   "hash": "cbc7d5b33562e7d4c8893feccb855b8da6698a6a7286e90c25d1f38146f482e2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0040",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:29.050Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "proposal_created",
+    "actor": "tenant-a-buyer",
+    "role": "BUYER",
+    "hash": "5470dbdd2834c502094cd8af7078be5537a1c526c37a7429846897997cc925b7"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "cbc7d5b33562e7d4c8893feccb855b8da6698a6a7286e90c25d1f38146f482e2",
+   "hash": "ddf1ad6118d1a744a383cb8e0bf663cd3fd98da125a6de75ddcc22820b4155f5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0041",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:29.050Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "state:PROPOSED",
+    "actor": "tenant-a-buyer",
+    "role": "BUYER",
+    "hash": "779fe9d7862b3fe93e1dc9d6e60d6d0712c77a95805727c6496c40da7af3f8a5"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "ddf1ad6118d1a744a383cb8e0bf663cd3fd98da125a6de75ddcc22820b4155f5",
+   "hash": "b81a284f71517639a21b182bf1c82fbd9c2c247a0b73cbdde945d6738f4da93d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0042",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:29.050Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "state:AWAITING_APPROVAL",
+    "actor": "tenant-a-buyer",
+    "role": "BUYER",
+    "hash": "1c241f2c0b81d1357957f76bc0470eefc497dec63f823e842a59fac6db0a8f49"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    }
+   ],
+   "prev_hash": "b81a284f71517639a21b182bf1c82fbd9c2c247a0b73cbdde945d6738f4da93d",
+   "hash": "7cad8fc3cb83f7dcf5266696ecb3a1aa172e276f464e63f5245c8f2c90518657"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0043",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:29.050Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-rejected-a-ledger",
+    "ok": true,
+    "first_bad_seq": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-rejected-a"
+    }
+   ],
+   "prev_hash": "7cad8fc3cb83f7dcf5266696ecb3a1aa172e276f464e63f5245c8f2c90518657",
+   "hash": "05face55b3f51f54d6beb1c30a1f9ec35359aa326c61a2f6ca3ca178a0a2a697"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0044",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:29.050Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "approval_requested",
+   "payload": {
+    "approval_id": "ap_c7b4427f",
+    "requires": "owner",
+    "ttl_s": 900,
+    "consequential_action": "draft purchase order",
+    "summary": {
+     "action": "Create a DRAFT purchase order (never sent)",
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "qty": 10.0,
+     "unit": "kg",
+     "supplier_id": "FS02",
+     "est_cost_usd": 74.0,
+     "price_class": "SYNTHETIC_QUOTE",
+     "claims": [
+      {
+       "text": "i-chicken-thigh usage at L02 in week 22 ran 74.6% above theoretical, 71.1 points above this site's own baseline (spike, severity high).",
+       "evidence": [
+        "E1:variance_flags"
+       ]
+      },
+      {
+       "text": "Measured usage was 18.9705 against 10.8685 expected from recipes and sales.",
+       "evidence": [
+        "E2:ingredient_usage"
+       ]
+      },
+      {
+       "text": "Forecast demand is 13.9753 over the next 7 days (seasonal_mean_4w).",
+       "evidence": [
+        "E4:demand_forecast"
+       ]
+      },
+      {
+       "text": "Recommended order: 10.0 kg from FS02 at an estimated $74.0 (SYNTHETIC_QUOTE).",
+       "evidence": [
+        "E5:reorder_recommendations"
+       ]
+      }
+     ]
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_c7b4427f"
+    },
+    {
+     "type": "proposal",
+     "id": "PR-8a27a77323c8"
+    }
+   ],
+   "prev_hash": "05face55b3f51f54d6beb1c30a1f9ec35359aa326c61a2f6ca3ca178a0a2a697",
+   "hash": "9e54184c495145dfb9230b3931c198d9a2a956fd1bcc5ef073c57b435dae8f47"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0045",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 45,
+   "ts": "2026-11-09T21:53:29.072Z",
+   "mode": "live",
+   "agent": "owner",
+   "kind": "approval_decided",
+   "payload": {
+    "approval_id": "ap_c7b4427f",
+    "decision": "reject",
+    "by": "tenant-a-founder",
+    "role": "None",
+    "comment": "recorded run"
+   },
+   "evidence_refs": [
+    {
+     "type": "weir_approval",
+     "id": "ap_c7b4427f"
+    }
+   ],
+   "prev_hash": "9e54184c495145dfb9230b3931c198d9a2a956fd1bcc5ef073c57b435dae8f47",
+   "hash": "fd6f3c0fdc114471e05bcd4da71c52174b90206060377a6df6fc76f6a235109a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0046",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 46,
+   "ts": "2026-11-09T21:53:29.072Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "6",
+    "action": "proposal_rejected",
+    "actor": "tenant-a-founder",
+    "role": "FOUNDER",
+    "hash": "ff4105c62a9e10119c20db6408d2a4cb760a743e592d84588e5d74b7af37a81d"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "6"
+    }
+   ],
+   "prev_hash": "fd6f3c0fdc114471e05bcd4da71c52174b90206060377a6df6fc76f6a235109a",
+   "hash": "778cde58eb0b63eab7b39ae1e42b97f24ce66a04e65f9ccc374ba6ee712b63d5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0047",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 47,
+   "ts": "2026-11-09T21:53:29.072Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "7",
+    "action": "state:REJECTED",
+    "actor": "tenant-a-founder",
+    "role": "FOUNDER",
+    "hash": "4a4fa2a922045035a23dc73b69092950cdb668dda10cc96ed377e7c42dab7f70"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "7"
+    }
+   ],
+   "prev_hash": "778cde58eb0b63eab7b39ae1e42b97f24ce66a04e65f9ccc374ba6ee712b63d5",
+   "hash": "64ea96cba96656a90e66fafad45cef75c671f1d2de501ba7a8153278a5ac673b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0048",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 48,
+   "ts": "2026-11-09T21:53:29.073Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec-rejected-a-ledger",
+    "ok": true,
+    "first_bad_seq": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec-rejected-a"
+    }
+   ],
+   "prev_hash": "64ea96cba96656a90e66fafad45cef75c671f1d2de501ba7a8153278a5ac673b",
+   "hash": "1148414c881c0a856220d07ea75bacae59f1c06eedddcfa0da15594387bdf325"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0049",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 49,
+   "ts": "2026-11-09T21:53:29.073Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Check policy compliance with THE WEIR",
+    "outcome": "rejected"
+   },
+   "evidence_refs": [],
+   "prev_hash": "1148414c881c0a856220d07ea75bacae59f1c06eedddcfa0da15594387bdf325",
+   "hash": "c6ea566bafedef4a5edaaed2271fb0e3773bd62e671058a700540134b7648dde"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec-rejected-a-0050",
+   "run_id": "rec-rejected-a",
+   "mission": "mission-a-inventory-crisis",
+   "seq": 50,
+   "ts": "2026-11-09T21:53:29.073Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "REJECTED",
+    "side_effects": {
+     "purchase_orders_created": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "The owner rejected the proposal. No purchase order was created.",
+    "po_id": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [],
+   "prev_hash": "c6ea566bafedef4a5edaaed2271fb0e3773bd62e671058a700540134b7648dde",
+   "hash": "1f36493d3f990b790c3fb6015ceedafbd2a4dd4d9ad6a559b08e75c57a339a7b"
+  }
+ ]
+}

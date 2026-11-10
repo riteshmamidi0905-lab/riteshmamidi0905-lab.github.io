@@ -1,0 +1,1814 @@
+{
+ "recording": {
+  "slug": "mission-f-surge-failure",
+  "title": "Demand Surge Response: a task fails, dependents blocked",
+  "scenario": "finance_failure",
+  "scenario_note": "The financial assessment fails on every attempt: after the retry limit its dependents are blocked and nothing is proposed (fail closed).",
+  "mission": "mission-f-demand-surge-response",
+  "decision": "none",
+  "final_status": "BLOCKED_DEPENDENCY_FAILED",
+  "recorded_at": "2026-11-09T21:53:34Z",
+  "backend": "phase2-0.1",
+  "lab_commit": "5fe624a0a014e2ae00d7cca27727700b7432798e",
+  "event_count": 62,
+  "note": "The financial task fails after its retry limit; its four dependents are blocked and nothing is proposed. Recorded from a real run of this backend on synthetic data; the planner is rule-based, the response under review is a scripted fixture, and no language model was used."
+ },
+ "events": [
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0001",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 1,
+   "ts": "2026-11-09T21:53:34.483Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "mission_started",
+   "payload": {
+    "title": "Demand Surge Response",
+    "scenario": "finance_failure",
+    "scenario_note": "The financial assessment fails on every attempt: after the retry limit its dependents are blocked and nothing is proposed (fail closed).",
+    "trigger": "A synthetic +80% demand surge is declared. The graph below is fixed in code; this is not autonomous delegation",
+    "synthetic_data": true,
+    "pace_ms": 0,
+    "pacing_note": "the server pauses between events so people can watch; event timestamps are real",
+    "surge_pct": 80,
+    "graph": [
+     {
+      "node": "inventory",
+      "title": "Inventory analysis",
+      "agent": "vectra",
+      "depends_on": []
+     },
+     {
+      "node": "demand",
+      "title": "Demand surge",
+      "agent": "aethon",
+      "depends_on": []
+     },
+     {
+      "node": "brewery",
+      "title": "Brewery production planning",
+      "agent": "zybrew",
+      "depends_on": [
+       "demand"
+      ]
+     },
+     {
+      "node": "finance",
+      "title": "Financial impact",
+      "agent": "quantix",
+      "depends_on": [
+       "inventory",
+       "demand"
+      ]
+     },
+     {
+      "node": "cx",
+      "title": "Customer experience impact",
+      "agent": "echon",
+      "depends_on": [
+       "finance"
+      ]
+     },
+     {
+      "node": "proposal",
+      "title": "Proposed operational response",
+      "agent": "synapse",
+      "depends_on": [
+       "inventory",
+       "brewery",
+       "finance",
+       "cx"
+      ]
+     },
+     {
+      "node": "governance",
+      "title": "Governance review and human approval",
+      "agent": "aegis",
+      "depends_on": [
+       "proposal"
+      ]
+     },
+     {
+      "node": "report",
+      "title": "Traceable report",
+      "agent": "synapse",
+      "depends_on": [
+       "governance"
+      ]
+     }
+    ],
+    "execution": "sequential in a deterministic order; waves show readiness, not parallelism",
+    "assignments": [
+     {
+      "agent": "synapse",
+      "task": "Open the response and assemble the proposal"
+     },
+     {
+      "agent": "vectra",
+      "task": "Analyse inventory"
+     },
+     {
+      "agent": "aethon",
+      "task": "Establish the demand surge"
+     },
+     {
+      "agent": "zybrew",
+      "task": "Plan brewery production"
+     },
+     {
+      "agent": "quantix",
+      "task": "Assess financial impact"
+     },
+     {
+      "agent": "echon",
+      "task": "Assess customer experience"
+     },
+     {
+      "agent": "aegis",
+      "task": "Review the proposal and hold it for a person"
+     }
+    ],
+    "planner": "a fixed dependency graph over documented models (no language model)",
+    "mode": "deterministic",
+    "model": null
+   },
+   "evidence_refs": [],
+   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+   "hash": "8a1b143e8cbec902796795b21f85919264f20b223537cbfa37d7af7bb8621489"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0002",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 2,
+   "ts": "2026-11-09T21:53:34.484Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Open the response and assemble the proposal",
+    "source": "mission"
+   },
+   "evidence_refs": [],
+   "prev_hash": "8a1b143e8cbec902796795b21f85919264f20b223537cbfa37d7af7bb8621489",
+   "hash": "fccfc556da7027ae28869b1a40bc831963b6ed1762192120accf4ce9937c21ff"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0003",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 3,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "queued",
+    "depends_on": [],
+    "title": "Inventory analysis"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "fccfc556da7027ae28869b1a40bc831963b6ed1762192120accf4ce9937c21ff",
+   "hash": "fd8d0c2e72dc1fa7d8d233fc425266571633c33595af7ca7b432698634f1d068"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0004",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 4,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "queued",
+    "depends_on": [],
+    "title": "Demand surge"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "fd8d0c2e72dc1fa7d8d233fc425266571633c33595af7ca7b432698634f1d068",
+   "hash": "e75a74c0167d3047517177addaa64add29192bff6547e78b83143be312c2b1e1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0005",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 5,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "queued",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "e75a74c0167d3047517177addaa64add29192bff6547e78b83143be312c2b1e1",
+   "hash": "3d7c7b77b3b24b48d91f598d00dc12bed874a0102ba4eb2932496c6f2ee83e32"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0006",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 6,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "queued",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "3d7c7b77b3b24b48d91f598d00dc12bed874a0102ba4eb2932496c6f2ee83e32",
+   "hash": "497924af4b739e32d9607cf067e400da6ef946cea22f01560608e0761d3302b5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0007",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 7,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_state",
+   "payload": {
+    "node": "cx",
+    "state": "queued",
+    "depends_on": [
+     "finance"
+    ],
+    "title": "Customer experience impact"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "497924af4b739e32d9607cf067e400da6ef946cea22f01560608e0761d3302b5",
+   "hash": "b52b039cf10ce727c7c10d46231feaea9b21e6e09f86ca2b9711cf0b01ef9243"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0008",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 8,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "proposal",
+    "state": "queued",
+    "depends_on": [
+     "inventory",
+     "brewery",
+     "finance",
+     "cx"
+    ],
+    "title": "Proposed operational response"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "b52b039cf10ce727c7c10d46231feaea9b21e6e09f86ca2b9711cf0b01ef9243",
+   "hash": "ad9380055ebaf5429e402f49577ae8ebd0064cd15e9e33833426fe36522fdce1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0009",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 9,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "queued",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "ad9380055ebaf5429e402f49577ae8ebd0064cd15e9e33833426fe36522fdce1",
+   "hash": "00725fd974b1c893417d98f74a7983d5e991b5efb2f4e1c28a0e5bc453d75d5c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0010",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 10,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "report",
+    "state": "queued",
+    "depends_on": [
+     "governance"
+    ],
+    "title": "Traceable report"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "00725fd974b1c893417d98f74a7983d5e991b5efb2f4e1c28a0e5bc453d75d5c",
+   "hash": "17acd1fe15e1721f5015fd5384c1313f867b45651b154807768e9fbc6e70ef36"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0011",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 11,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "running",
+    "depends_on": [],
+    "title": "Inventory analysis",
+    "wave": 1,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "17acd1fe15e1721f5015fd5384c1313f867b45651b154807768e9fbc6e70ef36",
+   "hash": "ada1a6919b88bafdd35f46700f9dd27ce5256522d2536fa6f1fdfd8c81bba422"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0012",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 12,
+   "ts": "2026-11-09T21:53:34.489Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Open the response and assemble the proposal",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "ada1a6919b88bafdd35f46700f9dd27ce5256522d2536fa6f1fdfd8c81bba422",
+   "hash": "48f202b69d280b7dd5e4796c0de9613a85ae5d61efb46f71cd3665b37c0202bf"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0013",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 13,
+   "ts": "2026-11-09T21:53:34.490Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Inventory analysis",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "48f202b69d280b7dd5e4796c0de9613a85ae5d61efb46f71cd3665b37c0202bf",
+   "hash": "72b4e2c721ecb577226da09da3e9291e512387178f3aa692fce4fbda39333620"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0014",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 14,
+   "ts": "2026-11-09T21:53:34.490Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "F1",
+    "args": {
+     "limit": 5,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "variance_flags"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "72b4e2c721ecb577226da09da3e9291e512387178f3aa692fce4fbda39333620",
+   "hash": "462f4fdaa66fda27362fc1f5447860d8aaca48e8a882db9657d1514d8d076925"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0015",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 15,
+   "ts": "2026-11-09T21:53:34.491Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "variance_flags",
+    "stage": "F1",
+    "ok": true,
+    "rows": 5,
+    "ms": 1.06,
+    "source": "scn_variance_flag",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "5ae3080aaf6d"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "462f4fdaa66fda27362fc1f5447860d8aaca48e8a882db9657d1514d8d076925",
+   "hash": "4f7e7298b84cd5ebbc91dead2f126cfd7847837e1d7a0e53af066f77bdda6a87"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0016",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 16,
+   "ts": "2026-11-09T21:53:34.491Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "F2",
+    "args": {
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "limit": 1,
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "reorder_recommendations"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "4f7e7298b84cd5ebbc91dead2f126cfd7847837e1d7a0e53af066f77bdda6a87",
+   "hash": "693f5e51b534bfb584cf3bd46aeba3e7e7bc3343e8615074d689538a40529fd8"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0017",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 17,
+   "ts": "2026-11-09T21:53:34.491Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "reorder_recommendations",
+    "stage": "F2",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.35,
+    "source": "scn_procurement_reco",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "c2c73a67409a"
+    },
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "693f5e51b534bfb584cf3bd46aeba3e7e7bc3343e8615074d689538a40529fd8",
+   "hash": "6dddb6df3e4df50c30db4f155e07c67da7f8de296e70f0571f790304ac4f2775"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0018",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 18,
+   "ts": "2026-11-09T21:53:34.491Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Inventory analysis",
+    "result": {
+     "node": "inventory",
+     "location_id": "L02",
+     "ingredient_id": "i-chicken-thigh",
+     "on_hand_kg": 9.9565,
+     "need_7d_kg": 13.9753,
+     "proposed_reorder_kg": 10.0,
+     "est_cost_usd": 74.0,
+     "reco_status": "PROPOSED",
+     "note": "the reorder is only PROPOSED in the warehouse; no order exists"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "6dddb6df3e4df50c30db4f155e07c67da7f8de296e70f0571f790304ac4f2775",
+   "hash": "e715333f87049ef7e0b7eb5626afde0a39ae41f2cc8d2fc697d24b00aa33867c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0019",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 19,
+   "ts": "2026-11-09T21:53:34.491Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "task_state",
+   "payload": {
+    "node": "inventory",
+    "state": "completed",
+    "depends_on": [],
+    "title": "Inventory analysis",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "inventory"
+    }
+   ],
+   "prev_hash": "e715333f87049ef7e0b7eb5626afde0a39ae41f2cc8d2fc697d24b00aa33867c",
+   "hash": "e76208bcc53fee219129f04966b58f02f33bc1993646961d44fe6fb9eb805767"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0020",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 20,
+   "ts": "2026-11-09T21:53:34.492Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "running",
+    "depends_on": [],
+    "title": "Demand surge",
+    "wave": 1,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "e76208bcc53fee219129f04966b58f02f33bc1993646961d44fe6fb9eb805767",
+   "hash": "58198af4a663579daa0df4f439f5c79a978deffc3b1d7da2da6bcd89e87f1181"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0021",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 21,
+   "ts": "2026-11-09T21:53:34.492Z",
+   "mode": "live",
+   "agent": "vectra",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Inventory analysis",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "58198af4a663579daa0df4f439f5c79a978deffc3b1d7da2da6bcd89e87f1181",
+   "hash": "b8a3713b8f0b234b9ac8ca738a5e68132b3812eea1d415e1615623bfcfdaab2f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0022",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 22,
+   "ts": "2026-11-09T21:53:34.492Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Demand surge",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "b8a3713b8f0b234b9ac8ca738a5e68132b3812eea1d415e1615623bfcfdaab2f",
+   "hash": "32dc3bc8fa7e7879b594aa6b77c8de25eb604d4beab2c0da5100e4fcd75043b7"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0023",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 23,
+   "ts": "2026-11-09T21:53:34.492Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "list_months",
+    "stage": "F3",
+    "args": {
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "list_months"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "32dc3bc8fa7e7879b594aa6b77c8de25eb604d4beab2c0da5100e4fcd75043b7",
+   "hash": "901a295abe5fb1b2186db251c45210adb5f3e62040fd5bf8ae4684fb482e3b1e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0024",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 24,
+   "ts": "2026-11-09T21:53:34.492Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "list_months",
+    "stage": "F3",
+    "ok": true,
+    "rows": 10,
+    "ms": 0.31,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "3b3ce5ee2384"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "901a295abe5fb1b2186db251c45210adb5f3e62040fd5bf8ae4684fb482e3b1e",
+   "hash": "22263dc2cbe48de6aef43aa3d810d663a7e5eefef0abb5481e779dda6d3ad202"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0025",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 25,
+   "ts": "2026-11-09T21:53:34.492Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "company_month",
+    "stage": "F4",
+    "args": {
+     "month": "2024-10",
+     "attempt": 1
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "lab_tool",
+     "id": "company_month"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "22263dc2cbe48de6aef43aa3d810d663a7e5eefef0abb5481e779dda6d3ad202",
+   "hash": "1ec0e7987db8f878f9ca69ce830a6378e7c076c28e2582589c1c973d70bb8469"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0026",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 26,
+   "ts": "2026-11-09T21:53:34.492Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "company_month",
+    "stage": "F4",
+    "ok": true,
+    "rows": 1,
+    "ms": 0.31,
+    "source": "mart_company_month",
+    "synthetic": true,
+    "code": null,
+    "failure": null
+   },
+   "evidence_refs": [
+    {
+     "type": "ops_call",
+     "id": "d99e21bae964"
+    },
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "1ec0e7987db8f878f9ca69ce830a6378e7c076c28e2582589c1c973d70bb8469",
+   "hash": "c562f73c047c6b6b06502f1e9c664850e54c3d8460e3b5fbb5db0cd242c9ff54"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0027",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 27,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Demand surge",
+    "result": {
+     "node": "demand",
+     "month": "2024-10",
+     "orders": 2254,
+     "locations": 4,
+     "surge_pct": 80,
+     "surged_orders": 4057,
+     "basis": "warehouse orders; the surge is a declared scenario input"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "c562f73c047c6b6b06502f1e9c664850e54c3d8460e3b5fbb5db0cd242c9ff54",
+   "hash": "ab409c594a7a689c71aea11ab1a343775be2c14423334b3d53b775df5aba5b84"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0028",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 28,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "task_state",
+   "payload": {
+    "node": "demand",
+    "state": "completed",
+    "depends_on": [],
+    "title": "Demand surge",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "demand"
+    }
+   ],
+   "prev_hash": "ab409c594a7a689c71aea11ab1a343775be2c14423334b3d53b775df5aba5b84",
+   "hash": "11a318611ede371cee2f61b9dd399c98cb9cebcc3792c3ac7ec45bb5fc7106c2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0029",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 29,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "running",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning",
+    "wave": 2,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "11a318611ede371cee2f61b9dd399c98cb9cebcc3792c3ac7ec45bb5fc7106c2",
+   "hash": "402628bf6f934ccf4ca15df0f8b80fe399a6ebecf559deef30538867e3ca807e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0030",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 30,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "aethon",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Demand surge",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "402628bf6f934ccf4ca15df0f8b80fe399a6ebecf559deef30538867e3ca807e",
+   "hash": "83e3900591d2e99ec6eaf67f610abea23317470a877bddc23fa8480df9b251b1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0031",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 31,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Brewery production planning",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "83e3900591d2e99ec6eaf67f610abea23317470a877bddc23fa8480df9b251b1",
+   "hash": "1b666a861a36db7b484d0ee35bf7d68839a2bbca5cddc62e4e64a913fa4827b2"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0032",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 32,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "plan_batches",
+    "stage": "F5",
+    "args": {
+     "demand_pct": 80,
+     "weeks": 8
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    },
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "1b666a861a36db7b484d0ee35bf7d68839a2bbca5cddc62e4e64a913fa4827b2",
+   "hash": "bf61bda7652b693ab8cae01fab16e6e9cd8f5482ace0775a3e646a776c3bf89b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0033",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 33,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "plan_batches",
+    "stage": "F5",
+    "ok": true,
+    "batches": {
+     "badshah": 5,
+     "amba-haze": 5
+    },
+    "utilisation": 0.875,
+    "schedule_violations": 0
+   },
+   "evidence_refs": [
+    {
+     "type": "module",
+     "id": "brewplan"
+    },
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "bf61bda7652b693ab8cae01fab16e6e9cd8f5482ace0775a3e646a776c3bf89b",
+   "hash": "5b3b6695a7efaed103512530a1baf4742ac23bba9f9a799235dac2f2a7e0f0d6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0034",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 34,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_completed",
+   "payload": {
+    "task": "Brewery production planning",
+    "result": {
+     "node": "brewery",
+     "batches": {
+      "badshah": 5,
+      "amba-haze": 5
+     },
+     "utilisation": 0.875,
+     "risks": 4,
+     "alerts": [
+      "demand is not covered by packaged beer in 8 of 8 weeks (first: week 1)"
+     ],
+     "shortfalls": 5,
+     "note": "planning support on synthetic inputs; nothing is brewed or ordered"
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "5b3b6695a7efaed103512530a1baf4742ac23bba9f9a799235dac2f2a7e0f0d6",
+   "hash": "0f69286e39a9b604387cf30109b5b4d74e9b331b2e7d567043edf7ea671f6672"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0035",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 35,
+   "ts": "2026-11-09T21:53:34.493Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "task_state",
+   "payload": {
+    "node": "brewery",
+    "state": "completed",
+    "depends_on": [
+     "demand"
+    ],
+    "title": "Brewery production planning",
+    "attempts": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "brewery"
+    }
+   ],
+   "prev_hash": "0f69286e39a9b604387cf30109b5b4d74e9b331b2e7d567043edf7ea671f6672",
+   "hash": "9406230517ae06ccf04158d4bfe9edb667b3c572e2b2a0e683c2bec0477d1ee0"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0036",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 36,
+   "ts": "2026-11-09T21:53:34.494Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "running",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact",
+    "wave": 2,
+    "attempt": 1
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "9406230517ae06ccf04158d4bfe9edb667b3c572e2b2a0e683c2bec0477d1ee0",
+   "hash": "34bdabc6531dba39eb85ba34d7bfaf2d75e9639076931fc6e0c2e781e933164f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0037",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 37,
+   "ts": "2026-11-09T21:53:34.494Z",
+   "mode": "live",
+   "agent": "zybrew",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Brewery production planning",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "34bdabc6531dba39eb85ba34d7bfaf2d75e9639076931fc6e0c2e781e933164f",
+   "hash": "958b4b3f478b27350bf8f36aa65ad9aef9413228a41259c52ad3a2b1aa4d2e1e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0038",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 38,
+   "ts": "2026-11-09T21:53:34.494Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Financial impact",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "958b4b3f478b27350bf8f36aa65ad9aef9413228a41259c52ad3a2b1aa4d2e1e",
+   "hash": "3720dcf324d8ff0285c8ff6f1d8dd5895e40774c954cef36234e76a14916f073"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0039",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 39,
+   "ts": "2026-11-09T21:53:34.494Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "assess_financial_impact",
+    "stage": "F4",
+    "args": {
+     "attempt": 1,
+     "surge_pct": 80
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "3720dcf324d8ff0285c8ff6f1d8dd5895e40774c954cef36234e76a14916f073",
+   "hash": "db8ad2d4b2677bc50d01300f3af951266554dbaee01edbdad1153cad744fe70c"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0040",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 40,
+   "ts": "2026-11-09T21:53:34.494Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "assess_financial_impact",
+    "stage": "F4",
+    "ok": false,
+    "failure": "TOOL_TIMEOUT",
+    "error": "TimeoutError",
+    "ms": 0.0
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "db8ad2d4b2677bc50d01300f3af951266554dbaee01edbdad1153cad744fe70c",
+   "hash": "778e3609ca6b57edd38487d79311f04e3018f2a850f7139e6a80afb7e3a887d1"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0041",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 41,
+   "ts": "2026-11-09T21:53:34.494Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "workflow_failed",
+   "payload": {
+    "failure_class": "TOOL_TIMEOUT",
+    "retryable": true,
+    "detail": "finance failed: TimeoutError"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "778e3609ca6b57edd38487d79311f04e3018f2a850f7139e6a80afb7e3a887d1",
+   "hash": "3f9280bffc69662597dd135530ed53b7697eb2679d6c83f5e5b6221ec547de70"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0042",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 42,
+   "ts": "2026-11-09T21:53:34.494Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "retry_scheduled",
+   "payload": {
+    "attempt": 2,
+    "max_attempts": 2,
+    "reason": "finance failed",
+    "backoff_ms": 300
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "3f9280bffc69662597dd135530ed53b7697eb2679d6c83f5e5b6221ec547de70",
+   "hash": "46251c18bcd54cbba9a31e401e039c04fc39962e7d7bd0feaada4fe6d9e0e66d"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0043",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 43,
+   "ts": "2026-11-09T21:53:34.800Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "running",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact",
+    "wave": 2,
+    "attempt": 2
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "46251c18bcd54cbba9a31e401e039c04fc39962e7d7bd0feaada4fe6d9e0e66d",
+   "hash": "7dd54d0210b84f22a1b67db31494402e097db71b4f485726b4beaa7c39cc2ff5"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0044",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 44,
+   "ts": "2026-11-09T21:53:34.801Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_called",
+   "payload": {
+    "tool": "assess_financial_impact",
+    "stage": "F4",
+    "args": {
+     "attempt": 2,
+     "surge_pct": 80
+    }
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "7dd54d0210b84f22a1b67db31494402e097db71b4f485726b4beaa7c39cc2ff5",
+   "hash": "275f31961f675926e6aee609de7cfb8e1e7ada489e68f6cdf381f910d5c84f0b"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0045",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 45,
+   "ts": "2026-11-09T21:53:34.801Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "tool_result",
+   "payload": {
+    "tool": "assess_financial_impact",
+    "stage": "F4",
+    "ok": false,
+    "failure": "TOOL_TIMEOUT",
+    "error": "TimeoutError",
+    "ms": 0.0
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "275f31961f675926e6aee609de7cfb8e1e7ada489e68f6cdf381f910d5c84f0b",
+   "hash": "0e768fc31a259224d0403414b403ff0f73d3d53ffcaeb66f9f277362beda47bb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0046",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 46,
+   "ts": "2026-11-09T21:53:34.801Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "workflow_failed",
+   "payload": {
+    "failure_class": "TOOL_TIMEOUT",
+    "retryable": false,
+    "detail": "finance failed: TimeoutError"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "0e768fc31a259224d0403414b403ff0f73d3d53ffcaeb66f9f277362beda47bb",
+   "hash": "e4ca6e4ff93bfe5cf8212606efafacb4ae4b46ff76cbc909b6a0b762d23baa3f"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0047",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 47,
+   "ts": "2026-11-09T21:53:34.801Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "task_state",
+   "payload": {
+    "node": "finance",
+    "state": "failed",
+    "depends_on": [
+     "inventory",
+     "demand"
+    ],
+    "title": "Financial impact",
+    "attempts": 2
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "e4ca6e4ff93bfe5cf8212606efafacb4ae4b46ff76cbc909b6a0b762d23baa3f",
+   "hash": "9e122e39dbad26701dcd76c6c46a1909597f38384555b4620701b9c56183de19"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0048",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 48,
+   "ts": "2026-11-09T21:53:34.801Z",
+   "mode": "live",
+   "agent": "echon",
+   "kind": "task_state",
+   "payload": {
+    "node": "cx",
+    "state": "blocked",
+    "depends_on": [
+     "finance"
+    ],
+    "title": "Customer experience impact",
+    "reason": "a dependency failed: finance"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "cx"
+    }
+   ],
+   "prev_hash": "9e122e39dbad26701dcd76c6c46a1909597f38384555b4620701b9c56183de19",
+   "hash": "fd9fed342e758b67ecef293629914755bc987b0108125c24fec9e32e24ae8213"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0049",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 49,
+   "ts": "2026-11-09T21:53:34.801Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "proposal",
+    "state": "blocked",
+    "depends_on": [
+     "inventory",
+     "brewery",
+     "finance",
+     "cx"
+    ],
+    "title": "Proposed operational response",
+    "reason": "a dependency failed: finance"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "proposal"
+    }
+   ],
+   "prev_hash": "fd9fed342e758b67ecef293629914755bc987b0108125c24fec9e32e24ae8213",
+   "hash": "263a5dc8233c336d61c2976618faa04305c0205de12c1631f37c662c230705cb"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0050",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 50,
+   "ts": "2026-11-09T21:53:34.801Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "task_state",
+   "payload": {
+    "node": "governance",
+    "state": "blocked",
+    "depends_on": [
+     "proposal"
+    ],
+    "title": "Governance review and human approval",
+    "reason": "a dependency failed: finance"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "governance"
+    }
+   ],
+   "prev_hash": "263a5dc8233c336d61c2976618faa04305c0205de12c1631f37c662c230705cb",
+   "hash": "03add76a008c290aaa568292daf917d2d45f9b46b3cd01738b644e23dc0fbd51"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0051",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 51,
+   "ts": "2026-11-09T21:53:34.802Z",
+   "mode": "live",
+   "agent": "synapse",
+   "kind": "task_state",
+   "payload": {
+    "node": "report",
+    "state": "blocked",
+    "depends_on": [
+     "governance"
+    ],
+    "title": "Traceable report",
+    "reason": "a dependency failed: finance"
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "report"
+    }
+   ],
+   "prev_hash": "03add76a008c290aaa568292daf917d2d45f9b46b3cd01738b644e23dc0fbd51",
+   "hash": "4d47d52cdfbf620d937cedaea0f3d418deb0c26cd6c25c48bbe173bc1cb3e3fa"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0052",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 52,
+   "ts": "2026-11-09T21:53:34.802Z",
+   "mode": "live",
+   "agent": "quantix",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Financial impact",
+    "outcome": "handed_over"
+   },
+   "evidence_refs": [],
+   "prev_hash": "4d47d52cdfbf620d937cedaea0f3d418deb0c26cd6c25c48bbe173bc1cb3e3fa",
+   "hash": "210325bfa40aa76397204a02c95f60e4ee473dcf618750469ec7e2cdc802d0ad"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0053",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 53,
+   "ts": "2026-11-09T21:53:34.802Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_started",
+   "payload": {
+    "task": "Fail closed",
+    "source": "lab.trace"
+   },
+   "evidence_refs": [],
+   "prev_hash": "210325bfa40aa76397204a02c95f60e4ee473dcf618750469ec7e2cdc802d0ad",
+   "hash": "939cf34765ba14224f17976fa60e6b512d7e289f3403ff8b7bc1c76c4eab6898"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0054",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 54,
+   "ts": "2026-11-09T21:53:34.802Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "policy_decision",
+   "payload": {
+    "decision": "deny",
+    "policy": "fail closed: a failed task blocks every dependent task and nothing is proposed",
+    "failed": [
+     "finance"
+    ]
+   },
+   "evidence_refs": [
+    {
+     "type": "node",
+     "id": "finance"
+    }
+   ],
+   "prev_hash": "939cf34765ba14224f17976fa60e6b512d7e289f3403ff8b7bc1c76c4eab6898",
+   "hash": "3acf598c94639b981c1f431eb9c6e30cc46ae1cb8607bee9dc871ea9f74baec6"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0055",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 55,
+   "ts": "2026-11-09T21:53:34.804Z",
+   "mode": "live",
+   "agent": "aegis",
+   "kind": "agent_completed",
+   "payload": {
+    "task": "Fail closed",
+    "outcome": "stopped"
+   },
+   "evidence_refs": [],
+   "prev_hash": "3acf598c94639b981c1f431eb9c6e30cc46ae1cb8607bee9dc871ea9f74baec6",
+   "hash": "c5b828ac40721012e007e0554ff8f5e0f83a18e2ce9bfec09689e0312e1f9d04"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0056",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 56,
+   "ts": "2026-11-09T21:53:34.805Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "1",
+    "action": "orchestration_opened",
+    "actor": "synapse",
+    "role": "SYSTEM",
+    "hash": "e7a3635e6951be10c300f1950b35bc12b20f9fb57f68f35238471997d2a2bd7c"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "1"
+    }
+   ],
+   "prev_hash": "c5b828ac40721012e007e0554ff8f5e0f83a18e2ce9bfec09689e0312e1f9d04",
+   "hash": "f6570a91ac38ae531bbd4861deee9d54477b1ba47a5f8521626b5ed7378309fc"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0057",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 57,
+   "ts": "2026-11-09T21:53:34.805Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "2",
+    "action": "node_inventory_completed",
+    "actor": "vectra",
+    "role": "SYSTEM",
+    "hash": "8d059ee24450e86e01bfdc36bd3192c9678ece3a5a1a229ead2b02a47a4d8969"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "2"
+    }
+   ],
+   "prev_hash": "f6570a91ac38ae531bbd4861deee9d54477b1ba47a5f8521626b5ed7378309fc",
+   "hash": "c802a77f86fee8cc7ec151a999b4389a19b10bc771d8e663e82d67808519b1ee"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0058",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 58,
+   "ts": "2026-11-09T21:53:34.805Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "3",
+    "action": "node_demand_completed",
+    "actor": "aethon",
+    "role": "SYSTEM",
+    "hash": "e824a572b2bc55fa7621c82c0f1f21e80f4e3e1b6054e2a12545fd2bab3ddbc2"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "3"
+    }
+   ],
+   "prev_hash": "c802a77f86fee8cc7ec151a999b4389a19b10bc771d8e663e82d67808519b1ee",
+   "hash": "d578e858945676d645f69547592aeff7d2dfe929a20d5dfc89440280e0cef4ea"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0059",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 59,
+   "ts": "2026-11-09T21:53:34.805Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "4",
+    "action": "node_brewery_completed",
+    "actor": "zybrew",
+    "role": "SYSTEM",
+    "hash": "8ee0e6b0b4d40b61b24e5e2ab8f936a142de8a18478b6ff27c7b110439615c14"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "4"
+    }
+   ],
+   "prev_hash": "d578e858945676d645f69547592aeff7d2dfe929a20d5dfc89440280e0cef4ea",
+   "hash": "35728fc67cd55ea4cd970899eef4165296484e0855c1ec7b94188e6919c89bec"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0060",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 60,
+   "ts": "2026-11-09T21:53:34.805Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_audit",
+    "ref_id": "5",
+    "action": "failed_closed",
+    "actor": "aegis",
+    "role": "SYSTEM",
+    "hash": "853d8cd9f533d4a45529408e97eacd2b2a7382997062d1100b16ffffd5cabb28"
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_audit",
+     "id": "5"
+    }
+   ],
+   "prev_hash": "35728fc67cd55ea4cd970899eef4165296484e0855c1ec7b94188e6919c89bec",
+   "hash": "8a0e71614c2694cb7d5c3305de43d2111978aeb93524ed1546bdb0954087ad3a"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0061",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 61,
+   "ts": "2026-11-09T21:53:34.805Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "audit_reference",
+   "payload": {
+    "ref_type": "ledger_chain",
+    "ref_id": "rec--failure-f-ledger",
+    "ok": true,
+    "first_bad_seq": null,
+    "weir_chain_ok": true
+   },
+   "evidence_refs": [
+    {
+     "type": "ledger_chain",
+     "id": "rec--failure-f"
+    }
+   ],
+   "prev_hash": "8a0e71614c2694cb7d5c3305de43d2111978aeb93524ed1546bdb0954087ad3a",
+   "hash": "b241f8ffe5c266a13a1e24f3d196a00a1a402302e6e94bcf580a94081af0e89e"
+  },
+  {
+   "schema": "nasha.event.v1",
+   "event_id": "rec--failure-f-0062",
+   "run_id": "rec--failure-f",
+   "mission": "mission-f-demand-surge-response",
+   "seq": 62,
+   "ts": "2026-11-09T21:53:34.805Z",
+   "mode": "live",
+   "agent": "system",
+   "kind": "mission_completed",
+   "payload": {
+    "status": "BLOCKED_DEPENDENCY_FAILED",
+    "side_effects": {
+     "actions_executed": 0,
+     "purchases_made": 0,
+     "drafts_created": 0,
+     "external_transmissions": 0
+    },
+    "recommendation": "A task failed after its retry limit; its dependents were blocked and nothing was proposed. Fix the failing source and run again.",
+    "chains": {
+     "ledger_ok": true,
+     "ledger_bad_seq": null,
+     "weir_ok": true
+    },
+    "states": {
+     "inventory": "completed",
+     "demand": "completed",
+     "brewery": "completed",
+     "finance": "failed",
+     "cx": "blocked",
+     "proposal": "blocked",
+     "governance": "blocked",
+     "report": "blocked"
+    }
+   },
+   "evidence_refs": [],
+   "prev_hash": "b241f8ffe5c266a13a1e24f3d196a00a1a402302e6e94bcf580a94081af0e89e",
+   "hash": "f5f98302e73f6307244b8c9c574eb8fbab1b0400b9552794323ecc5d856ed440"
+  }
+ ]
+}

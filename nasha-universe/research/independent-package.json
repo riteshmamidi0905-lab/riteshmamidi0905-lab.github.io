@@ -1,0 +1,29 @@
+{
+ "source": "eval/independent/claim-grounding-v3/manifest.json",
+ "name": "claim-grounding-v3",
+ "version": "1",
+ "status": "UNLABELLED: no independent validation exists until a reviewer other than the author returns validated labels",
+ "created_at": "2026-11-09T21:50:24Z",
+ "seed": 8,
+ "corpus": "block3 (frozen)",
+ "items": 60,
+ "items_sha256": "50ced8e4cd9f0f19d7cf1537fed81feaef02ee63d77d7c5c135f964455e946c5",
+ "sealed_generation_key_sha256": "9ce9a6f611d83fed63fe99273364a51844d32229cfb8a4daacf2f48767046859",
+ "excluded_overlap_with": [
+  "claim-grounding-v1",
+  "claim-grounding-v2-holdout"
+ ],
+ "contains_labels": false,
+ "contains_system_predictions": false,
+ "generation_methods": [
+  "entity swapped",
+  "negation inserted",
+  "number changed",
+  "verbatim sentence"
+ ],
+ "reviewer_deliverables": [
+  "labels.csv",
+  "reviewer.json"
+ ],
+ "validator": "validate_labels.py"
+}

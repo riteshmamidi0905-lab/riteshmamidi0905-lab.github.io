@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="description" content="NASHA AI Enterprise Demo: an interactive enterprise application on synthetic data, showing connected orders, inventory, finance, support, approvals and a rule-based agent workforce for a proposed brewery concept."><meta name="theme-color" content="#090f10"><link rel="canonical" href="https://riteshmamidi0905-lab.github.io/demo/"><title>NASHA AI Enterprise Demo · synthetic data</title><link rel="icon" href="../mark.svg" type="image/svg+xml"><link rel="stylesheet" href="demo.css"><script src="data.js" defer></script><script src="engine.js" defer></script><script src="app.js" defer></script></head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<div class="env" role="status"><strong>DEMO ENVIRONMENT — SYNTHETIC DATA</strong><span>NASHA is a proposed business concept, not an operating brewery. Nothing here is connected to a real business, supplier, customer or AI model.</span></div>
+<header class="top">
+  <button class="icon-btn menu" id="menu-btn" aria-expanded="false" aria-controls="side">Modules</button>
+  <a class="brand" href="#/dashboard" aria-label="NASHA AI Enterprise Demo home"><span class="mark" aria-hidden="true">N</span><span>NASHA AI <small>Enterprise Demo</small></span></a>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol id="crumbs"><li><a href="../index.html">Portfolio</a></li><li><a href="#/dashboard">Enterprise Demo</a></li><li aria-current="page">Executive Command Center</li></ol></nav>
+  <div class="search"><label for="q" class="sr">Search the demo</label><input id="q" type="search" placeholder="Search products, orders, agents…" autocomplete="off" aria-controls="results"><ul id="results" hidden></ul></div>
+  <div class="tools">
+    <label class="role"><span>Demo role</span><select id="role" aria-describedby="role-note"><option value="OWNER">Owner (all demo permissions)</option><option value="OPS_MANAGER">Operations Manager</option><option value="FINANCE_APPROVER">Finance Approver</option><option value="SALES_LEAD">Sales Lead</option><option value="SUPPORT_LEAD">Support Lead</option><option value="HR_MANAGER">HR Manager</option><option value="READ_ONLY">Read-only visitor</option></select></label>
+    <div class="pop"><button class="icon-btn" id="notif-btn" aria-expanded="false" aria-controls="notif">Alerts <span id="notif-count" class="badge">0</span></button><div id="notif" class="panel" hidden></div></div>
+    <button class="icon-btn" id="help-btn">Help</button>
+    <button class="icon-btn danger" id="reset-btn">Reset demo</button>
+  </div>
+</header>
+<p id="role-note" class="role-note">Roles are a demonstration of access boundaries inside this browser page. They are not authentication and not backend authorization.</p>
+<div class="layout">
+  <nav id="side" class="side" aria-label="Demo modules"></nav>
+  <main id="view" tabindex="-1"></main>
+</div>
+<div id="live" class="sr" role="status" aria-live="polite"></div>
+<div id="toast" class="toast" hidden role="alert"></div>
+<dialog id="help"><form method="dialog"><h2>How to use this demo</h2><p>This is a working application on <strong>synthetic data</strong>. Orders, stock, money, tickets, approvals and the audit log all come from one in-browser state engine, so a change in one module shows up in the others.</p><ol><li>Open <a href="#/guide">Guided walkthrough</a> (about 75 seconds): it performs real actions step by step and explains each in plain language. Engineers can open the <a href="#/technical">Technical view</a>.</li><li>Or go to Sales, submit an order, then watch Inventory, Finance and the Governance audit log.</li><li>Switch the <em>Demo role</em> to see actions refused and recorded.</li><li><em>Reset demo</em> restores the deterministic starting state.</li></ol><p class="fine">State is kept in your browser's local storage as a demo convenience. It is not a database, is not sent anywhere, and no visitor data is collected. The AI agents are rule-based demonstrations; no language model runs here. The platform has not been validated for production.</p><div class="row"><a href="../lab-explorer.html">NASHA AI Lab explorer</a><a href="../case-studies.html">Engineering case studies</a><button value="close">Close</button></div></form></dialog>
+<noscript><p class="env">This demo needs JavaScript. The engineering evidence is available without it: <a href="../case-studies.html">case studies</a>.</p></noscript>
+</body></html>
