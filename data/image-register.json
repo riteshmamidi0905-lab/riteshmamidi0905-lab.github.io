@@ -511,5 +511,35 @@
     "source": "Optimized derivative of the existing cleared universe-hq-atrium.jpg screenshot; not a live scene",
     "rights_status": "own work, existing approved cinematic screenshot",
     "cleared_for_public_release": true
+  },
+  {
+    "file": "assets/img/avatar/ritesh-guide.webp",
+    "kind": "generated-concept",
+    "source": "Artlist / Kling 2.6 Pro I2V No Audio; optimized derivative of owner-approved portrait animation",
+    "generation_id": "01a1dc27-7465-7a35-8b47-4679aa8f5e15",
+    "original_sha256": "e1bdb32c70e426e66e04163775bcd483d94ad3e9e2dbb4370e7f55c9132635b0",
+    "sha256": "e8bf24ae41655365c699bec45c12e2067b9b020b34fbf3fc6178c706341fcb88",
+    "width": 320,
+    "height": 436,
+    "rights_status": "Owner authorized the reference upload and generation, then explicitly approved the generated likeness for public portfolio use. Artlist commercial output rights remain subject to terms.",
+    "rights_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+    "cleared_for_public_release": true,
+    "approval_basis": "User: approve this avatar likeness, after watching private generated clip; November 14 2026",
+    "label": "AI-generated owner-approved portrait animation; not a rigged 3D character or cloned voice"
+  },
+  {
+    "file": "assets/img/avatar/ritesh-guide-still.webp",
+    "kind": "generated-concept",
+    "source": "Artlist / Kling 2.6 Pro I2V No Audio; optimized derivative of owner-approved portrait animation",
+    "generation_id": "01a1dc27-7465-7a35-8b47-4679aa8f5e15",
+    "original_sha256": "e1bdb32c70e426e66e04163775bcd483d94ad3e9e2dbb4370e7f55c9132635b0",
+    "sha256": "f8b270c9983ef55ae70ae5cb3a95c502ab2aefb601bc4dec1ec37e21695fb333",
+    "width": 320,
+    "height": 436,
+    "rights_status": "Owner authorized the reference upload and generation, then explicitly approved the generated likeness for public portfolio use. Artlist commercial output rights remain subject to terms.",
+    "rights_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+    "cleared_for_public_release": true,
+    "approval_basis": "User: approve this avatar likeness, after watching private generated clip; November 14 2026",
+    "label": "Still frame from AI-generated owner-approved portrait animation"
   }
 ]

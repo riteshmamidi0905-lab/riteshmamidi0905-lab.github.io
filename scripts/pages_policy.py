@@ -192,6 +192,9 @@ APPROVED_GENERATED_IMAGES = {'assets/img/agents/aegis.webp': 'ac898d5cb67e243bc9
  'assets/img/business/warehouse-square.webp': '2f62c75cc9b43d49fd593804ee1268c03ae392b1ddc6f1cfb364c0e9da18f7ee',
  'assets/img/business/warehouse.webp': 'ba7df72173c126f150279d11ba42f83925eaf83f364c9d0c07f2b23b9192276a'}
 
+# Exact avatar derivatives approved by the owner after private likeness review.
+APPROVED_GENERATED_IMAGES.update({'assets/img/avatar/ritesh-guide.webp': 'e8bf24ae41655365c699bec45c12e2067b9b020b34fbf3fc6178c706341fcb88', 'assets/img/avatar/ritesh-guide-still.webp': 'f8b270c9983ef55ae70ae5cb3a95c502ab2aefb601bc4dec1ec37e21695fb333'})
+
 def generated_image_errors(rel, entry, data):
     if rel not in APPROVED_GENERATED_IMAGES:
         return [rel + ": generated concept is not individually approved"]

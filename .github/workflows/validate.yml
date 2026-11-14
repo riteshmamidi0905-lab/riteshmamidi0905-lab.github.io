@@ -36,11 +36,14 @@ jobs:
           npm run test:engineering
           npm run test:layout
           npm run test:creative
+          npm run test:console
+          npm run test:cinematic
+          npm run test:host
       - name: Lighthouse mobile and desktop release gates
         run: |
-          for page in home:/ demo:/demo/ lab:/data-lab.html; do
+          for page in home:/ demo:/demo/ lab:/data-lab.html hq:/nasha-universe/living-hq/ operations:/nasha-universe/engineering/ recruiter:/recruiter.html; do
             n=${page%%:*}; u=${page#*:}
             npx --yes lighthouse@13.5.0 "http://127.0.0.1:8000$u" --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-$n-mobile.json --quiet
             npx --yes lighthouse@13.5.0 "http://127.0.0.1:8000$u" --preset=desktop --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-$n-desktop.json --quiet
           done
-          node -e "for(const n of ['home','demo','lab'])for(const p of ['mobile','desktop']){const r=require('./work/lighthouse-'+n+'-'+p+'.json');for(const k of ['performance','accessibility','best-practices','seo'])if(r.categories[k].score<0.95)throw Error(n+' '+p+' '+k+' below 95')}"
+          node -e "for(const n of ['home','demo','lab','hq','operations','recruiter'])for(const p of ['mobile','desktop']){const r=require('./work/lighthouse-'+n+'-'+p+'.json');for(const k of ['performance','accessibility','best-practices','seo'])if(r.categories[k].score<0.95)throw Error(n+' '+p+' '+k+' below 95')}"

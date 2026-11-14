@@ -98,6 +98,16 @@
    "sha256": "de55dfdec7d40f5bd79113435ca11e8187461a6a8f762d5395ba4cef2bae3b92"
   },
   {
+   "path": "assets/img/avatar/ritesh-guide-still.webp",
+   "bytes": 13556,
+   "sha256": "f8b270c9983ef55ae70ae5cb3a95c502ab2aefb601bc4dec1ec37e21695fb333"
+  },
+  {
+   "path": "assets/img/avatar/ritesh-guide.webp",
+   "bytes": 615924,
+   "sha256": "e8bf24ae41655365c699bec45c12e2067b9b020b34fbf3fc6178c706341fcb88"
+  },
+  {
    "path": "assets/img/business/brewery-square.webp",
    "bytes": 22008,
    "sha256": "05307aa77d07111c0223f45dbbf199ce59163cd07ce90dba0851f39594190629"
@@ -299,8 +309,8 @@
   },
   {
    "path": "data/image-register.json",
-   "bytes": 30158,
-   "sha256": "f0598dffdd24e557818eff895c071a34f74ee15a86b70b4c11fa96c3e2d61584"
+   "bytes": 32196,
+   "sha256": "6b3e4959e689ac7ca0469ddcfa885f7e5ecdeb787d90cc697ac0a0fcb97ca84e"
   },
   {
    "path": "data/lab.json",
@@ -374,13 +384,13 @@
   },
   {
    "path": "nasha-universe/characters.css",
-   "bytes": 3073,
-   "sha256": "62b85813b488653ad890deb5e794d756cb25eaed52f7af13f492682c492cdf64"
+   "bytes": 6425,
+   "sha256": "e06b03e106276ff052a93a0b36bbaf0e23a8912c5effa699d80a5ec63a284698"
   },
   {
    "path": "nasha-universe/characters.js",
-   "bytes": 4694,
-   "sha256": "c17b1418b2c03aec51c9f96b9d4d233ad646b373e981c15b20d55ea8ef1edbc4"
+   "bytes": 8236,
+   "sha256": "b15b80d382c5f83039652307220ee4e56709878d8a13dcdc34d505ef0f52f66c"
   },
   {
    "path": "nasha-universe/engineering/academy.html",
@@ -393,14 +403,24 @@
    "sha256": "a0601d8eafcd7a366fdb76510154b9c59b7b72a26452e159122e1bec3c74c44d"
   },
   {
+   "path": "nasha-universe/engineering/console-model.js",
+   "bytes": 3736,
+   "sha256": "413a67f1be44de4f51c575a8402b16c36324b504fc8b91f6e5867f0a1bb55f1d"
+  },
+  {
+   "path": "nasha-universe/engineering/console-ui.js",
+   "bytes": 6527,
+   "sha256": "ba6acd7ac9d1bedfb9c0200a85df2fe27b9ebc959ac1a45b79e03951b457035d"
+  },
+  {
    "path": "nasha-universe/engineering/engineering.css",
-   "bytes": 4169,
-   "sha256": "41e018e62bbee8cca4ee3e5da71440a2354b6a54a45a8bd4ecbe766114caf91e"
+   "bytes": 5246,
+   "sha256": "ded578dfa236970bf97e3c4e86b46c81e7ddcfbdba8c2c78c2690ec871142bbb"
   },
   {
    "path": "nasha-universe/engineering/index.html",
-   "bytes": 9726,
-   "sha256": "ed1f09c53fde1b28c3357d8f5af2fab1b8ecc6294e539ec80b73ccac99330f08"
+   "bytes": 9670,
+   "sha256": "74affac6fc800f5ae42b436e452cf0530929a49a12813b8a80e81e5eca562fe9"
   },
   {
    "path": "nasha-universe/engineering/inventory-model.js",
@@ -409,8 +429,8 @@
   },
   {
    "path": "nasha-universe/engineering/inventory-ui.js",
-   "bytes": 4625,
-   "sha256": "cfd2c7c3ffeec3447e3795ce19a1fdfd0d9ba1a8364eb4f320958bb43e55be29"
+   "bytes": 5012,
+   "sha256": "bfeadc69f9a401aeb298758e15c5121d2e500578344a053aff317079987f067b"
   },
   {
    "path": "nasha-universe/engineering/projects/agents/index.html",
@@ -493,9 +513,24 @@
    "sha256": "25893417f3e8f673817414d11ccbe8fdf8f5ed68dc30e77b081af40c2281aeeb"
   },
   {
+   "path": "nasha-universe/host-guide.css",
+   "bytes": 1607,
+   "sha256": "3bc6d2501bf0f2138a239433a0362fab41523e5d08f923c695c145a28b935b4a"
+  },
+  {
+   "path": "nasha-universe/host-guide.js",
+   "bytes": 5129,
+   "sha256": "02c773491d3078ffc3e5d26672f83ac57aefcebbac44cab221c63f1d9cca41e3"
+  },
+  {
    "path": "nasha-universe/living-hq/hq-app.js",
-   "bytes": 97040,
-   "sha256": "b1a2e84056612824e8e061eaf19a145440eed703605c068495ff6270f7b9313b"
+   "bytes": 98182,
+   "sha256": "6208d98bb3595ccfdc417bf9d5e1d5faeb2a0fb456582c6dd081e6610d4b72e0"
+  },
+  {
+   "path": "nasha-universe/living-hq/hq-cinematic.js",
+   "bytes": 6715,
+   "sha256": "7e84fe9ba90d3d426c3bb8f14d01a083188482abc7116bf43f505cf703a7307d"
   },
   {
    "path": "nasha-universe/living-hq/hq-data.json",
@@ -514,8 +549,8 @@
   },
   {
    "path": "nasha-universe/living-hq/hq-scene.js",
-   "bytes": 31122,
-   "sha256": "2d9f553acb440aa491bcbaf579ed6dc0a67ab04b8a326c45d56ba65c245f0d70"
+   "bytes": 31924,
+   "sha256": "a38c774744b3e6b8211e399a4a726ae874a145ed9a849dea920cf7783a7719ba"
   },
   {
    "path": "nasha-universe/living-hq/hq-worlds.js",
@@ -524,13 +559,13 @@
   },
   {
    "path": "nasha-universe/living-hq/index.html",
-   "bytes": 4649,
-   "sha256": "2d82f44c7c84f2cb4b0f8a4bd635a05393823dbefb5e4cc9c82f012694d5ea26"
+   "bytes": 6014,
+   "sha256": "ff7cbd62bb469377cfadc79460278b3d8e04b02e80c0d6dc42dd8586f4082df9"
   },
   {
    "path": "nasha-universe/living-hq/living-hq.css",
-   "bytes": 9656,
-   "sha256": "a9c38c4161fa9996856fdef24a59c497ad2709788fa49e03fc09afc90ce40ad5"
+   "bytes": 11542,
+   "sha256": "c7b29ee937d9d145e18fcac880d8ae137f899207eca50ffbc95990d461b3f073"
   },
   {
    "path": "nasha-universe/recruiter/steps.json",
@@ -779,8 +814,8 @@
   },
   {
    "path": "recruiter.html",
-   "bytes": 9546,
-   "sha256": "c1c45429d3d88e27454bcdfeb628dd29023df99853f735310b1fd5fc3b053555"
+   "bytes": 11552,
+   "sha256": "b09ca12cad888e4c3b73743ff34ccff14a06abf2bc0e400d1d15eb5cbdcc2550"
   },
   {
    "path": "ritesh_mamidi_resume.pdf",

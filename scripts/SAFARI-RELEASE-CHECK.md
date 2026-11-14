@@ -1,10 +1,10 @@
-# Mac Safari and iPhone Safari release check
+# Physical Mac and iPhone Safari release validation
 
-These are manual checks of actual Safari. Automated Chromium or Linux WebKit results do not count as Safari/device evidence. Do not approve release if a required check fails or has not been run.
+Actual Safari evidence is required. Chromium and Linux WebKit are separate tests. Do not approve a release with a mandatory FAIL or NOT_RUN. Test the final approved candidate; an earlier commit's results do not transfer automatically.
 
-## Open the candidate
+## Start the verified local preview on your Mac
 
-From a new directory on your Mac, with Git and Python 3 available:
+With Git and Python 3 installed, use a new directory:
 
 ```sh
 git clone --branch release/nasha-phase4-2-rc --single-branch https://github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io.git nasha-release-check
@@ -13,34 +13,39 @@ git rev-parse HEAD
 python3 scripts/safari-preview.py --lan
 ```
 
-The script verifies and serves only the allowlisted public artifact on port 8864. It prints the exact commit and artifact digest; retain those in your results. No backend, credentials, model call or real order is involved. Use a trusted Wi-Fi network, allow the Python server through the Mac firewall if prompted, and stop it with Control-C after testing. No public tunnel is created.
+Compare the printed commit and artifact tree digest with the candidate receipt provided for review. The script serves only the allowlisted public artifact on port 8864, not source or private archives. Use trusted Wi-Fi only. Allow Python through the Mac firewall only for that trusted network. Stop with Control-C. No public tunnel or browser security exception is needed.
 
-Mac Safari: `http://127.0.0.1:8864/nasha-universe/living-hq/index.html`.
+Mac: `http://127.0.0.1:8864/nasha-universe/living-hq/`.
+iPhone on the same Wi-Fi: replace `127.0.0.1` with the Mac's Wi-Fi IP (System Settings → Wi-Fi → Details → TCP/IP). A pure SHA-256 fallback verifies recordings over local HTTP; production remains HTTPS.
 
-iPhone Safari on the same Wi-Fi: substitute the Mac's LAN IP for `127.0.0.1`. Find that IP in System Settings → Wi-Fi → Details → TCP/IP. The pure SHA-256 verifier supports this HTTP-only local preview; production remains HTTPS. Do not enable insecure-content exceptions or disable browser protections.
+## Fifteen checks on each device
 
-## Required checks on each device
+Record PASS / FAIL / NOT_RUN separately for Mac and iPhone, with exact reproduction steps for failures.
 
-1. Headquarters entrance and every navigation control fit without sideways page scrolling. Choose Enter interactive 3D (the preview screenshot does not count as a live 3D test), then drag/orbit the scene and use the 2D fallback. Record perceived activation delay separately from page-load performance. Scroll to the character campus; its controls remain clickable.
-2. Open all twelve character views, check whole bodies are visible and images load, close with the button (Escape on Mac), and confirm focus returns to the trigger. Mac: navigate with Tab/Shift-Tab and Enter; enable Safari's “Press Tab to highlight each item” keyboard-navigation setting if necessary.
-3. Open a recorded mission, Step, Play, Pause, Restart and seek. Check the visible captions, event numbers and agent states change together. Open a character chamber and inspect its role and recorded state. These are 2D illustrations, not rigged models.
-4. Pause animations, then turn on the OS Reduce Motion setting. Confirm optional character motion stops and controls remain usable. Restore your original setting afterward. Note visible stutter, overheating or crashes; do not report measured frame rates without measuring them.
-5. Open Business Operations. Search Mango; filter Ingredient; check the product results and accessible details. Confirm Gobi is an appetizer. The stock table may scroll inside its labeled region; the whole page must not overflow sideways.
-6. As Operator, create a reorder; switch to Reviewer, approve; return to Operator. Simulate receiver outage and attempt receipt: expect a clear blocked message. Recover and receive: expect one increase, verified audit and matching VECTRA/SYNAPSE state. Open another tab to confirm its state starts independently.
-7. Submit a discrepant cycle count and reconcile as Reviewer. Confirm the displayed stock and audit update. Test an empty/negative quantity: expect refusal and unchanged stock.
-8. Open all five engineering case studies. Check diagrams and captions, then Play/Pause, Next step and Restart. The original trace stays intact; no paid model API is used. Select stages in the operations architecture and confirm the explanation updates.
-9. Open all three resume PDFs; check they render legibly and that download/save works. Confirm they describe independent projects separately and Apple Maps as a client engagement.
-10. If available, enable VoiceOver, check the page title, navigation, image labels, dialog names, focus order and status announcements. Record which assistive-technology checks you actually completed.
+1. **Home and recruiter route:** home renders; modes, contact, verified employment and independent projects are easy to find. Entire page does not overflow sideways.
+2. **Cinematic opening:** opt into Play cinematic intro; inspect all eight presentation scenes. No audio autoplays. On reduced motion or low power, manual Next works without forced camera flights.
+3. **Skip and pause:** Skip Intro and Escape (Mac) exit promptly. Pause automatic progression stops advancing. Normal navigation leaves the intro. Controls remain visible on iPhone.
+4. **Interactive headquarters:** Enter interactive 3D; drag/orbit, zoom and reset. A screenshot alone is not a WebGL test. Test the accessible 2D alternative; record activation delay and any crashes separately from page-load scores.
+5. **Departments:** all thirteen destination buttons work, identify the district, and open the correct enterprise workspace. Shared procedural spaces are explicitly described.
+6. **Twelve characters:** open all twelve full-body designs, inspect role, responsibilities and state. Close returns focus. Select each of the ten motion-study states on at least one character; studies are explicitly simulated and do not alter recorded events. Body, hands and feet remain visible in the full character view.
+7. **Recorded workflows:** load a mission; step, play, pause, restart and seek. Captions, event numbers, agent states and architecture change together. Verify a failure and recovery recording. No live autonomous system is claimed.
+8. **Motion accessibility:** pause character/global animation; enable OS Reduce Motion and verify optional motion stops. Restore your original setting. Report stutter, heating and battery observations honestly; do not invent FPS.
+9. **Business imagery:** all nine approved concepts load; Gobi is an appetizer. Search Mango, filter Ingredient and open product details. Scroll the stock table within its own region without page overflow.
+10. **Approvals, idempotency and recovery:** Operator creates reorder; Reviewer approves; Operator simulates outage and tries receipt (blocked); recover and retry (one increase). Inspect audit and matching agent states. Another tab starts isolated.
+11. **Reconciliation and errors:** submit discrepant count, reconcile as Reviewer; stock and audit update. Empty/negative quantity is refused without stock changes. Observer cannot mutate stock.
+12. **Enterprise console:** retrieve inventory policy with versioned source; unknown question abstains. Run retrieval development checks. CSV sample accepts two rows, quarantines two and reconciles 19,580 cents. Monitoring follows outage/recovery. BI and three-day demand are labeled synthetic/heuristic.
+13. **Engineering evidence and resumes:** all five cases, diagrams and captioned trace controls work; all three resume PDFs open, render and save. Apple Maps is a client engagement; independent projects are separate.
+14. **Keyboard, VoiceOver and downloads:** Mac Tab/Shift-Tab/Enter/Escape work (enable Safari keyboard navigation if needed); test VoiceOver where available and record what was actually used. Dialogs are named and focus returns. Touch controls remain operable on iPhone.
+15. **Network, console, performance and avatar:** record failed requests and JS errors using Mac Safari Web Inspector. For iPhone, use USB/Web Inspector if available; otherwise mark console inspection NOT_RUN. Record navigation/interaction delays and visible defects. Test the approved integrated avatar: welcome/topic links, portrait Play/Pause, reduced-motion still and optional on-device narration with no autoplay audio. It uses animated WebP; private likeness previews alone do not prove public integration. Current publication policy excludes native video/audio; captioned event replays are tested above. Do not mark a public MP4 test passed when no MP4 is in the artifact.
 
-Video playback is **N/A**: the publication policy excludes video files and HTML video. The site uses captioned recorded-event replay instead. Do not claim an MP4 test passed.
+## Evidence to return
 
-## Return this evidence
+- Candidate commit and artifact tree digest.
+- Mac model, macOS and Safari versions; iPhone model and iOS/Safari versions. No serial numbers needed.
+- Per-device results for all fifteen checks, with omissions explicitly NOT_RUN.
+- Per-device screenshots: headquarters, selected character and inventory after recovery. Exclude unrelated tabs or private information.
+- A short screen recording of intro → skip → department → character → recorded captions → outage/recovery, if practical. Screenshots alone do not prove animation.
+- Exact console/network errors; indicate if console inspection was unavailable.
+- Normal and reduced-motion results; keyboard/VoiceOver used; manual performance observations separately from automated Lighthouse.
 
-- Candidate commit and artifact tree digest from the preview receipt.
-- Mac model, macOS version and Safari version; iPhone model and iOS/Safari version.
-- Per-device PASS/FAIL/NOT_RUN for checks 1–10, plus any exact failure and reproduction steps. Do not treat an omitted test as a pass.
-- One screenshot of headquarters, one of an open character and one of inventory after outage/recovery, per device. Include the visible state/caption, but keep unrelated tabs or personal information out.
-- A short screen recording on each device showing navigation → character → recorded mission captions → outage/recovery, if practical. Screenshots alone do not prove animation or interaction.
-- Identify whether keyboard/VoiceOver and both normal/reduced motion were actually tested. Report manual performance observations separately from automated Lighthouse scores.
-
-No physical Safari or iPhone pass may be entered in release evidence until these results are received and reviewed. A screenshot without the candidate identity does not establish which version was tested.
+No physical-device PASS may enter release evidence until the actual results have been received and reviewed. Avatar likeness and protected release approvals remain separate decisions.
