@@ -1,0 +1,76 @@
+{
+  "synthetic": true,
+  "mode": "RECORDED LOCAL EXECUTION",
+  "events": [
+    {
+      "step": 1,
+      "title": "Create typed restock intent",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 2,
+      "title": "Reject an unknown tool",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 403,
+      "expected": 403,
+      "matched": true
+    },
+    {
+      "step": 3,
+      "title": "Reject operator self-approval",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 403,
+      "expected": 403,
+      "matched": true
+    },
+    {
+      "step": 4,
+      "title": "Approve with independent reviewer",
+      "transport": "http",
+      "method": "POST",
+      "role": "reviewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 5,
+      "title": "Reject approval replay",
+      "transport": "http",
+      "method": "POST",
+      "role": "reviewer",
+      "status": 409,
+      "expected": 409,
+      "matched": true
+    },
+    {
+      "step": 6,
+      "title": "Inspect durable execution trace",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 7,
+      "title": "Inspect approval audit",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    }
+  ]
+}

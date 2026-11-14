@@ -1,0 +1,66 @@
+{
+  "synthetic": true,
+  "mode": "RECORDED LOCAL EXECUTION",
+  "events": [
+    {
+      "step": 1,
+      "title": "Normalize, validate and load CSV",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 2,
+      "title": "Replay the same import",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 3,
+      "title": "Reject invalid currency",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 422,
+      "expected": 422,
+      "matched": true
+    },
+    {
+      "step": 4,
+      "title": "Inspect validated SQL reporting",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 5,
+      "title": "Inspect pipeline audit",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 6,
+      "title": "Inspect operational counters",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    }
+  ]
+}

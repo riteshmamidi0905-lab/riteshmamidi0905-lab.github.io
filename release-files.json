@@ -1,73 +1,13 @@
 [
   {
-    "path": "index.html",
-    "bytes": 32202,
-    "sha256": "2c600222863d9032f9262b64f0edfb84a73ee6e7269d2369668fe652dbd29c8d"
-  },
-  {
-    "path": "ai-engineering.html",
-    "bytes": 9524,
-    "sha256": "20ce9a391bd89aa37e838a3c698735e59d4c9f765f62a4eec98aced0fb3ffc4d"
-  },
-  {
-    "path": "nasha-lab.html",
-    "bytes": 33303,
-    "sha256": "1e388c6d9768bb9081aa00a5779055bbb04b7b70f100ead213124c45e1851e84"
-  },
-  {
-    "path": "projects.html",
-    "bytes": 40326,
-    "sha256": "a45673d0a954ce9793186fb479d0de6e3e4b12ad93fbd52df51beda00afcddee"
-  },
-  {
-    "path": "recruiter.html",
-    "bytes": 9034,
-    "sha256": "797079508a18f560d2c2fb4fb2374f491563d131620a95593a7c843f240c2489"
-  },
-  {
     "path": "404.html",
     "bytes": 776,
     "sha256": "6686cd90bba8d2f3291d49b7439bfe395ed1aead33703bbc7d8f7f1b511adacd"
   },
   {
-    "path": "robots.txt",
-    "bytes": 83,
-    "sha256": "88e196370b02cecbce6a05558949cc63e789146657effad9704ccdcfef51edfa"
-  },
-  {
-    "path": "sitemap.xml",
-    "bytes": 1508,
-    "sha256": "907b3027a09282fac7cf33b991dfa7d17c504339dd9db16ab0e43dfdf062f6eb"
-  },
-  {
-    "path": "mark.svg",
-    "bytes": 225,
-    "sha256": "c27d8542a67d0cf0e43affce27ee2a5754c44163bbced4cd0e790afc65102819"
-  },
-  {
-    "path": "cinematic.css",
-    "bytes": 19475,
-    "sha256": "7e8ec07a6a348bf2594c41e4509727bcc88ff032604171a9ab1dff77c8724aad"
-  },
-  {
-    "path": "cinematic.js",
-    "bytes": 5516,
-    "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
-  },
-  {
-    "path": "ritesh_mamidi_resume.pdf",
-    "bytes": 97071,
-    "sha256": "eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92"
-  },
-  {
-    "path": "assets/fonts/inter-latin.woff2",
-    "bytes": 48256,
-    "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
-  },
-  {
-    "path": "assets/fonts/jetbrains-mono-latin.woff2",
-    "bytes": 40404,
-    "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
+    "path": "ai-engineering.html",
+    "bytes": 9524,
+    "sha256": "20ce9a391bd89aa37e838a3c698735e59d4c9f765f62a4eec98aced0fb3ffc4d"
   },
   {
     "path": "assets/fonts/Inter-LICENSE.txt",
@@ -80,49 +20,59 @@
     "sha256": "403581b69dac5cff4079205e01c6b467e56af449ecbd7247693ddb1baafa005b"
   },
   {
+    "path": "assets/fonts/inter-latin.woff2",
+    "bytes": 48256,
+    "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+  },
+  {
+    "path": "assets/fonts/jetbrains-mono-latin.woff2",
+    "bytes": 40404,
+    "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
+  },
+  {
+    "path": "assets/img/cases/cs-agent-platform-ui.jpg",
+    "bytes": 107110,
+    "sha256": "60f9a169e5bd906601af81992ec723d3560b0b9776a467812dc8235f201bb9de"
+  },
+  {
+    "path": "assets/img/cases/cs-copilot-approval.jpg",
+    "bytes": 86503,
+    "sha256": "36a665c0df63ccc23bbfd05e61a514c3fe108d9023d12da6e97b988c02c50762"
+  },
+  {
+    "path": "assets/img/cases/cs-copilot-uncertain.jpg",
+    "bytes": 89735,
+    "sha256": "efa8e790bd26aad5d4007d06877a3f30c07cf376ae778720b03de9cfa5ec07de"
+  },
+  {
+    "path": "assets/img/cases/cs-genai-chat.jpg",
+    "bytes": 219918,
+    "sha256": "b57c21372dcb0b2aa298e028aeae266ef4beb31835cbae0a39be5ab141aba347"
+  },
+  {
+    "path": "assets/img/cases/cs-llm-eval-report.jpg",
+    "bytes": 170413,
+    "sha256": "a966305a91509544759dd6e9d65ffcc5539509abdf8081f3e66e4ce8aca382df"
+  },
+  {
+    "path": "assets/img/cases/cs-weir-flow.jpg",
+    "bytes": 162256,
+    "sha256": "133ae00ac72eeea89b1da96da3303dc2527999db69db06421260b846cf62d049"
+  },
+  {
+    "path": "assets/img/universe/universe-hq-atrium.jpg",
+    "bytes": 147745,
+    "sha256": "58c6f71ac00665d70667af3201efeab8735a62b7049989022da95aaddf6961ce"
+  },
+  {
+    "path": "assets/img/universe/universe-twelve-worlds.jpg",
+    "bytes": 93129,
+    "sha256": "cdaaf24aedbb2a60198805cf039a650b3c7946f1ff5a1f13ef1d2395579b4063"
+  },
+  {
     "path": "assets/js/nasha-ecosystem-core.js",
     "bytes": 4481,
     "sha256": "355b458337448c0890285af20c9a658ab58371d235a448958d1f6cc077346ed5"
-  },
-  {
-    "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",
-    "bytes": 12426,
-    "sha256": "7c6b04267ed43658b5d440fbe638faf96294dd94d5662509ac50df4668cf1267"
-  },
-  {
-    "path": "recovered/nasha-b666563/docs/nasha-ecosystem/ARCHITECTURE.md",
-    "bytes": 4120,
-    "sha256": "21719d0733dcd3ce0bf27c21a8e462857020171906decd61d2f8ccdd5aeadd5b"
-  },
-  {
-    "path": "lab-explorer.html",
-    "bytes": 41834,
-    "sha256": "c376af582b4e27aa7fb489e72c77bfee6fb2ba65836e2fcccdecfac97bee419b"
-  },
-  {
-    "path": "verified-projects.html",
-    "bytes": 31153,
-    "sha256": "6d7b749ac11815ae2a89c33ebd88e0e8772356e90b8b0bfd73ea215012f00a57"
-  },
-  {
-    "path": "lab.css",
-    "bytes": 17967,
-    "sha256": "ea4896f00d8f72e2e0dd9b934055f4d8c1b78e7568d0a1b1c4d8dc8570bae68c"
-  },
-  {
-    "path": "lab.js",
-    "bytes": 5093,
-    "sha256": "674f706e9e17e34030ff89d8fa2871e473aecf30faa4a1961c807d140e1b7894"
-  },
-  {
-    "path": "data/lab.json",
-    "bytes": 19670,
-    "sha256": "8f1a569762c2b9bc23444591f801e6c8b5a0162a21fb4a1318dfba184175d430"
-  },
-  {
-    "path": "data/projects.json",
-    "bytes": 18829,
-    "sha256": "a4efc1f402002fb891785ad277e1db087ad4a48982c26a2c8c009ce239925b07"
   },
   {
     "path": "case-genai-doc-assistant.html",
@@ -160,69 +110,14 @@
     "sha256": "4a2b309eaf6190ad9140582fcb2d5d35eca3de12fc1947d81737eb5aa6d65eee"
   },
   {
-    "path": "assets/img/cases/cs-agent-platform-ui.jpg",
-    "bytes": 107110,
-    "sha256": "60f9a169e5bd906601af81992ec723d3560b0b9776a467812dc8235f201bb9de"
+    "path": "cinematic.css",
+    "bytes": 19475,
+    "sha256": "7e8ec07a6a348bf2594c41e4509727bcc88ff032604171a9ab1dff77c8724aad"
   },
   {
-    "path": "assets/img/cases/cs-copilot-approval.jpg",
-    "bytes": 86503,
-    "sha256": "36a665c0df63ccc23bbfd05e61a514c3fe108d9023d12da6e97b988c02c50762"
-  },
-  {
-    "path": "assets/img/cases/cs-copilot-uncertain.jpg",
-    "bytes": 89735,
-    "sha256": "efa8e790bd26aad5d4007d06877a3f30c07cf376ae778720b03de9cfa5ec07de"
-  },
-  {
-    "path": "assets/img/cases/cs-genai-chat.jpg",
-    "bytes": 219918,
-    "sha256": "b57c21372dcb0b2aa298e028aeae266ef4beb31835cbae0a39be5ab141aba347"
-  },
-  {
-    "path": "assets/img/cases/cs-llm-eval-report.jpg",
-    "bytes": 170413,
-    "sha256": "a966305a91509544759dd6e9d65ffcc5539509abdf8081f3e66e4ce8aca382df"
-  },
-  {
-    "path": "assets/img/cases/cs-weir-flow.jpg",
-    "bytes": 162256,
-    "sha256": "133ae00ac72eeea89b1da96da3303dc2527999db69db06421260b846cf62d049"
-  },
-  {
-    "path": "data/cases.json",
-    "bytes": 34085,
-    "sha256": "2350bf5663507d74c1c7659bd581b305b53775352e5fd501b225dfba95e6e6c3"
-  },
-  {
-    "path": "data/image-register.json",
-    "bytes": 2781,
-    "sha256": "410550f985149b78da75ce1d70b0632f7739264a17041b9b35e4855e7de4b25c"
-  },
-  {
-    "path": "demo/index.html",
-    "bytes": 4583,
-    "sha256": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4"
-  },
-  {
-    "path": "demo/demo.css",
-    "bytes": 11075,
-    "sha256": "53042715e33ed0ba0680add99a0b8195aad66484872b2bef651b96d22699c996"
-  },
-  {
-    "path": "demo/data.js",
-    "bytes": 24464,
-    "sha256": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3"
-  },
-  {
-    "path": "demo/engine.js",
-    "bytes": 35690,
-    "sha256": "696a7033d52274d3d73aa26ca13611ec46234c91e49c6017438417749ad74d8f"
-  },
-  {
-    "path": "demo/app.js",
-    "bytes": 68648,
-    "sha256": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102"
+    "path": "cinematic.js",
+    "bytes": 5516,
+    "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
   },
   {
     "path": "data-lab.html",
@@ -230,9 +125,9 @@
     "sha256": "555738e1c927a12cfab5e1ef599ebbe1e369c1644bb27d65dc98a81fbc08a10e"
   },
   {
-    "path": "datalab.js",
-    "bytes": 8219,
-    "sha256": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636"
+    "path": "data/cases.json",
+    "bytes": 34085,
+    "sha256": "2350bf5663507d74c1c7659bd581b305b53775352e5fd501b225dfba95e6e6c3"
   },
   {
     "path": "data/datalab/lab-data.json",
@@ -240,14 +135,174 @@
     "sha256": "35c1e97915c866c07eac79fc921d1877c9532cd45fb2986e4df9054d6bdeb57e"
   },
   {
-    "path": "assets/img/universe/universe-hq-atrium.jpg",
-    "bytes": 147745,
-    "sha256": "58c6f71ac00665d70667af3201efeab8735a62b7049989022da95aaddf6961ce"
+    "path": "data/image-register.json",
+    "bytes": 2781,
+    "sha256": "410550f985149b78da75ce1d70b0632f7739264a17041b9b35e4855e7de4b25c"
   },
   {
-    "path": "assets/img/universe/universe-twelve-worlds.jpg",
-    "bytes": 93129,
-    "sha256": "cdaaf24aedbb2a60198805cf039a650b3c7946f1ff5a1f13ef1d2395579b4063"
+    "path": "data/lab.json",
+    "bytes": 19670,
+    "sha256": "8f1a569762c2b9bc23444591f801e6c8b5a0162a21fb4a1318dfba184175d430"
+  },
+  {
+    "path": "data/projects.json",
+    "bytes": 18829,
+    "sha256": "a4efc1f402002fb891785ad277e1db087ad4a48982c26a2c8c009ce239925b07"
+  },
+  {
+    "path": "datalab.js",
+    "bytes": 8219,
+    "sha256": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636"
+  },
+  {
+    "path": "demo/app.js",
+    "bytes": 68648,
+    "sha256": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102"
+  },
+  {
+    "path": "demo/data.js",
+    "bytes": 24464,
+    "sha256": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3"
+  },
+  {
+    "path": "demo/demo.css",
+    "bytes": 11193,
+    "sha256": "2b1146e51641a871ef6db383a6e069a6a18cc338d292810913030632089b38f0"
+  },
+  {
+    "path": "demo/engine.js",
+    "bytes": 35690,
+    "sha256": "696a7033d52274d3d73aa26ca13611ec46234c91e49c6017438417749ad74d8f"
+  },
+  {
+    "path": "demo/index.html",
+    "bytes": 4583,
+    "sha256": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4"
+  },
+  {
+    "path": "index.html",
+    "bytes": 32202,
+    "sha256": "2c600222863d9032f9262b64f0edfb84a73ee6e7269d2369668fe652dbd29c8d"
+  },
+  {
+    "path": "lab-explorer.html",
+    "bytes": 41834,
+    "sha256": "c376af582b4e27aa7fb489e72c77bfee6fb2ba65836e2fcccdecfac97bee419b"
+  },
+  {
+    "path": "lab.css",
+    "bytes": 17967,
+    "sha256": "ea4896f00d8f72e2e0dd9b934055f4d8c1b78e7568d0a1b1c4d8dc8570bae68c"
+  },
+  {
+    "path": "lab.js",
+    "bytes": 5093,
+    "sha256": "674f706e9e17e34030ff89d8fa2871e473aecf30faa4a1961c807d140e1b7894"
+  },
+  {
+    "path": "mark.svg",
+    "bytes": 225,
+    "sha256": "c27d8542a67d0cf0e43affce27ee2a5754c44163bbced4cd0e790afc65102819"
+  },
+  {
+    "path": "nasha-lab.html",
+    "bytes": 33303,
+    "sha256": "1e388c6d9768bb9081aa00a5779055bbb04b7b70f100ead213124c45e1851e84"
+  },
+  {
+    "path": "nasha-universe/engineering/academy.html",
+    "bytes": 21119,
+    "sha256": "4c43f0ccb5c99cd2d96747feceec6df00f71f1b8b255a82f4a74d0c453ac3400"
+  },
+  {
+    "path": "nasha-universe/engineering/engineering.css",
+    "bytes": 2065,
+    "sha256": "541bc46a065846e1bf2292c702e5afb0ac41ae0ae7b8f4494e40954cab0da68c"
+  },
+  {
+    "path": "nasha-universe/engineering/index.html",
+    "bytes": 7254,
+    "sha256": "e049f2d889145726dac98518e8ac613af10e4ca73269c14faa2f15c4ecd20a6c"
+  },
+  {
+    "path": "nasha-universe/engineering/inventory-model.js",
+    "bytes": 4514,
+    "sha256": "3b1ecb466201764ea323f560d188eb1cd335dd9e9aec245cc9ef93f8535c6b30"
+  },
+  {
+    "path": "nasha-universe/engineering/inventory-ui.js",
+    "bytes": 4154,
+    "sha256": "cdcf024f6f2e1bc6c6ef945d90ecc5173fbed396c8cf229a613a0f1cbe0f63f7"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/agents/index.html",
+    "bytes": 7240,
+    "sha256": "5d888397f4739242862b7576f5ffe72e33e3ca847793e5d043c75bd06e184440"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/agents/trace.json",
+    "bytes": 1604,
+    "sha256": "4b836bf53d23ea793a7c1d5eda04d516274a7f1a89cad3da892ac01fc523aa9c"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/data/index.html",
+    "bytes": 7276,
+    "sha256": "b66421d9e34bb82f4bde6ed49ea2da102d1ba697803ebb699b99841b54fff5d3"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/data/trace.json",
+    "bytes": 1381,
+    "sha256": "4d39b1faefe55c61350ea2d79d897e570ae6e4bb18b0f7dbc431bbb2ae10e856"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/gateway/index.html",
+    "bytes": 7481,
+    "sha256": "2e4ea081192a40ba488ef0b6d2da7fcbc8de228d3f44e02693534d393e199099"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/gateway/trace.json",
+    "bytes": 1637,
+    "sha256": "111cf934d7ffa56217f3b37e5a7ee443cc9ff64b67a93fc3543b4cd1b85d2846"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/rag/index.html",
+    "bytes": 7427,
+    "sha256": "1a8fd174cab791bc52be7fcd181ef84da99d0a3ec30b87c86ead65e07f35ef2e"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/rag/trace.json",
+    "bytes": 1600,
+    "sha256": "c33df6e56ab3ec2f973192aaf545489565064ef59340ecbddca9aec742dfa4ab"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/reliability/index.html",
+    "bytes": 7572,
+    "sha256": "ff3461d9dd5a7581a8b46921ac24b6e0a122a35d7fc633da7c6f045d1983d811"
+  },
+  {
+    "path": "nasha-universe/engineering/projects/reliability/trace.json",
+    "bytes": 1863,
+    "sha256": "a5f1c7b57959e0a12e381e4a98d0ffe0a5f9ec66f18a72e1aef80d622e57f17d"
+  },
+  {
+    "path": "nasha-universe/engineering/replay.js",
+    "bytes": 2581,
+    "sha256": "f0356952f164ed1f745a9c5e8dce2d3878083164f8d23e26f828290436b5b253"
+  },
+  {
+    "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf",
+    "bytes": 4485,
+    "sha256": "4e36f5a661af295757615630ac30f13735c209f15e1a3e5f186b54e59032e840"
+  },
+  {
+    "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf",
+    "bytes": 4521,
+    "sha256": "fb9c2c20aba068fe6b5f9de2bcb6fd9469f5bdeba0fbf059a7e67977341a3fed"
+  },
+  {
+    "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-FDE.pdf",
+    "bytes": 4447,
+    "sha256": "bc2f2608cd7715ab5aac5ac790c3d11b782debdbe4365a817c8bba96c62b441e"
   },
   {
     "path": "nasha-universe/event-verify.js",
@@ -291,8 +346,8 @@
   },
   {
     "path": "nasha-universe/living-hq/index.html",
-    "bytes": 3022,
-    "sha256": "2bd3ca831027d53209d36735ba1716a298714c89a4e00a3e882ec85935b1ee5c"
+    "bytes": 3094,
+    "sha256": "c0074c2a34cc2d7fe8ecf8a31b58a722216a9674189827b8867bccba797e89b3"
   },
   {
     "path": "nasha-universe/living-hq/living-hq.css",
@@ -528,5 +583,45 @@
     "path": "nasha-universe/research/reliability-index.json",
     "bytes": 32869,
     "sha256": "859b898fec0aaf9227acc665bdd5d593eaf22b8a1a158afaddcfa0e6d6bbeff7"
+  },
+  {
+    "path": "projects.html",
+    "bytes": 40326,
+    "sha256": "a45673d0a954ce9793186fb479d0de6e3e4b12ad93fbd52df51beda00afcddee"
+  },
+  {
+    "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",
+    "bytes": 12426,
+    "sha256": "7c6b04267ed43658b5d440fbe638faf96294dd94d5662509ac50df4668cf1267"
+  },
+  {
+    "path": "recovered/nasha-b666563/docs/nasha-ecosystem/ARCHITECTURE.md",
+    "bytes": 4120,
+    "sha256": "21719d0733dcd3ce0bf27c21a8e462857020171906decd61d2f8ccdd5aeadd5b"
+  },
+  {
+    "path": "recruiter.html",
+    "bytes": 9546,
+    "sha256": "c1c45429d3d88e27454bcdfeb628dd29023df99853f735310b1fd5fc3b053555"
+  },
+  {
+    "path": "ritesh_mamidi_resume.pdf",
+    "bytes": 97071,
+    "sha256": "eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92"
+  },
+  {
+    "path": "robots.txt",
+    "bytes": 83,
+    "sha256": "88e196370b02cecbce6a05558949cc63e789146657effad9704ccdcfef51edfa"
+  },
+  {
+    "path": "sitemap.xml",
+    "bytes": 2267,
+    "sha256": "52b48a67577fc096f04c2897162357d4abc09c926a5e64343ac4f1a246d50c96"
+  },
+  {
+    "path": "verified-projects.html",
+    "bytes": 31153,
+    "sha256": "6d7b749ac11815ae2a89c33ebd88e0e8772356e90b8b0bfd73ea215012f00a57"
   }
 ]
