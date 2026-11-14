@@ -210,6 +210,11 @@
     "sha256": "133ae00ac72eeea89b1da96da3303dc2527999db69db06421260b846cf62d049"
   },
   {
+    "path": "assets/img/universe/universe-entrance.webp",
+    "bytes": 58512,
+    "sha256": "b564bcde358570973c096b41afbe6f542902faca197c23c9e7f02511abb9bf53"
+  },
+  {
     "path": "assets/img/universe/universe-hq-atrium.jpg",
     "bytes": 147745,
     "sha256": "58c6f71ac00665d70667af3201efeab8735a62b7049989022da95aaddf6961ce"
@@ -286,8 +291,8 @@
   },
   {
     "path": "data/image-register.json",
-    "bytes": 29839,
-    "sha256": "c21c756b1719f1cd29d7d8269609afc832402cdfdbc48ec92146cd0ffa60c3c9"
+    "bytes": 30158,
+    "sha256": "f0598dffdd24e557818eff895c071a34f74ee15a86b70b4c11fa96c3e2d61584"
   },
   {
     "path": "data/lab.json",
@@ -366,8 +371,8 @@
   },
   {
     "path": "nasha-universe/characters.js",
-    "bytes": 4186,
-    "sha256": "0e58c01ebe81b44b05db8d64ad0455fc52b53aed4fb052611d03f3d4cccf561d"
+    "bytes": 4694,
+    "sha256": "c17b1418b2c03aec51c9f96b9d4d233ad646b373e981c15b20d55ea8ef1edbc4"
   },
   {
     "path": "nasha-universe/engineering/academy.html",
@@ -481,13 +486,13 @@
   },
   {
     "path": "nasha-universe/living-hq/hq-app.js",
-    "bytes": 94055,
-    "sha256": "ac6d70ef759c2aed9c4f4edb5cf29f42db8d749dfff196bc66f2856b5721ae2b"
+    "bytes": 97040,
+    "sha256": "b1a2e84056612824e8e061eaf19a145440eed703605c068495ff6270f7b9313b"
   },
   {
     "path": "nasha-universe/living-hq/hq-data.json",
-    "bytes": 213197,
-    "sha256": "49a2a3f32ddc35b5d08b0773e8940b5a7469de1b5ac1082ad9119907ab9fbb3e"
+    "bytes": 146402,
+    "sha256": "3192d8cf6d021f7c9cae684d3b8233ddc266406fb8c9f774fe410d9331bf740c"
   },
   {
     "path": "nasha-universe/living-hq/hq-events.js",
@@ -496,8 +501,8 @@
   },
   {
     "path": "nasha-universe/living-hq/hq-gl.js",
-    "bytes": 16638,
-    "sha256": "9040971c86498997ef33cb2a84b30c7326ef808416dc0427428fd7af10f59974"
+    "bytes": 16829,
+    "sha256": "7437bb73226d5bf164a119d33903d724ee3b24f9ff46ca4d5d17a13bc107175e"
   },
   {
     "path": "nasha-universe/living-hq/hq-scene.js",
@@ -511,13 +516,13 @@
   },
   {
     "path": "nasha-universe/living-hq/index.html",
-    "bytes": 3893,
-    "sha256": "a6de93dd7bd6fc025b034a448f497abdb3d9c819b3cca1b694f21f9f1fa9d06b"
+    "bytes": 4649,
+    "sha256": "2d82f44c7c84f2cb4b0f8a4bd635a05393823dbefb5e4cc9c82f012694d5ea26"
   },
   {
     "path": "nasha-universe/living-hq/living-hq.css",
-    "bytes": 7810,
-    "sha256": "4b5774e3d636507a397a40cfa7d2662a78de326e70380a790354252fab913b72"
+    "bytes": 9656,
+    "sha256": "a9c38c4161fa9996856fdef24a59c497ad2709788fa49e03fc09afc90ce40ad5"
   },
   {
     "path": "nasha-universe/recruiter/steps.json",

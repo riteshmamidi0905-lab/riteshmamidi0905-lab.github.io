@@ -504,5 +504,12 @@
     "cleared_for_public_release": true,
     "approval_basis": "User explicitly approved all nine reviewed concept images for the Phase 4.2 public release candidate",
     "label": "AI-generated fictional NASHA concept imagery; not actual product or facility photography"
+  },
+  {
+    "file": "assets/img/universe/universe-entrance.webp",
+    "kind": "screenshot",
+    "source": "Optimized derivative of the existing cleared universe-hq-atrium.jpg screenshot; not a live scene",
+    "rights_status": "own work, existing approved cinematic screenshot",
+    "cleared_for_public_release": true
   }
 ]

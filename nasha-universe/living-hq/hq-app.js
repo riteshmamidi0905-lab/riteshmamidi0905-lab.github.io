@@ -10,7 +10,7 @@
   const jopt = u => jget(u).catch(() => null);
   const safe = { get: k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { /* storage may be unavailable */ } } };
   const mq = q => window.matchMedia && matchMedia(q).matches;
-  const A = { data: null, r: {}, room: 'atrium', agent: 'veritas', mission: 'F', recFile: null, events: [], verified: null, st: HQ.fresh(), playing: false, speed: 1, timer: 0, calm: mq('(prefers-reduced-motion: reduce)'), low: !!(navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 2), view2d: false, gl: null, scene: [], layout: null, cam: null, camAnim: null, dirty: true, perf: { transitions: [] }, sel: null, netMission: '', netAgent: '', tour: { i: 0, elapsed: 0, playing: false, timer: 0 }, tourNet: false };
+  const A = { data: null, r: {}, room: 'atrium', agent: 'veritas', mission: 'F', recFile: null, events: [], verified: null, st: HQ.fresh(), playing: false, speed: 1, timer: 0, calm: mq('(prefers-reduced-motion: reduce)'), low: mq('(max-width:900px)') || !!(navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 2), view2d: false, gl: null, scene: [], layout: null, cam: null, camAnim: null, dirty: true, perf: { transitions: [] }, sel: null, netMission: '', netAgent: '', tour: { i: 0, elapsed: 0, playing: false, timer: 0 }, tourNet: false };
   const NAMES = { atrium: 'Arrival atrium', control: 'Mission Theater', chamber: 'Agent campus', network: 'Agent network', twin: 'Digital twin', tour: 'Recruiter journey', weir: 'THE WEIR', lab: 'Research Laboratory' };
   const ORDER = ['atrium', 'control', 'chamber', 'network', 'weir', 'lab', 'twin', 'tour'];
   const ROOM3D = { network: 'campus', tour: 'atrium' };
@@ -41,11 +41,18 @@
     const thead = h('thead', {}, h('tr', {}, heads.map(x => h('th', {}, x)))), tbody = h('tbody', {}, rows.map(r => h('tr', {}, r.map(c => h('td', {}, c)))));
     return h('div', { style: 'overflow:auto', tabindex: '0', role: 'region', 'aria-label': label }, h('table', {}, thead, tbody));
   }
-  function go(room, opts) {
+  async function ensureResearch() {
+    if (!A.researchPromise) A.researchPromise = Promise.all([jopt('../research/claimcheck-eval.json'),jopt('../research/model-eval-phase7.json'),jopt('../research/model-eval-phase7-promptB.json'),jopt('../research/model-plan-eval.json'),jopt('../research/claimcheck-p8.json'),jopt('../research/independent-package.json'),jopt('../evidence/test-results.json'),jopt('../recruiter/steps.json'),jopt('../research/reliability-index.json'),jopt('../research/evidence-index.json')]).then(([cc,p7,p7b,pe,p8,pk,tests,steps,rel,vault])=>{Object.assign(A.r,{cc,p7,p7b,pe,p8,pk,tests,steps,rel,vault});});
+    await A.researchPromise;
+  }
+  async function go(room, opts) {
+    const ticket=A.navTicket=(A.navTicket||0)+1;
+    if (room==='lab'||room==='tour') { say('Loading recorded research evidence…'); $('#status-text').textContent='Loading recorded research evidence…'; await ensureResearch(); if(ticket!==A.navTicket)return; }
+
     opts = opts || {}; const t0 = performance.now(); if (room !== 'tour' && A.tour.playing) tourStop(); if (room !== 'tour') A.tourNet = false; A.room = room; if (opts.agent) { if (opts.agent !== A.agent || !A.ex) A.ex = null; A.agent = opts.agent; } if (opts.dept) A.dept = opts.dept; if (opts.station != null) A.station = opts.station;
     document.querySelectorAll('#nav button').forEach(b => b.setAttribute('aria-current', String(b.dataset.room === room) === 'true' ? 'page' : 'false'));
     flyTo(ROOM3D[room] || room, () => { A.perf.transitions.push({ room, ms: Math.round(performance.now() - t0), animated: !A.calm }); perfUpdate(); });
-    renderPanel(); const hd = $('#panel h2'); if (hd) { hd.tabIndex = -1; if (!opts.noFocus) hd.focus({ preventScroll: true }); } say('Moved to ' + NAMES[room]); renderPlan(); setLocation(); if (!opts.noPush) { try { history.pushState({ room, agent: A.agent, dept: A.dept }, '', '#' + room + (room === 'chamber' ? '/' + A.agent : room === 'twin' && A.dept ? '/' + A.dept : '')); } catch (e) { /* history may be unavailable */ } }
+    renderPanel(); const hd = $('#panel h2'); if (hd) { hd.tabIndex = -1; if (!opts.noFocus) hd.focus({ preventScroll: true }); } say('Moved to ' + NAMES[room]); renderPlan(); setLocation(); updateStatus(); if (!opts.noPush) { try { history.pushState({ room, agent: A.agent, dept: A.dept }, '', '#' + room + (room === 'chamber' ? '/' + A.agent : room === 'twin' && A.dept ? '/' + A.dept : '')); } catch (e) { /* history may be unavailable */ } }
   }
   function setLocation() { const it = A.room === 'chamber' ? ' › ' + A.agent.toUpperCase() : A.room === 'twin' && A.dept ? ' › ' + A.dept : ''; $('#loc').textContent = 'Location: ' + NAMES[A.room] + it; }
   function renderPanel() { const p = $('#panel'); p.replaceChildren(); ({ atrium: pAtrium, control: pControl, chamber: pChamber, network: pNetwork, weir: pWeir, lab: pLab, twin: pTwin, tour: pTour })[A.room](p); renderLive(); }
@@ -375,18 +382,34 @@
   function flyTo(room, done) {
     if (!A.gl) { done && done(); return; } const pre = room === 'chamber' ? SC.agentPreset(A.data.agents.findIndex(a => a.slug === A.agent)) : SC.PRESETS[room], to = Object.assign({}, pre, { target: pre.target.slice() }); A.lastRoom3D = room;
     { const cv = $('#gl'), asp = cv && cv.clientHeight ? cv.clientWidth / cv.clientHeight : 1.6; if (asp < 1.1) to.dist = Math.min(70, to.dist * Math.min(1.9, 1.15 / asp)); }   // a narrow (portrait) stage frames wider so nothing is clipped at the sides
-    if (A.calm) { A.cam = to; A.camAnim = null; A.dirty = true; done && done(); return; }
+    if (A.calm || A.low) { A.cam = to; A.camAnim = null; A.dirty = true; done && done(); return; }
     let dy = to.yaw - A.cam.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); A.camAnim = { from: JSON.parse(JSON.stringify(A.cam)), to, dy, t0: performance.now(), dur: 1100, done };
   }
   function stepCam(now) {
     const a = A.camAnim; document.getElementById('skip-intro').hidden = !a || A.calm; if (!a) return; const k = Math.min(1, (now - a.t0) / a.dur), e = SC.ease(k), l = (x, y) => x + (y - x) * e;
     A.cam = { target: a.from.target.map((v, i) => l(v, a.to.target[i])), yaw: a.from.yaw + a.dy * e, pitch: l(a.from.pitch, a.to.pitch), dist: l(a.from.dist, a.to.dist) }; A.dirty = true; if (k >= 1) { A.camAnim = null; a.done && a.done(); }
   }
+  function load3DCode() {
+    if(window.HQGL&&window.HQWorlds)return Promise.resolve();
+    if(!A.code3D)A.code3D=Promise.all(['hq-gl.js','hq-worlds.js'].map(src=>new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=()=>reject(new Error('3D resources could not be loaded. The 2D plan and recorded evidence remain available.'));document.head.appendChild(script);}))).catch(e=>{A.code3D=null;throw e;});
+    return A.code3D;
+  }
+  function activate3D() {
+    if(A.gl){setView2d(false);return;}
+    if(A.activating){A.cancelActivation=false;return;}A.activating=true;A.cancelActivation=false;
+    const button=$('#enter-3d');button.disabled=true;button.textContent='Starting interactive 3D…';
+    requestAnimationFrame(()=>setTimeout(async()=>{
+      try { await load3DCode(); if(A.cancelActivation){A.activating=false;button.disabled=false;button.textContent='Enter interactive 3D';return;} } catch(e) { A.activating=false;button.disabled=false;button.textContent='Retry interactive 3D';$('#status-text').textContent=e.message;$('#gl-msg').hidden=false;$('#gl-msg').textContent=e.message;return; }
+      A.view2d=false;$('#plan').hidden=true;$('#gl').hidden=false;$('#labels').hidden=false;A.glStart=performance.now();startGL();A.activating=false;
+      $('#hq-entrance').hidden=true;
+      if(A.gl){$('#gl-msg').hidden=true;updateStatus();document.querySelector('.hud').hidden=false;$('#t-low').setAttribute('aria-pressed',String(A.low));$('#t-low').textContent='Low-power: '+(A.low?'on':'off');go(A.room,{noFocus:true,noPush:true});$('#gl').focus({preventScroll:true});}
+    },0));
+  }
   function startGL() {
     const cv = $('#gl'); let g = null; try { g = window.HQGL.create(cv, { preserve: new URLSearchParams(location.search).has('preserve') }); } catch (e) { g = null; }
     if (!g) { $('#gl-msg').hidden = false; $('#gl-msg').textContent = 'WebGL is not available in this browser, so the 2D plan is shown. Everything else works the same.'; setView2d(true); $('#t-2d').disabled = true; return; }
-    A.gl = g; A.layout = SC.buildStatic(A.data.agents, A.data); A.picks = SC.pickTargets(A.layout); A.cam = JSON.parse(JSON.stringify(SC.PRESETS.atrium));
-    const first = !safe.get('hq-intro'); if (!A.calm) { A.cam = JSON.parse(JSON.stringify(SC.INTRO)); $('#skip-intro').hidden = false; A.introT = performance.now(); A.camAnim = { from: JSON.parse(JSON.stringify(SC.INTRO)), to: JSON.parse(JSON.stringify(SC.PRESETS.atrium)), dy: Math.atan2(Math.sin(SC.PRESETS.atrium.yaw - SC.INTRO.yaw), Math.cos(SC.PRESETS.atrium.yaw - SC.INTRO.yaw)), t0: performance.now(), dur: first ? 3600 : 1400, done: () => { $('#skip-intro').hidden = true; safe.set('hq-intro', '1'); } }; }
+    A.gl = g; if (/swiftshader|llvmpipe|software|lavapipe/i.test(g.info())) { A.low = true; A.lowReason = 'software renderer'; } A.layout = SC.buildStatic(A.data.agents, A.data); A.picks = SC.pickTargets(A.layout); A.cam = JSON.parse(JSON.stringify(SC.PRESETS.atrium));
+    const first = !safe.get('hq-intro'); if (!A.calm && !A.low) { A.cam = JSON.parse(JSON.stringify(SC.INTRO)); $('#skip-intro').hidden = false; A.introT = performance.now(); A.camAnim = { from: JSON.parse(JSON.stringify(SC.INTRO)), to: JSON.parse(JSON.stringify(SC.PRESETS.atrium)), dy: Math.atan2(Math.sin(SC.PRESETS.atrium.yaw - SC.INTRO.yaw), Math.cos(SC.PRESETS.atrium.yaw - SC.INTRO.yaw)), t0: performance.now(), dur: first ? 3600 : 1400, done: () => { $('#skip-intro').hidden = true; safe.set('hq-intro', '1'); } }; }
     buildLabels(); requestAnimationFrame(frame);
   }
   function buildLabels() {
@@ -421,14 +444,14 @@
     stepCam(now); const animating = !A.calm && !A.low, minGap = A.low ? 33 : 0; if (now - lastDraw < minGap) return;
     if (!animating && !A.dirty && !A.camAnim) return; lastDraw = now;
     A.gl.resize(A.low ? 1 : 1.5); const eye = camEye(A.cam), flags = { calm: A.calm || A.low, agent: A.agent, t0: now, theater: inTheater() && A.verified && A.verified.ok ? Object.assign({}, thModel(), { sel: A.task, agent: A.thAgent }) : null, ex: A.ex, fort: A.room === 'weir' ? A.fort : null, eye, room: A.room, twin: A.data.twin, dept: A.room === 'twin' ? A.dept : null, station: A.room === 'lab' ? (A.station || 0) : null, net: (A.room === 'network' || (A.room === 'tour' && A.tourNet)) ? netEdges() : null };
-    const scene = A.layout.statics.concat(SC.buildDynamic(A.layout, A.data.agents, A.st, now, flags)); A.gl.render(scene, { eye, target: A.cam.target }, now, { particles: !A.low, calm: A.calm || A.low, lowQuality: A.low }); A.dirty = false;
+    const scene = A.layout.statics.concat(SC.buildDynamic(A.layout, A.data.agents, A.st, now, flags)); A.gl.render(scene, { eye, target: A.cam.target }, now, { particles: !A.low, calm: A.calm || A.low, lowQuality: A.low }); if(!A.firstFrame) A.firstFrame=performance.now()-A.glStart; A.dirty = false;
     updateLabels(eye);
     if (A.gl.stats.frames % 20 === 0) perfUpdate();
   }
   function perfUpdate() {
     const g = A.gl, dl = $('#perf-dl'); if (!dl || !g) return; const w = g.stats.win, ms = w.length ? w.reduce((a, b) => a + b, 0) / w.length : 0, heap = performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) + ' MB JS heap' : 'not exposed by this browser';
-    const rows = [['first frame', A.firstFrame ? Math.round(A.firstFrame) + ' ms after load' : 'n/a'], ['frame time', ms ? ms.toFixed(1) + ' ms (' + (1000 / ms).toFixed(0) + ' fps while animating)' : 'n/a (renders on demand)'], ['draw calls / triangles', g.stats.draws + ' / ' + Math.round(g.stats.tris)], ['memory', heap], ['renderer', g.info()],
-      ['mode', (A.calm ? 'reduced motion' : 'full motion') + (A.low ? ', low-power' : '')], ['space changes', A.perf.transitions.slice(-3).map(t => NAMES[t.room] + ' ' + t.ms + ' ms' + (t.animated ? '' : ' (instant)')).join('; ') || 'none yet']];
+    const rows = [['first 3D frame', A.firstFrame ? Math.round(A.firstFrame) + ' ms after activation (CPU submission)' : 'not activated'], ['frame time', (A.low || A.calm) ? 'on-demand; idle intervals are not a frame-rate measurement' : ms ? ms.toFixed(1) + ' ms (' + (1000 / ms).toFixed(0) + ' fps while animating)' : 'n/a (renders on demand)'], ['draw calls / triangles', g.stats.draws + ' / ' + Math.round(g.stats.tris)], ['memory', heap], ['renderer', g.info()],
+      ['mode', (A.calm ? 'reduced motion' : A.low ? 'on-demand interaction' : 'full motion') + (A.low ? ', low-power on demand' + (A.lowReason ? ' (' + A.lowReason + ')' : '') : '')], ['space changes', A.perf.transitions.slice(-3).map(t => NAMES[t.room] + ' ' + t.ms + ' ms' + (t.animated ? '' : ' (instant)')).join('; ') || 'none yet']];
     dl.replaceChildren(...rows.flatMap(([k, v]) => [h('dt', {}, k), h('dd', {}, v)]));
   }
   function pick(cx, cy) {
@@ -449,13 +472,12 @@
     cv.addEventListener('keydown', e => { const m = { ArrowLeft: () => A.cam.yaw += 0.12, ArrowRight: () => A.cam.yaw -= 0.12, ArrowUp: () => A.cam.pitch += 0.06, ArrowDown: () => A.cam.pitch -= 0.06, '+': () => A.cam.dist *= 0.9, '=': () => A.cam.dist *= 0.9, '-': () => A.cam.dist *= 1.1, Home: resetCam, Escape: resetCam, Enter: () => { const t = A.sel; openTarget(t || 'room:' + (A.room === 'network' ? 'atrium' : A.room)); } }[e.key]; const rooms = KEYS; if (rooms[e.key]) { e.preventDefault(); go(rooms[e.key]); return; } if (m) { e.preventDefault(); A.camAnim = null; m(); clamp(); } });
   }
   function resetCam() { A.camAnim = null; flyTo(ROOM3D[A.room] || A.room); }
-  function setView2d(on) { A.view2d = on; $('#plan').hidden = !on; $('#gl').hidden = on; $('#labels').hidden = on; $('#t-2d').setAttribute('aria-pressed', String(on)); $('#t-2d').textContent = on ? '3D view' : '2D plan view'; if (on) renderPlan(); A.dirty = true; }
+  function setView2d(on) { if(on&&A.activating)A.cancelActivation=true; if(!on&&!A.gl){activate3D();return;} $('#hq-entrance').hidden=on||!!A.gl; A.view2d = on; $('#plan').hidden = !on; $('#gl').hidden = on; $('#labels').hidden = on; $('#t-2d').setAttribute('aria-pressed', String(on)); $('#t-2d').textContent = on ? '3D view' : '2D plan view'; if (on) renderPlan(); A.dirty = true; }
   function updateStatus() { const n = A.data.missions.reduce((a, m) => a + m.recordings.length, 0); $('#status-text').textContent = n + ' recordings · ' + (A.verified ? (A.verified.ok ? 'chain verified (' + A.verified.n + ' events)' : 'integrity check FAILED') : 'no recording open') + ' · mode: recorded, not live'; }
 
   async function boot() {
     try {
-      const [data, cc, p7, p7b, pe, p8, pk, tests, steps, rel, vault] = await Promise.all([jget('hq-data.json'), jopt('../research/claimcheck-eval.json'), jopt('../research/model-eval-phase7.json'), jopt('../research/model-eval-phase7-promptB.json'), jopt('../research/model-plan-eval.json'), jopt('../research/claimcheck-p8.json'), jopt('../research/independent-package.json'), jopt('../evidence/test-results.json'), jopt('../recruiter/steps.json'), jopt('../research/reliability-index.json'), jopt('../research/evidence-index.json')]);
-      A.data = data; A.r = { cc, p7, p7b, pe, p8, pk, tests, steps, rel, vault };
+      A.data = await jget('hq-data.json');
     } catch (e) { $('#panel').textContent = 'The headquarters data could not be loaded: ' + e.message; return; }
     $('#nav').replaceChildren(...ORDER.map((r, i) => h('button', { type: 'button', 'data-room': r, 'aria-keyshortcuts': String(i + 1), onclick: () => go(r) }, (i + 1) + ' ' + NAMES[r])));
     $('#t-anim').addEventListener('click', () => { A.calm = !A.calm; if(window.NashaCharacters) window.NashaCharacters.setPaused(A.calm); $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); A.dirty = true; if (A.calm) { A.camAnim = null; $('#skip-intro').hidden = true; } perfUpdate(); });
@@ -464,14 +486,17 @@
     $('#skip-intro').addEventListener('click', () => { if (A.camAnim) { A.cam = A.camAnim.to; const d = A.camAnim.done; A.camAnim = null; d && d(); A.dirty = true; } });
     matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', e => { if(e.matches){A.calm=true; A.camAnim=null; A.dirty=true; $('#t-anim').setAttribute('aria-pressed','false'); $('#t-anim').textContent='Animations: off'; if(window.NashaCharacters) window.NashaCharacters.setPaused(true);} });
     $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); $('#t-low').setAttribute('aria-pressed', String(A.low)); $('#t-low').textContent = 'Low-power: ' + (A.low ? 'on' : 'off');
-    startGL(); bindInput(); window.addEventListener('keydown', e => { if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return; const rooms = KEYS; if (rooms[e.key] && !e.ctrlKey && !e.metaKey && !e.altKey && e.target !== $('#gl')) go(rooms[e.key]); });
+    $('#enter-3d').disabled=false; $('#enter-3d').textContent='Enter interactive 3D'; $('#enter-3d').addEventListener('click',activate3D); bindInput(); window.addEventListener('keydown', e => { if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return; const rooms = KEYS; if (rooms[e.key] && !e.ctrlKey && !e.metaKey && !e.altKey && e.target !== $('#gl')) go(rooms[e.key]); });
     window.addEventListener('resize', () => { A.dirty = true; });
     const hp = (location.hash || '').slice(1).split('/'), start = hp[0]; if (A.data.agents.some(a => a.slug === hp[1])) A.agent = hp[1]; if (start === 'twin' && A.data.twin.departments.some(d => d.id === hp[1])) A.dept = hp[1];
     go(ORDER.includes(start) ? start : 'atrium', { noFocus: true, noPush: true }); updateStatus();
     window.addEventListener('popstate', ev => { const st = ev.state || {}, q = (location.hash || '').slice(1).split('/'), room = st.room || q[0]; if (ORDER.includes(room)) go(room, { noFocus: true, noPush: true, agent: st.agent || (A.data.agents.some(a => a.slug === q[1]) ? q[1] : null), dept: st.dept || (room === 'twin' ? q[1] : null) }); });
-    requestAnimationFrame(() => { A.firstFrame = performance.now() - T0; perfUpdate(); });
+    requestAnimationFrame(() => perfUpdate());
     if ('IntersectionObserver' in window) { const observer = new IntersectionObserver(entries => { A.visible = entries[0].isIntersecting; if(A.visible) A.dirty = true; }); observer.observe($('#gl')); }
-    window.HQApp = { A, go, loadRec, step, play, stop, restart, seek, setView2d, resetCam, pick, camEye, ready: true, get frames() { return A.gl ? A.gl.stats.frames : 0; } };
+    window.HQApp = { A, go, activate3D, loadRec, step, play, stop, restart, seek, setView2d, resetCam, pick, camEye, ready: true, get frames() { return A.gl ? A.gl.stats.frames : 0; } };
   }
-  boot();
+  // Paint the entrance before fetching non-render-critical mission metadata.
+  const poster=document.querySelector('#hq-entrance img');
+  const visibleEntrance=poster&&poster.decode?poster.decode().catch(()=>{}):Promise.resolve();
+  visibleEntrance.then(()=>requestAnimationFrame(()=>requestAnimationFrame(boot)));
 })();

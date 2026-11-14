@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="index,follow"><title>NASHA Living Headquarters</title>
 <meta name="description" content="A navigable 3D headquarters for twelve AI agents, driven by hash-verified recordings of real mission runs on synthetic data. Part of Ritesh Mamidi's portfolio; not a live system and not an operating business.">
-<link rel="icon" href="../../mark.svg" type="image/svg+xml"><link rel="stylesheet" href="living-hq.css"><link rel="stylesheet" href="../characters.css"></head>
+<link rel="icon" href="../../mark.svg" type="image/svg+xml"><link rel="preload" as="image" type="image/webp" href="../../assets/img/universe/universe-entrance.webp" fetchpriority="high"><link rel="stylesheet" href="living-hq.css"><link rel="stylesheet" href="../characters.css"></head>
 <body>
 <a class="skip" href="#panel">Skip to the information panel</a>
 <header class="bar">
@@ -18,9 +18,10 @@
 </header>
 <main class="hq">
   <section class="stage" aria-label="Headquarters view">
-    <canvas id="gl" tabindex="0" role="application" aria-label="3D headquarters. Arrow keys orbit the camera, plus and minus zoom, Home resets the view, keys 1 to 6 move between spaces, Enter opens the selected object. Everything shown here is also in the panel beside it."></canvas>
+    <canvas hidden id="gl" tabindex="0" role="application" aria-label="3D headquarters. Arrow keys orbit the camera, plus and minus zoom, Home resets the view, keys 1 to 6 move between spaces, Enter opens the selected object. Everything shown here is also in the panel beside it."></canvas>
+    <div id="hq-entrance" class="hq-entrance"><img src="../../assets/img/universe/universe-entrance.webp" width="960" height="570" fetchpriority="high" alt="Preview screenshot of the NASHA interactive headquarters"><div><p class="entrance-eyebrow">NASHA · governed intelligence</p><h2>Enter the headquarters.</h2><p>Explore twelve specialists, recorded missions and the business operations center.</p><button type="button" id="enter-3d" disabled>Loading headquarters…</button><p class="entrance-note">Preview screenshot. Interactive 3D starts when you enter. Navigation, recorded evidence and character views work without starting it.</p></div></div>
     <div id="labels" aria-hidden="true"></div>
-    <div class="hud"><button type="button" id="b-home">Return to headquarters</button><button type="button" id="cam-reset">Reset camera</button><button type="button" id="skip-intro" hidden>Skip transition</button></div>
+    <div class="hud" hidden><button type="button" id="b-home">Return to headquarters</button><button type="button" id="cam-reset">Reset camera</button><button type="button" id="skip-intro" hidden>Skip transition</button></div>
     <div id="plan" hidden></div>
     <p id="gl-msg" class="gl-msg" hidden></p>
   </section>
@@ -32,5 +33,5 @@
 </main><section class="nc-section" aria-labelledby="characters-title"><p class="nc-kicker">Twelve specialists · one governed system</p><h2 id="characters-title">The NASHA command center</h2><p>Approved AI-generated character concepts, animated as 2D presentations. States below follow the verified mission replay. These illustrations are not rigged 3D models.</p><p><a href="../engineering/index.html">Enter business operations</a> · <a href="../../recruiter.html">Recruiter route</a> · <a href="#gl">Return to 3D headquarters</a></p><button id="characters-motion" type="button" aria-pressed="false">Character motion: on</button><div id="character-gallery" class="nc-grid"></div></section>
 <p id="live" class="sr" aria-live="polite"></p>
 <noscript><p class="ns">JavaScript is required for the interactive headquarters. The recorded missions, results and recruiter summary are available without it in <a href="../../recruiter.html">the recruiter summary</a>.</p></noscript>
-<script src="../event-verify.js"></script><script src="hq-events.js"></script><script src="hq-gl.js"></script><script src="hq-worlds.js"></script><script src="hq-scene.js"></script><script src="../characters.js"></script><script src="hq-app.js"></script>
+<script defer src="../event-verify.js"></script><script defer src="hq-events.js"></script><script defer src="hq-scene.js"></script><script defer src="../characters.js"></script><script defer src="hq-app.js"></script>
 </body></html>

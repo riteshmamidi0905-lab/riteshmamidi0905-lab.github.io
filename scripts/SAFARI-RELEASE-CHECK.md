@@ -21,7 +21,7 @@ iPhone Safari on the same Wi-Fi: substitute the Mac's LAN IP for `127.0.0.1`. Fi
 
 ## Required checks on each device
 
-1. Headquarters entrance and every navigation control fit without sideways page scrolling. Drag/orbit the 3D scene and use the 2D fallback. Scroll to the character campus; its controls remain clickable.
+1. Headquarters entrance and every navigation control fit without sideways page scrolling. Choose Enter interactive 3D (the preview screenshot does not count as a live 3D test), then drag/orbit the scene and use the 2D fallback. Record perceived activation delay separately from page-load performance. Scroll to the character campus; its controls remain clickable.
 2. Open all twelve character views, check whole bodies are visible and images load, close with the button (Escape on Mac), and confirm focus returns to the trigger. Mac: navigate with Tab/Shift-Tab and Enter; enable Safari's “Press Tab to highlight each item” keyboard-navigation setting if necessary.
 3. Open a recorded mission, Step, Play, Pause, Restart and seek. Check the visible captions, event numbers and agent states change together. Open a character chamber and inspect its role and recorded state. These are 2D illustrations, not rigged models.
 4. Pause animations, then turn on the OS Reduce Motion setting. Confirm optional character motion stops and controls remain usable. Restore your original setting afterward. Note visible stutter, overheating or crashes; do not report measured frame rates without measuring them.
