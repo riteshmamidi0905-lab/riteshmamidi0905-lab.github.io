@@ -1,0 +1,86 @@
+{
+  "synthetic": true,
+  "mode": "RECORDED LOCAL EXECUTION",
+  "events": [
+    {
+      "step": 1,
+      "title": "Seed a reconciled dataset",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 2,
+      "title": "Verify healthy readiness",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 3,
+      "title": "Create a verified local checkpoint",
+      "transport": "local CLI",
+      "method": "CLI",
+      "role": "local harness",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 4,
+      "title": "Inject an audit-corruption incident",
+      "transport": "local CLI",
+      "method": "CLI",
+      "role": "local harness",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 5,
+      "title": "Detect the unhealthy process",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 503,
+      "expected": 503,
+      "matched": true
+    },
+    {
+      "step": 6,
+      "title": "Restore verified state to a new path",
+      "transport": "local CLI",
+      "method": "CLI",
+      "role": "local harness",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 7,
+      "title": "Confirm restored readiness",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 8,
+      "title": "Reconcile restored sales",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 'use strict';
 // Browser tests for the Enterprise Demo (Playwright + axe, system Chrome via CHROMIUM_PATH). Run after starting a static server on port 8000: npm run test:demo
 const pw = require('playwright'), engineName = process.env.BROWSER || 'chromium', chromium = pw[engineName], { AxeBuilder } = require('@axe-core/playwright'), assert = require('assert/strict'), fs = require('fs');
-const BASE = 'http://127.0.0.1:8000/demo/', ROUTES = ['dashboard', 'guide', 'technical', 'sales', 'inventory', 'finance', 'departments', 'departments/finance', 'hr', 'marketing', 'support', 'bi', 'agents', 'governance', 'infra'];
+const BASE = (process.env.BASE_URL||'http://127.0.0.1:8000')+'/demo/', ROUTES = ['dashboard', 'guide', 'technical', 'sales', 'inventory', 'finance', 'departments', 'departments/finance', 'hr', 'marketing', 'support', 'bi', 'agents', 'governance', 'infra'];
 const report = { scope: (process.env.BROWSER || 'chromium') + ' over local HTTP; Enterprise Demo only', checks: [], axe: [], errors: [], external: [] };
 const ok = (name, cond, extra) => { report.checks.push({ name, pass: !!cond, extra }); assert.ok(cond, name + (extra ? ' ' + JSON.stringify(extra) : '')); };
 (async () => {
   const browser = await chromium.launch(engineName === 'chromium' ? { executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', args: ['--no-sandbox', '--disable-dev-shm-usage'] } : {});
-  const watch = page => { page.on('pageerror', e => report.errors.push('pageerror ' + e.message)); page.on('console', m => { if (m.type() === 'error') report.errors.push('console ' + m.text()); }); page.on('request', r => { const u = r.url(); if (!u.startsWith('http://127.0.0.1:8000/') && !u.startsWith('data:')) report.external.push(u); }); page.on('response', r => { if (r.status() >= 400) report.errors.push(r.status() + ' ' + r.url()); }); };
+  const watch = page => { page.on('pageerror', e => report.errors.push('pageerror ' + e.message)); page.on('console', m => { if (m.type() === 'error') report.errors.push('console ' + m.text()); }); page.on('request', r => { const u = r.url(); if (!u.startsWith((process.env.BASE_URL||'http://127.0.0.1:8000')+'/') && !u.startsWith('data:')) report.external.push(u); }); page.on('response', r => { if (r.status() >= 400) report.errors.push(r.status() + ' ' + r.url()); }); };
   const fresh = async (ctx) => { const p = await ctx.newPage(); watch(p); await p.goto(BASE); await p.evaluate(() => localStorage.clear()); await p.goto(BASE + '#/dashboard'); await p.reload(); await p.waitForSelector('#view h1'); return p; };
   try {
     // responsive + accessibility on every module

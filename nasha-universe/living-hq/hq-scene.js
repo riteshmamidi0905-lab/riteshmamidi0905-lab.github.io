@@ -33,6 +33,9 @@
     add({ mesh: 'torusX', pos: [0, 6.0, 0], scale: [16.2, 16.2, 16.2], color: [0.5, 0.55, 0.57], fres: 0.4, emis: [0.04, 0.05, 0.05] });
     add({ mesh: 'torusX', pos: [0, 0.15, 0], scale: [16.2, 16.2, 16.2], color: [0.5, 0.45, 0.35], emis: [0.5, 0.36, 0.16] });
     for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2 + 0.13; add({ mesh: 'box', pos: [Math.cos(a) * 16.2, 4.6, Math.sin(a) * 16.2], rot: [0, -a - Math.PI / 2, 0], scale: [2.6, 4.5, 0.03], color: [0.3, 0.55, 0.58], alpha: 0.05, fres: 0.7, blend: 'glass' }); }   // glass bays
+    // Original front entrance: an architectural presentation, separate from THE WEIR policy gate.
+    [-4.2,4.2].forEach(x=>add({mesh:'box',pos:[x,3.3,17],scale:[0.35,3.3,0.55],color:[0.18,0.24,0.27],fres:0.9,mat:'metal'}));
+    add({mesh:'box',pos:[0,6.8,17],scale:[4.55,0.3,0.55],color:[0.22,0.29,0.3],emis:k(TEAL,0.3),fres:0.8});
     // corridors
     [['control', -1, 0], ['lab', 1, 0], ['weir', 0, -1], ['twin', 0, 1]].forEach(([r, dx, dz]) => { const c = ROOMS[r]; add({ mesh: 'box', pos: [dx * 24.5, 0.03, dz * 24.5], rot: [0, dz ? Math.PI / 2 : 0, 0], scale: [8.5, 0.03, 0.9], color: [0.08, 0.1, 0.11], emis: [0.03, 0.12, 0.12] }); });
     // ---- Mission Control (west)
@@ -70,6 +73,9 @@
   }
   function buildDynamic(L, agents, st, t, flags) {
     const O = [], add = o => { O.push(o); return o; }, calm = flags.calm, pulse = calm ? 1 : 0.8 + 0.2 * Math.sin(t / 280), slow = calm ? 0 : t / 1000;
+    const arrival=flags.intro,doorOpen=!arrival||arrival.phase>2?1:arrival.phase<2?0:calm?1:ease(Math.min(1,arrival.elapsed/1200));
+    [-1,1].forEach(side=>add({mesh:'box',pos:[side*(1.8+3.1*doorOpen),3.2,17],scale:[1.72,3.1,0.08],color:[0.2,0.6,0.64],emis:k(TEAL,0.15+0.2*doorOpen),alpha:0.3,fres:0.9,blend:'glass',arrivalDoor:true}));
+    add({mesh:'box',pos:[0,6.8,17.6],scale:[4.2,0.035,0.035],color:TEAL,emis:k(TEAL,0.35+0.65*doorOpen),blend:'add',alpha:0.85});
     const run = st.mission.status === 'running' || st.mission.status === 'awaiting_approval';
     // central installation
     const coreCol = run ? TEAL : GOLD, glow = run ? 1.0 : 0.55;

@@ -6,7 +6,7 @@
 This is deliberately separate from SOURCE validation (scripts/validate-release.py). It trusts nothing the builder did and checks the output itself:
   1. the output equals the publication manifest exactly (no extra, missing or changed file) and every path passes the publication policy;
   2. no development tooling, self-test page, configuration or documentation is present;
-  3. every image is a cleared screenshot from the artifact's own image register, and binary files carry no local-path leaks;
+  3. every image is a cleared screenshot or individually pinned approved concept from the artifact's own image register, and binary files carry no local-path leaks;
   4. every internal link, asset, stylesheet url(), script and fetched data file resolves inside the artifact (fragments included);
   5. no prohibited identifier appears (hashed disclosure rules, plus private rules when PORTFOLIO_PRIVATE_RULES is set; the check fails closed);
   6. the required pages and honest-status disclosures are present (six case studies, Enterprise Demo, Data Lab, Lab Explorer, recruiter pages);
@@ -107,8 +107,10 @@ def main():
         if low.endswith(IMAGE_SUFFIX):
             if rel.startswith("assets/img/"):
                 r = reg.get(rel)
-                if not r or r.get("cleared_for_public_release") is not True or r.get("kind") != "screenshot":
-                    errs.append("%s: image is not a cleared screenshot in the artifact's own image register" % rel)
+                if rel in P.APPROVED_GENERATED_IMAGES or (r and r.get("kind") == "generated-concept"):
+                    errs += P.generated_image_errors(rel, r or {}, (base / rel).read_bytes())
+                elif not r or r.get("cleared_for_public_release") is not True or r.get("kind") != "screenshot":
+                    errs.append("%s: image is not a cleared screenshot or individually approved concept in the artifact's own image register" % rel)
             elif rel not in ALLOWED_NON_REGISTER_IMAGES:
                 errs.append("%s: image outside assets/img/ and not an allowlisted brand asset" % rel)
         if not low.endswith(TEXT_SUFFIX):

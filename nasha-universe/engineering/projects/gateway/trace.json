@@ -1,0 +1,76 @@
+{
+  "synthetic": true,
+  "mode": "RECORDED LOCAL EXECUTION",
+  "events": [
+    {
+      "step": 1,
+      "title": "Create immutable supplier intent",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 2,
+      "title": "Approve the stored proposal",
+      "transport": "http",
+      "method": "POST",
+      "role": "reviewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 3,
+      "title": "Exhaust retries; success is uncertain",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 4,
+      "title": "Recover the existing receipt",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 5,
+      "title": "Replay without another HTTP request",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 6,
+      "title": "Inspect persistent attempt history",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 7,
+      "title": "Verify readiness and audit",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    }
+  ]
+}
