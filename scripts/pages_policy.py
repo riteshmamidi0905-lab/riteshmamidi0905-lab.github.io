@@ -159,3 +159,48 @@ def compare(inv, manifest):
 def tree_digest(inv):
     """One hash for the whole artifact: identical inputs give an identical value on every machine."""
     return sha256_bytes("".join("%s\t%s\n" % (p, inv[p][1]) for p in sorted(inv)).encode("utf-8"))
+
+# Exact assets authorized by the Phase 4.2 integration directive. No wildcard allowance.
+APPROVED_GENERATED_IMAGES = {'assets/img/agents/aegis.webp': 'ac898d5cb67e243bc92992d7fc5f02f335af01edf65d8cbd5a7859fdfa54e35a',
+ 'assets/img/agents/aethon.webp': '720adec8373822198cfa15901170bae2acb8258f057957e0ddd0b65e5d6ad0bc',
+ 'assets/img/agents/cortex.webp': '7afcf8d09fb6dbfb323e331cc0128927c4a5f09fdb61a966b99693bda84b3d62',
+ 'assets/img/agents/echon.webp': 'fd20dd1a888fc1042634356bcdc50ca738faa1a7500cd0bb3e7cfc863864edd0',
+ 'assets/img/agents/nexora.webp': '5f6d8ee73cb2939d4d1f032f533b63c54abfeefa831e5d2f7d306984b2c61c31',
+ 'assets/img/agents/novara.webp': '5f7937e1dda979c7d374bb6e95de706f643f7ce476c694d065143b6e675aaedc',
+ 'assets/img/agents/pyrix.webp': 'e3a6fbd0585e53e899b61ca39325842722e3a8408cbdcece107c77759f4aec73',
+ 'assets/img/agents/quantix.webp': '34ec3f554f54f489cac5958f879bf3478c91208af94f983243aab60f73f0a8da',
+ 'assets/img/agents/synapse.webp': '9f0abf0ad725ab09850e995780dc9432489df6569919cde2122315eb72a3f568',
+ 'assets/img/agents/vectra.webp': 'd1ac45e2ee2270d5d819856d6dd2e91324d2baeaf40526a8269a24ccd4c4bd9a',
+ 'assets/img/agents/veritas.webp': 'aebd1c699e7f2dd5a56f3186aba94be5a09956e805be316cd5b85804cd96671c',
+ 'assets/img/agents/zybrew.webp': 'de55dfdec7d40f5bd79113435ca11e8187461a6a8f762d5395ba4cef2bae3b92',
+ 'assets/img/business/brewery-square.webp': '05307aa77d07111c0223f45dbbf199ce59163cd07ce90dba0851f39594190629',
+ 'assets/img/business/brewery.webp': 'aea7dacfa1dbb91d0efa487fa4de3d098d4d7b4ccd087580c93f7c2f4d4db213',
+ 'assets/img/business/categories-square.webp': 'a7ec56918ca2d0c41b61507757c9445668d95eca73ba5c7ef37dfe1c55d715ed',
+ 'assets/img/business/categories.webp': 'eb37edaa8e9f2ea3b25d09863552a66f4c3bf21eb7d7baa3136351560f30a991',
+ 'assets/img/business/chicken65-square.webp': 'c6df07141bbf4025b8c0c0ac87d9e41accbd1839dac5b38a6607c1cc8ef7e662',
+ 'assets/img/business/chicken65.webp': '09ee53299771cdecee6125c1faa6579f28a91c7967d59eccb712b61bbc8d4280',
+ 'assets/img/business/gobi-square.webp': '15950cfbaa5d5d93289f91d76f446e1c4d67baca7a1334ca78b6ae99aaf511e6',
+ 'assets/img/business/gobi.webp': '83ae39f0c5ceefd113858a8e4a84c946e2ab80b4c00e5073496afa90a7ec7ec6',
+ 'assets/img/business/ingredients-square.webp': 'd8082b2628e4e5a8dfa7b57d1ce59308e4463df22acb63f6747c00e04e7422c6',
+ 'assets/img/business/ingredients.webp': '40155d220cdc9d5004737b9cfd7c7a3ec58d6ac51fd3fc9576332b4a9cfa6710',
+ 'assets/img/business/paneer-square.webp': '57034c69c0bdca1e06535cd4c485d596fc63edfcf7184df15f1fa6561a31ac39',
+ 'assets/img/business/paneer.webp': '9ded95f58380dfde84021d7a353faea795f43c8e81f1456164bc5c4a5ffc3442',
+ 'assets/img/business/quesadilla-square.webp': '949655da5b9f93a7a058c836d977ee1cd0b35041b3ae2c2fb4312eeb3e9d2bc6',
+ 'assets/img/business/quesadilla.webp': '81c7aad137140a5b24994f26af259fcab262582b920e16d2e096a2b1ea0ddd75',
+ 'assets/img/business/warehouse-control-square.webp': '10297111746ce0600fb454b88d68b69c6f5428a0ee0104d200b2ba54612da414',
+ 'assets/img/business/warehouse-control.webp': '944f6d7d6e8f7d71a5a7047693f39f5eee267c2a61f91052fa2ba7d522b94a32',
+ 'assets/img/business/warehouse-square.webp': '2f62c75cc9b43d49fd593804ee1268c03ae392b1ddc6f1cfb364c0e9da18f7ee',
+ 'assets/img/business/warehouse.webp': 'ba7df72173c126f150279d11ba42f83925eaf83f364c9d0c07f2b23b9192276a'}
+
+def generated_image_errors(rel, entry, data):
+    if rel not in APPROVED_GENERATED_IMAGES:
+        return [rel + ": generated concept is not individually approved"]
+    expected = APPROVED_GENERATED_IMAGES[rel]
+    if entry.get("kind") != "generated-concept" or entry.get("cleared_for_public_release") is not True:
+        return [rel + ": generated concept lacks truthful type or clearance"]
+    if entry.get("sha256") != expected or sha256_bytes(data) != expected:
+        return [rel + ": approved generated image digest mismatch"]
+    for key in ("generation_id", "original_sha256", "rights_url", "approval_basis", "label"):
+        if not entry.get(key):
+            return [rel + ": missing provenance field " + key]
+    return []

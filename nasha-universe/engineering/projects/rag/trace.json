@@ -1,0 +1,76 @@
+{
+  "synthetic": true,
+  "mode": "RECORDED LOCAL EXECUTION",
+  "events": [
+    {
+      "step": 1,
+      "title": "Index synthetic policy",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 2,
+      "title": "Ask a grounded question",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 3,
+      "title": "Ask an unsupported question",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 4,
+      "title": "Reject an injected replacement",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 422,
+      "expected": 422,
+      "matched": true
+    },
+    {
+      "step": 5,
+      "title": "Confirm the prior version remains",
+      "transport": "http",
+      "method": "POST",
+      "role": "operator",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 6,
+      "title": "Inspect domain audit",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    },
+    {
+      "step": 7,
+      "title": "Inspect executed evaluation",
+      "transport": "http",
+      "method": "GET",
+      "role": "viewer",
+      "status": 200,
+      "expected": 200,
+      "matched": true
+    }
+  ]
+}

@@ -32,6 +32,10 @@ jobs:
           npm run test:paint
           npm run test:fonts
           npm run test:universe
+          npm run test:inventory
+          npm run test:engineering
+          npm run test:layout
+          npm run test:creative
       - name: Lighthouse mobile and desktop release gates
         run: |
           for page in home:/ demo:/demo/ lab:/data-lab.html; do

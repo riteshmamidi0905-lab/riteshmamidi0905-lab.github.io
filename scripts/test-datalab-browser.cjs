@@ -1,7 +1,7 @@
 'use strict';
 // Browser tests for the Data & Product Intelligence Lab page (Playwright + axe). Start a static server on 8000 first: npm run test:datalab. BROWSER=chromium|firefox|webkit
 const pw = require('playwright'), { AxeBuilder } = require('@axe-core/playwright'), assert = require('assert/strict'), fs = require('fs');
-const engine = process.env.BROWSER || 'chromium', BASE = 'http://127.0.0.1:8000/', report = { scope: engine + ' over local HTTP; data-lab.html', checks: [], axe: [], errors: [], external: [] };
+const engine = process.env.BROWSER || 'chromium', BASE = (process.env.BASE_URL||'http://127.0.0.1:8000')+'/', report = { scope: engine + ' over local HTTP; data-lab.html', checks: [], axe: [], errors: [], external: [] };
 const ok = (n, c, x) => { report.checks.push({ name: n, pass: !!c, extra: x }); assert.ok(c, n + (x ? ' ' + JSON.stringify(x) : '')); };
 (async () => {
   const browser = await pw[engine].launch(engine === 'chromium' ? { executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', args: ['--no-sandbox', '--disable-dev-shm-usage'] } : {});
