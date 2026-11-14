@@ -38,3 +38,7 @@ a{color:var(--teal)}details{border-top:1px solid var(--line);padding:6px 16px 10
 
 .loc{margin:0;min-height:14px;font:600 11px ui-monospace,monospace;letter-spacing:.12em;color:var(--gold);flex-basis:100%;order:3}.chip[data-k=syn]{color:#f0c98c;border-color:#e9c58a}.banner[data-k=syn]{border-color:#e9c58a;background:#241c0c;color:#f0d9a6}.lbl[data-k]{}
 .lbl[data-st]{}
+/* Keep the original scene as a bounded viewport above the new character campus. */
+@media(min-width:901px){.hq{flex:none;height:max(520px,calc(100svh - 150px))}.nc-section{flex:none;width:100%}}
+
+.hq-title{font:inherit;margin:0;font-weight:400}

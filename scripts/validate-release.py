@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==125   # Original 106 files plus nineteen reviewed engineering lab files.
+assert len(manifest)==158   # Original and explicitly reviewed Phase 4.2 files.
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -27,6 +27,9 @@ for p_ in expected:
  if p_.startswith('assets/img/'):
   assert p_ in reg,'image missing from data/image-register.json: '+p_
   assert reg[p_]['cleared_for_public_release'],'image not cleared for public release: '+p_
+  import pages_policy as P
+  if p_ in P.APPROVED_GENERATED_IMAGES or reg[p_].get('kind') == 'generated-concept':
+   assert not P.generated_image_errors(p_,reg[p_],(root/p_).read_bytes()),'generated concept not individually approved: '+p_
 for item in manifest:
  p=root/item['path'];b=p.read_bytes()
  assert len(b)==item['bytes'] and hashlib.sha256(b).hexdigest()==item['sha256'],item['path']+' changed without manifest review'
@@ -96,7 +99,11 @@ except _D.CoverageError as _e: raise AssertionError('disclosure scan coverage (f
 _problems=_D.check_files(_rules,root,PUBLIC_TEXT,'file')
 assert not _problems,('disclosure rule violations (rule id and line only; the matched text is never printed)',_problems[:20])
 print('disclosure scan:',len(PUBLIC_TEXT),'text files scanned; every required file covered (%s);'%_how,_rules.private_summary())
-for r in json.loads((root/'data/image-register.json').read_text()): assert r['cleared_for_public_release'] is True and r['kind']=='screenshot',('public register may list cleared screenshots only',r['file'])
+for r in json.loads((root/'data/image-register.json').read_text()):
+ assert r['cleared_for_public_release'] is True,('public image not cleared',r['file'])
+ if r['file'] in P.APPROVED_GENERATED_IMAGES or r.get('kind') == 'generated-concept':
+  assert not P.generated_image_errors(r['file'],r,(root/r['file']).read_bytes()),('generated image not individually approved',r['file'])
+ else: assert r['kind']=='screenshot',('public register may list cleared screenshots or exact approved concepts only',r['file'])
 _rec=(root/'recruiter.html').read_text()
 assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'
 assert 'Apple Maps — Client Engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
@@ -117,4 +124,4 @@ blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'
-print('PASS: 125 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six flagships, reduced-motion stylesheet')
+print('PASS: 158 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six flagships, reduced-motion stylesheet')

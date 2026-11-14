@@ -113,6 +113,7 @@
   }
   function renderLive() {
     renderPlan();
+    if (window.NashaCharacters) window.NashaCharacters.update(A.st);
     const st = A.st, el = $('#liveState'); const sl = $('#r-pos'); if (sl) { sl.max = A.events.length; sl.value = A.events.filter(e => e.seq <= st.pos).length; }
     if (A.room === 'weir') return fillWeir();
     if (A.room !== 'control' || !el) return;
@@ -154,7 +155,7 @@
   function fillWeir() { const el = $('#weirLive'); if (!el) return; const st = A.st; el.replaceChildren(h('p', { class: 'mut' }, A.events.length ? 'Recording: ' + (A.verified && A.verified.title) + ' — event ' + st.pos : 'No recording loaded: open one in Mission Control.'), govBlocks(st), st.holds.length ? h('ul', { class: 'l' }, st.holds.map(x => h('li', {}, '#' + x.seq + ' Hold: ' + x.action + (x.decided ? ' → ' + x.decided.decision : ' → waiting for a person')))) : null); }
   function pChamber(p) {
     const a = agentBy(A.agent), d = A.data;
-    p.append(h('h2', {}, 'Agent chamber: ' + a.name), h('div', { class: 'row' }, h('label', {}, 'Agent', h('select', { id: 's-agent', onchange: e => go('chamber', { agent: e.target.value }) }, d.agents.map(x => h('option', { value: x.slug, selected: x.slug === a.slug }, x.name + ' · ' + x.specialty))))),
+    p.append(h('h2', {}, 'Agent chamber: ' + a.name), window.NashaCharacters ? window.NashaCharacters.card(a.slug,A.st.agents[a.slug].state,'Recorded mission state · '+(A.st.agents[a.slug].task||'not yet assigned')) : null, h('div', { class: 'row' }, h('label', {}, 'Agent', h('select', { id: 's-agent', onchange: e => go('chamber', { agent: e.target.value }) }, d.agents.map(x => h('option', { value: x.slug, selected: x.slug === a.slug }, x.name + ' · ' + x.specialty))))),
       h('p', { class: 'kv' }, h('b', {}, 'Role: '), a.specialty + ' · ', chip(a.implementation === 'deterministic' ? 'ok' : 'plan', a.implementation === 'deterministic' ? 'RULE-BASED' : 'MODEL-ASSISTED (experimental)'), ' ', chip('syn', 'IDENTITY ' + a.visual_status)),
       banner('rec', h('b', {}, 'Derived from recordings. '), a.events + ' events across ' + Object.keys(a.missions).length + ' mission(s). The visual identity of an agent is illustrative; the behaviour below is counted from events.'),
       h('h3', {}, 'Assigned tasks by mission'), Object.keys(a.assignments).length ? h('ul', { class: 'l' }, Object.entries(a.assignments).map(([m, t]) => h('li', {}, h('b', {}, 'Mission ' + m + ': '), t))) : h('p', { class: 'mut' }, 'No task assignment in any recording.'),
@@ -416,7 +417,7 @@
     });
   }
   function frame(now) {
-    requestAnimationFrame(frame); if (!A.gl || A.view2d || document.hidden) return;
+    requestAnimationFrame(frame); if (!A.gl || A.view2d || document.hidden || A.visible === false) return;
     stepCam(now); const animating = !A.calm && !A.low, minGap = A.low ? 33 : 0; if (now - lastDraw < minGap) return;
     if (!animating && !A.dirty && !A.camAnim) return; lastDraw = now;
     A.gl.resize(A.low ? 1 : 1.5); const eye = camEye(A.cam), flags = { calm: A.calm || A.low, agent: A.agent, t0: now, theater: inTheater() && A.verified && A.verified.ok ? Object.assign({}, thModel(), { sel: A.task, agent: A.thAgent }) : null, ex: A.ex, fort: A.room === 'weir' ? A.fort : null, eye, room: A.room, twin: A.data.twin, dept: A.room === 'twin' ? A.dept : null, station: A.room === 'lab' ? (A.station || 0) : null, net: (A.room === 'network' || (A.room === 'tour' && A.tourNet)) ? netEdges() : null };
@@ -457,10 +458,11 @@
       A.data = data; A.r = { cc, p7, p7b, pe, p8, pk, tests, steps, rel, vault };
     } catch (e) { $('#panel').textContent = 'The headquarters data could not be loaded: ' + e.message; return; }
     $('#nav').replaceChildren(...ORDER.map((r, i) => h('button', { type: 'button', 'data-room': r, 'aria-keyshortcuts': String(i + 1), onclick: () => go(r) }, (i + 1) + ' ' + NAMES[r])));
-    $('#t-anim').addEventListener('click', () => { A.calm = !A.calm; $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); A.dirty = true; if (A.calm) { A.camAnim = null; $('#skip-intro').hidden = true; } perfUpdate(); });
+    $('#t-anim').addEventListener('click', () => { A.calm = !A.calm; if(window.NashaCharacters) window.NashaCharacters.setPaused(A.calm); $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); A.dirty = true; if (A.calm) { A.camAnim = null; $('#skip-intro').hidden = true; } perfUpdate(); });
     $('#t-low').addEventListener('click', () => { A.low = !A.low; $('#t-low').setAttribute('aria-pressed', String(A.low)); $('#t-low').textContent = 'Low-power: ' + (A.low ? 'on' : 'off'); A.dirty = true; perfUpdate(); });
     $('#t-2d').addEventListener('click', () => setView2d(!A.view2d)); $('#cam-reset').addEventListener('click', resetCam); $('#b-home').addEventListener('click', () => go('atrium'));
     $('#skip-intro').addEventListener('click', () => { if (A.camAnim) { A.cam = A.camAnim.to; const d = A.camAnim.done; A.camAnim = null; d && d(); A.dirty = true; } });
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', e => { if(e.matches){A.calm=true; A.camAnim=null; A.dirty=true; $('#t-anim').setAttribute('aria-pressed','false'); $('#t-anim').textContent='Animations: off'; if(window.NashaCharacters) window.NashaCharacters.setPaused(true);} });
     $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); $('#t-low').setAttribute('aria-pressed', String(A.low)); $('#t-low').textContent = 'Low-power: ' + (A.low ? 'on' : 'off');
     startGL(); bindInput(); window.addEventListener('keydown', e => { if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return; const rooms = KEYS; if (rooms[e.key] && !e.ctrlKey && !e.metaKey && !e.altKey && e.target !== $('#gl')) go(rooms[e.key]); });
     window.addEventListener('resize', () => { A.dirty = true; });
@@ -468,6 +470,7 @@
     go(ORDER.includes(start) ? start : 'atrium', { noFocus: true, noPush: true }); updateStatus();
     window.addEventListener('popstate', ev => { const st = ev.state || {}, q = (location.hash || '').slice(1).split('/'), room = st.room || q[0]; if (ORDER.includes(room)) go(room, { noFocus: true, noPush: true, agent: st.agent || (A.data.agents.some(a => a.slug === q[1]) ? q[1] : null), dept: st.dept || (room === 'twin' ? q[1] : null) }); });
     requestAnimationFrame(() => { A.firstFrame = performance.now() - T0; perfUpdate(); });
+    if ('IntersectionObserver' in window) { const observer = new IntersectionObserver(entries => { A.visible = entries[0].isIntersecting; if(A.visible) A.dirty = true; }); observer.observe($('#gl')); }
     window.HQApp = { A, go, loadRec, step, play, stop, restart, seek, setView2d, resetCam, pick, camEye, ready: true, get frames() { return A.gl ? A.gl.stats.frames : 0; } };
   }
   boot();

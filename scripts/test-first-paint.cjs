@@ -3,7 +3,7 @@
 // Guards against the page-in entrance starting fully transparent: that intermittently prevented any first paint in headless Chrome (18 of 80 loads; 0 of 80 after the fix).
 // Two layers: (1) structural: the running entrance animation's first keyframe must not be fully transparent; (2) empirical: every fresh load must report a first-contentful-paint.
 // Usage: static server on port 8000, then npm run test:paint   (BROWSER=chromium|firefox|webkit, LOADS=12 per page)
-const pw = require('playwright'), fs = require('fs'), engine = process.env.BROWSER || 'chromium', BASE = process.env.BASE || 'http://127.0.0.1:8000/', LOADS = +(process.env.LOADS || 12), TIMEOUT = 5000;
+const pw = require('playwright'), fs = require('fs'), engine = process.env.BROWSER || 'chromium', BASE = process.env.BASE || (process.env.BASE_URL||'http://127.0.0.1:8000')+'/', LOADS = +(process.env.LOADS || 12), TIMEOUT = 5000;
 const PAGES = ['index.html', 'data-lab.html', 'lab-explorer.html', 'verified-projects.html', 'case-studies.html', 'case-production-ai-agent-platform.html'];
 (async () => {
   const b = await pw[engine].launch(engine === 'chromium' ? { executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', args: ['--no-sandbox', '--disable-dev-shm-usage'] } : {});

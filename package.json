@@ -4,7 +4,7 @@
   "version": "3.0.0",
   "scripts": {
     "build": "python3 scripts/validate-release.py",
-    "test": "python3 scripts/validate-release.py && python3 scripts/test-disclosure.py && python3 scripts/test-scan-coverage.py && python3 scripts/test-pages-artifact.py && python3 scripts/test-workflows.py && python3 scripts/test-release-evidence.py && python3 scripts/test-rollback-guard.py && node --test scripts/test-model.cjs scripts/test-demo-engine.cjs scripts/test-inventory.cjs",
+    "test": "python3 scripts/validate-release.py && python3 scripts/test-disclosure.py && python3 scripts/test-scan-coverage.py && python3 scripts/test-pages-artifact.py && python3 scripts/test-concept-policy.py && python3 scripts/test-workflows.py && python3 scripts/test-release-evidence.py && python3 scripts/test-rollback-guard.py && node --test scripts/test-model.cjs scripts/test-demo-engine.cjs scripts/test-inventory.cjs",
     "test:browser": "node scripts/test-browser.cjs",
     "test:a11y": "node scripts/test-browser.cjs",
     "test:demo": "node scripts/test-demo-browser.cjs",
@@ -16,7 +16,8 @@
     "test:universe": "node scripts/test-universe-integration.cjs",
     "test:inventory": "node scripts/test-inventory-browser.cjs",
     "test:engineering": "node scripts/test-engineering-browser.cjs",
-    "test:layout": "node scripts/test-demo-layout-shift.cjs"
+    "test:layout": "node scripts/test-demo-layout-shift.cjs",
+    "test:creative": "node scripts/test-creative-integration.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

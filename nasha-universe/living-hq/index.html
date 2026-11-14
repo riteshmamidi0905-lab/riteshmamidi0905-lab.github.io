@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="index,follow"><title>NASHA Living Headquarters</title>
 <meta name="description" content="A navigable 3D headquarters for twelve AI agents, driven by hash-verified recordings of real mission runs on synthetic data. Part of Ritesh Mamidi's portfolio; not a live system and not an operating business.">
-<link rel="icon" href="../../mark.svg" type="image/svg+xml"><link rel="stylesheet" href="living-hq.css"></head>
+<link rel="icon" href="../../mark.svg" type="image/svg+xml"><link rel="stylesheet" href="living-hq.css"><link rel="stylesheet" href="../characters.css"></head>
 <body>
 <a class="skip" href="#panel">Skip to the information panel</a>
 <header class="bar">
-  <div class="brand"><span class="mark" aria-hidden="true">N</span><div><b>NASHA</b> Living Headquarters<small>Synthetic data · recorded runs · not live</small></div></div>
+  <div class="brand"><span class="mark" aria-hidden="true">N</span><div><h1 class="hq-title"><b>NASHA</b> Living Headquarters</h1><small>Synthetic data · recorded runs · not live</small></div></div>
   <p id="loc" class="loc" aria-live="off"></p><p id="status" class="status" role="status"><span class="chip" data-k="rec">RECORDED</span><span id="status-text">Loading the recorded missions · mode: recorded, not live</span></p>
   <div class="tools" role="group" aria-label="Display settings">
     <button type="button" id="t-anim" aria-pressed="true">Animations: on</button>
@@ -29,8 +29,8 @@
     <div id="panel" tabindex="-1"></div>
     <details id="perf"><summary>Performance (measured in this browser)</summary><dl id="perf-dl"></dl></details>
   </aside>
-</main>
+</main><section class="nc-section" aria-labelledby="characters-title"><p class="nc-kicker">Twelve specialists · one governed system</p><h2 id="characters-title">The NASHA command center</h2><p>Approved AI-generated character concepts, animated as 2D presentations. States below follow the verified mission replay. These illustrations are not rigged 3D models.</p><p><a href="../engineering/index.html">Enter business operations</a> · <a href="../../recruiter.html">Recruiter route</a> · <a href="#gl">Return to 3D headquarters</a></p><button id="characters-motion" type="button" aria-pressed="false">Character motion: on</button><div id="character-gallery" class="nc-grid"></div></section>
 <p id="live" class="sr" aria-live="polite"></p>
 <noscript><p class="ns">JavaScript is required for the interactive headquarters. The recorded missions, results and recruiter summary are available without it in <a href="../../recruiter.html">the recruiter summary</a>.</p></noscript>
-<script src="../event-verify.js"></script><script src="hq-events.js"></script><script src="hq-gl.js"></script><script src="hq-worlds.js"></script><script src="hq-scene.js"></script><script src="hq-app.js"></script>
+<script src="../event-verify.js"></script><script src="hq-events.js"></script><script src="hq-gl.js"></script><script src="hq-worlds.js"></script><script src="hq-scene.js"></script><script src="../characters.js"></script><script src="hq-app.js"></script>
 </body></html>

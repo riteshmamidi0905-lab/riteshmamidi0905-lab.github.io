@@ -30,6 +30,156 @@
     "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
   },
   {
+    "path": "assets/img/agents/aegis.webp",
+    "bytes": 43580,
+    "sha256": "ac898d5cb67e243bc92992d7fc5f02f335af01edf65d8cbd5a7859fdfa54e35a"
+  },
+  {
+    "path": "assets/img/agents/aethon.webp",
+    "bytes": 43842,
+    "sha256": "720adec8373822198cfa15901170bae2acb8258f057957e0ddd0b65e5d6ad0bc"
+  },
+  {
+    "path": "assets/img/agents/cortex.webp",
+    "bytes": 46914,
+    "sha256": "7afcf8d09fb6dbfb323e331cc0128927c4a5f09fdb61a966b99693bda84b3d62"
+  },
+  {
+    "path": "assets/img/agents/echon.webp",
+    "bytes": 43804,
+    "sha256": "fd20dd1a888fc1042634356bcdc50ca738faa1a7500cd0bb3e7cfc863864edd0"
+  },
+  {
+    "path": "assets/img/agents/nexora.webp",
+    "bytes": 50590,
+    "sha256": "5f6d8ee73cb2939d4d1f032f533b63c54abfeefa831e5d2f7d306984b2c61c31"
+  },
+  {
+    "path": "assets/img/agents/novara.webp",
+    "bytes": 60842,
+    "sha256": "5f7937e1dda979c7d374bb6e95de706f643f7ce476c694d065143b6e675aaedc"
+  },
+  {
+    "path": "assets/img/agents/pyrix.webp",
+    "bytes": 43342,
+    "sha256": "e3a6fbd0585e53e899b61ca39325842722e3a8408cbdcece107c77759f4aec73"
+  },
+  {
+    "path": "assets/img/agents/quantix.webp",
+    "bytes": 51788,
+    "sha256": "34ec3f554f54f489cac5958f879bf3478c91208af94f983243aab60f73f0a8da"
+  },
+  {
+    "path": "assets/img/agents/synapse.webp",
+    "bytes": 52842,
+    "sha256": "9f0abf0ad725ab09850e995780dc9432489df6569919cde2122315eb72a3f568"
+  },
+  {
+    "path": "assets/img/agents/vectra.webp",
+    "bytes": 54062,
+    "sha256": "d1ac45e2ee2270d5d819856d6dd2e91324d2baeaf40526a8269a24ccd4c4bd9a"
+  },
+  {
+    "path": "assets/img/agents/veritas.webp",
+    "bytes": 51540,
+    "sha256": "aebd1c699e7f2dd5a56f3186aba94be5a09956e805be316cd5b85804cd96671c"
+  },
+  {
+    "path": "assets/img/agents/zybrew.webp",
+    "bytes": 53316,
+    "sha256": "de55dfdec7d40f5bd79113435ca11e8187461a6a8f762d5395ba4cef2bae3b92"
+  },
+  {
+    "path": "assets/img/business/brewery-square.webp",
+    "bytes": 22008,
+    "sha256": "05307aa77d07111c0223f45dbbf199ce59163cd07ce90dba0851f39594190629"
+  },
+  {
+    "path": "assets/img/business/brewery.webp",
+    "bytes": 73120,
+    "sha256": "aea7dacfa1dbb91d0efa487fa4de3d098d4d7b4ccd087580c93f7c2f4d4db213"
+  },
+  {
+    "path": "assets/img/business/categories-square.webp",
+    "bytes": 37040,
+    "sha256": "a7ec56918ca2d0c41b61507757c9445668d95eca73ba5c7ef37dfe1c55d715ed"
+  },
+  {
+    "path": "assets/img/business/categories.webp",
+    "bytes": 156580,
+    "sha256": "eb37edaa8e9f2ea3b25d09863552a66f4c3bf21eb7d7baa3136351560f30a991"
+  },
+  {
+    "path": "assets/img/business/chicken65-square.webp",
+    "bytes": 39796,
+    "sha256": "c6df07141bbf4025b8c0c0ac87d9e41accbd1839dac5b38a6607c1cc8ef7e662"
+  },
+  {
+    "path": "assets/img/business/chicken65.webp",
+    "bytes": 128542,
+    "sha256": "09ee53299771cdecee6125c1faa6579f28a91c7967d59eccb712b61bbc8d4280"
+  },
+  {
+    "path": "assets/img/business/gobi-square.webp",
+    "bytes": 28742,
+    "sha256": "15950cfbaa5d5d93289f91d76f446e1c4d67baca7a1334ca78b6ae99aaf511e6"
+  },
+  {
+    "path": "assets/img/business/gobi.webp",
+    "bytes": 91464,
+    "sha256": "83ae39f0c5ceefd113858a8e4a84c946e2ab80b4c00e5073496afa90a7ec7ec6"
+  },
+  {
+    "path": "assets/img/business/ingredients-square.webp",
+    "bytes": 34026,
+    "sha256": "d8082b2628e4e5a8dfa7b57d1ce59308e4463df22acb63f6747c00e04e7422c6"
+  },
+  {
+    "path": "assets/img/business/ingredients.webp",
+    "bytes": 138336,
+    "sha256": "40155d220cdc9d5004737b9cfd7c7a3ec58d6ac51fd3fc9576332b4a9cfa6710"
+  },
+  {
+    "path": "assets/img/business/paneer-square.webp",
+    "bytes": 37792,
+    "sha256": "57034c69c0bdca1e06535cd4c485d596fc63edfcf7184df15f1fa6561a31ac39"
+  },
+  {
+    "path": "assets/img/business/paneer.webp",
+    "bytes": 134602,
+    "sha256": "9ded95f58380dfde84021d7a353faea795f43c8e81f1456164bc5c4a5ffc3442"
+  },
+  {
+    "path": "assets/img/business/quesadilla-square.webp",
+    "bytes": 31190,
+    "sha256": "949655da5b9f93a7a058c836d977ee1cd0b35041b3ae2c2fb4312eeb3e9d2bc6"
+  },
+  {
+    "path": "assets/img/business/quesadilla.webp",
+    "bytes": 119538,
+    "sha256": "81c7aad137140a5b24994f26af259fcab262582b920e16d2e096a2b1ea0ddd75"
+  },
+  {
+    "path": "assets/img/business/warehouse-control-square.webp",
+    "bytes": 27112,
+    "sha256": "10297111746ce0600fb454b88d68b69c6f5428a0ee0104d200b2ba54612da414"
+  },
+  {
+    "path": "assets/img/business/warehouse-control.webp",
+    "bytes": 95588,
+    "sha256": "944f6d7d6e8f7d71a5a7047693f39f5eee267c2a61f91052fa2ba7d522b94a32"
+  },
+  {
+    "path": "assets/img/business/warehouse-square.webp",
+    "bytes": 20558,
+    "sha256": "2f62c75cc9b43d49fd593804ee1268c03ae392b1ddc6f1cfb364c0e9da18f7ee"
+  },
+  {
+    "path": "assets/img/business/warehouse.webp",
+    "bytes": 78538,
+    "sha256": "ba7df72173c126f150279d11ba42f83925eaf83f364c9d0c07f2b23b9192276a"
+  },
+  {
     "path": "assets/img/cases/cs-agent-platform-ui.jpg",
     "bytes": 107110,
     "sha256": "60f9a169e5bd906601af81992ec723d3560b0b9776a467812dc8235f201bb9de"
@@ -136,8 +286,8 @@
   },
   {
     "path": "data/image-register.json",
-    "bytes": 2781,
-    "sha256": "410550f985149b78da75ce1d70b0632f7739264a17041b9b35e4855e7de4b25c"
+    "bytes": 29839,
+    "sha256": "c21c756b1719f1cd29d7d8269609afc832402cdfdbc48ec92146cd0ffa60c3c9"
   },
   {
     "path": "data/lab.json",
@@ -210,19 +360,34 @@
     "sha256": "1e388c6d9768bb9081aa00a5779055bbb04b7b70f100ead213124c45e1851e84"
   },
   {
+    "path": "nasha-universe/characters.css",
+    "bytes": 3073,
+    "sha256": "62b85813b488653ad890deb5e794d756cb25eaed52f7af13f492682c492cdf64"
+  },
+  {
+    "path": "nasha-universe/characters.js",
+    "bytes": 4186,
+    "sha256": "0e58c01ebe81b44b05db8d64ad0455fc52b53aed4fb052611d03f3d4cccf561d"
+  },
+  {
     "path": "nasha-universe/engineering/academy.html",
     "bytes": 21119,
     "sha256": "4c43f0ccb5c99cd2d96747feceec6df00f71f1b8b255a82f4a74d0c453ac3400"
   },
   {
+    "path": "nasha-universe/engineering/business.js",
+    "bytes": 3772,
+    "sha256": "a0601d8eafcd7a366fdb76510154b9c59b7b72a26452e159122e1bec3c74c44d"
+  },
+  {
     "path": "nasha-universe/engineering/engineering.css",
-    "bytes": 2065,
-    "sha256": "541bc46a065846e1bf2292c702e5afb0ac41ae0ae7b8f4494e40954cab0da68c"
+    "bytes": 4169,
+    "sha256": "41e018e62bbee8cca4ee3e5da71440a2354b6a54a45a8bd4ecbe766114caf91e"
   },
   {
     "path": "nasha-universe/engineering/index.html",
-    "bytes": 7254,
-    "sha256": "e049f2d889145726dac98518e8ac613af10e4ca73269c14faa2f15c4ecd20a6c"
+    "bytes": 9726,
+    "sha256": "ed1f09c53fde1b28c3357d8f5af2fab1b8ecc6294e539ec80b73ccac99330f08"
   },
   {
     "path": "nasha-universe/engineering/inventory-model.js",
@@ -231,13 +396,13 @@
   },
   {
     "path": "nasha-universe/engineering/inventory-ui.js",
-    "bytes": 4154,
-    "sha256": "cdcf024f6f2e1bc6c6ef945d90ecc5173fbed396c8cf229a613a0f1cbe0f63f7"
+    "bytes": 4625,
+    "sha256": "cfd2c7c3ffeec3447e3795ce19a1fdfd0d9ba1a8364eb4f320958bb43e55be29"
   },
   {
     "path": "nasha-universe/engineering/projects/agents/index.html",
-    "bytes": 7240,
-    "sha256": "5d888397f4739242862b7576f5ffe72e33e3ca847793e5d043c75bd06e184440"
+    "bytes": 7288,
+    "sha256": "7f3578a9ff103e4cbbd813c3c3ddb0f8e4e21ec672a2ded1c5bb4f0108da0f1c"
   },
   {
     "path": "nasha-universe/engineering/projects/agents/trace.json",
@@ -246,8 +411,8 @@
   },
   {
     "path": "nasha-universe/engineering/projects/data/index.html",
-    "bytes": 7276,
-    "sha256": "b66421d9e34bb82f4bde6ed49ea2da102d1ba697803ebb699b99841b54fff5d3"
+    "bytes": 7324,
+    "sha256": "47d1399f5acf772596d26c96a7225498b928b66fd8da2bb91bbfcba792143224"
   },
   {
     "path": "nasha-universe/engineering/projects/data/trace.json",
@@ -256,8 +421,8 @@
   },
   {
     "path": "nasha-universe/engineering/projects/gateway/index.html",
-    "bytes": 7481,
-    "sha256": "2e4ea081192a40ba488ef0b6d2da7fcbc8de228d3f44e02693534d393e199099"
+    "bytes": 7529,
+    "sha256": "c355f77308f3705a2b311225615181ed863e4085410d7c14b1891771bfa47e90"
   },
   {
     "path": "nasha-universe/engineering/projects/gateway/trace.json",
@@ -266,8 +431,8 @@
   },
   {
     "path": "nasha-universe/engineering/projects/rag/index.html",
-    "bytes": 7427,
-    "sha256": "1a8fd174cab791bc52be7fcd181ef84da99d0a3ec30b87c86ead65e07f35ef2e"
+    "bytes": 7475,
+    "sha256": "3ed7082c1162e900d35fc7cbb808a59ab75a90971a137fd2977333a66389de51"
   },
   {
     "path": "nasha-universe/engineering/projects/rag/trace.json",
@@ -276,8 +441,8 @@
   },
   {
     "path": "nasha-universe/engineering/projects/reliability/index.html",
-    "bytes": 7572,
-    "sha256": "ff3461d9dd5a7581a8b46921ac24b6e0a122a35d7fc633da7c6f045d1983d811"
+    "bytes": 7620,
+    "sha256": "7230477d0c180eead04682d4464e611c06886fe92347b5172d26ab0deef23ec1"
   },
   {
     "path": "nasha-universe/engineering/projects/reliability/trace.json",
@@ -286,8 +451,8 @@
   },
   {
     "path": "nasha-universe/engineering/replay.js",
-    "bytes": 2581,
-    "sha256": "f0356952f164ed1f745a9c5e8dce2d3878083164f8d23e26f828290436b5b253"
+    "bytes": 2674,
+    "sha256": "750014ca6cdade28b2dafc4723b56fbb862abf85e6978a7310aab444b12789c0"
   },
   {
     "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf",
@@ -316,8 +481,8 @@
   },
   {
     "path": "nasha-universe/living-hq/hq-app.js",
-    "bytes": 93212,
-    "sha256": "1c26143e593d4d579d8e4304ef4845563ce55719c554c1d844b5bfba4c17e13a"
+    "bytes": 94055,
+    "sha256": "ac6d70ef759c2aed9c4f4edb5cf29f42db8d749dfff196bc66f2856b5721ae2b"
   },
   {
     "path": "nasha-universe/living-hq/hq-data.json",
@@ -346,13 +511,13 @@
   },
   {
     "path": "nasha-universe/living-hq/index.html",
-    "bytes": 3094,
-    "sha256": "c0074c2a34cc2d7fe8ecf8a31b58a722216a9674189827b8867bccba797e89b3"
+    "bytes": 3893,
+    "sha256": "a6de93dd7bd6fc025b034a448f497abdb3d9c819b3cca1b694f21f9f1fa9d06b"
   },
   {
     "path": "nasha-universe/living-hq/living-hq.css",
-    "bytes": 7564,
-    "sha256": "a6f243f07c04e89917563f05257944254bd7b09cbbf05131cbbdc478eb0f5d1f"
+    "bytes": 7810,
+    "sha256": "4b5774e3d636507a397a40cfa7d2662a78de326e70380a790354252fab913b72"
   },
   {
     "path": "nasha-universe/recruiter/steps.json",

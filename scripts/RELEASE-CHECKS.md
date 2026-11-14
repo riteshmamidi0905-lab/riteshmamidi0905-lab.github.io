@@ -12,7 +12,7 @@ This file is maintainer documentation. It lives under `scripts/`, which the publ
 `scripts/build-pages-artifact.py` copies only what the publication manifest lists into `dist/` (which must not exist yet; nothing is ever deleted).
 It fails if the manifest is not exactly the reviewed release files plus `.nojekyll`, if any listed file differs from its pin or fails the path policy
 (`scripts/pages_policy.py`: no scripts, tests, configuration, self-test pages, hidden or secret-like files), or if the output differs from the manifest.
-`scripts/verify-pages-artifact.py dist` then re-checks the output independently: exact inventory, cleared screenshots only, every link, stylesheet url()
+`scripts/verify-pages-artifact.py dist` then re-checks the output independently: exact inventory, cleared screenshots or individually approved, hash-pinned AI concepts, every link, stylesheet url()
 and fetched file resolves, no prohibited identifier, required pages and honest-status text present, and, served over HTTP, every published file returns
 200 while the excluded tooling URLs return 404. `scripts/test-pages-artifact.py` proves the checks fail on tampering (run by `npm test`).
 
@@ -118,3 +118,7 @@ unsafe variants (the old raw-404 step, blaming every failure on a missing commit
   `python3 scripts/verify-live-site.py https://riteshmamidi0905-lab.github.io --manifest <that release's scripts/publish-manifest.json> --expect-digest <digest>` before assuming anything.
 * A rollback restores an old release; it does not change `main`. The next push to `main` deploys `main` again and replaces it, so revert or fix `main` straight after rolling back. A rollback record proves the
   rollback finished at that time, not that the site still serves it.
+
+## Phase 4.2 concept imagery
+
+The owner approved twelve agent concepts and nine business concepts (landscape and square derivatives). Each derivative has an exact SHA-256 pin in `pages_policy.py`, a truthful `generated-concept` record, generation identifier, original digest, rights source, approval basis and visible concept labeling. An unlisted generated image is rejected even if a register entry says cleared. A changed byte, missing provenance, lost clearance or relabeling as a screenshot is rejected. `test-concept-policy.py` exercises these negative controls. Existing private-file, media, disclosure, workflow and deployment restrictions remain in force.
