@@ -15,9 +15,9 @@ import threading
 import urllib.request
 import zipfile
 
-COMMIT = '7cb3bd502f6959e775e8e81ec2c51597cc05ee7f'
-ARCHIVE_SHA256 = 'c6efa10a248d3dabea07ad8b9dfbd319632e49e6bdc77f44000ebfb73562e6d0'
-TREE_SHA256 = '0f5100abd58e70080749fe3f02afc106c93e0fd9463f9eca342684660b61c4d8'
+COMMIT = '18f1920fdc5372cfe74994bc5da2156f4fc80f6e'
+ARCHIVE_SHA256 = 'c2d0754ed462eb873539a739c16f8045a6c248e7fdc7dc3b3d6513b827124fc1'
+TREE_SHA256 = '24cb89a4780ca6825319287d609d4e34a1eba963a50772b2b06c2ba9c368a030'
 URL = 'https://codeload.github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/zip/' + COMMIT
 ROOT_NAME = 'riteshmamidi0905-lab.github.io-' + COMMIT
 

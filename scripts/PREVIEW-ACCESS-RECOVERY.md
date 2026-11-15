@@ -4,10 +4,10 @@ A server started in the Codex Linux cloud workspace cannot be reached using your
 
 The standalone `scripts/start-safari-preview.py` launcher uses Python 3 standard-library tools. It downloads the exact GitHub source ZIP, verifies its SHA-256 before extracting, rejects traversal and symlink archive members, builds only the 167 allowlisted website files, independently verifies the artifact and prints its identity before serving it. It does not invoke Git or expose source/private folders.
 
-Exact website candidate: `7cb3bd502f6959e775e8e81ec2c51597cc05ee7f`.
-Source ZIP: https://codeload.github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/zip/7cb3bd502f6959e775e8e81ec2c51597cc05ee7f
-Source ZIP size: 4,634,436 bytes; SHA-256: `c6efa10a248d3dabea07ad8b9dfbd319632e49e6bdc77f44000ebfb73562e6d0`.
-Expected artifact tree digest: `0f5100abd58e70080749fe3f02afc106c93e0fd9463f9eca342684660b61c4d8`.
+Exact website candidate: `18f1920fdc5372cfe74994bc5da2156f4fc80f6e`.
+Source ZIP: https://codeload.github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/zip/18f1920fdc5372cfe74994bc5da2156f4fc80f6e
+Source ZIP size: 4,562,816 bytes; SHA-256: `c2d0754ed462eb873539a739c16f8045a6c248e7fdc7dc3b3d6513b827124fc1`.
+Expected artifact tree digest: `24cb89a4780ca6825319287d609d4e34a1eba963a50772b2b06c2ba9c368a030`.
 
 ## Start on Mac
 
@@ -41,3 +41,7 @@ Pass `--archive "$HOME/Downloads/<candidate ZIP filename>.zip"`; the same exact 
 ## Evidence and unchanged website
 
 The launcher is a tooling-only continuation. Its website payload is pinned to the exact candidate above. The website files, approved imagery and runtime artifact digest are unchanged. This does not certify Mac/iPhone Safari: collect actual results using the fifteen-check checklist. Begin with Mac Check 1; complete Mac testing before iPhone.
+
+## Combined career-update candidate
+
+This receipt covers the combined cinematic and professional-experience candidate above, including all four updated resumes. Earlier user-reported Mac navigation and animation observations apply only to the earlier candidate and are not transferred. All fifteen checks on each physical device and the mandatory release approval remain outstanding. No website or approved creative asset changes are introduced by this launcher pin update.
