@@ -1,0 +1,49 @@
+{
+  "provenance": "Role labels supplied by the portfolio owner; responsibilities grounded in the current resume and the owner's update request. No numerical employment outcomes have been supplied. Independent project metrics are not employment results.",
+  "roles": [
+    {
+      "organization": "Apple Maps Client Engagement",
+      "title": "Product & AI Quality Operations Analyst",
+      "dates": "Sep 2025 - Present",
+      "location": "Austin, TX",
+      "relationship": "Client assignment; not direct Apple employment.",
+      "bullets": [
+        "Evaluate ML and GenAI pipeline outputs against policy and quality rubrics; troubleshoot edge cases and systematic failure patterns.",
+        "Research and validate geospatial and transit records; reconcile conflicting sources and verify structured data against APIs.",
+        "Build Python and SQL QA/QC checks and Power BI operational reports to streamline investigations and reduce operational escalations.",
+        "Use LLM-assisted analysis and prompt engineering to classify cases and extract operational signals; validate findings against source records.",
+        "Document root-cause findings and workflow requirements with cross-functional partners; support quality reviews and training to improve operational consistency."
+      ]
+    },
+    {
+      "organization": "Heart Hospitality LLC",
+      "title": "Business / Operations Analyst",
+      "dates": "Jan 2024 - Aug 2025",
+      "location": "Austin, TX",
+      "bullets": [
+        "Automate recurring reporting with Python and SQL ETL pipelines and Power BI/Excel KPI dashboards, reducing manual reporting effort.",
+        "Translate stakeholder business requirements into relational data models, KPI definitions and analytics workflows aligned with operational goals.",
+        "Build and evaluate forecasting and classification models to support planning; analyze operational and customer data in Python and SQL to surface decision-ready trends.",
+        "Validate transformed data and reporting outputs, document business processes, and collaborate with stakeholders on testing and process improvement."
+      ]
+    },
+    {
+      "organization": "Liberated Monks Pvt Ltd",
+      "title": "Data / Business Analyst",
+      "dates": "Jan 2022 - Dec 2023",
+      "location": "Hyderabad, India",
+      "bullets": [
+        "Build Python and SQL ETL workflows and Tableau dashboards to support customer acquisition, engagement and retention analysis.",
+        "Develop and evaluate segmentation and propensity (lead-scoring) models to inform marketing engagement analysis.",
+        "Maintain data validation rules and KPI definitions; test analytical outputs and translate cross-team business requirements into dependable reporting.",
+        "Document data-quality findings and reporting requirements with cross-functional partners to support consistent business decisions."
+      ]
+    }
+  ],
+  "alignment": "Transferable capabilities for Forward Deployed Engineering: translate stakeholder requirements into Python/SQL data workflows, investigate failures, automate repeatable analysis, and document and validate solutions against business needs. NASHA AI engineering projects are independent work, separate from professional employment.",
+  "summaries": [
+    "Evaluate AI/ML and GenAI outputs, investigate data and model failures, and validate geospatial records against source data and APIs. Use Python, SQL, Power BI and LLM-assisted analysis for QA/QC, troubleshooting and reliable product operations.",
+    "Automate Python/SQL ETL and recurring reporting, build Power BI/Excel KPI dashboards, and develop forecasting models. Translate stakeholder requirements into validated analytics and process improvements that reduce manual reporting effort.",
+    "Build Python/SQL data pipelines and Tableau reporting for acquisition, engagement and retention. Evaluate segmentation and lead-scoring models, maintain validation rules, and translate cross-team requirements into tested analytical outputs."
+  ]
+}

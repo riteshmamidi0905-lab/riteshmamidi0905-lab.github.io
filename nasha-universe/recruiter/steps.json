@@ -237,11 +237,11 @@
         },
         {
           "cls": "EXPERIENCE",
-          "text": "Professional background, as stated by the owner and NOT evidenced by this project (no supporting documents are attached here, and no dates, metrics, responsibilities or certifications are claimed): an Apple Maps \u2014 Client Engagement in Product and GenAI Operations (a client assignment, not direct Apple employment); Business and Operations Analytics at Heart Hospitality; Data and Business Analytics at Liberated Monks; a Master's in Business Analytics; an Integrated M.Tech in Software Engineering; working skills in Python, SQL, analytics, automation and AI evaluation. Everything on the NASHA side is an independent project and separate from this list."
+          "text": "Owner-stated professional experience, separate from NASHA AI projects: Apple Maps Client Engagement — Product & AI Quality Operations Analyst (client assignment; not direct Apple employment): AI/ML evaluation, LLM-assisted analysis, Python/SQL QA checks, data validation and root-cause investigation. Heart Hospitality LLC — Business / Operations Analyst: Python/SQL ETL, Power BI KPI reporting, forecasting and stakeholder requirements. Liberated Monks Pvt Ltd — Data / Business Analyst: Python/SQL pipelines, Tableau, segmentation and data-quality validation. These responsibilities align with Forward Deployed Engineering through technical troubleshooting, workflow automation, testing and business-to-technical collaboration. No numerical employment outcomes are claimed; project test results do not verify employment."
         },
         {
           "cls": "PLANNED",
-          "text": "Unverified: employment dates, scope, outcomes and credentials are left blank until the owner supplies documents; none are invented."
+          "text": "Employment responsibilities are owner-stated and supported by the portfolio résumé, not independently verified by the NASHA project. No numerical employment outcomes are supplied; project benchmarks remain independent engineering evidence."
         }
       ],
       "links": [
