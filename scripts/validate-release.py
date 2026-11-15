@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==106   # 48 portfolio files + 2 flagship screenshots + the 56-file public NASHA AI Universe (nasha-universe/)
+assert len(manifest)==166   # Original and explicitly reviewed Phase 4.2 files and final-mission enterprise console and cinematic controller and owner-approved avatar guide.
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -27,6 +27,9 @@ for p_ in expected:
  if p_.startswith('assets/img/'):
   assert p_ in reg,'image missing from data/image-register.json: '+p_
   assert reg[p_]['cleared_for_public_release'],'image not cleared for public release: '+p_
+  import pages_policy as P
+  if p_ in P.APPROVED_GENERATED_IMAGES or reg[p_].get('kind') == 'generated-concept':
+   assert not P.generated_image_errors(p_,reg[p_],(root/p_).read_bytes()),'generated concept not individually approved: '+p_
 for item in manifest:
  p=root/item['path'];b=p.read_bytes()
  assert len(b)==item['bytes'] and hashlib.sha256(b).hexdigest()==item['sha256'],item['path']+' changed without manifest review'
@@ -96,10 +99,27 @@ except _D.CoverageError as _e: raise AssertionError('disclosure scan coverage (f
 _problems=_D.check_files(_rules,root,PUBLIC_TEXT,'file')
 assert not _problems,('disclosure rule violations (rule id and line only; the matched text is never printed)',_problems[:20])
 print('disclosure scan:',len(PUBLIC_TEXT),'text files scanned; every required file covered (%s);'%_how,_rules.private_summary())
-for r in json.loads((root/'data/image-register.json').read_text()): assert r['cleared_for_public_release'] is True and r['kind']=='screenshot',('public register may list cleared screenshots only',r['file'])
+for r in json.loads((root/'data/image-register.json').read_text()):
+ assert r['cleared_for_public_release'] is True,('public image not cleared',r['file'])
+ if r['file'] in P.APPROVED_GENERATED_IMAGES or r.get('kind') == 'generated-concept':
+  assert not P.generated_image_errors(r['file'],r,(root/r['file']).read_bytes()),('generated image not individually approved',r['file'])
+ else: assert r['kind']=='screenshot',('public register may list cleared screenshots or exact approved concepts only',r['file'])
 _rec=(root/'recruiter.html').read_text()
-assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'
-assert 'Apple Maps — Client Engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
+assert all('<h3>'+title+'</h3>' in _rec for title in ('Product &amp; AI Quality Operations Analyst', 'Business / Operations Analyst', 'Data / Business Analyst')),'job titles must follow the owner-confirmed experience labels'
+assert 'Apple Maps Client Engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
+# The public resume is generated as an uncompressed, searchable PDF: check identity in its text streams as well as HTML.
+_resume=(root/'ritesh_mamidi_resume.pdf').read_bytes()
+assert _resume.startswith(b'%PDF-1.4') and _resume.count(b'/Type /Page ')==2,'resume must remain a two-page searchable PDF'
+assert EMPLOYER.lower().encode() not in _resume.lower(),'unapproved employer designation in public resume'
+assert b'Apple Maps Client Engagement' in _resume and b'not direct Apple employment' in _resume,'resume client relationship missing'
+import runpy as _runpy
+_resume_builder = _runpy.run_path(str(root/'scripts/build-resume.py'))
+for _path, _content in _resume_builder['documents']().items():
+ _pdf = (root/_path).read_bytes()
+ assert _pdf == _resume_builder['render'](_content), _path+' differs from its reviewed source'
+ assert EMPLOYER.lower().encode() not in _pdf.lower(), 'unapproved employer designation in '+_path
+ assert b'Apple Maps Client Engagement' in _pdf and b'not direct Apple employment' in _pdf, 'client relationship missing in '+_path
+
 # FONT PRELOAD GUARD: both webfonts preloaded on every top-level page (prevents a measured font-swap layout shift)
 for pg in sorted(root.glob('*.html')):
  s=pg.read_text(); assert 'inter-latin.woff2" as="font"' in s and 'jetbrains-mono-latin.woff2" as="font"' in s,('font preload missing',pg.name)
@@ -117,4 +137,4 @@ blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'
-print('PASS: 106 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six flagships, reduced-motion stylesheet')
+print('PASS: 166 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six flagships, reduced-motion stylesheet')

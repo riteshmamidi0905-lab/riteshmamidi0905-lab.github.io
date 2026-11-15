@@ -9,7 +9,7 @@
 //   FONT_VARIANTS=system,monospace     optional: run only variants whose name starts with one of these
 //   FONT_TEST_REPORT=/path/report.json  optional: write every measurement (computed font family, platform font, dimensions)
 const pw = require('playwright'), engineName = process.env.BROWSER || 'chromium', engine = pw[engineName], { AxeBuilder } = require('@axe-core/playwright'), fs = require('fs');
-const BASE = process.env.DEMO_BASE || 'http://127.0.0.1:8000/demo/';
+const BASE = process.env.DEMO_BASE || (process.env.BASE_URL||'http://127.0.0.1:8000')+'/demo/';
 const ROUTES = ['dashboard', 'guide', 'technical', 'sales', 'inventory', 'finance', 'departments', 'departments/finance', 'hr', 'marketing', 'support', 'bi', 'agents', 'governance', 'infra'];
 const WIDTHS = [320, 375, 390, 768, 1440];
 const VARIANTS = [

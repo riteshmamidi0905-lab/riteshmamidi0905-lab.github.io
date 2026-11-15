@@ -53,3 +53,6 @@ code{font:.88em ui-monospace,Menlo,monospace;background:var(--panel2);border:1px
 .top .tools,.top .role{min-width:0;max-width:100%}
 .top .role select{min-width:0;width:100%}
 @media (max-width:480px){.top .role{flex-direction:column;align-items:stretch;gap:.15rem;width:100%}.top .tools{width:100%}}
+
+/* Reserve the real scrollbar width before dashboard hydration, preventing header rewrap. */
+html{overflow-y:scroll}

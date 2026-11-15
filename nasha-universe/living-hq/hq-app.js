@@ -10,7 +10,7 @@
   const jopt = u => jget(u).catch(() => null);
   const safe = { get: k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { /* storage may be unavailable */ } } };
   const mq = q => window.matchMedia && matchMedia(q).matches;
-  const A = { data: null, r: {}, room: 'atrium', agent: 'veritas', mission: 'F', recFile: null, events: [], verified: null, st: HQ.fresh(), playing: false, speed: 1, timer: 0, calm: mq('(prefers-reduced-motion: reduce)'), low: !!(navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 2), view2d: false, gl: null, scene: [], layout: null, cam: null, camAnim: null, dirty: true, perf: { transitions: [] }, sel: null, netMission: '', netAgent: '', tour: { i: 0, elapsed: 0, playing: false, timer: 0 }, tourNet: false };
+  const A = { data: null, r: {}, room: 'atrium', agent: 'veritas', mission: 'F', recFile: null, events: [], verified: null, st: HQ.fresh(), playing: false, speed: 1, timer: 0, calm: mq('(prefers-reduced-motion: reduce)'), low: mq('(max-width:900px)') || !!(navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 2), view2d: false, gl: null, scene: [], layout: null, cam: null, camAnim: null, dirty: true, perf: { transitions: [] }, sel: null, netMission: '', netAgent: '', tour: { i: 0, elapsed: 0, playing: false, timer: 0 }, tourNet: false };
   const NAMES = { atrium: 'Arrival atrium', control: 'Mission Theater', chamber: 'Agent campus', network: 'Agent network', twin: 'Digital twin', tour: 'Recruiter journey', weir: 'THE WEIR', lab: 'Research Laboratory' };
   const ORDER = ['atrium', 'control', 'chamber', 'network', 'weir', 'lab', 'twin', 'tour'];
   const ROOM3D = { network: 'campus', tour: 'atrium' };
@@ -41,11 +41,18 @@
     const thead = h('thead', {}, h('tr', {}, heads.map(x => h('th', {}, x)))), tbody = h('tbody', {}, rows.map(r => h('tr', {}, r.map(c => h('td', {}, c)))));
     return h('div', { style: 'overflow:auto', tabindex: '0', role: 'region', 'aria-label': label }, h('table', {}, thead, tbody));
   }
-  function go(room, opts) {
+  async function ensureResearch() {
+    if (!A.researchPromise) A.researchPromise = Promise.all([jopt('../research/claimcheck-eval.json'),jopt('../research/model-eval-phase7.json'),jopt('../research/model-eval-phase7-promptB.json'),jopt('../research/model-plan-eval.json'),jopt('../research/claimcheck-p8.json'),jopt('../research/independent-package.json'),jopt('../evidence/test-results.json'),jopt('../recruiter/steps.json'),jopt('../research/reliability-index.json'),jopt('../research/evidence-index.json')]).then(([cc,p7,p7b,pe,p8,pk,tests,steps,rel,vault])=>{Object.assign(A.r,{cc,p7,p7b,pe,p8,pk,tests,steps,rel,vault});});
+    await A.researchPromise;
+  }
+  async function go(room, opts) {
+    const ticket=A.navTicket=(A.navTicket||0)+1;
+    if (room==='lab'||room==='tour') { say('Loading recorded research evidence…'); $('#status-text').textContent='Loading recorded research evidence…'; await ensureResearch(); if(ticket!==A.navTicket)return; }
+
     opts = opts || {}; const t0 = performance.now(); if (room !== 'tour' && A.tour.playing) tourStop(); if (room !== 'tour') A.tourNet = false; A.room = room; if (opts.agent) { if (opts.agent !== A.agent || !A.ex) A.ex = null; A.agent = opts.agent; } if (opts.dept) A.dept = opts.dept; if (opts.station != null) A.station = opts.station;
     document.querySelectorAll('#nav button').forEach(b => b.setAttribute('aria-current', String(b.dataset.room === room) === 'true' ? 'page' : 'false'));
     flyTo(ROOM3D[room] || room, () => { A.perf.transitions.push({ room, ms: Math.round(performance.now() - t0), animated: !A.calm }); perfUpdate(); });
-    renderPanel(); const hd = $('#panel h2'); if (hd) { hd.tabIndex = -1; if (!opts.noFocus) hd.focus({ preventScroll: true }); } say('Moved to ' + NAMES[room]); renderPlan(); setLocation(); if (!opts.noPush) { try { history.pushState({ room, agent: A.agent, dept: A.dept }, '', '#' + room + (room === 'chamber' ? '/' + A.agent : room === 'twin' && A.dept ? '/' + A.dept : '')); } catch (e) { /* history may be unavailable */ } }
+    renderPanel(); const hd = $('#panel h2'); if (hd) { hd.tabIndex = -1; if (!opts.noFocus) hd.focus({ preventScroll: true }); } say('Moved to ' + NAMES[room]); renderPlan(); setLocation(); updateStatus(); if (!opts.noPush) { try { history.pushState({ room, agent: A.agent, dept: A.dept }, '', '#' + room + (room === 'chamber' ? '/' + A.agent : room === 'twin' && A.dept ? '/' + A.dept : '')); } catch (e) { /* history may be unavailable */ } }
   }
   function setLocation() { const it = A.room === 'chamber' ? ' › ' + A.agent.toUpperCase() : A.room === 'twin' && A.dept ? ' › ' + A.dept : ''; $('#loc').textContent = 'Location: ' + NAMES[A.room] + it; }
   function renderPanel() { const p = $('#panel'); p.replaceChildren(); ({ atrium: pAtrium, control: pControl, chamber: pChamber, network: pNetwork, weir: pWeir, lab: pLab, twin: pTwin, tour: pTour })[A.room](p); renderLive(); }
@@ -113,6 +120,7 @@
   }
   function renderLive() {
     renderPlan();
+    if (window.NashaCharacters) window.NashaCharacters.update(A.st);
     const st = A.st, el = $('#liveState'); const sl = $('#r-pos'); if (sl) { sl.max = A.events.length; sl.value = A.events.filter(e => e.seq <= st.pos).length; }
     if (A.room === 'weir') return fillWeir();
     if (A.room !== 'control' || !el) return;
@@ -154,7 +162,7 @@
   function fillWeir() { const el = $('#weirLive'); if (!el) return; const st = A.st; el.replaceChildren(h('p', { class: 'mut' }, A.events.length ? 'Recording: ' + (A.verified && A.verified.title) + ' — event ' + st.pos : 'No recording loaded: open one in Mission Control.'), govBlocks(st), st.holds.length ? h('ul', { class: 'l' }, st.holds.map(x => h('li', {}, '#' + x.seq + ' Hold: ' + x.action + (x.decided ? ' → ' + x.decided.decision : ' → waiting for a person')))) : null); }
   function pChamber(p) {
     const a = agentBy(A.agent), d = A.data;
-    p.append(h('h2', {}, 'Agent chamber: ' + a.name), h('div', { class: 'row' }, h('label', {}, 'Agent', h('select', { id: 's-agent', onchange: e => go('chamber', { agent: e.target.value }) }, d.agents.map(x => h('option', { value: x.slug, selected: x.slug === a.slug }, x.name + ' · ' + x.specialty))))),
+    p.append(h('h2', {}, 'Agent chamber: ' + a.name), window.NashaCharacters ? window.NashaCharacters.card(a.slug,A.st.agents[a.slug].state,'Recorded mission state · '+(A.st.agents[a.slug].task||'not yet assigned')) : null, h('div', { class: 'row' }, h('label', {}, 'Agent', h('select', { id: 's-agent', onchange: e => go('chamber', { agent: e.target.value }) }, d.agents.map(x => h('option', { value: x.slug, selected: x.slug === a.slug }, x.name + ' · ' + x.specialty))))),
       h('p', { class: 'kv' }, h('b', {}, 'Role: '), a.specialty + ' · ', chip(a.implementation === 'deterministic' ? 'ok' : 'plan', a.implementation === 'deterministic' ? 'RULE-BASED' : 'MODEL-ASSISTED (experimental)'), ' ', chip('syn', 'IDENTITY ' + a.visual_status)),
       banner('rec', h('b', {}, 'Derived from recordings. '), a.events + ' events across ' + Object.keys(a.missions).length + ' mission(s). The visual identity of an agent is illustrative; the behaviour below is counted from events.'),
       h('h3', {}, 'Assigned tasks by mission'), Object.keys(a.assignments).length ? h('ul', { class: 'l' }, Object.entries(a.assignments).map(([m, t]) => h('li', {}, h('b', {}, 'Mission ' + m + ': '), t))) : h('p', { class: 'mut' }, 'No task assignment in any recording.'),
@@ -178,7 +186,7 @@
   const bar = (label, v, mx, note) => h('div', { class: 'kv' }, label + (note ? ' · ' + note : ''), h('div', { class: 'bar2' }, h('i', { style: 'width:' + Math.round(100 * Math.min(1, Math.abs(v) / Math.max(Math.abs(mx), 1e-9))) + '%' })));
   const prov = (file, seq, syn) => { const sh = (A.data.recordings_sha256 || {})[file]; return h('p', { class: 'mut' }, 'Provenance: ' + file.replace('.json', '') + ' · event #' + seq + ' · SHA-256 ' + (sh ? sh.slice(0, 12) : 'n/a') + ' · ' + (syn ? 'SYNTHETIC data' : 'recorded result') + '. The recording is hash-verified in your browser when replayed.'); };
   const choose = (opts, cur, f, label) => h('div', { class: 'row', role: 'group', 'aria-label': label }, opts.map(([k, t]) => h('button', { type: 'button', 'aria-pressed': String(k === cur), style: 'min-height:40px;padding:4px 10px;font-size:12px', onclick: () => f(k) }, t)));
-  const kvTable = rows => table(['Field', 'Value'], rows, 'Recorded fields');
+  const kvTable = (rows,label) => table(['Field', 'Value'], rows, label || 'Recorded fields · '+A.agent);
   function exhibit9(a) {
     const L = A.data.lenses[a.slug], S = (A.exSel[a.slug] = A.exSel[a.slug] || {}), re = () => { const old = $('#exhibit'); if (old) old.replaceWith(exhibit(a)); };
     const pick = (k, v) => { S[k] = v; re(); };
@@ -191,7 +199,7 @@
       out.push(h('p', {}, 'Dishes: ' + m.dishes + ' · method: ' + m.method), choose(Object.keys(m.per_allergen).map(k => [k, k.replace('_', ' ')]), al, k => pick('al', k), 'Allergen'), ...Object.entries(m.per_allergen).map(([k, n]) => bar(k.replace('_', ' '), n, m.dishes, n + ' of ' + m.dishes + ' dishes' + (k === al ? ' (selected)' : ''))), btn('Replay the derivation', () => replayAt(m.file, m.seq), true), prov(m.file, m.seq, true),
         L.revisions.length ? h('p', {}, 'Recorded revision: removed ' + L.revisions.map(r => r.removed.join(', ') || 'nothing').join('; ') + ' ', btn('Replay', () => replayAt(L.revisions[0].file, L.revisions[0].seq), true)) : null, h('p', { class: 'mut' }, 'The forge flames grow with the number of dishes declaring the selected allergen.')); }
     else if (a.slug === 'vectra') { const i = Math.min(S.i || 0, L.shortages.length - 1), sh = L.shortages[i]; setEx('vectra', { short: Object.keys(sh.short).length });
-      out.push(h('div', { class: 'row' }, h('label', {}, 'Recorded check', h('select', { id: 's-short', onchange: e => pick('i', Number(e.target.value)) }, L.shortages.map((x, k) => h('option', { value: k, selected: k === i }, x.scenario + ' · ' + x.file.replace('.json', '').replace('mission-', '')))))), Object.keys(sh.short).length ? h('div', {}, ...Object.entries(sh.short).map(([k, v]) => bar(k, v, Math.max(...Object.values(sh.short)), v + ' short'))) : h('p', {}, 'No shortage in this recording.'), h('p', {}, sh.items + ' ingredients checked. ', btn('Replay this check', () => replayAt(sh.file, sh.seq), true)), prov(sh.file, sh.seq, true), L.reorders.length ? h('div', {}, h('h3', {}, 'Recorded inventory analysis (Mission F)'), kvTable(L.reorders[0].fields)) : null, h('p', { class: 'mut' }, 'Red markers over the stock grid count the shortages in the selected check.')); }
+      out.push(h('div', { class: 'row' }, h('label', {}, 'Recorded check', h('select', { id: 's-short', onchange: e => pick('i', Number(e.target.value)) }, L.shortages.map((x, k) => h('option', { value: k, selected: k === i }, x.scenario + ' · ' + x.file.replace('.json', '').replace('mission-', '')))))), Object.keys(sh.short).length ? h('div', {}, ...Object.entries(sh.short).map(([k, v]) => bar(k, v, Math.max(...Object.values(sh.short)), v + ' short'))) : h('p', {}, 'No shortage in this recording.'), h('p', {}, sh.items + ' ingredients checked. ', btn('Replay this check', () => replayAt(sh.file, sh.seq), true)), prov(sh.file, sh.seq, true), L.reorders.length ? h('div', {}, h('h3', {}, 'Recorded inventory analysis (Mission F)'), kvTable(L.reorders[0].fields,'Recorded inventory analysis')) : null, h('p', { class: 'mut' }, 'Red markers over the stock grid count the shortages in the selected check.')); }
     else if (a.slug === 'nexora') { const by = S.by || 'order', ord = L.suppliers.map((x, k) => Object.assign({ k }, x)); if (by === 'price') ord.sort((x, y) => x.unit_price - y.unit_price); if (by === 'lead') ord.sort((x, y) => x.lead_days - y.lead_days); const sel = S.sup == null ? 0 : S.sup; setEx('nexora', { bay: sel });
       out.push(h('p', {}, chip('syn', 'SYNTHETIC'), ' quotes from the twin\'s dataset'), choose([['order', 'As listed'], ['price', 'By unit price'], ['lead', 'By lead time']], by, k => pick('by', k), 'Sort suppliers'), table(['', 'Supplier', 'Unit price', 'Pack', 'Lead days', 'Pack cost'], ord.map(x => [btn(x.k === sel ? 'selected' : 'view', () => pick('sup', x.k), true), x.id, '$' + x.unit_price, x.pack_qty + ' kg', x.lead_days, '$' + (x.unit_price * x.pack_qty).toFixed(2)]), 'Suppliers'),
         L.draft ? h('div', {}, h('h3', {}, 'Recorded draft purchase order (Mission A)'), kvTable(L.draft.fields), btn('Replay the draft', () => replayAt(L.draft.file, L.draft.seq), true), prov(L.draft.file, L.draft.seq, false), banner('gold', h('b', {}, 'Draft only. '), 'The order is never sent; THE WEIR holds it for a person and the state is DRAFT_NOT_SENT.')) : null, h('p', { class: 'mut' }, 'The crane\'s gold ring marks the supplier bay you selected.')); }
@@ -256,7 +264,7 @@
       { id: 'governance', title: 'Governance: a recorded blocked action', room: 'weir', act: 'playB', chips: [['rec', 'RECORDED']], text: 'THE WEIR denies any tool outside the policy by default and holds consequential writes for a person. In this recording of Mission B a deliberate out-of-policy probe is blocked, the release is blocked, and a person approves a draft that can never be sent.' },
       { id: 'twin', title: 'The digital twin: a synthetic business', room: 'twin', dept: 'inventory', chips: [['syn', 'SYNTHETIC']], text: 'Eight departments from the twin\'s reference model, linked by its real dependency edges (for example inventory to restaurant on availability). Every value is synthetic; NASHA is a concept and a simulation, not an operating business. Select a building to inspect it.' },
       { id: 'engineering', title: 'Engineering architecture', room: 'atrium', chips: [['ok', 'VERIFIED']], text: 'A static front end with a raw-WebGL scene engine and a complete 2D fallback; a loopback-only Python backend with operator tokens, tool allowlists and human approval gates; a versioned event contract with a SHA-256 hash chain verified in your browser; governed missions on the lab\'s real components' + (tr ? '; ' + tr.total_checks + ' automated checks across ' + tr.suites.length + ' suites (' + tr.total_failed + ' failed, ' + tr.skipped_suites + ' suites skipped) in Chromium, WebKit and Firefox.' : '.') + ' Physical Safari and iPhone testing has not been done.' },
-      { id: 'portfolio', title: 'Professional portfolio (owner-stated)', room: 'atrium', chips: [['exp', 'EXPERIENCE'], ['plan', 'UNVERIFIED']], text: 'As stated by the owner and not evidenced by this project: an Apple Maps — Client Engagement in Product and GenAI Operations (a client assignment, not direct Apple employment); Business and Operations Analytics at Heart Hospitality; Data and Business Analytics at Liberated Monks; a Master\'s in Business Analytics; an Integrated M.Tech in Software Engineering; working skills in Python, SQL, analytics, automation and AI evaluation. No dates, metrics or responsibilities are claimed. NASHA is an independent project, separate from this list. Public repositories you can judge directly, and the guided summaries, are linked below.', links: true }
+      { id: 'portfolio', title: 'Professional portfolio (owner-stated)', room: 'atrium', chips: [['exp', 'EXPERIENCE'], ['plan', 'UNVERIFIED']], text: "Resume-reported experience, separate from NASHA AI projects: Apple Maps Client Engagement — Product & AI Quality Operations Analyst (client assignment; not direct Apple employment): AI/ML evaluation, LLM-assisted analysis, Python/SQL QA checks, root-cause analysis; contributed to approximately 18% better investigation efficiency and a reported 30% reduction in operational escalations. Heart Hospitality LLC — Business / Operations Analyst: Python/SQL ETL, Power BI reporting and stakeholder requirements; approximately 55% less manual reporting effort and 22% better planning accuracy. Liberated Monks Pvt Ltd — Data / Business Analyst: Python/SQL, Tableau and segmentation; associated with approximately 18% higher marketing-driven engagement. These are transferable Forward Deployed Engineering capabilities. Employment outcomes are resume-reported, not independently audited by this project.", links: true }
     ];
   }
   function tourEnter(i) {
@@ -374,18 +382,34 @@
   function flyTo(room, done) {
     if (!A.gl) { done && done(); return; } const pre = room === 'chamber' ? SC.agentPreset(A.data.agents.findIndex(a => a.slug === A.agent)) : SC.PRESETS[room], to = Object.assign({}, pre, { target: pre.target.slice() }); A.lastRoom3D = room;
     { const cv = $('#gl'), asp = cv && cv.clientHeight ? cv.clientWidth / cv.clientHeight : 1.6; if (asp < 1.1) to.dist = Math.min(70, to.dist * Math.min(1.9, 1.15 / asp)); }   // a narrow (portrait) stage frames wider so nothing is clipped at the sides
-    if (A.calm) { A.cam = to; A.camAnim = null; A.dirty = true; done && done(); return; }
+    if (A.calm || A.low) { A.cam = to; A.camAnim = null; A.dirty = true; done && done(); return; }
     let dy = to.yaw - A.cam.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); A.camAnim = { from: JSON.parse(JSON.stringify(A.cam)), to, dy, t0: performance.now(), dur: 1100, done };
   }
   function stepCam(now) {
     const a = A.camAnim; document.getElementById('skip-intro').hidden = !a || A.calm; if (!a) return; const k = Math.min(1, (now - a.t0) / a.dur), e = SC.ease(k), l = (x, y) => x + (y - x) * e;
     A.cam = { target: a.from.target.map((v, i) => l(v, a.to.target[i])), yaw: a.from.yaw + a.dy * e, pitch: l(a.from.pitch, a.to.pitch), dist: l(a.from.dist, a.to.dist) }; A.dirty = true; if (k >= 1) { A.camAnim = null; a.done && a.done(); }
   }
+  function load3DCode() {
+    if(window.HQGL&&window.HQWorlds)return Promise.resolve();
+    if(!A.code3D)A.code3D=Promise.all(['hq-gl.js','hq-worlds.js'].map(src=>new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=()=>reject(new Error('3D resources could not be loaded. The 2D plan and recorded evidence remain available.'));document.head.appendChild(script);}))).catch(e=>{A.code3D=null;throw e;});
+    return A.code3D;
+  }
+  function activate3D() {
+    if(A.gl){setView2d(false);return;}
+    if(A.activating){A.cancelActivation=false;return;}A.activating=true;A.cancelActivation=false;
+    const button=$('#enter-3d');button.disabled=true;button.textContent='Starting interactive 3D…';
+    requestAnimationFrame(()=>setTimeout(async()=>{
+      try { await load3DCode(); if(A.cancelActivation){A.activating=false;button.disabled=false;button.textContent='Enter interactive 3D';return;} } catch(e) { A.activating=false;button.disabled=false;button.textContent='Retry interactive 3D';$('#status-text').textContent=e.message;$('#gl-msg').hidden=false;$('#gl-msg').textContent=e.message;return; }
+      A.view2d=false;$('#plan').hidden=true;$('#gl').hidden=false;$('#labels').hidden=false;A.glStart=performance.now();startGL();A.activating=false;
+      $('#hq-entrance').hidden=true;
+      if(A.gl){$('#gl-msg').hidden=true;updateStatus();document.querySelector('.hud').hidden=false;$('#t-low').setAttribute('aria-pressed',String(A.low));$('#t-low').textContent='Low-power: '+(A.low?'on':'off');go(A.room,{noFocus:true,noPush:true});$('#gl').focus({preventScroll:true});}
+    },0));
+  }
   function startGL() {
     const cv = $('#gl'); let g = null; try { g = window.HQGL.create(cv, { preserve: new URLSearchParams(location.search).has('preserve') }); } catch (e) { g = null; }
     if (!g) { $('#gl-msg').hidden = false; $('#gl-msg').textContent = 'WebGL is not available in this browser, so the 2D plan is shown. Everything else works the same.'; setView2d(true); $('#t-2d').disabled = true; return; }
-    A.gl = g; A.layout = SC.buildStatic(A.data.agents, A.data); A.picks = SC.pickTargets(A.layout); A.cam = JSON.parse(JSON.stringify(SC.PRESETS.atrium));
-    const first = !safe.get('hq-intro'); if (!A.calm) { A.cam = JSON.parse(JSON.stringify(SC.INTRO)); $('#skip-intro').hidden = false; A.introT = performance.now(); A.camAnim = { from: JSON.parse(JSON.stringify(SC.INTRO)), to: JSON.parse(JSON.stringify(SC.PRESETS.atrium)), dy: Math.atan2(Math.sin(SC.PRESETS.atrium.yaw - SC.INTRO.yaw), Math.cos(SC.PRESETS.atrium.yaw - SC.INTRO.yaw)), t0: performance.now(), dur: first ? 3600 : 1400, done: () => { $('#skip-intro').hidden = true; safe.set('hq-intro', '1'); } }; }
+    A.gl = g; if (/swiftshader|llvmpipe|software|lavapipe/i.test(g.info())) { A.low = true; A.lowReason = 'software renderer'; } A.layout = SC.buildStatic(A.data.agents, A.data); A.picks = SC.pickTargets(A.layout); A.cam = JSON.parse(JSON.stringify(SC.PRESETS.atrium));
+    const first = !safe.get('hq-intro'); if (!A.calm && !A.low) { A.cam = JSON.parse(JSON.stringify(SC.INTRO)); $('#skip-intro').hidden = false; A.introT = performance.now(); A.camAnim = { from: JSON.parse(JSON.stringify(SC.INTRO)), to: JSON.parse(JSON.stringify(SC.PRESETS.atrium)), dy: Math.atan2(Math.sin(SC.PRESETS.atrium.yaw - SC.INTRO.yaw), Math.cos(SC.PRESETS.atrium.yaw - SC.INTRO.yaw)), t0: performance.now(), dur: first ? 3600 : 1400, done: () => { $('#skip-intro').hidden = true; safe.set('hq-intro', '1'); } }; }
     buildLabels(); requestAnimationFrame(frame);
   }
   function buildLabels() {
@@ -395,6 +419,7 @@
     A.layout.worlds.forEach(w => { mk('world:' + w.slug, w.slug.toUpperCase(), 'world', () => go('chamber', { agent: w.slug })); A.labels[A.labels.length - 1].pos = [w.c[0], 11.5, w.c[2]]; A.labels[A.labels.length - 1].slug2 = w.slug; });
     STATIONS.forEach((n, i) => { mk('station:' + i, (i + 1) + ' ' + n.toUpperCase(), 'station', () => go('lab', { station: i })); A.labels[A.labels.length - 1].pos = stationPos(i).map((v, j) => j === 1 ? 3.4 : v); A.labels[A.labels.length - 1].kind2 = 'station'; });
     A.layout.pylons.forEach(pl => { mk('agent:' + pl.slug, pl.name, 'agent', () => go('chamber', { agent: pl.slug })); A.labels[A.labels.length - 1].pos = [pl.pos[0], 5.4, pl.pos[2]]; A.labels[A.labels.length - 1].slug = pl.slug; });
+    A.layout.pylons.forEach(pl => { mk('portrait:'+pl.slug,'','portrait',()=>go('chamber',{agent:pl.slug}));const l=A.labels[A.labels.length-1];l.slug=pl.slug;l.pos=[pl.pos[0],2.9,pl.pos[2]];l.el.classList.add('hq-portrait','nc-card');l.el.title=pl.name+' · 2.5D character presentation';const image=h('img',{src:'../../assets/img/agents/'+pl.slug+'.webp',alt:'',width:768,height:1024,decoding:'async'});l.el.append(image); });
   }
   let lastDraw = 0;
   function syncNodeLabels() {
@@ -407,27 +432,27 @@
     const cv = $('#gl'), cs = { eye, target: A.cam.target };
     A.labels.concat(A.nodeLabels || []).forEach(l => {
       if (l.node) { const nd = thModel().nodes.find(x => x.id === l.node); if (nd) { l.el.dataset.st = nd.state; l.el.title = nd.title + ': ' + nd.state + ' (event #' + nd.seq + ')'; } }        // data first: it must be right even when the label is off-screen
-      if (l.slug) { const st = A.st.agents[l.slug]; l.el.dataset.st = st.state; l.el.dataset.sel = String(A.room === 'chamber' && A.agent === l.slug); }
+      if (l.slug) { const st = A.st.agents[l.slug]; l.el.dataset.st = st.state;if(l.kind==='portrait'){l.el.dataset.motionState=window.NashaCharacters.motionState(st.alert?'alert':st.state,st.tool||st.task);l.el.style.setProperty('--agent-tempo',(3.1+A.data.agents.findIndex(a=>a.slug===l.slug)*.17)+'s');const w=A.layout.worlds.find(w=>w.slug===l.slug),pl=A.layout.pylons.find(p=>p.slug===l.slug);l.pos=A.room==='chamber'&&A.agent===l.slug?[w.c[0],4,w.c[2]+5]:[pl.pos[0],2.9,pl.pos[2]];} l.el.dataset.sel = String(A.room === 'chamber' && A.agent === l.slug); }
       if (l.id === 'room:chamber') { const w = A.layout.worlds.find(x => x.slug === A.agent); l.pos = [w.c[0], 12.8, w.c[2]]; l.el.textContent = 'CHAMBER · ' + A.agent.toUpperCase(); }
       const wr = l.kind === 'world' && (!(A.room === 'chamber' || A.room === 'network') || (A.room === 'chamber' && l.slug2 === A.agent));
-      const p = A.gl.project(l.pos, cs), hideNode = (l.node && !inTheater()) || wr || (l.id === 'room:chamber' && A.room !== 'chamber') || (l.kind === 'station' && A.room !== 'lab');
+      const p = A.gl.project(l.pos, cs), hidePortrait=l.kind==='portrait'&&!(A.room==='atrium'||(A.room==='chamber'&&A.agent===l.slug)), hideNode = hidePortrait || (l.node && !inTheater()) || wr || (l.id === 'room:chamber' && A.room !== 'chamber') || (l.kind === 'station' && A.room !== 'lab');
       if (hideNode || !p || !(p[0] > -40 && p[0] < cv.clientWidth + 40 && p[1] > 0 && p[1] < cv.clientHeight)) { l.el.style.display = 'none'; return; }
-      l.el.style.display = ''; l.el.style.left = p[0].toFixed(1) + 'px'; l.el.style.top = p[1].toFixed(1) + 'px'; l.el.style.opacity = l.kind === 'agent' && p[2] > 70 ? 0 : 1;
+      if(l.kind==='portrait')l.el.style.width=Math.max(28,Math.min(125,2500/p[2]))+'px';l.el.style.display = ''; l.el.style.left = p[0].toFixed(1) + 'px'; l.el.style.top = p[1].toFixed(1) + 'px'; l.el.style.opacity = l.kind === 'agent' && p[2] > 70 ? 0 : 1;
     });
   }
   function frame(now) {
-    requestAnimationFrame(frame); if (!A.gl || A.view2d || document.hidden) return;
+    requestAnimationFrame(frame); if (!A.gl || A.view2d || document.hidden || A.visible === false) return;
     stepCam(now); const animating = !A.calm && !A.low, minGap = A.low ? 33 : 0; if (now - lastDraw < minGap) return;
     if (!animating && !A.dirty && !A.camAnim) return; lastDraw = now;
-    A.gl.resize(A.low ? 1 : 1.5); const eye = camEye(A.cam), flags = { calm: A.calm || A.low, agent: A.agent, t0: now, theater: inTheater() && A.verified && A.verified.ok ? Object.assign({}, thModel(), { sel: A.task, agent: A.thAgent }) : null, ex: A.ex, fort: A.room === 'weir' ? A.fort : null, eye, room: A.room, twin: A.data.twin, dept: A.room === 'twin' ? A.dept : null, station: A.room === 'lab' ? (A.station || 0) : null, net: (A.room === 'network' || (A.room === 'tour' && A.tourNet)) ? netEdges() : null };
-    const scene = A.layout.statics.concat(SC.buildDynamic(A.layout, A.data.agents, A.st, now, flags)); A.gl.render(scene, { eye, target: A.cam.target }, now, { particles: !A.low, calm: A.calm || A.low, lowQuality: A.low }); A.dirty = false;
+    A.gl.resize(A.low ? 1 : 1.5); const eye = camEye(A.cam), flags = { intro: window.NashaCinematic?.presentation || null, calm: A.calm || A.low, agent: A.agent, t0: now, theater: inTheater() && A.verified && A.verified.ok ? Object.assign({}, thModel(), { sel: A.task, agent: A.thAgent }) : null, ex: A.ex, fort: A.room === 'weir' ? A.fort : null, eye, room: A.room, twin: A.data.twin, dept: A.room === 'twin' ? A.dept : null, station: A.room === 'lab' ? (A.station || 0) : null, net: (A.room === 'network' || (A.room === 'tour' && A.tourNet)) ? netEdges() : null };
+    const scene = A.layout.statics.concat(SC.buildDynamic(A.layout, A.data.agents, A.st, now, flags)); A.gl.render(scene, { eye, target: A.cam.target }, now, { particles: !A.low, calm: A.calm || A.low, lowQuality: A.low }); if(!A.firstFrame) A.firstFrame=performance.now()-A.glStart; A.dirty = false;
     updateLabels(eye);
     if (A.gl.stats.frames % 20 === 0) perfUpdate();
   }
   function perfUpdate() {
     const g = A.gl, dl = $('#perf-dl'); if (!dl || !g) return; const w = g.stats.win, ms = w.length ? w.reduce((a, b) => a + b, 0) / w.length : 0, heap = performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) + ' MB JS heap' : 'not exposed by this browser';
-    const rows = [['first frame', A.firstFrame ? Math.round(A.firstFrame) + ' ms after load' : 'n/a'], ['frame time', ms ? ms.toFixed(1) + ' ms (' + (1000 / ms).toFixed(0) + ' fps while animating)' : 'n/a (renders on demand)'], ['draw calls / triangles', g.stats.draws + ' / ' + Math.round(g.stats.tris)], ['memory', heap], ['renderer', g.info()],
-      ['mode', (A.calm ? 'reduced motion' : 'full motion') + (A.low ? ', low-power' : '')], ['space changes', A.perf.transitions.slice(-3).map(t => NAMES[t.room] + ' ' + t.ms + ' ms' + (t.animated ? '' : ' (instant)')).join('; ') || 'none yet']];
+    const rows = [['first 3D frame', A.firstFrame ? Math.round(A.firstFrame) + ' ms after activation (CPU submission)' : 'not activated'], ['frame time', (A.low || A.calm) ? 'on-demand; idle intervals are not a frame-rate measurement' : ms ? ms.toFixed(1) + ' ms (' + (1000 / ms).toFixed(0) + ' fps while animating)' : 'n/a (renders on demand)'], ['draw calls / triangles', g.stats.draws + ' / ' + Math.round(g.stats.tris)], ['memory', heap], ['renderer', g.info()],
+      ['mode', (A.calm ? 'reduced motion' : A.low ? 'on-demand interaction' : 'full motion') + (A.low ? ', low-power on demand' + (A.lowReason ? ' (' + A.lowReason + ')' : '') : '')], ['space changes', A.perf.transitions.slice(-3).map(t => NAMES[t.room] + ' ' + t.ms + ' ms' + (t.animated ? '' : ' (instant)')).join('; ') || 'none yet']];
     dl.replaceChildren(...rows.flatMap(([k, v]) => [h('dt', {}, k), h('dd', {}, v)]));
   }
   function pick(cx, cy) {
@@ -448,27 +473,31 @@
     cv.addEventListener('keydown', e => { const m = { ArrowLeft: () => A.cam.yaw += 0.12, ArrowRight: () => A.cam.yaw -= 0.12, ArrowUp: () => A.cam.pitch += 0.06, ArrowDown: () => A.cam.pitch -= 0.06, '+': () => A.cam.dist *= 0.9, '=': () => A.cam.dist *= 0.9, '-': () => A.cam.dist *= 1.1, Home: resetCam, Escape: resetCam, Enter: () => { const t = A.sel; openTarget(t || 'room:' + (A.room === 'network' ? 'atrium' : A.room)); } }[e.key]; const rooms = KEYS; if (rooms[e.key]) { e.preventDefault(); go(rooms[e.key]); return; } if (m) { e.preventDefault(); A.camAnim = null; m(); clamp(); } });
   }
   function resetCam() { A.camAnim = null; flyTo(ROOM3D[A.room] || A.room); }
-  function setView2d(on) { A.view2d = on; $('#plan').hidden = !on; $('#gl').hidden = on; $('#labels').hidden = on; $('#t-2d').setAttribute('aria-pressed', String(on)); $('#t-2d').textContent = on ? '3D view' : '2D plan view'; if (on) renderPlan(); A.dirty = true; }
+  function setView2d(on) { if(on&&A.activating)A.cancelActivation=true; if(!on&&!A.gl){activate3D();return;} $('#hq-entrance').hidden=on||!!A.gl; A.view2d = on; $('#plan').hidden = !on; $('#gl').hidden = on; $('#labels').hidden = on; $('#t-2d').setAttribute('aria-pressed', String(on)); $('#t-2d').textContent = on ? '3D view' : '2D plan view'; if (on) renderPlan(); A.dirty = true; }
   function updateStatus() { const n = A.data.missions.reduce((a, m) => a + m.recordings.length, 0); $('#status-text').textContent = n + ' recordings · ' + (A.verified ? (A.verified.ok ? 'chain verified (' + A.verified.n + ' events)' : 'integrity check FAILED') : 'no recording open') + ' · mode: recorded, not live'; }
 
   async function boot() {
     try {
-      const [data, cc, p7, p7b, pe, p8, pk, tests, steps, rel, vault] = await Promise.all([jget('hq-data.json'), jopt('../research/claimcheck-eval.json'), jopt('../research/model-eval-phase7.json'), jopt('../research/model-eval-phase7-promptB.json'), jopt('../research/model-plan-eval.json'), jopt('../research/claimcheck-p8.json'), jopt('../research/independent-package.json'), jopt('../evidence/test-results.json'), jopt('../recruiter/steps.json'), jopt('../research/reliability-index.json'), jopt('../research/evidence-index.json')]);
-      A.data = data; A.r = { cc, p7, p7b, pe, p8, pk, tests, steps, rel, vault };
+      A.data = await jget('hq-data.json');
     } catch (e) { $('#panel').textContent = 'The headquarters data could not be loaded: ' + e.message; return; }
     $('#nav').replaceChildren(...ORDER.map((r, i) => h('button', { type: 'button', 'data-room': r, 'aria-keyshortcuts': String(i + 1), onclick: () => go(r) }, (i + 1) + ' ' + NAMES[r])));
-    $('#t-anim').addEventListener('click', () => { A.calm = !A.calm; $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); A.dirty = true; if (A.calm) { A.camAnim = null; $('#skip-intro').hidden = true; } perfUpdate(); });
+    $('#t-anim').addEventListener('click', () => { A.calm = !A.calm; if(window.NashaCharacters) window.NashaCharacters.setPaused(A.calm); $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); A.dirty = true; if (A.calm) { A.camAnim = null; $('#skip-intro').hidden = true; } perfUpdate(); });
     $('#t-low').addEventListener('click', () => { A.low = !A.low; $('#t-low').setAttribute('aria-pressed', String(A.low)); $('#t-low').textContent = 'Low-power: ' + (A.low ? 'on' : 'off'); A.dirty = true; perfUpdate(); });
     $('#t-2d').addEventListener('click', () => setView2d(!A.view2d)); $('#cam-reset').addEventListener('click', resetCam); $('#b-home').addEventListener('click', () => go('atrium'));
     $('#skip-intro').addEventListener('click', () => { if (A.camAnim) { A.cam = A.camAnim.to; const d = A.camAnim.done; A.camAnim = null; d && d(); A.dirty = true; } });
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', e => { if(e.matches){A.calm=true; A.camAnim=null; A.dirty=true; $('#t-anim').setAttribute('aria-pressed','false'); $('#t-anim').textContent='Animations: off'; if(window.NashaCharacters) window.NashaCharacters.setPaused(true);} });
     $('#t-anim').setAttribute('aria-pressed', String(!A.calm)); $('#t-anim').textContent = 'Animations: ' + (A.calm ? 'off' : 'on'); $('#t-low').setAttribute('aria-pressed', String(A.low)); $('#t-low').textContent = 'Low-power: ' + (A.low ? 'on' : 'off');
-    startGL(); bindInput(); window.addEventListener('keydown', e => { if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return; const rooms = KEYS; if (rooms[e.key] && !e.ctrlKey && !e.metaKey && !e.altKey && e.target !== $('#gl')) go(rooms[e.key]); });
+    $('#enter-3d').disabled=false; $('#enter-3d').textContent='Enter interactive 3D'; $('#enter-3d').addEventListener('click',activate3D); bindInput(); window.addEventListener('keydown', e => { if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return; const rooms = KEYS; if (rooms[e.key] && !e.ctrlKey && !e.metaKey && !e.altKey && e.target !== $('#gl')) go(rooms[e.key]); });
     window.addEventListener('resize', () => { A.dirty = true; });
     const hp = (location.hash || '').slice(1).split('/'), start = hp[0]; if (A.data.agents.some(a => a.slug === hp[1])) A.agent = hp[1]; if (start === 'twin' && A.data.twin.departments.some(d => d.id === hp[1])) A.dept = hp[1];
     go(ORDER.includes(start) ? start : 'atrium', { noFocus: true, noPush: true }); updateStatus();
     window.addEventListener('popstate', ev => { const st = ev.state || {}, q = (location.hash || '').slice(1).split('/'), room = st.room || q[0]; if (ORDER.includes(room)) go(room, { noFocus: true, noPush: true, agent: st.agent || (A.data.agents.some(a => a.slug === q[1]) ? q[1] : null), dept: st.dept || (room === 'twin' ? q[1] : null) }); });
-    requestAnimationFrame(() => { A.firstFrame = performance.now() - T0; perfUpdate(); });
-    window.HQApp = { A, go, loadRec, step, play, stop, restart, seek, setView2d, resetCam, pick, camEye, ready: true, get frames() { return A.gl ? A.gl.stats.frames : 0; } };
+    requestAnimationFrame(() => perfUpdate());
+    if ('IntersectionObserver' in window) { const observer = new IntersectionObserver(entries => { A.visible = entries[0].isIntersecting; if(A.visible) A.dirty = true; }); observer.observe($('#gl')); }
+    window.HQApp = { A, go, activate3D, loadRec, step, play, stop, restart, seek, setView2d, resetCam, pick, camEye, ready: true, get frames() { return A.gl ? A.gl.stats.frames : 0; } };
   }
-  boot();
+  // Paint the entrance before fetching non-render-critical mission metadata.
+  const poster=document.querySelector('#hq-entrance img');
+  const visibleEntrance=poster&&poster.decode?poster.decode().catch(()=>{}):Promise.resolve();
+  visibleEntrance.then(()=>requestAnimationFrame(()=>requestAnimationFrame(boot)));
 })();

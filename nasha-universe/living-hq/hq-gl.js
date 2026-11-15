@@ -45,6 +45,7 @@
       + 'void main(){vec3 n=normalize(vN);'
       + 'if(uSky>.5){vec3 d=normalize(vW-uCam);vec3 col=sky(d);vec2 g=floor(vec2(atan(d.z,d.x)*700.,d.y*700.));float s=step(.9992,h(g));col+=s*vec3(.8,.85,1.)*step(.02,d.y);gl_FragColor=vec4(col,1.);return;}'
       + 'if(uMat>8.5){float d=length(vW.xz-uObj.xz)/uRad;float a=uAlpha*pow(clamp(1.-d,0.,1.),1.7);gl_FragColor=vec4(0.,0.,0.,a);return;}'
+      + 'if(uQ<.5){float d=max(dot(n,normalize(vec3(.38,.5,.52))),0.);vec3 c=uColor*(.22+.75*d)+uEmis;float f=1.-exp(-length(uCam-vW)*uFogD);gl_FragColor=vec4(mix(c,uFog,f),uAlpha);return;}'
       + 'vec3 v=normalize(uCam-vW);vec3 L=normalize(vec3(.38,.5,.52));float df=max(dot(n,L),0.);vec3 key=vec3(1.,.80,.60);'
       + 'vec3 hemi=mix(vec3(.030,.040,.058),vec3(.16,.20,.27),n.y*.5+.5);float ao=mix(.5,1.,smoothstep(0.,3.2,vW.y));'
       + 'vec3 col=uColor*(hemi+.82*df*key)*ao;vec3 Hh=normalize(L+v);float nh=max(dot(n,Hh),0.);float nv=max(dot(n,v),0.);float rim=pow(1.-nv,2.);'
