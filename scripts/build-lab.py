@@ -78,8 +78,8 @@ page("verified-projects.html", "Verified projects · Ritesh Mamidi", f"Evidence 
 for n in ("index.html", "ai-engineering.html", "nasha-lab.html", "projects.html", "recruiter.html", "404.html"):
     p = root / n; t = p.read_text()
     t = re.sub(r'<a href="nasha-lab\.html"( aria-current="page")?>NASHA AI</a>', lambda m: f'<a href="nasha-lab.html"{m.group(1) or ""}>NASHA AI Lab</a><a href="lab-explorer.html">Lab explorer</a><a href="verified-projects.html">Verified projects</a>', t)
-    t = t.replace(EMPLOYER + " · Apple client engagement", "Apple Maps — Client Engagement · a client assignment, not direct Apple employment")
-    t = t.replace("<h3>Business / Data Analyst</h3>", "<h3>Business Analyst</h3>").replace("<h3>Data / Business Analyst</h3>", "<h3>Data Analyst</h3>").replace("<span>PySpark</span><span>Kafka</span>", "<span>PySpark</span>")  # master-résumé titles; Kafka is not a supported skill claim
+    t = t.replace(EMPLOYER + " · Apple client engagement", "Apple Maps Client Engagement · a client assignment, not direct Apple employment")
+    t = t.replace("<h3>Business / Data Analyst</h3>", "<h3>Business Analyst</h3>").replace("<span>PySpark</span><span>Kafka</span>", "<span>PySpark</span>")  # Legacy combined-title cleanup only; preserve the owner-confirmed role labels. Kafka is not a supported skill claim
     p.write_text(t)
 apply_nav(root)
 sm = root / "sitemap.xml"; s = sm.read_text()

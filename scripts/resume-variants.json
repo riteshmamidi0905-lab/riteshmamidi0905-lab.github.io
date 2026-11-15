@@ -1,0 +1,107 @@
+[
+  {
+    "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-FDE.pdf",
+    "subtitle": "Forward Deployed Engineering alignment | AI Quality, Data & Integration",
+    "summary": "AI quality and analytics professional connecting stakeholder requirements to Python/SQL workflows, model evaluation, root-cause analysis and tested operational solutions. Independent local implementations demonstrate cited retrieval, controlled tools, integration test doubles and recovery; they are separate from employment and not production deployments.",
+    "project_rows": [
+      [
+        "section",
+        "INDEPENDENT ENGINEERING - SYNTHETIC DEMONSTRATIONS"
+      ],
+      [
+        "body",
+        "Independent NASHA AI work, separate from professional employment. Browser exercises use synthetic data; Python services run locally. No production deployment or live-model quality is claimed."
+      ],
+      [
+        "bullet",
+        "Built five local simulated workflows spanning document RAG, controlled tools, authenticated loopback HTTP, CSV reconciliation and configuration/checkpoint rollback."
+      ],
+      [
+        "bullet",
+        "Implemented operator/reviewer separation, tenant-scoped data, stable idempotency keys, durable receipts and audit trails; tested bad input, denied actions, uncertain outcomes and recovery."
+      ],
+      [
+        "bullet",
+        "Validated 57 API/control tests, eight deterministic retrieval fixtures and five end-to-end local demos; supplied architecture, reproduction instructions and recorded execution."
+      ],
+      [
+        "section",
+        "TECHNICAL SKILLS"
+      ],
+      [
+        "body",
+        "Python, SQL, pandas; FastAPI, Pydantic, REST APIs, SQLite and Git; AI/ML output evaluation, RAG/vector retrieval, deterministic agent workflows, structured outputs and human review; ETL, data validation, KPI analysis, Power BI and Tableau; requirements, root-cause analysis and stakeholder communication. Independent-project technologies do not imply employer deployment."
+      ]
+    ]
+  },
+  {
+    "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf",
+    "subtitle": "Applied AI Engineering | Evaluation, Data Quality & Reliable Workflows",
+    "summary": "Data and AI quality professional focused on AI/ML output evaluation, structured validation and reproducible failure analysis. Applies Python/SQL and stakeholder collaboration to operational quality; builds independent Python retrieval and controlled-tool demonstrations with typed APIs and human review. Independent systems are not employer deployments.",
+    "project_rows": [
+      [
+        "section",
+        "INDEPENDENT ENGINEERING - SYNTHETIC DEMONSTRATIONS"
+      ],
+      [
+        "body",
+        "Independent NASHA AI work, separate from professional employment. Browser exercises use synthetic data; Python services run locally. No production deployment or live-model quality is claimed."
+      ],
+      [
+        "bullet",
+        "Built five local simulated workflows spanning document RAG, controlled tools, authenticated loopback HTTP, CSV reconciliation and configuration/checkpoint rollback."
+      ],
+      [
+        "bullet",
+        "Implemented operator/reviewer separation, tenant-scoped data, stable idempotency keys, durable receipts and audit trails; tested bad input, denied actions, uncertain outcomes and recovery."
+      ],
+      [
+        "bullet",
+        "Validated 57 API/control tests, eight deterministic retrieval fixtures and five end-to-end local demos; supplied architecture, reproduction instructions and recorded execution."
+      ],
+      [
+        "section",
+        "TECHNICAL SKILLS"
+      ],
+      [
+        "body",
+        "Python, SQL, pandas; FastAPI, Pydantic, REST APIs, SQLite and Git; AI/ML output evaluation, RAG/vector retrieval, deterministic agent workflows, structured outputs and human review; ETL, data validation, KPI analysis, Power BI and Tableau; requirements, root-cause analysis and stakeholder communication. Independent-project technologies do not imply employer deployment."
+      ]
+    ]
+  },
+  {
+    "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf",
+    "subtitle": "AI Solutions Engineering | Requirements, Data Integration & Analytics",
+    "summary": "Analytics and AI quality professional translating business requirements into reporting, integration and automation solutions. Combines Python/SQL, stakeholder collaboration, quality investigation and testing with independent demonstrations of data contracts, reconciliation and recovery in a synthetic environment; no production customer deployment is claimed.",
+    "project_rows": [
+      [
+        "section",
+        "INDEPENDENT ENGINEERING - SYNTHETIC DEMONSTRATIONS"
+      ],
+      [
+        "body",
+        "Independent NASHA AI work, separate from professional employment. Browser exercises use synthetic data; Python services run locally. No production deployment or live-model quality is claimed."
+      ],
+      [
+        "bullet",
+        "Built five local simulated workflows spanning document RAG, controlled tools, authenticated loopback HTTP, CSV reconciliation and configuration/checkpoint rollback."
+      ],
+      [
+        "bullet",
+        "Implemented operator/reviewer separation, tenant-scoped data, stable idempotency keys, durable receipts and audit trails; tested bad input, denied actions, uncertain outcomes and recovery."
+      ],
+      [
+        "bullet",
+        "Validated 57 API/control tests, eight deterministic retrieval fixtures and five end-to-end local demos; supplied architecture, reproduction instructions and recorded execution."
+      ],
+      [
+        "section",
+        "TECHNICAL SKILLS"
+      ],
+      [
+        "body",
+        "Python, SQL, pandas; FastAPI, Pydantic, REST APIs, SQLite and Git; AI/ML output evaluation, RAG/vector retrieval, deterministic agent workflows, structured outputs and human review; ETL, data validation, KPI analysis, Power BI and Tableau; requirements, root-cause analysis and stakeholder communication. Independent-project technologies do not imply employer deployment."
+      ]
+    ]
+  }
+]

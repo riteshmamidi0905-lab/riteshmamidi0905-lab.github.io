@@ -105,8 +105,21 @@ for r in json.loads((root/'data/image-register.json').read_text()):
   assert not P.generated_image_errors(r['file'],r,(root/r['file']).read_bytes()),('generated image not individually approved',r['file'])
  else: assert r['kind']=='screenshot',('public register may list cleared screenshots or exact approved concepts only',r['file'])
 _rec=(root/'recruiter.html').read_text()
-assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'
-assert 'Apple Maps — Client Engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
+assert all('<h3>'+title+'</h3>' in _rec for title in ('Product &amp; AI Quality Operations Analyst', 'Business / Operations Analyst', 'Data / Business Analyst')),'job titles must follow the owner-confirmed experience labels'
+assert 'Apple Maps Client Engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
+# The public resume is generated as an uncompressed, searchable PDF: check identity in its text streams as well as HTML.
+_resume=(root/'ritesh_mamidi_resume.pdf').read_bytes()
+assert _resume.startswith(b'%PDF-1.4') and _resume.count(b'/Type /Page ')==2,'resume must remain a two-page searchable PDF'
+assert EMPLOYER.lower().encode() not in _resume.lower(),'unapproved employer designation in public resume'
+assert b'Apple Maps Client Engagement' in _resume and b'not direct Apple employment' in _resume,'resume client relationship missing'
+import runpy as _runpy
+_resume_builder = _runpy.run_path(str(root/'scripts/build-resume.py'))
+for _path, _content in _resume_builder['documents']().items():
+ _pdf = (root/_path).read_bytes()
+ assert _pdf == _resume_builder['render'](_content), _path+' differs from its reviewed source'
+ assert EMPLOYER.lower().encode() not in _pdf.lower(), 'unapproved employer designation in '+_path
+ assert b'Apple Maps Client Engagement' in _pdf and b'not direct Apple employment' in _pdf, 'client relationship missing in '+_path
+
 # FONT PRELOAD GUARD: both webfonts preloaded on every top-level page (prevents a measured font-swap layout shift)
 for pg in sorted(root.glob('*.html')):
  s=pg.read_text(); assert 'inter-latin.woff2" as="font"' in s and 'jetbrains-mono-latin.woff2" as="font"' in s,('font preload missing',pg.name)

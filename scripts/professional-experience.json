@@ -1,0 +1,78 @@
+{
+  "provenance": "Responsibilities and five reported outcomes checked against the owner-provided master resume (17 October 2026), earlier resume records and the owner confirmation. These are resume-reported employment results, not an independent employer audit. Independent project benchmarks remain separate.",
+  "roles": [
+    {
+      "organization": "Apple Maps Client Engagement",
+      "title": "Product & AI Quality Operations Analyst",
+      "dates": "Sep 2025 - Present",
+      "location": "Austin, TX",
+      "relationship": "Client assignment; not direct Apple employment.",
+      "bullets": [
+        "Evaluate ML and GenAI pipeline outputs against policy and quality rubrics; troubleshoot edge cases and systematic failure patterns.",
+        "Research and validate geospatial and transit records; reconcile conflicting sources and verify structured data against APIs.",
+        "Build Python/SQL QA/QC checks and Power BI reporting, contributing to approximately 18% better investigation efficiency and a reported 30% reduction in operational escalations.",
+        "Use LLM-assisted analysis and prompt engineering to classify cases and extract operational signals; validate findings against source records.",
+        "Document root-cause findings and workflow requirements with cross-functional partners; support quality reviews and training to improve operational consistency."
+      ],
+      "reported_outcomes": [
+        {
+          "measure": "investigation efficiency",
+          "change": "approximately 18% improvement",
+          "attribution": "contributed"
+        },
+        {
+          "measure": "operational escalations",
+          "change": "reported 30% reduction",
+          "attribution": "contributed"
+        }
+      ]
+    },
+    {
+      "organization": "Heart Hospitality LLC",
+      "title": "Business / Operations Analyst",
+      "dates": "Jan 2024 - Aug 2025",
+      "location": "Austin, TX",
+      "bullets": [
+        "Automated Python/SQL ETL and Power BI/Excel KPI reporting, reducing manual reporting effort by approximately 55%.",
+        "Translate stakeholder business requirements into relational data models, KPI definitions and analytics workflows aligned with operational goals.",
+        "Built forecasting and classification models to support planning, improving planning accuracy by approximately 22%; analyzed operational and customer data in Python and SQL.",
+        "Validate transformed data and reporting outputs, document business processes, and collaborate with stakeholders on testing and process improvement."
+      ],
+      "reported_outcomes": [
+        {
+          "measure": "manual reporting effort",
+          "change": "approximately 55% reduction"
+        },
+        {
+          "measure": "planning accuracy",
+          "change": "approximately 22% improvement"
+        }
+      ]
+    },
+    {
+      "organization": "Liberated Monks Pvt Ltd",
+      "title": "Data / Business Analyst",
+      "dates": "Jan 2022 - Dec 2023",
+      "location": "Hyderabad, India",
+      "bullets": [
+        "Build Python and SQL ETL workflows and Tableau dashboards to support customer acquisition, engagement and retention analysis.",
+        "Developed and evaluated segmentation and propensity (lead-scoring) models, associated with an approximately 18% improvement in marketing-driven engagement.",
+        "Maintain data validation rules and KPI definitions; test analytical outputs and translate cross-team business requirements into dependable reporting.",
+        "Document data-quality findings and reporting requirements with cross-functional partners to support consistent business decisions."
+      ],
+      "reported_outcomes": [
+        {
+          "measure": "marketing-driven engagement",
+          "change": "approximately 18% improvement",
+          "attribution": "associated with segmentation and propensity models"
+        }
+      ]
+    }
+  ],
+  "alignment": "Transferable capabilities for Forward Deployed Engineering: translate stakeholder requirements into Python/SQL data workflows, investigate failures, automate repeatable analysis, and document and validate solutions against business needs. NASHA AI engineering projects are independent work, separate from professional employment.",
+  "summaries": [
+    "Evaluate AI/ML and GenAI outputs, investigate failure patterns, and validate geospatial records against sources and APIs. Python/SQL QA checks, Power BI and LLM-assisted analysis contributed to approximately 18% better investigation efficiency and a reported 30% reduction in operational escalations.",
+    "Automated Python/SQL ETL and Power BI/Excel KPI reporting, reducing manual reporting effort by approximately 55%. Built forecasting models associated with approximately 22% better planning accuracy; translated stakeholder requirements into validated analytics and process improvements.",
+    "Built Python/SQL pipelines and Tableau reporting for acquisition, engagement and retention. Segmentation and propensity models were associated with approximately 18% higher marketing-driven engagement; maintained validation rules and translated cross-team requirements into tested outputs."
+  ]
+}

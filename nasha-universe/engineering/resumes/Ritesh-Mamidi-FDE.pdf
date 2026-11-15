@@ -1,93 +1,115 @@
 %PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
 1 0 obj
-<<
-/F1 2 0 R /F2 3 0 R
->>
+<< /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
->>
+<< /Type /Pages /Kids [5 0 R 7 0 R] /Count 2 >>
 endobj
 3 0 obj
-<<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
->>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 4 0 obj
-<<
-/Contents 9 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 8 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
 5 0 obj
-<<
-/Contents 10 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 8 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<<
-/PageMode /UseNone /Pages 8 0 R /Type /Catalog
->>
+<< /Length 5108 >>
+stream
+BT /F2 22 Tf 1 0 0 1 48 755 Tm (Ritesh Mamidi) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 728 Tm (Forward Deployed Engineering alignment | AI Quality, Data & Integration) Tj ET
+BT /F1 9 Tf 1 0 0 1 48 714 Tm (Austin, TX | riteshmamidi0905@gmail.com | linkedin.com/in/riteshmamidi0905) Tj ET
+BT /F1 9 Tf 1 0 0 1 48 702 Tm (github.com/riteshmamidi0905-lab | riteshmamidi0905-lab.github.io) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 48 681 Tm (SUMMARY) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 664 Tm (AI quality and analytics professional connecting stakeholder requirements to Python/SQL) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 651.5 Tm (workflows, model evaluation, root-cause analysis and tested operational solutions. Independent) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 639 Tm (local implementations demonstrate cited retrieval, controlled tools, integration test doubles) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 626.5 Tm (and recovery; they are separate from employment and not production deployments.) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 48 605 Tm (PROFESSIONAL EXPERIENCE) Tj ET
+BT /F2 10 Tf 1 0 0 1 48 585 Tm (Apple Maps Client Engagement | Product & AI Quality Operations Analyst) Tj ET
+BT /F1 9 Tf 1 0 0 1 48 572 Tm (Austin, TX | Sep 2025 - Present) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 558 Tm (Client assignment; not direct Apple employment.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 543.5 Tm (- Evaluate ML and GenAI pipeline outputs against policy and quality rubrics; troubleshoot edge) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 531 Tm (  cases and systematic failure patterns.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 516.5 Tm (- Research and validate geospatial and transit records; reconcile conflicting sources and verify) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 504 Tm (  structured data against APIs.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 489.5 Tm (- Build Python/SQL QA/QC checks and Power BI reporting, contributing to approximately 18% better) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 477 Tm (  investigation efficiency and a reported 30% reduction in operational escalations.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 462.5 Tm (- Use LLM-assisted analysis and prompt engineering to classify cases and extract operational) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 450 Tm (  signals; validate findings against source records.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 435.5 Tm (- Document root-cause findings and workflow requirements with cross-functional partners; support) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 423 Tm (  quality reviews and training to improve operational consistency.) Tj ET
+BT /F2 10 Tf 1 0 0 1 48 405.5 Tm (Heart Hospitality LLC | Business / Operations Analyst) Tj ET
+BT /F1 9 Tf 1 0 0 1 48 392.5 Tm (Austin, TX | Jan 2024 - Aug 2025) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 378.5 Tm (- Automated Python/SQL ETL and Power BI/Excel KPI reporting, reducing manual reporting effort by) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 366 Tm (  approximately 55%.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 351.5 Tm (- Translate stakeholder business requirements into relational data models, KPI definitions and) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 339 Tm (  analytics workflows aligned with operational goals.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 324.5 Tm (- Built forecasting and classification models to support planning, improving planning accuracy) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 312 Tm (  by approximately 22%; analyzed operational and customer data in Python and SQL.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 297.5 Tm (- Validate transformed data and reporting outputs, document business processes, and collaborate) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 285 Tm (  with stakeholders on testing and process improvement.) Tj ET
+BT /F2 10 Tf 1 0 0 1 48 267.5 Tm (Liberated Monks Pvt Ltd | Data / Business Analyst) Tj ET
+BT /F1 9 Tf 1 0 0 1 48 254.5 Tm (Hyderabad, India | Jan 2022 - Dec 2023) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 240.5 Tm (- Build Python and SQL ETL workflows and Tableau dashboards to support customer acquisition,) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 228 Tm (  engagement and retention analysis.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 213.5 Tm (- Developed and evaluated segmentation and propensity \(lead-scoring\) models, associated with an) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 201 Tm (  approximately 18% improvement in marketing-driven engagement.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 186.5 Tm (- Maintain data validation rules and KPI definitions; test analytical outputs and translate) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 174 Tm (  cross-team business requirements into dependable reporting.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 159.5 Tm (- Document data-quality findings and reporting requirements with cross-functional partners to) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 147 Tm (  support consistent business decisions.) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 48 125.5 Tm (FORWARD DEPLOYED ENGINEERING ALIGNMENT) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 108.5 Tm (Stakeholder requirements | Python and SQL | Data integration | AI/ML evaluation | Debugging and) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 96 Tm (root-cause analysis | Workflow automation | Testing and validation | Technical documentation |) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 83.5 Tm (Cross-functional implementation) Tj ET
+BT /F1 8 Tf 1 0 0 1 48 24 Tm (Ritesh Mamidi | 1 / 2) Tj ET
+endstream
 endobj
 7 0 obj
-<<
-/Author (\(anonymous\)) /CreationDate (D:20261113191343-06'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20261113191343-06'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (Ritesh Mamidi \204 FDE) /Trapped /False
->>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<<
-/Count 2 /Kids [ 4 0 R 5 0 R ] /Type /Pages
->>
-endobj
-9 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 2132
->>
+<< /Length 2434 >>
 stream
-GatU4?#Sc5'n)]]EM&,&iP_&[)<@V8a-1c"nMmebfEM+<9=2o4&iCr"1r]Ih*`DQ!16L@<@+Y`1IN73km^\,CW.U/oI`%E690hmJ*dKpQ)tJ<A4UU=.%6f4?jAdFO!u_Y>Q_VsY#W(tEj'J\Z'BXW<jY/F.;Ef@N]9Md=Kg%^._tB>`=XkWc<snpq_;FVM&,<fn@PHSUnbuPWlK%A^\N:;LE<dq:s!lP,;\@jT4HZg0U@F2>=Y)>RQ,qrS4M>&Q*e/,USoLH`aBB;U:4JFITh/O#3`hmOhrBrXj>)s6,;.lS`RX4EM(9?R>HI5CmJ!P3'"/"s6tB(U&t'[`Z6+fY5os9jl6$TArsuA\%e@\,?N&p`If/t2j1bIq8e&H4kthgQcJa_r(G$0\Pung\bE>pO6;>"R)m6T1GXA+J1*.Xm1!,q9B$//OIkQK7.F3r",7-XmTV[qn"/9gnGUbLdb45=KGIl*6RBFA0:!6VEQ!&J,0Q.PQAkCrN[R`u(/j`TP?6[fa4*]J`-bbj;`"au&Bp"8!9q`BaS4"._SDttQPfSq4q]/+o-OsbqL#dtT@Bh;"Pd"B$llh@O8V3j0b!`_CT&F[GhOTWM=f`9C@bH:g"V.MV.%e%r]kgB6f;VDLJ(-KB1r49S\!Tn0F'AN'S'P/1!;_>K=oeQk>kXEXCQV7tNi4X[9ja;Hj5m@rlp`N.R9K5B>m5mog'pL/>BDC>2$C"/5:9U$]J+70n2S.!5D*rR*G&oVc%m=A;NV:L:Im%Fq0nIkBp6USC]VNjTg<RjC2#fb(+IG2f!F9ff8("-7a*R'\g".4rH1-TdgbO&$X!+6G1\]\83SQ,hsgURZ8OJ7n,%6al<X3u11g:VmH\l%RXJCj/CWLCe&U-`0psrYk`'>B\MlKKjrXc;,fbHe4/>]B*+as"R;86:_PRe@$i.,kUjr7?OHrL.807`K2ReH6RD/&F7mjmi4=@o(pG%'"<*WpJj#QtDEo$=_bI,t!OSBXa>=ff00pap+3p<8IPYM*2Y<do1$-;$Z06<P;Ya!q6r2O5.+M?<&SS)VqM!a1G"*5#0_tP_3Z;;\Lms#Of$CS'h#Wbp5lN?k'"B;=`,N8ST5(9sn52E9g*On!kX!5ld1A!8<5>3K\o'f5;-&/!6:tQP_`Vm6=fK&Ybe+4f0EC4prGmto,MtAFhT/Y,GbgWqMA;!QiIBb6,YZ`tub%+a78"r)FAP0H3'209J;>:Yd<[b<na7:_S(KKe#oVn"7.Y)3):ca74%2NeSU"S)o:`70WnFa)eUjXN`^7oG25`SMV4#)#W#bm#Yb:;SPFcgiPF&`#/r94+j[c>8ugi4TmmSGm[PjG$g-`$fj.C?JeRbGenmp_(cqNHAZN2-;t[f"07m%g9dJ%)lXG.l@NqD%sW^_DVcnh7GJ*&:cFWPZ`@PpU!BRKnH!A&`jb]*Zr9LHKQ&Jj-bO96gCKN:#+u6@X6kWLmYdgY0"?6TBO_!jPb:(9LjR:iRI1A5C_c'*cdmft"Cf7Q`,p&TKD^bQT6E/SS;>o<oPFQLC35-S2UJDiB63XR2@'^NXjMDjf:!X450qr,(?KBonU$,pCAl,mL.#8IoFeWS)U<lr^Qh3O+%:eueaRn'"/D`S+o;_!Ye-"S;S./no3tbHgVTD"DB`lL0Lko52V*nBh0jD+&kqUO<*AF';+aU?!eZG#U]/+0Z<%e"Ur0#CW]--=kVgF_BR"1Xi=g6Z;`5mID;BDt$2=hYC%dKADg18HVJ`F%:d]5]=_cic85r4Mt=up0*2^ATbA#Ps_;prO1fIO8!jnWb*3&i!jE_V:Rm)$9VPJ9UA]U/-;7mDJ+kV>jC=W,j4HR7;t0pAeVbDhLAb2K#_j22qrT=nbcR5]Q.qFK<nHUno,i#LYX8?Zq-*1#mWB*&j#F6X+\17I!!CsQe5ICL2MQ1b'_IN-b9\;jl,>V=oILNR9:pN_()l_G.!<cMc-;(c=>rK#q*?=?)B?7j_^_#_Y`Z!rtFpjmI&^*"sR'ZF>hKBc!eVl$Pt9'(W6\%@TZV&'^.,`Qp_(,,+ZWF-iRlB(?`&C&-jh.o9RS$LdYsB&mH.5ruorE!rZQD0pu[k.^Cj`=:EcB.pHrCUr-X`4S7mMI"-A\2u</RN-2Kt~>endstream
-endobj
-10 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 550
->>
-stream
-Gat=&9lJc?%)(h*]ON]BY3e6XK:UFC"UqKgL3P`?@RuHQ6'bD?mV6,oI^6Y`?*UiR5X6Eeq"XW_#be_@=BP`2QFOGb&B-%.LlrlHq$EO2E]8i(^J%O9BbKM&.eafE&.S_>:OI&%L5Supc%m)E=E0BY?!p`*_(/"qb7*\i`<F`5)(jgg3]dS'qWP`:O_KI]ed2OJc3V"b,S&hM[>$4^`Vnni5`.4b?MFt-1]N,,U[8<=p2lILp^H8.Pj^<.$p+edXO!McaHP#aAPQnBTr^'1GsjR/[,IT$4V2CUIt1a_-RkQ\;KiR!#AkSHP=;6,8_g_f6.\ETF(H[Kd1?if34thi^&>(tEcot*Gpm"4.<dPI*W)66C?L6'RucI0en+CIp=7;_raOtCI!a6?SF]IZ%Hb0:X\`O[euFn(T;9FiN\bKWJ88(4-7l=,PZ/<FihkuPL[jpmZKZ-"'%o+brgR^qm"kVI:l];>J'S"/NibLT+-e!c<:/E_,?-hshiX/W#7CKLKPMSo+4+LG/TolpUg6jcB9,3hJ(>8[^AtOGnA,~>endstream
+BT /F2 22 Tf 1 0 0 1 48 755 Tm (Ritesh Mamidi) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 48 719 Tm (INDEPENDENT ENGINEERING - SYNTHETIC DEMONSTRATIONS) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 702 Tm (Independent NASHA AI work, separate from professional employment. Browser exercises use) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 689.5 Tm (synthetic data; Python services run locally. No production deployment or live-model quality is) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 677 Tm (claimed.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 662.5 Tm (- Built five local simulated workflows spanning document RAG, controlled tools, authenticated) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 650 Tm (  loopback HTTP, CSV reconciliation and configuration/checkpoint rollback.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 635.5 Tm (- Implemented operator/reviewer separation, tenant-scoped data, stable idempotency keys, durable) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 623 Tm (  receipts and audit trails; tested bad input, denied actions, uncertain outcomes and recovery.) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 608.5 Tm (- Validated 57 API/control tests, eight deterministic retrieval fixtures and five end-to-end) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 596 Tm (  local demos; supplied architecture, reproduction instructions and recorded execution.) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 48 574.5 Tm (TECHNICAL SKILLS) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 557.5 Tm (Python, SQL, pandas; FastAPI, Pydantic, REST APIs, SQLite and Git; AI/ML output evaluation,) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 545 Tm (RAG/vector retrieval, deterministic agent workflows, structured outputs and human review; ETL,) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 532.5 Tm (data validation, KPI analysis, Power BI and Tableau; requirements, root-cause analysis and) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 520 Tm (stakeholder communication. Independent-project technologies do not imply employer deployment.) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 48 498.5 Tm (EDUCATION & CERTIFICATIONS) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 481.5 Tm (M.S., Business Analytics, St. Francis College, Brooklyn, NY | May 2025 | GPA 3.73) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 467 Tm (M.Tech \(Integrated\), Software Engineering, VIT, India | May 2023) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 452.5 Tm (IBM AI Engineering Professional Certificate \(Coursera\) | Jul 2026) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 48 438 Tm (Google Advanced Data Analytics Professional Certificate \(Coursera\) | Apr 2025) Tj ET
+BT /F1 8 Tf 1 0 0 1 48 24 Tm (Ritesh Mamidi | 2 / 2) Tj ET
+endstream
 endobj
 xref
-0 11
+0 9
 0000000000 65535 f 
-0000000061 00000 n 
-0000000102 00000 n 
-0000000209 00000 n 
-0000000321 00000 n 
-0000000524 00000 n 
-0000000728 00000 n 
-0000000796 00000 n 
-0000001085 00000 n 
-0000001150 00000 n 
-0000003373 00000 n 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000266 00000 n 
+0000000402 00000 n 
+0000005561 00000 n 
+0000005697 00000 n 
 trailer
-<<
-/ID 
-[<d343baf8ef273c072d31bee2a782962e><d343baf8ef273c072d31bee2a782962e>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 7 0 R
-/Root 6 0 R
-/Size 11
->>
+<< /Size 9 /Root 1 0 R >>
 startxref
-4014
+8182
 %%EOF

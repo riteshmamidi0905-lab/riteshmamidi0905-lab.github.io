@@ -346,8 +346,8 @@
   },
   {
     "path": "index.html",
-    "bytes": 32202,
-    "sha256": "2c600222863d9032f9262b64f0edfb84a73ee6e7269d2369668fe652dbd29c8d"
+    "bytes": 32964,
+    "sha256": "e4e74d724ba6097a9060b2f404a422e34490d5047e3422740356ef05388245da"
   },
   {
     "path": "lab-explorer.html",
@@ -481,18 +481,18 @@
   },
   {
     "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf",
-    "bytes": 4485,
-    "sha256": "4e36f5a661af295757615630ac30f13735c209f15e1a3e5f186b54e59032e840"
+    "bytes": 8428,
+    "sha256": "cd37915c33bec45eab20521cb75180a899a5520fa7a85adf33a90e0c9be08861"
   },
   {
     "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf",
-    "bytes": 4521,
-    "sha256": "fb9c2c20aba068fe6b5f9de2bcb6fd9469f5bdeba0fbf059a7e67977341a3fed"
+    "bytes": 8422,
+    "sha256": "de1bde2f8e6ba92e471554965d1a13cb26c91fbed5d9062b79d19b250ed6ab34"
   },
   {
     "path": "nasha-universe/engineering/resumes/Ritesh-Mamidi-FDE.pdf",
-    "bytes": 4447,
-    "sha256": "bc2f2608cd7715ab5aac5ac790c3d11b782debdbe4365a817c8bba96c62b441e"
+    "bytes": 8426,
+    "sha256": "5b75abdfcfed71a98373ab778efb587327ca6a1e4fe201e2bb21e0b0718dfaf9"
   },
   {
     "path": "nasha-universe/event-verify.js",
@@ -511,13 +511,13 @@
   },
   {
     "path": "nasha-universe/host-guide.js",
-    "bytes": 5129,
-    "sha256": "02c773491d3078ffc3e5d26672f83ac57aefcebbac44cab221c63f1d9cca41e3"
+    "bytes": 5187,
+    "sha256": "386aa90cf76b5b43fa78919613eaf53fa5aa138ff9566159f95bc99b257668d5"
   },
   {
     "path": "nasha-universe/living-hq/hq-app.js",
-    "bytes": 98182,
-    "sha256": "6208d98bb3595ccfdc417bf9d5e1d5faeb2a0fb456582c6dd081e6610d4b72e0"
+    "bytes": 98454,
+    "sha256": "51bf877b5e9defd9c41bb66a9ecee7e9bc82f4e45fe9135f8261ce16828dd432"
   },
   {
     "path": "nasha-universe/living-hq/hq-cinematic.js",
@@ -561,8 +561,8 @@
   },
   {
     "path": "nasha-universe/recruiter/steps.json",
-    "bytes": 13854,
-    "sha256": "256abb3b48869536f4912ba5a05d3fba5eb7a78b745064f79a25f3fff067aff6"
+    "bytes": 14190,
+    "sha256": "8792db46245e52a245a91e8342a6abb1a3b2c6cf1c98b5ae253f6c621a6f9861"
   },
   {
     "path": "nasha-universe/replays/mission-a-approved.json",
@@ -806,13 +806,13 @@
   },
   {
     "path": "recruiter.html",
-    "bytes": 11552,
-    "sha256": "b09ca12cad888e4c3b73743ff34ccff14a06abf2bc0e400d1d15eb5cbdcc2550"
+    "bytes": 13532,
+    "sha256": "e7ab6e884a5420442583538958fc13d845dc2895469b7472daf5d25a275e4cf8"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
-    "bytes": 97071,
-    "sha256": "eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92"
+    "bytes": 10502,
+    "sha256": "5a84710f6cb40907474b769425576af7819a9c8bdbc553bc473829331ebda661"
   },
   {
     "path": "robots.txt",

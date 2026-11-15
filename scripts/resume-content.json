@@ -1,0 +1,279 @@
+{
+  "pages": [
+    [
+      [
+        "name",
+        "Ritesh Mamidi"
+      ],
+      [
+        "subtitle",
+        "AI Quality, Data & Operations | Forward Deployed Engineering alignment"
+      ],
+      [
+        "contact",
+        "Austin, TX | riteshmamidi0905@gmail.com | linkedin.com/in/riteshmamidi0905"
+      ],
+      [
+        "contact",
+        "github.com/riteshmamidi0905-lab | riteshmamidi0905-lab.github.io"
+      ],
+      [
+        "section",
+        "SUMMARY"
+      ],
+      [
+        "body",
+        "Data and AI analyst with 4+ years in analytics, business analysis and AI-output quality. Translate stakeholder requirements into Python/SQL workflows, evaluate AI/ML outputs, troubleshoot data failures, and document tested analytical solutions. Independent NASHA AI projects are separate from professional employment."
+      ],
+      [
+        "section",
+        "PROFESSIONAL EXPERIENCE"
+      ],
+      [
+        "role",
+        "Apple Maps Client Engagement | Product & AI Quality Operations Analyst"
+      ],
+      [
+        "contact",
+        "Austin, TX | Sep 2025 - Present"
+      ],
+      [
+        "body",
+        "Client assignment; not direct Apple employment."
+      ],
+      [
+        "bullet",
+        "Evaluate ML and GenAI pipeline outputs against policy and quality rubrics; troubleshoot edge cases and systematic failure patterns."
+      ],
+      [
+        "bullet",
+        "Research and validate geospatial and transit records; reconcile conflicting sources and verify structured data against APIs."
+      ],
+      [
+        "bullet",
+        "Build Python/SQL QA/QC checks and Power BI reporting, contributing to approximately 18% better investigation efficiency and a reported 30% reduction in operational escalations."
+      ],
+      [
+        "bullet",
+        "Use LLM-assisted analysis and prompt engineering to classify cases and extract operational signals; validate findings against source records."
+      ],
+      [
+        "bullet",
+        "Document root-cause findings and workflow requirements with cross-functional partners; support quality reviews and training to improve operational consistency."
+      ],
+      [
+        "role",
+        "Heart Hospitality LLC | Business / Operations Analyst"
+      ],
+      [
+        "contact",
+        "Austin, TX | Jan 2024 - Aug 2025"
+      ],
+      [
+        "bullet",
+        "Automated Python/SQL ETL and Power BI/Excel KPI reporting, reducing manual reporting effort by approximately 55%."
+      ],
+      [
+        "bullet",
+        "Translate stakeholder business requirements into relational data models, KPI definitions and analytics workflows aligned with operational goals."
+      ],
+      [
+        "bullet",
+        "Built forecasting and classification models to support planning, improving planning accuracy by approximately 22%; analyzed operational and customer data in Python and SQL."
+      ],
+      [
+        "bullet",
+        "Validate transformed data and reporting outputs, document business processes, and collaborate with stakeholders on testing and process improvement."
+      ],
+      [
+        "role",
+        "Liberated Monks Pvt Ltd | Data / Business Analyst"
+      ],
+      [
+        "contact",
+        "Hyderabad, India | Jan 2022 - Dec 2023"
+      ],
+      [
+        "bullet",
+        "Build Python and SQL ETL workflows and Tableau dashboards to support customer acquisition, engagement and retention analysis."
+      ],
+      [
+        "bullet",
+        "Developed and evaluated segmentation and propensity (lead-scoring) models, associated with an approximately 18% improvement in marketing-driven engagement."
+      ],
+      [
+        "bullet",
+        "Maintain data validation rules and KPI definitions; test analytical outputs and translate cross-team business requirements into dependable reporting."
+      ],
+      [
+        "bullet",
+        "Document data-quality findings and reporting requirements with cross-functional partners to support consistent business decisions."
+      ],
+      [
+        "section",
+        "FORWARD DEPLOYED ENGINEERING ALIGNMENT"
+      ],
+      [
+        "body",
+        "Stakeholder requirements | Python and SQL | Data integration | AI/ML evaluation | Debugging and root-cause analysis | Workflow automation | Testing and validation | Technical documentation | Cross-functional implementation"
+      ]
+    ],
+    [
+      [
+        "name",
+        "Ritesh Mamidi"
+      ],
+      [
+        "section",
+        "SELECTED INDEPENDENT PROJECTS"
+      ],
+      [
+        "body",
+        "Independent, open-source work on synthetic data and tasks; not employer or client work; not deployed. Project measurements below are separate from the resume-reported employment outcomes on page 1."
+      ],
+      [
+        "role",
+        "NASHA AI Lab: Synthetic Hospitality Operating Laboratory"
+      ],
+      [
+        "contact",
+        "Python, FastAPI, PostgreSQL, LangGraph, MCP, RAG, pytest, Docker, GitHub Actions"
+      ],
+      [
+        "bullet",
+        "Built a simulated hospitality enterprise to test AI in operations: typed tools, permission classes, human approval bound to exact actions, an MCP trust gateway and a LangGraph agent."
+      ],
+      [
+        "bullet",
+        "Compared deterministic and local LLM planners under identical tools and checks: rules passed 259/259 synthetic scenarios vs 5/140 (Qwen2.5-1.5B) and 10/35 (Qwen2.5-7B)."
+      ],
+      [
+        "bullet",
+        "Tested the tests: 22/22 targeted code faults caught; 11 of 12 injected data-defect types detected. BM25 retrieval (MRR 0.913) beat neural embeddings (0.672) on a 467-question corpus."
+      ],
+      [
+        "bullet",
+        "Built NASHA AI Universe: twelve agent environments replaying hash-verified governed missions. Reported the failed live model evaluation as failed."
+      ],
+      [
+        "role",
+        "Support Escalation Copilot: Approval-Gated Agentic AI Workflow"
+      ],
+      [
+        "contact",
+        "Python, PostgreSQL, pgvector, RAG, structured LLM outputs"
+      ],
+      [
+        "bullet",
+        "Built a fictional B2B SaaS support workflow with lexical/vector retrieval, provenance, five typed actions (three human-gated), deterministic policy and tenant isolation."
+      ],
+      [
+        "bullet",
+        "Implemented idempotent execution, reconciliation, crash recovery and a hash-chained audit log; 489 automated tests and executable tests for 92/92 catalogued attacks."
+      ],
+      [
+        "bullet",
+        "Frozen local Qwen3-4B evaluation: 10/22 cases reached the expected outcome; all four deterministic invariants held in 12/12 injection runs."
+      ],
+      [
+        "role",
+        "LLM & Agent Evaluation Tooling: llmeval and Agent Runtime Benchmark"
+      ],
+      [
+        "contact",
+        "Python, FastAPI, PostgreSQL, Docker"
+      ],
+      [
+        "bullet",
+        "Built deterministic LLM-output metrics, weighted rubrics, hard CI gates and an optional LLM-as-judge backend."
+      ],
+      [
+        "bullet",
+        "Local 4B runtime benchmark: 43/48 tasks passed; 7/7 controls held in 240/240 runs, yet a permitted read tool leaked a secret. Action safety is not information-flow safety."
+      ],
+      [
+        "bullet",
+        "Reported MAREF as MIXED: 33/33 labelled failures detected, 36/154 clean runs flagged."
+      ],
+      [
+        "section",
+        "TOOLS & PRACTICE"
+      ],
+      [
+        "body",
+        "Python, SQL, pandas, scikit-learn, PostgreSQL, Excel, ETL, data modeling, Power BI, Tableau, KPI development, forecasting, statistical analysis, experimentation, AI/LLM evaluation, RAG, prompt engineering, FastAPI, Pydantic, Docker, Git, GitHub Actions and pytest. Project technologies do not imply professional production deployment."
+      ],
+      [
+        "section",
+        "EDUCATION & CERTIFICATIONS"
+      ],
+      [
+        "body",
+        "M.S., Business Analytics, St. Francis College, Brooklyn, NY | May 2025 | GPA 3.73"
+      ],
+      [
+        "body",
+        "M.Tech (Integrated), Software Engineering, VIT, India | May 2023"
+      ],
+      [
+        "body",
+        "IBM AI Engineering Professional Certificate (Coursera) | Jul 2026"
+      ],
+      [
+        "body",
+        "Google Advanced Data Analytics Professional Certificate (Coursera) | Apr 2025"
+      ]
+    ]
+  ],
+  "styles": {
+    "name": [
+      22,
+      60,
+      27,
+      0,
+      true
+    ],
+    "subtitle": [
+      10.5,
+      90,
+      14,
+      0,
+      false
+    ],
+    "contact": [
+      9,
+      105,
+      12,
+      0,
+      false
+    ],
+    "section": [
+      10.5,
+      90,
+      15,
+      9,
+      true
+    ],
+    "role": [
+      10,
+      92,
+      13,
+      5,
+      true
+    ],
+    "body": [
+      9.5,
+      96,
+      12.5,
+      2,
+      false
+    ],
+    "bullet": [
+      9.5,
+      94,
+      12.5,
+      2,
+      false
+    ]
+  }
+}
