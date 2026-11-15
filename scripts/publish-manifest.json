@@ -189,8 +189,8 @@
   },
   {
    "path": "index.html",
-   "bytes": 32202,
-   "sha256": "2c600222863d9032f9262b64f0edfb84a73ee6e7269d2369668fe652dbd29c8d"
+   "bytes": 32813,
+   "sha256": "5c67fd415d12cc1d6fea767f014d955ddd7ba41866d8a5e4501a11492e10000c"
   },
   {
    "path": "lab-explorer.html",
@@ -229,8 +229,8 @@
   },
   {
    "path": "nasha-universe/living-hq/hq-app.js",
-   "bytes": 93212,
-   "sha256": "1c26143e593d4d579d8e4304ef4845563ce55719c554c1d844b5bfba4c17e13a"
+   "bytes": 93409,
+   "sha256": "2dba13a235ae7a046cc3e276ccd1c9585bd7b9138771da31aece65b0765c40cf"
   },
   {
    "path": "nasha-universe/living-hq/hq-data.json",
@@ -269,8 +269,8 @@
   },
   {
    "path": "nasha-universe/recruiter/steps.json",
-   "bytes": 13854,
-   "sha256": "256abb3b48869536f4912ba5a05d3fba5eb7a78b745064f79a25f3fff067aff6"
+   "bytes": 14132,
+   "sha256": "62a213d5926a5301b2672e468e3c0a78278200398738568c6d2bb75f9b546f0e"
   },
   {
    "path": "nasha-universe/replays/mission-a-approved.json",
@@ -514,13 +514,13 @@
   },
   {
    "path": "recruiter.html",
-   "bytes": 9034,
-   "sha256": "797079508a18f560d2c2fb4fb2374f491563d131620a95593a7c843f240c2489"
+   "bytes": 10917,
+   "sha256": "4c5da575f3c4a5dcaf43bb1cafffd4946e918ea753f6f9107d02e7b64ef144c5"
   },
   {
    "path": "ritesh_mamidi_resume.pdf",
-   "bytes": 97071,
-   "sha256": "eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92"
+   "bytes": 10353,
+   "sha256": "569a651eb50701bf9bb130330aa33ec7e8a4d1a50986b59ce421fbece6b55680"
   },
   {
    "path": "robots.txt",
