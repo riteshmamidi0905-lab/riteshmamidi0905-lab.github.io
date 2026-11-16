@@ -1,5 +1,5 @@
 /* Living Headquarters application: data loading, recorded-mission playback with browser-side hash-chain verification, the 3D view (hq-gl/hq-scene), the always-complete accessible panel, the 2D plan, camera and input.
-   Mode is always RECORDED here: nothing in this page executes a mission. Every number shown comes from site/living-hq/hq-data.json, the replays or the research artifacts. */
+   Original replay panels are RECORDED; a separately labeled living scenario may drive the scene without changing recorded evidence. In the recorded panels: nothing in this page executes a mission. Every number shown comes from site/living-hq/hq-data.json, the replays or the research artifacts. */
 (function () {
   'use strict';
   // a conditional section that is absent is passed as null/false: DOM insertion must skip it, never print the word "null"
@@ -11,6 +11,7 @@
   const safe = { get: k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { /* storage may be unavailable */ } } };
   const mq = q => window.matchMedia && matchMedia(q).matches;
   const A = { data: null, r: {}, room: 'atrium', agent: 'veritas', mission: 'F', recFile: null, events: [], verified: null, st: HQ.fresh(), playing: false, speed: 1, timer: 0, calm: mq('(prefers-reduced-motion: reduce)'), low: mq('(max-width:900px)') || !!(navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 2), view2d: false, gl: null, scene: [], layout: null, cam: null, camAnim: null, dirty: true, perf: { transitions: [] }, sel: null, netMission: '', netAgent: '', tour: { i: 0, elapsed: 0, playing: false, timer: 0 }, tourNet: false };
+  addEventListener('nasha:living-state',e=>{A.living=e.detail;A.dirty=true;const label=document.querySelector('#le-scene-source');if(label)label.textContent=e.detail.active?'SCENE: LIVING DETERMINISTIC SIMULATION · event '+e.detail.state.events.length:'SCENE: RECORDED EVIDENCE';});
   const NAMES = { atrium: 'Arrival atrium', control: 'Mission Theater', chamber: 'Agent campus', network: 'Agent network', twin: 'Digital twin', tour: 'Recruiter journey', weir: 'THE WEIR', lab: 'Research Laboratory' };
   const ORDER = ['atrium', 'control', 'chamber', 'network', 'weir', 'lab', 'twin', 'tour'];
   const ROOM3D = { network: 'campus', tour: 'atrium' };
@@ -22,7 +23,7 @@
   /* ---------------- recorded mission playback ---------------- */
   async function loadRec(file) {
     const my = A.loadSeq = (A.loadSeq || 0) + 1;                       // a slower earlier load must never overwrite a later one
-    file = file.replace(/^.*\//, ''); A.recFile = file; A.task = null; A.th = null; stop(); A.st = HQ.fresh(); A.events = []; A.verified = null;
+    A.living=null;const sourceLabel=document.querySelector('#le-scene-source');if(sourceLabel)sourceLabel.textContent='SCENE: RECORDED EVIDENCE';file = file.replace(/^.*\//, ''); A.recFile = file; A.task = null; A.th = null; stop(); A.st = HQ.fresh(); A.events = []; A.verified = null;
     try { const j = await jget('../replays/' + file); if (my !== A.loadSeq) return; const v = V.verifyAll(j.events); if (!v.ok) { A.verified = { ok: false, why: v.why }; say('The recording failed its integrity check and was not used.'); A.dirty = true; renderLive(); updateStatus(); return; }
       A.events = j.events; A.verified = { ok: true, n: v.n, title: j.recording.title, note: j.recording.note, real: !!j.recording.model_provenance, prov: j.recording.model_provenance || null }; A.st = HQ.fresh(); say('Recording verified: ' + v.n + ' events.');
     } catch (e) { if (my !== A.loadSeq) return; A.verified = { ok: false, why: e.message }; }
@@ -432,19 +433,19 @@
     const cv = $('#gl'), cs = { eye, target: A.cam.target };
     A.labels.concat(A.nodeLabels || []).forEach(l => {
       if (l.node) { const nd = thModel().nodes.find(x => x.id === l.node); if (nd) { l.el.dataset.st = nd.state; l.el.title = nd.title + ': ' + nd.state + ' (event #' + nd.seq + ')'; } }        // data first: it must be right even when the label is off-screen
-      if (l.slug) { const st = A.st.agents[l.slug]; l.el.dataset.st = st.state;if(l.kind==='portrait'){l.el.dataset.motionState=window.NashaCharacters.motionState(st.alert?'alert':st.state,st.tool||st.task);l.el.style.setProperty('--agent-tempo',(3.1+A.data.agents.findIndex(a=>a.slug===l.slug)*.17)+'s');const w=A.layout.worlds.find(w=>w.slug===l.slug),pl=A.layout.pylons.find(p=>p.slug===l.slug);l.pos=A.room==='chamber'&&A.agent===l.slug?[w.c[0],4,w.c[2]+5]:[pl.pos[0],2.9,pl.pos[2]];} l.el.dataset.sel = String(A.room === 'chamber' && A.agent === l.slug); }
+      if (l.slug) { let st = A.st.agents[l.slug];if(A.living?.active){const live=A.living.activity.find(a=>a.id===l.slug);if(live)st={...st,state:['FAILED','ESCALATED'].includes(live.status)?'blocked':live.status==='AWAITING APPROVAL'?'awaiting':live.status==='COMPLETE'?'done':live.status==='IDLE'?'idle':'active',tool:live.event?.tool,alert:['FAILED','ESCALATED'].includes(live.status)};} l.el.dataset.st = st.state;if(l.kind==='portrait'){l.el.dataset.motionState=window.NashaCharacters.motionState(st.alert?'alert':st.state,st.tool||st.task);l.el.style.setProperty('--agent-tempo',(3.1+A.data.agents.findIndex(a=>a.slug===l.slug)*.17)+'s');const w=A.layout.worlds.find(w=>w.slug===l.slug),pl=A.layout.pylons.find(p=>p.slug===l.slug);l.pos=A.room==='chamber'&&A.agent===l.slug?[w.c[0]+Math.sin(w.ry)*5.5,3.7,w.c[2]+Math.cos(w.ry)*5.5]:[pl.pos[0],2.9,pl.pos[2]];} l.el.dataset.sel = String(A.room === 'chamber' && A.agent === l.slug); }
       if (l.id === 'room:chamber') { const w = A.layout.worlds.find(x => x.slug === A.agent); l.pos = [w.c[0], 12.8, w.c[2]]; l.el.textContent = 'CHAMBER · ' + A.agent.toUpperCase(); }
       const wr = l.kind === 'world' && (!(A.room === 'chamber' || A.room === 'network') || (A.room === 'chamber' && l.slug2 === A.agent));
       const p = A.gl.project(l.pos, cs), hidePortrait=l.kind==='portrait'&&!(A.room==='atrium'||(A.room==='chamber'&&A.agent===l.slug)), hideNode = hidePortrait || (l.node && !inTheater()) || wr || (l.id === 'room:chamber' && A.room !== 'chamber') || (l.kind === 'station' && A.room !== 'lab');
       if (hideNode || !p || !(p[0] > -40 && p[0] < cv.clientWidth + 40 && p[1] > 0 && p[1] < cv.clientHeight)) { l.el.style.display = 'none'; return; }
-      if(l.kind==='portrait')l.el.style.width=Math.max(28,Math.min(125,2500/p[2]))+'px';l.el.style.display = ''; l.el.style.left = p[0].toFixed(1) + 'px'; l.el.style.top = p[1].toFixed(1) + 'px'; l.el.style.opacity = l.kind === 'agent' && p[2] > 70 ? 0 : 1;
+      if(l.kind==='portrait')l.el.style.width=Math.max(28,Math.min(A.room==='chamber'?210:125,(A.room==='chamber'?4300:2500)/p[2]))+'px';l.el.style.display = ''; l.el.style.left = p[0].toFixed(1) + 'px'; l.el.style.top = p[1].toFixed(1) + 'px'; l.el.style.opacity = l.kind === 'agent' && p[2] > 70 ? 0 : 1;
     });
   }
   function frame(now) {
     requestAnimationFrame(frame); if (!A.gl || A.view2d || document.hidden || A.visible === false) return;
     stepCam(now); const animating = !A.calm && !A.low, minGap = A.low ? 33 : 0; if (now - lastDraw < minGap) return;
     if (!animating && !A.dirty && !A.camAnim) return; lastDraw = now;
-    A.gl.resize(A.low ? 1 : 1.5); const eye = camEye(A.cam), flags = { intro: window.NashaCinematic?.presentation || null, calm: A.calm || A.low, agent: A.agent, t0: now, theater: inTheater() && A.verified && A.verified.ok ? Object.assign({}, thModel(), { sel: A.task, agent: A.thAgent }) : null, ex: A.ex, fort: A.room === 'weir' ? A.fort : null, eye, room: A.room, twin: A.data.twin, dept: A.room === 'twin' ? A.dept : null, station: A.room === 'lab' ? (A.station || 0) : null, net: (A.room === 'network' || (A.room === 'tour' && A.tourNet)) ? netEdges() : null };
+    A.gl.resize(A.low ? 1 : 1.5); const eye = camEye(A.cam), flags = { living: A.living?.active?A.living:null, intro: window.NashaCinematic?.presentation || null, calm: A.calm || A.low, agent: A.agent, t0: now, theater: inTheater() && A.verified && A.verified.ok ? Object.assign({}, thModel(), { sel: A.task, agent: A.thAgent }) : null, ex: A.ex, fort: A.room === 'weir' ? A.fort : null, eye, room: A.room, twin: A.data.twin, dept: A.room === 'twin' ? A.dept : null, station: A.room === 'lab' ? (A.station || 0) : null, net: (A.room === 'network' || (A.room === 'tour' && A.tourNet)) ? netEdges() : null };
     const scene = A.layout.statics.concat(SC.buildDynamic(A.layout, A.data.agents, A.st, now, flags)); A.gl.render(scene, { eye, target: A.cam.target }, now, { particles: !A.low, calm: A.calm || A.low, lowQuality: A.low }); if(!A.firstFrame) A.firstFrame=performance.now()-A.glStart; A.dirty = false;
     updateLabels(eye);
     if (A.gl.stats.frames % 20 === 0) perfUpdate();

@@ -88,6 +88,21 @@ class PreviewBoundaryTests(unittest.TestCase):
                     P.prepare(work)
             self.assertFalse((work / P.ROOT_NAME).exists())
 
+    def test_current_pr_head_mismatch_is_refused(self):
+        import json
+        with tempfile.TemporaryDirectory() as tmp:
+            data = {'number': 12, 'head': {'sha': '0' * 40, 'repo': {'full_name': P.REPOSITORY}}}
+            with patch.object(P, 'COMMIT', '1' * 40), patch.object(P, 'download_https', return_value=json.dumps(data).encode()):
+                with self.assertRaisesRegex(ValueError, 'head differs'):
+                    P.require_pr_head(12, Path(tmp))
+
+    def test_cli_requires_explicit_candidate_pins(self):
+        module = str(Path(__file__).with_name('start-safari-preview.py').resolve())
+        result = subprocess.run([sys.executable, module, '--verify-only'], capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('--commit', result.stderr)
+        self.assertIn('--archive-sha256', result.stderr)
+
     def test_known_archive_root_extracts(self):
         with tempfile.TemporaryDirectory() as tmp:
             archive = Path(tmp) / 'ok.zip'

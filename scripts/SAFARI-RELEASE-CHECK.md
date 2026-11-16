@@ -2,33 +2,32 @@
 
 Actual Safari evidence is required. Chromium and Linux WebKit are separate tests. Do not approve a release with a mandatory FAIL or NOT_RUN. Test the final approved candidate; an earlier commit's results do not transfer automatically.
 
+## Current living-enterprise candidate
+
+This branch extends preserved PR #11 through the separate living-enterprise PR. Do not use the historical PR #11 source commit or archive pins for this new payload. The current draft PR description and final handoff provide the exact validated head, launcher SHA-256, source ZIP SHA-256 and artifact tree digest.
+
+The public inventory is 170 files (169 reviewed files plus .nojekyll). Use the expected tree digest in the current PR description and final checksum-pinned handoff for this payload. Tooling-only continuations must prove the public manifest is unchanged.
+
 ## Start the verified local preview on your Mac
 
-Use the checksum-pinned launcher command in the final release handoff. The launcher downloads website commit `bdf18992bc1162eac6fceaff8abec1e677ed1b6d`, verifies the source ZIP before extraction and independently verifies all 167 public files. Later tooling-only commits do not change this public payload.
+Use the single checksum-verified curl command supplied in the final handoff. The launcher requires explicit --commit, --archive-sha256, --tree-sha256, --files and --pr-number values; no default earlier candidate is accepted. It verifies current PR head before/after building, the source archive before extraction, and the complete allowlisted artifact before serving.
 
-Expected artifact tree digest: `197cbbdbaa970dfd596cceb2de614b8fdd88a3693521094e76e0af3c055cd170`.
+Use port 8867 to keep this preview distinct from an earlier PR #11 preview on 8865. Keep Terminal open. Stop with Control-C. macOS downloads use certificate-verified system curl, HTTPS-only redirects and curlrc disabled. Do not disable TLS verification. --archive supports the same pinned source ZIP without a Python HTTPS download. The current-head check remains mandatory.
 
-Save the supplied launcher as `nasha-preview.py`. Run:
+The receipt must name the living-enterprise PR and exact source head, 170 files, matching tree digest, PASSED publication validation and localhost_only true for the initial Mac run.
 
-```sh
-python3 "$HOME/Downloads/nasha-preview.py" --port 8865
-```
-
-Mac Safari: `http://127.0.0.1:8865/nasha-universe/living-hq/`. Keep Terminal open. Stop with Control-C. Do not disable TLS verification. macOS uses system curl for the source download, avoiding dependence on a separately installed Python CA bundle; the source and artifact SHA-256 gates still apply. If curl also fails, report its exact error; do not bypass it.
-
-After completing the Mac checks, restart the same launcher:
-
-```sh
-python3 "$HOME/Downloads/nasha-preview.py" --lan --port 8865
-```
-
-Use the actual iPhone URL it prints. Both devices must use trusted private Wi-Fi. The server binds only loopback and a validated private Wi-Fi address. No public tunnel or security exception is needed. No existing server is killed or overwritten.
+After the Mac checks, stop and rerun the same fully pinned command with --lan, using trusted private Wi-Fi. The launcher prints the actual iPhone URL and binds only loopback plus a validated private address. No public tunnel. Record actual device model/OS/Safari versions and the receipt; no serial numbers needed.
 
 ## Final-candidate evidence scope
 
-The owner approved PR #11's creative direction. Baseline PR #10 Mac Checks 1–8 are owner-reported PASS, not independent verification. They do not transfer: the arrival, architecture, character presentation, business showcase and signature scenario changed. Repeat all fifteen checks on both devices for this final payload; current status is **AWAITING OWNER DEVICE VALIDATION**. Device model/OS/Safari versions and the printed candidate receipt are required before accepting results.
+All fifteen checks below must be repeated on both devices. Earlier PR #10 or #11 observations do not transfer. Current status: **AWAITING OWNER DEVICE VALIDATION**. Group 1–4 (arrival), 5–8 (specialists/replays/motion), 9–12 (business/workflows), 13–15 (career/accessibility/performance); retain an individual PASS/FAIL/NOT_RUN for every number.
 
-Group checks 1–4 (arrival), 5–8 (departments/characters/replays/motion), 9–12 (business/controlled workflows), and 13–15 (evidence/accessibility/performance). Preserve a separate PASS/FAIL/NOT_RUN result for each number; grouping does not waive a check.
+Additional living-enterprise checks within those groups:
+
+- 5–8: inspect NOVARA's mounted artwork and all twelve specialist work records. The scene source must distinguish living simulation from recorded evidence. Check play/pause/replay and reduced motion; artwork remains 2D/2.5D.
+- 9: founder study exterior/day/golden/evening, courtyard and interior focus controls keep one consistent building. They are labeled procedural concepts, not actual photographs or a full 3D walkthrough. Approved menu/media remain intact.
+- 10–12: step the eighteen-event shared mission. Autoplay stops for explicit Reviewer approval; Operator cannot approve, Observer cannot mutate. Outage receipt leaves stock/audit unchanged; retry adds nothing. Six ledger rows across three days balance. Final mango=26 stock units, beer=27 serving units. Switching perspectives/replaying must not change the live history; same-tab HQ/business navigation restores it. The original manual inventory and eight-step fixture remain separate and must still work.
+- 13: inspect independent FDE/applied-AI evidence and source links. No live LLM, commercial operations or professional FDE title is claimed.
 
 ## Fifteen checks on each device
 

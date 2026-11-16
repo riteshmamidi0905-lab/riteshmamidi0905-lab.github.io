@@ -20,7 +20,7 @@ jobs:
       - run: npm audit --audit-level=low
       - name: Publication validation (build the allowlisted GitHub Pages artifact and verify it; nothing is deployed or uploaded)
         run: npm run build:pages
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - name: Browser, responsive, accessibility and reduced-motion checks (site, enterprise demo and data lab)
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
@@ -40,6 +40,8 @@ jobs:
           npm run test:cinematic
           npm run test:host
           npm run test:world
+          npm run test:living-browser
+          BROWSER=webkit npm run test:living-browser
       - name: Lighthouse mobile and desktop release gates
         run: |
           for page in home:/ demo:/demo/ lab:/data-lab.html hq:/nasha-universe/living-hq/ operations:/nasha-universe/engineering/ recruiter:/recruiter.html; do
@@ -47,4 +49,4 @@ jobs:
             npx --yes lighthouse@13.5.0 "http://127.0.0.1:8000$u" --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-$n-mobile.json --quiet
             npx --yes lighthouse@13.5.0 "http://127.0.0.1:8000$u" --preset=desktop --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --output=json --output-path=work/lighthouse-$n-desktop.json --quiet
           done
-          node -e "for(const n of ['home','demo','lab','hq','operations','recruiter'])for(const p of ['mobile','desktop']){const r=require('./work/lighthouse-'+n+'-'+p+'.json');for(const k of ['performance','accessibility','best-practices','seo'])if(r.categories[k].score<0.95)throw Error(n+' '+p+' '+k+' below 95')}"
+          node scripts/check-lighthouse.cjs
