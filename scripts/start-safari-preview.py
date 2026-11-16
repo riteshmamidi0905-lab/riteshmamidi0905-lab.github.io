@@ -15,9 +15,9 @@ import threading
 import urllib.request
 import zipfile
 
-COMMIT = '18f1920fdc5372cfe74994bc5da2156f4fc80f6e'
-ARCHIVE_SHA256 = 'c2d0754ed462eb873539a739c16f8045a6c248e7fdc7dc3b3d6513b827124fc1'
-TREE_SHA256 = '24cb89a4780ca6825319287d609d4e34a1eba963a50772b2b06c2ba9c368a030'
+COMMIT = 'bdf18992bc1162eac6fceaff8abec1e677ed1b6d'
+ARCHIVE_SHA256 = '0bdcbe859c850012c983d59555d3c2017955e52e53c6510f9e43234756853281'
+TREE_SHA256 = '197cbbdbaa970dfd596cceb2de614b8fdd88a3693521094e76e0af3c055cd170'
 URL = 'https://codeload.github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/zip/' + COMMIT
 ROOT_NAME = 'riteshmamidi0905-lab.github.io-' + COMMIT
 
@@ -117,7 +117,7 @@ def main():
         lan_ip = private_ipv4(args.lan_ip) if args.lan_ip else wifi_ip() if args.lan else None
         if args.output and args.output.exists() and any(args.output.iterdir()):
             raise ValueError('Output directory must be empty; existing work will not be overwritten')
-        work = args.output or Path(tempfile.mkdtemp(prefix='nasha-safari-7cb3bd5-'))
+        work = args.output or Path(tempfile.mkdtemp(prefix='nasha-visual-prototype-'))
         public = prepare(work, args.archive)
         if not args.verify_only:
             serve(public, args.port, lan_ip)
