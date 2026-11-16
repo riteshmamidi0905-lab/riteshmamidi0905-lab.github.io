@@ -25,7 +25,7 @@
     A_DATA_FORT = data.fortress ? { audit: data.fortress.audit.length } : null;
     const L = layout(agents), S = [], add = o => { S.push(o); return o; };
     add({ mesh: 'cyl', pos: [0, -0.62, 0], scale: [260, 0.2, 260], color: [0.02, 0.03, 0.035], grid: 0.55 });                                              // ground plane
-    add({ mesh: 'cyl', pos: [0, -0.3, 0], scale: [22, 0.3, 22], color: [0.035, 0.05, 0.06], grid: 1.0, fres: 0.2 });                                // atrium floor with grid + rings
+    add({ mesh: 'cyl', pos: [0, -0.3, 0], scale: [22, 0.3, 22], color: [0.25, 0.28, 0.28], mat: 'stone', grid: 0.12, fres: 0.2 });                                // atrium floor with grid + rings
     add({ mesh: 'cyl', pos: [0, 0.02, 0], scale: [3.4, 0.08, 3.4], color: [0.07, 0.09, 0.1], emis: [0.03, 0.05, 0.05] });
     add({ mesh: 'cyl', pos: [0, 0.35, 0], scale: [2.2, 0.35, 2.2], color: [0.1, 0.12, 0.14], fres: 0.6, mat: 'stone' });                                              // plinth
     for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; add({ mesh: 'box', pos: [Math.cos(a) * 16.2, 4.6, Math.sin(a) * 16.2], rot: [0, -a, 0], scale: [0.05, 4.6, 0.07], color: [0.42, 0.5, 0.52], fres: 0.3, emis: [0.02, 0.03, 0.03], mat: 'metal' }); }   // mullions
@@ -43,6 +43,13 @@
       add({mesh:'box',pos:[side*5.05,3.5,18.65],scale:[.035,3.15,.035],color:GOLD,emis:k(GOLD,.6)});
     });
     add({mesh:'box',pos:[0,7.3,17.8],scale:[7.6,.18,.8],color:[.3,.32,.33],fres:.8,mat:'metal'});
+    // Readable architectural rhythm: stone pilasters, upper canopy and warm wayfinding.
+    for(let i=0;i<8;i++){const a=i*Math.PI/4,cs=Math.cos(a),sn=Math.sin(a);
+      add({mesh:'box',pos:[cs*18,4.2,sn*18],rot:[0,-a,0],scale:[.7,4.2,.65],color:[.33,.35,.34],mat:'stone'});
+      add({mesh:'box',pos:[cs*17.2,4.3,sn*17.2],rot:[0,-a,0],scale:[.035,3.6,.06],color:GOLD,emis:k(GOLD,.35)});
+      add({mesh:'box',pos:[cs*12.4,9.5,sn*12.4],rot:[0,-a,0],scale:[5.8,.18,.45],color:[.39,.42,.42],mat:'metal'});
+    }
+    add({mesh:'torusX',pos:[0,9.6,0],scale:[18.2,18.2,18.2],color:[.48,.47,.4],mat:'metal',emis:k(GOLD,.08)});
     // Original front entrance: an architectural presentation, separate from THE WEIR policy gate.
     [-4.2,4.2].forEach(x=>add({mesh:'box',pos:[x,3.3,17],scale:[0.35,3.3,0.55],color:[0.18,0.24,0.27],fres:0.9,mat:'metal'}));
     add({mesh:'box',pos:[0,6.8,17],scale:[4.55,0.3,0.55],color:[0.22,0.29,0.3],emis:k(TEAL,0.3),fres:0.8});
@@ -82,6 +89,7 @@
     return pos;
   }
   function buildDynamic(L, agents, st, t, flags) {
+    if(flags.living){st=Object.assign({},st,{agents:Object.assign({},st.agents)});for(const a of flags.living.activity){const old=st.agents[a.id]||{};const state=['FAILED','ESCALATED'].includes(a.status)?'blocked':a.status==='AWAITING APPROVAL'?'awaiting':a.status==='COMPLETE'?'done':a.status==='IDLE'?'idle':'active';st.agents[a.id]=Object.assign({},old,{state,assigned:state!=='idle',alert:state==='blocked'});}}
     const O = [], add = o => { O.push(o); return o; }, calm = flags.calm, pulse = calm ? 1 : 0.8 + 0.2 * Math.sin(t / 280), slow = calm ? 0 : t / 1000;
     const arrival=flags.intro,doorOpen=!arrival||arrival.phase>2?1:arrival.phase<2?0:calm?1:ease(Math.min(1,arrival.elapsed/1200));
     [-1,1].forEach(side=>add({mesh:'box',pos:[side*(1.8+3.1*doorOpen),3.2,17],scale:[1.72,3.1,0.08],color:[0.2,0.6,0.64],emis:k(TEAL,0.15+0.2*doorOpen),alpha:0.3,fres:0.9,blend:'glass',arrivalDoor:true}));
@@ -187,7 +195,7 @@
       for (let j = 0; j < w.S.length; j++) O.push(w.S[j]);
       O.push({ mesh: 'cyl', pos: [w.c[0], 13, w.c[2]], scale: [0.09, 13, 0.09], color: k(w.col, 0.5), emis: k(w.col, 0.25 + 0.5 * (lvl - 0.3)), alpha: 0.4, blend: 'add' });
       if (flags.room === 'network') O.push({ mesh: 'cone', pos: [w.c[0], 9, w.c[2]], scale: [1.6, 7, 1.6], color: k(w.col, 0.4), emis: k(w.col, 0.4 + 0.6 * (lvl - 0.3)), alpha: 0.55, blend: 'add' });
-      const ctx = { lvl, pulse, slow, calm, t, state: a.state, full: st, NODE_COL, col: w.col, ex: flags.ex && flags.ex.slug === w.slug ? flags.ex.p : null }; w.D(ctx).forEach(o => O.push(place(o, w.c, w.ry)));
+      const still=calm||!!flags.living&&a.state!=='active';const ctx = { lvl, pulse:still?1:pulse, slow:still?0:slow, calm:still, t:still?0:t, state: a.state, full: st, NODE_COL, col: w.col, ex: flags.ex && flags.ex.slug === w.slug ? flags.ex.p : null }; w.D(ctx).forEach(o => O.push(place(o, w.c, w.ry)));
       if (a.alert) O.push({ mesh: 'sphere', pos: [w.c[0], 11.5, w.c[2]], scale: [0.35, 0.35, 0.35], color: RED, emis: k(RED, 0.9 * pulse) });
       if (sel === w.slug) O.push({ mesh: 'torusX', pos: [w.c[0], 0.2, w.c[2]], scale: [10.2, 10.2, 10.2], color: GOLD, emis: k(GOLD, 0.9), alpha: 0.9, blend: 'add' });
     });

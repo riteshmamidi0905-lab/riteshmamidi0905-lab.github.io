@@ -45,10 +45,10 @@
       + 'void main(){vec3 n=normalize(vN);'
       + 'if(uSky>.5){vec3 d=normalize(vW-uCam);vec3 col=sky(d);vec2 g=floor(vec2(atan(d.z,d.x)*700.,d.y*700.));float s=step(.9992,h(g));col+=s*vec3(.8,.85,1.)*step(.02,d.y);gl_FragColor=vec4(col,1.);return;}'
       + 'if(uMat>8.5){float d=length(vW.xz-uObj.xz)/uRad;float a=uAlpha*pow(clamp(1.-d,0.,1.),1.7);gl_FragColor=vec4(0.,0.,0.,a);return;}'
-      + 'if(uQ<.5){float d=max(dot(n,normalize(vec3(.38,.5,.52))),0.);vec3 c=uColor*(.22+.75*d)+uEmis;float f=1.-exp(-length(uCam-vW)*uFogD);gl_FragColor=vec4(mix(c,uFog,f),uAlpha);return;}'
+      + 'if(uQ<.5){float d=max(dot(n,normalize(vec3(.38,.5,.52))),0.);vec3 c=uColor*(.44+.8*d)+uEmis;float f=1.-exp(-length(uCam-vW)*uFogD);gl_FragColor=vec4(mix(c,uFog,f),uAlpha);return;}'
       + 'vec3 v=normalize(uCam-vW);vec3 L=normalize(vec3(.38,.5,.52));float df=max(dot(n,L),0.);vec3 key=vec3(1.,.80,.60);'
-      + 'vec3 hemi=mix(vec3(.030,.040,.058),vec3(.16,.20,.27),n.y*.5+.5);float ao=mix(.5,1.,smoothstep(0.,3.2,vW.y));'
-      + 'vec3 col=uColor*(hemi+.82*df*key)*ao;vec3 Hh=normalize(L+v);float nh=max(dot(n,Hh),0.);float nv=max(dot(n,v),0.);float rim=pow(1.-nv,2.);'
+      + 'vec3 hemi=mix(vec3(.15,.18,.21),vec3(.42,.46,.50),n.y*.5+.5);float ao=mix(.72,1.,smoothstep(0.,3.2,vW.y));'
+      + 'vec3 col=uColor*(hemi+1.02*df*key)*ao;vec3 Hh=normalize(L+v);float nh=max(dot(n,Hh),0.);float nv=max(dot(n,v),0.);float rim=pow(1.-nv,2.);'
       + 'float spec=0.,refl=0.;'
       + 'if(uMat>.5&&uMat<1.5){float br=.62+.38*h(vec2(floor(vW.y*46.),floor((vW.x+vW.z)*4.)));spec=pow(nh,16.)*.85*br;refl=.34*br;col=uColor*(hemi*1.2+.55*df*key)*ao;}'
       + 'else if(uMat<2.5&&uMat>1.5){refl=.62;spec=pow(nh,90.)*1.3;}'
@@ -96,7 +96,7 @@
       if (lost) return;
       const asp = canvas.width / canvas.height, eye = camState.eye, VP = mul(persp(camState.fov || 0.9, asp, 0.5, 400), look(eye, camState.target));
       stats.draws = 0; stats.tris = 0; gl.clearColor(0.02, 0.03, 0.04, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      gl.uniformMatrix4fv(U.uVP, false, VP); gl.uniform3fv(U.uCam, eye); gl.uniform3fv(U.uFog, [0.03, 0.045, 0.06]); gl.uniform1f(U.uFogD, 0.0095); gl.uniform1f(U.uTime, time || 0); gl.uniform1f(U.uQ, fx.lowQuality ? 0 : 1);
+      gl.uniformMatrix4fv(U.uVP, false, VP); gl.uniform3fv(U.uCam, eye); gl.uniform3fv(U.uFog, [0.08, 0.105, 0.12]); gl.uniform1f(U.uFogD, 0.0095); gl.uniform1f(U.uTime, time || 0); gl.uniform1f(U.uQ, fx.lowQuality ? 0 : 1);
       // sky
       gl.disable(gl.CULL_FACE); gl.depthMask(false); const sk = { pos: eye, scale: [200, 200, 200], rot: [0, 0, 0] }; sk.m = model(eye, [0, 0, 0], [200, 200, 200]); sk.nm = normalMat(sk.m); setObj(sk); gl.uniform1f(U.uSky, 1); gl.uniform3fv(U.uCam, eye); drawMesh('sky'); gl.depthMask(true); gl.enable(gl.CULL_FACE);
       const op = [], gl2 = [], ad = []; scene.forEach(o => (o.blend === 'add' ? ad : o.blend === 'glass' ? gl2 : op).push(o));

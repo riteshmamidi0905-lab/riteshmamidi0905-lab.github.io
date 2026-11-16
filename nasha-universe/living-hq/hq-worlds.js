@@ -8,7 +8,23 @@
   const seeded = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
   const MISSIONS = ['A', 'B', 'C', 'D', 'E', 'F'];
   function base(A, col, shape) {
-    const S = [o(shape || 'cyl', 0, -0.12, 0, 9.2, 0.28, 9.2, { color: [0.035, 0.05, 0.06], grid: 0.55, fres: 0.3, common: true }), o('torusX', 0, 0.06, 0, 9.2, 9.2, 9.2, { color: k(col, 0.4), emis: k(col, 0.55), common: true })];
+    const S = [o(shape || 'cyl', 0, -0.12, 0, 9.2, 0.28, 9.2, { color: [0.24, 0.27, 0.28], mat: 'stone', grid: 0.12, fres: 0.3, common: true }), o('torusX', 0, 0.06, 0, 9.2, 9.2, 9.2, { color: k(col, 0.4), emis: k(col, 0.55), common: true })];
+    // Reusable inhabited chamber: material enclosure, a mounted exhibit and real work surfaces.
+    S.push(o('box',0,3.8,-7.6,7.8,3.8,.22,{color:[.25,.29,.31],mat:'stone',common:true}),
+      o('box',-8,2.6,0,.22,2.6,7.5,{color:[.28,.33,.34],mat:'stone',common:true}),
+      o('box',8,2.6,0,.22,2.6,7.5,{color:[.28,.33,.34],mat:'stone',common:true}));
+    [-6.6,0,6.6].forEach(x=>S.push(o('box',x,8,-.8,.12,.12,7.2,{color:[.46,.49,.48],mat:'metal',common:true}),o('box',x,7.82,-.8,.025,.025,6.8,{color:GOLD,emis:k(GOLD,.3),common:true})));
+    [-2.4,2.4].forEach(x=>S.push(o('box',x,3.5,5.3,.18,3.5,.35,{color:[.36,.42,.42],mat:'metal',common:true})));
+    S.push(o('box',0,7.1,5.3,2.58,.16,.35,{color:[.42,.44,.4],mat:'metal',common:true}),
+      o('box',0,.24,5.2,2.7,.24,1,{color:[.42,.4,.34],mat:'stone',common:true}),
+      o('box',0,3.7,5.22,2.2,3.05,.06,{color:[.14,.19,.21],mat:'frost',common:true}),
+      o('box',0,7.3,5.65,2.1,.035,.035,{color:col,emis:k(col,.6),common:true}));
+    [-5.7,5.7].forEach((x,i)=>{
+      S.push(o('box',x,1.05,2,1.3,.12,1,{color:[.4,.34,.27],mat:'stone',common:true}),
+        o('box',x,.5,2,.12,.5,.7,{color:STEEL,mat:'metal',common:true}),
+        o('box',x,2,1.35,1.15,.7,.08,{color:[.16,.22,.25],mat:'metal',common:true}),
+        o('box',x,2.03,1.45,1,.55,.015,{color:k(col,.25),emis:k(col,.18),common:true}));
+    });
     const mx = Math.max(1, ...MISSIONS.map(m => (A.missions[m] || { events: 0 }).events));                       // evidence kerb: one pillar per mission, height = recorded events (real counts)
     MISSIONS.forEach((m, i) => { const ev = (A.missions[m] || { events: 0 }).events; S.push(o('box', -3.1 + i * 1.24, 0.25 + 0.9 * ev / mx, 7.4, 0.2, 0.25 + 0.9 * ev / mx, 0.2, { color: ev ? k(col, 0.5) : [0.1, 0.12, 0.14], emis: ev ? k(col, 0.5) : [0.02, 0.03, 0.03], common: true })); });
     return S;

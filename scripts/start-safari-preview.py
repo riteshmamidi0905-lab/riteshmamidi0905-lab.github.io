@@ -15,11 +15,17 @@ import threading
 import urllib.request
 import zipfile
 
-COMMIT = 'bdf18992bc1162eac6fceaff8abec1e677ed1b6d'
-ARCHIVE_SHA256 = '0bdcbe859c850012c983d59555d3c2017955e52e53c6510f9e43234756853281'
-TREE_SHA256 = '197cbbdbaa970dfd596cceb2de614b8fdd88a3693521094e76e0af3c055cd170'
-URL = 'https://codeload.github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/zip/' + COMMIT
-ROOT_NAME = 'riteshmamidi0905-lab.github.io-' + COMMIT
+# The living-enterprise branch never silently serves an earlier candidate.
+# The release handoff supplies all pins for the exact validated PR head.
+COMMIT = ''
+ARCHIVE_SHA256 = ''
+TREE_SHA256 = ''
+EXPECTED_FILES = 0
+CANDIDATE_PR = None
+PREVIEW_PORT = 8864
+URL = ''
+ROOT_NAME = 'unconfigured-preview'
+REPOSITORY = 'riteshmamidi0905-lab/riteshmamidi0905-lab.github.io'
 
 
 def private_ipv4(value):
@@ -51,7 +57,7 @@ def unpack(archive, destination):
     return destination / ROOT_NAME
 
 
-def download_archive(target):
+def download_https(url, target):
     """Use macOS system curl's trust configuration; never disable TLS verification."""
     if sys.platform == 'darwin':
         # -q must be first: ignore user curlrc options, including accidental insecure flags.
@@ -59,14 +65,24 @@ def download_archive(target):
             '/usr/bin/curl', '-q', '--fail', '--location',
             '--proto', '=https', '--proto-redir', '=https', '--tlsv1.2',
             '--connect-timeout', '15', '--max-time', '90',
-            '--silent', '--show-error', '--output', str(target), URL,
+            '--silent', '--show-error', '--output', str(target), url,
         ], check=True)
         return Path(target).read_bytes()
-    with urllib.request.urlopen(URL, timeout=60) as response:
+    with urllib.request.urlopen(url, timeout=60) as response:
         return response.read()
 
 
-def prepare(work, archive=None):
+def download_archive(target):
+    return download_https(URL, target)
+
+
+def require_pr_head(pr_number, work):
+    data = json.loads(download_https('https://api.github.com/repos/' + REPOSITORY + '/pulls/' + str(pr_number), Path(work) / 'pr-head.json'))
+    if data['number'] != pr_number or data['head']['sha'] != COMMIT or data['head']['repo']['full_name'] != REPOSITORY:
+        raise ValueError('Current PR head differs from the pinned candidate; server not started')
+
+
+def prepare(work, archive=None, localhost_only=True):
     work = Path(work)
     work.mkdir(parents=True, exist_ok=True)
     target = work / 'candidate.zip'
@@ -80,9 +96,9 @@ def prepare(work, archive=None):
         subprocess.run([sys.executable, str(source / 'scripts' / script)] + args, cwd=source, check=True)
     entries = json.loads((source / 'scripts/publish-manifest.json').read_text())['files']
     digest = hashlib.sha256(''.join('%s\t%s\n' % (e['path'], e['sha256']) for e in sorted(entries, key=lambda e: e['path'])).encode()).hexdigest()
-    if digest != TREE_SHA256 or len(entries) != 167:
+    if digest != TREE_SHA256 or len(entries) != EXPECTED_FILES:
         raise ValueError('Candidate artifact digest or file count differs. Server not started.')
-    receipt = dict(candidate_commit=COMMIT, archive_sha256=ARCHIVE_SHA256, artifact_tree_digest=digest,
+    receipt = dict(candidate_label='PR #%s — LIVING ENTERPRISE CANDIDATE' % CANDIDATE_PR, repository=REPOSITORY, pr_number=CANDIDATE_PR, publication_validation='PASSED', localhost_only=localhost_only, preview_url='http://127.0.0.1:%s/nasha-universe/living-hq/' % PREVIEW_PORT, candidate_commit=COMMIT, archive_sha256=ARCHIVE_SHA256, artifact_tree_digest=digest,
                    files=len(entries), public_directory=str(public), scope='Verified local-only candidate; no public hosting')
     (work / 'preview-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps(receipt, indent=2), flush=True)
@@ -118,7 +134,13 @@ def serve(public, port, lan_ip=None):
 
 
 def main():
+    global COMMIT, ARCHIVE_SHA256, TREE_SHA256, EXPECTED_FILES, ROOT_NAME, URL, CANDIDATE_PR, PREVIEW_PORT
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--commit', required=True, help='Exact verified PR head (40 hex characters)')
+    parser.add_argument('--archive-sha256', required=True, help='SHA-256 of that source archive')
+    parser.add_argument('--tree-sha256', required=True, help='Expected public artifact tree digest')
+    parser.add_argument('--files', required=True, type=int, help='Exact number of public files')
+    parser.add_argument('--pr-number', required=True, type=int, help='PR whose current head must match')
     parser.add_argument('--lan', action='store_true', help='Also bind your Mac private Wi-Fi address for iPhone testing')
     parser.add_argument('--lan-ip', help='Explicit private Wi-Fi IPv4 address if automatic discovery is unavailable')
     parser.add_argument('--port', type=int, default=8864)
@@ -127,16 +149,25 @@ def main():
     parser.add_argument('--output', type=Path, help='New empty preview directory; defaults to a unique temporary directory')
     args = parser.parse_args()
     try:
+        if not re.fullmatch(r'[0-9a-f]{40}', args.commit) or not all(re.fullmatch(r'[0-9a-f]{64}', x) for x in (args.archive_sha256, args.tree_sha256)) or not 1 <= args.files <= 5000 or args.pr_number < 1:
+            raise ValueError('Exact commit, SHA-256 pins, public file count and PR number required')
+        COMMIT, ARCHIVE_SHA256, TREE_SHA256, EXPECTED_FILES, CANDIDATE_PR = args.commit, args.archive_sha256, args.tree_sha256, args.files, args.pr_number
+        ROOT_NAME = 'riteshmamidi0905-lab.github.io-' + COMMIT
+        URL = 'https://codeload.github.com/' + REPOSITORY + '/zip/' + COMMIT
         if not 1024 <= args.port <= 65535:
             raise ValueError('Use a port between 1024 and 65535')
+        PREVIEW_PORT = args.port
         lan_ip = private_ipv4(args.lan_ip) if args.lan_ip else wifi_ip() if args.lan else None
         if args.output and args.output.exists() and any(args.output.iterdir()):
             raise ValueError('Output directory must be empty; existing work will not be overwritten')
-        work = args.output or Path(tempfile.mkdtemp(prefix='nasha-visual-prototype-'))
-        public = prepare(work, args.archive)
+        work = args.output or Path(tempfile.mkdtemp(prefix='nasha-living-enterprise-'))
+        work.mkdir(parents=True, exist_ok=True)
+        require_pr_head(CANDIDATE_PR, work)
+        public = prepare(work, args.archive, localhost_only=not bool(lan_ip))
+        require_pr_head(CANDIDATE_PR, work)
         if not args.verify_only:
             serve(public, args.port, lan_ip)
-    except (ValueError, OSError, subprocess.CalledProcessError, zipfile.BadZipFile) as error:
+    except (ValueError, KeyError, OSError, subprocess.CalledProcessError, zipfile.BadZipFile) as error:
         print('Preview not started: ' + str(error), file=sys.stderr)
         print('For certificate/download errors, keep TLS verification enabled and report the error above. You may use --archive with the exact pinned ZIP; its SHA-256 is still mandatory.', file=sys.stderr)
         print('For an occupied port, stop the previous preview or retry with --port 8865.', file=sys.stderr)
