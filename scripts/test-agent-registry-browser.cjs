@@ -18,7 +18,10 @@ const pw=require('playwright'),AxeBuilder=require('@axe-core/playwright').defaul
     for(const width of [1440,768,390,320]){
       const c=await browser.newContext({viewport:{width,height:950},reducedMotion:width===1440?'no-preference':'reduce'}),p=await c.newPage();
       p.on('pageerror',e=>report.errors.push(e.message));
+      let recordingsFetched=0;p.on('request',r=>{if(r.url().includes('/replays/'))recordingsFetched++;});
       await p.goto(base);await p.waitForFunction(()=>document.querySelector('#load-status').textContent.includes('All twelve'));
+      assert.equal(recordingsFetched,0,'Recorded payloads must wait for section visibility or explicit scenario choice');
+      await p.locator('#network').scrollIntoViewIfNeeded();
       await p.waitForFunction(()=>document.querySelector('#event-status').textContent.startsWith('Recorded event'));
       assert.equal(await p.locator('.station').count(),12);assert.equal(await p.locator('#network-stations li').count(),12);
       assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -49,7 +52,7 @@ const pw=require('playwright'),AxeBuilder=require('@axe-core/playwright').defaul
     const c=await browser.newContext();await c.addInitScript(()=>Object.defineProperty(window,'crypto',{value:{subtle:null}}));
     const p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
     await p.route('**/mission-f-surge-approved.json',route=>route.fulfill({body:'{"events":[]}',contentType:'application/json'}));
-    await p.goto(base);await p.waitForFunction(()=>document.querySelector('#event-status').textContent.includes('checksum differs'));
+    await p.goto(base);await p.locator('#network').scrollIntoViewIfNeeded();await p.waitForFunction(()=>document.querySelector('#event-status').textContent.includes('checksum differs'));
     assert.ok(await p.locator('#next').isDisabled());assert.equal(await p.locator('.station').count(),12);
     await p.locator('#recording').selectOption('mission-a-approved.json');await p.waitForFunction(()=>document.querySelector('#event-status').textContent.startsWith('Recorded event'));
     await p.getByRole('button',{name:'Inspect VECTRA',exact:true}).click();await p.reload();await p.waitForFunction(()=>!document.querySelector('#profile').hidden);assert.match(await p.locator('#profile-title').textContent(),/VECTRA/);

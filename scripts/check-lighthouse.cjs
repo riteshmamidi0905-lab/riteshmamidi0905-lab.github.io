@@ -9,3 +9,5 @@ for(const page of ['home','demo','lab','hq','operations','recruiter'])for(const 
  for(const[k,score]of Object.entries(scores))if(typeof score!=='number'||score<.95)failed.push(`${page} ${profile} ${k}: ${score} below 0.95`);
 }
 if(failed.length)throw Error(failed.join('; '));
+
+require('node:child_process').execFileSync(process.execPath,['scripts/test-agent-registry-performance.cjs'],{stdio:'inherit',env:process.env,timeout:600000});

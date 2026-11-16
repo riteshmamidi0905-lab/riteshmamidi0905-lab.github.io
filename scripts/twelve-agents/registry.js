@@ -83,7 +83,7 @@
       registry = await response.json(); if (registry.agents.length !== 12) throw Error('Incomplete registry');
       for (const a of registry.agents) {
         const station = el('article', undefined, $('stations')); station.className='station';
-        const img = el('img', undefined, station); img.src='baseline/'+a.artwork; img.alt=a.name+' approved AI-generated character concept'; img.width=768; img.height=1024; img.loading='lazy';
+        const img = el('img', undefined, station); img.src='baseline/'+a.artwork; img.alt=a.name+' approved AI-generated character concept'; img.width=768; img.height=1024; img.loading='lazy'; img.decoding='async';
         const content = el('div', undefined, station); el('h3', a.name, content); el('p', a.role, content); el('p', 'Recorded prototype · animation pending', content).className='muted';
         const b = el('button', 'Inspect '+a.name, content); b.onclick=()=>profile(a);
         const li = el('li', a.name, $('network-stations')); li.dataset.agent=a.slug;
@@ -92,7 +92,11 @@
       $('recording').disabled=$('tour').disabled=false; $('recording').value='mission-f-surge-approved.json';
       $('load-status').textContent='All twelve identities accounted for. Responsibilities and tools verified against recorded events.';
       const selected=registry.agents.find(a=>location.hash==='#agent-'+a.slug); if(selected) profile(selected,false);
-      await openRecording();
+      $('event-status').textContent='Recorded evidence loads when you enter this section or choose a scenario.';
+      if ('IntersectionObserver' in window) {
+        const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();if(!recording&&!request)openRecording();}},{rootMargin:'100px'});
+        observer.observe($('network'));
+      } else await openRecording();
     } catch (error) { $('load-status').className='error'; $('load-status').textContent='Registry could not load: '+error.message+'. Portfolio links remain available. Reload to retry.'; }
   }
   boot();
