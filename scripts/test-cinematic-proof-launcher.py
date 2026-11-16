@@ -5,6 +5,16 @@ from pathlib import Path
 from unittest import mock
 spec=importlib.util.spec_from_file_location('proof_launcher',Path(__file__).with_name('start-cinematic-proof.py'));P=importlib.util.module_from_spec(spec);spec.loader.exec_module(P)
 class ProofBoundaryTests(unittest.TestCase):
+    def test_registry_experience_uses_separate_builder_and_receipt(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);archive=root/'archive.zip';archive.write_bytes(b'pinned archive')
+            source=root/'source';source.mkdir();helper=types.SimpleNamespace(require_pr_head=mock.Mock(),unpack=mock.Mock(return_value=source))
+            argv=['proof','--commit','a'*40,'--archive-sha256',hashlib.sha256(archive.read_bytes()).hexdigest(),'--proof-tree-sha256','1'*64,'--pr-number','15','--archive',str(archive),'--output',str(root/'preview'),'--experience','registry','--verify-only']
+            with mock.patch.object(P.sys,'argv',argv),mock.patch.object(P,'load_helper',return_value=helper),mock.patch.object(P.subprocess,'run') as run,mock.patch.object(P,'verify',return_value=[]):
+                self.assertEqual(P.main(),0)
+            self.assertEqual(Path(run.call_args.args[0][1]).name,'build-agent-registry.py')
+            receipt=json.loads((root/'preview/proof-receipt.json').read_text())
+            self.assertIn('REGISTRY',receipt['scope']);self.assertEqual(helper.require_pr_head.call_count,2)
     def fixture(self,root):
         (root/'index.html').write_text('review only');data=(root/'index.html').read_bytes();files=[{'path':'index.html','bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}];digest=hashlib.sha256(('index.html\t'+files[0]['sha256']+'\n').encode()).hexdigest();(root/'proof-manifest.json').write_text(json.dumps({'files':files,'tree_sha256':digest}));return digest
     def test_independent_inventory(self):

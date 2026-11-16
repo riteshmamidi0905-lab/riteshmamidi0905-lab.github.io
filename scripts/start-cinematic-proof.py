@@ -37,7 +37,7 @@ def serve(folder,port,lan=None):
             if s in started:s.shutdown()
             s.server_close()
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--commit',required=True);p.add_argument('--archive-sha256',required=True);p.add_argument('--proof-tree-sha256',required=True);p.add_argument('--pr-number',required=True,type=int);p.add_argument('--archive',type=Path);p.add_argument('--port',type=int,default=8874);p.add_argument('--lan',action='store_true');p.add_argument('--lan-ip');p.add_argument('--verify-only',action='store_true');p.add_argument('--output',type=Path);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--commit',required=True);p.add_argument('--archive-sha256',required=True);p.add_argument('--proof-tree-sha256',required=True);p.add_argument('--pr-number',required=True,type=int);p.add_argument('--archive',type=Path);p.add_argument('--port',type=int,default=8874);p.add_argument('--lan',action='store_true');p.add_argument('--lan-ip');p.add_argument('--verify-only',action='store_true');p.add_argument('--output',type=Path);p.add_argument('--experience',choices=['cinematic','registry'],default='cinematic');a=p.parse_args()
     try:
         if not re.fullmatch('[a-f0-9]{40}',a.commit) or not all(re.fullmatch('[a-f0-9]{64}',x) for x in [a.archive_sha256,a.proof_tree_sha256]) or not 1024<=a.port<=65535 or a.pr_number<1:raise ValueError('Exact candidate, checksum pins, PR and valid port required')
         work=a.output or Path(tempfile.mkdtemp(prefix='nasha-visual-proof-'))
@@ -48,9 +48,10 @@ def main():
         data=a.archive.read_bytes() if a.archive else helper.download_https('https://codeload.github.com/'+REPO+'/zip/'+a.commit,work/'source.zip')
         if hashlib.sha256(data).hexdigest()!=a.archive_sha256:raise ValueError('Source archive checksum differs; no extraction performed')
         archive=work/'source.zip';archive.write_bytes(data);source=helper.unpack(archive,work);public=work/'proof'
-        subprocess.run([sys.executable,str(source/'scripts/build-cinematic-proof.py'),'--out',str(public)],check=True,cwd=source)
+        builder='build-agent-registry.py' if a.experience=='registry' else 'build-cinematic-proof.py'
+        subprocess.run([sys.executable,str(source/'scripts'/builder),'--out',str(public)],check=True,cwd=source)
         files=verify(public,a.proof_tree_sha256);helper.require_pr_head(a.pr_number,work)
-        receipt={'scope':'VISUAL PROOF ONLY — NOT A PRODUCTION RELEASE','commit':a.commit,'pr':a.pr_number,'archive_sha256':a.archive_sha256,'proof_tree_sha256':a.proof_tree_sha256,'files':len(files),'localhost_only':not bool(lan),'url':'http://127.0.0.1:%s/'%a.port,'verification':'PASSED'}
+        receipt={'scope':('TWELVE-AGENT REGISTRY REVIEW' if a.experience=='registry' else 'VISUAL PROOF')+' ONLY — NOT A PRODUCTION RELEASE','commit':a.commit,'pr':a.pr_number,'archive_sha256':a.archive_sha256,'proof_tree_sha256':a.proof_tree_sha256,'files':len(files),'localhost_only':not bool(lan),'url':'http://127.0.0.1:%s/'%a.port,'verification':'PASSED'}
         (work/'proof-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2),flush=True)
         if not a.verify_only:serve(public,a.port,lan)
     except (ValueError,KeyError,OSError,subprocess.CalledProcessError,zipfile.BadZipFile) as e:print('Proof not started: '+str(e)+'. TLS verification remains enabled.',file=sys.stderr);return 1
