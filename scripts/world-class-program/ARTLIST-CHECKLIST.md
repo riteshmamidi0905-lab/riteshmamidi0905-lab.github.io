@@ -8,7 +8,7 @@ Artlist connector tools are discoverable for account balance, model catalogs/con
 
 A read-only balance/catalog attempt stalled and was canceled without usable results. No plan name, credit balance, supported account model, per-output price, export entitlement or account-specific license is verified. No generation, purchase, upload, voice cloning or licensed-download call was made. Do not treat public pricing or a website Unlimited label as this account's balance or a free MCP allowance.
 
-Minimum owner information if the account query remains unavailable: **plan name and the current credit-balance/renewal summary shown in the signed-in account**. Do not provide passwords, API secrets, payment details or an entire account export. Confirm exact model/configuration prices only after the account can be inspected and before requesting a capped production batch.
+The owner supplied a signed-in dashboard summary after the stalled query; account balance/renewal details are retained privately as owner-reported evidence. The exact plan name was not visible. Featured model names and visible sections do not establish paid entitlements. No further credentials or payment information are needed. Verify exact per-model/configuration prices, export availability and applicable account license before proposing each paid batch. A private pilot planning ceiling is not generation authorization.
 
 ## Publicly documented capabilities — not account entitlements
 
