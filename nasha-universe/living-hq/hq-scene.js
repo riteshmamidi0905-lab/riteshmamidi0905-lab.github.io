@@ -33,6 +33,16 @@
     add({ mesh: 'torusX', pos: [0, 6.0, 0], scale: [16.2, 16.2, 16.2], color: [0.5, 0.55, 0.57], fres: 0.4, emis: [0.04, 0.05, 0.05] });
     add({ mesh: 'torusX', pos: [0, 0.15, 0], scale: [16.2, 16.2, 16.2], color: [0.5, 0.45, 0.35], emis: [0.5, 0.36, 0.16] });
     for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2 + 0.13; add({ mesh: 'box', pos: [Math.cos(a) * 16.2, 4.6, Math.sin(a) * 16.2], rot: [0, -a - Math.PI / 2, 0], scale: [2.6, 4.5, 0.03], color: [0.3, 0.55, 0.58], alpha: 0.05, fres: 0.7, blend: 'glass' }); }   // glass bays
+    // Architectural prototype: radial ceiling baffles, stone thresholds and a layered entrance.
+    for(let i=0;i<16;i++){const a=i/16*Math.PI*2;
+      add({mesh:'box',pos:[Math.cos(a)*13.6,8.8,Math.sin(a)*13.6],rot:[0,-a,0],scale:[2.2,.12,.13],color:[.28,.32,.34],fres:.7,mat:'metal'});
+      add({mesh:'box',pos:[Math.cos(a)*15.7,.12,Math.sin(a)*15.7],rot:[0,-a,0],scale:[.9,.07,.16],color:[.52,.46,.34],emis:[.12,.09,.04],mat:'stone'});
+    }
+    [-1,1].forEach(side=>{
+      add({mesh:'box',pos:[side*6.2,3.5,17.8],scale:[1.4,3.5,.8],color:[.15,.18,.2],fres:.3,mat:'stone'});
+      add({mesh:'box',pos:[side*5.05,3.5,18.65],scale:[.035,3.15,.035],color:GOLD,emis:k(GOLD,.6)});
+    });
+    add({mesh:'box',pos:[0,7.3,17.8],scale:[7.6,.18,.8],color:[.3,.32,.33],fres:.8,mat:'metal'});
     // Original front entrance: an architectural presentation, separate from THE WEIR policy gate.
     [-4.2,4.2].forEach(x=>add({mesh:'box',pos:[x,3.3,17],scale:[0.35,3.3,0.55],color:[0.18,0.24,0.27],fres:0.9,mat:'metal'}));
     add({mesh:'box',pos:[0,6.8,17],scale:[4.55,0.3,0.55],color:[0.22,0.29,0.3],emis:k(TEAL,0.3),fres:0.8});

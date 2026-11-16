@@ -4,19 +4,31 @@ Actual Safari evidence is required. Chromium and Linux WebKit are separate tests
 
 ## Start the verified local preview on your Mac
 
-With Git and Python 3 installed, use a new directory:
+Use the checksum-pinned launcher command in the final release handoff. The launcher downloads website commit `bdf18992bc1162eac6fceaff8abec1e677ed1b6d`, verifies the source ZIP before extraction and independently verifies all 167 public files. Later tooling-only commits do not change this public payload.
+
+Expected artifact tree digest: `197cbbdbaa970dfd596cceb2de614b8fdd88a3693521094e76e0af3c055cd170`.
+
+Save the supplied launcher as `nasha-preview.py`. Run:
 
 ```sh
-git clone --branch release/nasha-phase4-2-rc --single-branch https://github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io.git nasha-release-check
-cd nasha-release-check
-git rev-parse HEAD
-python3 scripts/safari-preview.py --lan
+python3 "$HOME/Downloads/nasha-preview.py" --port 8865
 ```
 
-Compare the printed commit and artifact tree digest with the candidate receipt provided for review. The script serves only the allowlisted public artifact on port 8864, not source or private archives. Use trusted Wi-Fi only. Allow Python through the Mac firewall only for that trusted network. Stop with Control-C. No public tunnel or browser security exception is needed.
+Mac Safari: `http://127.0.0.1:8865/nasha-universe/living-hq/`. Keep Terminal open. Stop with Control-C. Do not disable TLS verification. macOS uses system curl for the source download, avoiding dependence on a separately installed Python CA bundle; the source and artifact SHA-256 gates still apply. If curl also fails, report its exact error; do not bypass it.
 
-Mac: `http://127.0.0.1:8864/nasha-universe/living-hq/`.
-iPhone on the same Wi-Fi: replace `127.0.0.1` with the Mac's Wi-Fi IP (System Settings → Wi-Fi → Details → TCP/IP). A pure SHA-256 fallback verifies recordings over local HTTP; production remains HTTPS.
+After completing the Mac checks, restart the same launcher:
+
+```sh
+python3 "$HOME/Downloads/nasha-preview.py" --lan --port 8865
+```
+
+Use the actual iPhone URL it prints. Both devices must use trusted private Wi-Fi. The server binds only loopback and a validated private Wi-Fi address. No public tunnel or security exception is needed. No existing server is killed or overwritten.
+
+## Final-candidate evidence scope
+
+The owner approved PR #11's creative direction. Baseline PR #10 Mac Checks 1–8 are owner-reported PASS, not independent verification. They do not transfer: the arrival, architecture, character presentation, business showcase and signature scenario changed. Repeat all fifteen checks on both devices for this final payload; current status is **AWAITING OWNER DEVICE VALIDATION**. Device model/OS/Safari versions and the printed candidate receipt are required before accepting results.
+
+Group checks 1–4 (arrival), 5–8 (departments/characters/replays/motion), 9–12 (business/controlled workflows), and 13–15 (evidence/accessibility/performance). Preserve a separate PASS/FAIL/NOT_RUN result for each number; grouping does not waive a check.
 
 ## Fifteen checks on each device
 
@@ -30,11 +42,11 @@ Record PASS / FAIL / NOT_RUN separately for Mac and iPhone, with exact reproduct
 6. **Twelve characters:** open all twelve full-body designs, inspect role, responsibilities and state. Close returns focus. Select each of the ten motion-study states on at least one character; studies are explicitly simulated and do not alter recorded events. Body, hands and feet remain visible in the full character view.
 7. **Recorded workflows:** load a mission; step, play, pause, restart and seek. Captions, event numbers, agent states and architecture change together. Verify a failure and recovery recording. No live autonomous system is claimed.
 8. **Motion accessibility:** pause character/global animation; enable OS Reduce Motion and verify optional motion stops. Restore your original setting. Report stutter, heating and battery observations honestly; do not invent FPS.
-9. **Business imagery:** all nine approved concepts load; Gobi is an appetizer. Search Mango, filter Ingredient and open product details. Scroll the stock table within its own region without page overflow.
-10. **Approvals, idempotency and recovery:** Operator creates reorder; Reviewer approves; Operator simulates outage and tries receipt (blocked); recover and retry (one increase). Inspect audit and matching agent states. Another tab starts isolated.
+9. **Business imagery:** inspect the brewery showcase and confirm NASHA is a proposed business, not operating commercially. All nine approved concepts load; Gobi is an appetizer. Search Mango, filter Ingredient and open product details. Scroll the stock table within its own region without page overflow.
+10. **Approvals, idempotency and recovery:** complete all eight actions in A Day Inside NASHA AI, switching between Business, AI systems and Engineering views without changing scenario state. Confirm the outage attempt is blocked and duplicate retry leaves mango at 60 with six audit events. Confirm this scenario does not change the inventory workspace. Then in the full workspace: Operator creates reorder; Reviewer approves; Operator simulates outage and tries receipt (blocked); recover and retry (one increase). Inspect audit and matching agent states. Another tab starts isolated.
 11. **Reconciliation and errors:** submit discrepant count, reconcile as Reviewer; stock and audit update. Empty/negative quantity is refused without stock changes. Observer cannot mutate stock.
 12. **Enterprise console:** retrieve inventory policy with versioned source; unknown question abstains. Run retrieval development checks. CSV sample accepts two rows, quarantines two and reconciles 19,580 cents. Monitoring follows outage/recovery. BI and three-day demand are labeled synthetic/heuristic.
-13. **Engineering evidence and resumes:** all five cases, diagrams and captioned trace controls work; all three resume PDFs open, render and save. Apple Maps is a client engagement; independent projects are separate.
+13. **Engineering evidence and resumes:** all five cases, diagrams and captioned trace controls work; the master and all three tailored resume PDFs open, render and save. Apple Maps is a client engagement; independent projects are separate.
 14. **Keyboard, VoiceOver and downloads:** Mac Tab/Shift-Tab/Enter/Escape work (enable Safari keyboard navigation if needed); test VoiceOver where available and record what was actually used. Dialogs are named and focus returns. Touch controls remain operable on iPhone.
 15. **Network, console, performance and avatar:** record failed requests and JS errors using Mac Safari Web Inspector. For iPhone, use USB/Web Inspector if available; otherwise mark console inspection NOT_RUN. Record navigation/interaction delays and visible defects. Test the approved integrated avatar: welcome/topic links, portrait Play/Pause, reduced-motion still and optional on-device narration with no autoplay audio. It uses animated WebP; private likeness previews alone do not prove public integration. Current publication policy excludes native video/audio; captioned event replays are tested above. Do not mark a public MP4 test passed when no MP4 is in the artifact.
 

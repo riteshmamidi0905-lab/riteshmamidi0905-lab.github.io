@@ -15,9 +15,9 @@ import threading
 import urllib.request
 import zipfile
 
-COMMIT = '18f1920fdc5372cfe74994bc5da2156f4fc80f6e'
-ARCHIVE_SHA256 = 'c2d0754ed462eb873539a739c16f8045a6c248e7fdc7dc3b3d6513b827124fc1'
-TREE_SHA256 = '24cb89a4780ca6825319287d609d4e34a1eba963a50772b2b06c2ba9c368a030'
+COMMIT = 'bdf18992bc1162eac6fceaff8abec1e677ed1b6d'
+ARCHIVE_SHA256 = '0bdcbe859c850012c983d59555d3c2017955e52e53c6510f9e43234756853281'
+TREE_SHA256 = '197cbbdbaa970dfd596cceb2de614b8fdd88a3693521094e76e0af3c055cd170'
 URL = 'https://codeload.github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/zip/' + COMMIT
 ROOT_NAME = 'riteshmamidi0905-lab.github.io-' + COMMIT
 
@@ -51,11 +51,26 @@ def unpack(archive, destination):
     return destination / ROOT_NAME
 
 
+def download_archive(target):
+    """Use macOS system curl's trust configuration; never disable TLS verification."""
+    if sys.platform == 'darwin':
+        # -q must be first: ignore user curlrc options, including accidental insecure flags.
+        subprocess.run([
+            '/usr/bin/curl', '-q', '--fail', '--location',
+            '--proto', '=https', '--proto-redir', '=https', '--tlsv1.2',
+            '--connect-timeout', '15', '--max-time', '90',
+            '--silent', '--show-error', '--output', str(target), URL,
+        ], check=True)
+        return Path(target).read_bytes()
+    with urllib.request.urlopen(URL, timeout=60) as response:
+        return response.read()
+
+
 def prepare(work, archive=None):
     work = Path(work)
     work.mkdir(parents=True, exist_ok=True)
     target = work / 'candidate.zip'
-    data = Path(archive).read_bytes() if archive else urllib.request.urlopen(URL, timeout=60).read()
+    data = Path(archive).read_bytes() if archive else download_archive(target)
     if hashlib.sha256(data).hexdigest() != ARCHIVE_SHA256:
         raise ValueError('Downloaded archive checksum differs. Nothing was extracted or started.')
     target.write_bytes(data)
@@ -117,13 +132,14 @@ def main():
         lan_ip = private_ipv4(args.lan_ip) if args.lan_ip else wifi_ip() if args.lan else None
         if args.output and args.output.exists() and any(args.output.iterdir()):
             raise ValueError('Output directory must be empty; existing work will not be overwritten')
-        work = args.output or Path(tempfile.mkdtemp(prefix='nasha-safari-7cb3bd5-'))
+        work = args.output or Path(tempfile.mkdtemp(prefix='nasha-visual-prototype-'))
         public = prepare(work, args.archive)
         if not args.verify_only:
             serve(public, args.port, lan_ip)
     except (ValueError, OSError, subprocess.CalledProcessError, zipfile.BadZipFile) as error:
         print('Preview not started: ' + str(error), file=sys.stderr)
-        print('If the port is occupied, stop the previous preview or retry with --port 8865.', file=sys.stderr)
+        print('For certificate/download errors, keep TLS verification enabled and report the error above. You may use --archive with the exact pinned ZIP; its SHA-256 is still mandatory.', file=sys.stderr)
+        print('For an occupied port, stop the previous preview or retry with --port 8865.', file=sys.stderr)
         return 1
     return 0
 

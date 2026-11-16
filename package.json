@@ -20,7 +20,8 @@
     "test:creative": "node scripts/test-creative-integration.cjs",
     "test:console": "node scripts/test-console-browser.cjs",
     "test:cinematic": "node scripts/test-cinematic-browser.cjs",
-    "test:host": "node scripts/test-host-browser.cjs"
+    "test:host": "node scripts/test-host-browser.cjs",
+    "test:world": "node scripts/test-world-prototype.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
