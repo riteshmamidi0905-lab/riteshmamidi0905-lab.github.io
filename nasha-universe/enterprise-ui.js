@@ -3,13 +3,14 @@
 'use strict';
 const L=window.NashaLiving,root=new URL('../',document.currentScript.src),mount=document.querySelector('[data-living-enterprise]');
 if(!L||!mount)return;
+function activate(){if(window.NashaLivingControls)return;
 const storeKey='nasha-living-enterprise-v1',$=id=>document.getElementById(id);
 function el(tag,text,parent,attrs={}){const n=document.createElement(tag);if(text!==null)n.textContent=text;for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);if(parent)parent.append(n);return n;}
 function button(text,parent,fn,attrs={}){const n=el('button',text,parent,{type:'button',...attrs});n.onclick=fn;return n;}
 function link(text,path,parent){return el('a',text,parent,{href:new URL(path,root).href});}
 let full=L.seed(),cursor=0,role='operator',view='business',timer=null,replayTimer=null,selection=null,notice='Ready. Start the authored scenario; no real business activity is involved.',storageAvailable=true;
 try{const saved=sessionStorage.getItem(storeKey);if(saved){const d=L.decode(saved);full=d.state;cursor=d.cursor;notice='Restored and replay-verified this tab’s scenario.';}}catch(_){notice='Stored scenario refused or storage unavailable. Started a clean isolated scenario.';try{sessionStorage.removeItem(storeKey);}catch(_e){storageAvailable=false;}}
-mount.className='le-shell';mount.id='living-enterprise';
+mount.replaceChildren();mount.className='le-shell';mount.id='living-enterprise';
 el('p','THE LIVING ENTERPRISE / INDEPENDENT ENGINEERING',mount,{class:'le-kicker'});
 el('h2','A Day Inside NASHA AI — the living mission',mount);
 el('p','One synthetic service event. Twelve specialist roles. A transparent path from business requirements to a reconciled result.',mount,{class:'le-lead'});
@@ -95,5 +96,11 @@ for(const b of toolbar.querySelectorAll('button'))b.setAttribute('aria-pressed',
 connection.replaceChildren();if(zone){el('span',zone[6]+'. ',connection);link('Inspect the related existing workspace','nasha-universe/engineering/#workspace-'+zone[7],connection);}else link('Connect the founder concept to the living mission','nasha-universe/engineering/#living-enterprise',connection);
 }
 renderBuilding();
+}
+
+}
+if(mount.dataset.leActivate==='true'||['#living-enterprise','#founder-vision'].includes(location.hash)){activate();}else{
+ if(!mount.children.length){mount.className='le-pending';const title=document.createElement('h2'),text=document.createElement('p'),button=document.createElement('button');title.textContent='The living enterprise mission';text.textContent='Load the shared mission to inspect specialist work records, daily stock and controlled recovery.';button.type='button';button.textContent='Load shared mission';button.onclick=activate;mount.append(title,text,button);}
+ if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();activate();}});observer.observe(mount);const study=document.querySelector('#founder-study');if(study)observer.observe(study);}
 }
 })();

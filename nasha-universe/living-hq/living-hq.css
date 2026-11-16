@@ -63,3 +63,8 @@ a{color:var(--teal)}details{border-top:1px solid var(--line);padding:6px 16px 10
 @media(max-width:600px){.tools{display:grid;grid-template-columns:1fr 1fr}.tools button,.tools .btn{font-size:11px}.world-ribbon{gap:6px}.hq-portrait.nc-card{max-width:110px}}
 /* Projected artwork must remain an absolute scene overlay; generic cards are relative. */
 .hq-portrait.nc-card{position:absolute;display:block;transform:translate(-50%,-50%);padding:0;aspect-ratio:3/4}
+
+/* Reserve the final mobile status geometry before mission metadata arrives. */
+@media(max-width:600px){.status{min-height:54px}#le-scene-source{flex-basis:100%;min-height:16px;order:3}}
+
+.le-pending{width:100%;max-width:1400px;min-height:240px;padding:32px;background:#142832;color:#e8eee7}.le-pending h2{font:500 28px/1.2 Georgia,serif}.le-pending p{max-width:700px}.le-pending button{border-color:#96b5a9}

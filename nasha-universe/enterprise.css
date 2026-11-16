@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){.le-shell *,.le-founder *{animation:none!important;transition:none!important}}
 
 .le-shell[data-playing=false] .le-exhibit img{animation:none}
+
+.le-pending{min-height:240px;padding:32px;background:#142832;color:#e8eee7}.le-pending h2{font:500 28px/1.2 Georgia,serif}.le-pending button{min-height:44px;padding:10px 16px;color:#e8eee7;background:#253f46;border:1px solid #96b5a9}

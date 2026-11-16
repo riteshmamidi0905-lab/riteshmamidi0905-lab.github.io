@@ -43,3 +43,9 @@ Use test-living-enterprise.cjs for reconciliation, approval/role enforcement, re
 The new preview requires explicit commit/archive/tree/file-count/PR pins and checks the current PR head. It uses verified system curl on macOS and never silently serves the old baseline. Receipt identifies the exact source commit, PR, artifact, publication result and bind scope.
 
 Before release: verify full final-head CI, actual owner visual acceptance, all fifteen Mac Safari checks and all fifteen iPhone checks, then required GitHub gates. Prior device results do not transfer. No merge/deployment occurs while these remain incomplete.
+
+## Performance correction and regression checks
+
+The first expanded candidate exposed mobile layout shift from status metadata and unnecessary below-fold initialization. The final UI reserves the status geometry and loads shared mission components on visibility, direct mission/founder navigation or explicit 3D/mission intent. Ordered dependency loading preserves failure isolation and retry. Recorded routes remain available if mission loading fails. The same model, explicit approval boundary and reconciliation are unchanged.
+
+Browser tests now exercise loading failure/recovery, lazy initialization, same-tab restoration and all existing workflow assertions. The Lighthouse reporter prints actual category/timing values and retains all 48 existing score checks at 95; a negative check proves 94 still refuses release. Local laboratory measurements are not physical-device or sustained GPU/FPS certification.

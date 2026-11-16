@@ -509,13 +509,13 @@
   },
   {
    "path": "nasha-universe/enterprise-ui.js",
-   "bytes": 21679,
-   "sha256": "b6275c0cfaef1b290fd4d2795f869d138d1a810c62ab2b4a1dc98b2130038726"
+   "bytes": 22619,
+   "sha256": "e904628f45eba9ba0538125e0d697bc624675177d74bb08b74c6a1ec2b5d01fa"
   },
   {
    "path": "nasha-universe/enterprise.css",
-   "bytes": 7022,
-   "sha256": "b1cc84c7f55b394801d78be360d4726bc1c2aba9815b30ce700fa78552c1a6e1"
+   "bytes": 7257,
+   "sha256": "3e1c069739fb44f3b29b2af5ee4aabae886a5ef8f29446304ddfd41ed31e79f6"
   },
   {
    "path": "nasha-universe/event-verify.js",
@@ -539,13 +539,13 @@
   },
   {
    "path": "nasha-universe/living-hq/hq-app.js",
-   "bytes": 99506,
-   "sha256": "2fb25f61892fbeb4be5fd3ad031e8abbd9fd9457a2593755343a5b420f46ace9"
+   "bytes": 99469,
+   "sha256": "a79b2660a11b89aa577603113c12cb134d4054206627476f5b9bba9be0be8985"
   },
   {
    "path": "nasha-universe/living-hq/hq-cinematic.js",
-   "bytes": 6715,
-   "sha256": "7e84fe9ba90d3d426c3bb8f14d01a083188482abc7116bf43f505cf703a7307d"
+   "bytes": 8619,
+   "sha256": "122ad49d0c8ed3a3d51b31ad6d6d96bea619c132441fe01b17e5ecf82e126aa9"
   },
   {
    "path": "nasha-universe/living-hq/hq-data.json",
@@ -574,13 +574,13 @@
   },
   {
    "path": "nasha-universe/living-hq/index.html",
-   "bytes": 6975,
-   "sha256": "c4f3b5965364f683a580ec297fbe93058dfc1625cd6374e95845744cf5d5eed3"
+   "bytes": 6907,
+   "sha256": "94e0613cccbf60e1b017417e90e04b039752a2f5cde8a098e1ddcf9da1926a8f"
   },
   {
    "path": "nasha-universe/living-hq/living-hq.css",
-   "bytes": 14688,
-   "sha256": "59dff737202b2d8e2a278eb17c4719fcb615a17a72211210a4b64f0bbb505134"
+   "bytes": 15098,
+   "sha256": "88f6a23c7f6378f9b136d51cbe5f72b4089ff906f2200652e4695bb38092e263"
   },
   {
    "path": "nasha-universe/recruiter/steps.json",

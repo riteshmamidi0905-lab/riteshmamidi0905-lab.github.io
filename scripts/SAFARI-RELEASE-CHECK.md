@@ -6,7 +6,7 @@ Actual Safari evidence is required. Chromium and Linux WebKit are separate tests
 
 This branch extends preserved PR #11 through the separate living-enterprise PR. Do not use the historical PR #11 source commit or archive pins for this new payload. The current draft PR description and final handoff provide the exact validated head, launcher SHA-256, source ZIP SHA-256 and artifact tree digest.
 
-The public inventory is 170 files (169 reviewed files plus .nojekyll). Expected tree digest: `253ca40b1f1ed7a3308925209b5bb7d1a427012c374ca4769c7ad6e53089662a` for this payload. Tooling-only continuations must prove the public manifest is unchanged.
+The public inventory is 170 files (169 reviewed files plus .nojekyll). Use the expected tree digest in the current PR description and final checksum-pinned handoff for this payload. Tooling-only continuations must prove the public manifest is unchanged.
 
 ## Start the verified local preview on your Mac
 
