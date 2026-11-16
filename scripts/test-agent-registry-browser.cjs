@@ -46,7 +46,8 @@ const pw=require('playwright'),AxeBuilder=require('@axe-core/playwright').defaul
       }
       await c.close();report.widths.push(width);
     }
-    const c=await browser.newContext(),p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
+    const c=await browser.newContext();await c.addInitScript(()=>Object.defineProperty(window,'crypto',{value:{subtle:null}}));
+    const p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
     await p.route('**/mission-f-surge-approved.json',route=>route.fulfill({body:'{"events":[]}',contentType:'application/json'}));
     await p.goto(base);await p.waitForFunction(()=>document.querySelector('#event-status').textContent.includes('checksum differs'));
     assert.ok(await p.locator('#next').isDisabled());assert.equal(await p.locator('.station').count(),12);
@@ -55,7 +56,7 @@ const pw=require('playwright'),AxeBuilder=require('@axe-core/playwright').defaul
     await c.close();
     const failed=await browser.newContext(),f=await failed.newPage();await f.route('**/registry.json',route=>route.abort());await f.goto(base);await f.waitForFunction(()=>document.querySelector('#load-status').textContent.includes('could not load'));
     assert.ok(await f.getByRole('link',{name:'Résumé',exact:true}).isVisible());assert.ok(await f.locator('#tour').isDisabled());await failed.close();
-    assert.deepEqual(report.errors,[]);report.hashFailureAndRecovery='PASS';report.registryFailure='PASS';report.output=root;
+    assert.deepEqual(report.errors,[]);report.hashFailureAndRecovery='PASS';report.privateLanWorkerHash='PASS';report.registryFailure='PASS';report.output=root;
     fs.writeFileSync(root+'/results.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
   }finally{if(browser)await browser.close();server.closeAllConnections();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exit(1);});

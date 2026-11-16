@@ -6,6 +6,15 @@
   const json = (data, parent) => { const n=el('pre', JSON.stringify(data, null, 2), parent); n.tabIndex=0; n.setAttribute('aria-label','Inspectable recorded or registry data'); return n; };
   const base = 'https://github.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/blob/05bc67e337c67f144bd40c9af84a5d6fdc88660c/';
   let registry, recording, cursor = 0, tour = -1, request = 0;
+  async function digest(bytes) {
+    if (window.crypto && window.crypto.subtle) return [...new Uint8Array(await window.crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
+    return new Promise((resolve,reject)=>{
+      const worker=new Worker('hash-worker.js'),timer=setTimeout(()=>{worker.terminate();reject(Error('Checksum worker timed out'));},20000);
+      worker.onmessage=e=>{clearTimeout(timer);worker.terminate();e.data.error?reject(Error(e.data.error)):resolve(e.data.sha256);};
+      worker.onerror=()=>{clearTimeout(timer);worker.terminate();reject(Error('Checksum worker unavailable'));};
+      worker.postMessage(bytes);
+    });
+  }
   function profile(a, focus = true) {
     const p = $('profile'); p.replaceChildren(); p.hidden = false;
     const h = el('h2', a.name + ' — ' + a.role, p); h.id = 'profile-title';
@@ -53,8 +62,7 @@
       const file = $('recording').value, item = registry.recordings.find(r => r.file === file);
       const response = await fetch(item.path); if (!response.ok) throw Error('Recording unavailable');
       const bytes = await response.arrayBuffer();
-      const digest = window.NashaEngine.sha256(new TextDecoder('utf-8', {fatal:true}).decode(bytes));
-      if (digest !== item.sha256) throw Error('Recording checksum differs');
+      if (await digest(bytes) !== item.sha256) throw Error('Recording checksum differs');
       const data = JSON.parse(new TextDecoder().decode(bytes));
       if (!Array.isArray(data.events) || data.events.length !== item.event_count) throw Error('Recording shape differs');
       if (token !== request) return;

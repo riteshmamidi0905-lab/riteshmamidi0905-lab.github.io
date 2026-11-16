@@ -22,7 +22,7 @@ def build(out):
     out.mkdir(parents=True)
     subprocess.run([sys.executable, str(ROOT/'scripts/build-pages-artifact.py'), '--out', str(out/'baseline')], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(ROOT/'scripts/verify-pages-artifact.py'), str(out/'baseline')], cwd=ROOT, check=True)
-    for name in ['index.html', 'registry.css', 'registry.js', 'registry.json', 'asset-readiness.json', 'README.md', 'ARCHITECTURE.md', 'BLUEPRINT.md', 'ANIMATION.md', 'ROADMAP.md']:
+    for name in ['index.html', 'registry.css', 'registry.js', 'hash-worker.js', 'registry.json', 'asset-readiness.json', 'README.md', 'ARCHITECTURE.md', 'BLUEPRINT.md', 'ANIMATION.md', 'ROADMAP.md']:
         source = ROOT/'scripts/twelve-agents'/name
         if source.is_symlink() or not source.is_file():
             raise ValueError('Missing or unsafe review source')
