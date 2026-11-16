@@ -1,0 +1,1112 @@
+{
+  "scope": "Read-only inventory of all 41 existing repository image files; no new media generated",
+  "assets": [
+    {
+      "asset_id": "aegis",
+      "path": "assets/img/agents/aegis.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 43580,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "ac898d5cb67e243bc92992d7fc5f02f335af01edf65d8cbd5a7859fdfa54e35a",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "aethon",
+      "path": "assets/img/agents/aethon.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 43842,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "720adec8373822198cfa15901170bae2acb8258f057957e0ddd0b65e5d6ad0bc",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "cortex",
+      "path": "assets/img/agents/cortex.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 46914,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "7afcf8d09fb6dbfb323e331cc0128927c4a5f09fdb61a966b99693bda84b3d62",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "echon",
+      "path": "assets/img/agents/echon.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 43804,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "fd20dd1a888fc1042634356bcdc50ca738faa1a7500cd0bb3e7cfc863864edd0",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "nexora",
+      "path": "assets/img/agents/nexora.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 50590,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "5f6d8ee73cb2939d4d1f032f533b63c54abfeefa831e5d2f7d306984b2c61c31",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "novara",
+      "path": "assets/img/agents/novara.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 60842,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "5f7937e1dda979c7d374bb6e95de706f643f7ce476c694d065143b6e675aaedc",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "pyrix",
+      "path": "assets/img/agents/pyrix.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 43342,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "e3a6fbd0585e53e899b61ca39325842722e3a8408cbdcece107c77759f4aec73",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "quantix",
+      "path": "assets/img/agents/quantix.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 51788,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "34ec3f554f54f489cac5958f879bf3478c91208af94f983243aab60f73f0a8da",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "synapse",
+      "path": "assets/img/agents/synapse.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 52842,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "9f0abf0ad725ab09850e995780dc9432489df6569919cde2122315eb72a3f568",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "vectra",
+      "path": "assets/img/agents/vectra.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 54062,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "d1ac45e2ee2270d5d819856d6dd2e91324d2baeaf40526a8269a24ccd4c4bd9a",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "veritas",
+      "path": "assets/img/agents/veritas.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 51540,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "aebd1c699e7f2dd5a56f3186aba94be5a09956e805be316cd5b85804cd96671c",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "zybrew",
+      "path": "assets/img/agents/zybrew.webp",
+      "purpose": "Approved agents media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original text-to-image NASHA character concept",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        768,
+        1024
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "agents",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 53316,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "de55dfdec7d40f5bd79113435ca11e8187461a6a8f762d5395ba4cef2bae3b92",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "ritesh-guide-still",
+      "path": "assets/img/avatar/ritesh-guide-still.webp",
+      "purpose": "Approved avatar media; preserve existing use",
+      "source": "Artlist / Kling 2.6 Pro I2V No Audio; optimized derivative of owner-approved portrait animation",
+      "generation_method": "generated-concept",
+      "license_record": "Owner authorized the reference upload and generation, then explicitly approved the generated likeness for public portfolio use. Artlist commercial output rights remain subject to terms.",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        320,
+        436
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "avatar",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 13556,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "f8b270c9983ef55ae70ae5cb3a95c502ab2aefb601bc4dec1ec37e21695fb333",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "ritesh-guide",
+      "path": "assets/img/avatar/ritesh-guide.webp",
+      "purpose": "Approved avatar media; preserve existing use",
+      "source": "Artlist / Kling 2.6 Pro I2V No Audio; optimized derivative of owner-approved portrait animation",
+      "generation_method": "generated-concept",
+      "license_record": "Owner authorized the reference upload and generation, then explicitly approved the generated likeness for public portfolio use. Artlist commercial output rights remain subject to terms.",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        320,
+        436
+      ],
+      "frames": 61,
+      "format": "WEBP",
+      "intended_scene": "avatar",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 615924,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "e8bf24ae41655365c699bec45c12e2067b9b020b34fbf3fc6178c706341fcb88",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "brewery-square",
+      "path": "assets/img/business/brewery-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 22008,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "05307aa77d07111c0223f45dbbf199ce59163cd07ce90dba0851f39594190629",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "brewery",
+      "path": "assets/img/business/brewery.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 73120,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "aea7dacfa1dbb91d0efa487fa4de3d098d4d7b4ccd087580c93f7c2f4d4db213",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "categories-square",
+      "path": "assets/img/business/categories-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 37040,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "a7ec56918ca2d0c41b61507757c9445668d95eca73ba5c7ef37dfe1c55d715ed",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "categories",
+      "path": "assets/img/business/categories.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 156580,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "eb37edaa8e9f2ea3b25d09863552a66f4c3bf21eb7d7baa3136351560f30a991",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "chicken65-square",
+      "path": "assets/img/business/chicken65-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 39796,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "c6df07141bbf4025b8c0c0ac87d9e41accbd1839dac5b38a6607c1cc8ef7e662",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "chicken65",
+      "path": "assets/img/business/chicken65.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 128542,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "09ee53299771cdecee6125c1faa6579f28a91c7967d59eccb712b61bbc8d4280",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "gobi-square",
+      "path": "assets/img/business/gobi-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 28742,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "15950cfbaa5d5d93289f91d76f446e1c4d67baca7a1334ca78b6ae99aaf511e6",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "gobi",
+      "path": "assets/img/business/gobi.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 91464,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "83ae39f0c5ceefd113858a8e4a84c946e2ab80b4c00e5073496afa90a7ec7ec6",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "ingredients-square",
+      "path": "assets/img/business/ingredients-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 34026,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "d8082b2628e4e5a8dfa7b57d1ce59308e4463df22acb63f6747c00e04e7422c6",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "ingredients",
+      "path": "assets/img/business/ingredients.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 138336,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "40155d220cdc9d5004737b9cfd7c7a3ec58d6ac51fd3fc9576332b4a9cfa6710",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "paneer-square",
+      "path": "assets/img/business/paneer-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 37792,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "57034c69c0bdca1e06535cd4c485d596fc63edfcf7184df15f1fa6561a31ac39",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "paneer",
+      "path": "assets/img/business/paneer.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 134602,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "9ded95f58380dfde84021d7a353faea795f43c8e81f1456164bc5c4a5ffc3442",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "quesadilla-square",
+      "path": "assets/img/business/quesadilla-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 31190,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "949655da5b9f93a7a058c836d977ee1cd0b35041b3ae2c2fb4312eeb3e9d2bc6",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "quesadilla",
+      "path": "assets/img/business/quesadilla.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 119538,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "81c7aad137140a5b24994f26af259fcab262582b920e16d2e096a2b1ea0ddd75",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "warehouse-control-square",
+      "path": "assets/img/business/warehouse-control-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 27112,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "10297111746ce0600fb454b88d68b69c6f5428a0ee0104d200b2ba54612da414",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "warehouse-control",
+      "path": "assets/img/business/warehouse-control.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 95588,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "944f6d7d6e8f7d71a5a7047693f39f5eee267c2a61f91052fa2ba7d522b94a32",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "warehouse-square",
+      "path": "assets/img/business/warehouse-square.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 20558,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "2f62c75cc9b43d49fd593804ee1268c03ae392b1ddc6f1cfb364c0e9da18f7ee",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "warehouse",
+      "path": "assets/img/business/warehouse.webp",
+      "purpose": "Approved business media; preserve existing use",
+      "source": "Artlist / Flux 2.0 Pro; original NASHA Indo-Mex fictional concept image",
+      "generation_method": "generated-concept",
+      "license_record": "Self-generated AI output; Artlist Terms section 14.9 permits commercial use subject to terms",
+      "license_url": "https://artlist.io/help-center/privacy-terms/terms-of-use/",
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1200,
+        900
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "business",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 78538,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "ba7df72173c126f150279d11ba42f83925eaf83f364c9d0c07f2b23b9192276a",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "cs-agent-platform-ui",
+      "path": "assets/img/cases/cs-agent-platform-ui.jpg",
+      "purpose": "Approved cases media; preserve existing use",
+      "source": "Taken by the site author on 2026-11-01 from production-ai-agent-platform at commit 7acb147 running locally",
+      "generation_method": "screenshot",
+      "license_record": "own work",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1280,
+        900
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "cases",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 107110,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "60f9a169e5bd906601af81992ec723d3560b0b9776a467812dc8235f201bb9de",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "cs-copilot-approval",
+      "path": "assets/img/cases/cs-copilot-approval.jpg",
+      "purpose": "Approved cases media; preserve existing use",
+      "source": "Screenshot from the author's own public repository support-escalation-copilot (docs/m5/screenshots/04-...), commit 1d69a02",
+      "generation_method": "screenshot",
+      "license_record": "own work, already public in that repository",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        800,
+        600
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "cases",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 86503,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "36a665c0df63ccc23bbfd05e61a514c3fe108d9023d12da6e97b988c02c50762",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "cs-copilot-uncertain",
+      "path": "assets/img/cases/cs-copilot-uncertain.jpg",
+      "purpose": "Approved cases media; preserve existing use",
+      "source": "Screenshot from the author's own public repository support-escalation-copilot (docs/m5/screenshots/10-...), commit 1d69a02",
+      "generation_method": "screenshot",
+      "license_record": "own work, already public in that repository",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        800,
+        600
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "cases",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 89735,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "efa8e790bd26aad5d4007d06877a3f30c07cf376ae778720b03de9cfa5ec07de",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "cs-genai-chat",
+      "path": "assets/img/cases/cs-genai-chat.jpg",
+      "purpose": "Approved cases media; preserve existing use",
+      "source": "Screenshot from the author's own public repository genai-doc-assistant (docs/chat.png), commit daba676",
+      "generation_method": "screenshot",
+      "license_record": "own work, already public in that repository",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1280,
+        1166
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "cases",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 219918,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "b57c21372dcb0b2aa298e028aeae266ef4beb31835cbae0a39be5ab141aba347",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "cs-llm-eval-report",
+      "path": "assets/img/cases/cs-llm-eval-report.jpg",
+      "purpose": "Approved cases media; preserve existing use",
+      "source": "Taken by the site author on 2026-11-01 from the report generated by llm-eval-framework at commit 99e6121",
+      "generation_method": "screenshot",
+      "license_record": "own work",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1280,
+        1100
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "cases",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 170413,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "a966305a91509544759dd6e9d65ffcc5539509abdf8081f3e66e4ce8aca382df",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "cs-weir-flow",
+      "path": "assets/img/cases/cs-weir-flow.jpg",
+      "purpose": "Approved cases media; preserve existing use",
+      "source": "Screenshot from the author's own public repository mcp-weir (docs/assets/dashboard-flow.png), commit 5df2745",
+      "generation_method": "screenshot",
+      "license_record": "own work, already public in that repository",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1280,
+        1111
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "cases",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 162256,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "133ae00ac72eeea89b1da96da3303dc2527999db69db06421260b846cf62d049",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "universe-entrance",
+      "path": "assets/img/universe/universe-entrance.webp",
+      "purpose": "Approved universe media; preserve existing use",
+      "source": "Optimized derivative of the existing cleared universe-hq-atrium.jpg screenshot; not a live scene",
+      "generation_method": "screenshot",
+      "license_record": "own work, existing approved cinematic screenshot",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        960,
+        570
+      ],
+      "frames": 1,
+      "format": "WEBP",
+      "intended_scene": "universe",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 58512,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "b564bcde358570973c096b41afbe6f542902faca197c23c9e7f02511abb9bf53",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "universe-hq-atrium",
+      "path": "assets/img/universe/universe-hq-atrium.jpg",
+      "purpose": "Approved universe media; preserve existing use",
+      "source": "Captured by the site author on 2026-11-10 from the NASHA AI Universe public build running locally; shows the headquarters atrium, rendered by the project's own software from synthetic data and recorded runs; no third-party content, no people, no personal data",
+      "generation_method": "screenshot",
+      "license_record": "own work",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1280,
+        760
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "universe",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 147745,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "58c6f71ac00665d70667af3201efeab8735a62b7049989022da95aaddf6961ce",
+      "integration_status": "Existing baseline media; no modifications"
+    },
+    {
+      "asset_id": "universe-twelve-worlds",
+      "path": "assets/img/universe/universe-twelve-worlds.jpg",
+      "purpose": "Approved universe media; preserve existing use",
+      "source": "Captured by the site author on 2026-11-10 from the NASHA AI Universe public build running locally; shows twelve agent worlds (contact sheet), rendered by the project's own software from synthetic data and recorded runs; no third-party content, no people, no personal data",
+      "generation_method": "screenshot",
+      "license_record": "own work",
+      "license_url": null,
+      "license_verification": "Existing repository rights record only; current subscription not independently verified",
+      "approval_status": true,
+      "historical_cost": null,
+      "incremental_reuse_cost_usd": 0,
+      "resolution": [
+        1400,
+        840
+      ],
+      "frames": 1,
+      "format": "JPEG",
+      "intended_scene": "universe",
+      "fidelity_requirements": "Preserve registered pixels and identity; no inferred 3D rig",
+      "performance_impact": {
+        "bytes": 93129,
+        "note": "Measure decoded memory and loading on target device before new integration"
+      },
+      "sha256": "cdaaf24aedbb2a60198805cf039a650b3c7946f1ff5a1f13ef1d2395579b4063",
+      "integration_status": "Existing baseline media; no modifications"
+    }
+  ]
+}

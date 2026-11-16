@@ -1,0 +1,809 @@
+{
+  "checked_at_utc": "2026-11-16T20:32:02.258708+00:00",
+  "method": "Read-only GitHub public API commit/tree checks; no inference, deployment or test execution",
+  "portfolio_entries": 29,
+  "distinct_public_source_urls": 28,
+  "owner_public_repositories": 33,
+  "historically_verified_entries": 25,
+  "source_commits_resolved": 28,
+  "projects": [
+    {
+      "name": "llm-eval-framework",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/llm-eval-framework",
+      "portfolio_commit": "99e6121",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "33 passed; 18-case benchmark re-run (mean 0.6507, pass rate 0.6111)",
+      "limits": "The benchmark scores a bundled sample, not a live model; judge adapters need API keys.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "99e6121db8a9c07cac5f987007a746136a53c09a",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_evaluator.py",
+        "tests/test_metrics.py",
+        "tests/test_new_metrics.py",
+        "tests/test_report_and_server.py"
+      ],
+      "documentation_paths": [
+        "docs/architecture.md",
+        "docs/metrics.md"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/llm-eval-framework/tree/99e6121db8a9c07cac5f987007a746136a53c09a"
+    },
+    {
+      "name": "production-ai-agent-platform",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/production-ai-agent-platform",
+      "portfolio_commit": "7acb147",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "78 passed against a real embedded Postgres; live smoke run: 3 cited claims over 10 documents",
+      "limits": "Default provider is a deterministic heuristic, not a language model; no hosted deployment shown.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "7acb14706bdb5b4eb1246336a4c4c3371f78ccc1",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/conftest.py",
+        "tests/test_api.py",
+        "tests/test_cache_redis.py",
+        "tests/test_engine.py",
+        "tests/test_eval.py",
+        "tests/test_providers.py",
+        "tests/test_retrieval.py",
+        "tests/test_tools_mcp.py"
+      ],
+      "documentation_paths": [
+        "corpus/genai-doc-assistant-architecture.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN_DECISIONS.md",
+        "docs/EVALUATION.md",
+        "docs/NEXT_PROJECTS.md"
+      ],
+      "ci_paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/production-ai-agent-platform/tree/7acb14706bdb5b4eb1246336a4c4c3371f78ccc1"
+    },
+    {
+      "name": "mcp-weir",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/mcp-weir",
+      "portfolio_commit": "5df2745",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "417 passed, 1 skipped, including real subprocess tests; built-in demo run",
+      "limits": "Deterministic scenarios, no live model; the README's older test count is stale.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "5df274563a4a73ebbd31a6380e3a7d829b6bf4a2",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/conftest.py",
+        "tests/dashboard_helpers.py",
+        "tests/e2e_helpers.py",
+        "tests/env_probe_server.py",
+        "tests/helpers.py",
+        "tests/test_adaptive.py",
+        "tests/test_claims.py",
+        "tests/test_dashboard_backend.py",
+        "tests/test_dashboard_claims.py",
+        "tests/test_dashboard_counts.py",
+        "tests/test_dashboard_server.py",
+        "tests/test_dashboard_ui.py"
+      ],
+      "documentation_paths": [
+        "docs/architecture.md",
+        "docs/assets/dashboard-approval.png",
+        "docs/assets/dashboard-audit.png",
+        "docs/assets/dashboard-demo.png",
+        "docs/assets/dashboard-flow.png",
+        "docs/assets/dashboard-mobile-flow.png",
+        "docs/assets/dashboard-provenance.png",
+        "docs/assets/dashboard-rule.png",
+        "docs/assets/demo-terminal.png",
+        "docs/assets/results-attacks.svg",
+        "docs/assets/results-burden.svg",
+        "docs/assets/trace-careless.html"
+      ],
+      "ci_paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/mcp-weir/tree/5df274563a4a73ebbd31a6380e3a7d829b6bf4a2"
+    },
+    {
+      "name": "genai-doc-assistant",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/genai-doc-assistant",
+      "portfolio_commit": "daba676",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "40 passed, 1 skipped; eval on 8 items: hit rate 1.0, MRR 1.0, faithfulness 1.0, relevance 0.581",
+      "limits": "Hashing embeddings and in-memory store in the verified run; pgvector path and real embedders not exercised; very small eval set.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "daba676db51ffa94c9aea5b658a44fab7465cf1f",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "backend/tests/test_agent_llm.py",
+        "backend/tests/test_api.py",
+        "backend/tests/test_backends.py",
+        "backend/tests/test_ingest_file.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_rag.py",
+        "backend/tests/test_service_eval.py"
+      ],
+      "documentation_paths": [
+        "docs/architecture.md",
+        "docs/chat.png",
+        "docs/load_test.js"
+      ],
+      "ci_paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/genai-doc-assistant/tree/daba676db51ffa94c9aea5b658a44fab7465cf1f"
+    },
+    {
+      "name": "support-escalation-copilot",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/support-escalation-copilot",
+      "portfolio_commit": "1d69a02",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "489 passed, 1 documented expected failure, on a real embedded Postgres; 21 of 21 demo checks",
+      "limits": "Default model is a rule-based stand-in, not an LLM; needs the pinned agent runtime installed from its git commit.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "1d69a02c09fbb013585663cfa09b3f24cb29c770",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md",
+        "docs/README.md",
+        "docs/adr/README.md",
+        "scripts/README.md"
+      ],
+      "test_paths": [
+        "tests/__init__.py",
+        "tests/db/__init__.py",
+        "tests/db/app_support.py",
+        "tests/db/conftest.py",
+        "tests/db/control_support.py",
+        "tests/db/test_clean_rebuild.py",
+        "tests/db/test_environment_spike.py",
+        "tests/db/test_m1_schema.py",
+        "tests/db/test_m2_benchmark_replay.py",
+        "tests/db/test_m2_retrieval.py",
+        "tests/db/test_m3_attacks.py",
+        "tests/db/test_m3_flows.py"
+      ],
+      "documentation_paths": [
+        "docs/README.md",
+        "docs/adr/0001-fictional-customer-and-synthetic-data.md",
+        "docs/adr/0002-constrained-case-workflow.md",
+        "docs/adr/0003-runtime-as-pinned-dependency.md",
+        "docs/adr/0004-postgres-rls-tenancy.md",
+        "docs/adr/0005-retrieval-strategies-are-pluggable.md",
+        "docs/adr/0006-tool-tiers-typed-actions-approvals.md",
+        "docs/adr/0007-evidence-classes-never-merged.md",
+        "docs/adr/0008-model-providers.md",
+        "docs/adr/0009-testing-approach.md",
+        "docs/adr/0010-observability-and-audit.md",
+        "docs/adr/0011-minimal-server-rendered-ui.md"
+      ],
+      "ci_paths": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/embedding-repro.yml"
+      ],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/support-escalation-copilot/tree/1d69a02c09fbb013585663cfa09b3f24cb29c770"
+    },
+    {
+      "name": "ai-agent-toolkit",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/ai-agent-toolkit",
+      "portfolio_commit": "6327539",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "11 passed; built-in benchmark 10/10",
+      "limits": "Rule-based planner scored on its own benchmark.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "63275392400e9b13b2543be7b6dd42f3819d3ac8",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md",
+        "VISUAL_README.md"
+      ],
+      "test_paths": [
+        "tests/test_aiagent.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.html",
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/ai-agent-toolkit/tree/63275392400e9b13b2543be7b6dd42f3819d3ac8"
+    },
+    {
+      "name": "rag-doc-qa",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/rag-doc-qa",
+      "portfolio_commit": "6e44f13",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "14 passed",
+      "limits": "Small corpus; from-scratch TF-IDF retrieval.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "6e44f136a280e4af08d46e85f20b643736a07488",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_api.py",
+        "tests/test_pipeline.py"
+      ],
+      "documentation_paths": [],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/rag-doc-qa/tree/6e44f136a280e4af08d46e85f20b643736a07488"
+    },
+    {
+      "name": "ai-agent-from-scratch",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch",
+      "portfolio_commit": "231b186",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "89 tests ran, OK, 8 skipped (unittest)",
+      "limits": "Skips not individually reviewed.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "231b1866f88ac31339fbb2b87ffee88d75d5a573",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/__init__.py",
+        "tests/test_audit_fixes.py",
+        "tests/test_eval_suite.py",
+        "tests/test_model_structured.py",
+        "tests/test_planner_evals_trace.py",
+        "tests/test_real_provider.py",
+        "tests/test_security_memory.py",
+        "tests/test_service_api.py",
+        "tests/test_store_contract.py",
+        "tests/test_tools_loop.py"
+      ],
+      "documentation_paths": [
+        "docs/api.md",
+        "docs/architecture.md",
+        "docs/audit-v9.md",
+        "docs/configuration.md",
+        "docs/eval-report.md",
+        "docs/learning-notes/00-index.md",
+        "docs/learning-notes/01-what-is-an-agent.md",
+        "docs/learning-notes/02-tool-calling.md",
+        "docs/learning-notes/03-state-and-memory.md",
+        "docs/learning-notes/04-loops-and-failure.md",
+        "docs/learning-notes/05-evaluation.md",
+        "docs/learning-notes/06-security.md"
+      ],
+      "ci_paths": [
+        ".github/workflows/test.yml"
+      ],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/ai-agent-from-scratch/tree/231b1866f88ac31339fbb2b87ffee88d75d5a573"
+    },
+    {
+      "name": "agent-runtime-bench",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/agent-runtime-bench",
+      "portfolio_commit": "679fa28",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "40 passed (scripted models)",
+      "limits": "Needs the ai-agent-from-scratch runtime on the path.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "679fa28213837c2a53f244700bdbabc6cc6dced5",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/__init__.py",
+        "tests/gold.py",
+        "tests/test_analyze.py",
+        "tests/test_benchmark.py",
+        "tests/test_provider.py"
+      ],
+      "documentation_paths": [
+        "docs/RESULTS.md",
+        "docs/benchmark-design.md"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/agent-runtime-bench/tree/679fa28213837c2a53f244700bdbabc6cc6dced5"
+    },
+    {
+      "name": "maref",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/maref",
+      "portfolio_commit": "1c00c90",
+      "historical_portfolio_status": "PROTOTYPE",
+      "historical_test_evidence": "35 passed",
+      "limits": "Research prototype; no results are claimed.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "1c00c9034adbe7d0d1ccf9a740c99201ec84de20",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/__init__.py",
+        "tests/test_benchmark_frozen.py",
+        "tests/test_checks.py",
+        "tests/test_claim.py",
+        "tests/test_cli.py",
+        "tests/test_experiment.py"
+      ],
+      "documentation_paths": [
+        "docs/BENCHMARK.md",
+        "docs/CLAIM.md",
+        "docs/DEV-LOG.md",
+        "docs/EVALUATION.md",
+        "docs/INDEPENDENCE.md",
+        "docs/SPEC.md"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/maref/tree/1c00c9034adbe7d0d1ccf9a740c99201ec84de20"
+    },
+    {
+      "name": "ai-skills-platform",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/ai-skills-platform",
+      "portfolio_commit": "eed8ad2",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "14 passed",
+      "limits": "Unit tests only.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "eed8ad269dac0f91054134f3d01d3bcccfb8d719",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_platform.py"
+      ],
+      "documentation_paths": [
+        "docs/architecture.md",
+        "docs/console.png",
+        "docs/monitoring.png"
+      ],
+      "ci_paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/ai-skills-platform/tree/eed8ad269dac0f91054134f3d01d3bcccfb8d719"
+    },
+    {
+      "name": "experimentation-toolkit",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/experimentation-toolkit",
+      "portfolio_commit": "ea33c6d",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "11 passed",
+      "limits": "Effect sizes are demonstration output, not commercial impact.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "ea33c6d11349cb32e6cf38daa137cb10e5d081ad",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_expkit.py"
+      ],
+      "documentation_paths": [
+        "docs/scorecard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/experimentation-toolkit/tree/ea33c6d11349cb32e6cf38daa137cb10e5d081ad"
+    },
+    {
+      "name": "product-analytics-funnel-retention",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention",
+      "portfolio_commit": "6747477",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "6 passed",
+      "limits": "Synthetic data.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "6747477dc1a550eb87d530c84594d8f71afea80a",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_analysis.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/product-analytics-funnel-retention/tree/6747477dc1a550eb87d530c84594d8f71afea80a"
+    },
+    {
+      "name": "sql-analytics-warehouse",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse",
+      "portfolio_commit": "9afcfef",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "8 passed",
+      "limits": "Synthetic warehouse.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "9afcfeff5374943558d301b00a2def8e8c0208bc",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_queries.py"
+      ],
+      "documentation_paths": [],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/sql-analytics-warehouse/tree/9afcfeff5374943558d301b00a2def8e8c0208bc"
+    },
+    {
+      "name": "saas-kpi-dashboard",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard",
+      "portfolio_commit": "154a2a4",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "6 passed",
+      "limits": "Synthetic data.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "154a2a47669ff648cf8bb85a41e3ab6057703459",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_saaskpi.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/saas-kpi-dashboard/tree/154a2a47669ff648cf8bb85a41e3ab6057703459"
+    },
+    {
+      "name": "customer-churn-prediction",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/customer-churn-prediction",
+      "portfolio_commit": "d64bbd0",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "5 passed",
+      "limits": "Synthetic data; offline unit tests.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "d64bbd0b960a86882658b3c5f11e2a3fba03eed7",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_churn.py"
+      ],
+      "documentation_paths": [
+        "docs/report.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/customer-churn-prediction/tree/d64bbd0b960a86882658b3c5f11e2a3fba03eed7"
+    },
+    {
+      "name": "mlops-platform",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/mlops-platform",
+      "portfolio_commit": "1416b91",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "12 passed",
+      "limits": "'Production' is a registry stage name, not a deployment.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "1416b914b17b34ff4d91c90aa9a4ee6d569018c6",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_mlops.py"
+      ],
+      "documentation_paths": [
+        "docs/architecture.md",
+        "docs/dashboard.html",
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/mlops-platform/tree/1416b914b17b34ff4d91c90aa9a4ee6d569018c6"
+    },
+    {
+      "name": "spark-data-lakehouse",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/spark-data-lakehouse",
+      "portfolio_commit": "261f7a1",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "4 passed (local Spark, static DataFrames)",
+      "limits": "Not production scale.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "261f7a1be78ae5fb99df5c79f42b1b1f48b26883",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_transforms.py"
+      ],
+      "documentation_paths": [],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/spark-data-lakehouse/tree/261f7a1be78ae5fb99df5c79f42b1b1f48b26883"
+    },
+    {
+      "name": "realtime-streaming-pipeline",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline",
+      "portfolio_commit": "1be330f",
+      "historical_portfolio_status": "UNVERIFIED",
+      "historical_test_evidence": "3 passed (Spark transforms on static DataFrames)",
+      "limits": "The Kafka/Spark/Cassandra stack itself was not run.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "1be330f7b87a7d2599095be5c4617c7c55b12e58",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_streaming_transforms.py"
+      ],
+      "documentation_paths": [],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/realtime-streaming-pipeline/tree/1be330f7b87a7d2599095be5c4617c7c55b12e58"
+    },
+    {
+      "name": "bird-deterrent-signal-intelligence",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/bird-deterrent-signal-intelligence",
+      "portfolio_commit": "d74f0af",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "6 passed",
+      "limits": "Reconstruction of earlier academic work.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "d74f0af85993d248d718f30d1f929230908e9c0a",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_birdsignal.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.png",
+        "docs/features.png",
+        "docs/signatures.png",
+        "docs/timeline.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/bird-deterrent-signal-intelligence/tree/d74f0af85993d248d718f30d1f929230908e9c0a"
+    },
+    {
+      "name": "nlp-text-intelligence",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/nlp-text-intelligence",
+      "portfolio_commit": "3d5eed6",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "12 passed",
+      "limits": "Offline, small-scale.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "3d5eed6c68e321aeda062241d8c486e3b6219922",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_nlptext.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.html",
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/nlp-text-intelligence/tree/3d5eed6c68e321aeda062241d8c486e3b6219922"
+    },
+    {
+      "name": "speech-intelligence",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/speech-intelligence",
+      "portfolio_commit": "26db966",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "8 passed",
+      "limits": "Eight-command vocabulary.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "26db966475af4a41592736b6f267c244448e9a6d",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_speech.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.html",
+        "docs/dashboard.png",
+        "docs/tts_demo.wav"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/speech-intelligence/tree/26db966475af4a41592736b6f267c244448e9a6d"
+    },
+    {
+      "name": "vision-inference-api",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/vision-inference-api",
+      "portfolio_commit": "30f6990",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "9 passed after a prepared dependency fix (not merged)",
+      "limits": "As published the repo omits numpy and its tests fail without it; the fix is pending approval.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "30f6990946f68427af6d2cff3ee94bd9ef8b278f",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_api.py",
+        "tests/test_model_and_infer.py"
+      ],
+      "documentation_paths": [],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/vision-inference-api/tree/30f6990946f68427af6d2cff3ee94bd9ef8b278f"
+    },
+    {
+      "name": "neural-machine-translation",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/neural-machine-translation",
+      "portfolio_commit": "b8fa67c",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "8 passed",
+      "limits": "Small model.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "b8fa67c9b8e3e4887dedac770859bbe03056322c",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_nmt.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.html",
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/neural-machine-translation/tree/b8fa67c9b8e3e4887dedac770859bbe03056322c"
+    },
+    {
+      "name": "sign-language-recognition",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/sign-language-recognition",
+      "portfolio_commit": "6d4af22",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "6 passed",
+      "limits": "Reconstruction of earlier academic work.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "6d4af22a933430b8353e89459572b8d49f4f11d1",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_signlang.py"
+      ],
+      "documentation_paths": [
+        "docs/confusion_matrix.png",
+        "docs/samples.png",
+        "docs/training_history.png",
+        "docs/webapp.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/sign-language-recognition/tree/6d4af22a933430b8353e89459572b8d49f4f11d1"
+    },
+    {
+      "name": "video-intelligence",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/video-intelligence",
+      "portfolio_commit": "bd48bfd",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "9 passed",
+      "limits": "Generated clips only.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "bd48bfd8a3c778edfcb9e37c85a0ffad8e212ba6",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_videointel.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.html",
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/video-intelligence/tree/bd48bfd8a3c778edfcb9e37c85a0ffad8e212ba6"
+    },
+    {
+      "name": "face-recognition-biometrics",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/face-recognition-biometrics",
+      "portfolio_commit": "8d7a483",
+      "historical_portfolio_status": "VERIFIED",
+      "historical_test_evidence": "5 passed with OpenCV below 5 (dependency fix prepared, not merged)",
+      "limits": "With OpenCV 5.0 the published constraint fails 4 of 5 tests.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "8d7a483570e7d3f4aac30339093ab8940bb60a32",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_facerec.py"
+      ],
+      "documentation_paths": [
+        "docs/confusion.png",
+        "docs/eigenfaces.png",
+        "docs/identities.png",
+        "docs/montage.png",
+        "docs/open_set.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/face-recognition-biometrics/tree/8d7a483570e7d3f4aac30339093ab8940bb60a32"
+    },
+    {
+      "name": "document-ocr-vision",
+      "portfolio_repo": "https://github.com/riteshmamidi0905-lab/document-ocr-vision",
+      "portfolio_commit": "fa73b2e",
+      "historical_portfolio_status": "UNVERIFIED",
+      "historical_test_evidence": "7 of 8 tests pass with one Tesseract model, 6 of 8 with another",
+      "limits": "OCR accuracy depends on the Tesseract engine and model; not a clean pass.",
+      "tests_rerun": false,
+      "source_available": true,
+      "full_commit": "fa73b2e34e47bc289ce3b1835911253f626502a0",
+      "tree_truncated": false,
+      "readmes": [
+        "README.md"
+      ],
+      "test_paths": [
+        "tests/test_docvision.py"
+      ],
+      "documentation_paths": [
+        "docs/dashboard.html",
+        "docs/dashboard.png"
+      ],
+      "ci_paths": [],
+      "tree_url": "https://github.com/riteshmamidi0905-lab/document-ocr-vision/tree/fa73b2e34e47bc289ce3b1835911253f626502a0"
+    },
+    {
+      "name": "NASHA AI Lab",
+      "portfolio_repo": null,
+      "portfolio_commit": "not published (the public repository shows an earlier state)",
+      "historical_portfolio_status": "PROTOTYPE",
+      "historical_test_evidence": "953 offline tests of the evaluation harness and evidence controls pass at a local review checkpoint that is not yet published; the public repository shows an earlier state",
+      "limits": "The live model evaluation has not met its acceptance criteria (failed); not deployed; the proposed brewery is a concept, not an operating business.",
+      "tests_rerun": false,
+      "source_available": false,
+      "note": "Portfolio prototype entry without a public source URL; not counted as a verified public repository."
+    }
+  ],
+  "other_public_repositories": {
+    "count": 5,
+    "categories": [
+      "Original brewery concept",
+      "Profile/site repositories",
+      "Preview/rehearsal repositories"
+    ],
+    "note": "Exact identifiers retained in private owner audit; not additional verified engineering projects."
+  }
+}
