@@ -416,8 +416,8 @@
   },
   {
     "path": "nasha-universe/engineering/inventory-model.js",
-    "bytes": 4514,
-    "sha256": "3b1ecb466201764ea323f560d188eb1cd335dd9e9aec245cc9ef93f8535c6b30"
+    "bytes": 4766,
+    "sha256": "f8a4959a6f25634be566fd014883abd6f8f721b07bf9569406a5587781bef4ac"
   },
   {
     "path": "nasha-universe/engineering/inventory-ui.js",
@@ -496,18 +496,18 @@
   },
   {
     "path": "nasha-universe/enterprise-state.js",
-    "bytes": 9466,
-    "sha256": "5a12e82fbf548a077214c22d7c8e911930fe7dd70619c4c9ca1df900479e5b5d"
+    "bytes": 9826,
+    "sha256": "e1155b607bbb0b964dbb1ec59372bfdb49d88495ee0a9ac35d38146d393e2f4c"
   },
   {
     "path": "nasha-universe/enterprise-ui.js",
-    "bytes": 23048,
-    "sha256": "8ba61711f3c38774f7bb02e5b935f4317b9f4fa73eec68836e9c8bfe74f074fe"
+    "bytes": 26467,
+    "sha256": "d550bc68fd8e9a3d5f646a5059d714492f740d0bef6cabb4f1b41b8f81f23263"
   },
   {
     "path": "nasha-universe/enterprise.css",
-    "bytes": 7257,
-    "sha256": "3e1c069739fb44f3b29b2af5ee4aabae886a5ef8f29446304ddfd41ed31e79f6"
+    "bytes": 7470,
+    "sha256": "c5e07f806765d219edb53aec89add6783b875f6e747b0698f244cbaff6651556"
   },
   {
     "path": "nasha-universe/event-verify.js",

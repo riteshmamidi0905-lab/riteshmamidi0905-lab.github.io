@@ -41,11 +41,12 @@
   }
   function ledgerOK(s){return s.ledger.every(r=>Number.isSafeInteger(r.closing)&&r.closing>=0&&r.opening+r.receipts-r.consumption-r.waste+r.adjustments===r.closing)&&['mango','hefe'].every(id=>{const rows=s.ledger.filter(r=>r.item===id);return !rows.length||rows[rows.length-1].closing===item(s,id).qty;});}
   function advance(state,command,actor){
-    const step=steps[state.events.length];
+    let step=state.inventory.requests.some(r=>r.status==='rejected')?null:steps[state.events.length];
     if(!step)throw Error('Mission complete; reset to start another isolated run');
     const required=step.tool==='approve'?'reviewer':'operator';
     if(actor!==required)throw Error(required==='reviewer'?'An explicit reviewer approval is required':'Operator role required');
-    if(command!==(step.tool==='approve'?'approve':'advance'))throw Error('Command does not match the current workflow stage');
+    if(step.tool==='approve'?!['approve','reject'].includes(command):command!=='advance')throw Error('Command does not match the current workflow stage');
+    if(command==='reject')step={...step,tool:'reject',state:'COMPLETE',title:'Reject the pending request; no receipt authorized'};
     const s=copy(state),before={mango:item(s,'mango').qty,beer:item(s,'hefe').qty,inventoryEvents:s.inventory.events.length};
     let input={},output={};
     switch(step.tool){
@@ -59,6 +60,7 @@
       case 'request':input=copy(s.recommendation);post(s,{type:'request',actor,...input});output={key:KEY,status:'pending',stockUnchanged:true};break;
       case 'gate':input={key:KEY};output={status:'AWAITING APPROVAL',automaticApproval:false,roleSelectorIsAuthentication:false};break;
       case 'approve':input={key:KEY};post(s,{type:'approve',actor,key:KEY});output={status:'approved',stockUnchanged:true};break;
+      case 'reject':input={key:KEY};post(s,{type:'reject',actor,key:KEY});output={status:'rejected',stockUnchanged:true,terminal:true};break;
       case 'outage':post(s,{type:'incident',actor});output={receiver:'unavailable',approvedIntentRetained:true};break;
       case 'blocked':input={key:KEY};try{M.apply(s.inventory,{type:'receive',actor,key:KEY});throw Error('Expected refusal did not occur');}catch(e){if(!s.inventory.incident||!/Receiver unavailable/.test(e.message))throw e;output={error:e.message,stockUnchanged:true,inventoryAuditUnchanged:true};}break;
       case 'recover':post(s,{type:'recover',actor});output={receiver:'ready',sameRequestKey:KEY};break;
