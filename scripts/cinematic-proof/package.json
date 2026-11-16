@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "three": "0.180.0",
+    "esbuild": "0.25.12"
+  },
+  "name": "nasha-cinematic-proof",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "bundle": "esbuild graphics-source.js --bundle --minify --format=esm --legal-comments=external --outfile=graphics.js && esbuild viewer-source.js --bundle --external:./graphics.js --minify --format=esm --outfile=viewer.js"
+  }
+}
