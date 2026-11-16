@@ -39,3 +39,7 @@ Review arrival, agent display and business showcase against baseline before expa
 3. Collect fresh Mac and iPhone Safari results for changed content. Baseline owner-reported Mac 1–8 PASS does not transfer.
 4. Review final candidate and use protected PR/production-environment workflow. No bypass or automatic LinkedIn publication.
 5. Verify production bytes, resume downloads and release record before preparing final live-URL launch materials and career/interview packages.
+
+## Owner acceptance recorded
+
+The owner subsequently approved PR #11’s creative direction and authorized engineering completion/release preparation. The three-surface creative review is complete. Physical-device results are not implied. See FINAL-RELEASE-READINESS.md for current gates and certificate correction.

@@ -54,6 +54,40 @@ class PreviewBoundaryTests(unittest.TestCase):
                 P.prepare(Path(tmp) / 'work', archive)
             self.assertFalse((Path(tmp) / 'work' / P.ROOT_NAME).exists())
 
+    def test_macos_download_uses_system_trust_and_https_only(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / 'candidate.zip'
+            target.write_bytes(b'fixture')
+            with patch.object(P.sys, 'platform', 'darwin'), patch.object(P.subprocess, 'run') as run, patch.object(P.urllib.request, 'urlopen') as python_https:
+                self.assertEqual(P.download_archive(target), b'fixture')
+            args = run.call_args.args[0]
+            self.assertEqual(args[:2], ['/usr/bin/curl', '-q'])
+            self.assertEqual(args[args.index('--proto') + 1], '=https')
+            self.assertEqual(args[args.index('--proto-redir') + 1], '=https')
+            self.assertIn('--tlsv1.2', args)
+            self.assertNotIn('-k', args)
+            self.assertNotIn('--insecure', args)
+            self.assertTrue(run.call_args.kwargs['check'])
+            python_https.assert_not_called()
+
+    def test_macos_tls_failure_does_not_extract_or_fall_back(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            work = Path(tmp) / 'work'
+            failure = subprocess.CalledProcessError(60, ['/usr/bin/curl'])
+            with patch.object(P.sys, 'platform', 'darwin'), patch.object(P.subprocess, 'run', side_effect=failure), patch.object(P.urllib.request, 'urlopen') as python_https:
+                with self.assertRaises(subprocess.CalledProcessError):
+                    P.prepare(work)
+            python_https.assert_not_called()
+            self.assertFalse((work / P.ROOT_NAME).exists())
+
+    def test_downloaded_wrong_digest_does_not_extract(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            work = Path(tmp) / 'work'
+            with patch.object(P, 'download_archive', return_value=b'wrong candidate'):
+                with self.assertRaises(ValueError):
+                    P.prepare(work)
+            self.assertFalse((work / P.ROOT_NAME).exists())
+
     def test_known_archive_root_extracts(self):
         with tempfile.TemporaryDirectory() as tmp:
             archive = Path(tmp) / 'ok.zip'

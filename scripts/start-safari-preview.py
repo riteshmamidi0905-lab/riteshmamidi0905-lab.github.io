@@ -51,11 +51,26 @@ def unpack(archive, destination):
     return destination / ROOT_NAME
 
 
+def download_archive(target):
+    """Use macOS system curl's trust configuration; never disable TLS verification."""
+    if sys.platform == 'darwin':
+        # -q must be first: ignore user curlrc options, including accidental insecure flags.
+        subprocess.run([
+            '/usr/bin/curl', '-q', '--fail', '--location',
+            '--proto', '=https', '--proto-redir', '=https', '--tlsv1.2',
+            '--connect-timeout', '15', '--max-time', '90',
+            '--silent', '--show-error', '--output', str(target), URL,
+        ], check=True)
+        return Path(target).read_bytes()
+    with urllib.request.urlopen(URL, timeout=60) as response:
+        return response.read()
+
+
 def prepare(work, archive=None):
     work = Path(work)
     work.mkdir(parents=True, exist_ok=True)
     target = work / 'candidate.zip'
-    data = Path(archive).read_bytes() if archive else urllib.request.urlopen(URL, timeout=60).read()
+    data = Path(archive).read_bytes() if archive else download_archive(target)
     if hashlib.sha256(data).hexdigest() != ARCHIVE_SHA256:
         raise ValueError('Downloaded archive checksum differs. Nothing was extracted or started.')
     target.write_bytes(data)
@@ -123,7 +138,8 @@ def main():
             serve(public, args.port, lan_ip)
     except (ValueError, OSError, subprocess.CalledProcessError, zipfile.BadZipFile) as error:
         print('Preview not started: ' + str(error), file=sys.stderr)
-        print('If the port is occupied, stop the previous preview or retry with --port 8865.', file=sys.stderr)
+        print('For certificate/download errors, keep TLS verification enabled and report the error above. You may use --archive with the exact pinned ZIP; its SHA-256 is still mandatory.', file=sys.stderr)
+        print('For an occupied port, stop the previous preview or retry with --port 8865.', file=sys.stderr)
         return 1
     return 0
 
