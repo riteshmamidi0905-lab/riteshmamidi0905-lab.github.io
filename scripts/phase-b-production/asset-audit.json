@@ -1,0 +1,52 @@
+{
+  "scope": "Repository tracked files at PR13 head; no claim about unavailable private source assets",
+  "baseline_commit": "a9ab5700c512e0541719c63a2d9f278392cbba13",
+  "verdict": "HOLD",
+  "new_proof_created": false,
+  "owner_visual_acceptance": false,
+  "physical_mac_safari": "NOT_RUN_FOR_NEW_PROOF",
+  "physical_iphone_safari": "NOT_RUN_FOR_NEW_PROOF",
+  "vectra_reference": {
+    "path": "assets/img/agents/vectra.webp",
+    "sha256": "d1ac45e2ee2270d5d819856d6dd2e91324d2baeaf40526a8269a24ccd4c4bd9a",
+    "registered_sha256": "d1ac45e2ee2270d5d819856d6dd2e91324d2baeaf40526a8269a24ccd4c4bd9a",
+    "registered_kind": "generated-concept",
+    "registered_label": "AI-generated character concept; 2D illustration, not a rigged 3D model",
+    "width": 768,
+    "height": 1024,
+    "mode": "RGB",
+    "frames": 1
+  },
+  "available_source_assets": [
+    "scripts/cinematic-proof/scene.glb"
+  ],
+  "pr13_scene": {
+    "path": "scripts/cinematic-proof/scene.glb",
+    "sha256": "617da3ec9756c697be4bae4043d547b6ac4ec5379929c1b17cb8e445e9202af0",
+    "bytes": 2747372,
+    "skins": 0,
+    "embedded_animation_clips": 0,
+    "images": 0,
+    "textures": 0,
+    "materials": 13,
+    "vectra_transform_nodes": [
+      "VectraHead",
+      "VectraLeftWrist",
+      "VectraLeftElbow",
+      "VectraLeftShoulder",
+      "VectraRightWrist",
+      "VectraRightElbow",
+      "VectraRightShoulder",
+      "VectraRig"
+    ],
+    "animation_note": "Application controls transform hierarchy; zero embedded clips does not mean zero runtime motion."
+  },
+  "preserved_against_pr10": {
+    "image_files": 41,
+    "pdf_files": 4,
+    "different_files": []
+  },
+  "new_runtime_changes": [],
+  "new_media": [],
+  "paid_credits_used": 0
+}
