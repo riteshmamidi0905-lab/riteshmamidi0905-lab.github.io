@@ -8,3 +8,7 @@ html[data-character-motion=paused] .nc-card *,html[data-character-motion=paused]
 html[data-character-motion=paused] .nc-card *,html[data-character-motion=paused] .nc-card:before,html[data-character-motion=paused] .nc-card:after{animation:none!important;transition:none!important}@media(prefers-reduced-motion:reduce){.nc-card *,.nc-card:before,.nc-card:after{animation:none!important;transition:none!important}}
 
 .nc-card[data-offscreen=true] *,.nc-card[data-offscreen=true]:before,.nc-card[data-offscreen=true]:after{animation-play-state:paused!important}
+
+/* Curated character exhibits; all approved full-body source pixels preserved. */
+.nc-grid{gap:24px}.nc-card{position:relative;border-radius:3px;border-color:#52606b;background:linear-gradient(155deg,#26303b,#0c161f 72%);padding:18px;box-shadow:0 12px 30px #0003}.nc-character{border-radius:2px!important;background:radial-gradient(ellipse at 50% 35%,#384653,#111c25 73%)!important;border-color:#53636c!important}.nc-character:before{inset:70% 8% 2%;opacity:.25}.nc-card h3{letter-spacing:.12em;font-size:1rem}.nc-card .nc-state{border-radius:2px;font-size:10px;letter-spacing:.1em}.nc-section{background:radial-gradient(ellipse at 50% 0,#223039,#091219 70%)}
+@media(max-width:520px){.nc-grid{gap:12px}.nc-card{padding:10px}.nc-card h3{letter-spacing:.06em;font-size:.85rem}}

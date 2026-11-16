@@ -39,6 +39,14 @@ jobs:
           npm run test:console
           npm run test:cinematic
           npm run test:host
+          npm run test:world
+      - name: Save implemented visual prototype renders
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: nasha-visual-prototype-${{ github.sha }}
+          path: work/visual-review/
+          retention-days: 14
+          if-no-files-found: error
       - name: Lighthouse mobile and desktop release gates
         run: |
           for page in home:/ demo:/demo/ lab:/data-lab.html hq:/nasha-universe/living-hq/ operations:/nasha-universe/engineering/ recruiter:/recruiter.html; do

@@ -384,8 +384,8 @@
   },
   {
    "path": "nasha-universe/characters.css",
-   "bytes": 6425,
-   "sha256": "e06b03e106276ff052a93a0b36bbaf0e23a8912c5effa699d80a5ec63a284698"
+   "bytes": 7202,
+   "sha256": "ac1dbcf1664c2c9598870e224a68d3f8befb6a0072c2b67b7c44a934623fa688"
   },
   {
    "path": "nasha-universe/characters.js",
@@ -399,8 +399,8 @@
   },
   {
    "path": "nasha-universe/engineering/business.js",
-   "bytes": 3772,
-   "sha256": "a0601d8eafcd7a366fdb76510154b9c59b7b72a26452e159122e1bec3c74c44d"
+   "bytes": 9370,
+   "sha256": "fc709b74a0c67f9f30c0e98b6b6a795e84c2f195c73b9e993e4f35ccb045161c"
   },
   {
    "path": "nasha-universe/engineering/console-model.js",
@@ -414,13 +414,13 @@
   },
   {
    "path": "nasha-universe/engineering/engineering.css",
-   "bytes": 5246,
-   "sha256": "ded578dfa236970bf97e3c4e86b46c81e7ddcfbdba8c2c78c2690ec871142bbb"
+   "bytes": 7269,
+   "sha256": "95dedc735e82203d6d5979b0e2e669e204bc2b12bfbf783852ca6df8404b26bc"
   },
   {
    "path": "nasha-universe/engineering/index.html",
-   "bytes": 9670,
-   "sha256": "74affac6fc800f5ae42b436e452cf0530929a49a12813b8a80e81e5eca562fe9"
+   "bytes": 12225,
+   "sha256": "392cc0a420dd1a93e1942e868714d5e0383ab7211479c053e89bd1646d7bdce7"
   },
   {
    "path": "nasha-universe/engineering/inventory-model.js",
@@ -549,8 +549,8 @@
   },
   {
    "path": "nasha-universe/living-hq/hq-scene.js",
-   "bytes": 31924,
-   "sha256": "a38c774744b3e6b8211e399a4a726ae874a145ed9a849dea920cf7783a7719ba"
+   "bytes": 32712,
+   "sha256": "f98fc342055c70fd63eb912946bbe13a10d3027b9e025ca9e5466b5e5089a9d0"
   },
   {
    "path": "nasha-universe/living-hq/hq-worlds.js",
@@ -559,13 +559,13 @@
   },
   {
    "path": "nasha-universe/living-hq/index.html",
-   "bytes": 6014,
-   "sha256": "ff7cbd62bb469377cfadc79460278b3d8e04b02e80c0d6dc42dd8586f4082df9"
+   "bytes": 6503,
+   "sha256": "b98d85d77dad092cdb6c9a4494c65dd3b93f57c447030b96cdb34f7795065acd"
   },
   {
    "path": "nasha-universe/living-hq/living-hq.css",
-   "bytes": 11542,
-   "sha256": "c7b29ee937d9d145e18fcac880d8ae137f899207eca50ffbc95990d461b3f073"
+   "bytes": 13360,
+   "sha256": "c437c1ac7e8768a17d58fbfe9eff9c32396dd58ce4d4dc77c8b12a84f202d407"
   },
   {
    "path": "nasha-universe/recruiter/steps.json",
