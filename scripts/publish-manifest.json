@@ -124,8 +124,8 @@
   },
   {
    "path": "cinematic.js",
-   "bytes": 5516,
-   "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
+   "bytes": 5548,
+   "sha256": "c098f6dd020762ba09d44286b92478845fe3edb2d214f0e6c20a3f841288ae23"
   },
   {
    "path": "data-lab.html",
@@ -174,8 +174,8 @@
   },
   {
    "path": "demo/demo.css",
-   "bytes": 11212,
-   "sha256": "6d9e69940c7b60f276f84d567a465342b1ed118f5dab427fc42121d24b712b2c"
+   "bytes": 11229,
+   "sha256": "ff3c112af2dbcf4ef8c19973561a7e3ccd91885f1017d2303b19783b4850b62b"
   },
   {
    "path": "demo/engine.js",
@@ -499,8 +499,8 @@
   },
   {
    "path": "projects.html",
-   "bytes": 44188,
-   "sha256": "0868dd065a3f296075b61dbd4d1e67c6acfa515bc74b7ff57f7476046978f7b9"
+   "bytes": 44189,
+   "sha256": "f2787f7b6fd24fb8404bf9872fb95dc388165ef9fd93bde7c07a53103e72dc5e"
   },
   {
    "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",

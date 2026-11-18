@@ -2,7 +2,7 @@
   "date": "2026-11-18",
   "owner": "Ritesh Mamidi",
   "baseline": "b78d2a93bceb16ea753ebcd5338021fc903631c0",
-  "reason": "Public Release 1: current role and employer, four project cards, reserved Enterprise Demo desktop scrollbar and corresponding release hashes.",
+  "reason": "Public Release 1: current role and employer, four project cards, reserved Enterprise Demo desktop scrollbar and corresponding release hashes. Owner also approved deriving the filter total from the catalogue in cinematic.js.",
   "files": {
     "recruiter.html": {
       "old": "797079508a18f560d2c2fb4fb2374f491563d131620a95593a7c843f240c2489",
@@ -10,19 +10,23 @@
     },
     "projects.html": {
       "old": "a45673d0a954ce9793186fb479d0de6e3e4b12ad93fbd52df51beda00afcddee",
-      "new": "0868dd065a3f296075b61dbd4d1e67c6acfa515bc74b7ff57f7476046978f7b9"
+      "new": "f2787f7b6fd24fb8404bf9872fb95dc388165ef9fd93bde7c07a53103e72dc5e"
     },
     "demo/demo.css": {
       "old": "53042715e33ed0ba0680add99a0b8195aad66484872b2bef651b96d22699c996",
-      "new": "6d9e69940c7b60f276f84d567a465342b1ed118f5dab427fc42121d24b712b2c"
+      "new": "ff3c112af2dbcf4ef8c19973561a7e3ccd91885f1017d2303b19783b4850b62b"
     },
     "release-files.json": {
       "old": "1d52c2db6b84dbe46ef71d22de049b1a803595335ba231253623233659898ad4",
-      "new": "38994825c4ead393fb20bfce9059aa09f05c8060b80b217b63b0522faf1f04d3"
+      "new": "346024d551204b85f84e3cfd5c784fc419e1ec235788f2f85ef953addc61bc69"
     },
     "scripts/publish-manifest.json": {
       "old": "656eaa3817d13a43eb5ac7a9e1fb018f915472a71d078aa57ba936883e6a9eb0",
-      "new": "2f5b3765adf22c8a144791787252e3aabf20427356778efb36a40d5441ea0414"
+      "new": "e0647763413d0cb9a56a58d77756ffe1238831d2e3ea33fac7a1ae3ef9b4e0fe"
+    },
+    "cinematic.js": {
+      "old": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7",
+      "new": "c098f6dd020762ba09d44286b92478845fe3edb2d214f0e6c20a3f841288ae23"
     }
   }
 }
