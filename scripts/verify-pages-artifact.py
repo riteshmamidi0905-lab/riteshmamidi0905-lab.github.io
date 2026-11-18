@@ -209,8 +209,8 @@ def main():
     for c in cases:
         if c in pages and (pages[c].h1 != 1 or not pages[c].title.strip()):
             errs.append("%s: needs exactly one h1 and a title" % c)
-    if "projects.html" in pages and pages["projects.html"].projects != 24:
-        errs.append("projects.html: expected 24 projects, found %d" % pages["projects.html"].projects)
+    if "projects.html" in pages and pages["projects.html"].projects != 28:
+        errs.append("projects.html: expected 28 projects, found %d" % pages["projects.html"].projects)
     if "index.html" in pages and pages["index.html"].flags != 6:
         errs.append("index.html: expected six flagship cards, found %d" % pages["index.html"].flags)
     must = {"index.html": ["not an operating business", "has not met its acceptance criteria (failed)"], "lab-explorer.html": ["not an operating business", "has not met its acceptance criteria (failed)"],

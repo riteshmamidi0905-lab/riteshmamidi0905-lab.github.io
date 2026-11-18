@@ -16,13 +16,13 @@
   },
   {
     "path": "projects.html",
-    "bytes": 40326,
-    "sha256": "a45673d0a954ce9793186fb479d0de6e3e4b12ad93fbd52df51beda00afcddee"
+    "bytes": 44189,
+    "sha256": "f2787f7b6fd24fb8404bf9872fb95dc388165ef9fd93bde7c07a53103e72dc5e"
   },
   {
     "path": "recruiter.html",
-    "bytes": 9034,
-    "sha256": "797079508a18f560d2c2fb4fb2374f491563d131620a95593a7c843f240c2489"
+    "bytes": 9063,
+    "sha256": "108fa2c0d85e208ace6658ee2f1eec436a3458f2be6abe9880555dfb0a0245cf"
   },
   {
     "path": "404.html",
@@ -51,8 +51,8 @@
   },
   {
     "path": "cinematic.js",
-    "bytes": 5516,
-    "sha256": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7"
+    "bytes": 5548,
+    "sha256": "c098f6dd020762ba09d44286b92478845fe3edb2d214f0e6c20a3f841288ae23"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",
@@ -206,8 +206,8 @@
   },
   {
     "path": "demo/demo.css",
-    "bytes": 11075,
-    "sha256": "53042715e33ed0ba0680add99a0b8195aad66484872b2bef651b96d22699c996"
+    "bytes": 11229,
+    "sha256": "ff3c112af2dbcf4ef8c19973561a7e3ccd91885f1017d2303b19783b4850b62b"
   },
   {
     "path": "demo/data.js",

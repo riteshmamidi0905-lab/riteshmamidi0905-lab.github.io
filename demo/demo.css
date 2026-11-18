@@ -1,5 +1,7 @@
 /* NASHA AI Enterprise Demo: original design system (dark, restrained). No external fonts, scripts or images. */
 :root{--bg:#090f10;--panel:#10191a;--panel2:#0c1415;--line:#2a3939;--text:#f0f5f1;--muted:#a8b9b4;--mint:#c5f9df;--teal:#6cd8be;--amber:#f2c46d;--rose:#ff9d8a;--violet:#b9a7ff;color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.55;background:var(--bg);color:var(--text)}
+/* Reserve the desktop scrollbar before the dashboard fills the empty shell. */
+@media (min-width:861px){:root:has(#view:empty){scrollbar-gutter:stable}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg)}h1,h2,h3{line-height:1.2;margin:0 0 .5rem}h1{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:650}h2{font-size:1.15rem;font-weight:620}h3{font-size:1rem;font-weight:600}p{margin:.3rem 0}a{color:var(--mint);text-underline-offset:3px}code{font-family:ui-monospace,"JetBrains Mono",Menlo,monospace;font-size:.85em;background:var(--panel2);padding:.05rem .3rem;border-radius:4px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:.5rem;top:-4rem;background:var(--mint);color:#06100e;padding:.5rem .8rem;border-radius:6px;z-index:100}.skip:focus{top:.5rem}
