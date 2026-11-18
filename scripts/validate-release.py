@@ -52,8 +52,15 @@ for name in ('lab-explorer.html','verified-projects.html'):
  assert 'not an operating business' in s or 'not production readiness' in s,name
  assert not re.search(r'production[- ]ready|commercially operating|fully deployed(?! system)',s,re.I),name
 assert (root/'verified-projects.html').read_text().count('<article class="proj ')==29
-EMPLOYER=''.join(map(chr,(77,111,118,97,116,101)))  # not written out: the legal employer must not appear in this public repository
-assert EMPLOYER not in ''.join(p.read_text() for p in root.glob('*.html')),'employer name in public pages'
+# Only the exact owner-approved recruiter credit may name the employer.
+employer = 'Movate'
+credit = '<p class="org">Movate — Apple Maps Client Engagement · a client assignment, not direct Apple employment</p>'
+for page in root.glob('*.html'):
+ text = page.read_text()
+ if page.name == 'recruiter.html':
+  assert text.count(credit) == 1, 'expected one complete recruiter credit'
+  text = text.replace(credit, '', 1)
+ assert employer.casefold() not in text.casefold(), 'unexpected employer credit in '+page.name
 import glob
 cases=sorted(root.glob('case-*.html'))
 cases=[c for c in cases if c.name!='case-studies.html']
@@ -99,7 +106,7 @@ print('disclosure scan:',len(PUBLIC_TEXT),'text files scanned; every required fi
 for r in json.loads((root/'data/image-register.json').read_text()): assert r['cleared_for_public_release'] is True and r['kind']=='screenshot',('public register may list cleared screenshots only',r['file'])
 _rec=(root/'recruiter.html').read_text()
 assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'
-assert 'Apple Maps — Client Engagement' in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
+assert '<h3>Product &amp; AI Quality Operations Analyst</h3>'+credit in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
 # FONT PRELOAD GUARD: both webfonts preloaded on every top-level page (prevents a measured font-swap layout shift)
 for pg in sorted(root.glob('*.html')):
  s=pg.read_text(); assert 'inter-latin.woff2" as="font"' in s and 'jetbrains-mono-latin.woff2" as="font"' in s,('font preload missing',pg.name)
