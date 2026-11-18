@@ -174,8 +174,8 @@
   },
   {
    "path": "demo/demo.css",
-   "bytes": 11075,
-   "sha256": "53042715e33ed0ba0680add99a0b8195aad66484872b2bef651b96d22699c996"
+   "bytes": 11212,
+   "sha256": "6d9e69940c7b60f276f84d567a465342b1ed118f5dab427fc42121d24b712b2c"
   },
   {
    "path": "demo/engine.js",
