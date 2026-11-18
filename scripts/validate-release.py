@@ -44,7 +44,7 @@ for name,page in pages.items():
   target=os.path.normpath((Path(name).parent/unquote(u.path)).as_posix()).replace(os.sep,'/') if u.path else name
   assert target in expected,(name,ref)
   if u.fragment and not u.fragment.startswith('/') and target in pages:assert unquote(u.fragment) in pages[target].ids,(name,ref)
-assert pages['projects.html'].projects==24
+assert pages['projects.html'].projects==28
 assert pages['index.html'].flags==6
 assert 'prefers-reduced-motion' in (root/'cinematic.css').read_text()
 for name in ('lab-explorer.html','verified-projects.html'):
@@ -124,4 +124,4 @@ blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'
-print('PASS: 106 reviewed files, hashes, media/secret signatures, local links/fragments, 24 projects, six flagships, reduced-motion stylesheet')
+print('PASS: 106 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, six flagships, reduced-motion stylesheet')
