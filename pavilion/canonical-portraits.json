@@ -1,0 +1,90 @@
+{
+  "publicRepository": "riteshmamidi0905-lab/riteshmamidi0905-lab.github.io",
+  "revision": "10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a",
+  "portraits": [
+    {
+      "name": "AETHON",
+      "file": "assets/img/agents/aethon.webp",
+      "bytes": 43842,
+      "sha256": "720adec8373822198cfa15901170bae2acb8258f057957e0ddd0b65e5d6ad0bc",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/aethon.webp"
+    },
+    {
+      "name": "ZYBREW",
+      "file": "assets/img/agents/zybrew.webp",
+      "bytes": 53316,
+      "sha256": "de55dfdec7d40f5bd79113435ca11e8187461a6a8f762d5395ba4cef2bae3b92",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/zybrew.webp"
+    },
+    {
+      "name": "PYRIX",
+      "file": "assets/img/agents/pyrix.webp",
+      "bytes": 43342,
+      "sha256": "e3a6fbd0585e53e899b61ca39325842722e3a8408cbdcece107c77759f4aec73",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/pyrix.webp"
+    },
+    {
+      "name": "VECTRA",
+      "file": "assets/img/agents/vectra.webp",
+      "bytes": 54062,
+      "sha256": "d1ac45e2ee2270d5d819856d6dd2e91324d2baeaf40526a8269a24ccd4c4bd9a",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/vectra.webp"
+    },
+    {
+      "name": "NEXORA",
+      "file": "assets/img/agents/nexora.webp",
+      "bytes": 50590,
+      "sha256": "5f6d8ee73cb2939d4d1f032f533b63c54abfeefa831e5d2f7d306984b2c61c31",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/nexora.webp"
+    },
+    {
+      "name": "QUANTIX",
+      "file": "assets/img/agents/quantix.webp",
+      "bytes": 51788,
+      "sha256": "34ec3f554f54f489cac5958f879bf3478c91208af94f983243aab60f73f0a8da",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/quantix.webp"
+    },
+    {
+      "name": "ECHON",
+      "file": "assets/img/agents/echon.webp",
+      "bytes": 43804,
+      "sha256": "fd20dd1a888fc1042634356bcdc50ca738faa1a7500cd0bb3e7cfc863864edd0",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/echon.webp"
+    },
+    {
+      "name": "NOVARA",
+      "file": "assets/img/agents/novara.webp",
+      "bytes": 60842,
+      "sha256": "5f7937e1dda979c7d374bb6e95de706f643f7ce476c694d065143b6e675aaedc",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/novara.webp"
+    },
+    {
+      "name": "SYNAPSE",
+      "file": "assets/img/agents/synapse.webp",
+      "bytes": 52842,
+      "sha256": "9f0abf0ad725ab09850e995780dc9432489df6569919cde2122315eb72a3f568",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/synapse.webp"
+    },
+    {
+      "name": "AEGIS",
+      "file": "assets/img/agents/aegis.webp",
+      "bytes": 43580,
+      "sha256": "ac898d5cb67e243bc92992d7fc5f02f335af01edf65d8cbd5a7859fdfa54e35a",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/aegis.webp"
+    },
+    {
+      "name": "CORTEX",
+      "file": "assets/img/agents/cortex.webp",
+      "bytes": 46914,
+      "sha256": "7afcf8d09fb6dbfb323e331cc0128927c4a5f09fdb61a966b99693bda84b3d62",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/cortex.webp"
+    },
+    {
+      "name": "VERITAS",
+      "file": "assets/img/agents/veritas.webp",
+      "bytes": 51540,
+      "sha256": "aebd1c699e7f2dd5a56f3186aba94be5a09956e805be316cd5b85804cd96671c",
+      "url": "https://raw.githubusercontent.com/riteshmamidi0905-lab/riteshmamidi0905-lab.github.io/10f53a1551a7c0d0c4ea4e22d4a02a6c1f9b0d4a/assets/img/agents/veritas.webp"
+    }
+  ]
+}

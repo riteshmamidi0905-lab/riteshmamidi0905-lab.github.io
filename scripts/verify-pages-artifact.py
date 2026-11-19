@@ -99,6 +99,16 @@ def main():
     notes.append("inventory: %d files, %d bytes, tree digest %s" % (len(names), sum(v[0] for v in inv.values()), P.tree_digest(inv)))
 
     # 3 images and binaries
+    from concept_art import validate as validate_concept_art
+    try:
+        from canonical_portraits import validate as validate_portraits
+        portraits=validate_portraits(base,[p for p in names if p.endswith('.html')],names)
+        concepts=validate_concept_art(base,[p for p in names if p.endswith('.html')],names)
+    except (AssertionError,ValueError,KeyError,TypeError,OSError) as error:
+        portraits={}
+        concepts={}
+        errs.append('concept-art provenance or visible label: '+str(error))
+
     reg = {}
     if "data/image-register.json" in names:
         reg = {r["file"]: r for r in json.loads((base / "data/image-register.json").read_text(encoding="utf-8"))}
@@ -107,7 +117,7 @@ def main():
         if low.endswith(IMAGE_SUFFIX):
             if rel.startswith("assets/img/"):
                 r = reg.get(rel)
-                if not r or r.get("cleared_for_public_release") is not True or r.get("kind") != "screenshot":
+                if rel not in portraits and rel not in concepts and (not r or r.get("cleared_for_public_release") is not True or r.get("kind") != "screenshot"):
                     errs.append("%s: image is not a cleared screenshot in the artifact's own image register" % rel)
             elif rel not in ALLOWED_NON_REGISTER_IMAGES:
                 errs.append("%s: image outside assets/img/ and not an allowlisted brand asset" % rel)
