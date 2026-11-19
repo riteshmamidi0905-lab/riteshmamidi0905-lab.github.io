@@ -23,6 +23,7 @@ export const defaultCrew=edition=>edition>=5?shiftRoster.slice(0,baselinePositio
 
 export function serviceQueue(covers,positions,scale,policy=servicePolicy){
   const peakArrivals=Math.round(covers*policy.peakSharePercent/100);
+  if(positions===0)return {peakArrivals,peakCapacity:0,waitMinutes:policy.peakMinutes,walkoutRate:100,walkouts:peakArrivals};
   const peakCapacity=positions*scale*policy.peakMinutes/policy.peakMinutesPerCover;
   const overflow=Math.max(0,peakArrivals-peakCapacity);
   const waitMinutes=policy.baseWaitMinutes+Math.round(policy.peakMinutes*overflow/(2*peakCapacity));
@@ -73,7 +74,7 @@ export function pubDemand(day,terms,pricePercent,draw,lostGuestSources,priorWeek
   const weekday=(day-1)%7,rampPercent=terms.weeklyRampPercent[Math.floor((day-1)/7)];
   const noisePercent=96+draw(9);
   const factor=Math.max(0,1-terms.priceElasticity*pricePercent/100);
-  const expectedCovers=Math.round(terms.fullWeekCovers[weekday]*rampPercent/100*noisePercent/100*factor);
+  const expectedCovers=Math.round(terms.fullWeekCovers[weekday]*rampPercent/100*noisePercent/100*factor*(terms.demandFactors?.[day-1]??1));
   const policy=terms.servicePolicy;
   const newProspects=policy?Math.round(expectedCovers*policy.newGuestSharePercent/100):0;
   const rating=priorWeek?.serviceQuality?.ratingHundredths??500;
@@ -96,7 +97,7 @@ export function openingUnits(index,scale,budgetCents){
 // reputation or actual sales so all rosters face the same purchasing policy.
 export function purchaseBudget(startDay,terms,pricePercent,products,records,ceilingCents){
   const week=Math.floor((startDay-1)/7);
-  const forecastCovers=terms.fullWeekCovers.map(n=>Math.round(n*terms.weeklyRampPercent[week]/100*
+  const forecastCovers=terms.fullWeekCovers.map((n,i)=>Math.round(n*(terms.demandFactors?.[startDay-1+i]??1)*terms.weeklyRampPercent[week]/100*
     Math.max(0,1-terms.priceElasticity*pricePercent/100)));
   const items=products.map((productId,i)=>{
     const recipe=records[productId].recipe;

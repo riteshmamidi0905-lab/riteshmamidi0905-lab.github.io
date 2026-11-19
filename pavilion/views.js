@@ -1,8 +1,13 @@
+import {replayLink} from './idea-replay.js';
 import {preset,templates} from './engine.js';
 export const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=c=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(c/100);
 const pageNames={overview:'Overview',ops:'Agent Ops',timeline:'Operations timeline',agents:'Agent activity',ledger:'Ledger',inspector:'Source inspector'};
 export function url(page,model,day=1,extra={}){
+ if(model.config.edition===7){
+   const id=new URLSearchParams(location.hash.slice(1)).get('sim');
+   return esc(replayLink(page,id,model.config.shocks,day,{positions:model.config.positions,...extra}));
+ }
  const q=new URLSearchParams({day,...extra});
  q.set('v',model.config.edition|| (model.weeks?2:1));
  if(Object.keys(model.config).some(k=>k!=='edition'&&model.config[k]!==preset[k]))q.set('business',JSON.stringify(model.config));
@@ -40,10 +45,11 @@ function wizard(){return '<form id="create" class="paper" action="overview.html"
 export function builder(page,m,d,registry,id){
  const balance=m.records[m.days[d]], a=balance.accounts,ev=m.events.filter(e=>e.day===d);
  let html=header(m,d)+'<main id="content"><div class="app-intro"><p class="kicker">NASHA AI Business Builder</p><p class="disclose">Simulation — rule-based, synthetic data</p></div>'+heading(m.config.location,page==='create'?'Start a business':m.config.name,page==='create'?'':'<a class="button secondary" href="create.html">New business</a>')+tabs(m,d,page);
+ if(page==='create'||page==='overview')html+='<p><a href="simulator.html">Simulate your idea</a></p>';
  if(page==='create')return html+wizard()+'</main>';
  html+=dayNav(m,d,page);
  if(page==='overview'){
- if(m.config.edition>=3)html+='<p><a href="'+url('ops',m,d)+'#model-assumptions">Brewpub model assumptions and four-week performance →</a></p>';
+ if(m.config.edition>=3&&m.config.edition!==7)html+='<p><a href="'+url('ops',m,d)+'#model-assumptions">Brewpub model assumptions and four-week performance →</a></p>';
  html+='<div class="stats">'+[['Cash',a.cash],['Inventory at cost',a.stock],[m.weeks?'Net income to date':'Trading profit to date',balance.incomeCents]].map(([k,v])=>'<article><small>'+k+'</small>'+ref(m,d,balance.id,money(v))+'</article>').join('')+'</div><div class="columns"><section class="paper"><p class="kicker">Product book</p><h2>On the counter</h2>'+m.products.map(k=>'<div class="row">'+ref(m,d,k,m.records[k].name)+'<span>'+ref(m,d,k,money(m.records[k].priceCents))+'</span></div>').join('')+'<h3>Ingredient inventory</h3>'+m.ingredients.map(k=>'<div class="row">'+ref(m,d,k,m.records[k].name)+ref(m,d,balance.id,balance.closingStock[k]+' units')+'</div>').join('')+'</section><section class="paper dark"><p class="kicker">Opening file</p><h2>From scratch</h2><p>'+esc(m.config.size)+' operation in fictional '+esc(m.config.location)+'.</p>'+ref(m,d,'PLAN','Budget, suppliers, staff & marketing plan')+(d<m.days.length-1?'<hr><a href="'+url('overview',m,d+1)+'">Next operating day →</a>':'')+'<hr><a href="'+url('hq',m,d)+'">Enter headquarters →</a><hr><a href="'+url('bridge',m,d)+'">Visit the brewery →</a></section></div>';
  }else if(page==='timeline'){html+='<h2>Shift log</h2>'+timeline(m,d);}
  else if(page==='ledger'){

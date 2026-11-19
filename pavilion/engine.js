@@ -2,6 +2,8 @@
 import {additionalAccounts,operatingTerms,operatingDay,taxFor,verifyLot,weeklyClose} from './finance.js';
 import {settings} from './business-settings.js';
 import {brewpub,pubTerms,pubDemand,openingUnits,missingVisits,defaultCrew,serviceRating,purchaseBudget} from './brewpub.js';
+import {operatingProfile,profiles} from './idea-profiles.js';
+import {ideaTerms,openingStock} from './idea-terms.js';
 import {stampTasks} from './shift-schedule.js';
 export const templates = Object.freeze({
   brewery: ['Brewery & Kitchen','Court lager','Lime spritz','Malt measure','Citrus measure'],
@@ -17,7 +19,7 @@ function freeze(x) {
 }
 Object.values(templates).forEach(freeze);
 function validate(c) {
-  if(!c || !Object.hasOwn(templates,c.template) || !Object.hasOwn(scales,c.size))throw Error('Select a listed template and size.');
+  if(!c || !Object.hasOwn(c.edition===7?profiles:templates,c.template) || !Object.hasOwn(scales,c.size))throw Error('Select a listed template and size.');
   for(const k of ['name','location'])if(typeof c[k]!=='string'||c[k]!==c[k].trim()||!c[k]||c[k].length>56||/[<>\x00-\x1f]/.test(c[k]))throw Error('Use 1–56 plain-text characters for the name and fictional location.');
   if(!Number.isInteger(c.budget)||c.budget<500||c.budget>1000000)throw Error('Opening budget must be 500–1,000,000 whole dollars.');
   if(!Number.isInteger(c.seed)||c.seed<1||c.seed>999999)throw Error('Use a whole-number seed from 1 to 999999.');
@@ -25,17 +27,20 @@ function validate(c) {
 export function simulate(input=preset){return operate(input,false);}
 // Unversioned callers retain the archived v2 ledger. New website and Builder sessions
 // select the current edition explicitly so old source links still identify the same record.
-export function simulateOperatingPeriod(input=preset){return operate(input,true,[3,4,5,6].includes(input.edition) && input.template==='brewery');}
+export function simulateOperatingPeriod(input=preset){return operate(input,true,input.edition===7 || ([3,4,5,6].includes(input.edition) && input.template==='brewery'));}
 export function simulateCurrentPeriod(input=preset){return simulateOperatingPeriod({...input,edition:6});}
 function operate(input,monthly,calibrated=false){
   validate(input);
   const c=Object.fromEntries(Object.keys(preset).map(k=>[k,input[k]]));
-  const extra=monthly?settings(input):{};
+  const custom=input.edition===7 && monthly;
+  if(custom && (!input.idea || input.template!==input.idea.type || input.budget!==input.idea.budget))throw Error('Opening plan and confirmed idea disagree.');
+  const sector=custom?operatingProfile(input.idea,input.shocks,input.positions):null;
+  const extra=custom?{idea:{...input.idea},positions:input.positions??input.idea.staff,shocks:[...new Set(input.shocks||[])].sort(),leadDays:sector.leadDays}:monthly?settings(input):{};
   const originalKey=Object.values(c).map(encodeURIComponent).join('/');
   Object.assign(c,extra);
   if(calibrated)c.edition=input.edition;
   const scenario=(calibrated?'builder-v'+c.edition+'/':monthly?'builder-v2/':'builder-v1/')+originalKey+(Object.keys(extra).length?'/'+encodeURIComponent(JSON.stringify(extra)):'');
-  const scale=scales[c.size], [,p1,p2,i1,i2]=templates[c.template];
+  const scale=scales[c.size], [,p1,p2,i1,i2]=templates[c.template]||[c.template,'Primary','Secondary','Supply A','Supply B'];
   let rng=c.seed;
   function roll(n){rng=(Math.imul(rng,1664525)+1013904223)>>>0;return Math.floor(rng/4294967296*n);}
   const records={},events=[],days=[],weeks=[];
@@ -44,21 +49,23 @@ function operate(input,monthly,calibrated=false){
   const campaignNames={brewery:'Courtyard food and beer tastings',coffee:'Opening-week coffee flight',bakery:'Morning bread tasting',retail:'Stationery launch selection'};
   const supplierNames=['Court Supply','West Arcade Supply','Arcade Kitchen Supply'];
   const materials=[[i1,85],[i2,70]];
-  if(brewery)materials.push(['Prepared Chicken 65 and totopos portion',395]);
-  if(calibrated){
+  if(brewery||custom)materials.push(['Prepared Chicken 65 and totopos portion',395]);
+  if(custom){materials.forEach((mat,i)=>{mat[0]=sector.names[i]+' supplies';mat[1]=sector.costs[i];});}
+  else if(calibrated){
     const labels=['Lager pour at batch cost','Lime spritz ingredients','Chicken 65 kitchen portion'];
     materials.forEach((mat,i)=>{mat[0]=labels[i];mat[1]=brewpub.ingredientCents[i];});
   }
   const suppliers=materials.map((_,i)=>'SUP-'+String.fromCharCode(65+i));
-  const profile=record('PLAN','Opening plan',{...c,scenario,dataset:brewery&&c.name===preset.name?'NASHA Brewery — built from scratch':c.name+' — built from scratch',openingCashCents:c.budget*100,staff:c.staff||(calibrated?[...defaultCrew(c.edition)]:null)||['Rowan · production','Mika · counter','Sol · shift lead'],supplierIds:suppliers,campaign:campaignNames[c.template],purchaseApprovalLimitCents:(calibrated?brewpub.approvalLimit:1800)*scale,...(monthly?{operatingTermsId:'TERMS'}:{})});
+  const profile=record('PLAN','Opening plan',{...c,scenario,dataset:brewery&&c.name===preset.name?'NASHA Brewery — built from scratch':c.name+' — built from scratch',openingCashCents:c.budget*100,staff:custom?Array.from({length:sector.positions},(_,i)=>'Position '+(i+1)):c.staff||(calibrated?[...defaultCrew(c.edition)]:null)||['Rowan · production','Mika · counter','Sol · shift lead'],supplierIds:suppliers,campaign:custom?'Local '+profiles[c.template].label+' opening':campaignNames[c.template],purchaseApprovalLimitCents:(calibrated?brewpub.approvalLimit:1800)*scale,...(monthly?{operatingTermsId:'TERMS'}:{})});
   const ingredients=materials.map(([name,cost],i)=>record('MAT-'+(i+1),'Ingredient',{name,supplierId:suppliers[i],unitCostCents:cost}));
   suppliers.forEach((id,i)=>record(id,'Fictional supplier',{name:supplierNames[i],materialId:ingredients[i]}));
   const products=[p1,p2].map((name,i)=>record('SKU-'+(i+1),'Product recipe',{name,priceCents:[850,625][i],recipe:{'MAT-1':i?1:2,'MAT-2':1}}));
-  if(brewery)products.push(record('SKU-3','Product recipe',{name:'Chicken 65 Totopos',priceCents:1450,recipe:{'MAT-2':1,'MAT-3':1}}));
+  if(brewery||custom)products.push(record('SKU-3','Product recipe',{name:'Chicken 65 Totopos',priceCents:1450,recipe:{'MAT-2':1,'MAT-3':1}}));
   products.forEach((id,i)=>{const product=records[id];
     if(calibrated){product.priceCents=brewpub.menuCents[i];product.recipe={['MAT-'+(i+1)]:1};}
+    if(custom){product.name=sector.names[i];product.priceCents=sector.prices[i];}
     if(c.menu)Object.assign(product,c.menu[i]);if(c.pricePercent)product.priceCents=Math.max(1,Math.round(product.priceCents*(100+c.pricePercent)/100));});
-  const terms=monthly?records[(calibrated?pubTerms:operatingTerms)(scale,record,c.staff,c.edition)]:null;
+  const terms=monthly?records[custom?ideaTerms(c,record):(calibrated?pubTerms:operatingTerms)(scale,record,c.staff,c.edition)]:null;
   const lostVisitsByDay=Array.from({length:32},()=>[]);
   let weekFulfillments=[];
   let budgetId, committedThisWeek = 0, lastCommitment;
@@ -92,29 +99,30 @@ function operate(input,monthly,calibrated=false){
     event('QUANTIX','Close the books',postings.concat(moves),[id]);days.push(id);return id;
   }
   const opening={...stock},startJournal=[post('cash','equity',c.budget*100,profile)],startMoves=[];
+  const initial=custom?openingStock(sector,c.budget*100):null;
   for(const mat of ingredients){
-    const units=calibrated?openingUnits(ingredients.indexOf(mat),scale,c.budget*100):9*scale, receipt=save('Opening inventory',{materialId:mat,units,supplierId:records[mat].supplierId});
+    const units=custom?initial[ingredients.indexOf(mat)]:calibrated?openingUnits(ingredients.indexOf(mat),scale,c.budget*100):9*scale, receipt=save('Opening inventory',{materialId:mat,units,supplierId:records[mat].supplierId});
     startMoves.push(movement(mat,units,receipt));startJournal.push(post('stock','cash',units*records[mat].unitCostCents,receipt));
   }
   close(opening,startJournal,startMoves);
   for(day=1;day<=(monthly?28:7);day++){
     const prior=days.at(-1),open={...stock},posts=[],moves=[];
     for(const item of deliveries.filter(it=>it.due===day))receive(item,posts,moves);
-    if(c.edition===6 && (day-1)%7===0){
+    if(c.edition>=6 && (day-1)%7===0){
       budgetId=save('Weekly purchase budget',purchaseBudget(day,terms,c.pricePercent||0,products,records,c.weeklyPurchaseCeilingCents));
       committedThisWeek=0;
       lastCommitment=null;
       event('QUANTIX','Open forecast purchasing budget',[terms.id,...products,...ingredients],[budgetId]);
     }
     const shift=save('Shift',{day,priorClose:prior,staff:records.PLAN.staff});event('SYNAPSE','Open the shift',[profile,prior],[shift]);
-    const campaign=save('Campaign plan',{channel:'Courtyard invitation',state:'Synthetic plan',featuredProductId:products[day%products.length]});event('NOVARA','Prepare campaign',[profile,shift],[campaign]);
+    const campaign=save('Campaign plan',{channel:custom?'Local opening campaign':'Courtyard invitation',state:'Synthetic plan',featuredProductId:products[day%products.length]});event('NOVARA','Prepare campaign',[profile,shift],[campaign]);
     const service=calibrated?pubDemand(day,terms,c.pricePercent||0,roll,c.edition>=4?lostVisitsByDay[day]:undefined,records[weeks.at(-1)]):null;
     const demand=service?.units||Object.fromEntries(products.map(k=>[k,(3+roll(7))*scale]));
     const orderable=service?.orderable||demand;
     const forecast=save('Demand forecast',{...(service||{}),units:demand,campaignId:campaign});event('AETHON','Forecast demand',[shift,campaign,...(service?.lostGuestSources||[]).map(s=>s.fulfillmentId),...(service?.ratingSourceId?[service.ratingSourceId]:[])],[forecast]);
     const dossier=save('Recipe evidence',{productIds:products,materialIds:ingredients});event('CORTEX','Retrieve recipe evidence',products.concat(ingredients),[dossier]);
     const need=Object.fromEntries(ingredients.map(k=>[k,products.reduce((s,p)=>s+orderable[p]*(records[p].recipe[k]||0),0)]));
-    const recipe=save('Ingredient requirement',{required:need,forecastId:forecast});event('PYRIX','Translate recipes into requirements',[dossier,forecast],[recipe]);
+    const recipe=save('Ingredient requirement',{required:need,forecastId:forecast});event(custom&&['retail','salon'].includes(c.template)?'SYNAPSE':'PYRIX',custom&&c.template==='salon'?'Plan appointment supplies':'Translate recipes into requirements',[dossier,forecast],[recipe]);
     const short=Object.fromEntries(ingredients.map(k=>[k,Math.max(0,need[k]-stock[k])]));
     const target={...need};
     if(calibrated&&c.leadDays){
@@ -191,10 +199,10 @@ function operate(input,monthly,calibrated=false){
       const spec=records[p],quantity=Math.min(orderable[p],!calibrated&&c.staff?3*c.staff.length*scale:Infinity,...Object.entries(spec.recipe).map(([k,n])=>Math.floor(stock[k]/n)));
       const inputs=moves.filter(id=>Object.hasOwn(spec.recipe,records[id].materialId)&&(monthly||records[id].units>0));
       if(monthly)verifyLot(spec.recipe,demand[p],stock,quantity);
-      const batch=save(c.template==='brewery'&&p===products[0]?'Brewing batch':'Production lot',{productId:p,requested:demand[p],completed:quantity,unfilled:demand[p]-quantity,...(monthly?{stockBefore:{...stock},stockEvidenceIds:[prior,...inputs]}:{})});
+      const batch=save(c.template==='brewery'&&p===products[0]?'Brewing batch':custom&&c.template==='salon'?'Appointment fulfillment':'Production lot',{productId:p,requested:demand[p],completed:quantity,unfilled:demand[p]-quantity,...(monthly?{stockBefore:{...stock},stockEvidenceIds:[prior,...inputs]}:{})});
       lots.push(batch);
       const used=quantity?Object.entries(spec.recipe).map(([k,n])=>movement(k,-quantity*n,batch)):[];moves.push(...used);
-      event((brewery&&p===products[0])||(monthly&&c.template==='coffee'&&p==='SKU-2')?'ZYBREW':p==='SKU-3'?'PYRIX':'SYNAPSE',quantity?'Complete production lot':'Record blocked lot',[recipe,inventory,...(monthly?[prior]:[]),...inputs],[batch,...used]);
+      event((brewery&&p===products[0])||(monthly&&c.template==='coffee'&&p==='SKU-2')?'ZYBREW':p==='SKU-3'&&(!custom||['brewery','bakery','coffee','truck'].includes(c.template))?'PYRIX':'SYNAPSE',custom&&c.template==='salon'?(quantity?'Fulfill appointment service':'Record unavailable appointment service'):quantity?'Complete production lot':'Record blocked lot',[recipe,inventory,...(monthly?[prior]:[]),...inputs],[batch,...used]);
       if(!quantity)continue;
       const order=save('Sale',{productId:p,batchId:batch,quantity,unitPriceCents:spec.priceCents,campaignId:campaign});
       const net=spec.priceCents*quantity,tax=monthly?taxFor(net,terms.salesTaxBasisPoints):0;
