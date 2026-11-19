@@ -202,7 +202,7 @@ function operate(input,monthly,calibrated=false){
       const batch=save(c.template==='brewery'&&p===products[0]?'Brewing batch':custom&&c.template==='salon'?'Appointment fulfillment':'Production lot',{productId:p,requested:demand[p],completed:quantity,unfilled:demand[p]-quantity,...(monthly?{stockBefore:{...stock},stockEvidenceIds:[prior,...inputs]}:{})});
       lots.push(batch);
       const used=quantity?Object.entries(spec.recipe).map(([k,n])=>movement(k,-quantity*n,batch)):[];moves.push(...used);
-      event((brewery&&p===products[0])||(monthly&&c.template==='coffee'&&p==='SKU-2')?'ZYBREW':p==='SKU-3'&&(!custom||['brewery','bakery','coffee','truck'].includes(c.template))?'PYRIX':'SYNAPSE',custom&&c.template==='salon'?(quantity?'Fulfill appointment service':'Record unavailable appointment service'):quantity?'Complete production lot':'Record blocked lot',[recipe,inventory,...(monthly?[prior]:[]),...inputs],[batch,...used]);
+      event((brewery&&p===products[0])||(!custom&&monthly&&c.template==='coffee'&&p==='SKU-2')?'ZYBREW':p==='SKU-3'&&(!custom||['brewery','bakery','coffee','truck'].includes(c.template))?'PYRIX':'SYNAPSE',custom&&c.template==='salon'?(quantity?'Fulfill appointment service':'Record unavailable appointment service'):quantity?'Complete production lot':'Record blocked lot',[recipe,inventory,...(monthly?[prior]:[]),...inputs],[batch,...used]);
       if(!quantity)continue;
       const order=save('Sale',{productId:p,batchId:batch,quantity,unitPriceCents:spec.priceCents,campaignId:campaign});
       const net=spec.priceCents*quantity,tax=monthly?taxFor(net,terms.salesTaxBasisPoints):0;

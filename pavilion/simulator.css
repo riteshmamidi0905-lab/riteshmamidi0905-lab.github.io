@@ -6,3 +6,9 @@
 @page{size:A4;margin:16mm}
 @media print{body{background:white;font:11pt/1.45 Georgia,serif;color:#19271e}body>header,.skip,.sim>.steps,.privacy,.no-print,#message{display:none!important}.sim{padding:0;max-width:none}.report-sheet{margin:0;padding:0;background:white;border:0;break-inside:avoid;break-after:page}.report-sheet:last-child{break-after:auto}.sim h1,.sim h2{font-size:25pt}.sim .sheet{border:0;padding:0}.sim th,.sim td{font-size:10pt}.sim .report-disclosure{font-size:9pt}.sim a{color:inherit;text-decoration:none}.sim .kicker{color:#374a3b}}
 .sim .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}.sim .keep{font-size:.78rem;min-height:35px;padding:4px 7px}
+@media screen and (max-width:500px){
+ .sim .compact{display:block}.sim .compact thead{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}.sim .compact tbody{display:block}
+ .sim .compact tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);padding:9px 0;gap:5px 12px}
+ .sim .compact th,.sim .compact td{border:0;padding:0;font-size:.91rem;overflow-wrap:normal}.sim .compact th{grid-column:1/-1;color:#2c4a3a}
+ .sim .compact td::before{content:attr(data-label);display:block;color:#566257;font-size:.72rem}.sim .compact td{font-variant-numeric:tabular-nums}
+}

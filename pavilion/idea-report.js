@@ -6,7 +6,7 @@ export const dollars=n=>new Intl.NumberFormat('en-US',{style:'currency',currency
 export const num=n=>n.toLocaleString('en-US');
 export const disclosure='Synthetic simulation — not financial, legal or tax advice.';
 export function table(headers,rows,caption=''){
-  return `<table class="compact">${caption?'<caption>'+esc(caption)+'</caption>':''}<thead><tr>${headers.map(h=>'<th scope="col">'+esc(h)+'</th>').join('')}</tr></thead><tbody>${rows.map(row=>'<tr>'+row.map((v,i)=>i?'<td>'+v+'</td>':'<th scope="row">'+v+'</th>').join('')+'</tr>').join('')}</tbody></table>`;
+  return `<table class="compact" role="table">${caption?'<caption>'+esc(caption)+'</caption>':''}<thead><tr>${headers.map(h=>'<th scope="col">'+esc(h)+'</th>').join('')}</tr></thead><tbody>${rows.map(row=>'<tr>'+row.map((v,i)=>i?'<td data-label="'+esc(headers[i])+'">'+v+'</td>':'<th scope="row">'+v+'</th>').join('')+'</tr>').join('')}</tbody></table>`;
 }
 export function sourceLink(id,keys,week,label,positions){
   const href=replayLink('inspector',id,keys,week.week*7,{id:week.id,...(positions?{positions}:{})});

@@ -1,7 +1,7 @@
 import {defaults, fields, profiles, hoursLong} from './idea-profiles.js';
 
 const types={
-  brewery:/\b(brewpub|microbrewery|brewery|taproom)\b/i,coffee:/\b(caf[eé]|coffee(?:house| shop| roaster| bar)|espresso bar|roastery)\b/i,
+  brewery:/\b(brewpub|microbrewery|brewery|taproom)\b/i,coffee:/\b(caf[eé]|coffee(?:house| shop| roaster| bar)|espresso bar|roastery)(?![\p{L}\d_])/iu,
   bakery:/\b(bakery|bakeshop|bakehouse|patisserie)\b/i,truck:/\b(food truck|taco truck|mobile kitchen|food cart)\b/i,
   retail:/\b(boutique|retail shop|gift (?:shop|store)|clothing store|bookshop)\b/i,salon:/\b(salon|barber(?:shop)?|beauty studio|hair studio|hairdresser)\b/i
 };
@@ -49,10 +49,10 @@ export function parseIdea(input){
   const named=/\b(?:named|called)\s+["“']?(.+)/i.exec(text);
   const quoted=/["“]([^"”]{1,56})["”]/.exec(text);
   if(named||quoted){const v=quoted?quoted[1]:named[1].split(boundary)[0].split(',')[0];if(clean(v))put('concept',clean(v));}
-  const cities=[...primary.matchAll(/\b(?:in|city\s*:\s*)\s+((?:[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’-]*)(?:\s+[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’-]*){0,5})/gi)]
+  const cities=[...primary.matchAll(/\b(?:in|city\s*:\s*)\s+(?=((?:[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’-]*)(?:\s+[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’-]*){0,5}))/gi)]
     .map(m=>m[1].split(boundary)[0].split(/\s+(?:with|and|or|is|has|opens|seats)\b/i)[0].replace(/^(?:downtown|suburban|industrial)\s+/i,'').trim())
-    .filter(v=>v&&!/^(?:a |an |the |downtown$|suburbs$|town$|mind$)/i.test(v));
-  if(cities.length===1)put('city',title(cities[0]));else if(cities.length>1)ask('city','Which city should this scenario use?');
+    .filter(v=>v&&!/^(?:a |an |the |downtown$|suburbs$|town$|mind$|capital$|funds$|cash$|the bank$)/i.test(v));
+  if(cities.length===1&&!/\bin [^,;.]+?\bor (?:in )?[A-Z][a-z]/.test(primary))put('city',title(cities[0]));else if(cities.length)ask('city','Which city should this scenario use?');
   for(const [field,patterns] of [['tier',prices],['neighborhood',areas]]){
     const found=Object.keys(patterns).filter(k=>patterns[k].test(primary));
     if(found.length===1)put(field,found[0]);else if(found.length>1)ask(field,'Which '+fields[field].toLowerCase()+' should we use?');
@@ -75,5 +75,13 @@ export function parseIdea(input){
   if(offer){const part=offer[1].split(boundary)[0].split(/,\s*(?=(?:open|budget|\$|\d+\s+(?:staff|seat)))/i)[0];
     const list=part.split(/\s*,\s*|\s+and\s+| & /i).map(clean).filter(Boolean);
     if(list.length>=1&&list.length<=3)put('products',list.join(', '));else ask('products','Which one to three offerings should represent your mix?');}
+  for(const [key,min,max] of [['staff',1,12],['budget',500,1000000]]){
+    if(status[key]==='parsed'&&(values[key]<min||values[key]>max))ask(key,'What value within '+min+'–'+max+' should we model?');
+  }
+  if(status.size==='parsed'){
+    const limit=values.size.endsWith('seats')?400:20000, n=parseInt(values.size,10);
+    if(n<1||n>limit)ask('size','Choose a footprint within the supported range (400 seats or 20,000 sq ft).');
+  }
+  for(const k of Object.keys(questions))values[k]=defaults(values.type)[k];
   return {values,status,questions};
 }
