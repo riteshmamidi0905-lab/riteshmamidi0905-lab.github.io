@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==106   # 48 portfolio files + 2 flagship screenshots + the 56-file public NASHA AI Universe (nasha-universe/)
+assert len(manifest)==157   # Public base plus verified pavilion files.
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -20,6 +20,13 @@ class Parser(HTMLParser):
 pages={}
 # nothing may sit unlisted under assets/ (GitHub Pages would publish it); concept images need a cleared register entry
 reg={i['file']:i for i in json.loads((root/'data/image-register.json').read_text())}
+from concept_art import validate as validate_concept_art
+concepts=validate_concept_art(root,[n for n in expected if n.endswith('.html')],expected)
+from canonical_portraits import validate as validate_portraits
+portraits=validate_portraits(root,[n for n in expected if n.endswith('.html')],expected)
+assert not (set(reg)&set(concepts) or set(reg)&set(portraits) or set(portraits)&set(concepts)), 'duplicate clearance class'
+reg.update({p:{**r,'cleared_for_public_release':True} for p,r in portraits.items()})
+reg.update({p:{**r,'cleared_for_public_release':True} for p,r in concepts.items()})
 for f in sorted((root/'assets').rglob('*')):
  rel=f.relative_to(root).as_posix()
  if f.is_file() and rel not in expected:raise AssertionError('unlisted file under assets/: '+rel)
@@ -124,4 +131,4 @@ blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'
-print('PASS: 106 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, six flagships, reduced-motion stylesheet')
+print('PASS: 157 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, six flagships, reduced-motion stylesheet')
