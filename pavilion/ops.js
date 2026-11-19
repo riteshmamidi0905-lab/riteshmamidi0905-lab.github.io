@@ -5,7 +5,8 @@ export {compareWeek};
 import {header,tabs,esc,url} from './views.js';
 const usd=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n/100);
 const pct=(n,d)=>d?(100*n/d).toFixed(1)+'%':'—';
-const source=(m,d,id,label=id)=>'<a href="'+url('inspector',m,d,{id})+'">'+esc(label)+'</a>';
+const source=(m,d,id,label=id,accessibleName)=>'<a href="'+url('inspector',m,d,{id})+'"'+
+  (accessibleName?' aria-label="'+esc(accessibleName)+'"':'')+'>'+esc(label)+'</a>';
 function incident(r) {
  if(r.kind==='Availability check' && Object.values(r.shortage).some(x=>x>0))return 'Ingredient shortage';
  if(r.kind==='Fulfillment check' && r.unfilledUnits)return 'Unfilled production';
@@ -70,7 +71,7 @@ function openingAndMonth({base,variant,opening,period}){
   const cardRow='<div class="period-cards">'+periodCard('Week 1',opening)+periodCard('Four weeks',period)+'</div>';
   const rows=period.first.periods.map((group,i)=>{
     const sibling=period.last.periods[i],day=7*(i+1);
-    return '<tr><th scope="row">Week '+(i+1)+'</th><td>'+group.meals+' / '+sibling.meals+'</td><td>'+usd(group.numbers.revenue)+' / '+usd(sibling.numbers.revenue)+'</td><td>'+source(base,day,group.w.id,'Baseline')+' · '+source(variant,day,sibling.w.id,'What-if')+(base.config.edition>=5&&sibling.meals>group.meals?extraMeals(base,variant,i+1):'')+'</td></tr>';
+    return '<tr><th scope="row">Week '+(i+1)+'</th><td>'+group.meals+' / '+sibling.meals+'</td><td>'+usd(group.numbers.revenue)+' / '+usd(sibling.numbers.revenue)+'</td><td>'+source(base,day,group.w.id,'Baseline','Baseline week '+(i+1)+' close record '+group.w.id)+' · '+source(variant,day,sibling.w.id,'What-if','What-if week '+(i+1)+' close record '+sibling.w.id)+(base.config.edition>=5&&sibling.meals>group.meals?extraMeals(base,variant,i+1):'')+'</td></tr>';
   }).join('');
   const leverLabels={price:'Price',staff:'Staffing',lead:'Supplier lead time',interaction:'Interaction'};
   const attrRows=Object.entries(leverLabels).map(([k,label])=>{
@@ -101,12 +102,23 @@ export function operations(m,d,registry){
  '<nav class="tabs" aria-label="Metric week">'+m.weeks.map((_,i)=>'<a '+(week===i+1?'aria-current="true"':'')+' href="'+url('ops',m,7*(i+1))+'">Week '+(i+1)+'</a>').join('')+'</nav>'+
  '<div class="stats"><article><small>Completed tasks</small><strong>'+total+'</strong></article><article><small>VERITAS checks passed</small><strong>'+pass+' / '+evaluations.length+'</strong></article><article><small>Source-linked incidents</small><strong>'+incidents.length+'</strong></article></div>'+
  '<div class="ops-columns"><section class="paper" id="queue"><p class="kicker">Human approval queue</p><h2>Purchase decisions</h2>'+queue+(latest?'<p role="status">Decision recorded · '+source(m,d,latest.id,latest.approved?'Approved':'Rejected')+' · '+source(m,d,latest.purchaseId)+'</p>':'')+'<noscript><p>Decision entry requires JavaScript. Every recorded decision is available in the ledger.</p></noscript></section>'+
- '<section class="paper" id="what-if"><p class="kicker">Scenario comparison</p><h2>What if?</h2><form id="compare"><label>Menu price adjustment (%) <input name="pricePercent" type="number" min="-50" max="100" value="'+(m.config.pricePercent||0)+'" required></label><label>Staff on shift <input name="staffCount" type="number" min="1" max="'+(m.config.edition>=5?7:5)+'" value="'+m.records.TERMS.staffIds.length+'" required></label><label>Supplier lead time (days) <input name="leadDays" type="number" min="0" max="5" value="'+(m.config.leadDays||0)+'" required></label><button>Compare week '+week+'</button></form><small>Both scenarios start from the same seed and use the automatic purchase policy. Visitor decisions belong to their original run.</small></section></div><section id="delta" class="paper" aria-label="What-if comparison results" aria-live="polite"></section><p role="alert" id="ops-error"></p>'+
+ '<section class="paper" id="what-if"><p class="kicker">Scenario comparison</p><h2>What if?</h2><form id="compare"><label>Menu price adjustment (%) <input name="pricePercent" type="number" min="-50" max="100" value="'+(m.config.pricePercent||0)+'" required></label><label>Staff on shift <input name="staffCount" type="number" min="1" max="'+(m.config.edition>=5?7:5)+'" value="'+m.records.TERMS.staffIds.length+'" required></label><label>Supplier lead time (days) <input name="leadDays" type="number" min="0" max="5" value="'+(m.config.leadDays||0)+'" required></label><button>Compare week '+week+'</button></form><small>Both scenarios start from the same seed and use the automatic purchase policy. Visitor decisions belong to their original run.</small></section></div><section id="delta" class="paper" aria-label="What-if comparison results"></section><p role="alert" id="ops-error"></p>'+
  assumptions(m,d)+'<section class="paper"><h2>Specialist performance</h2><p>Success means a task completed without a recorded exception. Handling time is scheduled simulation time. Synthetic handling cost uses '+usd(m.records.TERMS.handlingCentsPerMinute)+' per minute and is excluded from the financial ledger.</p><div class="scroll-table"><table><caption>Week '+week+' · synthetic activity</caption><thead><tr>'+['Specialist','Tasks','Success','Exception','Escalations','Requested','Approved','Rejected','Mean minutes','Cost / task'].map(s=>'<th>'+s+'</th>').join('')+'</tr></thead><tbody>'+Object.entries(rows).map(([n,r])=>'<tr><th>'+ (r.tasks?source(m,d,r.sources[0],n):esc(n))+'</th>'+[r.tasks,pct(r.tasks-r.exceptions,r.tasks),pct(r.exceptions,r.tasks),r.escalations,r.requested,r.approved,r.rejected,r.tasks?(r.minutes/r.tasks).toFixed(1):'—',r.tasks?usd(Math.round(r.costCents/r.tasks)):'—'].map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></section>'+
  '<div class="ops-columns"><section class="paper"><h2>Incident log</h2><details open><summary>'+incidents.length+' source records</summary><ul>'+incidents.map(x=>'<li>Day '+x.day+' · '+esc(x.label)+' · '+source(m,x.day,x.id)+'</li>').join('')+'</ul></details></section><section class="paper"><h2>Evaluation evidence</h2><p>'+pct(pass,evaluations.length)+' of recorded checks passed.</p>'+evaluations.map(x=>'<p>Day '+x.day+' · '+source(m,x.day,x.id,x.passed?'Passed':'Failed')+'</p>').join('')+'</section></div></main>';
 }
 export function mountOps(m,d){
  const queue=document.querySelector('#decide'),compare=document.querySelector('#compare'),error=document.querySelector('#ops-error');
  if(queue)queue.onsubmit=e=>{e.preventDefault();try{const result=decide(m,queue.dataset.key,e.submitter.value);location.assign(url('ops',result,d).replaceAll('&amp;','&')+'#queue');}catch(ex){error.textContent=ex.message;}};
- if(compare)compare.onsubmit=e=>{e.preventDefault();try{const changes=Object.fromEntries([...new FormData(compare)].map(([k,v])=>[k,Number(v)]));const week=Math.max(1,Math.ceil(d/7));document.querySelector('#delta').innerHTML=compareTable(compareWeek(m,week,changes),week);error.textContent='';}catch(ex){error.textContent=ex.message;}};
+ if(compare)compare.onsubmit=e=>{
+   e.preventDefault();
+   try{
+     const changes=Object.fromEntries([...new FormData(compare)].map(([k,v])=>[k,Number(v)]));
+     const week=Math.max(1,Math.ceil(d/7)),result=document.querySelector('#delta');
+     result.innerHTML=compareTable(compareWeek(m,week,changes),week);
+     error.textContent='';
+     // Start reading at the new comparison. Older replay editions contain a table without a heading.
+     const start=result.querySelector('h2')||result;
+     start.tabIndex=-1;start.focus();
+   }catch(ex){error.textContent=ex.message;}
+ };
 }

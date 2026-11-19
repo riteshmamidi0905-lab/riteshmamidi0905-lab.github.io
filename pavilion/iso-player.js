@@ -130,6 +130,8 @@ export async function mountFloor(model,day,params) {
       const current=active.get(name);
       const display=screens.get(name);
       const person=people.get(name);person.toggleAttribute('data-busy',Boolean(current));person.toggleAttribute('data-featured',featured.has(name));
+      const pressed=String(name===follow);
+      if(person.getAttribute('aria-pressed')!==pressed)person.setAttribute('aria-pressed',pressed);
       if(!priorReadings.has(name)||priorReadings.get(name)!==current){
         priorReadings.set(name,current);
         const value=current?instrumentReading(model,current)[0]:'Idle · queue';

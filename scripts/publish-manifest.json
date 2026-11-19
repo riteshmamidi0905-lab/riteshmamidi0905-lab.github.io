@@ -679,8 +679,8 @@
   },
   {
    "path": "pavilion/iso-player.js",
-   "bytes": 10560,
-   "sha256": "791780bcf49dcd5ed1f260efda341140a41531552be2d481b84e8717f174abec"
+   "bytes": 10703,
+   "sha256": "1c9fc59b990ce0f6245e8c95bad6082850d7aefd6c1831238fcc33ea17da4a36"
   },
   {
    "path": "pavilion/iso.css",
@@ -699,13 +699,13 @@
   },
   {
    "path": "pavilion/ops.html",
-   "bytes": 14443,
-   "sha256": "7688e27dc086aadb4ffd9a1308bfdb74ba7f0c2cd67187ee745eec6b85cd361a"
+   "bytes": 14424,
+   "sha256": "bc3e2777bebf7e06d28c3a7f757f0d280f8d79ebc728dce83cff0f1b94f0ee81"
   },
   {
    "path": "pavilion/ops.js",
-   "bytes": 14050,
-   "sha256": "a71d285a04854f39945278d7341d8b514d4ccc2f6f22fc0b550bcb2406f93a30"
+   "bytes": 14460,
+   "sha256": "a2b24b2a1db60c50ec2438ae7cfbe5a44bd568a420c54f4f606a88b520052d14"
   },
   {
    "path": "pavilion/overview.html",
