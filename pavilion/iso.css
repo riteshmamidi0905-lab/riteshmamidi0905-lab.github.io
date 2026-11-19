@@ -70,6 +70,9 @@ main.iso-page{max-width:none;padding-top:12px}
 .actor-layer{position:absolute;display:block}
 .bitmap-floor #depth-list{opacity:0;pointer-events:none}
 .bitmap-floor #depth-list *{pointer-events:none}
+@media(prefers-reduced-motion:no-preference){
+ .bitmap-floor #depth-list .portrait-size,.bitmap-floor #depth-list .mini-marker{display:none}
+}
 /* Animate stroke ink without promoting each station and its overlapping labels. */
 @keyframes station-ink{from{stroke-opacity:1}to{stroke-opacity:.39}}
 .drawing.bitmap-floor[data-playing] .station-pulse[data-working]{animation-name:station-ink}

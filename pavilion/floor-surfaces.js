@@ -73,6 +73,13 @@ export async function floorSurfaces(drawing,people){
   const clip=original.querySelector('#portrait-cut');
   if(clip){const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');defs.append(clip);floor.querySelector('.instrument-plane').prepend(defs);}
   original.replaceWith(plates.visible);floor.insertBefore(canvas,floor.querySelector('.label-plane'));
+  // Keyboard focus stays on each named SVG control. A geometry-only focus box
+  // lets Chromium discard duplicate portrait art while the canvas is playing.
+  for(const node of people.values()){
+    const box=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    for(const [key,value] of Object.entries({x:-22,y:-43,width:44,height:44,fill:'none'}))box.setAttribute(key,value);
+    node.append(box);
+  }
   drawing.classList.add('bitmap-floor');
   let unit=1,ox=0,oy=0,dpr=1,diameter=44,zoom=1,small=false,hover=null,focus=null;
   let hit=null,lastDirty=[];

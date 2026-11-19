@@ -649,8 +649,8 @@
   },
   {
    "path": "pavilion/floor-surfaces.js",
-   "bytes": 8588,
-   "sha256": "53d5eae820781f7a1d3393d70793fb63f1bc688c8e6e7a5737e534d18b6ebb1c"
+   "bytes": 9006,
+   "sha256": "a6c3ec003f4c9a630a4e260ebdc50e26377bede20f2e9357c1452a324fbd4ea6"
   },
   {
    "path": "pavilion/floor.js",
@@ -684,8 +684,8 @@
   },
   {
    "path": "pavilion/iso.css",
-   "bytes": 14213,
-   "sha256": "e5fc919aa011e5e7085d08423adffe5e9b5de617689a01f0da7285fe99b80a5d"
+   "bytes": 14356,
+   "sha256": "9b2f4f5c57b87aa9d10a71041093d9d91ab9c2961002a5d6f04f30c5ad51acd7"
   },
   {
    "path": "pavilion/ledger.html",
