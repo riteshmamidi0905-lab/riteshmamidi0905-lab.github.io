@@ -24,6 +24,7 @@ export function instrumentReading(m,e){
     case 'Purchase proposal': return [r.units+' units · '+money(r.cents),name(r.materialId)];
     case 'Approval record': return [r.approved?'Approved':'Declined',r.budgetId?r.reason:'Synthetic purchase limit '+money(r.limitCents)];
     case 'Receiving': return ['+'+r.units+' units',name(r.materialId)+' · '+r.approvalId];
+    case 'Appointment fulfillment': return [r.completed+' of '+r.requested+' service units',name(r.productId)];
     case 'Brewing batch':
     case 'Production lot': return [r.completed+' of '+r.requested+' units',name(r.productId)];
     case 'Sale': return [r.quantity+' sold',name(r.productId)+' · '+money(r.unitPriceCents)+' each'];

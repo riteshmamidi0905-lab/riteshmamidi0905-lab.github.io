@@ -12,3 +12,5 @@
  .sim .compact th,.sim .compact td{border:0;padding:0;font-size:.91rem;overflow-wrap:normal}.sim .compact th{grid-column:1/-1;color:#2c4a3a}
  .sim .compact td::before{content:attr(data-label);display:block;color:#566257;font-size:.72rem}.sim .compact td{font-variant-numeric:tabular-nums}
 }
+
+@media print{:root,html{background:white!important}}

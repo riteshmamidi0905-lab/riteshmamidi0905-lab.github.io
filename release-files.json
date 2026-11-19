@@ -681,8 +681,8 @@
   },
   {
     "path": "pavilion/shift-display.js",
-    "bytes": 3679,
-    "sha256": "f1491d14f6b59680ac1a99a773b8587710aada66683f7db956909c76a315d6b5"
+    "bytes": 3791,
+    "sha256": "b6caed16a64f411927cd129805781ca799efebd1126b4186fe670a197f9ead59"
   },
   {
     "path": "pavilion/shift-schedule.js",
@@ -801,8 +801,8 @@
   },
   {
     "path": "pavilion/idea-parser.js",
-    "bytes": 8894,
-    "sha256": "afb228a79dc3b6f447fe59381f10783da1f1ade50baea7f06600956c42893c55"
+    "bytes": 9422,
+    "sha256": "a620397b42daad3ec84970c089f6b4f8158944863496976ebd2f004a65d7be1c"
   },
   {
     "path": "pavilion/idea-profiles.js",
@@ -826,8 +826,8 @@
   },
   {
     "path": "pavilion/simulator.css",
-    "bytes": 6631,
-    "sha256": "d83a1bda620cb0cf97669ec6a351f7ab9a3a870e5e0d50020c173fed5109f806"
+    "bytes": 6685,
+    "sha256": "d02a7eacb52472d31a7b2d309e7f06d509908ca81a9e700d9560f9b46646e2f9"
   },
   {
     "path": "pavilion/simulator.html",
@@ -836,7 +836,7 @@
   },
   {
     "path": "pavilion/simulator.js",
-    "bytes": 12624,
-    "sha256": "9250dfd02245e0dd39e9ef8fe644b7e0d3669730bc10b97ae524034f746ab2dc"
+    "bytes": 12640,
+    "sha256": "cbae5be4e084ec8e04a4246a4e2eca7b622111c72afafe1042483319848062ee"
   }
 ]

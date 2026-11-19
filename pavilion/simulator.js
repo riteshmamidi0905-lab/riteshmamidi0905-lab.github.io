@@ -33,7 +33,7 @@ function field(k){
  const input=Object.hasOwn(options,k)?`<select ${attrs}>${k==='type'?'<option value="">Choose a format</option>':''}${Object.entries(options[k]).map(([value,label])=>`<option value="${value}" ${value===v?'selected':''}>${esc(label)}</option>`).join('')}</select>`:
  `<input ${attrs} value="${esc(v)}" ${k==='staff'?'type="number" min="1" max="12" step="1"':k==='budget'?'type="number" min="500" max="1000000" step="1"':'type="text"'}>`;
  return `<div class="field"><label for="f-${k}">${esc(fields[k])}<span aria-hidden="true" id="badge-${k}" class="origin">${draft.status[k]}</span></label>
- <span id="src-${k}" class="sr-only">Source: ${draft.status[k]}</span>${input}${question?`<p class="question" id="q-${k}">${esc(question)} <button class="quiet keep" type="button" data-keep="${k}">Use displayed value</button></p>`:''}</div>`;
+ <span id="src-${k}" class="sr-only">Source: ${draft.status[k]}</span>${input}${question?`<p class="question" id="q-${k}">${esc(question)} ${v===''?'':'<button class="quiet keep" type="button" data-keep="'+k+'">Use displayed value</button>'}</p>`:''}</div>`;
 }
 function confirmIdea(focus=true){
  stage(1,`<p class="kicker">Confirm your assumptions</p><h1>Here’s what I understood</h1><p class="lead">Edit any field. Parsed values came from your sentence. Defaults are synthetic planning inputs.</p><form id="confirm"><div class="form-grid">${Object.keys(fields).map(field).join('')}</div>
