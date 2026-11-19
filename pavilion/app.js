@@ -17,7 +17,7 @@ const form=document.querySelector('#create');
 if(form){
  const defaults={brewery:'NASHA Brewery',coffee:'Court Coffee',bakery:'Arcade Bakery',retail:'Pavilion Goods'};
  form.onchange=e=>{
-  if(e.target.name==='template'&&['Rowan, Mika, Sol','Rowan, Mika, Sol, Ari, Lou'].includes(form.elements.staffNames.value))form.elements.staffNames.value=e.target.value==='brewery'?'Rowan, Mika, Sol, Ari, Lou':'Rowan, Mika, Sol';
+  if(e.target.name==='template'&&['Rowan, Mika, Sol','Rowan, Mika, Sol, Ari'].includes(form.elements.staffNames.value))form.elements.staffNames.value=e.target.value==='brewery'?'Rowan, Mika, Sol, Ari':'Rowan, Mika, Sol';
   if(e.target.name==='template')for(const row of form.querySelectorAll('[data-recipe-row="3"]')){row.hidden=e.target.value!=='brewery';row.querySelector('input').disabled=row.hidden;}
   if(e.target.name==='template'&&Object.values(defaults).includes(form.elements.name.value))form.elements.name.value=defaults[e.target.value];
  };

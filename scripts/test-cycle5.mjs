@@ -1,13 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {simulateCurrentPeriod,preset} from '../pavilion/engine.js';
+import {simulateOperatingPeriod,preset} from '../pavilion/engine.js';
 import {weekFigures,compareWeek,attribution} from '../pavilion/week-comparison.js';
 import {lightAt,placeTokens,recentEvents} from '../pavilion/floor-staging.js';
 import {scheduleDay} from '../pavilion/shift-schedule.js';
-const standard=simulateCurrentPeriod(), change={pricePercent:12,staffCount:2,leadDays:2};
+const cycle5=(config=preset)=>simulateOperatingPeriod({...config,edition:3});
+const standard=cycle5(), change={pricePercent:12,staffCount:2,leadDays:2};
 test('the calibrated brewpub has a plausible check, COGS, service volume and working-capital bridge',()=>{
   assert.equal(standard.config.edition,3);
-  assert.deepEqual(standard,simulateCurrentPeriod({...preset}));
+  assert.deepEqual(standard,cycle5({...preset}));
   const t=standard.records.TERMS;
   const check=standard.products.reduce((sum,k,i)=>sum+standard.records[k].priceCents*t.unitsPerHundredCovers[i]/100,0);
   assert.ok(check>=2800&&check<=3600);assert.equal(t.salesTaxBasisPoints,825);assert.equal(t.staffIds.length,5);
@@ -30,7 +31,7 @@ test('each lever is an independent same-seed run and the interaction reconciles 
     }
     const baseline=weekFigures(standard,week);
     for(const [name,config] of Object.entries({price:{pricePercent:12},staff:{staff:['Rowan','Mika']},lead:{leadDays:2}})){
-      const standAlone=weekFigures(simulateCurrentPeriod({...preset,...config}),week);
+      const standAlone=weekFigures(cycle5({...preset,...config}),week);
       assert.equal(result.effects[name].revenue,standAlone.numbers.revenue-baseline.numbers.revenue);
     }
     assert.deepEqual(result.after,compareWeek(standard,week,change).after);
@@ -44,7 +45,7 @@ test('each lever is an independent same-seed run and the interaction reconciles 
 });
 test('daily journals and ingredient movements independently reconstruct the calibrated closes',()=>{
   for(const config of [{}, {budget:500,leadDays:3,staff:['Ada']},{pricePercent:100,seed:879,leadDays:5},{humanReview:true}]){
-    const m=simulateCurrentPeriod({...preset,...config}),totals={},stock={};
+    const m=cycle5({...preset,...config}),totals={},stock={};
     for(const day of m.days){
       const d=m.records[day];
       for(const id of d.journalIds){const j=m.records[id];assert.ok(m.records[j.source]);totals[j.debit]=(totals[j.debit]||0)+j.cents;totals[j.credit]=(totals[j.credit]||0)-j.cents;}

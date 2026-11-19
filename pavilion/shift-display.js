@@ -22,7 +22,7 @@ export function instrumentReading(m,e){
     case 'Ingredient requirement': return [units(r.required)+' measures',Object.keys(r.required).length+' ingredients'];
     case 'Availability check': return [units(r.shortage)+' units short',Object.entries(r.required).map(([id,n])=>name(id)+' '+r.available[id]+'/'+n).join(' · ')];
     case 'Purchase proposal': return [r.units+' units · '+money(r.cents),name(r.materialId)];
-    case 'Approval record': return [r.approved?'Approved':'Declined','Synthetic purchase limit '+money(r.limitCents)];
+    case 'Approval record': return [r.approved?'Approved':'Declined',r.budgetId?r.reason:'Synthetic purchase limit '+money(r.limitCents)];
     case 'Receiving': return ['+'+r.units+' units',name(r.materialId)+' · '+r.approvalId];
     case 'Brewing batch':
     case 'Production lot': return [r.completed+' of '+r.requested+' units',name(r.productId)];
