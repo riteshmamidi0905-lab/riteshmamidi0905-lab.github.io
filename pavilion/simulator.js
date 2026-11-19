@@ -60,7 +60,7 @@ function confirmIdea(focus=true){
      validateIdea(draft.values);id=rememberIdea(draft.values);sessionStorage.setItem('pavilion-origins-'+id,JSON.stringify(draft.status));
      const submit=e.submitter;submit.disabled=true;submit.textContent='Running the four-week ledger…';message.textContent=submit.textContent;
      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-     assessment=assess(draft.values);selected=[];history.replaceState(null,'','#sim='+id);projection();
+     assessment=assess(draft.values);selected=[];sessionStorage.setItem('pavilion-last-idea',id);projection();
    }catch(error){if(e.submitter){e.submitter.disabled=false;e.submitter.textContent='Simulate four weeks →';}fail(error);}
  };
 }
@@ -92,7 +92,8 @@ function stress(keys,focus=true){
 }
 function report(){stage(4,reportView(draft.values,draft.status,assessment,id));action('print',()=>window.print());action('back-results',projection);}
 try{
- const key=new URLSearchParams(location.hash.slice(1)).get('sim');
+ const nav=performance.getEntriesByType('navigation')[0]?.type;
+ const key=new URLSearchParams(location.hash.slice(1)).get('sim')||(['back_forward','reload'].includes(nav)?sessionStorage.getItem('pavilion-last-idea'):null);
  if(key){id=key;draft={values:recallIdea(id),status:JSON.parse(sessionStorage.getItem('pavilion-origins-'+id)||'{}'),questions:{}};assessment=assess(draft.values);projection();}
  else entry(false);
 }catch(error){entry(false);fail(error);}

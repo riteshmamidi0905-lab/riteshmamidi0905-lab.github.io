@@ -37,7 +37,7 @@ async function visitor(browser,width,height){
  await tabTo('#f-city');await page.keyboard.press('Control+a');await page.keyboard.type('Austin');assert.equal(await page.locator('#badge-city').textContent(),'user-set');
  await page.evaluate(()=>window.scrollTo(0,0));await snapshot('confirmation');
  await tabTo('#confirm button:not([type=button])');await page.keyboard.press('Enter');await page.waitForSelector('#stress');
- await snapshot('projection');const runHash=new URL(page.url()).hash;
+ await snapshot('projection');const replay=new URL(await page.locator('a[href^="hq.html#sim="]').getAttribute('href'),page.url());const runHash=replay.hash;
  await tabTo('#stress');await page.keyboard.press('Enter');await page.locator('#impact').waitFor();
  for(const key of ['slow','delay','war','shortage','rent','viral']){
    await tabTo('[data-stress="'+key+'"]');await page.keyboard.press('Enter');assert.equal(await page.locator('[data-stress="'+key+'"]').getAttribute('aria-pressed'),'true');
