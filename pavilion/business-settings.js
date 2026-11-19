@@ -8,8 +8,11 @@ export function settings(input) {
    if(!Array.isArray(input.menu)||input.menu.length!==count)throw Error('Provide one menu entry for each recipe.');
    out.menu=input.menu.map(r=>{if(!r||!plain(r.name,48))throw Error('Enter a 1–48 character menu name.');return {name:r.name,priceCents:integer(r.priceCents,1,100000,'menu price in cents')};});
  }
- if(input.staff!==undefined){if(!Array.isArray(input.staff)||input.staff.length<1||input.staff.length>5||!input.staff.every(s=>plain(s,36))||new Set(input.staff).size!==input.staff.length)throw Error('Enter 1–5 distinct staff names, up to 36 characters each.');out.staff=[...input.staff];}
+ const maxStaff=input.edition>=5&&input.template==='brewery'?7:5;
+ if(input.staff!==undefined){if(!Array.isArray(input.staff)||input.staff.length<1||input.staff.length>maxStaff||!input.staff.every(s=>plain(s,36))||new Set(input.staff).size!==input.staff.length)throw Error('Enter 1–'+maxStaff+' distinct staff names, up to 36 characters each.');out.staff=[...input.staff];}
  if(input.pricePercent!==undefined)out.pricePercent=integer(input.pricePercent,-50,100,'menu price adjustment');
+ if(input.edition===6&&input.template==='brewery'&&input.weeklyPurchaseCeilingCents!==undefined)
+   out.weeklyPurchaseCeilingCents=integer(input.weeklyPurchaseCeilingCents,0,100000000,'weekly purchasing ceiling in cents');
  if(input.leadDays!==undefined)out.leadDays=integer(input.leadDays,0,5,'supplier lead days');
  if(input.humanReview!==undefined){if(typeof input.humanReview!=='boolean')throw Error('Invalid approval mode.');out.humanReview=input.humanReview;}
  if(input.decisions!==undefined){

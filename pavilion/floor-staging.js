@@ -7,9 +7,12 @@ export function lightAt(index, length) {
   if (progress < .80) return 'Dusk';
   return 'Night';
 }
-export function placeTokens(desired, clearance) {
+export function placeTokens(desired, clearance, labels=[]) {
   const placed = new Map();
   function fits(x,y) {
+    // The anchor is the foot of the portrait. Include the border and walking bob.
+    if(labels.some(r=>x+clearance*.51>r.left && x-clearance*.51<r.right &&
+        y+clearance*.15>r.top && y-clearance*1.09<r.bottom))return false;
     for (const [a,b] of placed.values()) {
       if (Math.abs(a-x)<clearance && Math.abs(b-y)<clearance) return false;
     }

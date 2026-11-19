@@ -1,5 +1,5 @@
 import {simulateOperatingPeriod} from './engine.js';
-import {brewpub} from './brewpub.js';
+import {brewpub,defaultCrew,shiftRoster} from './brewpub.js';
 import {defaultStaff} from './business-settings.js';
 export const measures={revenue:'Net revenue',margin:'Net margin',shortages:'Unfilled items',cash:'Closing cash'};
 const labels={price:'Price',staff:'Staffing',lead:'Supplier lead time',interaction:'Interaction'};
@@ -15,37 +15,104 @@ export function weekFigures(model,week){
   return {numbers:{revenue:net,margin:net?Math.round(10000*w.netIncomeCents/net):null,shortages:fulfillment.reduce((n,r)=>n+r.unfilledUnits,0),cash:w.closingCashCents},
     cashBridge,meals:fulfillment.reduce((n,r)=>n+(r.mealsServed||0),0),capacityLoss:fulfillment.reduce((n,r)=>n+(r.potentialCovers||0)-(r.staffedCovers||0),0),w};
 }
+// Aggregate flows over the chosen closes. Cash and margin use the final balance
+// and total operating income divided by total net sales, respectively.
+export function periodFigures(model,weeks) {
+  const periods=Array.from({length:weeks},(_,i)=>weekFigures(model,i+1));
+  const sum=get=>periods.reduce((n,x)=>n+get(x),0);
+  const last=periods.at(-1),revenue=sum(r=>r.numbers.revenue),income=sum(r=>r.w.netIncomeCents);
+  const records=model.events.filter(e=>e.day>=1&&e.day<=weeks*7)
+    .filter(e=>e.action==='Check fulfillment against plan'||e.action==='Forecast demand')
+    .map(e=>model.records[e.outputs[0]]);
+  const total=key=>records.reduce((n,x)=>n+(x[key]||0),0);
+  const cashBridge={opening:periods[0].cashBridge.opening};
+  for(const key of ['revenue','tax','stock','operating'])cashBridge[key]=sum(row=>row.cashBridge[key]);
+  const numbers={revenue,income,cash:last.numbers.cash,meals:sum(r=>r.meals),unserved:total('unservedCovers'),lost:total('lostGuestCovers'),shortages:sum(r=>r.numbers.shortages),margin:revenue?Math.round(10000*income/revenue):null};
+  if(Object.values(cashBridge).reduce((a,b)=>a+b,0)!==numbers.cash)throw Error('Operating period cash does not reconcile.');
+  return {numbers,cashBridge,periods};
+}
+
+function changesFor(figures) {
+  const {baseline:first,combined:last,...singles}=figures;
+  const effects={price:{},staff:{},lead:{},interaction:{}};
+  for(const key of Object.keys(first.numbers)){
+    const original=first.numbers[key];
+    const delta=n=>original===null||n===null?null:n-original;
+    const total=delta(last.numbers[key]);
+    for(const [lever,s] of Object.entries(singles))effects[lever][key]=delta(s.numbers[key]);
+    const individual=Object.keys(singles).map(lever=>effects[lever][key]);
+    effects.interaction[key]=total===null||individual.includes(null)?null:total-individual.reduce((a,b)=>a+b,0);
+  }
+  return {first,last,before:first.numbers,after:last.numbers,effects};
+}
+
+// Re-run the same automatic policy at each staffing level. Each row comes from
+// four posted closes and their fulfillment records, including declined purchases.
+// Decompose realized entrées from each day's recorded arrivals and service losses.
+export function mealBridge(base,variant,week){
+  const collect=m=>{
+    const w=m.records[m.weeks[week-1]];
+    return w.serviceQuality.fulfillmentIds.map((id,i)=>{
+      const check=m.records[id],forecast=m.records[check.forecastId];
+      return {day:w.from+i,id,forecastId:forecast.id,
+        expected:forecast.expectedCovers,returns:forecast.lostGuestCovers,reputation:forecast.reputationCovers,
+        walkouts:check.walkouts,capacity:check.capacityRefusals,stock:check.stockoutCovers,served:check.mealsServed};
+    });
+  };
+  const left=collect(base),right=collect(variant);
+  const rows=left.map((row,i)=>{
+    const other=right[i],effects={expected:other.expected-row.expected};
+    for(const key of ['returns','reputation','walkouts','capacity','stock'])effects[key]=row[key]-other[key];
+    const change=other.served-row.served;
+    if(Object.values(effects).reduce((a,b)=>a+b,0)!==change)throw Error('Meal change must trace to the daily fulfillment records.');
+    return {baseline:row,variant:other,change,effects};
+  });
+  const effects=Object.fromEntries(Object.keys(rows[0].effects).map(key=>[key,rows.reduce((n,row)=>n+row.effects[key],0)]));
+  return {effects,rows,change:rows.reduce((n,row)=>n+row.change,0)};
+}
+
+export function staffingSweep(model){
+  const {decisions,humanReview,staff,...config}=model.config;
+  if(!(config.edition>=5) || config.template!=='brewery')return [];
+  const names=[...new Set([...(staff||[]),...shiftRoster])];
+  return Array.from({length:6},(_,i)=>{
+    const positions=i+2;
+    const run=simulateOperatingPeriod({...config,staff:names.slice(0,positions)});
+    const period=periodFigures(run,4);
+    const weeks=period.periods.map(({w,meals})=>({closeId:w.id,meals,walkouts:w.serviceQuality.walkouts,rating:w.serviceQuality.ratingHundredths}));
+    return {positions,...period.numbers,weeks,payroll:period.periods.reduce((n,{w})=>n+w.payrollCents,0)};
+  });
+}
+
 export function compareWeek(model,week,change){
   if(!Number.isInteger(week)||week<1||week>4)throw Error('Choose a week from 1 to 4.');
-  if(!Number.isInteger(change.staffCount)||change.staffCount<1||change.staffCount>5)throw Error('Choose 1–5 staff.');
+  const maxStaff=model.config.edition>=5?7:5;
+ if(!Number.isInteger(change.staffCount)||change.staffCount<1||change.staffCount>maxStaff)throw Error('Choose 1–'+maxStaff+' staff.');
   const {decisions,humanReview,...original}=model.config;
-  const staff=original.staff|| (original.edition===3?brewpub.crew:defaultStaff);
-  const names=[...new Set([...staff,...brewpub.crew,'Ash','Lee'])].slice(0,change.staffCount);
+  const staff=original.staff|| (original.edition>=3?defaultCrew(original.edition):defaultStaff);
+  const names=[...new Set([...staff,...shiftRoster])].slice(0,change.staffCount);
   const price={pricePercent:change.pricePercent}, roster={staff:names}, lead={leadDays:change.leadDays};
   const run=changes=>simulateOperatingPeriod({...original,...changes});
-  const base=run({}), variant=run({...price,...roster,...lead}), first=weekFigures(base,week),last=weekFigures(variant,week);
-  const singles={price:weekFigures(run(price),week),staff:weekFigures(run(roster),week),lead:weekFigures(run(lead),week)};
-  const effect=(x,y)=>x===null||y===null?null:x-y;
-  const effects={};for(const [k,s] of Object.entries(singles))effects[k]=Object.fromEntries(Object.keys(measures).map(m=>[m,effect(s.numbers[m],first.numbers[m])]));
-  effects.interaction={};
-  for(const m of Object.keys(measures)){
-    const individual=Object.values(singles).map(s=>effect(s.numbers[m],first.numbers[m]));
-    const total=effect(last.numbers[m],first.numbers[m]);
-    effects.interaction[m]=total===null||individual.includes(null)?null:total-individual.reduce((a,b)=>a+b,0);
-  }
+  const models={baseline:run({}),combined:run({...price,...roster,...lead}),price:run(price),staff:run(roster),lead:run(lead)};
+  const project=extract=>Object.fromEntries(Object.entries(models).map(([key,m])=>[key,extract(m)]));
+  const singles=project(m=>weekFigures(m,week)), {baseline:first,combined:last}=singles;
+  const weekly=changesFor(singles);
+  const opening=original.edition>=4?changesFor(project(m=>periodFigures(m,1))):null;
+  const period=original.edition>=4?changesFor(project(m=>periodFigures(m,4))):null;
   const pct=change.pricePercent, from=original.pricePercent||0;
   const reasons={
-    price:'The menu adjustment changes from '+from+'% to '+pct+'%.'+(original.edition===3?' Demand responds by 0.45% per percentage point.':' This archived scenario holds requested units fixed.'),
-    staff:names.length+' staffed positions versus '+staff.length+'. '+(original.edition===3?singles.staff.capacityLoss+' potential covers exceed staffed capacity. ':'')+'Weekly payroll changes by '+usd(singles.staff.w.payrollCents-first.w.payrollCents)+'.',
+    price:'The menu adjustment changes from '+from+'% to '+pct+'%.'+(original.edition>=3?' Demand responds by 0.45% per percentage point.':' This archived scenario holds requested units fixed.'),
+    staff:names.length+' staffed positions versus '+staff.length+'. '+(original.edition>=3?singles.staff.capacityLoss+' potential covers exceed staffed capacity. ':'')+'Weekly payroll changes by '+usd(singles.staff.w.payrollCents-first.w.payrollCents)+'.',
     lead:'Receipts arrive '+change.leadDays+' days after approval versus '+(original.leadDays||0)+'. Cash paid for ingredients changes by '+usd(first.cashBridge.stock-singles.lead.cashBridge.stock)+'.',
     interaction:'Shared limits on ingredients and service capacity change which orders the combined run can fulfill. This row reconciles the combined result to the three isolated trials.'};
-  for(const [k,s] of Object.entries(singles)){
+  for(const k of ['price','staff','lead']){
+    const s=singles[k];
     if(s.numbers.revenue<first.numbers.revenue&&s.numbers.cash>first.numbers.cash){
       const purchases=s.cashBridge.stock-first.cashBridge.stock,bills=s.cashBridge.operating-first.cashBridge.operating;
       reasons[k]+=' Revenue falls while closing cash rises. Compared with baseline, ingredient payments release '+usd(purchases)+' and operating payments release '+usd(bills)+' (signed cash effects).';
     }
   }
-  return {base,variant,before:first.numbers,after:last.numbers,effects,reasons,first,last};
+  return {base:models.baseline,variant:models.combined,...weekly,reasons,opening,period};
 }
 export function formatMetric(key,n,delta=false){
   if(n===null)return '—';if(key==='margin')return (n/100).toFixed(2)+(delta?' pp':'%');

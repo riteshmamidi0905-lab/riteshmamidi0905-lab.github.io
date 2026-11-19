@@ -1,7 +1,8 @@
-import {aislePath,home,point,roomView} from './iso-geometry.js';
+import {aislePath,home,point,roomView,nameplates} from './iso-geometry.js';
 import {overview,lightAt,placeTokens,recentEvents} from './floor-staging.js';
 import {stampTasks,scheduleDay} from './shift-schedule.js';
-import {shiftPanel,eventTicker} from './floor.js';
+import {floorSurfaces} from './floor-surfaces.js';
+import {shiftControls} from './shift-controls.js';
 import {studios} from './studios.js';
 import {url} from './views.js';
 import {instrumentReading} from './shift-display.js';
@@ -20,7 +21,7 @@ function pathFor(a,b) {
     return [s.x+f*s.dx,s.y+f*s.dy,s.dx/s.length,s.dy/s.length];
   };
 }
-export function mountFloor(model,day,params) {
+export async function mountFloor(model,day,params) {
   const $=s=>document.querySelector(s), svg=$('#floor'),drawing=$('.drawing'),world=$('.camera-world'),list=$('#depth-list');
   const schedule=scheduleDay(model,day);
   let events=model.events.filter(e=>e.day===day);
@@ -30,15 +31,36 @@ export function mountFloor(model,day,params) {
   if(params.has('beat'))slot=Math.min(schedule.length-1,Math.max(0,parseInt(params.get('beat'),10)||0));
   const people=new Map([...list.querySelectorAll('.person')].map(n=>[n.dataset.person,n]));
   const homes=new Map([...people.keys()].map(n=>[n,point(...home(n))]));
-  const stationary=[...list.children].filter(g=>!g.querySelector('.person')).map(g=>[Number(g.dataset.depth),g]);
   const tags=new Map([...svg.querySelectorAll('[data-room]')].map(g=>[g.dataset.room,g]));
-  const reduced=matchMedia('(prefers-reduced-motion:reduce)'), layers=new Map(), coordinates=new Map(), travels=new Map();
+  const playButton=$('#play');
+  playButton.disabled=true;
+  let deck;
+  try{deck=await floorSurfaces(drawing,people);}catch{
+    $('#load').textContent='Static floor · use the shift transcript below';
+    return;
+  }
+  const panel=shiftControls($('#task'),$('#ticker'),model,day);
+  const history=schedule.map(beat=>recentEvents(events,beat.minute));
+  const compact=matchMedia('(max-width:480px)');
+  const reduced=matchMedia('(prefers-reduced-motion:reduce)'), travels=new Map();
   let play=false,elapsed=0,frame=0,previous=0,visible=true,packets=[],zoom=1,unit=1,clearance=47,follow=null;
-  const duration=()=>Math.max(1350,5300/Number($('#speed').value));
+  const speedControl=$('#speed');
+  const duration=()=>Math.max(1350,5300/Number(speedControl.value));
+  const screens=new Map([...svg.querySelectorAll('[data-reading]')].map(n=>[n.dataset.reading,n]));
+  const stations=new Map([...svg.querySelectorAll('[data-station]')].map(n=>[n.dataset.station,n]));
+  const titles=new Map([...people].map(([name,n])=>[name,n.querySelector('title')]));
+  const priorReadings=new Map();
+  let cameraKey='',width=drawing.clientWidth,height=drawing.clientHeight;
+  let stillPeople=[],visibleLabels=nameplates,busy=new Set(),featured=new Set();
+  const smallMap=()=>compact.matches&&!follow;
+  function setText(node,value){if(node.textContent!==value){if(node.firstChild?.nodeType===3)node.firstChild.data=value;else node.textContent=value;}}
   function camera(){
-    const w=drawing.clientWidth,h=drawing.clientHeight,[left,top,bw,bh]=overview;
-    if(!w||!h)return;
+    const w=width,h=height,[left,top,bw,bh]=overview;
+    const key=[w,h,follow,compact.matches].join('|');
+    if(!w||!h||key===cameraKey)return;
+    cameraKey=key;
     unit=Math.min(w/bw,h/bh);
+    const ox=(w-bw*unit)/2-left*unit,oy=(h-bh*unit)/2-top*unit;
     let dx=0,dy=0;zoom=1;
     if(follow){
       const [x,y,rw,rh]=roomView(follow).split(' ').map(Number);
@@ -47,68 +69,78 @@ export function mountFloor(model,day,params) {
       dx=w/2-cx*zoom;dy=h/2-cy*zoom;
     }
     world.style.transform='translate('+dx+'px,'+dy+'px) scale('+zoom+')';
-    const diameter=follow?100:44;
+    visibleLabels=w<=720?[]:follow?nameplates.filter(p=>p.name===follow):nameplates;
+    const smallMap=compact.matches&&!follow;
+    const diameter=follow?100:smallMap?26:44;
+    drawing.style.setProperty('--marker-scale',1/(unit*zoom));
     drawing.style.setProperty('--token-scale',diameter/(40*unit*zoom));
     clearance=(diameter*1.12+2)/(unit*zoom);
+    deck.resize(w,h,unit,ox,oy,zoom,diameter,smallMap,dx,dy);
   }
-  function position(node,x,y,depth){
-    const key=x.toFixed(2)+' '+y.toFixed(2);
-    if(coordinates.get(node)===key)return;
-    coordinates.set(node,key);node.setAttribute('transform','translate('+key+')');
-    const next=stationary.find(([d])=>d>depth)?.[1]||null;
-    if(layers.get(node)!==next&&document.activeElement!==node){list.insertBefore(node.parentNode,next);layers.set(node,next);}
+  const pathCache=new Map();
+  function stationPath(from,to){
+    const key=from+'/'+to;
+    if(!pathCache.has(key))pathCache.set(key,pathFor(from,to));
+    return pathCache.get(key);
   }
+  // Five reusable packet slots. No per-person or per-packet compositor surfaces.
+  const pool=Array.from({length:5},()=>({path:null,lane:0}));
   function prepare(){
-    for(const {node} of packets){coordinates.delete(node);layers.delete(node);node.parentNode.remove();}
     travels.clear();
-    packets=schedule[slot].batch.map((edge,i)=>{
-      const group=document.createElementNS(svg.namespaceURI,'g'),node=document.createElementNS(svg.namespaceURI,'g');
-      group.setAttribute('aria-hidden','true');group.append(node);list.append(group);
-      const bearing=document.createElementNS(svg.namespaceURI,'g');
-      bearing.innerHTML='<path d="M-16 0H-7" stroke="#fff2c6" stroke-width="2" stroke-linecap="round"/><path d="M-7 0H0" stroke="#ad6737" stroke-width="3"/><circle r="3.9" fill="#ffe5a0" stroke="#734d32" stroke-width="1.4"/>';
-      node.append(bearing);
-      const path=pathFor(edge.from,edge.to);
-      if(!travels.has(edge.from))travels.set(edge.from,path);
-      return {node,bearing,path,lane:(i-2)*3.4};
-    });
-    for(const [name,p] of people)p.toggleAttribute('data-walking',travels.has(name));
+    const edges=schedule[slot].batch;
+    packets=pool.slice(0,edges.length);
+    for(const [i,packet] of pool.entries()){
+      const edge=edges[i];
+      if(!edge)continue;
+      packet.path=stationPath(edge.from,edge.to);packet.lane=(i-2)*3.4;
+      if(!travels.has(edge.from))travels.set(edge.from,packet.path);
+    }
+    stillPeople=[...homes].filter(([name])=>!travels.has(name)||reduced.matches)
+      .map(([name,[x,y]])=>({name,x,y}));
   }
   function paint(t){
     const f=t<=.51?t/.51:t<.64?1:(1-t)/.36;
-    const desired=[];
-    for(const [name,[x,y]] of homes)if(!travels.has(name)||reduced.matches)desired.push({name,x,y});
-    if(!reduced.matches)for(const [name,path] of travels){
+    const desired=stillPeople.slice();
+    if(!reduced.matches&&!(compact.matches&&!follow))for(const [name,path] of travels){
       const [x,y,dx]=path(f);desired.push({name,x,y,direction:dx<0?-1:1});
     }
-    const placed=placeTokens(desired,clearance);
-    for(const [n,[x,y]] of placed)position(people.get(n),x,y,(y-48)/6.5);
-    for(const {node,bearing,path,lane} of packets){
+    const placed=compact.matches&&!follow?homes:placeTokens(desired,clearance,visibleLabels);
+    deck.begin();
+    const bob=play&&!reduced.matches&&!smallMap()?-.85*(1-Math.cos(elapsed*2*Math.PI/900)):0;
+    // Keep the original visual ordering: portraits first, transfer trails above them.
+    for(const name of people.keys()){
+      const pos=placed.get(name);if(pos)deck.token(name,pos[0],pos[1],busy.has(name),featured.has(name),travels.has(name)?bob:0);
+    }
+    for(const {path,lane} of packets){
       const [x,y,dx,dy]=path(reduced.matches?.51:t);
-      position(node,x-dy*lane,y+dx*lane-6,(y-48)/6.5+.08);
-      bearing.setAttribute('transform','rotate('+(Math.atan2(dy,dx)*180/Math.PI).toFixed(1)+')');
+      deck.packet(x-dy*lane,y+dx*lane-6,dx,dy);
     }
   }
   function update(){
     const beat=schedule[slot],active=new Map(beat.active.map(e=>[e.owner,e]));
+    busy=new Set(active.keys());featured=new Set([...busy].slice(0,3));
     const mode=$('#camera').value;
     follow=mode==='station'?beat.starts[0].owner:mode.startsWith('who-')?mode.slice(4):null;
     drawing.toggleAttribute('data-follow',Boolean(follow));camera();
-    $('#task').innerHTML=shiftPanel(model,day,beat,follow);
-    const light=lightAt(slot,schedule.length);$('#sun').textContent=light;drawing.dataset.light=light;
-    $('#load').textContent=active.size+' working · '+beat.batch.length+' in transfer';
-    $('#floor-caption').textContent=follow?studios[follow].title:'Specialist studios';
+    panel(beat,follow,history[slot]);
+    const light=lightAt(slot,schedule.length);if(drawing.dataset.light!==light){setText($('#sun'),light);drawing.dataset.light=light;deck.light(light);}
+    setText($('#load'),active.size+' working · '+beat.batch.length+' in transfer');
+    setText($('#floor-caption'),follow?studios[follow].title:'Specialist studios');
     for(const [name,tag] of tags){
-      const current=active.get(name),value=current?instrumentReading(model,current)[0]:'Idle · queue';
-      const display=svg.querySelector('[data-reading="'+name+'"]');
-      const person=people.get(name);person.toggleAttribute('data-busy',Boolean(current));
-      person.setAttribute('aria-label','Follow '+name+' · '+(current?current.action:'Idle, reviewing queue'));
-      person.querySelector('title').textContent=name+' · '+(current?value:'Idle · reviewing queue');
-      display.textContent=value.slice(0,22);display.setAttribute('fill',current?'#fff0aa':'#d1d9c9');
-      svg.querySelector('[data-station="'+name+'"]').toggleAttribute('data-working',Boolean(current));
-      tag.toggleAttribute('data-busy',Boolean(current));tag.style.display=follow&&follow!==name?'none':'';
+      const current=active.get(name);
+      const display=screens.get(name);
+      const person=people.get(name);person.toggleAttribute('data-busy',Boolean(current));person.toggleAttribute('data-featured',featured.has(name));
+      if(!priorReadings.has(name)||priorReadings.get(name)!==current){
+        priorReadings.set(name,current);
+        const value=current?instrumentReading(model,current)[0]:'Idle · queue';
+        person.setAttribute('aria-label','Follow '+name+' · '+(current?current.action:'Idle, reviewing queue'));
+        setText(titles.get(name),name+' · '+(current?value:'Idle · reviewing queue'));
+        setText(display,value.slice(0,22));display.setAttribute('fill',current?'#fff0aa':'#d1d9c9');
+        stations.get(name).toggleAttribute('data-working',Boolean(current));
+      }
+      tag.toggleAttribute('data-busy',Boolean(current));const displayMode=follow&&follow!==name?'none':'';if(tag.style.display!==displayMode)tag.style.display=displayMode;
     }
-    $('#ticker').innerHTML=eventTicker(model,day,recentEvents(events,beat.minute));
-    $('#seek').value=String(slot);$('#minute').textContent='Minute '+beat.minute;drawing.dataset.beat=slot;
+    $('#seek').value=String(slot);setText($('#minute'),'Minute '+beat.minute);drawing.dataset.beat=slot;
     prepare();paint(0);
   }
   function tick(now){
@@ -129,6 +161,7 @@ export function mountFloor(model,day,params) {
   $('#camera').onchange=()=>{enter();update();};
   $('#day').onchange=e=>location.assign(url('hq',model,Number(e.target.value)).replaceAll('&amp;','&'));
   function select(name){$('#camera').value='who-'+name;enter();update();}
+  deck.interactions(select,()=>paint(elapsed/duration()));
   for(const [name,node] of people){
     node.addEventListener('click',()=>select(name));
     node.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(name);}});
@@ -137,9 +170,11 @@ export function mountFloor(model,day,params) {
   document.querySelectorAll('[data-agent]').forEach(a=>a.onclick=e=>{e.preventDefault();select(a.dataset.agent);svg.scrollIntoView({block:'nearest'});});
   function visibility(){cancelAnimationFrame(frame);frame=0;previous=0;const running=play&&visible&&!document.hidden;drawing.toggleAttribute('data-playing',running);if(running)frame=requestAnimationFrame(tick);}
   new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;visibility();}).observe(drawing);
-  new ResizeObserver(()=>{camera();paint(elapsed/duration());}).observe(drawing);
+  new ResizeObserver(([entry])=>{width=entry.contentRect.width;height=entry.contentRect.height;camera();paint(elapsed/duration());}).observe(drawing);
   document.addEventListener('visibilitychange',visibility);
   reduced.addEventListener('change',()=>{pause();enter();update();});
+  if(compact.matches)$('#camera').value='station';
+  compact.addEventListener('change',update);
   if(matchMedia('(max-width:720px)').matches)$('.directory').open=true;
-  update();document.documentElement.classList.add('replay-ready');
+  update();playButton.disabled=false;document.documentElement.classList.add('replay-ready');
 }

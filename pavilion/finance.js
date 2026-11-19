@@ -30,20 +30,20 @@ export function operatingDay({day,terms,shift,fulfillmentId,records,account,save
   if(costsPaidCents)payments.push(post('operatingPayable','cash',costsPaidCents,settlement));
   posts.push(...payments);event('QUANTIX','Settle weekly obligations',[terms.id,expense],[settlement,...payments]);
 }
-export function weeklyClose(day,days,records,save,event){
+export function weeklyClose(day,days,records,save,event,serviceQuality=null){
   const start=records[days[day-7]],end=records[days[day]],closeIds=days.slice(day-6,day+1);
   const movement=k=>end.accounts[k]-start.accounts[k];
   const journals=closeIds.flatMap(id=>records[id].journalIds.map(j=>records[j]));
   const posted=(debit,credit)=>journals.filter(j=>j.debit===debit&&j.credit===credit).reduce((s,j)=>s+j.cents,0);
   const remitted=journals.filter(j=>j.debit==='salesTaxPayable'&&records[j.source].kind==='Weekly settlement').reduce((s,j)=>s+j.cents,0);
-  const id=save('Weekly close',{week:day/7,from:day-6,through:day,openingCloseId:start.id,dailyCloseIds:closeIds,
+  const id=save('Weekly close',{...(serviceQuality?{serviceQuality}:{}),week:day/7,from:day-6,through:day,openingCloseId:start.id,dailyCloseIds:closeIds,
     salesCents:0-movement('sales'),refundCents:movement('refunds'),ingredientCostCents:movement('cost'),
     payrollCents:movement('payroll'),rentCents:movement('rent'),utilitiesCents:movement('utilities'),netIncomeCents:end.incomeCents-start.incomeCents,
     taxCollectedCents:posted('cash','salesTaxPayable'),taxRefundedCents:posted('salesTaxPayable','cash')-remitted,
     taxRemittedCents:remitted,
     operatingCostsPaidCents:posted('operatingPayable','cash'),taxDueCents:Math.abs(end.accounts.salesTaxPayable),operatingDueCents:Math.abs(end.accounts.operatingPayable),
     openingCashCents:start.accounts.cash,closingCashCents:end.accounts.cash,closingInventoryCents:end.accounts.stock,trialBalanceCents:end.trialBalanceCents});
-  event('QUANTIX','Close the operating week',[start.id,...closeIds],[id]);return id;
+  event('QUANTIX','Close the operating week',[start.id,...closeIds,...(serviceQuality?.fulfillmentIds||[])],[id]);return id;
 }
 export function verifyLot(recipe,requested,stock,completed){
   for(const [id,units] of Object.entries(recipe)){

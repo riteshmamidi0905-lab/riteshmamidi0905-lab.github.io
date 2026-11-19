@@ -15,7 +15,10 @@ export function context(params){
  else if(params.has('template')){config=Object.fromEntries(Object.keys(preset).map(k=>[k,params.get(k)]));config.seed=Number(config.seed);config.budget=Number(config.budget);readWizard(params,config,templates);}
  const legacy=params.get('v')==='1'||(!params.has('v')&&(params.has('id')||params.has('event')));
  const archived=params.get('v')==='2'||(!params.has('v')&&params.has('business')&&!config.edition);
- const m=legacy?simulate(config):archived?simulateOperatingPeriod({...config,edition:2}):config===preset?presetMonth:simulateCurrentPeriod(config),d=Number(params.get('day')??1);
+ const cycle5=params.get('v')==='3'||(!params.has('v')&&config.edition===3);
+ const cycle6=params.get('v')==='4'||(!params.has('v')&&config.edition===4);
+ const cycle7=params.get('v')==='5'||(!params.has('v')&&config.edition===5);
+ const m=legacy?simulate(config):cycle5?simulateOperatingPeriod({...config,edition:3}):cycle6?simulateOperatingPeriod({...config,edition:4}):cycle7?simulateOperatingPeriod({...config,edition:5}):archived?simulateOperatingPeriod({...config,edition:2}):config===preset?presetMonth:simulateCurrentPeriod(config),d=Number(params.get('day')??1);
  if(!Number.isSafeInteger(d)||d<0||d>=m.days.length)throw Error('Day outside this operating period.');
  return {m,d};
 }

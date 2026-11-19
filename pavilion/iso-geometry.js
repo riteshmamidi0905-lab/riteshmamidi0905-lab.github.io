@@ -71,13 +71,19 @@ function kit(name,u,v){
   return items;
 }
 export function home(name){const r=rooms[name];return [r.u+2.4,r.v+6.35];}
+// Nameplates sit inside each bay. The projected aisle network is at least
+// 36 world units from their ink, including at corners and handoff endpoints.
+export const nameplates=Object.entries(rooms).map(([name,{u,v}])=>{
+  const [x,y]=point(u+3.5,v+2.5);
+  return {name,x,y,left:x-29,right:x+29,top:y-4,bottom:y+8};
+});
 export function aislePath(a,b){
   const A=rooms[a],B=rooms[b],s=home(a),e=home(b);
   return [s,[s[0],A.v+8.8],[A.u+8.8,A.v+8.8],[A.u+8.8,B.v+8.8],[e[0],B.v+8.8],e];
 }
 export function roomView(name){const r=rooms[name],[x,y]=point(r.u+4,r.v+4);return [x-126,y-88,252,160].join(' ');}
 export function floorSvg(registry) {
-  const sorted=[], objects=[], edge='#b09f83';
+  const sorted=[], objects=[], actors=[], instruments=[], edge='#b09f83';
   let ground=box(-1,-1,-1.4,46,35,1.4,stone);
   for(let i=-1;i<=45;i+=2)ground+=line([i,-1,0],[i,34,0],'#c6b99d',.65);
   for(let j=-1;j<=34;j+=2)ground+=line([-1,j,0],[45,j,0],'#c6b99d',.65);
@@ -97,14 +103,17 @@ export function floorSvg(registry) {
     ground+='<ellipse class="lamp-pool" cx="'+lampX+'" cy="'+lampY+'" rx="46" ry="22" fill="url(#warm-lamp)"/>';
     objects.push(...furniture,{depth:u+v+9,svg:light(u+7.6,v+.75)},{depth:u+v+13,svg:plant(u+7.4,v+5.6,.78)});
     const [sx,sy]=point(u+4.45,v+.4,2.12);
-    ground+='<ellipse class="station-pulse" data-station="'+name+'" cx="'+sx+'" cy="'+(sy+33)+'" rx="28" ry="13" fill="none" stroke="#4a7663" stroke-width="3"/>';
-    objects.push({depth:u+v+4.7,svg:'<g transform="translate('+sx+' '+sy+') matrix(1 .5 0 1 0 0)"><rect x="-15" y="-4" width="32" height="6" rx=".6" fill="#30463d"/><text data-reading="'+name+'" x=".5" text-anchor="middle" font-size="2.45" fill="#bcc7b7">Standby</text></g>'});
+    instruments.push('<ellipse class="station-pulse" data-station="'+name+'" cx="'+sx+'" cy="'+(sy+33)+'" rx="28" ry="13" fill="none" stroke="#4a7663" stroke-width="3"/>');
+    instruments.push('<g transform="translate('+sx+' '+sy+') matrix(1 .5 0 1 0 0)"><rect x="-15" y="-4" width="32" height="6" rx=".6" fill="#30463d"/><text data-reading="'+name+'" x=".5" text-anchor="middle" font-size="2.45" fill="#bcc7b7">Standby</text></g>');
     const [x,y]=point(...home(name));const id=agent.slug;
-    objects.push({depth:home(name).reduce((s,n)=>s+n),svg:'<g class="person" data-person="'+name+'" transform="translate('+x+' '+y+')" tabindex="0" role="button" aria-label="Follow '+esc(name)+'"><title>'+esc(name)+'</title><g class="portrait-size"><ellipse rx="16" ry="4.3" fill="#262d25" opacity=".38"/><g class="walker"><path d="m-4 -6 4 6 4-6" fill="#705535"/><circle cy="-22" r="21.5" fill="#273c33" stroke="#dcc18c" stroke-width="1.6"/><image href="../assets/img/agents/'+id+'.webp" x="-20" y="-42" width="40" height="40" clip-path="url(#portrait-cut)" preserveAspectRatio="xMidYMid meet"/><circle class="duty-dot" cx="15" cy="-8" r="3.6" stroke="#233a31" stroke-width="1.5"/><g class="portrait-name"><rect x="-39" y="-58" width="78" height="15" rx="4" fill="#172f26"/><text y="-47" text-anchor="middle">'+esc(name)+'</text></g></g></g></g>'});
-    const [lx,ly]=point(u+5,v+8,.2);
+    actors.push('<g class="person" data-person="'+name+'" transform="translate('+x+' '+y+')" tabindex="0" role="button" aria-label="Follow '+esc(name)+'"><title>'+esc(name)+'</title><g class="mini-marker"><rect class="tap-area" x="-22" y="-30" width="44" height="44" fill="transparent"/><rect x="-18" y="-5" width="36" height="15" rx="6" fill="#1d352c"/><circle cx="-12" cy="2.5" r="3.2"/><text x="2" y="6.5" text-anchor="middle">'+esc(name.slice(0,3))+'</text></g><g class="portrait-size"><ellipse rx="16" ry="4.3" fill="#262d25" opacity=".38"/><g class="walker"><path d="m-4 -6 4 6 4-6" fill="#705535"/><circle cy="-22" r="21.5" fill="#273c33" stroke="#dcc18c" stroke-width="1.6"/><image href="../assets/img/agents/'+id+'.webp" x="-20" y="-42" width="40" height="40" clip-path="url(#portrait-cut)" preserveAspectRatio="xMidYMid meet"/><circle class="duty-dot" cx="15" cy="-8" r="3.6" stroke="#233a31" stroke-width="1.5"/><g class="portrait-name"><rect x="-39" y="-58" width="78" height="15" rx="4" fill="#172f26"/><text y="-47" text-anchor="middle">'+esc(name)+'</text></g></g></g></g>');
+    const {x:lx,y:ly}=nameplates.find(p=>p.name===name);
     sorted.push('<g class="room-tag" data-room="'+name+'" transform="translate('+lx+' '+ly+')"><rect x="-29" y="-4" width="58" height="12" rx="4" fill="#2b3c33"/><circle cx="-23" cy="2" r="2.1" fill="#a39779"/><text x="2.3" y="4.7" text-anchor="middle">'+esc(name)+'</text></g>');
   }
   for(const [u,v] of [[0,8],[0,20],[11,33],[31,33],[44,6],[44,28]])objects.push({depth:u+v,svg:plant(u,v,1.15)});
   objects.sort((a,b)=>a.depth-b.depth);
-  return '<svg id="floor" viewBox="'+overviewBox+'" role="group" aria-label="Isometric cutaway of twelve specialist studios"><defs><linearGradient id="cast-fade"><stop stop-color="#302c30" stop-opacity=".92"/><stop offset=".58" stop-color="#504651" stop-opacity=".56"/><stop offset="1" stop-color="#655a63" stop-opacity="0"/></linearGradient><clipPath id="portrait-cut"><circle cy="-22" r="20"/></clipPath><radialGradient id="warm-lamp"><stop stop-color="#fff1a8" stop-opacity=".92"/><stop offset="1" stop-color="#f4bd60" stop-opacity="0"/></radialGradient><linearGradient id="copper"><stop stop-color="#815b46"/><stop offset=".27" stop-color="#ac7959"/><stop offset=".51" stop-color="#c49973"/><stop offset=".77" stop-color="#9a6950"/><stop offset="1" stop-color="#825a46"/></linearGradient><linearGradient id="window" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="var(--sky-top,#bed2c6)"/><stop offset=".64" stop-color="var(--sky-mid,#e0ddc7)"/><stop offset="1" stop-color="var(--sky-low,#adbdad)"/></linearGradient></defs><g id="floor-plate">'+ground+'</g><g id="depth-list">'+objects.map(o=>'<g data-depth="'+o.depth.toFixed(2)+'">'+o.svg+'</g>').join('')+'</g><g class="tags">'+sorted.join('')+'</g></svg>';
+  const architecture='<svg class="architecture-plane" viewBox="'+overviewBox+'" aria-hidden="true"><defs><linearGradient id="cast-fade"><stop stop-color="#302c30" stop-opacity=".92"/><stop offset=".58" stop-color="#504651" stop-opacity=".56"/><stop offset="1" stop-color="#655a63" stop-opacity="0"/></linearGradient><clipPath id="portrait-cut"><circle cy="-22" r="20"/></clipPath><radialGradient id="warm-lamp"><stop stop-color="#fff1a8" stop-opacity=".92"/><stop offset="1" stop-color="#f4bd60" stop-opacity="0"/></radialGradient><linearGradient id="copper"><stop stop-color="#815b46"/><stop offset=".27" stop-color="#ac7959"/><stop offset=".51" stop-color="#c49973"/><stop offset=".77" stop-color="#9a6950"/><stop offset="1" stop-color="#825a46"/></linearGradient><linearGradient id="window" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="var(--sky-top,#bed2c6)"/><stop offset=".64" stop-color="var(--sky-mid,#e0ddc7)"/><stop offset="1" stop-color="var(--sky-low,#adbdad)"/></linearGradient></defs><g id="floor-plate">'+ground+'</g><g>'+objects.map(o=>o.svg).join('')+'</g></svg>';
+  // The architecture is a retained paint surface. Only the instruments and map
+  // symbols above it change as the source clock advances.
+  return architecture+'<div id="floor" role="group" aria-label="Isometric cutaway of twelve specialist studios"><svg class="instrument-plane" viewBox="'+overviewBox+'"><g>'+instruments.join('')+'</g><g id="depth-list">'+actors.join('')+'</g></svg><div class="sprite-plane"><div id="packet-layer" aria-hidden="true"></div></div><svg class="label-plane" aria-hidden="true" viewBox="'+overviewBox+'"><g class="tags">'+sorted.join('')+'</g></svg></div>';
 }
