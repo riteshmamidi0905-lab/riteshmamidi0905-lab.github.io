@@ -51,7 +51,7 @@ function wizard(){return '<form id="create" class="paper" action="overview.html"
 export function builder(page,m,d,registry,id){
  const balance=m.records[m.days[d]], a=balance.accounts,ev=m.events.filter(e=>e.day===d);
  let html=header(m,d)+'<main id="content"><div class="app-intro"><p class="kicker">NASHA AI Business Builder</p><p class="disclose">Simulation — rule-based, synthetic data</p></div>'+heading(m.config.location,page==='create'?'Start a business':m.config.name,page==='create'?'':'<a class="button secondary" href="create.html">New business</a>')+tabs(m,d,page);
- if(page==='create'||page==='overview')html+='<p><a href="simulator.html">Simulate your idea</a></p>';
+ if(page==='create'||page==='overview')html+='<p><a href="simulator.html">Simulate your idea</a> <a href="start.html">Start a business</a></p>';
  if(page==='create')return html+wizard()+'</main>';
  html+=dayNav(m,d,page);
  if(page==='overview'){
