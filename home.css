@@ -1,0 +1,18 @@
+/* Keep native anchor, focus and find-in-page navigation available as sections enter view. */
+.home-progress { width: 100%; transform-origin: left; }
+@media screen and (max-width: 760px) {
+  main > section ~ section {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto var(--home-section-height, 700px);
+  }
+  main > .glance { --home-section-height: 700px; }
+  #universe { --home-section-height: 1810px; }
+  #perspective { --home-section-height: 396px; }
+  #selected { --home-section-height: 3449px; }
+  #nasha-ai-lab { --home-section-height: 1740px; }
+  #evidence { --home-section-height: 1380px; }
+  #business-lab { --home-section-height: 1512px; }
+  #experience { --home-section-height: 795px; }
+  .contact-section { --home-section-height: 510px; }
+}
+
