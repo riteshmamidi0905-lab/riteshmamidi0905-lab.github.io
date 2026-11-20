@@ -78,7 +78,7 @@ with tempfile.TemporaryDirectory() as TMP:
 
     def break_link(d):
         t = (d / "index.html").read_text()
-        (d / "index.html").write_text(t.replace('href="lab-explorer.html"', 'href="lab-explorer-gone.html"', 1))
+        (d / "index.html").write_text(t.replace('href="skills.html"', 'href="skills-gone.html"', 1))
     # the file also differs from the manifest; the broken reference must be reported too, so mutate the manifest-matching copy through the checker's own pass
     out = tampered(a, "a broken internal link", break_link, "does not resolve inside the artifact")
 

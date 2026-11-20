@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==172   # Include the offline opening-hours parser shared by confirmation and the model.
+assert len(manifest)==185  # Reviewed release plus shared navigation, social card, skills, four résumés and five archive pages.
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -52,13 +52,27 @@ for name,page in pages.items():
   assert target in expected,(name,ref)
   if u.fragment and not u.fragment.startswith('/') and target in pages:assert unquote(u.fragment) in pages[target].ids,(name,ref)
 assert pages['projects.html'].projects==28
-assert pages['index.html'].flags==6
+assert (root/'index.html').read_text().count('class="entry-paths"') == 1
+assert (root/'projects.html').read_text().count('class="proof-card"') == 4
+assert len(pages['skills.html'].ids & {'skill-'+str(i) for i in range(1,11)}) == 10
+assert all('/' not in page or page in expected for page in pages)
+for retired,current in {'demo/index.html':'../pavilion/ops.html','nasha-universe/living-hq/index.html':'../../pavilion/hq.html','nasha-lab.html':'pavilion/index.html','lab-explorer.html':'case-nasha-ai-lab-architecture.html','verified-projects.html':'projects.html'}.items():
+ text=(root/retired).read_text()
+ assert 'content="0; url='+current+'"' in text and 'location.replace('+json.dumps(current)+')' in text and current in pages[retired].refs,retired
+social=json.loads((root/'scripts/social-image.json').read_text())
+for field,sha in [('file','sha256'),('source','sourceSha256')]:
+ assert hashlib.sha256((root/social[field]).read_bytes()).hexdigest()==social[sha]
+assert (root/social['file']).stat().st_size<1_000_000
+for page in root.glob('*.html'):
+ text=page.read_text()
+ assert 'property="og:image"' in text and 'name="twitter:card" content="summary_large_image"' in text,page.name
+assert sum(p.startswith('resumes/') and p.endswith('.pdf') for p in expected)==4
 assert 'prefers-reduced-motion' in (root/'cinematic.css').read_text()
-for name in ('lab-explorer.html','verified-projects.html'):
+for name in ('archive-explorer.html','archive-records.html'):
  s=(root/name).read_text()
  assert 'not an operating business' in s or 'not production readiness' in s,name
  assert not re.search(r'production[- ]ready|commercially operating|fully deployed(?! system)',s,re.I),name
-assert (root/'verified-projects.html').read_text().count('<article class="proj ')==29
+assert (root/'archive-records.html').read_text().count('<article class="proj ')==29
 # Only the exact owner-approved recruiter credit may name the employer.
 employer = 'Movate'
 credit = '<p class="org">Movate — Apple Maps Client Engagement · a client assignment, not direct Apple employment</p>'
@@ -87,7 +101,7 @@ for p in demo_files:
  code=re.sub(r'<link rel="canonical"[^>]*>','',code)
  assert not re.search(r'\bfetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|EventSource|importScripts|<form[^>]*action=|https?://',code),'network or tracking construct in '+p
  if p!='demo/app.js':assert 'localStorage' not in code,'storage outside app.js: '+p
-assert 'DEMO ENVIRONMENT' in (root/'demo/index.html').read_text() and 'SYNTHETIC DATA' in (root/'demo/index.html').read_text()
+assert 'DEMO ENVIRONMENT' in (root/'demo/archive.html').read_text() and 'SYNTHETIC DATA' in (root/'demo/archive.html').read_text()
 assert "nasha-demo-state-v1" in (root/'demo/app.js').read_text()
 for c in json.loads((root/'data/cases.json').read_text()):
  s=(root/('case-'+c['slug']+'.html')).read_text(); r=c['run']
@@ -131,4 +145,4 @@ blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'
-print('PASS: 172 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, six flagships, reduced-motion stylesheet')
+print('PASS: 185 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, four featured exhibits, reduced-motion stylesheet')

@@ -1,7 +1,7 @@
 'use strict';
 // Browser tests for the Enterprise Demo (Playwright + axe, system Chrome via CHROMIUM_PATH). Run after starting a static server on port 8000: npm run test:demo
 const pw = require('playwright'), engineName = process.env.BROWSER || 'chromium', chromium = pw[engineName], { AxeBuilder } = require('@axe-core/playwright'), assert = require('assert/strict'), fs = require('fs');
-const BASE = 'http://127.0.0.1:8000/demo/', ROUTES = ['dashboard', 'guide', 'technical', 'sales', 'inventory', 'finance', 'departments', 'departments/finance', 'hr', 'marketing', 'support', 'bi', 'agents', 'governance', 'infra'];
+const BASE = 'http://127.0.0.1:8000/demo/archive.html', ROUTES = ['dashboard', 'guide', 'technical', 'sales', 'inventory', 'finance', 'departments', 'departments/finance', 'hr', 'marketing', 'support', 'bi', 'agents', 'governance', 'infra'];
 const report = { scope: (process.env.BROWSER || 'chromium') + ' over local HTTP; Enterprise Demo only', checks: [], axe: [], errors: [], external: [] };
 const ok = (name, cond, extra) => { report.checks.push({ name, pass: !!cond, extra }); assert.ok(cond, name + (extra ? ' ' + JSON.stringify(extra) : '')); };
 (async () => {

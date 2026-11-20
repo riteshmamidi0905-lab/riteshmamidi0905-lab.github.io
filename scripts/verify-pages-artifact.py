@@ -38,7 +38,7 @@ JS_LITERAL = re.compile(r"""['"]((?:\.{1,2}/)?[A-Za-z0-9_][A-Za-z0-9_./-]*\.(?:j
 CSS_URL = re.compile(r"""url\(\s*['"]?([^'")\s]+)['"]?\s*\)|@import\s+['"]([^'"]+)['"]""")
 RESOURCE_RELS = {"stylesheet", "preload", "modulepreload", "icon", "shortcut", "apple-touch-icon", "manifest", "prefetch", "preconnect"}
 IMAGE_SUFFIX = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".ico", ".avif")
-ALLOWED_NON_REGISTER_IMAGES = {"mark.svg"}
+ALLOWED_NON_REGISTER_IMAGES = {"mark.svg", "nasha-social.jpg"}
 
 
 class Page(HTMLParser):
@@ -53,7 +53,7 @@ class Page(HTMLParser):
             self.ids.add(a["id"])
         cls = a.get("class", "").split()
         self.projects += "project" in cls
-        self.flags += "flag-card" in cls
+        self.flags += "proof-card" in cls
         self.h1 += tag == "h1"
         self._t = tag == "title"
         for attr in ("href", "src", "poster", "data"):
@@ -208,7 +208,7 @@ def main():
         errs.append("disclosure scan coverage (fail-closed): %s" % exc)
 
     # 6 required pages and honest statuses
-    need = ["index.html", "recruiter.html", "projects.html", "lab-explorer.html", "verified-projects.html", "data-lab.html", "case-studies.html", "demo/index.html", "demo/app.js", "demo/engine.js", "demo/data.js", "data/lab.json", "data/cases.json", "data/datalab/lab-data.json", "robots.txt", "sitemap.xml", "404.html"]
+    need = ["skills.html","archive-explorer.html","archive-records.html","demo/archive.html","nasha-social.jpg","index.html", "recruiter.html", "projects.html", "lab-explorer.html", "verified-projects.html", "data-lab.html", "case-studies.html", "demo/index.html", "demo/app.js", "demo/engine.js", "demo/data.js", "data/lab.json", "data/cases.json", "data/datalab/lab-data.json", "robots.txt", "sitemap.xml", "404.html"]
     errs += ["%s: required page or runtime file missing" % n for n in need if n not in names]
     cases = sorted(n for n in names if n.startswith("case-") and n.endswith(".html") and n != "case-studies.html")
     if len(cases) != 6:
@@ -221,11 +221,11 @@ def main():
             errs.append("%s: needs exactly one h1 and a title" % c)
     if "projects.html" in pages and pages["projects.html"].projects != 28:
         errs.append("projects.html: expected 28 projects, found %d" % pages["projects.html"].projects)
-    if "index.html" in pages and pages["index.html"].flags != 6:
-        errs.append("index.html: expected six flagship cards, found %d" % pages["index.html"].flags)
-    must = {"index.html": ["not an operating business", "has not met its acceptance criteria (failed)"], "lab-explorer.html": ["not an operating business", "has not met its acceptance criteria (failed)"],
-            "data-lab.html": ["PASS WITH SKIPS", "none of this is production-deployed", "SYNTHETIC", "has not met its acceptance criteria (failed)"], "demo/index.html": ["SYNTHETIC"],
-            "verified-projects.html": ["not an operating business"]}
+    if "projects.html" in pages and pages["projects.html"].flags != 4:
+        errs.append("projects.html: expected four featured exhibits, found %d" % pages["projects.html"].flags)
+    must = {"index.html": ["AI-generated concept art", "Simulate your idea", "For recruiters"], "archive-explorer.html": ["not an operating business", "has not met its acceptance criteria (failed)"],
+            "data-lab.html": ["PASS WITH SKIPS", "none of this is production-deployed", "SYNTHETIC", "has not met its acceptance criteria (failed)"], "demo/archive.html": ["SYNTHETIC"],
+            "archive-records.html": ["not an operating business"]}
     for rel, phrases in must.items():
         if rel in names:
             s = (base / rel).read_text(encoding="utf-8")

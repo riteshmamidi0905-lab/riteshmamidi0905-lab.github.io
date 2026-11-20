@@ -110,6 +110,14 @@ with tempfile.TemporaryDirectory() as td:
     os.environ.pop("REQUIRE_PRIVATE_RULES")
     ok(D.load().private is None, "CI configuration (neither variable set) runs the public hashed rules")
 
+# Verify the approved hyperlink byte-for-byte; ordinary copies, altered destinations and adjacent mentions still fail.
+bridge = (Path(D.__file__).parents[1] / "pavilion/bridge.html").read_text()
+import re
+approved = re.search(r'href="https://[^"]+">The brewery concept</a>', bridge).group()
+slug = approved.split('github.io/')[1].split('/')[0]
+ok(not D.scan(R, approved, "pavilion/bridge.html"), "official bridge destination is allowed")
+for sample, page in [(approved, "index.html"), (approved.replace("github.io", "example.org"), "pavilion/bridge.html"), (approved + slug, "pavilion/bridge.html")]:
+    ok(any(x["rule"] == "D03" for x in D.scan(R, sample, page)), "other project-name disclosures still fail")
 blob = Path(D.RULES_PATH).read_text(encoding="utf-8").lower()
 ok(not any(t.lower() in blob for t in (dec(105, 110, 100, 111, 45, 109, 101, 120), dec(114, 101, 113, 117, 105, 114, 101, 115), dec(99, 108, 111, 117, 100), dec(100, 120, 49))), "the public rules file does not spell the terms it protects")
 src = Path(D.__file__).read_text(encoding="utf-8").lower() + Path(__file__).read_text(encoding="utf-8").lower()

@@ -1,0 +1,13 @@
+{
+  "file": "nasha-social.jpg",
+  "sha256": "a3339f6d9c5a9cf1de963a94badb6a7b07cb8afeed4df768da2c6fe2caab099f",
+  "dimensions": [
+    1200,
+    630
+  ],
+  "source": "assets/img/pavilion/arrival.webp",
+  "sourceSha256": "9320be7e3c5642e62b7c48b0747fc8cfae6c1a2db3dd7715fc0e94985bec3c77",
+  "licenseRegister": "pavilion/art-provenance.json",
+  "label": "AI-generated concept art",
+  "treatment": "Arrival crop with portfolio title and concept-art credit."
+}

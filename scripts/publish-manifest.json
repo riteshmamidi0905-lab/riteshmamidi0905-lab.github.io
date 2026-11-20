@@ -9,13 +9,28 @@
   },
   {
    "path": "404.html",
-   "bytes": 776,
-   "sha256": "6686cd90bba8d2f3291d49b7439bfe395ed1aead33703bbc7d8f7f1b511adacd"
+   "bytes": 2896,
+   "sha256": "9e60faa152e4ac5bcd66e5cbdfc7ee4562c30a20b6c5c664907b8029f1e78d16"
   },
   {
    "path": "ai-engineering.html",
-   "bytes": 9524,
-   "sha256": "20ce9a391bd89aa37e838a3c698735e59d4c9f765f62a4eec98aced0fb3ffc4d"
+   "bytes": 9545,
+   "sha256": "cb50a84dd1f9596c191ca3b4471ae254594bafa0be0ad9b91136cc70fb4ce15b"
+  },
+  {
+   "path": "archive-explorer.html",
+   "bytes": 41941,
+   "sha256": "587a393560a1a99a1b43361031f7484975ba57cd1d56ed31f809855bdc3c6a58"
+  },
+  {
+   "path": "archive-lab.html",
+   "bytes": 33473,
+   "sha256": "0dee6cd997d9a4a661e6cb3b981cc6558bc3d378562994d729cd12de9c9c1d64"
+  },
+  {
+   "path": "archive-records.html",
+   "bytes": 31300,
+   "sha256": "b76a1d9859ee63cbd15af19cb042800ca8a6345e587c559eb1048648efa73929"
   },
   {
    "path": "assets/fonts/Inter-LICENSE.txt",
@@ -174,38 +189,38 @@
   },
   {
    "path": "case-genai-doc-assistant.html",
-   "bytes": 15050,
-   "sha256": "d47eebc099ee42c6ef03d358085ce26a44bee6c1c9a0056ea56b991e478518a3"
+   "bytes": 15165,
+   "sha256": "34721b4eb3ad6c78a47d43537ed679a852d231280b8f9b3e149cbf4c0909677e"
   },
   {
    "path": "case-llm-eval-framework.html",
-   "bytes": 15202,
-   "sha256": "af791b2cb440fea71494ae9a4e432959c936dac4acc0ddc3e99540cb6b77f0fd"
+   "bytes": 15256,
+   "sha256": "3f7752fa1ce32a1ffefdaf410e8fa135f29758f922b3f989da560bf4ad95bb07"
   },
   {
    "path": "case-mcp-weir.html",
-   "bytes": 15260,
-   "sha256": "1cb76ea5406192456fdb3ea9023e3073913b26105bc1eee73c26bf8e3863ccc8"
+   "bytes": 15344,
+   "sha256": "db2927557e58e4a665919c5819a03a838e37b70bd0a91f863119326c674a53a7"
   },
   {
    "path": "case-nasha-ai-lab-architecture.html",
-   "bytes": 14781,
-   "sha256": "2e022051479c9aab5925f7db4fcb8bf2b9624919e8799c230aa8098eff11d5ef"
+   "bytes": 15413,
+   "sha256": "716651aaa935c4270924655819e9c95be69b99e88f379bd58c58708b502a04d2"
   },
   {
    "path": "case-production-ai-agent-platform.html",
-   "bytes": 17005,
-   "sha256": "cb96abf56a4c8978a667bb0a7e690cd64ad0011355f5bf4ed72ce1d0c9743626"
+   "bytes": 17123,
+   "sha256": "bacf8c2f8aa8d8c04a721b91e692af7c1eaf1aee4a28779c7b11e2f36093ebf1"
   },
   {
    "path": "case-studies.html",
-   "bytes": 6591,
-   "sha256": "7c80e158f70bdc5a83396e84d70c7c59059e11a59fdae77fba47f7183bfa04bd"
+   "bytes": 6876,
+   "sha256": "8a9273d77ad6bf0359cb125d1009c68caded6427066c9ad4159bc27febe4a7c8"
   },
   {
    "path": "case-support-escalation-copilot.html",
-   "bytes": 16100,
-   "sha256": "4a2b309eaf6190ad9140582fcb2d5d35eca3de12fc1947d81737eb5aa6d65eee"
+   "bytes": 16220,
+   "sha256": "3823485cb2a7492e2a03dc1e7795396a3e039fbe9bcbad73c68aa76e6a836622"
   },
   {
    "path": "cinematic.css",
@@ -214,13 +229,13 @@
   },
   {
    "path": "cinematic.js",
-   "bytes": 5548,
-   "sha256": "c098f6dd020762ba09d44286b92478845fe3edb2d214f0e6c20a3f841288ae23"
+   "bytes": 5600,
+   "sha256": "9d3d585d13b11c1216650988f71add88f7e3ed26e46c11e163db816824e77058"
   },
   {
    "path": "data-lab.html",
-   "bytes": 52343,
-   "sha256": "555738e1c927a12cfab5e1ef599ebbe1e369c1644bb27d65dc98a81fbc08a10e"
+   "bytes": 52390,
+   "sha256": "6745f8040c15af54fe69b1b76fb81319d1778182b678cd96f76af3b439b7162e"
   },
   {
    "path": "data/cases.json",
@@ -258,6 +273,11 @@
    "sha256": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102"
   },
   {
+   "path": "demo/archive.html",
+   "bytes": 4700,
+   "sha256": "81bac1328dd3d53ba19f09b9a617b6a846ae652cfca3db1d6a6a737a58e5b02e"
+  },
+  {
    "path": "demo/data.js",
    "bytes": 24464,
    "sha256": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3"
@@ -274,8 +294,8 @@
   },
   {
    "path": "demo/index.html",
-   "bytes": 4583,
-   "sha256": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4"
+   "bytes": 551,
+   "sha256": "d3aed50118a93fd889a0ae7f6ae60b63794c629c02b4a693e700789446cf5773"
   },
   {
    "path": "home.css",
@@ -289,13 +309,13 @@
   },
   {
    "path": "index.html",
-   "bytes": 32443,
-   "sha256": "f25c19adf14fdebeec67fdcefcc959d7833b3eb339a355d7ee8bc3bb6ae99c05"
+   "bytes": 4756,
+   "sha256": "dc4a3293dd17fa6f781b951db74a46aefb78530666be19a6e967266881c9d251"
   },
   {
    "path": "lab-explorer.html",
-   "bytes": 41834,
-   "sha256": "c376af582b4e27aa7fb489e72c77bfee6fb2ba65836e2fcccdecfac97bee419b"
+   "bytes": 1670,
+   "sha256": "6e9dc6ca564b0732b633812f1d07933270643c1fadf670bd6b4dcf1bd6a430b8"
   },
   {
    "path": "lab.css",
@@ -314,8 +334,13 @@
   },
   {
    "path": "nasha-lab.html",
-   "bytes": 33303,
-   "sha256": "1e388c6d9768bb9081aa00a5779055bbb04b7b70f100ead213124c45e1851e84"
+   "bytes": 1603,
+   "sha256": "a0276a332da2587d05e2002527b39e0a30d5cf410752a8347bc9316ee5b71aa3"
+  },
+  {
+   "path": "nasha-social.jpg",
+   "bytes": 114370,
+   "sha256": "a3339f6d9c5a9cf1de963a94badb6a7b07cb8afeed4df768da2c6fe2caab099f"
   },
   {
    "path": "nasha-universe/event-verify.js",
@@ -326,6 +351,11 @@
    "path": "nasha-universe/evidence/test-results.json",
    "bytes": 9871,
    "sha256": "25893417f3e8f673817414d11ccbe8fdf8f5ed68dc30e77b081af40c2281aeeb"
+  },
+  {
+   "path": "nasha-universe/living-hq/archive.html",
+   "bytes": 3078,
+   "sha256": "023243885e47e8a643ecc39acb05417127f974466133f6d26ddf985402da9937"
   },
   {
    "path": "nasha-universe/living-hq/hq-app.js",
@@ -359,8 +389,8 @@
   },
   {
    "path": "nasha-universe/living-hq/index.html",
-   "bytes": 3022,
-   "sha256": "2bd3ca831027d53209d36735ba1716a298714c89a4e00a3e882ec85935b1ee5c"
+   "bytes": 556,
+   "sha256": "f3be822eeda7cc467fa6bf8bab168b90bfa5f1b2299b7942a6a71bee89652d55"
   },
   {
    "path": "nasha-universe/living-hq/living-hq.css",
@@ -599,13 +629,13 @@
   },
   {
    "path": "pavilion/agents.html",
-   "bytes": 6192,
-   "sha256": "e28d39b66d6ee786e86fa9a07a001f259a64889957ab81c961a53e2f72f208ec"
+   "bytes": 7381,
+   "sha256": "ddc457521a1569fd7234e0e634d032193dc5438a627e0bd241f545dfc12ab3a3"
   },
   {
    "path": "pavilion/app.js",
-   "bytes": 2471,
-   "sha256": "084809fd42dd969d90eb72a7e002643da284597758fe5eeee3752076f1aae534"
+   "bytes": 2627,
+   "sha256": "74e3f868e79cf10d01d18ba4def84a2e3f2ec6aa9db3136e231d8f538028259a"
   },
   {
    "path": "pavilion/art-provenance.json",
@@ -619,8 +649,8 @@
   },
   {
    "path": "pavilion/bridge.html",
-   "bytes": 1583,
-   "sha256": "ae009876b91eba6cfb6ce5648edd67c58d50b7541c8404bb7055de96a55df52e"
+   "bytes": 2797,
+   "sha256": "2e154b53811f1b2acc1e8a83f4e7649c2e77794b59fba6d29d14543e40d40d94"
   },
   {
    "path": "pavilion/business-settings.js",
@@ -634,8 +664,8 @@
   },
   {
    "path": "pavilion/create.html",
-   "bytes": 3796,
-   "sha256": "b62ec5950f3ff9a51d880486a0f690ef97863832180d62a28bbec5924b2ce798"
+   "bytes": 4985,
+   "sha256": "413f6ef28b00f6a58e4017630247c260fcaa355c4dbf4ca61b46b5fd85db602d"
   },
   {
    "path": "pavilion/engine.js",
@@ -644,8 +674,8 @@
   },
   {
    "path": "pavilion/engineering-case.html",
-   "bytes": 3076,
-   "sha256": "6268bffb1bc0ed91b680c69706026fca322384b6c79cf57c3cfef96208e5debb"
+   "bytes": 4276,
+   "sha256": "9035426b831b6f1559eb0962f2f382eb1c540c7e2c8734dd9a6bf23a75c7d9d3"
   },
   {
    "path": "pavilion/finance.js",
@@ -669,8 +699,8 @@
   },
   {
    "path": "pavilion/hq.html",
-   "bytes": 121211,
-   "sha256": "50757fa03a4a77acd4f5b6dc0d195d505eed130bf3d0cc1afa05deecfcbfcf67"
+   "bytes": 122400,
+   "sha256": "1dd2ecbe9cc922e45dbbdab6e5254cd892060bef75781a1e7142f69022d122b2"
   },
   {
    "path": "pavilion/idea-analysis.js",
@@ -709,13 +739,13 @@
   },
   {
    "path": "pavilion/index.html",
-   "bytes": 2195,
-   "sha256": "909ba2e91588000b93c50ee4f9b10cbe6978784757cd629f8a1229824f0e16c3"
+   "bytes": 3251,
+   "sha256": "bae8cfdc9455385d617ab50eb45a6de12a8304c88b6ee4eb1996d0bc63988dd4"
   },
   {
    "path": "pavilion/inspector.html",
-   "bytes": 11275,
-   "sha256": "8422deaa29c08065487e4e4bc8496c66d185b4841acd0b247515808a315b4557"
+   "bytes": 12464,
+   "sha256": "d4e284f25c33faa27aeaf269abd8833c011cc17b9360e9b476cd1ab9bbeba333"
   },
   {
    "path": "pavilion/iso-geometry.js",
@@ -734,8 +764,8 @@
   },
   {
    "path": "pavilion/ledger.html",
-   "bytes": 8201,
-   "sha256": "7fd031226e05288410c031eca15d1b29187ee7a685992c3c9bccc87d21b2f20d"
+   "bytes": 9390,
+   "sha256": "41dc020986cd35c79ee3ecea526b20c7a64147180770ce6adc7c528140afc148"
   },
   {
    "path": "pavilion/model-assumptions.js",
@@ -744,8 +774,8 @@
   },
   {
    "path": "pavilion/ops.html",
-   "bytes": 14424,
-   "sha256": "bc3e2777bebf7e06d28c3a7f757f0d280f8d79ebc728dce83cff0f1b94f0ee81"
+   "bytes": 15859,
+   "sha256": "47b97866ba06117c5236880aebac33189115377d566252e2fadc5e3ab987a959"
   },
   {
    "path": "pavilion/ops.js",
@@ -754,8 +784,8 @@
   },
   {
    "path": "pavilion/overview.html",
-   "bytes": 4619,
-   "sha256": "8552a1085892a067871e19234908dd57d7f605fb7eba90c0d061cbe0edbe1d1e"
+   "bytes": 5808,
+   "sha256": "a7eb1d191a0e063aecf956733451e192e160d880e85951b59d03fb2ec77937aa"
   },
   {
    "path": "pavilion/shift-controls.js",
@@ -779,8 +809,8 @@
   },
   {
    "path": "pavilion/simulator.html",
-   "bytes": 1494,
-   "sha256": "d795159d07fedb7a064d3f16e2a43f5f73b1e34ed2a7ce1dc29a55cc4276edb5"
+   "bytes": 2717,
+   "sha256": "5579127b362e44f24faa97f9dc0f9e0ade8dd0447cf8ea0ebfb54b7b07160782"
   },
   {
    "path": "pavilion/simulator.js",
@@ -789,13 +819,13 @@
   },
   {
    "path": "pavilion/site.js",
-   "bytes": 5864,
-   "sha256": "fea8a8d618b9dfc97a69441c7c0cddd980d37eb433d225066356fe3661a7b207"
+   "bytes": 5889,
+   "sha256": "9ed33e134e12d134af7e06524d59329c2ad139252300f50b84f142184b38a067"
   },
   {
    "path": "pavilion/source-book.html",
-   "bytes": 904945,
-   "sha256": "ebb18c3f1141abdfabdd221653845013fefb110e7b7d95cadeee0a0f0c43414c"
+   "bytes": 906102,
+   "sha256": "92ff972165650439a8e08eb6b90bc564eb81bf944baf0530bce6f3aa0ec09119"
   },
   {
    "path": "pavilion/station-context.js",
@@ -814,13 +844,13 @@
   },
   {
    "path": "pavilion/timeline.html",
-   "bytes": 7713,
-   "sha256": "2bbbca1116ac0d166470078b36612a276fb8b8eab1c4767e43e1c4d7c73fbdf3"
+   "bytes": 8902,
+   "sha256": "0fa6554a0ffa753f2c4a03d08d1648273c40d175d6740c8ce077c881e35bb62d"
   },
   {
    "path": "pavilion/views.js",
-   "bytes": 10682,
-   "sha256": "64308b9c7f6d0dcef494c27102f728d018887de65655d66078871a419ebaad08"
+   "bytes": 11340,
+   "sha256": "14720fb16fe0326595a9a191703601a61c93bad1013fdedef7a56072eaf68d9c"
   },
   {
    "path": "pavilion/week-comparison.js",
@@ -828,9 +858,19 @@
    "sha256": "46e308d26cafde48c6f2847e985c1b9d687ebdf75d8cdd6560bf6008b33944f5"
   },
   {
+   "path": "portfolio-menu.js",
+   "bytes": 950,
+   "sha256": "e28e0ca890904e2ff87d494682da71880187311f0e80425918f4ad12987ec4ee"
+  },
+  {
+   "path": "portfolio.css",
+   "bytes": 10088,
+   "sha256": "3d460a076c0b1aaf89deab9d750418ba78d18228a1c0519f32d5438cb67f398f"
+  },
+  {
    "path": "projects.html",
-   "bytes": 44189,
-   "sha256": "f2787f7b6fd24fb8404bf9872fb95dc388165ef9fd93bde7c07a53103e72dc5e"
+   "bytes": 48330,
+   "sha256": "86ccf02dc81cd4cce22f39b6370c56db02734667924caee3eb3833e94f2e8407"
   },
   {
    "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",
@@ -844,8 +884,28 @@
   },
   {
    "path": "recruiter.html",
-   "bytes": 9063,
-   "sha256": "108fa2c0d85e208ace6658ee2f1eec436a3458f2be6abe9880555dfb0a0245cf"
+   "bytes": 9560,
+   "sha256": "37347e1b0578dc552d2db19d23d15071370e725eff2a19a032172e73d2307afc"
+  },
+  {
+   "path": "resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf",
+   "bytes": 8428,
+   "sha256": "cd37915c33bec45eab20521cb75180a899a5520fa7a85adf33a90e0c9be08861"
+  },
+  {
+   "path": "resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf",
+   "bytes": 8422,
+   "sha256": "de1bde2f8e6ba92e471554965d1a13cb26c91fbed5d9062b79d19b250ed6ab34"
+  },
+  {
+   "path": "resumes/Ritesh-Mamidi-FDE.pdf",
+   "bytes": 8426,
+   "sha256": "5b75abdfcfed71a98373ab778efb587327ca6a1e4fe201e2bb21e0b0718dfaf9"
+  },
+  {
+   "path": "resumes/ritesh_mamidi_resume.pdf",
+   "bytes": 10502,
+   "sha256": "5a84710f6cb40907474b769425576af7819a9c8bdbc553bc473829331ebda661"
   },
   {
    "path": "ritesh_mamidi_resume.pdf",
@@ -859,13 +919,18 @@
   },
   {
    "path": "sitemap.xml",
-   "bytes": 1508,
-   "sha256": "907b3027a09282fac7cf33b991dfa7d17c504339dd9db16ab0e43dfdf062f6eb"
+   "bytes": 1172,
+   "sha256": "e38a44f42e6507b1da9ff894a15e197e8df622244938c240ea23d9469a3f8098"
+  },
+  {
+   "path": "skills.html",
+   "bytes": 7002,
+   "sha256": "6e88dec2aaeba24b631ff01b1cc622f27f2ea11fe6787b68e6f84e631cc4e5b6"
   },
   {
    "path": "verified-projects.html",
-   "bytes": 31153,
-   "sha256": "6d7b749ac11815ae2a89c33ebd88e0e8772356e90b8b0bfd73ea215012f00a57"
+   "bytes": 1587,
+   "sha256": "24ac5f00e7c87f431cbd7f63ad6b1a647e31a58308ddebe56a5e7cf388807038"
   }
  ]
 }

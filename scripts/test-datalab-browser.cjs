@@ -34,7 +34,7 @@ const ok = (n, c, x) => { report.checks.push({ name: n, pass: !!c, extra: x }); 
     ok('forecast and experiment charts have text alternatives', (await p.locator('svg.chart[role="img"][aria-label]').count()) >= 3);
     ok('reproducibility finding: 14 of 15 identical, not claimed byte-identical', /14 of 15 regenerated result files are byte-identical/.test(t) && /NOT demonstrated/.test(t));
     ok('demo panel empty before a session', /No Enterprise Demo orders in this browser yet/.test(await p.locator('#demo-live').innerText()));
-    await p.goto(BASE + 'demo/index.html#/guide'); await p.waitForSelector('#view h1'); for (let i = 0; i < 2; i++) { await p.click('[data-act=guide-next]'); await p.waitForTimeout(120); }
+    await p.goto(BASE + 'demo/archive.html#/guide'); await p.waitForSelector('#view h1'); for (let i = 0; i < 2; i++) { await p.click('[data-act=guide-next]'); await p.waitForTimeout(120); }
     await p.goto(BASE + 'data-lab.html#arch'); await p.waitForSelector('#demo-live dl');
     ok('demo panel reads the real session (orders created)', /Orders created\s*1/.test((await p.locator('#demo-live').innerText()).replace(/\n/g, '')));
     const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#demo-live button')]); const path = await dl.path(); const csv = fs.readFileSync(path, 'utf8');
