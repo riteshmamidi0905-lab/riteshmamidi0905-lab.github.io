@@ -8,7 +8,7 @@ const row=(label,text)=>'<div class="line"><span>'+esc(label)+'</span><strong>'+
 export function stat(title,value,id){return '<div class="stat"><span>'+esc(title)+'</span><strong>'+evidence(id,value)+'</strong></div>';}
 export function wrap(b,page,content,archive=''){
  const active=['hq','district'].includes(page)?'simulation':page;
- return '<div class="workbench"><aside class="side"><div class="side-name">'+esc(b.values.concept)+'</div><nav aria-label="Business dashboard">'+Object.entries(tabs).map(([key,label])=>'<a href="#'+key+'"'+(active===key?' aria-current="page"':'')+'>'+label+'</a>').join('')+'</nav><div class="manage">'+archive+'</div></aside><div class="panel">'+content+'</div></div>';
+ return '<div class="workbench"><aside class="side"><div class="side-name">'+esc(b.values.concept)+'</div><div class="mobile-section">'+select('section','Dashboard section',tabs,active)+'</div><nav aria-label="Business dashboard">'+Object.entries(tabs).map(([key,label])=>'<a href="#'+key+'"'+(active===key?' aria-current="page"':'')+'>'+label+'</a>').join('')+'</nav><div class="manage">'+'<details><summary>Manage workspace</summary>'+archive+'</details></div></aside><div class="panel">'+content+'</div></div>';
 }
 export function totalStats(result){
  const s=result.total;

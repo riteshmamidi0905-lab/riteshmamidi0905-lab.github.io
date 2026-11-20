@@ -1,16 +1,30 @@
 import {newPlan,inferPlan,groups,labels,sectors,changeType,checkPlan} from './builder-plan.js';
 import {gallery,guideView,reviewView} from './builder-entry.js';
-import {takeFields,btn,esc,shellHeading} from './builder-common.js';
+import {takeFields,btn,esc,shellHeading,money} from './builder-common.js';
 
 import {createBusiness} from './builder-ledger.js';
 import * as market from './builder-campaign-view.js';
+import {browserLibrary} from './builder-library.js';
 import {dayOf} from './builder-market.js';
 import {calculate,sourceFor} from './builder-results.js';
 import * as view from './builder-dashboard.js';
 import {websiteHTML,downloadWebsite} from './builder-site.js';
 let device='desktop',day=1,beat=0,stress='normal',result=null;
 const root=document.querySelector('#builder'), notice=document.querySelector('#notice');
-let plan=newPlan(),step=0,screen='gallery',business=null;
+const library=browserLibrary();
+let plan=newPlan(),step=0,screen='gallery',business=library.active?.business||null;
+function manage(){
+ const h=library.stack();
+ return '<span class="save-state">'+(library.persistent?'Saved on this device':'Session only · storage unavailable')+'</span>'+
+   '<label class="field"><span>Workspace version</span><select name="workspace">'+[...library.entries.values()].map(v=>'<option value="'+esc(v.id)+'"'+(v.id===library.current?' selected':'')+'>'+esc(v.label)+'</option>').join('')+'</select></label>'+
+   '<div class="history-tools">'+['undo','redo'].map(k=>'<button class="quiet" data-act="'+k+'"'+((k==='undo'?h.past:h.future).length?'':' disabled')+'>'+k[0].toUpperCase()+k.slice(1)+'</button>').join('')+'</div>'+
+   btn('duplicate','Duplicate business','quiet')+btn('reset','Reset business','quiet')+'<a class="text-button" href="#gallery">New business</a>';
+}
+function compare(){
+ if(library.entries.size<2)return '';
+ return '<section><h2>Compare saved versions</h2><div class="table-scroll"><table><caption>Four-week operating income under each saved plan</caption><tbody>'+[...library.entries.values()].map(v=>'<tr><th>'+esc(v.label)+'</th><td>'+money((v.id===library.current?result:calculate(v.business)).total.income)+'</td></tr>').join('')+'</tbody></table></div></section>';
+}
+
 function go(next,focus=true){
  screen=next;notice.textContent='';
  if(next==='gallery')root.innerHTML=gallery();
@@ -18,9 +32,9 @@ function go(next,focus=true){
  else if(next==='review')root.innerHTML=reviewView(plan);
  else if(business){
    result??=calculate(business,stress);
-   const pages={overview:view.overview,website:()=>view.website(business,device,day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat),district:()=>market.districtView(business,[business],day)};
+   const pages={overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat),district:()=>market.districtView(business,[...library.entries.values()],day)};
    const page=pages[next]||(()=>shellHeading('Business dashboard',view.tabs[next]||'Workspace'));
-   root.innerHTML=view.wrap(business,next,page(business,result))+ '<dialog id="record" aria-labelledby="source-title"><button type="button" class="quiet" data-act="close-record">Close record</button><div id="source-body"></div></dialog>';
+   root.innerHTML=view.wrap(business,next,page(business,result),manage())+ '<dialog id="record" aria-labelledby="source-title"><button type="button" class="quiet" data-act="close-record">Close record</button><div id="source-body"></div></dialog>';
    if(next==='website')root.querySelector('iframe').srcdoc=websiteHTML(business,day);
  }
  else{go('gallery',focus);return;}
@@ -36,6 +50,12 @@ root.addEventListener('click',e=>{
  const lot=e.target.closest('[data-builder-lot]')?.dataset.builderLot;
  if(lot){e.preventDefault();const target=root.querySelector('#lot-'+lot);target.focus();return;}
  const op=e.target.closest('[data-act]')?.dataset.act;if(!op)return;
+ if(op==='duplicate'){business=library.duplicate();result=null;go('overview');history.replaceState(null,'','#overview');notice.textContent='Version created for comparison.';return;}
+ if(op==='undo'||op==='redo'){business=library.travel(op);result=null;go(screen);notice.textContent=op==='undo'?'Edit undone.':'Edit restored.';return;}
+ if(op==='reset'){
+   const dialog=root.querySelector('#record');dialog.querySelector('#source-body').innerHTML='<h2 id="source-title">Reset this business?</h2><p>Restore its confirmed opening assumptions and remove subsequent edits and campaigns. Other versions stay available.</p>'+btn('confirm-reset','Restore opening plan','button primary');dialog.showModal();dialog.querySelector('button').focus();return;
+ }
+ if(op==='confirm-reset'){business=library.reset();result=null;day=1;stress='normal';beat=0;go('overview');history.replaceState(null,'','#overview');notice.textContent='Opening plan restored. Undo is available.';return;}
  if(op==='close-record'){root.querySelector('#record').close();return;}
  if(op==='device'){device=device==='mobile'?'desktop':'mobile';go('website',false);root.querySelector('[data-act="device"]').focus();return;}
  if(op==='export'){downloadWebsite(business,day);return;}
@@ -46,6 +66,8 @@ root.addEventListener('click',e=>{
  else if(op==='back'){if(screen==='review'){go('guide');}else if(step>0){step--;go('guide');}else go('gallery');}
 });
 root.addEventListener('change',e=>{
+ if(e.target.name==='section'){navigate(e.target.value);return;}
+ if(e.target.name==='workspace'){business=library.select(e.target.value);result=null;day=1;beat=0;stress='normal';go(screen);return;}
  if(['display-day','beat','stress'].includes(e.target.name)){
    const key=e.target.name;if(key==='display-day'){day=Number(e.target.value);beat=0;}if(key==='beat')beat=Number(e.target.value);
    if(key==='stress'){stress=e.target.value;result=null;}
@@ -69,7 +91,7 @@ root.addEventListener('submit',e=>{
    }
    if(form.id==='review-form'){
      takeFields(form,plan,Object.keys(labels).filter(k=>k!=='mix'||plan.values.type==='stadium'));
-     checkPlan(plan.values);business=createBusiness(plan);result=null;navigate('overview');
+     checkPlan(plan.values);business=library.add(createBusiness(plan));result=null;day=1;beat=0;stress='normal';navigate('overview');
    }
    if(['website-form','operations-form','products-form'].includes(form.id)){
      const copy=structuredClone(business),data=new FormData(form);
@@ -82,7 +104,9 @@ root.addEventListener('submit',e=>{
    }
  }catch(error){notice.textContent=error.message;notice.scrollIntoView({block:'nearest'});}
 });
-function apply(copy){const checked=calculate(copy,stress);business=copy;result=checked;}
+function apply(copy){const checked=calculate(copy,stress);business=library.edit(copy);result=checked;}
 function navigate(next){if(location.hash==='#'+next)go(next);else location.hash=next;}
 addEventListener('hashchange',()=>{const target=decodeURIComponent(location.hash.slice(1));if(target==='sectors')return;go(target||'gallery');});
-go('gallery',false);
+try{go(business?(location.hash.slice(1)||'overview'):'gallery',false);}
+catch{business=null;go('gallery',false);notice.textContent='The saved plan could not be opened. Start a new plan in this browser.';}
+

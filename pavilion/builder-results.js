@@ -12,7 +12,7 @@ export function summarizeBuilder(b,base,days,extra={}){
    breakEvenBasis:'fixed costs × revenue / (revenue less goods cost); rounded up to cents',runwayBasis:'Available closing cash / last seven days’ net burn. No net burn gives no finite estimate.',sources:weeks.map(w=>w.id)};
  const venue=b.values.type==='stadium',repeatPercent=venue?25:100-base.records.TERMS.servicePolicy.newGuestSharePercent;
  records['B-AUDIENCE']={id:'B-AUDIENCE',kind:'Synthetic audience assumptions',repeatPercent,lostFutureVisits:total.lost,
-   basis:venue?'Illustrative 25% repeat attendance. No customer tracking or lost-return model between events.':'Planning mix uses the service policy’s new-guest share. Lost returns derive from daily demand records.',sources:venue?weeks.map(w=>w.id):['TERMS',...days.flatMap(d=>d.ids.slice(-1))]};
+   basis:venue?'Illustrative 25% repeat attendance. No customer tracking or lost-return model between events.':'Planning mix uses the service policy’s new-guest share. Lost returns derive from daily demand records.',sources:venue?weeks.map(w=>w.id):['TERMS',...base.days.flatMap(d=>d.ids.slice(-1))]};
  return {days,total,weeks,records,idea:base.idea};
 }
 export function calculate(b,mode='normal'){
