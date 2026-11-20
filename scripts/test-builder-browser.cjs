@@ -3,8 +3,15 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const {chromium}=require('playwright'),{AxeBuilder}=require('@axe-core/playwright');
 const base=process.argv[2]||'http://127.0.0.1:8000/',dir=process.env.BUILDER_EVIDENCE;
 const summary={views:[],axe:[],keyboard:[],offline:[],errors:[],exports:[]};
+let watchdog;
+function checkpoint(label){
+ clearTimeout(watchdog);
+ watchdog=setTimeout(()=>{console.error('Builder browser check stalled for 90 seconds at '+label);process.exit(1);},90000);
+ watchdog.unref();
+}
 function save(name,v){if(dir)fs.writeFileSync(path.join(dir,'checks',name),JSON.stringify(v,null,2)+'\n');}
 async function walk(browser,width){
+ checkpoint(width+' · opening browser context');
  const height=width===390?844:900,ctx=await browser.newContext({viewport:{width,height},reducedMotion:'reduce'}),p=await ctx.newPage();
  const errors=[],requests=[],ax=[];let offline=false;
  p.on('pageerror',err=>errors.push(err.message));
@@ -12,6 +19,7 @@ async function walk(browser,width){
  p.setDefaultTimeout(12000);
  try{
   async function view(name,selector='h1',scan=true){
+    checkpoint(width+' · '+name);
     const pos=p.locator(selector).first();await pos.waitFor();
     const starts=['review','overview','website','products','operations','campaign-planner','simulation','customers','finance','report'];
     if(name==='gallery')await p.evaluate(()=>window.scrollTo(0,0));
@@ -25,6 +33,7 @@ async function walk(browser,width){
     summary.views.push({name,width,height});
   }
   async function tabTo(selector,action='Enter'){
+    checkpoint(width+' · keyboard '+selector);
     const l=p.locator(selector).first();await l.waitFor();
     for(let i=0;i<190;i++){
       if(await l.evaluate(el=>document.activeElement===el)){summary.keyboard.push({width,target:selector,tabs:i,key:action});if(action)await p.keyboard.press(action);return;}
@@ -47,10 +56,23 @@ async function walk(browser,width){
   await view('review','#review-form');await tabTo('#review-form button:not([type])');await p.waitForSelector('[data-screen=overview]');
   await view('overview','.overview-hero');
   await section('website');await view('website','#website-form');
+  const preview=p.getByRole('region',{name:'Business website preview'});
+  await preview.getByRole('heading',{name:'District Field',level:3,exact:true}).waitFor();
+  assert.ok(await preview.getByRole('heading',{name:'Our offerings',level:4}).isVisible());
   await p.locator('[name=title]').fill('District Field on game day');await p.locator('[name=theme]').selectOption('night');
   await p.locator('#website-form button').click();await p.locator('[data-act=device]').click();await view('website-mobile-preview','.site-preview',false);
   const nextDownload=p.waitForEvent('download');await p.locator('[data-act=export]').click();const dl=await nextDownload;
-  const src=fs.readFileSync(await dl.path(),'utf8');assert.match(src,/District Field on game day/);assert.ok(!/<form\b|<script\b/i.test(src));summary.exports.push({width,bytes:Buffer.byteLength(src),filename:dl.suggestedFilename()});
+  const src=fs.readFileSync(await dl.path(),'utf8');assert.match(src,/District Field on game day/);assert.ok(!/<form\b|<script\b/i.test(src));
+  checkpoint(width+' · accessibility of downloaded storefront');
+  const exported=await ctx.newPage();
+  try{
+   await exported.setContent(src);
+   await exported.getByRole('heading',{name:'District Field on game day',level:1,exact:true}).waitFor();
+   const audit=await new AxeBuilder({page:exported}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+   assert.deepEqual(audit.violations.map(v=>v.id),[],'Downloaded storefront accessibility');
+   summary.exports.push({width,bytes:Buffer.byteLength(src),filename:dl.suggestedFilename(),axeViolations:[]});
+  }finally{await exported.close();}
+
   await section('products');await view('products','#products-form');await p.locator('[name="price-FOOD-A"]').fill('13.00');await p.locator('#products-form button').click();
   await section('operations');await view('operations','#operations-form');
   await section('marketing');await view('campaign-planner','#campaign-form');await tabTo('#campaign-form button');
@@ -68,6 +90,6 @@ async function walk(browser,width){
   assert.deepEqual(requests,[],'HTTP requests while exercising the builder offline');assert.deepEqual(errors,[]);
   summary.offline.push({width,initialAssetsLoaded:true,browserOffline:true,subsequentHttpRequests:requests});save('ax-'+width+'.json',ax);
   offline=false;await ctx.setOffline(false);await p.reload();await p.locator('.side-name').waitFor();assert.match(await p.locator('.panel').innerText(),/District Field/);
- }finally{summary.errors.push(...errors);await ctx.close();}
+ }finally{checkpoint(width+' · closing browser context');summary.errors.push(...errors);await ctx.close();}
 }
-(async()=>{const b=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined});try{for(const w of [1440,390])await walk(b,w);}finally{save('builder-browser.json',summary);await b.close();}console.log(JSON.stringify({viewChecks:summary.views.length,axeScans:summary.axe.length,violations:summary.axe.flatMap(s=>s.violations).length,keyboardPaths:summary.keyboard.length,offline:summary.offline,exports:summary.exports}));})().catch(e=>{console.error(e);process.exitCode=1});
+(async()=>{const b=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined});try{for(const w of [1440,390])await walk(b,w);}finally{checkpoint('closing browser');save('builder-browser.json',summary);await b.close();clearTimeout(watchdog);}console.log(JSON.stringify({viewChecks:summary.views.length,axeScans:summary.axe.length,violations:summary.axe.flatMap(s=>s.violations).length,keyboardPaths:summary.keyboard.length,offline:summary.offline,exports:summary.exports}));})().catch(e=>{console.error(e);process.exitCode=1});

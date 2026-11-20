@@ -8,7 +8,7 @@ import {browserLibrary} from './builder-library.js';
 import {dayOf} from './builder-market.js';
 import {calculate,sourceFor} from './builder-results.js';
 import * as view from './builder-dashboard.js';
-import {websiteHTML,downloadWebsite} from './builder-site.js';
+import {mountWebsitePreview,downloadWebsite} from './builder-site.js';
 let device='desktop',day=1,beat=0,stress='normal',result=null;
 const root=document.querySelector('#builder'), notice=document.querySelector('#notice');
 const galleryLead=root.querySelector('.entry-lead');
@@ -55,7 +55,7 @@ function go(next,focus=true){
    const pages={overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day)+market.dayPicker(day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat),district:()=>market.districtView(business,[...library.entries.values()],day)};
    const page=pages[next]||(()=>shellHeading('Business dashboard',view.tabs[next]||'Workspace'));
    root.innerHTML=view.wrap(business,next,page(business,result),manage())+ '<dialog id="record" aria-labelledby="source-title"><button type="button" class="quiet" data-act="close-record">Close record</button><div id="source-body"></div></dialog>';
-   if(next==='website')root.querySelector('iframe').srcdoc=websiteHTML(business,day);
+   if(next==='website')mountWebsitePreview(root.querySelector('.storefront-window'),business,day);
  }
  else{go('gallery',focus);return;}
  if(focus){root.querySelector('h1')?.focus({preventScroll:true});root.scrollIntoView({block:'start',behavior:'instant'});}

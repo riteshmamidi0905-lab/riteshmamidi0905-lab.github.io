@@ -6,7 +6,7 @@ import {newPlan,inferPlan,checkPlan,types} from '../pavilion/builder-plan.js';
 import {createBusiness,operatingLedger,totals} from '../pavilion/builder-ledger.js';
 import {calculate,sourceFor} from '../pavilion/builder-results.js';
 import {funnel,channels,validateCampaign,dayOf,dateOf} from '../pavilion/builder-market.js';
-import {websiteHTML,domainIdeas,themes} from '../pavilion/builder-site.js';
+import {websiteHTML,mountWebsitePreview,domainIdeas,themes} from '../pavilion/builder-site.js';
 import {BusinessLibrary} from '../pavilion/builder-library.js';
 const make=type=>createBusiness(newPlan(type));
 function campaign(b,options={}){
@@ -97,4 +97,18 @@ test('the gallery image, credit and section anchor are present before JavaScript
  assert.equal(document.querySelector('link[rel=preload][as=image]').getAttribute('href'),phone.getAttribute('srcset'));
  assert.ok(document.getElementById('sectors'));
  assert.ok(document.querySelector('meta[name=description]').getAttribute('content'));
+});
+
+test('storefront preview and export show the same escaped content in their own heading hierarchies',()=>{
+ const b=make('stadium');b.site.title='<strong>Field & Vale</strong>';b.site.story='<aside>About the venue</aside>';
+ b.campaigns=[campaign(b,{start:3,end:6,offer:'Game <em>day</em>'})];
+ const preview=parseHTML('<div class="preview"></div>').document.querySelector('.preview');
+ mountWebsitePreview(preview,b,3);
+ const shadow=preview.shadowRoot, exported=parseHTML(websiteHTML(b,3)).document;
+ assert.equal(shadow.querySelector('h3.site-title').textContent,b.site.title);
+ assert.equal(exported.querySelector('h1.site-title').textContent,b.site.title);
+ assert.equal(shadow.querySelector('.promo').textContent,exported.querySelector('.promo').textContent);
+ assert.deepEqual([...shadow.querySelectorAll('h4')].map(n=>n.textContent),[...exported.querySelectorAll('h2')].map(n=>n.textContent));
+ assert.equal(shadow.querySelector('.site-title strong,.promo em,aside,iframe,script,form,main'),null);
+ mountWebsitePreview(preview,b,2);assert.equal(preview.shadowRoot.querySelector('.promo'),null);
 });
