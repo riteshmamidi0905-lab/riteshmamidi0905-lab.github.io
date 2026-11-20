@@ -1,5 +1,5 @@
 import {newPlan,inferPlan,groups,labels,sectors,changeType,checkPlan} from './builder-plan.js';
-import {gallery,guideView,reviewView} from './builder-entry.js';
+import {gallerySections,guideView,reviewView} from './builder-entry.js';
 import {takeFields,btn,esc,shellHeading,money} from './builder-common.js';
 
 import {createBusiness} from './builder-ledger.js';
@@ -11,6 +11,8 @@ import * as view from './builder-dashboard.js';
 import {websiteHTML,downloadWebsite} from './builder-site.js';
 let device='desktop',day=1,beat=0,stress='normal',result=null;
 const root=document.querySelector('#builder'), notice=document.querySelector('#notice');
+const galleryLead=root.querySelector('.entry-lead');
+const galleryShelf=root.querySelector('#sectors');
 const library=browserLibrary();
 let plan=newPlan(),step=0,screen='gallery',business=library.active?.business||null;
 function manage(){
@@ -42,7 +44,10 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopHandoff
 function go(next,focus=true){
  stopHandoffs();
  screen=next;root.dataset.screen=next;notice.textContent='';
- if(next==='gallery')root.innerHTML=gallery();
+ if(next==='gallery'){
+   if(!root.contains(galleryLead))root.replaceChildren(galleryLead,galleryShelf);
+   galleryShelf.innerHTML=gallerySections();
+ }
  else if(next==='guide')root.innerHTML=guideView(plan,step);
  else if(next==='review')root.innerHTML=reviewView(plan);
  else if(business){

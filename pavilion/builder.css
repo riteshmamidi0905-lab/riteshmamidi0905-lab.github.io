@@ -17,3 +17,7 @@ body:has(.builder)>.skip{position:absolute;z-index:50;top:0;left:1rem;transform:
 @media(max-width:650px){.side .mobile-section{display:flex;gap:.5rem;align-items:end}.mobile-section select{max-width:155px}.mobile-section button{padding:.5rem}.side{column-gap:.5rem}.side .manage summary{min-height:44px;display:list-item}}
 .stat strong .source{white-space:nowrap}
 @media(max-width:480px){.builder .stats{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}.builder .stat{display:flex;align-items:center;justify-content:space-between;gap:.5rem;border:0;border-bottom:1px solid var(--line);padding:.55rem .8rem}.stat strong{margin:0}.stat span{max-width:49%}}
+
+/* Reserve the initial viewport while the local model loads. The hero is already in the document. */
+@media (scripting:enabled){#builder:not([data-screen]){min-height:100svh}}
+#builder:not([data-screen]) .entry-lead .actions{visibility:hidden}

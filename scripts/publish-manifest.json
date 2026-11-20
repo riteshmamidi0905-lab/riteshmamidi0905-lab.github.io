@@ -173,6 +173,11 @@
    "sha256": "dcea24bb60386c59b736cf9ca3f115e8bdf3e11acc51d07d164bede645b05a89"
   },
   {
+   "path": "assets/img/pavilion/builder-terrace-mobile.webp",
+   "bytes": 41578,
+   "sha256": "29bfd4d82b03fc983db4b693c6980aa68829884977684fd8a293287981ddf529"
+  },
+  {
    "path": "assets/img/universe/universe-hq-atrium.jpg",
    "bytes": 147745,
    "sha256": "58c6f71ac00665d70667af3201efeab8735a62b7049989022da95aaddf6961ce"
@@ -694,8 +699,8 @@
   },
   {
    "path": "pavilion/art-provenance.json",
-   "bytes": 8940,
-   "sha256": "91b8859a40a69bacf769da90bec8f8c4ace21701a5841bcf4d4ea800856a2ec6"
+   "bytes": 10595,
+   "sha256": "c11365ce10a19e6ff150deda3c89086dfebfb7564c14346d58c720c42aa6554e"
   },
   {
    "path": "pavilion/ask-floor.js",
@@ -754,8 +759,8 @@
   },
   {
    "path": "pavilion/builder-entry.js",
-   "bytes": 3028,
-   "sha256": "ee07c145c3c6204866b9277dc370261cd74f63b6b21f5ef369d6f9f41f069685"
+   "bytes": 2395,
+   "sha256": "a8e9dbb6324c5a89db9388e950775f66e0eb238164b1cfc98693f445d7bbb913"
   },
   {
    "path": "pavilion/builder-ledger.js",
@@ -789,13 +794,13 @@
   },
   {
    "path": "pavilion/builder.css",
-   "bytes": 13324,
-   "sha256": "c710b79433ab7c1ab636318daee06e6cd20baed200b16bbbe7908e2d152b6ffc"
+   "bytes": 13569,
+   "sha256": "1908370dd57a3e02d8642b98264da49d4b24eccd126648baa1e1e92cf1c2de97"
   },
   {
    "path": "pavilion/builder.js",
-   "bytes": 12060,
-   "sha256": "44e9621223adfc8791d440e053e619c40722de73ede9e4428cbdb80fd047a500"
+   "bytes": 12278,
+   "sha256": "4876efae6a94b279a63b4ca917740710af2ce3c65365508e5b052149221df7f2"
   },
   {
    "path": "pavilion/business-settings.js",
@@ -1054,8 +1059,8 @@
   },
   {
    "path": "pavilion/start.html",
-   "bytes": 2392,
-   "sha256": "b9bbb20a12dca5186014858a6eec9d6ce2d1ede043ecdacce458c1c6a9507f81"
+   "bytes": 3530,
+   "sha256": "97782bf4e53c6e201be8286843c0fecdd678d12c08f8580c7084f86900ce7dbc"
   },
   {
    "path": "pavilion/station-context.js",

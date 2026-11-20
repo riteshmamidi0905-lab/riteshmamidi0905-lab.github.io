@@ -86,3 +86,15 @@ test('builder surfaces disclose synthetic operations, reject affirmative publica
    assert.doesNotMatch(s,/\b(fetch\s*\(|XMLHttpRequest|sendBeacon|WebSocket|checkout|payment form|has been (?:sent|published|registered)|successfully (?:sent|published|registered))\b/i,f);}
  assert.match(readFileSync(new URL('../pavilion/start.html',import.meta.url),'utf8'),/Simulation — synthetic data · nothing is published, charged or sent\./);
 });
+
+test('the gallery image, credit and section anchor are present before JavaScript loads',()=>{
+ const document=parseHTML(readFileSync(new URL('../pavilion/start.html',import.meta.url),'utf8')).document;
+ const image=document.querySelector('.gallery-hero img');
+ const phone=document.querySelector('.gallery-hero picture source');
+ assert.equal(image.getAttribute('fetchpriority'),'high');
+ assert.ok(image.getAttribute('width') && image.getAttribute('height'));
+ assert.match(document.querySelector('.gallery-hero figcaption').textContent,/AI-generated concept art/);
+ assert.equal(document.querySelector('link[rel=preload][as=image]').getAttribute('href'),phone.getAttribute('srcset'));
+ assert.ok(document.getElementById('sectors'));
+ assert.ok(document.querySelector('meta[name=description]').getAttribute('content'));
+});
