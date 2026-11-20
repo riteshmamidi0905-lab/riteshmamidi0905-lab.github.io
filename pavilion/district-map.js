@@ -1,7 +1,7 @@
 import {esc} from './views.js';
 
 export const lots=[
- {id:'stadium',name:'District Field',use:'Stadium & vendors',u:1,v:1,w:6.7,d:4.1,h:1.1,wall:'#bda77d',roof:'#617c6a'},
+ {id:'stadium',name:'District Field',link:'stadium.html',use:'Stadium & vendors',u:1,v:1,w:6.7,d:4.1,h:1.1,wall:'#bda77d',roof:'#617c6a'},
  {id:'brewery',name:'NASHA Brewing',use:'Brewpub',u:10,v:1.6,w:4.1,d:3,h:1.9,wall:'#d1ba87',roof:'#7b785d'},
  {id:'coffee',name:'Court Coffee',use:'Coffee roaster',u:1.3,v:7,w:3.5,d:2.7,h:1.45,wall:'#c7a67c',roof:'#6b8172'},
  {id:'bakery',name:'Arcade Bakery',use:'Bakery',u:6.4,v:7,w:3.6,d:2.7,h:1.65,wall:'#d3b78c',roof:'#ac7456'},
