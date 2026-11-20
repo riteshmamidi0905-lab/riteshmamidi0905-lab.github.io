@@ -771,8 +771,8 @@
   },
   {
     "path": "pavilion/experience.css",
-    "bytes": 6691,
-    "sha256": "48b2c93fe7ed5121699bbdf7f68a6cb5f51e8586939ebe64156b498d693f0b9b"
+    "bytes": 6759,
+    "sha256": "0af836c2faf153bdd179a230746a0ee738884f1a2f3f4496a92de10184137ddc"
   },
   {
     "path": "pavilion/finance.js",
@@ -791,8 +791,8 @@
   },
   {
     "path": "pavilion/floor-surfaces.js",
-    "bytes": 9184,
-    "sha256": "2a36e24c955fa51c755e1503cc517b28119c4345f8d036ccadc807e3a65b7a88"
+    "bytes": 9595,
+    "sha256": "21410958a5cd3aebcea7061ba03bbdf367a666232c0b811ad5c50c9a18873105"
   },
   {
     "path": "pavilion/floor-window.html",

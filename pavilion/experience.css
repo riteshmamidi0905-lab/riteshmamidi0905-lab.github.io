@@ -11,3 +11,5 @@ body{margin:0;background:#f6f1e5;color:#23382e;font-family:Inter,system-ui,sans-
 @media(max-width:600px){.venue fieldset label{font-size:.82rem}.venue fieldset{gap:.25rem .7rem}.venue td,.venue th{padding:.4rem}.venue .concourse-art{min-height:180px}}
 
 .stadium-crowd{opacity:0}[data-game] .stadium-crowd{opacity:1}.embedded-floor>nav,.embedded-floor>footer{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.embedded-floor>nav:focus-within,.embedded-floor>footer:focus-within{position:relative;width:auto;height:auto;clip-path:none}
+
+@media(max-width:260px){.embedded-floor .map-status{display:none}}
