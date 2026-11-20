@@ -64,3 +64,39 @@
 {"s":"A gift shop with either 2–4 staff and a $5 item.","e":{"type":"retail"},"q":["staff","budget"]}
 {"s":"A food truck open 9–5, either affordable or premium.","e":{"type":"truck"},"q":["hours","tier"]}
 {"s":"A salon in Austin or in Dallas with one stylist.","e":{"type":"salon","staff":1},"q":["city"]}
+{"s":"Our roastery will be called Elm & Pine. We're in Raleigh, with four baristas and $60k to open.","e":{"type":"coffee","concept":"Elm & Pine","city":"Raleigh","staff":4,"budget":60000}}
+{"s":"A taco truck, 150 sq ft, cash to open: $28k. Park it downtown in Phoenix.","e":{"type":"truck","size":"150 sq ft","budget":28000,"neighborhood":"downtown","city":"Phoenix"}}
+{"s":"I'm opening a salon. There will be 3 stylists, with a morning-to-evening schedule.","e":{"type":"salon","staff":3},"q":["hours"]}
+{"s":"A neighborhood bakery in Pittsburgh. We'd call it Breadline. We plan to sell baguettes and rye.","e":{"type":"bakery","city":"Pittsburgh","neighborhood":"neighborhood","concept":"Breadline","products":"baguettes, rye"}}
+{"s":"A Seattle boutique with three employees and a 700 sq ft storefront.","e":{"type":"retail","city":"Seattle","staff":3,"size":"700 sq ft"}}
+{"s":"A brewpub in Tulsa, open 11:30–22:30, with a team of five and $100 thousand to open.","e":{"type":"brewery","city":"Tulsa","hours":"11:30–22:30","staff":5,"budget":100000}}
+{"s":"My café, called Daymark, is in Boise. Value-priced espresso is my focus.","e":{"type":"coffee","concept":"Daymark","city":"Boise","tier":"value"}}
+{"s":"I'm looking at Austin for a 35-seat bakery with two bakers. It'll open weekends only.","e":{"type":"bakery","city":"Austin","size":"35 seats","staff":2},"q":["hours"]}
+{"s":"A barbershop in Santa Fe: budget $55,000, two barbers. Hours 09:00–17:00.","e":{"type":"salon","city":"Santa Fe","budget":55000,"staff":2,"hours":"09:00–17:00"}}
+{"s":"A suburban gift store. I have $12,000 for inventory and $48,000 in opening capital.","e":{"type":"retail","neighborhood":"suburban","budget":48000}}
+{"s":"A food cart near campus, 11am to 6pm. Serving buns and dumplings.","e":{"type":"truck","neighborhood":"campus","hours":"11:00–18:00","products":"buns, dumplings"}}
+{"s":"I haven't decided between a microbrewery and a roastery. I'd start in Denver with two staff.","e":{"city":"Denver","staff":2},"q":["type"]}
+{"s":"I'd like a premium espresso bar in St. Louis, 26 seats and two baristas.","e":{"type":"coffee","tier":"premium","city":"St. Louis","size":"26 seats","staff":2}}
+{"s":"A food truck called Sunset Stop in Las Vegas, open 18:00–02:00, serving tamales and lemonade.","e":{"type":"truck","concept":"Sunset Stop","city":"Las Vegas","hours":"18:00–02:00","products":"tamales, lemonade"}}
+{"s":"A bakery for commuters. We can put $32k into opening the doors; probably 2 staff.","e":{"type":"bakery","budget":32000,"staff":2}}
+{"s":"I want to sell locally made pins and totes from a boutique in Madison.","e":{"type":"retail","city":"Madison","products":"locally made pins, totes"}}
+{"s":"A 30-seat suburban brewpub in Fort Collins, startup budget of $76k.","e":{"type":"brewery","size":"30 seats","neighborhood":"suburban","city":"Fort Collins","budget":76000}}
+{"s":"A one-person salon in Austin, offering braids and trims.","e":{"type":"salon","city":"Austin","staff":1,"products":"braids, trims"}}
+{"s":"A gift shop called Birch, downtown in Albany, with two employees and 500 sq ft.","e":{"type":"retail","concept":"Birch","neighborhood":"downtown","city":"Albany","staff":2,"size":"500 sq ft"}}
+{"s":"A coffee bar named June in Boulder, open 06:45 to 13:30 with 4 staff.","e":{"type":"coffee","concept":"June","city":"Boulder","hours":"06:45–13:30","staff":4}}
+{"s":"A 200 sq ft mobile kitchen. I have either $35k or $50k to launch, pending financing.","e":{"type":"truck","size":"200 sq ft"},"q":["budget"]}
+{"s":"Patisserie in Chicago, budget $65k, with candles or cakes as my main offering.","e":{"type":"bakery","city":"Chicago","budget":65000},"q":["products"]}
+{"s":"A barbershop open 24/7 near campus in Tempe, budget-friendly.","e":{"type":"salon","hours":"00:00–00:00","neighborhood":"campus","city":"Tempe","tier":"value"}}
+{"s":"A brewery in Dallas with four employees and a $135,000 opening budget.","e":{"type":"brewery","city":"Dallas","staff":4,"budget":135000}}
+{"s":"Could I open a bakery in Omaha with a team of two, 22 seats, and $53,000 to start?","e":{"type":"bakery","city":"Omaha","staff":2,"size":"22 seats","budget":53000}}
+{"s":"We're planning a premium suburban beauty studio named Lark. Four stylists, 10am–8pm.","e":{"type":"salon","tier":"premium","neighborhood":"suburban","concept":"Lark","staff":4,"hours":"10:00–20:00"}}
+{"s":"A roastery in El Paso offering espresso, cold brew and beans, with two baristas.","e":{"type":"coffee","city":"El Paso","products":"espresso, cold brew, beans","staff":2}}
+{"s":"Downtown food truck: 185 sq ft, $39k to launch. Open 16:00 to midnight.","e":{"type":"truck","neighborhood":"downtown","size":"185 sq ft","budget":39000,"hours":"16:00–00:00"}}
+{"s":"Taproom in Eugene, Oregon. Five staff and $98k opening capital. Serving lager and pretzels.","e":{"type":"brewery","city":"Eugene","staff":5,"budget":98000,"products":"lager, pretzels"}}
+{"s":"I want a gift shop in Austin or in Houston with a 700 sq ft footprint.","e":{"type":"retail","size":"700 sq ft"},"q":["city"]}
+{"s":"A quiet coffee shop near a university district in Flagstaff with 30 seats and 2 employees.","e":{"type":"coffee","city":"Flagstaff","neighborhood":"campus","size":"30 seats","staff":2}}
+{"s":"A beauty salon in Miami serving local clients; I'd offer manicures and pedicures.","e":{"type":"salon","city":"Miami","products":"manicures, pedicures"}}
+{"s":"Boutique in Taos with 1,100 square feet; an opening budget of USD 75,000 and a crew of three.","e":{"type":"retail","city":"Taos","size":"1100 sq ft","budget":75000,"staff":3}}
+{"s":"A bakehouse called Flint selling rye loaves, cookies and hand pies. Value-priced.","e":{"type":"bakery","concept":"Flint","products":"rye loaves, cookies, hand pies","tier":"value"}}
+{"s":"Brewpub in Salem, open 11am–9pm; either three or four positions depending on weekends.","e":{"type":"brewery","city":"Salem","hours":"11:00–21:00"},"q":["staff"]}
+{"s":"One mobile kitchen in Phoenix, $21k for equipment and $48k to open, featuring steamed buns.","e":{"type":"truck","city":"Phoenix","budget":48000,"products":"steamed buns"}}

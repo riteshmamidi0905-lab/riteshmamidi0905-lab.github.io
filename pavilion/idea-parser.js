@@ -26,6 +26,7 @@ export const examples=[
   'A mid-range gift shop in Boise, 900 square feet, open 10:00–18:00 with two employees.'
 ];
 export function normalizeHours(text){
+  text=text.replace(/\bnoon\b/gi,'12:00').replace(/\bmidnight\b/gi,'00:00');
   const time='(\\d{1,2}(?::\\d{2})?)\\s*([ap]\\.?m\\.?)?';
   const match=new RegExp('\\b'+time+'\\s*(?:[-–—]|\\bto\\b|\\buntil\\b)\\s*'+time+'(?!\\w)','i').exec(text);
   if(!match)return null;
@@ -56,9 +57,17 @@ export function parseIdea(input){
   const cities=[...locationClause.matchAll(/\b(?:in|city\s*:\s*)\s+(?=((?:[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’·-]*)(?:\s+[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’·-]*){0,5}))/gi)]
     .map(m=>m[1].split(boundary)[0].split(/\s+(?:with|and|or|is|has|opens|seats)\b/i)[0].replace(/^(?:downtown|suburban|industrial)\s+/i,'').trim())
     .filter(v=>v&&!/^(?:a |an |the |downtown$|suburbs$|town$|mind$|(?:opening |working |startup )?(?:capital|funds|cash)$|the bank$)/i.test(v));
+  if(!cities.length){
+    const proposed=/\b(?:looking at|considering)\s+([\p{L}][\p{L}'’-]*(?:\s+[\p{L}][\p{L}'’-]*){0,3})\s+(?:for|as the site for)\b/iu.exec(primary);
+    // A bare modifier could also be a brand. Only recognize familiar place names in this less explicit syntax.
+    const placeBeforeFormat=/\b(?:an?|my|our)\s+(Austin|Seattle|Portland|San Francisco|Los Angeles|New York|San Antonio|Boston|Denver|Chicago|Houston|Dallas|Atlanta|Nashville|San Diego|Milwaukee)\s+(?=[\p{L}-]+)/iu.exec(primary);
+    const found=proposed||placeBeforeFormat;
+    if(found)cities.push(found[1]);
+  }
   if(cities.length===1&&!/\bin [^,;.]+?\bor (?:in )?[A-Z][a-z]/.test(primary))put('city',title(cities[0]).replaceAll('·','.'));else if(cities.length)ask('city','Which city should this scenario use?');
   for(const [field,patterns] of [['tier',prices],['neighborhood',areas]]){
-    const found=Object.keys(patterns).filter(k=>patterns[k].test(primary));
+    const clauses=text.split(/[.;!?]/).slice(1).map(s=>s.trim().replace(/^pricing\\s*:\\s*/i,''));
+    const found=Object.keys(patterns).filter(k=>patterns[k].test(primary)||(field==='tier'&&clauses.some(s=>patterns[k].exec(s)?.[0].length===s.length&&s.length>0)));
     if(found.length===1)put(field,found[0]);else if(found.length>1)ask(field,'Which '+fields[field].toLowerCase()+' should we use?');
   }
   const sized=[...text.matchAll(/\b([\d,]+)[ -]*(seats?|seaters?|covers?|sq\.?\s*ft\.?|square[- ]f(?:ee|oo)t|ft²|ft2)\b/gi)];
@@ -76,11 +85,19 @@ export function parseIdea(input){
   const budgetRange=/\$[\d,.]+\s*k?\s*(?:[-–]|to|or)\s*\$?[\d,.]+/i.test(text);
   if(candidatesMoney.length===1&&!budgetRange){const m=candidatesMoney[0],suffix=(m[2]||m[4]||'').toLowerCase();put('budget',Math.round(Number((m[1]||m[3]).replaceAll(',',''))*(suffix.startsWith('m')?1e6:suffix?1e3:1)));}
   else if(amounts.length)ask('budget','Which amount is opening capital in US dollars?');
-  const offer=/\b(?:serving|selling|offering|featuring|(?:plan|want) to sell|speciali[sz]ing in|signature(?: products| services)?\s*:)\s+(.+)/i.exec(text);
-  if(offer){const part=offer[1].split(boundary)[0].split(/,\s*(?=(?:open|budget|\$|\d+\s+(?:staff|seat)))/i)[0];
-    const list=part.split(/\s*,\s*|\s+and\s+| & /i).map(clean).filter(Boolean);
-    if(list.length>=1&&list.length<=3&&!/\bor\b/i.test(part))put('products',list.join(', '));else ask('products','Which one to three offerings should represent your mix?');}
-  if(!offer&&/\bor\b[^.;]{1,55}\b(?:signature|main|primary) offering/i.test(text))ask('products','Which offerings should represent your main business?');
+  const offers=[...text.matchAll(/\b(serving|selling|offering|featuring|offers?|(?:plan|want) to sell|(?:we|i)(?:['’]d| would| will) sell|speciali[sz]ing in|signature(?: products| services)?\s*:)\s+/gi)];
+  let audience=false,offer=null;
+  for(const match of offers){
+    const tail=text.slice(match.index+match[0].length).split(boundary)[0].split(/,\s*(?=(?:open|budget|\$|\d+\s+(?:staff|seat)))/i)[0];
+    if(/^serving$/i.test(match[1])&&/\b(clients?|customers?|families|residents?|visitors?|neighbors?|locals?|commuters?|workers?|students?|nurses?)\b/i.test(tail)){
+      audience=true;continue;
+    }
+    if(tail.trim()){offer=tail;break;}
+  }
+  if(offer){
+    const list=offer.split(/\s*,\s*|\s+and\s+| & /i).map(clean).filter(Boolean);
+    if(list.length>=1&&list.length<=3&&!/\bor\b/i.test(offer))put('products',list.join(', '));else ask('products','Which one to three offerings should represent your mix?');
+  }else if(audience||/\bor\b[^.;]{1,55}\b(?:signature|main|primary) offering/i.test(text))ask('products','Which offerings should represent your main business?');
   for(const [key,min,max] of [['staff',1,12],['budget',500,1000000]]){
     if(status[key]==='parsed'&&(values[key]<min||values[key]>max))ask(key,'What value within '+min+'–'+max+' should we model?');
   }
