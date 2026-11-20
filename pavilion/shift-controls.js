@@ -1,4 +1,4 @@
-import {studios} from './studios.js';
+import {stationTitle,taskTitle,idleMessage} from './station-context.js';
 import {instrumentReading} from './shift-display.js';
 import {url} from './views.js';
 
@@ -21,13 +21,13 @@ export function shiftControls(task,ticker,model,day) {
   const href=id=>url('inspector',model,day,{id}).replaceAll('&amp;','&');
   return (beat,follow,recent)=>{
     const e=follow?beat.active.find(x=>x.owner===follow):beat.starts[0];
-    title.set(follow?studios[follow].title:'Shift desk');action.set(e?e.action:'Idle');
+    title.set(follow?stationTitle(model,follow):'Shift desk');action.set(e?taskTitle(model,e):'Idle');
     meter.el.hidden=source.el.hidden=!e;
     if(e){const values=instrumentReading(model,e);meter.set(values[0]);details.set(values[1]);source.set(e.outputs[0]+' · inspect source');source.el.href=href(e.outputs[0]);}
-    else details.set('Reviewing the queue. No source task is assigned at this minute.');
+    else details.set(idleMessage(model,follow));
     count.set('Handoffs · '+beat.transfers.length);empty.el.hidden=!!beat.batch.length;list.hidden=!beat.batch.length;
     transfers.forEach(({li,label,link},i)=>{const edge=beat.batch[i];li.hidden=!edge;if(edge){label.set(edge.from+' → '+edge.to);link.set(edge.record);link.el.href=href(edge.record);}});
     waiting.el.hidden=!beat.waiting.length;if(beat.waiting.length)waiting.set(beat.waiting.length+' waiting for display');
-    history.forEach(({li,link,name,action},i)=>{const row=recent[i];li.hidden=!row;if(row){name.set(row.owner);action.set(row.action);link.href=href(row.outputs[0]);}});
+    history.forEach(({li,link,name,action},i)=>{const row=recent[i];li.hidden=!row;if(row){name.set(row.owner);action.set(taskTitle(model,row));link.href=href(row.outputs[0]);}});
   };
 }

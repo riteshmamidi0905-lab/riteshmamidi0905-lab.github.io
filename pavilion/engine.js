@@ -50,7 +50,7 @@ function operate(input,monthly,calibrated=false){
   const supplierNames=['Court Supply','West Arcade Supply','Arcade Kitchen Supply'];
   const materials=[[i1,85],[i2,70]];
   if(brewery||custom)materials.push(['Prepared Chicken 65 and totopos portion',395]);
-  if(custom){materials.forEach((mat,i)=>{mat[0]=sector.names[i]+' supplies';mat[1]=sector.costs[i];});}
+  if(custom){materials.forEach((mat,i)=>{mat[0]=sector.materials&&sector.names[i]===profiles[c.template].products[(i+1)%3]?sector.materials[i]:sector.names[i]+' supplies';mat[1]=sector.costs[i];});}
   else if(calibrated){
     const labels=['Lager pour at batch cost','Lime spritz ingredients','Chicken 65 kitchen portion'];
     materials.forEach((mat,i)=>{mat[0]=labels[i];mat[1]=brewpub.ingredientCents[i];});

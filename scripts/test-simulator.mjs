@@ -84,3 +84,23 @@ for(const type of Object.keys(profiles)){
    assert.equal(best.staff,idea.staff);assert.ok(best.staff>1&&best.staff<12&&best.income>0);
  });
 }
+
+test('workstation captions and idle bays follow source owners across all six formats',async()=>{
+  const {taskTitle,unusedStation,stationTitle}=await import('../pavilion/station-context.js');
+  const {floorSvg,floorOrder}=await import('../pavilion/iso-geometry.js');
+  const registry=floorOrder.map(name=>({name,slug:name.toLowerCase()}));
+  for(const type of Object.keys(profiles)){
+    const m=runIdea(defaults(type)),signature=JSON.stringify(m.events);
+    const svg=floorSvg(registry,m);
+    const supply=m.events.find(e=>e.owner==='VECTRA'&&m.records[e.outputs[0]].kind==='Availability check');
+    if(type==='brewery'){assert.equal(taskTitle(m,supply),supply.action);assert.ok(svg.includes('fill="url(#copper)"'));}
+    else{
+      assert.ok(!svg.includes('fill="url(#copper)"'));assert.ok(svg.includes('data-bay="idle"'));
+      assert.equal(stationTitle(m,'ZYBREW'),'Production bay');
+      const names=m.ingredients.map(id=>m.records[id].name);
+      assert.ok(names.some(label=>taskTitle(m,supply).includes(label)));
+      for(const who of ['ZYBREW','PYRIX'])assert.equal(unusedStation(m,who),!m.events.some(e=>e.owner===who));
+    }
+    assert.equal(JSON.stringify(m.events),signature);
+  }
+});
