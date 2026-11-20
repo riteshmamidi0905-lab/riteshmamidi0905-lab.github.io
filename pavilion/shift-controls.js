@@ -1,3 +1,4 @@
+import {visibleHandoffs} from './shift-schedule.js';
 import {stationTitle,taskTitle,idleMessage} from './station-context.js';
 import {instrumentReading} from './shift-display.js';
 import {url} from './views.js';
@@ -12,10 +13,11 @@ export function shiftControls(task,ticker,model,day) {
     const el=make(parent,tag,cls),text=document.createTextNode('');el.append(text);
     return {el,set(value){if(text.data!==value)text.data=value;}};
   }
-  task.replaceChildren();ticker.replaceChildren();
+  const wire=ticker.closest('.event-ticker');
+  wire.querySelector('.handoff-list')?.remove();task.replaceChildren();ticker.replaceChildren();
   const title=field(task,'p','kicker'),action=field(task,'h3'),meter=field(task,'p','meter'),details=field(task,'p'),source=field(task,'a');
-  make(task,'hr');const count=field(task,'p','kicker'),list=make(task,'ul','signals'),empty=field(task,'p'),waiting=field(task,'p');
-  empty.set('None at this minute.');
+  const group=make(wire,'div','handoff-list');
+  const count=field(group,'p','kicker'),list=make(group,'ul','signals'),empty=field(group,'p'),waiting=field(group,'p');
   const transfers=Array.from({length:5},()=>{const li=make(list,'li');return {li,label:field(li,'span'),link:field(li,'a')};});
   const history=Array.from({length:5},()=>{const li=make(ticker,'li'),link=make(li,'a');return {li,link,name:field(link,'b'),action:field(link,'span')};});
   const href=id=>url('inspector',model,day,{id}).replaceAll('&amp;','&');
@@ -25,9 +27,15 @@ export function shiftControls(task,ticker,model,day) {
     meter.el.hidden=source.el.hidden=!e;
     if(e){const values=instrumentReading(model,e);meter.set(values[0]);details.set(values[1]);source.set(e.outputs[0]+' · inspect source');source.el.href=href(e.outputs[0]);}
     else details.set(idleMessage(model,follow));
-    count.set('Handoffs · '+beat.transfers.length);empty.el.hidden=!!beat.batch.length;list.hidden=!beat.batch.length;
-    transfers.forEach(({li,label,link},i)=>{const edge=beat.batch[i];li.hidden=!edge;if(edge){label.set(edge.from+' → '+edge.to);link.set(edge.record);link.el.href=href(edge.record);}});
-    waiting.el.hidden=!beat.waiting.length;if(beat.waiting.length)waiting.set(beat.waiting.length+' waiting for display');
-    history.forEach(({li,link,name,action},i)=>{const row=recent[i];li.hidden=!row;if(row){name.set(row.owner);action.set(taskTitle(model,row));link.href=href(row.outputs[0]);}});
+    const destination=follow?task:wire;
+    if(group.parentElement!==destination)destination.append(group);
+    wire.hidden=Boolean(follow);
+    const scope=visibleHandoffs(beat,follow);
+    group.hidden=!follow&&!scope.transfers.length;
+    empty.set(follow?'No handoffs for '+follow+' at this minute.':'None at this minute.');
+    count.set('Handoffs · '+scope.transfers.length);empty.el.hidden=!!scope.batch.length;list.hidden=!scope.batch.length;
+    transfers.forEach(({li,label,link},i)=>{const edge=scope.batch[i];li.hidden=!edge;if(edge){label.set(edge.from+' → '+edge.to);link.set(edge.record);link.el.href=href(edge.record);}});
+    waiting.el.hidden=!scope.waiting.length;if(scope.waiting.length)waiting.set(scope.waiting.length+' waiting for display');
+    history.forEach(({li,link,name,action},i)=>{const row=follow?null:recent[i];li.hidden=!row;if(!row){name.set('');action.set('');link.removeAttribute('href');}if(row){name.set(row.owner);action.set(taskTitle(model,row));link.href=href(row.outputs[0]);}});
   };
 }

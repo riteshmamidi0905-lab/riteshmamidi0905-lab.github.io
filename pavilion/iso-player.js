@@ -1,6 +1,6 @@
 import {aislePath,home,point,roomView,nameplates} from './iso-geometry.js';
 import {overview,lightAt,placeTokens,recentEvents} from './floor-staging.js';
-import {stampTasks,scheduleDay} from './shift-schedule.js';
+import {stampTasks,scheduleDay,visibleHandoffs} from './shift-schedule.js';
 import {floorSurfaces} from './floor-surfaces.js';
 import {shiftControls} from './shift-controls.js';
 import {stationTitle,taskTitle,unusedStation} from './station-context.js';
@@ -85,9 +85,8 @@ export async function mountFloor(model,day,params) {
   }
   // Five reusable packet slots. No per-person or per-packet compositor surfaces.
   const pool=Array.from({length:5},()=>({path:null,lane:0}));
-  function prepare(){
+  function prepare(edges){
     travels.clear();
-    const edges=schedule[slot].batch;
     packets=pool.slice(0,edges.length);
     for(const [i,packet] of pool.entries()){
       const edge=edges[i];
@@ -124,7 +123,9 @@ export async function mountFloor(model,day,params) {
     drawing.toggleAttribute('data-follow',Boolean(follow));camera();
     panel(beat,follow,history[slot]);
     const light=lightAt(slot,schedule.length);if(drawing.dataset.light!==light){setText($('#sun'),light);drawing.dataset.light=light;deck.light(light);}
-    setText($('#load'),active.size+' working · '+beat.batch.length+' in transfer');
+    const edges=visibleHandoffs(beat,follow).batch;
+    const activity=follow?(active.has(follow)?'Working':'Idle'):active.size+' working';
+    setText($('#load'),activity+' · '+edges.length+' in transfer');
     setText($('#floor-caption'),follow?stationTitle(model,follow):'Specialist studios');
     for(const [name,tag] of tags){
       const current=active.get(name);
@@ -144,7 +145,7 @@ export async function mountFloor(model,day,params) {
       tag.toggleAttribute('data-busy',Boolean(current));const displayMode=follow&&follow!==name?'none':'';if(tag.style.display!==displayMode)tag.style.display=displayMode;
     }
     $('#seek').value=String(slot);setText($('#minute'),'Minute '+beat.minute);drawing.dataset.beat=slot;
-    prepare();paint(0);
+    prepare(edges);paint(0);
   }
   function tick(now){
     frame=0;if(!play||!visible||document.hidden)return;

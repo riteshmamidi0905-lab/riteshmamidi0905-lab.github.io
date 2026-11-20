@@ -139,3 +139,23 @@ test('confirmed hours drive paid time, capacity, demand and reconciled closes in
  const repeat=runIdea(idea);assert.deepEqual(repeat.weeks.map(id=>repeat.records[id]),model.weeks.map(id=>model.records[id]));
 });
 
+test('handoff ownership scopes visible and waiting records to the actual sender or recipient',async t=>{
+ const prior=globalThis.location;globalThis.location=new URL('https://localhost/pavilion/hq.html');
+ t.after(()=>{if(prior)globalThis.location=prior;else delete globalThis.location;});
+ const {visibleHandoffs,scheduleDay}=await import('../pavilion/shift-schedule.js');
+ const {shiftPanel,headquarters}=await import('../pavilion/floor.js');
+ const {floorOrder}=await import('../pavilion/iso-geometry.js');
+ const model=runIdea(defaults('salon')),schedule=scheduleDay(model,7);
+ const beat=schedule.find(b=>b.transfers.some(t=>t.from==='SYNAPSE'&&t.to==='VECTRA'));
+ assert.ok(beat);const source=JSON.stringify(beat);
+ assert.deepEqual(visibleHandoffs(beat,'ZYBREW').transfers,[]);
+ for(const who of ['SYNAPSE','VECTRA'])assert.ok(visibleHandoffs(beat,who).batch.some(t=>t.from==='SYNAPSE'&&t.to==='VECTRA'));
+ const edge=who=>({from:'QUANTIX',to:who});const batch=[edge('VECTRA')],waiting=[edge('PYRIX')];
+ assert.deepEqual(visibleHandoffs({transfers:[...batch,...waiting],batch,waiting},'PYRIX'),{transfers:waiting,batch:[],waiting});
+ assert.equal(visibleHandoffs(beat,null),beat);assert.equal(JSON.stringify(beat),source);
+ assert.match(shiftPanel(model,7,beat,'ZYBREW'),/No handoffs for ZYBREW/);
+ assert.doesNotMatch(shiftPanel(model,7,beat,null),/Handoffs|class="signals"/);
+ assert.match(shiftPanel(model,7,beat,'VECTRA'),/SYNAPSE → VECTRA/);
+ assert.match(headquarters(model,7,floorOrder.map(name=>({name,slug:name.toLowerCase(),role:'Specialist'})),[]),/class="event-ticker"[^]*?class="handoff-list"/);
+});
+

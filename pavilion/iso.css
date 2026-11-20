@@ -88,3 +88,16 @@ main.iso-page{max-width:none;padding-top:12px}
 .sector-stations b{font-size:.72rem;letter-spacing:.065em;margin-right:.35rem}
 .sector-stations button:focus-visible{outline:3px solid #35644f;outline-offset:2px}
 @media(max-width:480px){.sector-stations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.3rem}.sector-stations button{padding:.3rem;font-size:.75rem;line-height:1.22}.sector-stations b{display:block;margin:0 0 .15rem}}
+
+.event-ticker[hidden],.handoff-list[hidden]{display:none}
+.event-ticker{flex-wrap:wrap}
+.event-ticker ol{min-width:0}
+.event-ticker .handoff-list{flex:0 0 100%;display:flex;flex-wrap:wrap;align-items:center;gap:4px 15px;border-top:1px solid #52685b}
+.event-ticker .handoff-list[hidden]{display:none}
+.event-ticker .handoff-list p{margin:0;color:inherit}
+.event-ticker .signals{display:flex;flex-wrap:wrap;list-style:none;gap:0 14px;padding:0;margin:0}
+.event-ticker .signals li{min-width:0;display:flex;align-items:center;gap:6px;border:0;font-size:.8rem}
+.event-ticker .signals li[hidden]{display:none}
+.event-ticker .signals a{padding:4px;text-decoration:underline}
+.signal-panel .handoff-list{margin-top:1rem;border-top:1px solid currentColor}
+@media(max-width:700px){.event-ticker .handoff-list{padding:4px 8px}}

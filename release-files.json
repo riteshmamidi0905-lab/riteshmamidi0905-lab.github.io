@@ -621,8 +621,8 @@
   },
   {
     "path": "pavilion/floor.js",
-    "bytes": 4966,
-    "sha256": "5c96971765d2cdea7e2853a0610767dd82d498f83c7eb57c516314b5fa653d2f"
+    "bytes": 5291,
+    "sha256": "5232427e5c96b40f98f14230ba61deb92cc3983057f353d19eba77cbfc6b385e"
   },
   {
     "path": "pavilion/hq.html",
@@ -646,13 +646,13 @@
   },
   {
     "path": "pavilion/iso-player.js",
-    "bytes": 11162,
-    "sha256": "705f389a5b24574d01019c320816057b455792894e8491ad9cdee707e89a3462"
+    "bytes": 11274,
+    "sha256": "f3bb3deb21a158857fdb66be2cb8f92fda3a07771efdae04aeb0460b4b1d3882"
   },
   {
     "path": "pavilion/iso.css",
-    "bytes": 14997,
-    "sha256": "9e6bbc398a8731b613a79ef50525a40bd33552db91e4833842201eb3dba138c2"
+    "bytes": 15815,
+    "sha256": "a3317e1377fb19f293bf2fe535d9600d8cb8bc9aed097891e3f8a54c905b7f33"
   },
   {
     "path": "pavilion/ledger.html",
@@ -686,8 +686,8 @@
   },
   {
     "path": "pavilion/shift-schedule.js",
-    "bytes": 1878,
-    "sha256": "49f114baac6b4d10ff2671a145161f1af68cb0b28f31174842d38b45900ffa5a"
+    "bytes": 2233,
+    "sha256": "5576c9b39eedc0ee232dbbdaaeb6667b8360cdd9c8cae3bf7009b7d555a783fc"
   },
   {
     "path": "pavilion/site.js",
@@ -791,8 +791,8 @@
   },
   {
     "path": "pavilion/shift-controls.js",
-    "bytes": 2505,
-    "sha256": "f48e5864890ca2a0e1adeccae30eafbda08f280dcd7b5fab0d239266989dca4f"
+    "bytes": 3063,
+    "sha256": "f639ae39b8ca4bc3bbeebdf44c306f9eea2f29b61ba45f0f6695bb70dad144ee"
   },
   {
     "path": "pavilion/idea-analysis.js",
