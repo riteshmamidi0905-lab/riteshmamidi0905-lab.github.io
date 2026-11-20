@@ -48,6 +48,11 @@ function stadium(l){
  for(const [inset,z,color] of [[0,.98,'#e4d7b9'],[.28,1,'#435e53'],[.57,.95,'#beab85'],[.73,.95,'#59765a']])
    out+=poly([[u+inset,v+inset,z],[u+w-inset,v+inset,z],[u+w-inset,v+d-inset,z],[u+inset,v+d-inset,z]],color);
  for(let a=1;a<w-1;a+=.6)out+=line([u+a,v+.82,.98],[u+a,v+d-.82,.98],'#a4b58b',1);
+ out+='<g class="stadium-crowd">';
+ for(const side of [.35,d-.35])for(let a=.5,i=0;a<w-.4;a+=.19,i++){
+   const [x,y]=p(u+a,v+side+(i%2)*.08,1.035);out+='<circle cx="'+x+'" cy="'+y+'" r="1.3" fill="'+['#e5ce8c','#c27652','#f4e9cc'][i%3]+'"/>';
+ }
+ out+='</g>';
  for(const a of [.3,w-.3])for(const b of [.25,d-.25]){out+=line([u+a,v+b,.95],[u+a,v+b,2.15],'#586553',2);const [x,y]=p(u+a,v+b,2.15);out+='<rect x="'+(x-6)+'" y="'+(y-2)+'" width="13" height="4" fill="#f6d99c"/>';}return out;
 }
 function vehicle(l){
@@ -62,7 +67,7 @@ export function mapDrawing(buildings=lots){
  for(const u of [8.45,15.8])ground+=poly([[u,-1],[u+1,-1],[u+1,end],[u,end]],'#aaa99a');
  const details=[];for(let u=1;u<17;u+=1.45)for(const v of [.0,5.08,10.2,15.28])if(Math.abs(u-8.9)>.8)details.push({z:u+v,svg:tree(u,v,.63+(u%1)*.18)});
  for(const l of buildings){const [x,y]=p(l.u+l.w*.55,l.v+l.d+.38);
-   const dest=l.link||'hq.html?district='+encodeURIComponent(l.id);
+   const dest=l.id==='brewery'?'../brewing/index.html':l.link||'hq.html?district='+encodeURIComponent(l.id);
    const building=l.id==='stadium'?stadium(l):l.id==='truck'?vehicle(l):facade(l);
    details.push({z:l.u+l.v+l.w*.4+l.d*.4,svg:'<a href="'+esc(dest)+'" data-lot="'+esc(l.id)+'" aria-label="Enter '+esc(l.name)+'"><title>'+esc(l.name)+'</title>'+building+'<g class="lot-light" transform="translate('+x+' '+y+')"><circle r="5"/></g><text class="lot-name" x="'+x+'" y="'+(y+15)+'" text-anchor="middle">'+esc(l.name)+'</text></a>'});}
  return '<svg class="district-map" viewBox="'+left+' -43 '+(935-left)+' '+(bottom+43)+'" role="group" aria-label="Interactive isometric district. A text list follows."><g>'+ground+details.sort((a,b)=>a.z-b.z).map(v=>v.svg).join('')+'</g></svg>';

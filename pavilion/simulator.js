@@ -97,5 +97,8 @@ try{
  const nav=performance.getEntriesByType('navigation')[0]?.type;
  const key=new URLSearchParams(location.hash.slice(1)).get('sim')||(['back_forward','reload'].includes(nav)?sessionStorage.getItem('pavilion-last-idea'):null);
  if(key){id=key;draft={values:recallIdea(id),status:JSON.parse(sessionStorage.getItem('pavilion-origins-'+id)||'{}'),questions:{}};assessment=assess(draft.values);projection();}
- else entry(false);
+ else if(new URLSearchParams(location.search).get('template')==='brewery'){
+   draft={values:{...defaults('brewery'),concept:'NASHA Brewing',city:'Austin'},status:Object.fromEntries(Object.keys(fields).map(k=>[k,'defaulted'])),questions:{}};
+   confirmIdea(false);
+ }else entry(false);
 }catch(error){entry(false);fail(error);}
