@@ -1,4 +1,4 @@
-import {profiles,operatingProfile,fields} from './idea-profiles.js';
+import {profiles,operatingProfile,defaults,fields} from './idea-profiles.js';
 import {replayLink} from './idea-replay.js';
 import {esc} from './views.js';
 import {scenarios} from './idea-profiles.js';
@@ -23,9 +23,26 @@ export function chart(weeks,unit,dark=false){
     return `<rect x="${x}" y="${88-h}" width="56" height="${h}" fill="${color}"/><text x="${x+28}" y="${81-h}" text-anchor="middle" fill="${ink}" font-size="12">${w.served}</text><text x="${x+28}" y="106" text-anchor="middle" fill="${ink}" font-size="12">Week ${i+1}</text>`;}).join('')}</svg>`;
 }
 function definition(pairs){return '<dl class="data-list">'+pairs.map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>').join('')+'</dl>';}
+function basket(p){
+ const weighted=values=>values.reduce((total,cents,i)=>total+cents*p.mix[i]/100,0);
+ const ticket=weighted(p.prices);
+ return [dollars(Math.round(ticket)),(100*weighted(p.costs)/ticket).toFixed(1)+'%'];
+}
+export function calibrationTables(){
+ const trade=[], arrivals=[];
+ for(const [type,profile] of Object.entries(profiles)){
+   const p=operatingProfile(defaults(type)), [ticket,cogs]=basket(p);
+   trade.push([profile.label,ticket,cogs,p.positions+' × '+dollars(p.wage)+'/h',dollars(p.dailyRent),dollars(p.utilities)]);
+   arrivals.push([profile.label,p.weekday.join(' · '),String(p.capacity)]);
+ }
+ return '<h3>Austin template calibration</h3><p>Fictional neighborhood businesses at standard prices. Ticket and direct supply COGS use the stated basket per 100 visits, before refunds. Rent and base utilities accrue daily. Each fulfilled item adds $0.12 in utilities. These are planning assumptions, not surveyed Austin prices.</p>'+
+   table(['Template','Ticket','Supply COGS','Staff × wage','Rent / day','Utilities / day'],trade)+
+   table(['Template','Mon · Tue · Wed · Thu · Fri · Sat · Sun','Customers / position / day'],arrivals)+
+   '<p>Weekday counts describe a full trading week. The first four weeks open at 70%, 80%, 90% and 100% of that demand. A staffed position means one occupied shift with relief coverage. Recalculate the staffing sweep after changing a plan.</p>';
+}
 export function assumptionDetails(idea){
  const s=operatingProfile(idea),p=profiles[idea.type];
- return definition([['Trading unit',s.unit],['Weekday arrivals (Mon–Sun)',s.weekday.join(' / ')],['Opening ramp','70%, 80%, 90%, 100%. Seed 27 adds deterministic daily variation of −4% to +4%.'],
+ return definition([['Trading unit',s.unit],['Modeled ticket / direct supply COGS',basket(s).join(' / ')],['Weekday arrivals (Mon–Sun)',s.weekday.join(' / ')],['Opening ramp','70%, 80%, 90%, 100%. Seed 27 adds deterministic daily variation of −4% to +4%.'],
  ['Capacity',s.capacity+' '+s.unit+' per staffed position per day; '+s.hours+' hours of coverage.'],
  ['Offer mix per 100 '+s.unit,s.names.map((n,i)=>n+' × '+s.mix[i]).join(' · ')],
  ['Prices / unit supply cost',s.names.map((n,i)=>n+' '+dollars(s.prices[i])+' / '+dollars(s.costs[i])).join(' · ')],

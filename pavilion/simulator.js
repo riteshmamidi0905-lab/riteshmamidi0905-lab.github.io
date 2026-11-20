@@ -2,7 +2,7 @@ import {defaults,districts,fields,profiles,scenarios,tiers,validateIdea} from '.
 import {examples,normalizeHours,parseIdea} from './idea-parser.js';
 import {assess,runIdea,stressComparison,summarize} from './idea-analysis.js';
 import {recallIdea,rememberIdea,replayLink} from './idea-replay.js';
-import {assumptionDetails,baselineText,chart,dollars,ledgerRows,num,reportView,sourceLink,table} from './idea-report.js';
+import {assumptionDetails,calibrationTables,baselineText,chart,dollars,ledgerRows,num,reportView,sourceLink,table} from './idea-report.js';
 import {esc} from './views.js';
 
 const root=document.querySelector('#workspace'),message=document.querySelector('#message');
@@ -71,7 +71,7 @@ function projection(){
  <div class="metrics">${metric('Net sales',dollars(b.numbers.revenue))}${metric('Operating income',dollars(b.numbers.income))}${metric('Closing cash',dollars(b.numbers.cash))}</div>
  <div class="actions">${buttons('Run a stress test','stress')}${buttons('Launch readiness report','report',true)}<a class="btn quiet" href="${esc(replayLink('hq',id,[],7,{beat:4}))}">Replay this business in HQ</a></div>
  <div class="spread"><section class="sheet"><p class="kicker">Source ledger</p><h2>Four weekly closes</h2>${ledgerRows(b,id,[],unit)}<p class="source-line">Open a week to inspect its posted daily closes.</p></section><section class="sheet"><h2>${esc(unit[0].toUpperCase()+unit.slice(1))} served</h2>${chart(b.weeks,unit)}</section></div>
- <details class="sheet"><summary>Model assumptions · synthetic</summary>${assumptionDetails(idea)}</details><div class="secondary-actions">${buttons('Edit assumptions','edit',true)}${buttons('Describe another idea','restart',true)}</div>`);
+ <details class="sheet"><summary>Model assumptions · synthetic</summary>${assumptionDetails(idea)}${calibrationTables()}</details><div class="secondary-actions">${buttons('Edit assumptions','edit',true)}${buttons('Describe another idea','restart',true)}</div>`);
  action('stress',()=>stress(selected.length?selected:['slow']));action('report',report);action('edit',()=>confirmIdea());action('restart',()=>{prompt='';entry();});
 }
 function stress(keys,focus=true){

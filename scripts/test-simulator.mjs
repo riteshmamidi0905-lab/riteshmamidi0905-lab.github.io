@@ -65,3 +65,22 @@ test('Configuration validation rejects markup, invalid ranges and unsupported le
  assert.ok(parseIdea('a bakery with 22 staff').questions.staff);
 });
 
+
+for(const type of Object.keys(profiles)){
+ test(type+': the Austin default matches a profitable interior optimum with ordered demand and auditable closes',()=>{
+   const idea=defaults(type);
+   let previous=null,best=null;
+   for(let staff=1;staff<=12;staff++){
+     const m=runIdea(idea,[],staff), summary=summarize(m);
+     const walkouts=m.events.filter(e=>e.action==='Check fulfillment against plan')
+       .reduce((total,e)=>total+m.records[e.outputs[0]].walkouts,0);
+     const row={staff,served:summary.numbers.meals,income:summary.numbers.income,walkouts};
+     assert.ok(m.days.every(id=>{const r=m.records[id];return r.trialBalanceCents===0&&r.accounts.stock===r.inventoryValueCents;}));
+     const repeat=runIdea(idea,[],staff);
+     assert.deepEqual(m.weeks.map(id=>m.records[id]),repeat.weeks.map(id=>repeat.records[id]));
+     if(previous){assert.ok(row.served>=previous.served);assert.ok(row.walkouts<=previous.walkouts);}
+     previous=row;if(!best||row.income>best.income)best=row;
+   }
+   assert.equal(best.staff,idea.staff);assert.ok(best.staff>1&&best.staff<12&&best.income>0);
+ });
+}
