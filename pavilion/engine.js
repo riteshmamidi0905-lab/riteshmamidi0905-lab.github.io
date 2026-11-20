@@ -27,9 +27,9 @@ function validate(c) {
 export function simulate(input=preset){return operate(input,false);}
 // Unversioned callers retain the archived v2 ledger. New website and Builder sessions
 // select the current edition explicitly so old source links still identify the same record.
-export function simulateOperatingPeriod(input=preset){return operate(input,true,input.edition===7 || ([3,4,5,6].includes(input.edition) && input.template==='brewery'));}
+export function simulateOperatingPeriod(input=preset,fork=null){return operate(input,true,input.edition===7 || ([3,4,5,6].includes(input.edition) && input.template==='brewery'),fork);}
 export function simulateCurrentPeriod(input=preset){return simulateOperatingPeriod({...input,edition:6});}
-function operate(input,monthly,calibrated=false){
+function operate(input,monthly,calibrated=false,fork=null){
   validate(input);
   const c=Object.fromEntries(Object.keys(preset).map(k=>[k,input[k]]));
   const custom=input.edition===7 && monthly;
@@ -65,7 +65,7 @@ function operate(input,monthly,calibrated=false){
     if(calibrated){product.priceCents=brewpub.menuCents[i];product.recipe={['MAT-'+(i+1)]:1};}
     if(custom){product.name=sector.names[i];product.priceCents=sector.prices[i];}
     if(c.menu)Object.assign(product,c.menu[i]);if(c.pricePercent)product.priceCents=Math.max(1,Math.round(product.priceCents*(100+c.pricePercent)/100));});
-  const terms=monthly?records[custom?ideaTerms(c,record):(calibrated?pubTerms:operatingTerms)(scale,record,c.staff,c.edition)]:null;
+  let terms=monthly?records[custom?ideaTerms(c,record):(calibrated?pubTerms:operatingTerms)(scale,record,c.staff,c.edition)]:null;
   const lostVisitsByDay=Array.from({length:32},()=>[]);
   let weekFulfillments=[];
   let budgetId, committedThisWeek = 0, lastCommitment;
@@ -105,18 +105,37 @@ function operate(input,monthly,calibrated=false){
     startMoves.push(movement(mat,units,receipt));startJournal.push(post('stock','cash',units*records[mat].unitCostCents,receipt));
   }
   close(opening,startJournal,startMoves);
+  let priceChange=0,leadDays=c.leadDays||0;
+  const founderChoices=new Map(fork?.choices||[]);
   for(day=1;day<=(monthly?28:7);day++){
     const prior=days.at(-1),open={...stock},posts=[],moves=[];
+    if(fork && day===fork.day+1 && fork.lever!=='purchase'){
+      if(fork.lever==='price')priceChange=fork.value;
+      if(fork.lever==='lead')leadDays=fork.value;
+      let staffIds=[...terms.staffIds];
+      if(fork.lever==='staff'){
+        staffIds=staffIds.slice(0,fork.value);
+        const base=records[terms.staffIds[0]];
+        while(staffIds.length<fork.value){
+          const n=staffIds.length+1;
+          staffIds.push(save('Fictional employee',{name:'Branch position '+n,role:base.role,hourlyRateCents:base.hourlyRateCents,scheduledMinutes:base.scheduledMinutes,...(base.scheduledMinutesByDay?{scheduledMinutesByDay:base.scheduledMinutesByDay}:{})}));
+        }
+      }
+      const {id:oldTerms,scenario:baseScenario,kind:baseKind,...termsData}=terms;
+      const id=save('Branch operating terms',{...termsData,staffIds,previousTermsId:oldTerms,lever:fork.lever,value:fork.value,effectiveDay:day});
+      event('SYNAPSE','Apply branch policy at shift opening',[oldTerms,prior],[id]);terms=records[id];
+    }
+    const shiftPrice=(c.pricePercent||0)+priceChange;
     for(const item of deliveries.filter(it=>it.due===day))receive(item,posts,moves);
     if(c.edition>=6 && (day-1)%7===0){
-      budgetId=save('Weekly purchase budget',purchaseBudget(day,terms,c.pricePercent||0,products,records,c.weeklyPurchaseCeilingCents));
+      budgetId=save('Weekly purchase budget',purchaseBudget(day,terms,shiftPrice,products,records,c.weeklyPurchaseCeilingCents));
       committedThisWeek=0;
       lastCommitment=null;
       event('QUANTIX','Open forecast purchasing budget',[terms.id,...products,...ingredients],[budgetId]);
     }
-    const shift=save('Shift',{day,priorClose:prior,staff:records.PLAN.staff});event('SYNAPSE','Open the shift',[profile,prior],[shift]);
+    const shift=save('Shift',{day,priorClose:prior,staff:fork?.lever==='staff'&&day>fork.day?terms.staffIds.map(id=>records[id].name):records.PLAN.staff});event('SYNAPSE','Open the shift',[profile,prior],[shift]);
     const campaign=save('Campaign plan',{channel:custom?'Local opening campaign':'Courtyard invitation',state:'Synthetic plan',featuredProductId:products[day%products.length]});event('NOVARA','Prepare campaign',[profile,shift],[campaign]);
-    const service=calibrated?pubDemand(day,terms,c.pricePercent||0,roll,c.edition>=4?lostVisitsByDay[day]:undefined,records[weeks.at(-1)]):null;
+    const service=calibrated?pubDemand(day,terms,shiftPrice,roll,c.edition>=4?lostVisitsByDay[day]:undefined,records[weeks.at(-1)]):null;
     const demand=service?.units||Object.fromEntries(products.map(k=>[k,(3+roll(7))*scale]));
     const orderable=service?.orderable||demand;
     const forecast=save('Demand forecast',{...(service||{}),units:demand,campaignId:campaign});event('AETHON','Forecast demand',[shift,campaign,...(service?.lostGuestSources||[]).map(s=>s.fulfillmentId),...(service?.ratingSourceId?[service.ratingSourceId]:[])],[forecast]);
@@ -125,15 +144,15 @@ function operate(input,monthly,calibrated=false){
     const recipe=save('Ingredient requirement',{required:need,forecastId:forecast});event(custom&&['retail','salon'].includes(c.template)?'SYNAPSE':'PYRIX',custom&&c.template==='salon'?'Plan appointment supplies':'Translate recipes into requirements',[dossier,forecast],[recipe]);
     const short=Object.fromEntries(ingredients.map(k=>[k,Math.max(0,need[k]-stock[k])]));
     const target={...need};
-    if(calibrated&&c.leadDays){
+    if(calibrated&&leadDays){
       // Order against the demand horizon, using ordinary forecast covers and no future random draws.
-      for(let offset=1;offset<=c.leadDays&&day+offset<=28;offset++){
-        const expected=pubDemand(day+offset,terms,c.pricePercent||0,()=>4,c.edition>=4?lostVisitsByDay[day+offset]:undefined,records[weeks.at(-1)]).orderable;
+      for(let offset=1;offset<=leadDays&&day+offset<=28;offset++){
+        const expected=pubDemand(day+offset,terms,shiftPrice,()=>4,c.edition>=4?lostVisitsByDay[day+offset]:undefined,records[weeks.at(-1)]).orderable;
         for(const [sku,units] of Object.entries(expected))for(const [mat,count] of Object.entries(records[sku].recipe))target[mat]+=count*units;
       }
     }
     const reorderGap=calibrated?Object.fromEntries(ingredients.map(k=>[k,Math.max(0,target[k]-stock[k])])):short;
-    const inventory=save('Availability check',{available:{...stock},required:need,shortage:short,...(calibrated?{orderTarget:target,leadDays:c.leadDays||0}:{})});
+    const inventory=save('Availability check',{available:{...stock},required:need,shortage:short,...(calibrated?{orderTarget:target,leadDays:leadDays}:{})});
     event('VECTRA','Check ingredient availability',[prior,recipe],[inventory]);
     for(const mat of ingredients.filter(k=>reorderGap[k]>0)){
       const incoming=deliveries.filter(it=>it.due>day && it.mat===mat).reduce((n,it)=>n+it.units,0);
@@ -148,7 +167,8 @@ function operate(input,monthly,calibrated=false){
       if(budgetId){
         const remaining=records[budgetId].budgetCents-committedThisWeek;
         const overLimit=cents>records.PLAN.purchaseApprovalLimitCents;
-        const needsReview=overLimit || cents>remaining || cents>free;
+        const founder=Boolean(fork?.lever==='purchase'&&(day>fork.day||(day===fork.day&&fork.eligible.includes(key))));
+        const needsReview=founder || overLimit || cents>remaining || cents>free;
         const evidence={purchaseId:po,decisionKey:key,budgetId,cents,availableCashCents:free,
           committedBeforeCents:committedThisWeek,remainingBudgetCents:remaining,
           limitCents:records.PLAN.purchaseApprovalLimitCents};
@@ -156,13 +176,13 @@ function operate(input,monthly,calibrated=false){
         let reviewId, choice;
         if(needsReview){
           reviewId=save('Pending purchase review',{...evidence,queue:'Owner purchase approval',
-            trigger:overLimit?'Above auto-approval threshold':cents>remaining?'Weekly budget constraint':'Cash constraint'});
+            trigger:founder?'Founder review requested':overLimit?'Above auto-approval threshold':cents>remaining?'Weekly budget constraint':'Cash constraint'});
           event('AEGIS','Escalate purchase for review',inputs,[reviewId]);
-          if(c.humanReview){
-            choice=decisions.get(key);
+          if(c.humanReview||founder){
+            choice=founder?founderChoices.get(key):decisions.get(key);
             if(!choice)continue;
             if(choice==='approved' && (cents>free || cents>remaining))throw Error('Approval exceeds uncommitted cash or the weekly purchase budget.');
-            decisions.delete(key);
+            if(founder)founderChoices.delete(key);else decisions.delete(key);
           }
         }
         approved=cents<=remaining && cents<=free && choice!=='rejected';
@@ -190,7 +210,7 @@ function operate(input,monthly,calibrated=false){
         event('AEGIS',manual?'Record visitor purchase decision':'Check purchase policy',manual?[po,reviewId]:[po,profile],[decision]);
       }
       if(approved){
-        const item={po,decision,mat,units,cents,due:day+(c.leadDays||0)};
+        const item={po,decision,mat,units,cents,due:day+(leadDays)};
         if(item.due===day)receive(item,posts,moves);else deliveries.push(item);
       }
     }
@@ -204,8 +224,9 @@ function operate(input,monthly,calibrated=false){
       const used=quantity?Object.entries(spec.recipe).map(([k,n])=>movement(k,-quantity*n,batch)):[];moves.push(...used);
       event((brewery&&p===products[0])||(!custom&&monthly&&c.template==='coffee'&&p==='SKU-2')?'ZYBREW':p==='SKU-3'&&(!custom||['brewery','bakery','coffee','truck'].includes(c.template))?'PYRIX':'SYNAPSE',custom&&c.template==='salon'?(quantity?'Fulfill appointment service':'Record unavailable appointment service'):quantity?'Complete production lot':'Record blocked lot',[recipe,inventory,...(monthly?[prior]:[]),...inputs],[batch,...used]);
       if(!quantity)continue;
-      const order=save('Sale',{productId:p,batchId:batch,quantity,unitPriceCents:spec.priceCents,campaignId:campaign});
-      const net=spec.priceCents*quantity,tax=monthly?taxFor(net,terms.salesTaxBasisPoints):0;
+      const unitPriceCents=priceChange?Math.max(1,Math.round(spec.priceCents*(100+priceChange)/100)):spec.priceCents;
+      const order=save('Sale',{productId:p,batchId:batch,quantity,unitPriceCents,campaignId:campaign});
+      const net=unitPriceCents*quantity,tax=monthly?taxFor(net,terms.salesTaxBasisPoints):0;
       const pay=save('Payment',{orderId:order,cents:net+tax,...(monthly?{netCents:net,taxCents:tax,termsId:terms.id}:{})});
       const saleJournals=[post('cash','sales',net,pay),post('cost','stock',ingredients.reduce((s,k)=>s+quantity*(spec.recipe[k]||0)*records[k].unitCostCents,0),batch)];
       if(tax)saleJournals.push(post('cash','salesTaxPayable',tax,pay));
@@ -258,6 +279,7 @@ function operate(input,monthly,calibrated=false){
       weekFulfillments=[];
     }
   }
+  if(founderChoices.size)throw Error('A founder decision no longer matches a queued purchase.');
   if(decisions.size)throw Error('A decision no longer matches an eligible source proposal.');
   if(monthly)stampTasks(events);
   return freeze({scenario,config:c,products,ingredients,records,events,days,...(monthly?{weeks}:{})});

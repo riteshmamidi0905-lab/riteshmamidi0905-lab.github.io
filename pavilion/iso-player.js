@@ -234,6 +234,7 @@ export async function mountFloor(model,day,params) {
   }
   document.addEventListener('floor-visit',e=>visit(e.detail));
   mountQuestions(model,()=>day,visit);
+  $('#branch-here').onclick=async()=>{const {branchState,encodeBranch}=await import('./branch-ledger.js');location.assign('branch.html#'+encodeBranch(branchState(model.config,day,schedule[slot].minute)));};
   compact.addEventListener('change',update);
   if(matchMedia('(max-width:720px)').matches)$('.directory').open=true;
   update();playButton.disabled=false;if(!reduced.matches&&!params.has('beat')&&!params.has('event'))start();document.documentElement.classList.add('replay-ready');
