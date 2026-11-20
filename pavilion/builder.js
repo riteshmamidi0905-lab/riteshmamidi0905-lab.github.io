@@ -25,7 +25,22 @@ function compare(){
  return '<section><h2>Compare saved versions</h2><div class="table-scroll"><table><caption>Four-week operating income under each saved plan</caption><tbody>'+[...library.entries.values()].map(v=>'<tr><th>'+esc(v.label)+'</th><td>'+money((v.id===library.current?result:calculate(v.business)).total.income)+'</td></tr>').join('')+'</tbody></table></div></section>';
 }
 
+let playback=null;
+function stopHandoffs(){
+ clearInterval(playback);playback=null;const control=root.querySelector('[data-act="play-handoffs"]');if(control){control.textContent='Play campaign handoffs';control.setAttribute('aria-pressed','false');}
+}
+function drawHandoff(tasks){
+ const event=tasks[beat];root.querySelector('[name=beat]').value=beat;
+ for(const g of root.querySelectorAll('.floor-visual [data-owner]')){
+   const active=g.dataset.owner===event.owner;g.querySelector('rect').setAttribute('fill',active?'#87532c':'#294537');g.querySelector('circle').setAttribute('visibility',active?'visible':'hidden');
+ }
+ const active=root.querySelector('.active-task');active.querySelector('.kicker').textContent='Working · '+event.owner;active.querySelector('h2').textContent=event.action;
+ const link=active.querySelector('[data-record]');link.dataset.record=event.record;link.textContent='Inspect '+event.record;
+ for(const row of root.querySelectorAll('[data-activity]'))row.innerHTML=row.dataset.activity===event.owner?esc(event.action)+' '+view.evidence(event.record):'Idle for this campaign beat';
+}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopHandoffs();});
 function go(next,focus=true){
+ stopHandoffs();
  screen=next;root.dataset.screen=next;notice.textContent='';
  if(next==='gallery')root.innerHTML=gallery();
  else if(next==='guide')root.innerHTML=guideView(plan,step);
@@ -44,6 +59,7 @@ root.addEventListener('click',e=>{
  const record=e.target.closest('[data-record]')?.dataset.record;
  const opened=record&&result&&sourceFor(result,record);
  if(opened){
+   stopHandoffs();
    const dialog=root.querySelector('#record');dialog.querySelector('#source-body').innerHTML=view.recordHTML(opened,id=>Boolean(sourceFor(result,id)));
    if(!dialog.open)dialog.showModal();dialog.querySelector('button').focus();return;
  }
@@ -56,6 +72,13 @@ root.addEventListener('click',e=>{
    if(Object.hasOwn(view.tabs,target)||['gallery','hq','district'].includes(target)){navigate(target);return;}
  }
  const op=e.target.closest('[data-act]')?.dataset.act;if(!op)return;
+ if(op==='play-handoffs'){
+   if(playback){stopHandoffs();return;}
+   const tasks=result.events.filter(e=>e.day===day);
+   if(beat===tasks.length-1){beat=0;drawHandoff(tasks);}
+   const control=root.querySelector('[data-act="play-handoffs"]');control.textContent='Pause campaign handoffs';control.setAttribute('aria-pressed','true');
+   playback=setInterval(()=>{beat++;drawHandoff(tasks);if(beat>=tasks.length-1)stopHandoffs();},2100);return;
+ }
  if(op==='duplicate'){business=library.duplicate();result=null;navigate('overview');notice.textContent='Version created for comparison.';return;}
  if(op==='undo'||op==='redo'){business=library.travel(op);result=null;go(screen);notice.textContent=op==='undo'?'Edit undone.':'Edit restored.';return;}
  if(op==='reset'){

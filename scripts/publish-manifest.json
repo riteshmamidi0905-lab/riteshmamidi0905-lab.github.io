@@ -734,8 +734,8 @@
   },
   {
    "path": "pavilion/builder-campaign-view.js",
-   "bytes": 8948,
-   "sha256": "a0da8761584a532e105cad55be6217b36899e5c96b355e1c9a1571f7f96a3bb6"
+   "bytes": 9356,
+   "sha256": "653b439d4912eaf118dea0cadf84ed944571e34c49d07bc1cf076c6eb9605fc0"
   },
   {
    "path": "pavilion/builder-common.js",
@@ -789,13 +789,13 @@
   },
   {
    "path": "pavilion/builder.css",
-   "bytes": 12976,
-   "sha256": "34497da60dd04b8166b5468e4e4b8812f65881f45f830a176a7ecd856240f7f2"
+   "bytes": 13324,
+   "sha256": "c710b79433ab7c1ab636318daee06e6cd20baed200b16bbbe7908e2d152b6ffc"
   },
   {
    "path": "pavilion/builder.js",
-   "bytes": 10378,
-   "sha256": "c087c827bffe21ade3b0e90aafdd2a8a5a708210a98cf581f5c7f3dc7f03fb4c"
+   "bytes": 12060,
+   "sha256": "44e9621223adfc8791d440e053e619c40722de73ede9e4428cbdb80fd047a500"
   },
   {
    "path": "pavilion/business-settings.js",

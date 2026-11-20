@@ -18,6 +18,7 @@ async function walk(browser,width){
     else if(starts.includes(name)||name.startsWith('guided-'))await p.locator('#builder h1').evaluate(el=>el.closest('.screen-head')?.scrollIntoView({block:'start',behavior:'instant'}));
     else await pos.evaluate(el=>el.scrollIntoView({block:el.clientHeight>innerHeight?'start':'center',behavior:'instant'}));
     assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Horizontal overflow: '+name);
+    assert.ok(await p.locator('.stat strong .source').evaluateAll(nodes=>nodes.every(node=>{const range=document.createRange();range.selectNodeContents(node);return range.getClientRects().length<=1&&node.getBoundingClientRect().right<=innerWidth+1;})),'Currency or count wraps inside a summary metric: '+name);
     if(dir){await p.screenshot({path:path.join(dir,'screenshots',name+'-'+width+'.png')});ax.push({name,tree:await p.locator('#builder').ariaSnapshot()});}
     if(scan){const q=await new AxeBuilder({page:p}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
       const violations=q.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}));summary.axe.push({width,name,violations});assert.deepEqual(violations,[],name+' accessibility');}
@@ -40,7 +41,8 @@ async function walk(browser,width){
   offline=true;await ctx.setOffline(true);
   await view('gallery','.entry-lead');
   await tabTo('[data-act="pick:sports"]');
-  for(let i=0;i<7;i++){await p.locator('#guide-form[data-step="'+i+'"]').waitFor();await view('guided-'+(i+1),'#guide-form',i===0||i===6);
+  for(let i=0;i<7;i++){await p.locator('#guide-form[data-step="'+i+'"]').waitFor();if(i===1){await tabTo('[name=city]',null);await p.keyboard.press('ControlOrMeta+a');await p.keyboard.type('Austin');}
+    await view('guided-'+(i+1),'#guide-form',i===0||i===6);
     await tabTo('#guide-form button[type=submit],#guide-form button:not([type])');}
   await view('review','#review-form');await tabTo('#review-form button:not([type])');await p.waitForSelector('[data-screen=overview]');
   await view('overview','.overview-hero');
@@ -57,6 +59,7 @@ async function walk(browser,width){
   for(const s of ['fatigue','overload','normal']){await p.locator('[name=stress]').selectOption(s);if(s!=='normal')await view('stress-'+s,'.roi-card',false);}
   await p.locator('a[href="#hq"]').click();await view('headquarters','.active-task');assert.match(await p.locator('.active-task').innerText(),/NOVARA/);
   await tabTo('.active-task [data-record]');await p.locator('dialog[open]').waitFor();await view('source-record','dialog[open]',false);await p.keyboard.press('Escape');
+  await p.locator('[data-act=play-handoffs]').click();await p.waitForFunction(()=>document.querySelector('.active-task .kicker')?.textContent.includes('ECHON'));await p.locator('[data-act=play-handoffs]').click();
   await p.locator('a[href="#simulation"]').last().click();await p.locator('a[href="#district"]').click();await view('district','.district-figure');await p.locator('[data-builder-lot="stadium"]').click();assert.match(await p.locator('#lot-stadium').innerText(),/Game-day combo/);
   await section('customers');await view('customers','h1');await section('finance');await view('finance','h1');
   await section('report');await view('report','h1');assert.match(await p.locator('.panel').innerText(),/not financial, legal or tax advice/);
