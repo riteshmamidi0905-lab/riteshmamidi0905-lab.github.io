@@ -74,7 +74,7 @@ export function pubDemand(day,terms,pricePercent,draw,lostGuestSources,priorWeek
   const weekday=(day-1)%7,rampPercent=terms.weeklyRampPercent[Math.floor((day-1)/7)];
   const noisePercent=96+draw(9);
   const factor=Math.max(0,1-terms.priceElasticity*pricePercent/100);
-  const expectedCovers=Math.round(terms.fullWeekCovers[weekday]*rampPercent/100*noisePercent/100*factor*(terms.demandFactors?.[day-1]??1));
+  const expectedCovers=Math.round(terms.fullWeekCovers[weekday]*rampPercent/100*noisePercent/100*factor*(terms.demandFactors?.[day-1]??1))+(terms.campaignArrivals?.[day-1]??0);
   const serviceDay=terms.serviceDays?.[weekday];
   const perPosition=serviceDay?.capacity??terms.coversPerPosition;
   let policy=terms.servicePolicy;

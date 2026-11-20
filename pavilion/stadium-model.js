@@ -34,15 +34,22 @@ function closeBook(book,units=0,unitCost=0){
 }
 const begin=balances=>({balances,openingCash:balances.cash,postings:[]});
 const valid=(n,a,b)=>Number.isInteger(n)&&n>=a&&n<=b;
-export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.map(b=>b.id)}={}){
+export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.map(b=>b.id),operations=null}={}){
  if(!valid(seed,1,999999)||stress&&!Object.hasOwn(stadiumStress,stress)||!Array.isArray(mix)||!mix.length||new Set(mix).size!==mix.length||mix.some(id=>!booths.some(b=>b.id===id)))throw Error('Invalid venue configuration.');
- const vendors=booths.filter(b=>mix.includes(b.id));if(vendors.some(b=>!valid(staff[b.id],1,12)))throw Error('Choose 1–12 positions for each stand.');
- const records={},events=[],days=[],state=new Map(vendors.map(b=>[b.id,{balances:account(1500000),stock:0,served:0,walkaways:0}])),venue=account(12000000);
+ const vendors=booths.filter(b=>mix.includes(b.id)).map(b=>operations?{...b,...operations.menu[b.id]}:b);
+ const capacity=operations?.seats??stadiumPolicy.capacity, shiftMinutes=operations?.minutes??stadiumPolicy.shiftMinutes;
+ if(!valid(capacity,10,30000)||!valid(shiftMinutes,1,1440)||vendors.some(b=>!valid(b.price,1,100000)||!valid(b.cost,1,100000)))throw Error('Invalid venue operating plan.');
+ if(vendors.some(b=>!valid(staff[b.id],1,12)))throw Error('Choose 1–12 positions for each stand.');
+ const records={},events=[],days=[],state=new Map(vendors.map(b=>[b.id,{balances:account(1500000),stock:0,served:0,walkaways:0}])),venue=account(operations?.capital??12000000);
  function record(id,kind,data){if(records[id])throw Error('Duplicate stadium source');records[id]={id,kind,...data};return id;}
  function task(day,minute,owner,action,inputs,outputs){if([...inputs,...outputs].some(id=>!records[id]))throw Error('Missing stadium source');events.push({id:'EV-ST-'+day+'-'+String(events.length+1).padStart(4,'0'),day,minute,owner,action,inputs,outputs});}
  for(let day=1;day<=28;day++){
    const prefix='D'+String(day).padStart(2,'0')+'-',event=calendar(day,seed,stress),operator=begin(venue);
-   const eventId=record(prefix+'EVENT','Event calendar',{...event,capacity:stadiumPolicy.capacity});
+   if(operations){
+     event.forecast=Math.min(capacity,Math.round(event.forecast*capacity/stadiumPolicy.capacity));
+     event.attendance=Math.min(capacity,Math.round(event.attendance*capacity/stadiumPolicy.capacity));
+   }
+   const eventId=record(prefix+'EVENT','Event calendar',{...event,capacity});
    task(day,0,'SYNAPSE',event.attendance?'Open the event concourse':'Record the venue calendar',[ ],[eventId]);
    const admissions=event.attendance*(event.type==='Concert'?stadiumPolicy.concertAdmission:stadiumPolicy.homeAdmission);
    posting(operator,'cash','admissions',admissions,eventId);
@@ -51,9 +58,15 @@ export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.
    for(const b of vendors){
      const s=state.get(b.id),book=begin(s.balances),id=prefix+b.id+'-',crew=staff[b.id],cost=b.cost;
      // Fixed forecast buying prevents extra staff from silently reducing supplies.
-     const need=Math.round(event.attendance*b.share/1000),par=Math.ceil(event.forecast*b.share/1000*1.32);
+     const added=event.attendance?(operations?.arrivals?.[b.id]?.[day-1]??0):0;
+     if(!valid(added,0,100000))throw Error('Invalid vendor campaign demand.');
+     const need=Math.round(event.attendance*b.share/1000)+added,par=Math.ceil(event.forecast*b.share/1000*1.32*(operations?.stock??100)/100);
      const ordered=Math.max(0,par-s.stock),delayed=stress==='delay'&&day===20;
-     const delivered=(delayed?0:ordered)+(s.delayed||0);s.delayed=delayed?ordered:0;
+     let delivered=(delayed?0:ordered)+(s.delayed||0);s.delayed=delayed?ordered:0;
+     if(operations?.lead){
+       s.inTransit??=[];if(delivered)s.inTransit.push({day:day+operations.lead,units:delivered});
+       delivered=s.inTransit.filter(row=>row.day===day).reduce((sum,row)=>sum+row.units,0);s.inTransit=s.inTransit.filter(row=>row.day>day);
+     }
      const supply=record(id+'SUPPLY','Vendor supply',{day,vendor:b.id,openingUnits:s.stock,ordered,delivered,delayed,unitCostCents:cost,forecastSource:eventId});
      s.stock+=delivered;posting(book,'stock','cash',delivered*cost,supply);
      if(ordered||delivered)task(day,5,'NEXORA','Arrange vendor supply',[eventId],[supply]);
@@ -67,14 +80,14 @@ export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.
      for(const [i,phase] of phases.entries()){
        cumulative+=phase.share;const through=Math.round(need*cumulative/100),arrivals=through-distributed;distributed=through;
        const onDuty=event.attendance?Math.max(0,crew-(stress==='halftime'&&phase.id==='HALF'?1:0)):0;
-       const capacity=Math.floor(onDuty*phase.minutes*b.rate/60),served=Math.min(queue+arrivals,capacity,ready),left=queue+arrivals-served;
+       const capacity=Math.floor(onDuty*phase.minutes*b.rate/60*shiftMinutes/stadiumPolicy.shiftMinutes),served=Math.min(queue+arrivals,capacity,ready),left=queue+arrivals-served;
        const waiting=i===phases.length-1?0:Math.floor(left*stadiumPolicy.queuePatience/100),walkaways=left-waiting;
        const price=stress==='cap'?Math.min(b.price,700):b.price,amount=served*price;
        const sale=record(id+phase.id,'Stand interval',{day,vendor:b.id,phase:phase.label,arrivals,queueIn:queue,onDuty,minutes:phase.minutes,serviceCapacity:capacity,stockBefore:s.stock,served,queueOut:waiting,walkaways,unitPriceCents:price,revenueCents:amount});
        posting(book,'cash','sales',amount,sale);posting(book,'cost','stock',served*cost,sale);s.stock-=served;ready-=served;queue=waiting;total+=served;lost+=walkaways;sales+=amount;periods.push(sale);
        if(event.attendance)task(day,[20,58,90,114][i],'SYNAPSE','Coordinate '+phase.label.toLowerCase()+' service',[forecast,supply],[sale]);
      }
-     const pay=event.attendance?Math.round(crew*stadiumPolicy.shiftMinutes*b.wage/60)-(stress==='halftime'?Math.round(phases[2].minutes*b.wage/60):0):0;
+     const pay=event.attendance?Math.round(crew*shiftMinutes*b.wage/60)-(stress==='halftime'?Math.round(phases[2].minutes*b.wage/60):0):0;
      const share=moneyRound(sales*stadiumPolicy.shareBps/10000),fee=event.attendance?b.fee:0;
      const remittance=record(id+'TRANSFER','Vendor to venue settlement',{day,vendor:b.id,grossSalesCents:sales,shareCents:share,boothFeeCents:fee,sourceIntervals:periods});
      for(const [a,c] of [['share',share],['fees',fee]]){posting(book,a,'cash',c,remittance);posting(operator,'cash',a,c,remittance);}
