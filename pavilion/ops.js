@@ -90,6 +90,13 @@ export function compareTable(result,week){
  return (result.period?openingAndMonth(result):'')+'<table><caption>Week '+week+' · policy replay</caption><thead><tr><th>Measure</th><th>Baseline</th><th>What-if</th><th>Change</th></tr></thead><tbody>'+Object.entries({revenue:'Net revenue',margin:'Net margin',shortages:'Unfilled units',cash:'Closing cash'}).map(([k,l])=>'<tr><th>'+l+'</th><td>'+cell(k,before[k])+'</td><td>'+cell(k,after[k])+'</td><td>'+(before[k]===null||after[k]===null?'—':k==='margin'?((after[k]-before[k])/100).toFixed(2)+' pp':cell(k,after[k]-before[k]))+'</td></tr>').join('')+'</tbody></table><p>'+source(base,week*7,base.weeks[week-1],'Baseline close')+' · '+source(variant,week*7,variant.weeks[week-1],'What-if close')+'</p>'+attribution(result);
 }
 export function operations(m,d,registry){
+ if(m.config.edition===7){
+   const names=registry.map(x=>x.name),metrics=weekMetrics(m,Math.max(1,Math.ceil(d/7)),names);
+   return header(m,d)+'<main id="content"><p class="kicker">'+esc(m.config.name)+'</p><h1>Agent Ops console</h1>'+tabs(m,d,'ops')+
+     '<p>Recorded activity for this synthetic business. Open the simulator to change its assumptions.</p><a href="'+url('simulator',m,d)+'">Return to the business simulator</a>'+
+     '<div class="paper"><h2>Specialist evidence</h2>'+Object.values(metrics.rows).map((row,i)=>'<p>'+esc(names[i])+' · '+row.tasks+' tasks '+(row.sources[0]?source(m,d,row.sources[0]):' · Idle')+'</p>').join('')+'</div></main>';
+ }
+
  const week=Math.max(1,Math.ceil(d/7)),names=registry.map(a=>a.name);
  const {rows,incidents,evaluations}=weekMetrics(m,week,names), pending=pendingRequests(m),first=pending[0];
  const pass=evaluations.filter(e=>e.passed).length,total=Object.values(rows).reduce((n,r)=>n+r.tasks,0);

@@ -23,6 +23,7 @@ export const defaultCrew=edition=>edition>=5?shiftRoster.slice(0,baselinePositio
 
 export function serviceQueue(covers,positions,scale,policy=servicePolicy){
   const peakArrivals=Math.round(covers*policy.peakSharePercent/100);
+  if(positions===0)return {peakArrivals,peakCapacity:0,waitMinutes:policy.peakMinutes,walkoutRate:100,walkouts:peakArrivals};
   const peakCapacity=positions*scale*policy.peakMinutes/policy.peakMinutesPerCover;
   const overflow=Math.max(0,peakArrivals-peakCapacity);
   const waitMinutes=policy.baseWaitMinutes+Math.round(policy.peakMinutes*overflow/(2*peakCapacity));
@@ -73,15 +74,23 @@ export function pubDemand(day,terms,pricePercent,draw,lostGuestSources,priorWeek
   const weekday=(day-1)%7,rampPercent=terms.weeklyRampPercent[Math.floor((day-1)/7)];
   const noisePercent=96+draw(9);
   const factor=Math.max(0,1-terms.priceElasticity*pricePercent/100);
-  const expectedCovers=Math.round(terms.fullWeekCovers[weekday]*rampPercent/100*noisePercent/100*factor);
-  const policy=terms.servicePolicy;
+  const expectedCovers=Math.round(terms.fullWeekCovers[weekday]*rampPercent/100*noisePercent/100*factor*(terms.demandFactors?.[day-1]??1));
+  const serviceDay=terms.serviceDays?.[weekday];
+  const perPosition=serviceDay?.capacity??terms.coversPerPosition;
+  let policy=terms.servicePolicy;
+  if(serviceDay?.minutes){
+    const peakMinutes=Math.min(policy.peakMinutes,serviceDay.minutes);
+    policy={...policy,peakMinutes,peakMinutesPerCover:peakMinutes/(perPosition*policy.peakSharePercent/100)};
+  }
   const newProspects=policy?Math.round(expectedCovers*policy.newGuestSharePercent/100):0;
   const rating=priorWeek?.serviceQuality?.ratingHundredths??500;
   const reputationCovers=policy?Math.round(newProspects*(500-rating)*policy.demandLossPerRatingPointPercent/10000):0;
   const lostGuestCovers=Math.min(expectedCovers-newProspects,(lostGuestSources||[]).reduce((sum,s)=>sum+s.covers,0));
   const potentialCovers=expectedCovers-reputationCovers-lostGuestCovers;
-  const queue=policy?serviceQueue(potentialCovers,terms.staffIds.length,terms.scale,policy):null;
-  const capacityCovers=terms.staffIds.length*terms.coversPerPosition;
+  const queue=serviceDay?.minutes===0
+    ? {peakArrivals:0,peakCapacity:0,waitMinutes:0,walkoutRate:0,walkouts:0}
+    : policy?serviceQueue(potentialCovers,terms.staffIds.length,terms.scale,policy):null;
+  const capacityCovers=terms.staffIds.length*perPosition;
   const staffedCovers=Math.min(potentialCovers-(queue?.walkouts||0),capacityCovers);
   const items=covers=>Object.fromEntries(terms.unitsPerHundredCovers.map((count,i)=>['SKU-'+(i+1),Math.round(covers*count/100)]));
   return {weekday,rampPercent,noisePercent,...(lostGuestSources?{expectedCovers,lostGuestCovers,lostGuestSources:[...lostGuestSources]}:{}),...(queue?{...queue,newProspects,ratingHundredths:rating,ratingSourceId:priorWeek?.id??null,reputationCovers}:{}),potentialCovers,capacityCovers,staffedCovers,units:items(potentialCovers),orderable:items(staffedCovers)};
@@ -96,7 +105,7 @@ export function openingUnits(index,scale,budgetCents){
 // reputation or actual sales so all rosters face the same purchasing policy.
 export function purchaseBudget(startDay,terms,pricePercent,products,records,ceilingCents){
   const week=Math.floor((startDay-1)/7);
-  const forecastCovers=terms.fullWeekCovers.map(n=>Math.round(n*terms.weeklyRampPercent[week]/100*
+  const forecastCovers=terms.fullWeekCovers.map((n,i)=>Math.round(n*(terms.demandFactors?.[startDay-1+i]??1)*terms.weeklyRampPercent[week]/100*
     Math.max(0,1-terms.priceElasticity*pricePercent/100)));
   const items=products.map((productId,i)=>{
     const recipe=records[productId].recipe;

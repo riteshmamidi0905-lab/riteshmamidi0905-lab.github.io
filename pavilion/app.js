@@ -1,17 +1,20 @@
 import {render,routes} from './site.js';
 const page=(location.pathname.split('/').pop()||'index.html').replace(/\.html$/,'');
-if(routes.includes(page)&&location.search){
- try {const d=new DOMParser().parseFromString(render(page,new URLSearchParams(location.search)),'text/html');document.querySelector('#app').replaceChildren(...d.querySelector('#app').childNodes);}
- catch(error){const p=document.createElement('p');p.setAttribute('role','alert');p.textContent=error.message;document.querySelector('#app').replaceChildren(p);}
+const localReplay=()=>new URLSearchParams(location.hash.slice(1)).has('sim');
+const routeParams=()=>new URLSearchParams(localReplay()?location.hash.slice(1):location.search);
+addEventListener('hashchange',e=>{if(localReplay()||new URL(e.oldURL).hash.startsWith('#sim='))location.reload();});
+if(routes.includes(page)&&(location.search||localReplay())){
+ try {const d=new DOMParser().parseFromString(render(page,routeParams()),'text/html');document.querySelector('#app').replaceChildren(...d.querySelector('#app').childNodes);}
+ catch(error){const p=document.createElement('p');p.setAttribute('role','alert');p.textContent=error.message;const a=document.createElement('a');a.href='simulator.html';a.textContent='Simulate your idea';document.querySelector('#app').replaceChildren(p,a);}
 }
 if(document.querySelector('#floor')){
  const [{context},{mountFloor}]=await Promise.all([import('./site.js'),import('./iso-player.js')]);
- const params=new URLSearchParams(location.search);
+ const params=routeParams();
  const {m,d}=context(params);
  mountFloor(m,d,params);
 }
 if(document.querySelector('.ops-page')){
- const [{context},{mountOps}]=await Promise.all([import('./site.js'),import('./ops.js')]);const {m,d}=context(new URLSearchParams(location.search));mountOps(m,d);
+ const [{context},{mountOps}]=await Promise.all([import('./site.js'),import('./ops.js')]);const {m,d}=context(routeParams());mountOps(m,d);
 }
 const form=document.querySelector('#create');
 if(form){

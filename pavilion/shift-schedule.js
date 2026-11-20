@@ -35,3 +35,10 @@ export function scheduleDay(model, day) {
     return batches;
   });
 }
+
+// The schedule owns the timing and five-packet batches. Camera scope only filters them.
+export function visibleHandoffs(beat,station){
+  if(!station)return beat;
+  const involves=edge=>edge.from===station||edge.to===station;
+  return {transfers:beat.transfers.filter(involves),batch:beat.batch.filter(involves),waiting:beat.waiting.filter(involves)};
+}

@@ -1,4 +1,5 @@
 import {esc,url} from './views.js';
+import {taskTitle,idleMessage,unusedStation} from './station-context.js';
 
 const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n/100);
 const units = values => Object.values(values).reduce((sum,n)=>sum+n,0);
@@ -13,17 +14,18 @@ export function incoming(events,cursor){
   return null;
 }
 export function instrumentReading(m,e){
-  const r=m.records[e.outputs[0]], name=id=>m.records[id].name;
+  const r=m.records[e.outputs[0]], name=id=>m.records[id].name, sector=m.config.template!=='brewery';
   switch(r.kind){
     case 'Shift': return [r.staff.length+' on shift','Day '+r.day];
     case 'Campaign plan': return [name(r.featuredProductId),r.channel];
     case 'Demand forecast': return [units(r.units)+' units',Object.entries(r.units).map(([k,n])=>name(k)+' '+n).join(' · ')];
-    case 'Recipe evidence': return [r.productIds.length+' recipes',r.materialIds.length+' ingredient records'];
-    case 'Ingredient requirement': return [units(r.required)+' measures',Object.keys(r.required).length+' ingredients'];
+    case 'Recipe evidence': return [r.productIds.length+(sector?' offerings':' recipes'),r.materialIds.length+(sector?' supply records':' ingredient records')];
+    case 'Ingredient requirement': return [units(r.required)+' measures',Object.keys(r.required).length+(sector?' supplies':' ingredients')];
     case 'Availability check': return [units(r.shortage)+' units short',Object.entries(r.required).map(([id,n])=>name(id)+' '+r.available[id]+'/'+n).join(' · ')];
     case 'Purchase proposal': return [r.units+' units · '+money(r.cents),name(r.materialId)];
     case 'Approval record': return [r.approved?'Approved':'Declined',r.budgetId?r.reason:'Synthetic purchase limit '+money(r.limitCents)];
     case 'Receiving': return ['+'+r.units+' units',name(r.materialId)+' · '+r.approvalId];
+    case 'Appointment fulfillment': return [r.completed+' of '+r.requested+' service units',name(r.productId)];
     case 'Brewing batch':
     case 'Production lot': return [r.completed+' of '+r.requested+' units',name(r.productId)];
     case 'Sale': return [r.quantity+' sold',name(r.productId)+' · '+money(r.unitPriceCents)+' each'];
@@ -42,9 +44,10 @@ export function instrumentReading(m,e){
 const ref=(m,d,id,label)=>`<a href="${url('inspector',m,d,{id})}">${esc(label)}</a>`;
 export function readout(m,d,e,agent,handoff){
   const active=agent.name===e.owner;
+  if(!active&&unusedStation(m,agent.name))return '<h2>Idle</h2><p>'+esc(idleMessage(m,agent.name))+'</p>';
   if(!active)return `<div class="live-heading"><p class="kicker">${agent.name} · ${esc(agent.role)}</p><h2>Between tasks</h2></div><p>Idle at this event. ${e.owner} owns the selected record.</p>`;
   const [value,detail]=instrumentReading(m,e);
-  return `<div class="live-heading"><p class="kicker">${e.owner} · ${esc(agent.role)}</p><h2>${esc(e.action)}</h2><small>${esc(e.id)}</small></div>
+  return `<div class="live-heading"><p class="kicker">${e.owner} · ${esc(agent.role)}</p><h2>${esc(taskTitle(m,e))}</h2><small>${esc(e.id)}</small></div>
     <div class="live-data"><strong>${ref(m,d,e.outputs[0],value)}</strong><p>${esc(detail)}</p>
     <div class="source-links">${e.outputs.map(id=>ref(m,d,id,m.records[id].kind+' ↗')).join(' ')}</div>
     ${handoff?`<p class="handoff-note">From ${handoff.sender} · ${ref(m,d,handoff.recordId,handoff.recordId)}</p>`:''}</div>`;

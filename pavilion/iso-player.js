@@ -1,9 +1,9 @@
 import {aislePath,home,point,roomView,nameplates} from './iso-geometry.js';
 import {overview,lightAt,placeTokens,recentEvents} from './floor-staging.js';
-import {stampTasks,scheduleDay} from './shift-schedule.js';
+import {stampTasks,scheduleDay,visibleHandoffs} from './shift-schedule.js';
 import {floorSurfaces} from './floor-surfaces.js';
 import {shiftControls} from './shift-controls.js';
-import {studios} from './studios.js';
+import {stationTitle,taskTitle,unusedStation} from './station-context.js';
 import {url} from './views.js';
 import {instrumentReading} from './shift-display.js';
 
@@ -85,9 +85,8 @@ export async function mountFloor(model,day,params) {
   }
   // Five reusable packet slots. No per-person or per-packet compositor surfaces.
   const pool=Array.from({length:5},()=>({path:null,lane:0}));
-  function prepare(){
+  function prepare(edges){
     travels.clear();
-    const edges=schedule[slot].batch;
     packets=pool.slice(0,edges.length);
     for(const [i,packet] of pool.entries()){
       const edge=edges[i];
@@ -124,8 +123,10 @@ export async function mountFloor(model,day,params) {
     drawing.toggleAttribute('data-follow',Boolean(follow));camera();
     panel(beat,follow,history[slot]);
     const light=lightAt(slot,schedule.length);if(drawing.dataset.light!==light){setText($('#sun'),light);drawing.dataset.light=light;deck.light(light);}
-    setText($('#load'),active.size+' working · '+beat.batch.length+' in transfer');
-    setText($('#floor-caption'),follow?studios[follow].title:'Specialist studios');
+    const edges=visibleHandoffs(beat,follow).batch;
+    const activity=follow?(active.has(follow)?'Working':'Idle'):active.size+' working';
+    setText($('#load'),activity+' · '+edges.length+' in transfer');
+    setText($('#floor-caption'),follow?stationTitle(model,follow):'Specialist studios');
     for(const [name,tag] of tags){
       const current=active.get(name);
       const display=screens.get(name);
@@ -134,16 +135,17 @@ export async function mountFloor(model,day,params) {
       if(person.getAttribute('aria-pressed')!==pressed)person.setAttribute('aria-pressed',pressed);
       if(!priorReadings.has(name)||priorReadings.get(name)!==current){
         priorReadings.set(name,current);
-        const value=current?instrumentReading(model,current)[0]:'Idle · queue';
-        person.setAttribute('aria-label','Follow '+name+' · '+(current?current.action:'Idle, reviewing queue'));
-        setText(titles.get(name),name+' · '+(current?value:'Idle · reviewing queue'));
+        const resting=unusedStation(model,name)?'Not used · idle':'Idle · queue';
+        const value=current?instrumentReading(model,current)[0]:resting;
+        person.setAttribute('aria-label','Follow '+name+' · '+(current?taskTitle(model,current):resting));
+        setText(titles.get(name),name+' · '+value);
         setText(display,value.slice(0,22));display.setAttribute('fill',current?'#fff0aa':'#d1d9c9');
         stations.get(name).toggleAttribute('data-working',Boolean(current));
       }
       tag.toggleAttribute('data-busy',Boolean(current));const displayMode=follow&&follow!==name?'none':'';if(tag.style.display!==displayMode)tag.style.display=displayMode;
     }
     $('#seek').value=String(slot);setText($('#minute'),'Minute '+beat.minute);drawing.dataset.beat=slot;
-    prepare();paint(0);
+    prepare(edges);paint(0);
   }
   function tick(now){
     frame=0;if(!play||!visible||document.hidden)return;
@@ -163,6 +165,15 @@ export async function mountFloor(model,day,params) {
   $('#camera').onchange=()=>{enter();update();};
   $('#day').onchange=e=>location.assign(url('hq',model,Number(e.target.value)).replaceAll('&amp;','&'));
   function select(name){$('#camera').value='who-'+name;enter();update();}
+  for(const button of document.querySelectorAll('[data-sector-station]')){
+    button.onclick=()=>{
+      const name=button.dataset.sectorStation;
+      const beat=schedule.findIndex(b=>b.starts.some(e=>e.owner===name&&
+        (name!=='VECTRA'||model.records[e.outputs[0]].kind==='Availability check')));
+      pause();if(beat>=0)slot=beat;
+      elapsed=0;select(name);
+    };
+  }
   deck.interactions(select,()=>paint(elapsed/duration()));
   for(const [name,node] of people){
     node.addEventListener('click',()=>select(name));

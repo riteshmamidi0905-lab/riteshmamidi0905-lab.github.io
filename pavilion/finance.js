@@ -9,9 +9,10 @@ export function operatingTerms(scale,record,staff){
 export const taxFor=(net,rate)=>Math.floor((net*rate+5000)/10000);
 export const additionalAccounts={payroll:0,rent:0,utilities:0,salesTaxPayable:0,operatingPayable:0};
 export function operatingDay({day,terms,shift,fulfillmentId,records,account,save,post,event,posts,committedCents=0}){
+  const serviceDay=terms.serviceDays?.[(day-1)%7];
   const shiftIds=terms.staffIds.map(id=>{
-    const employee=records[id],minutes=employee.scheduledMinutes;
-    return save('Staff timesheet',{day,employeeId:id,shiftId:shift,minutes,hourlyRateCents:employee.hourlyRateCents,wagesCents:Math.round(minutes*employee.hourlyRateCents/60)});
+    const employee=records[id],minutes=serviceDay?.minutes??employee.scheduledMinutes;
+    return save('Staff timesheet',{day,employeeId:id,shiftId:shift,minutes,...(serviceDay?{tradingIntervals:serviceDay.intervals}:{}),hourlyRateCents:employee.hourlyRateCents,wagesCents:Math.round(minutes*employee.hourlyRateCents/60)});
   });
   const payroll=shiftIds.reduce((n,id)=>n+records[id].wagesCents,0);
   const sold=records[fulfillmentId].actualUnits;

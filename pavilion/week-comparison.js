@@ -32,9 +32,9 @@ export function periodFigures(model,weeks) {
   return {numbers,cashBridge,periods};
 }
 
-function changesFor(figures) {
+export function changesFor(figures) {
   const {baseline:first,combined:last,...singles}=figures;
-  const effects={price:{},staff:{},lead:{},interaction:{}};
+  const effects=Object.fromEntries([...Object.keys(singles),'interaction'].map(key=>[key,{}]));
   for(const key of Object.keys(first.numbers)){
     const original=first.numbers[key];
     const delta=n=>original===null||n===null?null:n-original;

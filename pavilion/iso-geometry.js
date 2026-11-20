@@ -1,3 +1,4 @@
+import {unusedStation} from './station-context.js';
 import {studios} from './studios.js';
 import {esc} from './views.js';
 
@@ -48,9 +49,16 @@ function board(u,v,w=4.5,ledger=false){
 }
 function bench(u,v){return slab(u,v,1.35,1.35,.6,dark)+box(u-.15,v-.15,.6,1.75,1.65,.35,sage)+box(u-.14,v-.14,.85,1.75,.24,1,sage);}
 function light(u,v){return slab(u,v,.25,.25,3.15,brass)+'<g class="lamp-head">'+cylinder(u+.12,v+.12,3.12,5,.3,'var(--lamp,#f2ddad)','#ad8551')+'</g>';}
-function kit(name,u,v){
+function kit(name,u,v,model){
   const U=u+1,V=v+1, items=[];
   const add=(du,dv,svg)=>items.push({depth:U+V+du+dv,svg,shadow:point(U+du+.65,V+dv+.55)});
+  if(model&&model.config.template!=='brewery'&&(name==='ZYBREW'||unusedStation(model,name))){
+    const idle=unusedStation(model,name);
+    const rack=shelf(U+.4,V+.2,4.8,false),worktop=desk(U+.7,V+3.6,4.5,1.55,wood);
+    add(2,1,'<g data-bay="'+(idle?'idle':'production')+'">'+(idle?panel(U+.5,V+.2,4.5):rack)+'</g>');
+    add(2,4,worktop+(idle?'':display(U+1,V+3.8)));
+    return items;
+  }
   switch(name){
     case 'ZYBREW':
       for(let i=0;i<3;i++){let x=U+.6+i*2.1;add(i*2.1+1,1,cylinder(x,V+.9,.2,12,2.8,'#d5ac83','url(#copper)')+cylinder(x,V+.9,3,5,.4,'#dbc7a5','#896d55')+[.45,2.45].map(z=>{const [cx,cy]=point(x,V+.9,z);return '<path d="M'+(cx-12)+' '+cy+'a12 6 0 0 0 24 0" fill="none" stroke="#d9b492" stroke-width="1.1"/>';}).join('')+ellipse(x+.48,V+1.38,1.62,2.1,2.1,'#e8d9ae')+line([x,V+.9,3.4],[x,V+2.7,3.4],'#95724a',3));}
@@ -82,7 +90,7 @@ export function aislePath(a,b){
   return [s,[s[0],A.v+8.8],[A.u+8.8,A.v+8.8],[A.u+8.8,B.v+8.8],[e[0],B.v+8.8],e];
 }
 export function roomView(name){const r=rooms[name],[x,y]=point(r.u+4,r.v+4);return [x-126,y-88,252,160].join(' ');}
-export function floorSvg(registry) {
+export function floorSvg(registry,model) {
   const sorted=[], objects=[], actors=[], instruments=[], edge='#b09f83';
   let ground=box(-1,-1,-1.4,46,35,1.4,stone);
   for(let i=-1;i<=45;i+=2)ground+=line([i,-1,0],[i,34,0],'#c6b99d',.65);
@@ -97,7 +105,7 @@ export function floorSvg(registry) {
     ground+=poly([[u,v,.02],[u+8,v,.02],[u+8,v+7.7,.02],[u,v+7.7,.02]],'var(--bay,#d5c6a8)')+
       line([u,v+7.75,.03],[u+8,v+7.75,.03],'#a4865d',1.5);
     objects.push({depth:u+v+.3,svg:box(u,v,0,7.9,.22,2.5,[accent,'#ac9c7f','#958569'])+box(u,v,0,.22,3.2,2.25,stone)+line([u,v+.23,2.4],[u+7.9,v+.23,2.4],'#f1d59f',2)});
-    const furniture=kit(name,u,v);
+    const furniture=kit(name,u,v,model);
     for(const {shadow:[x,y]} of furniture) ground+='<g transform="translate('+x+' '+y+')"><path class="cast-shadow" d="M-4 -3 Q6 -5 38 -2 L44 2 Q16 5.5 -4 3Z"/></g>';
     const [lampX,lampY]=point(u+7.6,v+.75);
     ground+='<ellipse class="lamp-pool" cx="'+lampX+'" cy="'+lampY+'" rx="46" ry="22" fill="url(#warm-lamp)"/>';

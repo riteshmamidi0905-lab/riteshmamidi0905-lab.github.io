@@ -12,8 +12,9 @@ LABEL = dict(VERIFIED="Verified implementation", UNVERIFIED="Unverified", PROTOT
 chip = lambda s: f'<span class="chip {s}">{LABEL[s]}</span>'
 t = orig
 # ---- head: add lab styles and script
-t = t.replace('<link rel="stylesheet" href="cinematic.css">', '<link rel="stylesheet" href="cinematic.css"><link rel="stylesheet" href="lab.css">', 1)
-t = t.replace('<script src="cinematic.js" defer></script>', '<script src="cinematic.js" defer></script><script src="lab.js" defer></script>', 1)
+if 'href="lab.css"' not in t:
+    t = t.replace('<link rel="stylesheet" href="cinematic.css">', '<link rel="stylesheet" href="cinematic.css"><link rel="stylesheet" href="lab.css">', 1)
+t = re.sub(r'<script src="cinematic\.js" defer></script>(?:<script src="lab\.js" defer></script>)?', '<link rel="stylesheet" href="home.css"><script src="home.js" defer></script>', t, count=1)
 t = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Ritesh Mamidi: independent AI engineer and data and AI analyst. AI output evaluation, data quality, analytics and the NASHA AI Lab, with 29 projects whose tests were re-run and whose limits are stated.">', t, count=1)
 # ---- nav
 t = re.sub(r'<a href="nasha-lab\.html"( aria-current="page")?>NASHA AI</a>', lambda m: '<a href="nasha-lab.html">NASHA AI Lab</a><a href="lab-explorer.html">Lab explorer</a><a href="verified-projects.html">Verified projects</a>', t)

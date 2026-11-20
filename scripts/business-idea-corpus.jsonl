@@ -1,0 +1,120 @@
+{"s":"A neighborhood brewpub named Stone Gate in Austin, 48 seats, $90k to open.","e":{"type":"brewery","concept":"Stone Gate","city":"Austin","neighborhood":"neighborhood","size":"48 seats","budget":90000}}
+{"s":"I'd open a downtown taproom with six staff and a premium menu.","e":{"type":"brewery","neighborhood":"downtown","staff":6,"tier":"premium"}}
+{"s":"A microbrewery in Milwaukee, serving amber lager and pretzels.","e":{"type":"brewery","city":"Milwaukee","products":"amber lager, pretzels"}}
+{"s":"A 75-seat brewery called Ninth Bay, open 11am to 10pm.","e":{"type":"brewery","size":"75 seats","concept":"Ninth Bay","hours":"11:00–22:00"}}
+{"s":"Brewpub in Santa Fe with 5 employees, opening budget of $118,000.","e":{"type":"brewery","city":"Santa Fe","staff":5,"budget":118000}}
+{"s":"Industrial taproom; team of four. Price tier is mid-range.","e":{"type":"brewery","neighborhood":"industrial","staff":4,"tier":"standard"}}
+{"s":"A brewery in Boise with 3200 square feet; budget USD 185000.","e":{"type":"brewery","city":"Boise","size":"3200 sq ft","budget":185000}}
+{"s":"Brewpub called Old Bell, open 12:00–22:00. Serving pils and soup.","e":{"type":"brewery","concept":"Old Bell","hours":"12:00–22:00","products":"pils, soup"}}
+{"s":"I'd run a suburban brewery with value-priced food and three cooks.","e":{"type":"brewery","neighborhood":"suburban","tier":"value","staff":3}}
+{"s":"A taproom near campus with $95,000 opening budget and 38 seats.","e":{"type":"brewery","neighborhood":"campus","budget":95000,"size":"38 seats"}}
+{"s":"Premium café in Paris, serving espresso and brioche.","e":{"type":"coffee","tier":"premium","city":"Paris","products":"espresso, brioche"}}
+{"s":"A coffee shop called Finery in Madison with three baristas.","e":{"type":"coffee","concept":"Finery","city":"Madison","staff":3}}
+{"s":"A coffee roaster in downtown Portland, 40 seats and a $60k budget.","e":{"type":"coffee","city":"Portland","neighborhood":"downtown","size":"40 seats","budget":60000}}
+{"s":"Small roastery with a crew of two, open 6am to 2pm.","e":{"type":"coffee","staff":2,"hours":"06:00–14:00"}}
+{"s":"An affordable espresso bar in London, 450 sq ft.","e":{"type":"coffee","tier":"value","city":"London","size":"450 sq ft"}}
+{"s":"Campus coffeehouse, opening funds of 35 thousand dollars.","e":{"type":"coffee","neighborhood":"campus","budget":35000}}
+{"s":"A café named Willow, specializing in pour-over coffee.","e":{"type":"coffee","concept":"Willow","products":"pour-over coffee"}}
+{"s":"Suburban coffee shop, 07:30–16:30, employing 5 staff.","e":{"type":"coffee","neighborhood":"suburban","hours":"07:30–16:30","staff":5}}
+{"s":"Opening a roastery with 4 employees, $3 per espresso and $72k to launch.","e":{"type":"coffee","staff":4,"budget":72000}}
+{"s":"Industrial coffee roaster in Detroit with 1,200 sq ft.","e":{"type":"coffee","neighborhood":"industrial","city":"Detroit","size":"1200 sq ft"}}
+{"s":"A bakery named Morning Fold in Madison with 24 seats.","e":{"type":"bakery","concept":"Morning Fold","city":"Madison","size":"24 seats"}}
+{"s":"A patisserie in Montréal serving éclairs and tarts.","e":{"type":"bakery","city":"Montréal","products":"éclairs, tarts"}}
+{"s":"A suburban bakehouse; team of three, open 05:30–14:00.","e":{"type":"bakery","neighborhood":"suburban","staff":3,"hours":"05:30–14:00"}}
+{"s":"Downtown bakery with $49,500 opening capital, 2 bakers.","e":{"type":"bakery","neighborhood":"downtown","budget":49500,"staff":2}}
+{"s":"A budget-friendly bakeshop in Durham, selling biscuits, rolls and buns.","e":{"type":"bakery","tier":"value","city":"Durham","products":"biscuits, rolls, buns"}}
+{"s":"Luxury bakery called Gold Leaf, open 8am until 6pm.","e":{"type":"bakery","tier":"premium","concept":"Gold Leaf","hours":"08:00–18:00"}}
+{"s":"Neighborhood bakery; 810 square feet and 45 thousand dollars to start.","e":{"type":"bakery","neighborhood":"neighborhood","size":"810 sq ft","budget":45000}}
+{"s":"A campus bakehouse in Buffalo with four employees.","e":{"type":"bakery","neighborhood":"campus","city":"Buffalo","staff":4}}
+{"s":"Mid-priced patisserie named Yarrow, featuring croissants.","e":{"type":"bakery","tier":"standard","concept":"Yarrow","products":"croissants"}}
+{"s":"A bakery open 04:00 to 12:30, budget of $28k.","e":{"type":"bakery","hours":"04:00–12:30","budget":28000}}
+{"s":"An affordable taco truck in Tucson with two cooks.","e":{"type":"truck","tier":"value","city":"Tucson","staff":2}}
+{"s":"Food truck named Night Cart, serving tacos and agua fresca.","e":{"type":"truck","concept":"Night Cart","products":"tacos, agua fresca"}}
+{"s":"A downtown mobile kitchen, 160 sq ft, open 6pm–1am.","e":{"type":"truck","neighborhood":"downtown","size":"160 sq ft","hours":"18:00–01:00"}}
+{"s":"Food cart in Reno with a $34k budget and 3 employees.","e":{"type":"truck","city":"Reno","budget":34000,"staff":3}}
+{"s":"A food truck on campus, offering noodles, broth and iced tea.","e":{"type":"truck","neighborhood":"campus","products":"noodles, broth, iced tea"}}
+{"s":"Industrial food truck called Jetty with one staff position.","e":{"type":"truck","neighborhood":"industrial","concept":"Jetty","staff":1}}
+{"s":"A premium taco truck in Miami, 190 square feet.","e":{"type":"truck","tier":"premium","city":"Miami","size":"190 sq ft"}}
+{"s":"Mobile kitchen with capital of USD 40000, open 10:30–18:00.","e":{"type":"truck","budget":40000,"hours":"10:30–18:00"}}
+{"s":"Mid-range food cart in New York, team of four.","e":{"type":"truck","tier":"standard","city":"New York","staff":4}}
+{"s":"A suburban food truck specializing in rice bowls and dumplings.","e":{"type":"truck","neighborhood":"suburban","products":"rice bowls, dumplings"}}
+{"s":"A retail boutique in Denver selling linen, candles and notebooks.","e":{"type":"retail","city":"Denver","products":"linen, candles, notebooks"}}
+{"s":"Campus bookshop, 700 square feet, with 3 people.","e":{"type":"retail","neighborhood":"campus","size":"700 sq ft","staff":3}}
+{"s":"A high-end gift store called North Window, budget of $125,000.","e":{"type":"retail","tier":"premium","concept":"North Window","budget":125000}}
+{"s":"A suburban clothing store in Boise, open 9am to 5pm.","e":{"type":"retail","neighborhood":"suburban","city":"Boise","hours":"09:00–17:00"}}
+{"s":"An inexpensive gift shop with a crew of two, featuring postcards.","e":{"type":"retail","tier":"value","staff":2,"products":"postcards"}}
+{"s":"Downtown boutique named Fern, 1,050 sq ft.","e":{"type":"retail","neighborhood":"downtown","concept":"Fern","size":"1050 sq ft"}}
+{"s":"Neighborhood retail shop in Chicago, opening budget of 80 thousand dollars.","e":{"type":"retail","city":"Chicago","neighborhood":"neighborhood","budget":80000}}
+{"s":"A standard bookshop with two assistants, open 10:00–19:00.","e":{"type":"retail","tier":"standard","staff":2,"hours":"10:00–19:00"}}
+{"s":"A boutique in an industrial district selling pottery and prints.","e":{"type":"retail","neighborhood":"industrial","products":"pottery, prints"}}
+{"s":"A gift store in Seattle with 950 sq ft and USD 65000 to open.","e":{"type":"retail","city":"Seattle","size":"950 sq ft","budget":65000}}
+{"s":"A neighborhood hair salon called Iris Studio in Austin, 800 sq ft, premium, 3 stylists, open 9am–5pm, $55k to open, offering haircuts, color and scalp treatments.","e":{"type":"salon","neighborhood":"neighborhood","concept":"Iris Studio","city":"Austin","size":"800 sq ft","tier":"premium","staff":3,"hours":"09:00–17:00","budget":55000,"products":"haircuts, color, scalp treatments"}}
+{"s":"A beauty studio in Tampa with four stylists, offering facials.","e":{"type":"salon","city":"Tampa","staff":4,"products":"facials"}}
+{"s":"A suburban barbershop named Silver Comb, open 08:00–16:30.","e":{"type":"salon","neighborhood":"suburban","concept":"Silver Comb","hours":"08:00–16:30"}}
+{"s":"A hairdresser downtown, 600 square feet and $38k in capital.","e":{"type":"salon","neighborhood":"downtown","size":"600 sq ft","budget":38000}}
+{"s":"Luxury hair studio in New Orleans with five staff.","e":{"type":"salon","city":"New Orleans","tier":"premium","staff":5}}
+{"s":"Affordable salon near campus, offering cuts, trims and color.","e":{"type":"salon","neighborhood":"campus","tier":"value","products":"cuts, trims, color"}}
+{"s":"An industrial beauty studio called Copper with 900 sq ft.","e":{"type":"salon","neighborhood":"industrial","concept":"Copper","size":"900 sq ft"}}
+{"s":"A neighborhood barber in Tulsa, team of two, budget of $44,000.","e":{"type":"salon","city":"Tulsa","neighborhood":"neighborhood","staff":2,"budget":44000}}
+{"s":"A mid-range salon open 10am to 7pm in Austin.","e":{"type":"salon","tier":"standard","hours":"10:00–19:00","city":"Austin"}}
+{"s":"One hair studio with 1200 sq ft, specializing in braids and twists.","e":{"type":"salon","size":"1200 sq ft","products":"braids, twists"}}
+{"s":"A café or bakery in Boston with 20 seats.","e":{"city":"Boston","size":"20 seats"},"q":["type"]}
+{"s":"I'd like to open something with $50k to start and two employees.","e":{"budget":50000,"staff":2},"q":["type"]}
+{"s":"A bakery with 400 sq ft or 24 seats, in Reno.","e":{"type":"bakery","city":"Reno"},"q":["size"]}
+{"s":"A gift shop with either 2–4 staff and a $5 item.","e":{"type":"retail"},"q":["staff","budget"]}
+{"s":"A food truck open 9–5, either affordable or premium.","e":{"type":"truck"},"q":["hours","tier"]}
+{"s":"A salon in Austin or in Dallas with one stylist.","e":{"type":"salon","staff":1},"q":["city"]}
+{"s":"Our roastery will be called Elm & Pine. We're in Raleigh, with four baristas and $60k to open.","e":{"type":"coffee","concept":"Elm & Pine","city":"Raleigh","staff":4,"budget":60000}}
+{"s":"A taco truck, 150 sq ft, cash to open: $28k. Park it downtown in Phoenix.","e":{"type":"truck","size":"150 sq ft","budget":28000,"neighborhood":"downtown","city":"Phoenix"}}
+{"s":"I'm opening a salon. There will be 3 stylists, with a morning-to-evening schedule.","e":{"type":"salon","staff":3},"q":["hours"]}
+{"s":"A neighborhood bakery in Pittsburgh. We'd call it Breadline. We plan to sell baguettes and rye.","e":{"type":"bakery","city":"Pittsburgh","neighborhood":"neighborhood","concept":"Breadline","products":"baguettes, rye"}}
+{"s":"A Seattle boutique with three employees and a 700 sq ft storefront.","e":{"type":"retail","city":"Seattle","staff":3,"size":"700 sq ft"}}
+{"s":"A brewpub in Tulsa, open 11:30–22:30, with a team of five and $100 thousand to open.","e":{"type":"brewery","city":"Tulsa","hours":"11:30–22:30","staff":5,"budget":100000}}
+{"s":"My café, called Daymark, is in Boise. Value-priced espresso is my focus.","e":{"type":"coffee","concept":"Daymark","city":"Boise","tier":"value"}}
+{"s":"I'm looking at Austin for a 35-seat bakery with two bakers. It'll open weekends only.","e":{"type":"bakery","city":"Austin","size":"35 seats","staff":2},"q":["hours"]}
+{"s":"A barbershop in Santa Fe: budget $55,000, two barbers. Hours 09:00–17:00.","e":{"type":"salon","city":"Santa Fe","budget":55000,"staff":2,"hours":"09:00–17:00"}}
+{"s":"A suburban gift store. I have $12,000 for inventory and $48,000 in opening capital.","e":{"type":"retail","neighborhood":"suburban","budget":48000}}
+{"s":"A food cart near campus, 11am to 6pm. Serving buns and dumplings.","e":{"type":"truck","neighborhood":"campus","hours":"11:00–18:00","products":"buns, dumplings"}}
+{"s":"I haven't decided between a microbrewery and a roastery. I'd start in Denver with two staff.","e":{"city":"Denver","staff":2},"q":["type"]}
+{"s":"I'd like a premium espresso bar in St. Louis, 26 seats and two baristas.","e":{"type":"coffee","tier":"premium","city":"St. Louis","size":"26 seats","staff":2}}
+{"s":"A food truck called Sunset Stop in Las Vegas, open 18:00–02:00, serving tamales and lemonade.","e":{"type":"truck","concept":"Sunset Stop","city":"Las Vegas","hours":"18:00–02:00","products":"tamales, lemonade"}}
+{"s":"A bakery for commuters. We can put $32k into opening the doors; probably 2 staff.","e":{"type":"bakery","budget":32000,"staff":2}}
+{"s":"I want to sell locally made pins and totes from a boutique in Madison.","e":{"type":"retail","city":"Madison","products":"locally made pins, totes"}}
+{"s":"A 30-seat suburban brewpub in Fort Collins, startup budget of $76k.","e":{"type":"brewery","size":"30 seats","neighborhood":"suburban","city":"Fort Collins","budget":76000}}
+{"s":"A one-person salon in Austin, offering braids and trims.","e":{"type":"salon","city":"Austin","staff":1,"products":"braids, trims"}}
+{"s":"A gift shop called Birch, downtown in Albany, with two employees and 500 sq ft.","e":{"type":"retail","concept":"Birch","neighborhood":"downtown","city":"Albany","staff":2,"size":"500 sq ft"}}
+{"s":"A coffee bar named June in Boulder, open 06:45 to 13:30 with 4 staff.","e":{"type":"coffee","concept":"June","city":"Boulder","hours":"06:45–13:30","staff":4}}
+{"s":"A 200 sq ft mobile kitchen. I have either $35k or $50k to launch, pending financing.","e":{"type":"truck","size":"200 sq ft"},"q":["budget"]}
+{"s":"Patisserie in Chicago, budget $65k, with candles or cakes as my main offering.","e":{"type":"bakery","city":"Chicago","budget":65000},"q":["products"]}
+{"s":"A barbershop open 24/7 near campus in Tempe, budget-friendly.","e":{"type":"salon","hours":"00:00–00:00","neighborhood":"campus","city":"Tempe","tier":"value"}}
+{"s":"A brewery in Dallas with four employees and a $135,000 opening budget.","e":{"type":"brewery","city":"Dallas","staff":4,"budget":135000}}
+{"s":"Could I open a bakery in Omaha with a team of two, 22 seats, and $53,000 to start?","e":{"type":"bakery","city":"Omaha","staff":2,"size":"22 seats","budget":53000}}
+{"s":"We're planning a premium suburban beauty studio named Lark. Four stylists, 10am–8pm.","e":{"type":"salon","tier":"premium","neighborhood":"suburban","concept":"Lark","staff":4,"hours":"10:00–20:00"}}
+{"s":"A roastery in El Paso offering espresso, cold brew and beans, with two baristas.","e":{"type":"coffee","city":"El Paso","products":"espresso, cold brew, beans","staff":2}}
+{"s":"Downtown food truck: 185 sq ft, $39k to launch. Open 16:00 to midnight.","e":{"type":"truck","neighborhood":"downtown","size":"185 sq ft","budget":39000,"hours":"16:00–00:00"}}
+{"s":"Taproom in Eugene, Oregon. Five staff and $98k opening capital. Serving lager and pretzels.","e":{"type":"brewery","city":"Eugene","staff":5,"budget":98000,"products":"lager, pretzels"}}
+{"s":"I want a gift shop in Austin or in Houston with a 700 sq ft footprint.","e":{"type":"retail","size":"700 sq ft"},"q":["city"]}
+{"s":"A quiet coffee shop near a university district in Flagstaff with 30 seats and 2 employees.","e":{"type":"coffee","city":"Flagstaff","neighborhood":"campus","size":"30 seats","staff":2}}
+{"s":"A beauty salon in Miami serving local clients; I'd offer manicures and pedicures.","e":{"type":"salon","city":"Miami","products":"manicures, pedicures"}}
+{"s":"Boutique in Taos with 1,100 square feet; an opening budget of USD 75,000 and a crew of three.","e":{"type":"retail","city":"Taos","size":"1100 sq ft","budget":75000,"staff":3}}
+{"s":"A bakehouse called Flint selling rye loaves, cookies and hand pies. Value-priced.","e":{"type":"bakery","concept":"Flint","products":"rye loaves, cookies, hand pies","tier":"value"}}
+{"s":"Brewpub in Salem, open 11am–9pm; either three or four positions depending on weekends.","e":{"type":"brewery","city":"Salem","hours":"11:00–21:00"},"q":["staff"]}
+{"s":"One mobile kitchen in Phoenix, $21k for equipment and $48k to open, featuring steamed buns.","e":{"type":"truck","city":"Phoenix","budget":48000,"products":"steamed buns"}}
+{"s":"An Austin bakery selling rye loaves, rolls and pies, value-priced.","e":{"type":"bakery","city":"Austin","products":"rye loaves, rolls, pies","tier":"value"}}
+{"s":"A Seattle coffee roaster offering premium roast and pastries. Pricing: value-priced.","e":{"type":"coffee","city":"Seattle","products":"premium roast, pastries","tier":"value"}}
+{"s":"A Reykjavik salon.","e":{"type":"salon","city":"Reykjavik"},"q":["city"]}
+{"s":"A cafe open 9–2 and 5–10 in Austin.","e":{"type":"coffee","city":"Austin"},"q":["hours"]}
+{"s":"A bakery in Boston, weekdays 7–3, weekends 8–6.","e":{"type":"bakery","city":"Boston"},"q":["hours"]}
+{"s":"A bakery in Austin, open 9am–2pm and 5pm–10pm.","e":{"type":"bakery","city":"Austin","hours":"09:00–14:00, 17:00–22:00"},"q":["hours"]}
+{"s":"A salon in Cork, weekdays 07:00–15:00, weekends 08:00–18:00.","e":{"type":"salon","city":"Cork","hours":"Weekdays 07:00–15:00; Weekends 08:00–18:00"},"q":["hours"]}
+{"s":"A food truck in Bend, 11am–2pm on weekdays and noon–7pm on weekends.","e":{"type":"truck","city":"Bend","hours":"Weekdays 11:00–14:00; Weekends 12:00–19:00"},"q":["hours"]}
+{"s":"A boutique in Reno, weekdays 09:00–12:00 and 14:00–18:00; weekends closed.","e":{"type":"retail","city":"Reno","hours":"Weekdays 09:00–12:00, 14:00–18:00; Weekends closed"},"q":["hours"]}
+{"s":"A brewpub in Denver, weekdays 18:00–01:00; weekends 19:00–02:00.","e":{"type":"brewery","city":"Denver","hours":"Weekdays 18:00–01:00; Weekends 19:00–02:00"},"q":["hours"]}
+{"s":"A Tromsø salon, offering cuts and color.","e":{"type":"salon","city":"Tromsø","products":"cuts, color"},"q":["city"]}
+{"s":"A San Sebastián food truck with two cooks.","e":{"type":"truck","city":"San Sebastián","staff":2},"q":["city"]}
+{"s":"A cafe in Tacoma open 09:00–14:00 and 13:00–18:00.","e":{"type":"coffee","city":"Tacoma"},"q":["hours"]}
+{"s":"A gift shop in Salem, weekdays closed; weekends 10am–4pm.","e":{"type":"retail","city":"Salem","hours":"Weekdays closed; Weekends 10:00–16:00"},"q":["hours"]}
+{"s":"An Akureyri bakery, weekdays 06:00–10:00 and 14:00–17:00; weekends 08:00–12:00 and 15:00–18:00.","e":{"type":"bakery","city":"Akureyri","hours":"Weekdays 06:00–10:00, 14:00–17:00; Weekends 08:00–12:00, 15:00–18:00"},"q":["city","hours"]}
+{"s":"A cafe in Boston open 06:00–08:00, 11:00–13:00 and 17:00–20:00.","e":{"type":"coffee","city":"Boston"},"q":["hours"]}
+{"s":"A Reykjavik salon in Miami with two employees.","e":{"type":"salon","city":"Miami","staff":2}}
+{"s":"A bakery in Austin open Mon–Fri 07:00–14:00; Sat–Sun 08:00–15:30.","e":{"type":"bakery","city":"Austin","hours":"Weekdays 07:00–14:00; Weekends 08:00–15:30"},"q":["hours"]}

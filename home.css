@@ -1,0 +1,32 @@
+/* Keep native anchor, focus and find-in-page navigation available as sections enter view. */
+.home-progress { width: 100%; transform-origin: left; }
+@media screen and (max-width: 760px) {
+  /* The menu button precedes the navigation and is revealed by its handler.
+     Without scripting, the original list stays visible and operable. */
+  .menu-button:not([hidden]) + nav { display: none; }
+  .menu-button:not([hidden]) + nav.open {
+    display: flex; flex-direction: column; align-items: stretch; padding-top: 10px;
+  }
+  .menu-button:not([hidden]) + nav a { border-top: 1px solid var(--line); padding: 12px 4px; }
+  main > section ~ section {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto var(--home-section-height, 700px);
+  }
+  main > .glance { --home-section-height: 700px; }
+  #universe { --home-section-height: 1810px; }
+  #perspective { --home-section-height: 396px; }
+  #selected { --home-section-height: 3449px; }
+  #nasha-ai-lab { --home-section-height: 1740px; }
+  #evidence { --home-section-height: 1380px; }
+  #business-lab { --home-section-height: 1512px; }
+  #experience { --home-section-height: 795px; }
+  .contact-section { --home-section-height: 510px; }
+}
+/* The homepage needs only these two progressive effects. CSS can select them
+   before first paint without invalidating the document from a deferred script. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .eco-line { animation: eco-flow 6s linear infinite; }
+}
+@media screen and (min-width: 761px) and (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  body { animation: page-in .5s ease both; }
+}
