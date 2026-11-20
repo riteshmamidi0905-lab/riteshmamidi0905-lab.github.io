@@ -1,7 +1,6 @@
 // The homepage already ships its default ecosystem selection and all links as HTML.
 (() => {
   'use strict';
-  document.documentElement.classList.add('js');
   const menu = document.querySelector('.menu-button');
   const navigation = document.getElementById('navigation');
   function setMenu(open) {

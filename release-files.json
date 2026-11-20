@@ -841,13 +841,13 @@
   },
   {
     "path": "home.css",
-    "bytes": 773,
-    "sha256": "e519fa1c257d23dc0ea8e2cae56b26bb9d91625151bb38e482b166dff5b9796e"
+    "bytes": 1220,
+    "sha256": "3d249beaa2e7bc559809657fe114140dab265df1954e83c98439d1a0dc69aef7"
   },
   {
     "path": "home.js",
-    "bytes": 2383,
-    "sha256": "f30ef7c32762ae98ce53d3533ecd083a21d9b5d07ba62262436a50d964702804"
+    "bytes": 2335,
+    "sha256": "39a71790d9c3f23bef07e1cb88784cef56652465e9d19c92b490388c657d75cc"
   },
   {
     "path": "pavilion/station-context.js",
