@@ -1,3 +1,4 @@
+import {campaignRun} from './builder-market.js';
 import {operatingLedger,totals} from './builder-ledger.js';
 export function summarizeBuilder(b,base,days,extra={}){
  const total=totals(days),records={...base.records,...extra},weeks=[];
@@ -14,6 +15,18 @@ export function summarizeBuilder(b,base,days,extra={}){
    basis:venue?'Illustrative 25% repeat attendance. No customer tracking or lost-return model between events.':'Planning mix uses the service policy’s new-guest share. Lost returns derive from daily demand records.',sources:venue?weeks.map(w=>w.id):['TERMS',...days.flatMap(d=>d.ids.slice(-1))]};
  return {days,total,weeks,records,idea:base.idea};
 }
-export function calculate(b){
- const base=operatingLedger(b);return summarizeBuilder(b,base,base.days);
+export function calculate(b,mode='normal'){
+ const baseline=operatingLedger(b),run=campaignRun(b,baseline,mode);
+ const result=summarizeBuilder(b,run.operated,run.days,run.extra);
+ return {...result,events:run.events,attribution:run.a,baseline:baseline.records,mode};
+}
+export function sourceFor(result,id){
+ if(!id.startsWith('BASE/'))return Object.hasOwn(result.records,id)?result.records[id]:null;
+ const record=result.baseline[id.slice(5)];if(!record)return null;
+ function prefix(value){
+   if(typeof value==='string'&&Object.hasOwn(result.baseline,value))return 'BASE/'+value;
+   if(Array.isArray(value))return value.map(prefix);
+   return value;
+ }
+ return Object.fromEntries(Object.entries(record).map(([key,v])=>[key,prefix(v)]));
 }

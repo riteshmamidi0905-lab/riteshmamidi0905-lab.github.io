@@ -90,7 +90,7 @@ export function aislePath(a,b){
   return [s,[s[0],A.v+8.8],[A.u+8.8,A.v+8.8],[A.u+8.8,B.v+8.8],[e[0],B.v+8.8],e];
 }
 export function roomView(name){const r=rooms[name],[x,y]=point(r.u+4,r.v+4);return [x-126,y-88,252,160].join(' ');}
-export function floorSvg(registry,model) {
+export function floorSvg(registry,model,architectureOnly=false) {
   const sorted=[], objects=[], actors=[], instruments=[], edge='#b09f83';
   let ground=box(-1,-1,-1.4,46,35,1.4,stone);
   for(let i=-1;i<=45;i+=2)ground+=line([i,-1,0],[i,34,0],'#c6b99d',.65);
@@ -123,5 +123,6 @@ export function floorSvg(registry,model) {
   const architecture='<svg class="architecture-plane" viewBox="'+overviewBox+'" aria-hidden="true"><defs><linearGradient id="cast-fade"><stop stop-color="#302c30" stop-opacity=".92"/><stop offset=".58" stop-color="#504651" stop-opacity=".56"/><stop offset="1" stop-color="#655a63" stop-opacity="0"/></linearGradient><clipPath id="portrait-cut"><circle cy="-22" r="20"/></clipPath><radialGradient id="warm-lamp"><stop stop-color="#fff1a8" stop-opacity=".92"/><stop offset="1" stop-color="#f4bd60" stop-opacity="0"/></radialGradient><linearGradient id="copper"><stop stop-color="#815b46"/><stop offset=".27" stop-color="#ac7959"/><stop offset=".51" stop-color="#c49973"/><stop offset=".77" stop-color="#9a6950"/><stop offset="1" stop-color="#825a46"/></linearGradient><linearGradient id="window" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="var(--sky-top,#bed2c6)"/><stop offset=".64" stop-color="var(--sky-mid,#e0ddc7)"/><stop offset="1" stop-color="var(--sky-low,#adbdad)"/></linearGradient></defs><g id="floor-plate">'+ground+'</g><g>'+objects.map(o=>o.svg).join('')+'</g></svg>';
   // The architecture is a retained paint surface. Only the instruments and map
   // symbols above it change as the source clock advances.
+  if(architectureOnly)return architecture;
   return architecture+'<div id="floor" role="group" aria-label="Isometric cutaway of twelve specialist studios"><svg class="instrument-plane" viewBox="'+overviewBox+'"><g>'+instruments.join('')+'</g><g id="depth-list">'+actors.join('')+'</g></svg><div class="sprite-plane"><div id="packet-layer" aria-hidden="true"></div></div><svg class="label-plane" aria-hidden="true" viewBox="'+overviewBox+'"><g class="tags">'+sorted.join('')+'</g></svg></div>';
 }
