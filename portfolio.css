@@ -94,3 +94,8 @@ footer.portfolio-foot{background:var(--forest);color:var(--ivory);min-height:120
 .folio.editorial .agent small{color:var(--muted)}
 
 .folio.editorial .proj code{color:var(--forest);background:var(--paper)}
+
+@media (max-width:800px) and (scripting:enabled){
+  header.portfolio-head{min-height:75px}
+  .portfolio-head nav#navigation:not(.open){display:none}
+}

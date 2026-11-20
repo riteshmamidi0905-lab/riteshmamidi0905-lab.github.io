@@ -55,7 +55,10 @@ assert pages['projects.html'].projects==28
 assert (root/'index.html').read_text().count('class="entry-paths"') == 1
 assert (root/'projects.html').read_text().count('class="proof-card"') == 4
 assert len(pages['skills.html'].ids & {'skill-'+str(i) for i in range(1,11)}) == 10
-assert all('/' not in page or page in expected for page in pages)
+for page in pages:
+ text=(root/page).read_text()
+ if 'http-equiv="refresh"' not in text:
+  assert text.count('id="navigation"')==1 and text.count('class="portfolio-foot"')==1, ('shared navigation or footer',page)
 for retired,current in {'nasha-universe/index.html':'../pavilion/index.html','demo/index.html':'../pavilion/ops.html','nasha-universe/living-hq/index.html':'../../pavilion/hq.html','nasha-lab.html':'pavilion/index.html','lab-explorer.html':'case-nasha-ai-lab-architecture.html','verified-projects.html':'projects.html'}.items():
  text=(root/retired).read_text()
  assert 'content="0; url='+current+'"' in text and 'location.replace('+json.dumps(current)+')' in text and current in pages[retired].refs,retired
@@ -99,6 +102,10 @@ for p in demo_files:
  s=(root/p).read_text()
  code=re.sub(r'/\*.*?\*/','',s,flags=re.S)
  code=re.sub(r'<link rel="canonical"[^>]*>','',code)
+ if p=='demo/archive.html':
+  for link in ('<a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a>', '<a href="https://github.com/riteshmamidi0905-lab">GitHub</a>'):
+   assert code.count(link)==1, 'archive footer link changed'
+   code=code.replace(link,'',1)
  assert not re.search(r'\bfetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|EventSource|importScripts|<form[^>]*action=|https?://',code),'network or tracking construct in '+p
  if p!='demo/app.js':assert 'localStorage' not in code,'storage outside app.js: '+p
 assert 'DEMO ENVIRONMENT' in (root/'demo/archive.html').read_text() and 'SYNTHETIC DATA' in (root/'demo/archive.html').read_text()

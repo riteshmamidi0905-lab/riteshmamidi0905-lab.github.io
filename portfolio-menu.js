@@ -20,4 +20,3 @@
     if (event.key === 'Escape' && button) { toggle(button, false); button.focus(); }
   });
 })();
-

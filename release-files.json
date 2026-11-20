@@ -266,8 +266,8 @@
   },
   {
     "path": "demo/archive.html",
-    "bytes": 4700,
-    "sha256": "81bac1328dd3d53ba19f09b9a617b6a846ae652cfca3db1d6a6a737a58e5b02e"
+    "bytes": 5870,
+    "sha256": "d90ecb6b3b0878da6cc77a1b46f8a214e5490740412b1c7eb038bd5a2fc81a1e"
   },
   {
     "path": "demo/data.js",
@@ -351,8 +351,8 @@
   },
   {
     "path": "nasha-universe/living-hq/archive.html",
-    "bytes": 3078,
-    "sha256": "023243885e47e8a643ecc39acb05417127f974466133f6d26ddf985402da9937"
+    "bytes": 4335,
+    "sha256": "7d88da416cbac6098552b1451199cb5fe57089a5a694bd0e8c7ae1ca8afea936"
   },
   {
     "path": "nasha-universe/living-hq/hq-app.js",
@@ -771,8 +771,8 @@
   },
   {
     "path": "pavilion/ops.html",
-    "bytes": 15859,
-    "sha256": "47b97866ba06117c5236880aebac33189115377d566252e2fadc5e3ab987a959"
+    "bytes": 15960,
+    "sha256": "6ac4a5362ceb66edda4de81528627b8e95283b2d1a3719aba4d2f1628da1cc5f"
   },
   {
     "path": "pavilion/ops.js",
@@ -856,13 +856,13 @@
   },
   {
     "path": "portfolio-menu.js",
-    "bytes": 950,
-    "sha256": "e28e0ca890904e2ff87d494682da71880187311f0e80425918f4ad12987ec4ee"
+    "bytes": 949,
+    "sha256": "c091330aa4b35925b45fd99a94edb281671b14df67882478ff608de0003bb8dd"
   },
   {
     "path": "portfolio.css",
-    "bytes": 10213,
-    "sha256": "7c24cf3964e8537d2fc810a376b28c3e0564cfb1fc5f99e6da98148399b3ec98"
+    "bytes": 10365,
+    "sha256": "4f8bdb7e0058b81f990deafc4b01f3ac6c4aba88b3654f1fd77635fef0ef942f"
   },
   {
     "path": "projects.html",
