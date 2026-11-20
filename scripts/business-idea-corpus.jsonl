@@ -102,3 +102,19 @@
 {"s":"One mobile kitchen in Phoenix, $21k for equipment and $48k to open, featuring steamed buns.","e":{"type":"truck","city":"Phoenix","budget":48000,"products":"steamed buns"}}
 {"s":"An Austin bakery selling rye loaves, rolls and pies, value-priced.","e":{"type":"bakery","city":"Austin","products":"rye loaves, rolls, pies","tier":"value"}}
 {"s":"A Seattle coffee roaster offering premium roast and pastries. Pricing: value-priced.","e":{"type":"coffee","city":"Seattle","products":"premium roast, pastries","tier":"value"}}
+{"s":"A Reykjavik salon.","e":{"type":"salon","city":"Reykjavik"},"q":["city"]}
+{"s":"A cafe open 9–2 and 5–10 in Austin.","e":{"type":"coffee","city":"Austin"},"q":["hours"]}
+{"s":"A bakery in Boston, weekdays 7–3, weekends 8–6.","e":{"type":"bakery","city":"Boston"},"q":["hours"]}
+{"s":"A bakery in Austin, open 9am–2pm and 5pm–10pm.","e":{"type":"bakery","city":"Austin","hours":"09:00–14:00, 17:00–22:00"},"q":["hours"]}
+{"s":"A salon in Cork, weekdays 07:00–15:00, weekends 08:00–18:00.","e":{"type":"salon","city":"Cork","hours":"Weekdays 07:00–15:00; Weekends 08:00–18:00"},"q":["hours"]}
+{"s":"A food truck in Bend, 11am–2pm on weekdays and noon–7pm on weekends.","e":{"type":"truck","city":"Bend","hours":"Weekdays 11:00–14:00; Weekends 12:00–19:00"},"q":["hours"]}
+{"s":"A boutique in Reno, weekdays 09:00–12:00 and 14:00–18:00; weekends closed.","e":{"type":"retail","city":"Reno","hours":"Weekdays 09:00–12:00, 14:00–18:00; Weekends closed"},"q":["hours"]}
+{"s":"A brewpub in Denver, weekdays 18:00–01:00; weekends 19:00–02:00.","e":{"type":"brewery","city":"Denver","hours":"Weekdays 18:00–01:00; Weekends 19:00–02:00"},"q":["hours"]}
+{"s":"A Tromsø salon, offering cuts and color.","e":{"type":"salon","city":"Tromsø","products":"cuts, color"},"q":["city"]}
+{"s":"A San Sebastián food truck with two cooks.","e":{"type":"truck","city":"San Sebastián","staff":2},"q":["city"]}
+{"s":"A cafe in Tacoma open 09:00–14:00 and 13:00–18:00.","e":{"type":"coffee","city":"Tacoma"},"q":["hours"]}
+{"s":"A gift shop in Salem, weekdays closed; weekends 10am–4pm.","e":{"type":"retail","city":"Salem","hours":"Weekdays closed; Weekends 10:00–16:00"},"q":["hours"]}
+{"s":"An Akureyri bakery, weekdays 06:00–10:00 and 14:00–17:00; weekends 08:00–12:00 and 15:00–18:00.","e":{"type":"bakery","city":"Akureyri","hours":"Weekdays 06:00–10:00, 14:00–17:00; Weekends 08:00–12:00, 15:00–18:00"},"q":["city","hours"]}
+{"s":"A cafe in Boston open 06:00–08:00, 11:00–13:00 and 17:00–20:00.","e":{"type":"coffee","city":"Boston"},"q":["hours"]}
+{"s":"A Reykjavik salon in Miami with two employees.","e":{"type":"salon","city":"Miami","staff":2}}
+{"s":"A bakery in Austin open Mon–Fri 07:00–14:00; Sat–Sun 08:00–15:30.","e":{"type":"bakery","city":"Austin","hours":"Weekdays 07:00–14:00; Weekends 08:00–15:30"},"q":["hours"]}

@@ -104,3 +104,38 @@ test('workstation captions and idle bays follow source owners across all six for
     assert.equal(JSON.stringify(m.events),signature);
   }
 });
+test('schedule confirmation preserves split shifts, scoped day groups and overnight ownership',async()=>{
+ const {readSchedule,hoursInPitch}=await import('../pavilion/idea-hours.js');
+ const value='Weekdays 09:00–14:00, 17:00–22:00; Weekends 08:00–18:00';
+ const plan=readSchedule(value);assert.equal(plan.label,value);
+ assert.equal(plan.week[0].minutes,600);assert.deepEqual(plan.week[0].intervals,['09:00–14:00','17:00–22:00']);
+ assert.deepEqual(plan.week[6].intervals,['08:00–18:00']);
+ assert.equal(readSchedule('16:00 to midnight').week[0].minutes,480);
+ assert.equal(readSchedule('Weekdays closed; Weekends 20:00–02:00').week[6].minutes,360);
+ for(const s of ['9–2 and 5–10','weekdays 7–3, weekends 8–6','08:00–12:00 and 11:00–13:00','Weekdays 22:00–08:00; Weekends 06:00–12:00','Weekdays 05:00–08:00; Weekends 21:00–06:00','Weekdays closed; Weekends closed','06:00–10:00, 11:00–12:00, 17:00–21:00','08:00–12:00 and 15:00–'])assert.equal(readSchedule(s),null,s);
+ for(const s of ['09:00–14:00, 17:00–','Mondays 09:00–12:00','09:00–12:00 on Sundays']){
+  const hint=hoursInPitch(s);assert.ok(hint.ask,s);assert.equal(hint.value,undefined,s);
+ }
+ assert.equal(hoursInPitch('09:00–14:00 and 4 staff').value,'09:00–14:00');
+ const guess=parseIdea('A Reykjavik salon, weekdays 7–3, weekends 8–6');
+ assert.equal(guess.values.city,'Reykjavik');assert.ok(guess.questions.city);assert.ok(guess.questions.hours);
+});
+test('confirmed hours drive paid time, capacity, demand and reconciled closes in the model',()=>{
+ const hours='Weekdays 09:00–11:30, 13:00–16:00; Weekends closed';
+ const idea={...defaults('salon'),hours};
+ const model=runIdea(idea),records=Object.values(model.records);
+ assert.equal(model.records.TERMS.openingHours,hours);
+ assert.deepEqual(model.records.TERMS.serviceDays.map(d=>d.minutes),[330,330,330,330,330,0,0]);
+ assert.equal(model.days.length,29);assert.equal(model.weeks.length,4);
+ assert.ok(model.days.every(id=>model.records[id].trialBalanceCents===0&&model.records[id].inventoryValueCents===model.records[id].accounts.stock));
+ for(let day=1;day<=28;day++){
+  const closed=(day-1)%7>=5;
+  const sheets=records.filter(r=>r.kind==='Staff timesheet'&&r.day===day);assert.equal(sheets.length,idea.staff);
+  for(const sheet of sheets){assert.equal(sheet.minutes,closed?0:330);assert.deepEqual(sheet.tradingIntervals,closed?[]:['09:00–11:30','13:00–16:00']);assert.equal(sheet.wagesCents,closed?0:15125);}
+  const event=model.events.find(e=>e.day===day&&e.action==='Check fulfillment against plan');
+  const served=model.records[event.outputs[0]];if(closed){assert.equal(served.mealsServed,0);assert.equal(served.walkouts,0);}
+  else assert.ok(served.mealsServed>0);
+ }
+ const repeat=runIdea(idea);assert.deepEqual(repeat.weeks.map(id=>repeat.records[id]),model.weeks.map(id=>model.records[id]));
+});
+

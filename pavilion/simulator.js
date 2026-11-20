@@ -1,5 +1,6 @@
+import {readSchedule,hoursHelp} from './idea-hours.js';
 import {defaults,districts,fields,profiles,scenarios,tiers,validateIdea} from './idea-profiles.js';
-import {examples,normalizeHours,parseIdea} from './idea-parser.js';
+import {examples,parseIdea} from './idea-parser.js';
 import {assess,runIdea,stressComparison,summarize} from './idea-analysis.js';
 import {recallIdea,rememberIdea,replayLink} from './idea-replay.js';
 import {assumptionDetails,calibrationTables,baselineText,chart,dollars,ledgerRows,num,reportView,sourceLink,table} from './idea-report.js';
@@ -28,17 +29,18 @@ function entry(focus=true){
 }
 const options={type:Object.fromEntries(Object.entries(profiles).map(([k,p])=>[k,p.label])),tier:Object.fromEntries(Object.keys(tiers).map(k=>[k,k])),neighborhood:Object.fromEntries(Object.keys(districts).map(k=>[k,k]))};
 function field(k){
- const v=draft.values[k],question=draft.questions[k];
- const attrs=`id="f-${k}" data-field="${k}" required aria-describedby="src-${k}${question?' q-'+k:''}"`;
+ const question=draft.questions[k],unresolvedHours=k==='hours' && question && draft.status[k]==='defaulted';
+ const v=unresolvedHours?'':draft.values[k];
+ const attrs=`id="f-${k}" data-field="${k}" required aria-describedby="src-${k}${k==='hours'?' hours-help':''}${question?' q-'+k:''}"`;
  const input=Object.hasOwn(options,k)?`<select ${attrs}>${k==='type'?'<option value="">Choose a format</option>':''}${Object.entries(options[k]).map(([value,label])=>`<option value="${value}" ${value===v?'selected':''}>${esc(label)}</option>`).join('')}</select>`:
  `<input ${attrs} value="${esc(v)}" ${k==='staff'?'type="number" min="1" max="12" step="1"':k==='budget'?'type="number" min="500" max="1000000" step="1"':'type="text"'}>`;
  return `<div class="field"><label for="f-${k}">${esc(fields[k])}<span aria-hidden="true" id="badge-${k}" class="origin">${draft.status[k]}</span></label>
- <span id="src-${k}" class="sr-only">Source: ${draft.status[k]}</span>${input}${question?`<p class="question" id="q-${k}">${esc(question)} ${v===''?'':'<button class="quiet keep" type="button" data-keep="'+k+'">Use displayed value</button>'}</p>`:''}</div>`;
+ <span id="src-${k}" class="sr-only">Source: ${draft.status[k]}</span>${input}${k==='hours'?'<small id="hours-help">'+esc(hoursHelp)+'</small>':''}${question?`<p class="question" id="q-${k}">${esc(question)} ${v===''?'':'<button class="quiet keep" type="button" data-keep="'+k+'">'+(k==='hours'?'Confirm these hours':k==='city'?'Confirm this city':'Use displayed value')+'</button>'}</p>`:''}</div>`;
 }
 function confirmIdea(focus=true){
  stage(1,`<p class="kicker">Confirm your assumptions</p><h1>Here’s what I understood</h1><p class="lead">Edit any field. Parsed values came from your sentence. Defaults are synthetic planning inputs.</p><form id="confirm"><div class="form-grid">${Object.keys(fields).map(field).join('')}</div>
  <p role="alert" class="error" tabindex="-1"></p><div class="actions"><button>Simulate four weeks →</button>${buttons('Edit description','edit-pitch',true)}</div></form>`,focus);
- const mark=k=>{draft.status[k]='user-set';delete draft.questions[k];document.querySelector('#badge-'+k).textContent='user-set';document.querySelector('#src-'+k).textContent='Source: user-set';document.querySelector('#q-'+k)?.remove();document.querySelector('#f-'+k).setAttribute('aria-describedby','src-'+k);};
+ const mark=k=>{draft.status[k]='user-set';delete draft.questions[k];document.querySelector('#badge-'+k).textContent='user-set';document.querySelector('#src-'+k).textContent='Source: user-set';document.querySelector('#q-'+k)?.remove();document.querySelector('#f-'+k).setAttribute('aria-describedby','src-'+k+(k==='hours'?' hours-help':''));};
  for(const input of root.querySelectorAll('[data-field]')){
    const k=input.dataset.field;
    input.addEventListener(input.tagName==='SELECT'?'change':'input',()=>{
@@ -55,7 +57,7 @@ function confirmIdea(focus=true){
  document.querySelector('#confirm').onsubmit=async e=>{e.preventDefault();
    try{
      const unresolved=Object.keys(draft.questions);if(unresolved.length){document.querySelector('#f-'+unresolved[0]).focus();throw Error('Answer or confirm the highlighted question for '+fields[unresolved[0]]+'.');}
-     draft.values.hours=normalizeHours(draft.values.hours)||draft.values.hours;
+     draft.values.hours=readSchedule(draft.values.hours)?.label||draft.values.hours;
      draft.values.size=draft.values.size.trim().toLowerCase().replace(/square feet|sqft/,'sq ft');
      validateIdea(draft.values);id=rememberIdea(draft.values);sessionStorage.setItem('pavilion-origins-'+id,JSON.stringify(draft.status));
      const submit=e.submitter;submit.disabled=true;submit.textContent='Running the four-week ledger…';message.textContent=submit.textContent;

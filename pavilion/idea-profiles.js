@@ -1,3 +1,5 @@
+import {readSchedule} from './idea-hours.js';
+
 // Fictional planning inputs, in USD cents. These are scenario assumptions, never market estimates.
 const make = (label, unit, size, seats, staff, budget, hours, prices, costs, mix, visits, capacity, wage, rent, products) =>
   ({label,unit,size,seats,staff,budget,hours,prices,costs,mix,visits,capacity,wage,rent,products});
@@ -46,11 +48,8 @@ export function defaults(type){
   return {calibration,type:type||'',concept:type?p.label:'',city:'Unspecified',neighborhood:'neighborhood',size:p.size,tier:'standard',hours:p.hours,staff:p.staff,budget:p.budget,products:p.products.join(', ')};
 }
 export function hoursLong(value){
-  const parts=/^(\d\d):(\d\d)–(\d\d):(\d\d)$/.exec(value);
-  if(!parts)return 0;
-  const [h,m,j,n]=parts.slice(1).map(Number);
-  if(h>23||j>23||m>59||n>59)return 0;
-  return ((60*j+n-60*h-m+1440)%1440||1440)/60;
+  const plan=readSchedule(value);
+  return plan?plan.week.reduce((n,d)=>n+d.minutes,0)/420:0;
 }
 export function validateIdea(idea){
   if(!Object.hasOwn(profiles,idea.type))throw Error('Choose a business type.');
@@ -60,7 +59,7 @@ export function validateIdea(idea){
   if(!Object.hasOwn(districts,idea.neighborhood)||!Object.hasOwn(tiers,idea.tier))throw Error('Choose a listed neighborhood and price tier.');
   const size=/^([1-9]\d{0,4}) (seats|sq ft)$/.exec(idea.size);
   if(!size||Number(size[1])>(size[2]==='seats'?400:20000))throw Error('Enter 1–400 seats or 1–20,000 sq ft.');
-  if(!hoursLong(idea.hours))throw Error('Use a daily interval such as 09:00–17:00.');
+  if(!readSchedule(idea.hours))throw Error('Check opening hours. Use up to two non-overlapping intervals per day with AM/PM or 24-hour times. For different days, enter both Weekdays and Weekends.');
   if(!Number.isInteger(idea.staff)||idea.staff<1||idea.staff>12)throw Error('Choose 1–12 staff positions.');
   if(!Number.isInteger(idea.budget)||idea.budget<500||idea.budget>1000000)throw Error('Enter an opening budget from $500 to $1,000,000.');
   const names=idea.products.split(',').map(x=>x.trim());
@@ -71,14 +70,17 @@ export function operatingProfile(idea, selected=[], positions=idea.staff){
   validateIdea(idea);
   const p=(idea.calibration===calibration?profiles:cycle10Profiles)[idea.type], size=Number.parseInt(idea.size),unit=idea.size.endsWith('seats')?'seats':'sq ft';
   const typical=unit==='seats'?p.seats:(p.size.endsWith('sq ft')?parseInt(p.size):p.seats*25);
-  const footprint=size/typical, hours=hoursLong(idea.hours);
-  const traffic=districts[idea.neighborhood]*Math.sqrt(footprint)*Math.sqrt(hours/hoursLong(p.hours));
+  const footprint=size/typical, plan=readSchedule(idea.hours), usualHours=hoursLong(p.hours);
+  const locationScale=districts[idea.neighborhood]*Math.sqrt(footprint);
+  const serviceDays=plan.week.map(day=>({...day,capacity:day.minutes?Math.max(1,Math.round(p.capacity*day.minutes/(60*usualHours))):0}));
+  const hours=hoursLong(idea.hours);
   const byDay=Array.from({length:28},(_,i)=>(selected.includes('slow')?.75:1)*(selected.includes('war')?.91:1)*(selected.includes('viral')&&i>=7&&i<14?1.6:1));
   const supplied=idea.products.split(',').map(x=>x.trim());
   const names=[...new Set([...supplied,...p.products])].slice(0,3);
   return {unit:p.unit,positions:Math.max(0,positions-(selected.includes('shortage')?1:0)),hours,
     names:[names[1],names[2],names[0]],prices:p.prices.map(x=>Math.round(x*tiers[idea.tier])),costs:p.costs,
-    mix:p.mix,weekday:p.visits.map(x=>Math.max(1,Math.round(x*traffic))),byDay,capacity:Math.max(1,Math.round(p.capacity*hours/hoursLong(p.hours))),
+    mix:p.mix,weekday:p.visits.map((x,i)=>serviceDays[i].minutes?Math.max(1,Math.round(x*(locationScale*Math.sqrt(serviceDays[i].minutes/(60*usualHours))))):0),
+    byDay,capacity:Math.max(1,Math.round(p.capacity*hours/usualHours)),...(plan.complex?{serviceDays}:{}),
     dailyRent:Math.round(p.rent*Math.max(.25,footprint)*(selected.includes('rent')?1.2:1)),wage:p.wage,
     materials:p.materials,utilities:(p.baseUtility?Math.round(p.baseUtility*(.7+.3*Math.sqrt(footprint))):Math.round(2100+900*Math.sqrt(footprint))),leadDays:selected.includes('delay')?3:0};
 }

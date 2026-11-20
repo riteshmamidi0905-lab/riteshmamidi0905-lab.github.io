@@ -1,4 +1,5 @@
-import {defaults, fields, profiles, hoursLong} from './idea-profiles.js';
+import {hoursInPitch} from './idea-hours.js';
+import {defaults, fields, profiles} from './idea-profiles.js';
 
 const types={
   brewery:/\b(brewpub|microbrewery|brewery|taproom)\b/i,coffee:/\b(caf[eé]|coffee(?:house| shop| roaster| bar)|espresso bar|roastery)(?![\p{L}\d_])/iu,
@@ -25,19 +26,7 @@ export const examples=[
   'An industrial microbrewery in Milwaukee with an opening budget of $120,000 and five staff.',
   'A mid-range gift shop in Boise, 900 square feet, open 10:00–18:00 with two employees.'
 ];
-export function normalizeHours(text){
-  text=text.replace(/\bnoon\b/gi,'12:00').replace(/\bmidnight\b/gi,'00:00');
-  const time='(\\d{1,2}(?::\\d{2})?)\\s*([ap]\\.?m\\.?)?';
-  const match=new RegExp('\\b'+time+'\\s*(?:[-–—]|\\bto\\b|\\buntil\\b)\\s*'+time+'(?!\\w)','i').exec(text);
-  if(!match)return null;
-  function minutes(raw,ap){let [h,m='00']=raw.split(':').map(Number);
-    if(ap){if(h<1||h>12)return null;h=h%12+(/^p/i.test(ap)?12:0);}
-    if(h>23||Number(m)>59)return null;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');}
-  if(!match[2]&&!match[4]&&!match[1].includes(':')&&!match[3].includes(':'))return null;
-  if(!match[2]&&match[4]&&!match[1].includes(':'))return null;
-  const a=minutes(match[1],match[2]),b=minutes(match[3],match[4]);
-  return a&&b&&hoursLong(a+'–'+b)?a+'–'+b:null;
-}
+export function normalizeHours(text){return hoursInPitch(text).value||null;}
 export function parseIdea(input){
   const text=input.trim().normalize('NFKC');
   if(!text||text.length>1000)throw Error('Describe your idea in 1–1,000 characters.');
@@ -64,6 +53,16 @@ export function parseIdea(input){
     const found=proposed||placeBeforeFormat;
     if(found)cities.push(found[1]);
   }
+  let possibleCity;
+  if(!cities.length && candidates.length===1){
+    const format=types[candidates[0]].exec(primary);
+    const prefix=primary.slice(0,format.index).trim().replace(/^(?:an?|our|my)\s+/i,'').trim();
+    // An unfamiliar modifier may be a place or a brand. Preserve it as a
+    // proposal and ask the visitor, instead of assuming a city from a gazetteer.
+    const name=prefix.replace(/\s+(?:hair|beauty|neighborhood|neighbourhood|downtown|suburban)$/i,'');
+    const descriptor=/\b(?:small|new|tiny|independent|neighbou?rhood|downtown|campus|suburban|industrial|premium|luxury|standard|affordable|budget|value|mid|corner|family|local|beauty|hair|mobile|seasonal|our|my|an?|the)\b/i;
+    if(/^[\p{L}][\p{L}'’-]*(?:\s+[\p{Lu}][\p{L}'’-]*){0,2}$/u.test(name) && !numbers.includes(name.toLowerCase()) && !descriptor.test(name) && !Object.values(prices).some(pattern=>pattern.test(name)))possibleCity=title(name);
+  }
   if(cities.length===1&&!/\bin [^,;.]+?\bor (?:in )?[A-Z][a-z]/.test(primary))put('city',title(cities[0]).replaceAll('·','.'));else if(cities.length)ask('city','Which city should this scenario use?');
   // A stand-alone price after a list is a plan condition. Phrases such as
   // "premium roast" inside the list remain product names.
@@ -83,9 +82,9 @@ export function parseIdea(input){
   const staff=[...numbered.matchAll(/\b(\d+)[ -]*(?:part[- ]time |full[- ]time )?(?:staff(?:ers)?|employees?|workers?|people|person|stylists?|baristas?|bakers?|cooks?|barbers?|assistants?|positions?)\b|\b(?:team|crew|staff) of (\d+)\b/gi)];
   if(staff.length===1&&!/\d\s*(?:[-–]|or|to)\s*\d+\s*(?:staff|employees|workers|positions|baristas|stylists)/i.test(numbered))put('staff',Number(staff[0][1]||staff[0][2]));
   else if(staff.length>0)ask('staff','How many people work one shift, including the owner?');
-  const hours=/\b24\/7\b/.test(text)?'00:00–00:00':normalizeHours(text);
-  if(hours)put('hours',hours);
-  if((!hours&&/morning[- ]to[- ]evening|evenings? only|mornings? only|late nights?/i.test(text))||(!hours&&/\b(?:open|hours)\s+(?:from\s+)?\d/i.test(text))||/\b(?:weekends only|weekdays only|closed on|weekend hours|mon(?:day)?[-–]fri(?:day)?)\b/i.test(text))ask('hours','What representative daily interval should we model across seven days?');
+  const schedule=hoursInPitch(text);
+  if(schedule.value)put('hours',schedule.value);
+  if(schedule.ask)ask('hours',schedule.value?'Are these the complete trading intervals for each day?':'Which hours should we use? Include AM/PM or 24-hour times for each interval and specify both groups when weekdays and weekends differ.');
   const amounts=[...text.matchAll(/(?:\$|\bUSD\s*)\s*(\d[\d,]*(?:\.\d+)?)\s*(k\b|thousand\b|million\b|m\b)?|\b(\d[\d,]*(?:\.\d+)?)\s*(k\b|thousand\b|million\b)?\s*(?:USD|dollars)\b/gi)];
   const candidatesMoney=amounts.filter(m=>{const before=text.slice(Math.max(0,m.index-40),m.index).split(/[,;.]/).at(-1);const after=text.slice(m.index+m[0].length,m.index+m[0].length+28);return /(?:budget|capital|starting with|invest|funds|available|funding|cash to open)(?:\s+(?:of|is|about))?\s*:?\s*$/i.test(before)||/^\s*(?:opening |startup |start-up )?(?:budget|capital|to (?:open|start|launch)|into opening|in (?:opening |working )?(?:funds|capital)|available)/i.test(after);});
   const budgetRange=/\$[\d,.]+\s*k?\s*(?:[-–]|to|or)\s*\$?[\d,.]+/i.test(text);
@@ -114,5 +113,10 @@ export function parseIdea(input){
     if(n<1||n>limit)ask('size','Choose a footprint within the supported range (400 seats or 20,000 sq ft).');
   }
   for(const k of Object.keys(questions))values[k]=defaults(values.type)[k];
+  if(possibleCity){
+    put('city',possibleCity);
+    questions.city='Is “'+possibleCity+'” your city? Confirm it or enter the location you intend.';
+  }
+  if(schedule.value && schedule.ask)put('hours',schedule.value);
   return {values,status,questions};
 }

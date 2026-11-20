@@ -614,8 +614,8 @@
   },
   {
    "path": "pavilion/brewpub.js",
-   "bytes": 7853,
-   "sha256": "58b6f140f864e3e6d6dc8da7c5f8ec450c7e559cbf43d1422d15c3d16b9a3505"
+   "bytes": 8274,
+   "sha256": "547eee0e299b2b8431e760416fbb5d4ccdfd80b89e52df8877da85b1962f89d3"
   },
   {
    "path": "pavilion/bridge.html",
@@ -649,8 +649,8 @@
   },
   {
    "path": "pavilion/finance.js",
-   "bytes": 4933,
-   "sha256": "d7b4e46e1ee0138063f85b177161c4ac39e1c1d596d34cbdc60a2a5f5a9df237"
+   "bytes": 5064,
+   "sha256": "00c720118e18675b3479cbb209625561248f28820a61d5b821db8f0f0979ed22"
   },
   {
    "path": "pavilion/floor-staging.js",
@@ -678,14 +678,19 @@
    "sha256": "780767463d3caf21b3ca02423dcb000fa93f3a2034904a5ddc46d674684374a4"
   },
   {
+   "path": "pavilion/idea-hours.js",
+   "bytes": 5665,
+   "sha256": "145078cd3e531d78978bcc22fbb3f221510c01e3ccaa7b5c59109127ef2d8cd4"
+  },
+  {
    "path": "pavilion/idea-parser.js",
-   "bytes": 11077,
-   "sha256": "57286fbbb2e79c21bf7b0d32b60c0648f7d5d5f11432f37125bd7635002c049a"
+   "bytes": 11397,
+   "sha256": "255a32d2c378deab748cca8682bebec99dc8a7d546c8175711b56f41888ee220"
   },
   {
    "path": "pavilion/idea-profiles.js",
-   "bytes": 7943,
-   "sha256": "5b57d5fecc07aea02ef8044053cb5b691cbb62a952de555f3468219f3879ce98"
+   "bytes": 8278,
+   "sha256": "3b6b1d3aff62220c2485b4419d54e336669e8123bf9c5ee1b694014d8d174ec8"
   },
   {
    "path": "pavilion/idea-replay.js",
@@ -694,13 +699,13 @@
   },
   {
    "path": "pavilion/idea-report.js",
-   "bytes": 9137,
-   "sha256": "d0083bbea1dce99d2f6c9d23ea7802c9cab3c519033adcf8c58af74a1f5868e1"
+   "bytes": 9352,
+   "sha256": "c510fcac4e5b9d51af9907d4fe009d1a48c0392e176110fd14138698f66f7402"
   },
   {
    "path": "pavilion/idea-terms.js",
-   "bytes": 2114,
-   "sha256": "33e54027562c90270bc8449b07efe9703526d39085e18501685589cc20149b00"
+   "bytes": 2440,
+   "sha256": "3ae872d4e0a655de4c13af691924c1e7e6c3ae51e4ce438918822bba27721075"
   },
   {
    "path": "pavilion/index.html",
@@ -779,8 +784,8 @@
   },
   {
    "path": "pavilion/simulator.js",
-   "bytes": 12680,
-   "sha256": "90e30871f192cb28d5ba77aac1979a3eb89ae1f4c30ca32c9f8276780f7ee8ec"
+   "bytes": 13030,
+   "sha256": "292b5f50d63c697fd99126441e3a9391051e14407b91756eaca5709a16d164d3"
   },
   {
    "path": "pavilion/site.js",

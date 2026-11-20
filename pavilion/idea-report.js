@@ -43,7 +43,7 @@ export function calibrationTables(){
 export function assumptionDetails(idea){
  const s=operatingProfile(idea),p=profiles[idea.type];
  return definition([['Trading unit',s.unit],['Modeled ticket / direct supply COGS',basket(s).join(' / ')],['Weekday arrivals (Mon–Sun)',s.weekday.join(' / ')],['Opening ramp','70%, 80%, 90%, 100%. Seed 27 adds deterministic daily variation of −4% to +4%.'],
- ['Capacity',s.capacity+' '+s.unit+' per staffed position per day; '+s.hours+' hours of coverage.'],
+ ['Capacity',s.serviceDays?'Weekdays '+s.serviceDays[0].capacity+' / weekends '+s.serviceDays[5].capacity+' '+s.unit+' per position. Open hours: '+idea.hours+'. Gaps are unpaid. Overnight intervals belong to their opening day.':s.capacity+' '+s.unit+' per staffed position per day; '+s.hours+' hours of coverage.'],
  ['Offer mix per 100 '+s.unit,s.names.map((n,i)=>n+' × '+s.mix[i]).join(' · ')],
  ['Prices / unit supply cost',s.names.map((n,i)=>n+' '+dollars(s.prices[i])+' / '+dollars(s.costs[i])).join(' · ')],
  ['Payroll',idea.staff+' positions at '+dollars(s.wage)+'/hour. Relief shifts aggregated.'],

@@ -64,4 +64,29 @@ async function visitor(browser,width,height){
  assert.deepEqual(errors,[]);assert.equal(results.reduce((s,r)=>s+r.violations.length,0),0,JSON.stringify(results));
  await context.close();console.log(label+': keyboard, offline idea-to-report flow, six scenarios, seven print sections, HQ source replay, '+results.length+' WCAG scans passed');
 }
-(async()=>{const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});try{await visitor(browser,1440,900);await visitor(browser,390,844);}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+async function confirmSchedules(browser){
+ const page=await browser.newPage({viewport:{width:390,height:844}});
+ try{
+  const pitch=async text=>{
+   await page.goto(origin+'/pavilion/simulator.html');await page.locator('#pitch').fill(text);
+   await page.getByRole('button',{name:'Review my idea'}).click();
+  };
+  const submit=page.getByRole('button',{name:'Simulate four weeks'});
+  await pitch('A Reykjavik salon open weekdays 7–3, weekends 8–6.');
+  assert.equal(await page.locator('#f-city').inputValue(),'Reykjavik');await page.getByRole('button',{name:'Confirm this city'}).click();
+  assert.equal(await page.locator('#f-hours').inputValue(),'');await submit.click();
+  assert.equal(await page.locator('#f-hours').evaluate(el=>el===document.activeElement),true);
+  await page.locator('#f-hours').fill('Weekdays 07:00–15:00; Weekends 08:00–18:00');
+  await submit.click();await page.locator('#stress').waitFor();
+  await page.getByRole('link',{name:'Replay this business in HQ'}).click();await page.waitForSelector('.replay-ready');
+  assert.match(await page.locator('.iso-heading+p').innerText(),/salon/i);
+  await pitch('An Austin café open 9am–2pm and 5pm–10pm.');
+  assert.equal(await page.locator('#f-hours').inputValue(),'09:00–14:00, 17:00–22:00');
+  await submit.click();assert.match(await page.locator('#confirm [role=alert]').innerText(),/confirm/i);
+  await page.getByRole('button',{name:'Confirm these hours'}).click();await submit.click();await page.locator('#stress').waitFor();
+  await page.locator('#report').click();assert.match(await page.locator('main').innerText(),/09:00–14:00, 17:00–22:00/);
+  console.log('Split and weekday/weekend hours require confirmation, survive report and HQ replay.');
+ }finally{await page.close();}
+}
+
+(async()=>{const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});try{await confirmSchedules(browser);await visitor(browser,1440,900);await visitor(browser,390,844);}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

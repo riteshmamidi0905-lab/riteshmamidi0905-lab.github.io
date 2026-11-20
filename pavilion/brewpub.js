@@ -75,14 +75,22 @@ export function pubDemand(day,terms,pricePercent,draw,lostGuestSources,priorWeek
   const noisePercent=96+draw(9);
   const factor=Math.max(0,1-terms.priceElasticity*pricePercent/100);
   const expectedCovers=Math.round(terms.fullWeekCovers[weekday]*rampPercent/100*noisePercent/100*factor*(terms.demandFactors?.[day-1]??1));
-  const policy=terms.servicePolicy;
+  const serviceDay=terms.serviceDays?.[weekday];
+  const perPosition=serviceDay?.capacity??terms.coversPerPosition;
+  let policy=terms.servicePolicy;
+  if(serviceDay?.minutes){
+    const peakMinutes=Math.min(policy.peakMinutes,serviceDay.minutes);
+    policy={...policy,peakMinutes,peakMinutesPerCover:peakMinutes/(perPosition*policy.peakSharePercent/100)};
+  }
   const newProspects=policy?Math.round(expectedCovers*policy.newGuestSharePercent/100):0;
   const rating=priorWeek?.serviceQuality?.ratingHundredths??500;
   const reputationCovers=policy?Math.round(newProspects*(500-rating)*policy.demandLossPerRatingPointPercent/10000):0;
   const lostGuestCovers=Math.min(expectedCovers-newProspects,(lostGuestSources||[]).reduce((sum,s)=>sum+s.covers,0));
   const potentialCovers=expectedCovers-reputationCovers-lostGuestCovers;
-  const queue=policy?serviceQueue(potentialCovers,terms.staffIds.length,terms.scale,policy):null;
-  const capacityCovers=terms.staffIds.length*terms.coversPerPosition;
+  const queue=serviceDay?.minutes===0
+    ? {peakArrivals:0,peakCapacity:0,waitMinutes:0,walkoutRate:0,walkouts:0}
+    : policy?serviceQueue(potentialCovers,terms.staffIds.length,terms.scale,policy):null;
+  const capacityCovers=terms.staffIds.length*perPosition;
   const staffedCovers=Math.min(potentialCovers-(queue?.walkouts||0),capacityCovers);
   const items=covers=>Object.fromEntries(terms.unitsPerHundredCovers.map((count,i)=>['SKU-'+(i+1),Math.round(covers*count/100)]));
   return {weekday,rampPercent,noisePercent,...(lostGuestSources?{expectedCovers,lostGuestCovers,lostGuestSources:[...lostGuestSources]}:{}),...(queue?{...queue,newProspects,ratingHundredths:rating,ratingSourceId:priorWeek?.id??null,reputationCovers}:{}),potentialCovers,capacityCovers,staffedCovers,units:items(potentialCovers),orderable:items(staffedCovers)};
