@@ -4,6 +4,9 @@ export const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 const money=c=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(c/100);
 const pageNames={overview:'Overview',ops:'Agent Ops',timeline:'Operations timeline',agents:'Agent activity',ledger:'Ledger',inspector:'Source inspector'};
 export function url(page,model,day=1,extra={}){
+ if(typeof location!=='undefined'&&new URLSearchParams(location.search).has('district')){
+   const q=new URLSearchParams({district:new URLSearchParams(location.search).get('district'),day,...extra});return esc(page+'.html?'+q);
+ }
  if(model.config.edition===7){
    const id=new URLSearchParams(location.hash.slice(1)).get('sim');
    return esc(replayLink(page,id,model.config.shocks,day,{positions:model.config.positions,...extra}));
