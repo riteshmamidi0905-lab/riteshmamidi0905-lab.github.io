@@ -49,7 +49,10 @@ async function exercise(browser,width){
    await p.keyboard.press('+');assert.ok(Number(await p.locator('.drawing').getAttribute('data-zoom'))>.9);await p.keyboard.press('Escape');
    assert.equal(Number(await p.locator('.drawing').getAttribute('data-zoom')),.9);await activate('#mini-jump');
    if(width===1440){
-     const plaque=p.locator('[data-room="VECTRA"] rect').first();await plaque.dblclick();
+     await lens.evaluate(n=>n.scrollIntoView({block:'center',behavior:'instant'}));
+     const plaque=await p.locator('[data-room="VECTRA"] rect').first().boundingBox(),x=plaque.x+plaque.width/2,y=plaque.y+plaque.height/2;
+     assert.equal(await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.closest('[data-room]')?.dataset.room,[x,y]),'VECTRA');
+     await p.mouse.dblclick(x,y);
      assert.equal(await p.locator('#camera').inputValue(),'who-VECTRA');assert.equal(await p.locator('#agent-inspect').isVisible(),false);
      await activate('#fit-floor');
    }

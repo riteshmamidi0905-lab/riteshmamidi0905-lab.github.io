@@ -129,8 +129,16 @@ main.iso-page{max-width:none;padding-top:12px}
 #ask-floor button{min-height:44px;cursor:pointer;border:1px solid #a6a693;background:#f9f5ea;color:#223d30;padding:.35rem .75rem}#ask-floor .dismiss{float:right}#ask-floor .question-examples,.flight{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-top:.6rem}#ask-floor .answer{color:#1c392c;font-weight:600}#ask-floor .citations div{max-height:120px;overflow:auto}#ask-floor .citations a{display:inline-block;margin:.25rem}.iso-toolbar kbd{font:inherit;opacity:.75}#ask-floor .flight output{font-size:.84rem}
 @media(max-width:650px){#ask-floor .dismiss{float:none}#ask-floor form label{display:block;width:100%}#ask-floor .question-examples button{flex:1 1 120px}.question-examples{font-size:.8rem}}
 
-/* The transport occupies its own row. It stays at the upper edge while the stage is in use. */
-.shift-rail{position:sticky;top:0;z-index:6;background:#f7f0e1}
-.iso-page:has(#ask-floor:not([hidden])) .shift-rail{position:static}
-.floor-shell,.directory,#task{scroll-margin-top:6rem}
-@media(max-width:720px){.shift-rail{position:relative}.iso-toolbar{gap:4px 8px}.iso-toolbar label{font-size:.76rem}.iso-toolbar select{max-width:150px}.iso-page .scrubber{min-height:35px}}
+/* A dedicated rail keeps the transport in reach without painting over the rooms. */
+.floor-console{display:grid;grid-template-columns:clamp(154px,14vw,194px) minmax(0,1fr);align-items:start;width:100vw;margin-inline:calc(50% - 50vw);background:#e7dfcc}
+.floor-console .iso-grid{width:100%;min-width:0;margin:0}
+.shift-rail{position:sticky;top:0;align-self:start;background:#233e32;color:#fcf5e5;min-width:0}
+.shift-rail .iso-toolbar{width:100%;margin:0;padding:12px;display:grid;grid-template-columns:1fr;gap:6px}
+.shift-rail .iso-toolbar label{display:grid;gap:2px}.shift-rail .iso-toolbar button,.shift-rail .iso-toolbar select{width:100%;min-width:0;max-width:100%}
+.shift-rail .scrubber{display:grid;gap:4px;padding:10px 12px;border-top:1px solid #657567}
+.shift-rail .scrubber input{width:100%;margin:0}.shift-rail .scrubber output{text-align:left}
+@media(max-width:720px){
+ .floor-console{display:block}.shift-rail{position:static}.shift-rail .iso-toolbar{display:flex;flex-wrap:wrap;gap:4px 8px;padding:8px 12px 0}
+ .shift-rail .iso-toolbar label{display:flex;align-items:center;gap:4px}.shift-rail .iso-toolbar button,.shift-rail .iso-toolbar select{width:auto;max-width:150px}
+ .shift-rail .scrubber{display:flex;gap:8px;border:0;padding:5px 12px;min-height:36px}.shift-rail .scrubber input{width:40%}
+}

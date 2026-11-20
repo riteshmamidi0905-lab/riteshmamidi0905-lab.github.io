@@ -771,8 +771,8 @@
   },
   {
     "path": "pavilion/experience.css",
-    "bytes": 6759,
-    "sha256": "0af836c2faf153bdd179a230746a0ee738884f1a2f3f4496a92de10184137ddc"
+    "bytes": 6880,
+    "sha256": "679827ae5469815ed5075aace52cf9e6ca2e6b3d61e4c0ced961bbb1cac2c853"
   },
   {
     "path": "pavilion/finance.js",
@@ -806,8 +806,8 @@
   },
   {
     "path": "pavilion/floor.js",
-    "bytes": 7080,
-    "sha256": "db5d6d75fb712a21a2b18bb11bf1a897eac45eb652d913c1444a582bc44cfad2"
+    "bytes": 7113,
+    "sha256": "44c357206fe2146c1b3103819d361acd4a9682f868b01265e13eb56941b3ab40"
   },
   {
     "path": "pavilion/free-camera.js",
@@ -816,8 +816,8 @@
   },
   {
     "path": "pavilion/hq.html",
-    "bytes": 124885,
-    "sha256": "8b29d62411750c0c60208ffd4d47f4e6944957efd3077dd8a0ed714f529df5ef"
+    "bytes": 124918,
+    "sha256": "9e0a8af33e38b91f14d1b0da9742cf0b55d878e3c657511337b1cd755a660bd3"
   },
   {
     "path": "pavilion/idea-analysis.js",
@@ -876,8 +876,8 @@
   },
   {
     "path": "pavilion/iso.css",
-    "bytes": 20254,
-    "sha256": "e2f7a21add30457ea6fb059f36d17b8bd2ce54ee71d01abc5e1e05d030e07283"
+    "bytes": 21096,
+    "sha256": "d51884c9ed09023ebfc067b37771e772599e05113210f7280973f8b20e6447be"
   },
   {
     "path": "pavilion/ledger.html",
