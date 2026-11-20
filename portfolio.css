@@ -1,0 +1,101 @@
+@font-face{font-family:Inter;src:url("assets/fonts/inter-latin.woff2") format("woff2");font-display:swap}
+:root{--ivory:#f5f0e5;--forest:#172c26;--bronze:#79512f;--paper:#fffcf5;--rule:#d4cbbb}
+.folio,.folio-pavilion{margin:0;color:var(--forest);background:var(--ivory);font-family:Inter,Arial,sans-serif}
+.folio,.folio *,.portfolio-head,.portfolio-head *,.portfolio-foot,.portfolio-foot *{box-sizing:border-box}
+.folio :focus-visible,.portfolio-head :focus-visible,.portfolio-foot :focus-visible{outline:3px solid #b76527;outline-offset:3px}
+.folio .skip{position:absolute;top:0;left:1rem;transform:translateY(-140%);z-index:30;padding:.65rem 1rem;background:var(--paper);color:var(--forest)}
+.folio .skip:focus{transform:none}
+header.portfolio-head,footer.portfolio-foot{width:100%;max-width:none;margin:0;padding:0 clamp(20px,5.1vw,88px);position:relative;inset:auto;display:flex;align-items:center;justify-content:space-between;gap:24px;z-index:5;background:var(--ivory);color:var(--forest);border:0;border-bottom:1px solid var(--rule);min-height:75px;box-shadow:none;font-family:Inter,Arial,sans-serif}
+.portfolio-head a,.portfolio-foot a,.folio a{color:inherit;text-decoration:none}
+.folio-mark,.portfolio-head .folio-mark,.portfolio-foot .folio-mark{font:normal 28px/1.1 Georgia,serif;letter-spacing:-.055em;color:inherit;white-space:nowrap}
+.folio-mark span{color:var(--bronze)}
+.portfolio-head nav,.portfolio-foot nav{display:flex;gap:clamp(12px,1.9vw,31px);align-items:center;margin:0;padding:0;flex-wrap:wrap;background:none}
+.portfolio-head nav a,.portfolio-foot nav a{padding:12px 0;min-height:44px;display:inline-flex;align-items:center;color:inherit;font:550 13px/1.4 Inter,Arial,sans-serif;letter-spacing:0}
+.portfolio-head nav a:hover,.portfolio-foot nav a:hover,.portfolio-head nav a[aria-current=page]{text-decoration:underline;text-underline-offset:6px;text-decoration-color:currentColor}
+.portfolio-head .menu-button{display:none;background:transparent;border:1px solid var(--rule);border-radius:2px;color:var(--forest);padding:9px 15px;min-height:44px;font:600 14px Inter,Arial,sans-serif}
+footer.portfolio-foot{background:var(--forest);color:var(--ivory);min-height:120px;padding-top:24px;padding-bottom:24px;border-bottom:0}
+.portfolio-foot .folio-mark span{color:#d9ae83}
+.folio [hidden]{display:none!important}
+.folio .entry{display:grid;grid-template-columns:minmax(0,45fr) minmax(0,55fr);min-height:min(690px,78vh);background:var(--forest);color:var(--ivory);overflow:hidden}
+.entry-image{grid-column:2;grid-row:1;position:relative;min-height:100%;background:#493f26;overflow:hidden}
+.entry-image picture,.entry-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:54% center}
+.entry-image img{animation:arrival-push 2.9s ease-out both}
+.entry-image small{position:absolute;bottom:20px;right:20px;background:rgba(24,38,31,.88);color:white;padding:6px 10px;font:11px/1.4 Inter,Arial,sans-serif}
+.entry-copy{grid-column:1;grid-row:1;align-self:center;padding:58px clamp(25px,4.8vw,90px);animation:title-arrive .55s ease-out both}
+.folio-kicker{font:650 11px/1.45 Inter,Arial,sans-serif;text-transform:uppercase;letter-spacing:.16em;color:var(--bronze);margin:0 0 20px}
+.entry-copy .folio-kicker{color:#e5bb87}
+.entry-copy h1,.title-block h1{font:normal clamp(48px,5.3vw,88px)/1.02 Georgia,serif;letter-spacing:-.055em;margin:0 0 22px;color:inherit}
+.entry-copy h1 span{font-size:.55em;vertical-align:middle}
+.entry-copy h1 em,.title-block h1 em,.folio :is(.page-intro,.title-block) h1 em{font-family:Georgia,serif;color:inherit;font-weight:400}
+.entry-copy>p:not(.folio-kicker){font:normal clamp(16px,1.25vw,20px)/1.55 Inter,Arial,sans-serif;max-width:34ch;color:#e2e5d9;margin:0 0 28px}
+.entry-paths,.proof-links{display:flex;align-items:center;flex-wrap:wrap;gap:10px 18px}
+.entry-paths a{display:inline-flex;align-items:center;justify-content:center;border-bottom:1px solid #b69c77;padding:10px 0;min-height:44px;font:600 14px/1.3 Inter,Arial,sans-serif}
+.entry-paths a:first-child{background:var(--ivory);color:var(--forest);padding:12px 18px;border:1px solid var(--ivory)}
+.entry-paths a:hover,.proof-links a:hover{text-decoration:underline;text-underline-offset:4px}
+.folio-section,.skill-list{width:min(1270px,90%);margin:auto}
+.home-work{padding:67px 0 85px;display:grid;grid-template-columns:4fr 6fr;gap:7%}
+.home-work h2,.folio .featured-catalog>h2,.resume-block h2,.archive-list h2,.folio .skill-list h2{font:normal clamp(34px,3.5vw,58px)/1.1 Georgia,serif;letter-spacing:-.04em;margin:0 0 18px}
+.home-work p,.title-block>p:not(.folio-kicker),.skill-list p{line-height:1.65;max-width:52ch}
+.work-list{border-top:1px solid var(--rule)}
+.work-list>a{display:grid;grid-template-columns:1fr auto;padding:15px 0;border-bottom:1px solid var(--rule)}
+.work-list small{font:550 11px/1.6 Inter,sans-serif;color:var(--bronze);grid-column:1}
+.work-list strong{font:normal clamp(22px,2vw,33px)/1.35 Georgia,serif;grid-column:1}
+.work-list span{grid-column:2;grid-row:1/3;align-self:center;color:var(--bronze);font-size:21px}
+.title-block{padding:65px 0 32px}
+.title-block h1{max-width:16ch}
+.skill-list{padding-bottom:65px}
+.skill-list section{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr);gap:8%;padding:30px 0;border-top:1px solid var(--rule)}
+.folio .skill-list h2{font-size:clamp(26px,2.7vw,43px);margin:0}
+.skill-list p{margin:0 0 8px}
+.proof-links a,.proof-card>a{color:var(--bronze);display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-underline-offset:4px;font:600 14px/1.4 Inter,sans-serif}
+.folio.editorial{--bg:var(--ivory);--surface:var(--paper);--text:var(--forest);--muted:#40564c;--line:var(--rule);--mint:#714625;--teal:#345d4b;color-scheme:light}
+.folio.editorial .page-intro{padding-top:clamp(45px,6vw,88px);padding-bottom:35px}
+.folio.editorial :is(h1,h2,h3){color:var(--forest)}
+.folio.editorial .page-intro h1{font:normal clamp(48px,6.2vw,94px)/1.02 Georgia,serif;letter-spacing:-.052em}
+.folio.editorial :is(.tags span,.project,.filter-bar,.runbox,.notice,.node,.agent,.case-card,.badge){background:var(--paper);color:var(--forest);border-color:var(--rule)}
+.folio.editorial :is(input,select,textarea){background:var(--paper);color:var(--forest);border:1px solid #786e5f}
+.folio.editorial .badge,.folio.editorial .eyebrow{color:var(--bronze)}
+.folio.editorial .project h2{font:normal clamp(24px,2.5vw,37px)/1.2 Georgia,serif;letter-spacing:-.025em}
+.featured-catalog,.archive-list,.resume-block{padding-top:30px;padding-bottom:40px}
+.featured-catalog>div{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.proof-card{background:var(--paper);border-top:2px solid #93704c;padding:clamp(18px,3vw,35px)}
+.folio.editorial .proof-card h3{font:normal clamp(26px,2.6vw,39px)/1.08 Georgia,serif;margin:0 0 18px}
+.proof-card dl{display:grid;grid-template-columns:min-content 1fr;gap:10px 18px;line-height:1.55;font-size:15px}
+.proof-card dt{font-weight:650;color:var(--bronze)}.proof-card dd{margin:0;overflow-wrap:anywhere}
+.archive-notice{margin:0;padding:.65rem 5vw;background:#e7dfcb;color:#24392e;font:600 14px/1.4 Inter,Arial,sans-serif}
+.workspace-links{display:flex;flex-wrap:wrap;gap:20px;padding:5px 5%;background:var(--forest);color:var(--ivory);font:600 13px/1.4 Inter,sans-serif}
+.workspace-links a{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-decoration:underline;text-underline-offset:4px}
+@keyframes arrival-push{from{transform:scale(1.022)}to{transform:scale(1)}}@keyframes title-arrive{from{transform:translateY(6px)}to{transform:none}}
+@media(max-width:800px){header.portfolio-head,footer.portfolio-foot{flex-wrap:wrap;gap:10px 20px;padding:15px 5%;min-height:64px}
+.portfolio-head nav,.portfolio-foot nav{gap:2px 17px}.portfolio-head nav{width:100%}
+.js .portfolio-head .menu-button:not([hidden]){display:inline-flex;align-items:center}.js .portfolio-head .menu-button:not([hidden])~nav:not(.open){display:none}
+.portfolio-foot nav{width:100%}.entry-copy{padding:32px 6vw 36px}.folio .entry{grid-template-columns:1fr;min-height:auto}
+.entry-image{grid-column:1;grid-row:1;min-height:0;height:clamp(180px,50vw,320px)}.entry-copy{grid-row:2}
+.entry-copy h1{font-size:clamp(43px,9vw,65px)}.entry-copy h1 em br{display:none}.entry-copy .folio-kicker{margin-bottom:12px}
+.entry-copy>p:not(.folio-kicker){margin-bottom:16px}.entry-image small{bottom:10px;right:12px}
+.home-work,.skill-list section{grid-template-columns:1fr;gap:17px}.home-work{padding:38px 0 55px}.featured-catalog>div{grid-template-columns:1fr}
+.title-block{padding:40px 0 23px}.folio.editorial .wrap{width:90%}}
+@media(prefers-reduced-motion:reduce){.entry-image img,.entry-copy{animation:none}.folio{scroll-behavior:auto}}
+@media print{.portfolio-head,.portfolio-foot,.workspace-links{display:none!important}}
+
+
+/* Bring the earlier evidence controls into the pavilion palette while retaining their selected and disabled states. */
+.folio.editorial .disclosure{color:#40564c}
+.folio.editorial .primary.button,.folio.editorial :is(.step,.eco-btn,.filters button,.tabs button)[aria-pressed=true],.folio.editorial .tabs button[aria-selected=true]{background:var(--forest);color:var(--ivory);border-color:var(--forest)}
+.folio.editorial :is(.architecture,.lab-tool,.scenario-tool,.lab-result,.codebox,.runbox,.system-preview){background:var(--paper);color:var(--forest);border-color:var(--rule)}
+.folio.editorial .architecture button{background:var(--ivory);color:var(--forest);border-color:#998b78}
+.folio.editorial .architecture button[aria-pressed=true]{background:#dfe8d8;color:var(--forest);border-color:#46644d}
+.folio.editorial :is(.runbox,.codebox) :is(pre,code){color:var(--forest);background:var(--paper)}
+.folio.editorial .chip{color:var(--forest)}
+.folio.editorial .chip.VERIFIED{color:#286344}.folio.editorial .chip.UNVERIFIED{color:#815311}.folio.editorial .chip.PROTOTYPE{color:#594285}.folio.editorial .chip.FAIL{color:#8c352f}
+.folio.editorial .flow-node,.folio.editorial .lab-result,.folio.editorial .arch-connector{color:#40564c}
+
+
+.folio.editorial .agent small{color:var(--muted)}
+
+.folio.editorial .proj code{color:var(--forest);background:var(--paper)}
+
+@media (max-width:800px) and (scripting:enabled){
+  header.portfolio-head{min-height:75px}
+  .portfolio-head nav#navigation:not(.open){display:none}
+}

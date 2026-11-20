@@ -18,7 +18,10 @@ const ref=(m,d,id,label=id)=>'<a class="ref" href="'+url('inspector',m,d,{id})+'
 export function shell(title,body){
 return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow"><title>'+esc(title)+' · NASHA</title><link rel="icon" href="../mark.svg"><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head><body><a class="skip" href="#content">Skip to content</a><div id="app">'+body.replace('<main id="content"','<main id="content" tabindex="-1"')+'</div></body></html>';
 }
-export function header(m,d){return '<header><a class="wordmark" href="'+url('index',m,d)+'">NASHA</a><nav aria-label="Main"><a href="'+url('hq',m,d)+'">Headquarters</a><a href="'+url('overview',m,d)+'">Builder</a><a href="../recruiter.html">Recruiter</a></nav></header>';}
+export function header(m,d){
+ const sections = '<nav class="workspace-links" aria-label="Workspace"><a href="'+url('hq',m,d)+'">Headquarters</a><a href="'+url('overview',m,d)+'">Builder</a></nav>';
+ return "<header class=\"portfolio-head\"><a class=\"folio-mark\" href=\"../index.html\" aria-label=\"Ritesh Mamidi, home\">Ritesh Mamidi<span aria-hidden=\"true\">.</span></a><button type=\"button\" class=\"menu-button\" aria-controls=\"navigation\" aria-expanded=\"false\" hidden>Menu</button><nav id=\"navigation\" aria-label=\"Portfolio\"><a href=\"../index.html\">Home</a><a href=\"../pavilion/index.html\">NASHA</a><a href=\"../pavilion/simulator.html\">Simulator</a><a href=\"../projects.html\">Projects</a><a href=\"../skills.html\">Skills</a><a href=\"../case-studies.html\">Case studies</a><a href=\"../recruiter.html\">Recruiters</a><a href=\"../recruiter.html#resumes\">R\u00e9sum\u00e9</a></nav></header>" + sections;
+}
 export function tabs(m,d,active){return '<nav class="tabs" aria-label="Business views">'+Object.entries(pageNames).map(([p,n])=>'<a '+(p===active?'aria-current="page" ':'')+'href="'+url(p,m,d)+'">'+n+'</a>').join('')+'</nav>';}
 export function dayNav(m,d,page){
  const week=Math.max(1,Math.ceil(d/7));

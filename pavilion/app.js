@@ -4,7 +4,8 @@ const localReplay=()=>new URLSearchParams(location.hash.slice(1)).has('sim');
 const routeParams=()=>new URLSearchParams(localReplay()?location.hash.slice(1):location.search);
 addEventListener('hashchange',e=>{if(localReplay()||new URL(e.oldURL).hash.startsWith('#sim='))location.reload();});
 if(routes.includes(page)&&(location.search||localReplay())){
- try {const d=new DOMParser().parseFromString(render(page,routeParams()),'text/html');document.querySelector('#app').replaceChildren(...d.querySelector('#app').childNodes);}
+ document.querySelector('meta[name="robots"]')?.setAttribute('content','noindex,nofollow');
+ try {const d=new DOMParser().parseFromString(render(page,routeParams()),'text/html');document.querySelector('#app').replaceChildren(...d.querySelector('#app').childNodes);document.dispatchEvent(new Event('portfolio-navigation-ready'));}
  catch(error){const p=document.createElement('p');p.setAttribute('role','alert');p.textContent=error.message;const a=document.createElement('a');a.href='simulator.html';a.textContent='Simulate your idea';document.querySelector('#app').replaceChildren(p,a);}
 }
 if(document.querySelector('#floor')){

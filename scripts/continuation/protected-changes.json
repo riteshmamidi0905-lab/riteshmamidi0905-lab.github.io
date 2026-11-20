@@ -28,5 +28,268 @@
       "old": "28107dc0eedd9af10f971623d0264f2cf08d0989848720af791b18744a0de6e7",
       "new": "c098f6dd020762ba09d44286b92478845fe3edb2d214f0e6c20a3f841288ae23"
     }
+  },
+  "consolidation": {
+    "date": "2026-11-20",
+    "owner": "Ritesh Mamidi",
+    "baseline": "9697a93700beec7f9cf2fbc28e3ae85949adc9f9",
+    "decision": "Change everything. I want only one final portfolio live, with the cinematic vision, showcasing every skill, top class.",
+    "files": {
+      ".github/workflows/validate.yml": {
+        "old": "17114ddf8992a02412107c86aa02abd330c0e17d2251e15c69d69d71f8ddcf2c",
+        "new": "7dd49b945fc5f4431e5a5888a6e6a60f6e15819063eac460c0169415d6151106"
+      },
+      "404.html": {
+        "old": "6686cd90bba8d2f3291d49b7439bfe395ed1aead33703bbc7d8f7f1b511adacd",
+        "new": "9e60faa152e4ac5bcd66e5cbdfc7ee4562c30a20b6c5c664907b8029f1e78d16"
+      },
+      "ai-engineering.html": {
+        "old": "20ce9a391bd89aa37e838a3c698735e59d4c9f765f62a4eec98aced0fb3ffc4d",
+        "new": "cb50a84dd1f9596c191ca3b4471ae254594bafa0be0ad9b91136cc70fb4ce15b"
+      },
+      "case-genai-doc-assistant.html": {
+        "old": "d47eebc099ee42c6ef03d358085ce26a44bee6c1c9a0056ea56b991e478518a3",
+        "new": "34721b4eb3ad6c78a47d43537ed679a852d231280b8f9b3e149cbf4c0909677e"
+      },
+      "case-llm-eval-framework.html": {
+        "old": "af791b2cb440fea71494ae9a4e432959c936dac4acc0ddc3e99540cb6b77f0fd",
+        "new": "3f7752fa1ce32a1ffefdaf410e8fa135f29758f922b3f989da560bf4ad95bb07"
+      },
+      "case-mcp-weir.html": {
+        "old": "1cb76ea5406192456fdb3ea9023e3073913b26105bc1eee73c26bf8e3863ccc8",
+        "new": "db2927557e58e4a665919c5819a03a838e37b70bd0a91f863119326c674a53a7"
+      },
+      "case-nasha-ai-lab-architecture.html": {
+        "old": "2e022051479c9aab5925f7db4fcb8bf2b9624919e8799c230aa8098eff11d5ef",
+        "new": "716651aaa935c4270924655819e9c95be69b99e88f379bd58c58708b502a04d2"
+      },
+      "case-production-ai-agent-platform.html": {
+        "old": "cb96abf56a4c8978a667bb0a7e690cd64ad0011355f5bf4ed72ce1d0c9743626",
+        "new": "bacf8c2f8aa8d8c04a721b91e692af7c1eaf1aee4a28779c7b11e2f36093ebf1"
+      },
+      "case-studies.html": {
+        "old": "7c80e158f70bdc5a83396e84d70c7c59059e11a59fdae77fba47f7183bfa04bd",
+        "new": "8a9273d77ad6bf0359cb125d1009c68caded6427066c9ad4159bc27febe4a7c8"
+      },
+      "case-support-escalation-copilot.html": {
+        "old": "4a2b309eaf6190ad9140582fcb2d5d35eca3de12fc1947d81737eb5aa6d65eee",
+        "new": "3823485cb2a7492e2a03dc1e7795396a3e039fbe9bcbad73c68aa76e6a836622"
+      },
+      "cinematic.js": {
+        "old": "c098f6dd020762ba09d44286b92478845fe3edb2d214f0e6c20a3f841288ae23",
+        "new": "9d3d585d13b11c1216650988f71add88f7e3ed26e46c11e163db816824e77058"
+      },
+      "data-lab.html": {
+        "old": "555738e1c927a12cfab5e1ef599ebbe1e369c1644bb27d65dc98a81fbc08a10e",
+        "new": "6745f8040c15af54fe69b1b76fb81319d1778182b678cd96f76af3b439b7162e"
+      },
+      "datalab.js": {
+        "old": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636",
+        "new": "d041603788d089159033f51d7d2b6e368e55d1b7aab50de901a69b13e45f6159"
+      },
+      "demo/app.js": {
+        "old": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102",
+        "new": "3c2246a7e3de080bf1e721fbbee26e770a9d4f4eb398e8b2a24d849a23f448fd"
+      },
+      "demo/data.js": {
+        "old": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3",
+        "new": "3fd0382160d4df1852830d17c2a0631d7084db4d0a52fd85ce0549369d69549d"
+      },
+      "demo/index.html": {
+        "old": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4",
+        "new": "d3aed50118a93fd889a0ae7f6ae60b63794c629c02b4a693e700789446cf5773"
+      },
+      "index.html": {
+        "old": "f25c19adf14fdebeec67fdcefcc959d7833b3eb339a355d7ee8bc3bb6ae99c05",
+        "new": "1de4868bcaa1f803ce156a5722bf71e3b35486860ad939679227a4c894f75901"
+      },
+      "lab-explorer.html": {
+        "old": "c376af582b4e27aa7fb489e72c77bfee6fb2ba65836e2fcccdecfac97bee419b",
+        "new": "6e9dc6ca564b0732b633812f1d07933270643c1fadf670bd6b4dcf1bd6a430b8"
+      },
+      "nasha-lab.html": {
+        "old": "1e388c6d9768bb9081aa00a5779055bbb04b7b70f100ead213124c45e1851e84",
+        "new": "a0276a332da2587d05e2002527b39e0a30d5cf410752a8347bc9316ee5b71aa3"
+      },
+      "nasha-universe/living-hq/index.html": {
+        "old": "2bd3ca831027d53209d36735ba1716a298714c89a4e00a3e882ec85935b1ee5c",
+        "new": "f3be822eeda7cc467fa6bf8bab168b90bfa5f1b2299b7942a6a71bee89652d55"
+      },
+      "pavilion/agents.html": {
+        "old": "e28d39b66d6ee786e86fa9a07a001f259a64889957ab81c961a53e2f72f208ec",
+        "new": "ddc457521a1569fd7234e0e634d032193dc5438a627e0bd241f545dfc12ab3a3"
+      },
+      "pavilion/app.js": {
+        "old": "084809fd42dd969d90eb72a7e002643da284597758fe5eeee3752076f1aae534",
+        "new": "74e3f868e79cf10d01d18ba4def84a2e3f2ec6aa9db3136e231d8f538028259a"
+      },
+      "pavilion/bridge.html": {
+        "old": "ae009876b91eba6cfb6ce5648edd67c58d50b7541c8404bb7055de96a55df52e",
+        "new": "2e154b53811f1b2acc1e8a83f4e7649c2e77794b59fba6d29d14543e40d40d94"
+      },
+      "pavilion/create.html": {
+        "old": "b62ec5950f3ff9a51d880486a0f690ef97863832180d62a28bbec5924b2ce798",
+        "new": "413f6ef28b00f6a58e4017630247c260fcaa355c4dbf4ca61b46b5fd85db602d"
+      },
+      "pavilion/engineering-case.html": {
+        "old": "6268bffb1bc0ed91b680c69706026fca322384b6c79cf57c3cfef96208e5debb",
+        "new": "9035426b831b6f1559eb0962f2f382eb1c540c7e2c8734dd9a6bf23a75c7d9d3"
+      },
+      "pavilion/hq.html": {
+        "old": "50757fa03a4a77acd4f5b6dc0d195d505eed130bf3d0cc1afa05deecfcbfcf67",
+        "new": "1dd2ecbe9cc922e45dbbdab6e5254cd892060bef75781a1e7142f69022d122b2"
+      },
+      "pavilion/index.html": {
+        "old": "909ba2e91588000b93c50ee4f9b10cbe6978784757cd629f8a1229824f0e16c3",
+        "new": "bae8cfdc9455385d617ab50eb45a6de12a8304c88b6ee4eb1996d0bc63988dd4"
+      },
+      "pavilion/inspector.html": {
+        "old": "8422deaa29c08065487e4e4bc8496c66d185b4841acd0b247515808a315b4557",
+        "new": "d4e284f25c33faa27aeaf269abd8833c011cc17b9360e9b476cd1ab9bbeba333"
+      },
+      "pavilion/ledger.html": {
+        "old": "7fd031226e05288410c031eca15d1b29187ee7a685992c3c9bccc87d21b2f20d",
+        "new": "41dc020986cd35c79ee3ecea526b20c7a64147180770ce6adc7c528140afc148"
+      },
+      "pavilion/ops.html": {
+        "old": "bc3e2777bebf7e06d28c3a7f757f0d280f8d79ebc728dce83cff0f1b94f0ee81",
+        "new": "d0c9b6948baddf95baee8d5a0898e6a34a7de6f77c6f138ab5eb12502beb5a6b"
+      },
+      "pavilion/overview.html": {
+        "old": "8552a1085892a067871e19234908dd57d7f605fb7eba90c0d061cbe0edbe1d1e",
+        "new": "a7eb1d191a0e063aecf956733451e192e160d880e85951b59d03fb2ec77937aa"
+      },
+      "pavilion/simulator.html": {
+        "old": "d795159d07fedb7a064d3f16e2a43f5f73b1e34ed2a7ce1dc29a55cc4276edb5",
+        "new": "5579127b362e44f24faa97f9dc0f9e0ade8dd0447cf8ea0ebfb54b7b07160782"
+      },
+      "pavilion/site.js": {
+        "old": "fea8a8d618b9dfc97a69441c7c0cddd980d37eb433d225066356fe3661a7b207",
+        "new": "9ed33e134e12d134af7e06524d59329c2ad139252300f50b84f142184b38a067"
+      },
+      "pavilion/source-book.html": {
+        "old": "ebb18c3f1141abdfabdd221653845013fefb110e7b7d95cadeee0a0f0c43414c",
+        "new": "92ff972165650439a8e08eb6b90bc564eb81bf944baf0530bce6f3aa0ec09119"
+      },
+      "pavilion/timeline.html": {
+        "old": "2bbbca1116ac0d166470078b36612a276fb8b8eab1c4767e43e1c4d7c73fbdf3",
+        "new": "0fa6554a0ffa753f2c4a03d08d1648273c40d175d6740c8ce077c881e35bb62d"
+      },
+      "pavilion/views.js": {
+        "old": "64308b9c7f6d0dcef494c27102f728d018887de65655d66078871a419ebaad08",
+        "new": "14720fb16fe0326595a9a191703601a61c93bad1013fdedef7a56072eaf68d9c"
+      },
+      "projects.html": {
+        "old": "f2787f7b6fd24fb8404bf9872fb95dc388165ef9fd93bde7c07a53103e72dc5e",
+        "new": "61c0935c9c7f1ec4f9ebf1daafa344a5bb26a2e2a8d86a8de4bd17b21ca604d9"
+      },
+      "recruiter.html": {
+        "old": "108fa2c0d85e208ace6658ee2f1eec436a3458f2be6abe9880555dfb0a0245cf",
+        "new": "37347e1b0578dc552d2db19d23d15071370e725eff2a19a032172e73d2307afc"
+      },
+      "release-files.json": {
+        "old": "0e2769316233a5d59391b2ce581297a0001423b55fe41ac938f8c70fb99af298",
+        "new": "5b7e6fc4d4dffabdbba61dedfa46680fdbf53d103483ac66d86bd84928838584"
+      },
+      "scripts/publish-manifest.json": {
+        "old": "a6d6dc517edd4abb2cdc96e8520b5fba4ea83022cbc2465dc67012544092225b",
+        "new": "af8b58fb2345f1388440361324b4084543c80339e02d4643b73adbc26625be4e"
+      },
+      "sitemap.xml": {
+        "old": "907b3027a09282fac7cf33b991dfa7d17c504339dd9db16ab0e43dfdf062f6eb",
+        "new": "e38a44f42e6507b1da9ff894a15e197e8df622244938c240ea23d9469a3f8098"
+      },
+      "verified-projects.html": {
+        "old": "6d7b749ac11815ae2a89c33ebd88e0e8772356e90b8b0bfd73ea215012f00a57",
+        "new": "24ac5f00e7c87f431cbd7f63ad6b1a647e31a58308ddebe56a5e7cf388807038"
+      }
+    }
+  },
+  "pr22TitleAndResumes": {
+    "date": "2026-11-20",
+    "owner": "Ritesh Mamidi",
+    "baseline": "ad5a35b0b98efee35f1c8781083bcd686f58bcd4",
+    "decisions": [
+      "His current title everywhere is \"Data & AI Analyst\".",
+      "The main \"Download résumé\" and \"Professional résumé (PDF)\" links must serve the current designed résumé at /ritesh_mamidi_resume.pdf (git blob 8b235d733093a22500577c15d9dc20a4646e133d, 97,071 bytes), unchanged.",
+      "Remove resumes/ritesh_mamidi_resume.pdf (the 10 KB duplicate) so only one professional résumé exists.",
+      "regenerate each from its source with the title \"Data & AI Analyst\" in place of \"Product & AI Quality Operations Analyst\"; change nothing else in them."
+    ],
+    "designedResume": {
+      "path": "ritesh_mamidi_resume.pdf",
+      "gitBlob": "8b235d733093a22500577c15d9dc20a4646e133d",
+      "bytes": 97071,
+      "sha256": "eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92"
+    },
+    "files": {
+      "archive-explorer.html": {
+        "old": "587a393560a1a99a1b43361031f7484975ba57cd1d56ed31f809855bdc3c6a58",
+        "new": "4f61293a2e584d94d53f259f2f71a3522bca25aac29c52be29daeed1d7392e55"
+      },
+      "archive-records.html": {
+        "old": "b76a1d9859ee63cbd15af19cb042800ca8a6345e587c559eb1048648efa73929",
+        "new": "ce5bf0205e7e61db703bc87597bda30eec0b078dc18e36f243e3502f47dda95a"
+      },
+      "case-genai-doc-assistant.html": {
+        "old": "34721b4eb3ad6c78a47d43537ed679a852d231280b8f9b3e149cbf4c0909677e",
+        "new": "ab1e4d1c63d977e9c874a5b8cf17d413972d791771840e688f0609dded3d45ec"
+      },
+      "case-llm-eval-framework.html": {
+        "old": "3f7752fa1ce32a1ffefdaf410e8fa135f29758f922b3f989da560bf4ad95bb07",
+        "new": "338989d9e57af4b1c37739e44961717a8c895175603b68ba7cea1d911ff9f3d3"
+      },
+      "case-mcp-weir.html": {
+        "old": "db2927557e58e4a665919c5819a03a838e37b70bd0a91f863119326c674a53a7",
+        "new": "85bf35095c75ef682c445b6a336dec4723ee1153dd54ef6ce18864222047d4d4"
+      },
+      "case-nasha-ai-lab-architecture.html": {
+        "old": "716651aaa935c4270924655819e9c95be69b99e88f379bd58c58708b502a04d2",
+        "new": "1d8035244474ae26f3b5f1994ce1a3cc6fe8c39a4659790af742648a451852da"
+      },
+      "case-production-ai-agent-platform.html": {
+        "old": "bacf8c2f8aa8d8c04a721b91e692af7c1eaf1aee4a28779c7b11e2f36093ebf1",
+        "new": "37f7136b2693d08b73eedcc74f4efc5b84a9241b9ba20099f860e4f57400ec12"
+      },
+      "case-support-escalation-copilot.html": {
+        "old": "3823485cb2a7492e2a03dc1e7795396a3e039fbe9bcbad73c68aa76e6a836622",
+        "new": "0eb8fc8b4a924b416fe2b776574e1990473d37bed0a93a88c1340502da9cfc65"
+      },
+      "recruiter.html": {
+        "old": "37347e1b0578dc552d2db19d23d15071370e725eff2a19a032172e73d2307afc",
+        "new": "a555cd5df283a77df34089546edb17fd9111cb4c59ae66059429a2213d9e9963"
+      },
+      "release-files.json": {
+        "old": "5b7e6fc4d4dffabdbba61dedfa46680fdbf53d103483ac66d86bd84928838584",
+        "new": "323567b2f1f314ef80e525bc1528a6eb201670030a3801d983eedb3b258f9000"
+      },
+      "resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf": {
+        "old": "cd37915c33bec45eab20521cb75180a899a5520fa7a85adf33a90e0c9be08861",
+        "new": "205bc15f7941e834fece74117ec9fa7f279db25d06af33e90854a695733c4ca9"
+      },
+      "resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf": {
+        "old": "de1bde2f8e6ba92e471554965d1a13cb26c91fbed5d9062b79d19b250ed6ab34",
+        "new": "1c23de4f275473ec2ce7f7488aec4dbb46432365bba0d96928238986c525432b"
+      },
+      "resumes/Ritesh-Mamidi-FDE.pdf": {
+        "old": "5b75abdfcfed71a98373ab778efb587327ca6a1e4fe201e2bb21e0b0718dfaf9",
+        "new": "ac476a381e046b82b636d9ac28ca31459012dc3bfed24447f2d3d5c9edf11cb5"
+      },
+      "resumes/ritesh_mamidi_resume.pdf": {
+        "old": "5a84710f6cb40907474b769425576af7819a9c8bdbc553bc473829331ebda661",
+        "new": null
+      },
+      "scripts/publish-manifest.json": {
+        "old": "af8b58fb2345f1388440361324b4084543c80339e02d4643b73adbc26625be4e",
+        "new": "01d414dfd20f07c0c10cded4dfa4cd35c2bc67bb10c6ba4a50e8f6965e9df1ca"
+      },
+      "scripts/test-universe-integration.cjs": {
+        "old": "f87f96b0862cb2c4eaaee3a319c424ffbe6d610f29a1f6bc15482309b8b650f5",
+        "new": "82e8fc4c3d430958d95c6ac34f215f8f5cdd67e3f17c0bd5497a54d8f35d74f1"
+      },
+      "scripts/validate-release.py": {
+        "old": "6d823f34d730af8f4726783af08ddde7ec26b70ac4acb4f652fcd7a707485734",
+        "new": "c7a3a1d01adcb231abc9643caa5872c6714026914f525e6bf6bc58a8cb5fd80f"
+      }
+    }
   }
 }

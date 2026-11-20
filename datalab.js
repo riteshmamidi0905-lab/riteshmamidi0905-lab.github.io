@@ -42,7 +42,7 @@ if (live) {
   live.textContent = '';
   var mine = st && st.orders ? st.orders.filter(function (o) { return !o.seed; }) : [];
   if (!st || !mine.length) {
-    live.appendChild(el('p', {}, ['No Enterprise Demo orders in this browser yet. ', el('a', { href: 'demo/index.html#/guide', text: 'Run the guided walkthrough' }), ' (about 75 seconds) and come back: this panel will show the order lifecycle from your session.']));
+    live.appendChild(el('p', {}, ['No Enterprise Demo orders in this browser yet. ', el('a', { href: 'case-nasha-ai-lab-architecture.html#archive', text: 'Archive · earlier build' }), ' includes the earlier Enterprise Demo. After its guided walkthrough, this panel can show the order lifecycle from your browser session.']));
   } else {
     var n = function (f) { return mine.filter(f).length; }, accepted = n(function (o) { return o.status !== 'CANCELLED'; }), fulfilled = n(function (o) { return o.status === 'FULFILLED'; }), paid = n(function (o) { return o.payment === 'PAID'; }), rev = mine.filter(function (o) { return o.status !== 'CANCELLED'; }).reduce(function (a, o) { return a + o.revenueCents; }, 0);
     live.appendChild(el('h3', { text: 'From your Enterprise Demo session (computed here in JavaScript, not SQL)' }));

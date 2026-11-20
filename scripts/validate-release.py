@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==172   # Include the offline opening-hours parser shared by confirmation and the model.
+assert len(manifest)==186  # One designed professional résumé at the root and three role-specific PDFs.
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -39,6 +39,8 @@ for item in manifest:
  assert len(b)==item['bytes'] and hashlib.sha256(b).hexdigest()==item['sha256'],item['path']+' changed without manifest review'
  if p.suffix not in ['.pdf','.woff2','.webp','.jpg']:
   s=b.decode()
+  if p.suffix in {'.html','.js','.json'}:
+   assert not re.search(r'Product (?:&amp;|&) AI Quality', s, re.I), 'superseded title in '+item['path']
   for pattern in [r'-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----',r'gh[pousr]_[A-Za-z0-9]{30,}',r'github_pat_[A-Za-z0-9_]{40,}',r'AKIA[0-9A-Z]{16}',r'sk-(?:proj-)?[A-Za-z0-9_-]{40,}']:
    assert not re.search(pattern,s),'Secret signature in '+item['path']
   assert not re.search(r'<(?:video|audio)\b|assets/(?:nasha|media)/|\.mp4\b|\.webm\b',s,re.I),'Media in '+item['path']
@@ -48,17 +50,46 @@ for name,page in pages.items():
  for ref in page.refs:
   u=urlsplit(ref)
   if u.scheme or u.netloc:continue
-  target=os.path.normpath((Path(name).parent/unquote(u.path)).as_posix()).replace(os.sep,'/') if u.path else name
+  path=unquote(u.path)
+  parent=Path('.') if path.startswith('/') else Path(name).parent
+  target=os.path.normpath((parent/path.lstrip('/')).as_posix()).replace(os.sep,'/') if path else name
   assert target in expected,(name,ref)
   if u.fragment and not u.fragment.startswith('/') and target in pages:assert unquote(u.fragment) in pages[target].ids,(name,ref)
 assert pages['projects.html'].projects==28
-assert pages['index.html'].flags==6
+assert (root/'index.html').read_text().count('class="entry-paths"') == 1
+assert (root/'projects.html').read_text().count('class="proof-card"') == 4
+assert len(pages['skills.html'].ids & {'skill-'+str(i) for i in range(1,11)}) == 10
+for page in pages:
+ text=(root/page).read_text()
+ if 'http-equiv="refresh"' not in text:
+  assert text.count('id="navigation"')==1 and text.count('class="portfolio-foot"')==1, ('shared navigation or footer',page)
+  resume_choices = os.path.relpath('recruiter.html', Path(page).parent) + '#resumes'
+  assert resume_choices in pages[page].refs, ('one-click résumé choices', page)
+for retired,current in {'nasha-universe/index.html':'../pavilion/index.html','demo/index.html':'../pavilion/ops.html','nasha-universe/living-hq/index.html':'../../pavilion/hq.html','nasha-lab.html':'pavilion/index.html','lab-explorer.html':'case-nasha-ai-lab-architecture.html','verified-projects.html':'projects.html'}.items():
+ text=(root/retired).read_text()
+ assert 'content="0; url='+current+'"' in text and 'location.replace('+json.dumps(current)+')' in text and current in pages[retired].refs,retired
+social=json.loads((root/'scripts/social-image.json').read_text())
+for field,sha in [('file','sha256'),('source','sourceSha256')]:
+ assert hashlib.sha256((root/social[field]).read_bytes()).hexdigest()==social[sha]
+assert (root/social['file']).stat().st_size<1_000_000
+for page in root.glob('*.html'):
+ text=page.read_text()
+ assert 'property="og:image"' in text and 'name="twitter:card" content="summary_large_image"' in text,page.name
+resume_paths = {
+    'ritesh_mamidi_resume.pdf',
+    'resumes/Ritesh-Mamidi-FDE.pdf',
+    'resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf',
+    'resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf',
+}
+assert {p for p in expected if p.endswith('.pdf')} == resume_paths, 'unexpected résumé inventory'
+designed = (root/'ritesh_mamidi_resume.pdf').read_bytes()
+assert len(designed)==97071 and hashlib.sha256(designed).hexdigest()=='eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92', 'designed professional résumé changed'
 assert 'prefers-reduced-motion' in (root/'cinematic.css').read_text()
-for name in ('lab-explorer.html','verified-projects.html'):
+for name in ('archive-explorer.html','archive-records.html'):
  s=(root/name).read_text()
  assert 'not an operating business' in s or 'not production readiness' in s,name
  assert not re.search(r'production[- ]ready|commercially operating|fully deployed(?! system)',s,re.I),name
-assert (root/'verified-projects.html').read_text().count('<article class="proj ')==29
+assert (root/'archive-records.html').read_text().count('<article class="proj ')==29
 # Only the exact owner-approved recruiter credit may name the employer.
 employer = 'Movate'
 credit = '<p class="org">Movate — Apple Maps Client Engagement · a client assignment, not direct Apple employment</p>'
@@ -85,9 +116,13 @@ for p in demo_files:
  s=(root/p).read_text()
  code=re.sub(r'/\*.*?\*/','',s,flags=re.S)
  code=re.sub(r'<link rel="canonical"[^>]*>','',code)
+ if p=='demo/archive.html':
+  for link in ('<a href="https://linkedin.com/in/riteshmamidi0905">LinkedIn</a>', '<a href="https://github.com/riteshmamidi0905-lab">GitHub</a>'):
+   assert code.count(link)==1, 'archive footer link changed'
+   code=code.replace(link,'',1)
  assert not re.search(r'\bfetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|EventSource|importScripts|<form[^>]*action=|https?://',code),'network or tracking construct in '+p
  if p!='demo/app.js':assert 'localStorage' not in code,'storage outside app.js: '+p
-assert 'DEMO ENVIRONMENT' in (root/'demo/index.html').read_text() and 'SYNTHETIC DATA' in (root/'demo/index.html').read_text()
+assert 'DEMO ENVIRONMENT' in (root/'demo/archive.html').read_text() and 'SYNTHETIC DATA' in (root/'demo/archive.html').read_text()
 assert "nasha-demo-state-v1" in (root/'demo/app.js').read_text()
 for c in json.loads((root/'data/cases.json').read_text()):
  s=(root/('case-'+c['slug']+'.html')).read_text(); r=c['run']
@@ -113,7 +148,7 @@ print('disclosure scan:',len(PUBLIC_TEXT),'text files scanned; every required fi
 for r in json.loads((root/'data/image-register.json').read_text()): assert r['cleared_for_public_release'] is True and r['kind']=='screenshot',('public register may list cleared screenshots only',r['file'])
 _rec=(root/'recruiter.html').read_text()
 assert '<h3>Business Analyst</h3>' in _rec and '<h3>Data Analyst</h3>' in _rec and 'Business / Data Analyst' not in _rec,'job titles must follow the master résumé'
-assert '<h3>Product &amp; AI Quality Operations Analyst</h3>'+credit in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
+assert '<h3>Data &amp; AI Analyst</h3>'+credit in _rec and 'Kafka</span>' not in _rec,'identity wording / unsupported skill'
 # FONT PRELOAD GUARD: both webfonts preloaded on every top-level page (prevents a measured font-swap layout shift)
 for pg in sorted(root.glob('*.html')):
  s=pg.read_text(); assert 'inter-latin.woff2" as="font"' in s and 'jetbrains-mono-latin.woff2" as="font"' in s,('font preload missing',pg.name)
@@ -131,4 +166,4 @@ blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'
-print('PASS: 172 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, six flagships, reduced-motion stylesheet')
+print('PASS: 186 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, four featured exhibits, reduced-motion stylesheet')
