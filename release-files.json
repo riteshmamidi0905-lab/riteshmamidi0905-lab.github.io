@@ -726,8 +726,8 @@
   },
   {
     "path": "pavilion/builder-campaign-view.js",
-    "bytes": 8940,
-    "sha256": "60a606bc6ef8d4ea8b9627f5b775c8316ee307c0a2ecab07d06b00a16ace60a9"
+    "bytes": 8948,
+    "sha256": "a0da8761584a532e105cad55be6217b36899e5c96b355e1c9a1571f7f96a3bb6"
   },
   {
     "path": "pavilion/builder-common.js",
@@ -738,6 +738,11 @@
     "path": "pavilion/builder-dashboard.js",
     "bytes": 10239,
     "sha256": "7d018f2599dcb42ec687603dc9b39b201ce57795b54f0b1863522ffebae8ce0c"
+  },
+  {
+    "path": "pavilion/builder-district-map.js",
+    "bytes": 6168,
+    "sha256": "7ed06214367f00ce14cf85cec10160202cf2997b60638258a721536f759037b0"
   },
   {
     "path": "pavilion/builder-entry.js",
@@ -781,8 +786,8 @@
   },
   {
     "path": "pavilion/builder.js",
-    "bytes": 9778,
-    "sha256": "719b5a9e1d23cdcbb01256ec3b2bdf2d0cc2db942eaabb800bc1def5f9ef8d1b"
+    "bytes": 10378,
+    "sha256": "c087c827bffe21ade3b0e90aafdd2a8a5a708210a98cf581f5c7f3dc7f03fb4c"
   },
   {
     "path": "pavilion/business-settings.js",
@@ -1041,8 +1046,8 @@
   },
   {
     "path": "pavilion/start.html",
-    "bytes": 2707,
-    "sha256": "7aa35a7690f89a5bf261f1a766f7555337d541bdb414b2508411b5d02c8fa810"
+    "bytes": 2392,
+    "sha256": "b9bbb20a12dca5186014858a6eec9d6ce2d1ede043ecdacce458c1c6a9507f81"
   },
   {
     "path": "pavilion/station-context.js",

@@ -1,7 +1,7 @@
 import {channels,audiences,dateOf,stressModes} from './builder-market.js';
 import {btn,esc,money,count,select,input,shellHeading,note,options} from './builder-common.js';
 import {evidence,stat} from './builder-dashboard.js';
-import {mapDrawing,lots} from './district-map.js';
+import {mapDrawing,lots} from './builder-district-map.js';
 import {floorSvg,floorOrder,point,home,overviewBox} from './iso-geometry.js';
 export function campaignForm(b){
  const optionsById=Object.fromEntries(Object.entries(channels).filter(([id])=>id!=='venue'||b.values.type==='stadium').map(([id,c])=>[id,c.name]));

@@ -26,7 +26,7 @@ function compare(){
 }
 
 function go(next,focus=true){
- screen=next;notice.textContent='';
+ screen=next;root.dataset.screen=next;notice.textContent='';
  if(next==='gallery')root.innerHTML=gallery();
  else if(next==='guide')root.innerHTML=guideView(plan,step);
  else if(next==='review')root.innerHTML=reviewView(plan);
@@ -49,13 +49,19 @@ root.addEventListener('click',e=>{
  }
  const lot=e.target.closest('[data-builder-lot]')?.dataset.builderLot;
  if(lot){e.preventDefault();const target=root.querySelector('#lot-'+lot);target.focus();return;}
+ const link=e.target.closest('a[href^="#"]');
+ if(link){
+   e.preventDefault();const target=link.getAttribute('href').slice(1);
+   if(target==='sectors'){const section=root.querySelector('#sectors');section.tabIndex=-1;section.focus();return;}
+   if(Object.hasOwn(view.tabs,target)||['gallery','hq','district'].includes(target)){navigate(target);return;}
+ }
  const op=e.target.closest('[data-act]')?.dataset.act;if(!op)return;
- if(op==='duplicate'){business=library.duplicate();result=null;go('overview');history.replaceState(null,'','#overview');notice.textContent='Version created for comparison.';return;}
+ if(op==='duplicate'){business=library.duplicate();result=null;navigate('overview');notice.textContent='Version created for comparison.';return;}
  if(op==='undo'||op==='redo'){business=library.travel(op);result=null;go(screen);notice.textContent=op==='undo'?'Edit undone.':'Edit restored.';return;}
  if(op==='reset'){
    const dialog=root.querySelector('#record');dialog.querySelector('#source-body').innerHTML='<h2 id="source-title">Reset this business?</h2><p>Restore its confirmed opening assumptions and remove subsequent edits and campaigns. Other versions stay available.</p>'+btn('confirm-reset','Restore opening plan','button primary');dialog.showModal();dialog.querySelector('button').focus();return;
  }
- if(op==='confirm-reset'){business=library.reset();result=null;day=1;stress='normal';beat=0;go('overview');history.replaceState(null,'','#overview');notice.textContent='Opening plan restored. Undo is available.';return;}
+ if(op==='confirm-reset'){business=library.reset();result=null;day=1;stress='normal';beat=0;navigate('overview');notice.textContent='Opening plan restored. Undo is available.';return;}
  if(op==='close-record'){root.querySelector('#record').close();return;}
  if(op==='device'){device=device==='mobile'?'desktop':'mobile';go('website',false);root.querySelector('[data-act="device"]').focus();return;}
  if(op==='export'){downloadWebsite(business,day);return;}
@@ -105,8 +111,13 @@ root.addEventListener('submit',e=>{
  }catch(error){notice.textContent=error.message;notice.scrollIntoView({block:'nearest'});}
 });
 function apply(copy){const checked=calculate(copy,stress);business=library.edit(copy);result=checked;}
-function navigate(next){if(location.hash==='#'+next)go(next);else location.hash=next;}
+function navigate(next){
+ // Reuse the loaded document URL. Native fragment navigations can re-request the favicon even offline.
+ if(history.state?.builderSection!==next)history.pushState({builderSection:next},'',location.href);
+ go(next);
+}
+addEventListener('popstate',()=>go(history.state?.builderSection||location.hash.slice(1)||'gallery'));
 addEventListener('hashchange',()=>{const target=decodeURIComponent(location.hash.slice(1));if(target==='sectors')return;go(target||'gallery');});
-try{go(business?(location.hash.slice(1)||'overview'):'gallery',false);}
+try{go(business?(history.state?.builderSection||location.hash.slice(1)||'overview'):'gallery',false);}
 catch{business=null;go('gallery',false);notice.textContent='The saved plan could not be opened. Start a new plan in this browser.';}
 

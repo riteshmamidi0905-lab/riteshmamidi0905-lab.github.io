@@ -33,7 +33,7 @@ async function walk(browser,width){
   async function section(name){
     if(width===390){await tabTo('[name=section]',null);const l=p.locator('[name=section]');await l.press('Home');const keys=['overview','website','products','operations','marketing','customers','finance','simulation','report'];for(let j=0;j<keys.indexOf(name);j++)await l.press('ArrowDown');await l.press('Enter');await tabTo('#section-jump button');}
     else await tabTo('.side nav a[href="#'+name+'"]');
-    await p.waitForFunction(id=>location.hash==='#'+id,name);
+    await p.waitForFunction(id=>document.querySelector('#builder').dataset.screen===id,name);
   }
   await p.goto(base+'pavilion/start.html',{waitUntil:'networkidle'});await p.locator('.industry').first().waitFor();
   await p.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(i=>i.decode()));});
@@ -42,7 +42,7 @@ async function walk(browser,width){
   await tabTo('[data-act="pick:sports"]');
   for(let i=0;i<7;i++){await p.locator('#guide-form[data-step="'+i+'"]').waitFor();await view('guided-'+(i+1),'#guide-form',i===0||i===6);
     await tabTo('#guide-form button[type=submit],#guide-form button:not([type])');}
-  await view('review','#review-form');await tabTo('#review-form button:not([type])');await p.waitForURL(/#overview$/);
+  await view('review','#review-form');await tabTo('#review-form button:not([type])');await p.waitForSelector('[data-screen=overview]');
   await view('overview','.overview-hero');
   await section('website');await view('website','#website-form');
   await p.locator('[name=title]').fill('District Field on game day');await p.locator('[name=theme]').selectOption('night');
@@ -53,7 +53,7 @@ async function walk(browser,width){
   await section('operations');await view('operations','#operations-form');
   await section('marketing');await view('campaign-planner','#campaign-form');await tabTo('#campaign-form button');
   await view('campaign-creative','.creative-pair',false);
-  await tabTo('[data-act=run]');await p.waitForURL(/#simulation$/);await view('simulation','h1');await view('campaign-roi','.roi-card');
+  await tabTo('[data-act=run]');await p.waitForSelector('[data-screen=simulation]');await view('simulation','h1');await view('campaign-roi','.roi-card');
   for(const s of ['fatigue','overload','normal']){await p.locator('[name=stress]').selectOption(s);if(s!=='normal')await view('stress-'+s,'.roi-card',false);}
   await p.locator('a[href="#hq"]').click();await view('headquarters','.active-task');assert.match(await p.locator('.active-task').innerText(),/NOVARA/);
   await tabTo('.active-task [data-record]');await p.locator('dialog[open]').waitFor();await view('source-record','dialog[open]',false);await p.keyboard.press('Escape');
