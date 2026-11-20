@@ -90,3 +90,5 @@ footer.portfolio-foot{background:var(--forest);color:var(--ivory);min-height:120
 .folio.editorial .chip.VERIFIED{color:#286344}.folio.editorial .chip.UNVERIFIED{color:#815311}.folio.editorial .chip.PROTOTYPE{color:#594285}.folio.editorial .chip.FAIL{color:#8c352f}
 .folio.editorial .flow-node,.folio.editorial .lab-result,.folio.editorial .arch-connector{color:#40564c}
 
+
+.folio.editorial .agent small{color:var(--muted)}

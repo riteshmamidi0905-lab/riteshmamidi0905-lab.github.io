@@ -256,13 +256,13 @@
   },
   {
     "path": "datalab.js",
-    "bytes": 8219,
-    "sha256": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636"
+    "bytes": 8279,
+    "sha256": "d041603788d089159033f51d7d2b6e368e55d1b7aab50de901a69b13e45f6159"
   },
   {
     "path": "demo/app.js",
-    "bytes": 68648,
-    "sha256": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102"
+    "bytes": 68655,
+    "sha256": "3c2246a7e3de080bf1e721fbbee26e770a9d4f4eb398e8b2a24d849a23f448fd"
   },
   {
     "path": "demo/archive.html",
@@ -271,8 +271,8 @@
   },
   {
     "path": "demo/data.js",
-    "bytes": 24464,
-    "sha256": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3"
+    "bytes": 24450,
+    "sha256": "3fd0382160d4df1852830d17c2a0631d7084db4d0a52fd85ce0549369d69549d"
   },
   {
     "path": "demo/demo.css",
@@ -301,8 +301,8 @@
   },
   {
     "path": "index.html",
-    "bytes": 4756,
-    "sha256": "dc4a3293dd17fa6f781b951db74a46aefb78530666be19a6e967266881c9d251"
+    "bytes": 4757,
+    "sha256": "1de4868bcaa1f803ce156a5722bf71e3b35486860ad939679227a4c894f75901"
   },
   {
     "path": "lab-explorer.html",
@@ -856,8 +856,8 @@
   },
   {
     "path": "portfolio.css",
-    "bytes": 10088,
-    "sha256": "3d460a076c0b1aaf89deab9d750418ba78d18228a1c0519f32d5438cb67f398f"
+    "bytes": 10139,
+    "sha256": "8a7801cf717a2f0f8a4be549074ab53f91107ef6861bef8b6013c070891209aa"
   },
   {
     "path": "projects.html",

@@ -83,13 +83,25 @@
         "old": "555738e1c927a12cfab5e1ef599ebbe1e369c1644bb27d65dc98a81fbc08a10e",
         "new": "6745f8040c15af54fe69b1b76fb81319d1778182b678cd96f76af3b439b7162e"
       },
+      "datalab.js": {
+        "old": "61638c19cdee6ba192c7d04e2dbdedb8cace943999ac1a80f9c0eeebaf78c636",
+        "new": "d041603788d089159033f51d7d2b6e368e55d1b7aab50de901a69b13e45f6159"
+      },
+      "demo/app.js": {
+        "old": "cf6cf500eba9cb5133fe1921ee91cc1bc303259ab3e7604fb7068ececccb4102",
+        "new": "3c2246a7e3de080bf1e721fbbee26e770a9d4f4eb398e8b2a24d849a23f448fd"
+      },
+      "demo/data.js": {
+        "old": "72cfcd59841b411023122e38b6eb8bc132977b70e79c01c8057fb528e994f4c3",
+        "new": "3fd0382160d4df1852830d17c2a0631d7084db4d0a52fd85ce0549369d69549d"
+      },
       "demo/index.html": {
         "old": "59b0e8488a22bcbff16306eec5dadb5ace8803ca1ac097b216cb908c080079c4",
         "new": "d3aed50118a93fd889a0ae7f6ae60b63794c629c02b4a693e700789446cf5773"
       },
       "index.html": {
         "old": "f25c19adf14fdebeec67fdcefcc959d7833b3eb339a355d7ee8bc3bb6ae99c05",
-        "new": "dc4a3293dd17fa6f781b951db74a46aefb78530666be19a6e967266881c9d251"
+        "new": "1de4868bcaa1f803ce156a5722bf71e3b35486860ad939679227a4c894f75901"
       },
       "lab-explorer.html": {
         "old": "c376af582b4e27aa7fb489e72c77bfee6fb2ba65836e2fcccdecfac97bee419b",
@@ -177,11 +189,11 @@
       },
       "release-files.json": {
         "old": "0e2769316233a5d59391b2ce581297a0001423b55fe41ac938f8c70fb99af298",
-        "new": "a3db981ce164549c7056212200dec8fb089ca660055552347ab09f415d097cff"
+        "new": "d1723dc0c772ed8f3fbd3d00cab5cd8becd3c7359e312dbdc9ef36edb8d866c8"
       },
       "scripts/publish-manifest.json": {
         "old": "a6d6dc517edd4abb2cdc96e8520b5fba4ea83022cbc2465dc67012544092225b",
-        "new": "e8ea9f2dc69dd510d721970174be43be63e2955dc551c35460d3f24fd202779b"
+        "new": "e5d908fa37f385f2159382b1501ff5c40b37664aa079dff644e20e495abe03e9"
       },
       "sitemap.xml": {
         "old": "907b3027a09282fac7cf33b991dfa7d17c504339dd9db16ab0e43dfdf062f6eb",
