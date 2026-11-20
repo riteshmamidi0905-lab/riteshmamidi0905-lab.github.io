@@ -719,13 +719,78 @@
   },
   {
    "path": "pavilion/brewpub.js",
-   "bytes": 8274,
-   "sha256": "547eee0e299b2b8431e760416fbb5d4ccdfd80b89e52df8877da85b1962f89d3"
+   "bytes": 8311,
+   "sha256": "9ba162433d29fb02cf982e3b12713089e5a8149b35b5acfe8b0e22e6dbab3687"
   },
   {
    "path": "pavilion/bridge.html",
    "bytes": 2846,
    "sha256": "123cc2515ad1410cf872c6f074fbeda83d9cefd116cfe352f123b9997d0aa248"
+  },
+  {
+   "path": "pavilion/builder-art.js",
+   "bytes": 4351,
+   "sha256": "bdf903df7d0d0381c201831ddeeeff0b19000cf5bb8f6da053de9abcac53efab"
+  },
+  {
+   "path": "pavilion/builder-campaign-view.js",
+   "bytes": 8940,
+   "sha256": "60a606bc6ef8d4ea8b9627f5b775c8316ee307c0a2ecab07d06b00a16ace60a9"
+  },
+  {
+   "path": "pavilion/builder-common.js",
+   "bytes": 3126,
+   "sha256": "77a82e8b97f341559c4fb856eabb74dbdf20a01ca97f9a714c2ad06a7db2f682"
+  },
+  {
+   "path": "pavilion/builder-dashboard.js",
+   "bytes": 10239,
+   "sha256": "7d018f2599dcb42ec687603dc9b39b201ce57795b54f0b1863522ffebae8ce0c"
+  },
+  {
+   "path": "pavilion/builder-entry.js",
+   "bytes": 3028,
+   "sha256": "ee07c145c3c6204866b9277dc370261cd74f63b6b21f5ef369d6f9f41f069685"
+  },
+  {
+   "path": "pavilion/builder-ledger.js",
+   "bytes": 4429,
+   "sha256": "8ee91859cf4cdf07708cb6becf1efae4bdd0bf2d566e6309d1c7b3f9947d5d83"
+  },
+  {
+   "path": "pavilion/builder-library.js",
+   "bytes": 2618,
+   "sha256": "f5387c1651c058a0faec36085d55d290002e4391499337f9865e3811e9b78d04"
+  },
+  {
+   "path": "pavilion/builder-market.js",
+   "bytes": 7405,
+   "sha256": "f5098a0cbf0415d9fa9afbdd7d57fb204f30dbe75a66e3e3159a154103a93012"
+  },
+  {
+   "path": "pavilion/builder-plan.js",
+   "bytes": 4606,
+   "sha256": "4db96c2a7c49b7f9c4ffafad48671738af35ba120b957792b3cba65c2baad7ae"
+  },
+  {
+   "path": "pavilion/builder-results.js",
+   "bytes": 2298,
+   "sha256": "b6d106f276270aa3068014e607b168fa595f29ed60a47d8fd6e8c98c45554782"
+  },
+  {
+   "path": "pavilion/builder-site.js",
+   "bytes": 3586,
+   "sha256": "b7a193ec7665943ea9f094b7df49a1e8dafe54df35730b079e27f379fccbc04e"
+  },
+  {
+   "path": "pavilion/builder.css",
+   "bytes": 12976,
+   "sha256": "34497da60dd04b8166b5468e4e4b8812f65881f45f830a176a7ecd856240f7f2"
+  },
+  {
+   "path": "pavilion/builder.js",
+   "bytes": 9778,
+   "sha256": "719b5a9e1d23cdcbb01256ec3b2bdf2d0cc2db942eaabb800bc1def5f9ef8d1b"
   },
   {
    "path": "pavilion/business-settings.js",
@@ -744,8 +809,8 @@
   },
   {
    "path": "pavilion/create.html",
-   "bytes": 4985,
-   "sha256": "413f6ef28b00f6a58e4017630247c260fcaa355c4dbf4ca61b46b5fd85db602d"
+   "bytes": 5027,
+   "sha256": "7b4271b8212b553cfd973b2954946dcf56819b4649aab2f7c6300356a72826f3"
   },
   {
    "path": "pavilion/district-map.js",
@@ -844,8 +909,8 @@
   },
   {
    "path": "pavilion/idea-profiles.js",
-   "bytes": 8278,
-   "sha256": "3b6b1d3aff62220c2485b4419d54e336669e8123bf9c5ee1b694014d8d174ec8"
+   "bytes": 9212,
+   "sha256": "cb70cbadbc7bc92d17b04e400780a66e42739f4d84f154e0eedfe4b0fc6d0dab"
   },
   {
    "path": "pavilion/idea-replay.js",
@@ -859,13 +924,13 @@
   },
   {
    "path": "pavilion/idea-terms.js",
-   "bytes": 2440,
-   "sha256": "3ae872d4e0a655de4c13af691924c1e7e6c3ae51e4ce438918822bba27721075"
+   "bytes": 2544,
+   "sha256": "187acc4353279ff248a8ddee34022a7547f2d2dbc4ff4e5c2a60ace962f686f2"
   },
   {
    "path": "pavilion/index.html",
-   "bytes": 3454,
-   "sha256": "ae02107d82eeb3cbfc62854a22514635483c8f4369f3919c5f1b5c383e9951ac"
+   "bytes": 3496,
+   "sha256": "f4981b46302bb6a57faf914ef0fbf5267d91d4787de6f465c213dbd6d9c87286"
   },
   {
    "path": "pavilion/inspector.html",
@@ -874,8 +939,8 @@
   },
   {
    "path": "pavilion/iso-geometry.js",
-   "bytes": 12560,
-   "sha256": "ca0a393f215b3f13755f49d434772a2fccb9f3455beb3738f5d580d039d708b0"
+   "bytes": 12626,
+   "sha256": "75cd779c1b5a7c207df68e83ac81e793b55b2c7f268eafec85737d20352455c4"
   },
   {
    "path": "pavilion/iso-player.js",
@@ -954,8 +1019,8 @@
   },
   {
    "path": "pavilion/site.js",
-   "bytes": 6245,
-   "sha256": "ce00f9e214ed3f07f7af45ca4bffce17287cd076d7a366acb9de396547094f5d"
+   "bytes": 6287,
+   "sha256": "448bfb657417c6b0949b978fc0621534d92f65f8d6ace744dc3f42c3f0594804"
   },
   {
    "path": "pavilion/source-book.html",
@@ -969,8 +1034,8 @@
   },
   {
    "path": "pavilion/stadium-model.js",
-   "bytes": 10958,
-   "sha256": "8351aaf2101f9cf79350b6b8370755dd9c5cded2de80039ccaa460b8a0c33a7b"
+   "bytes": 12248,
+   "sha256": "24f153eeda51c703c06a325c57d204845e4c2541e1105a604a231106ffae1909"
   },
   {
    "path": "pavilion/stadium-view.js",
@@ -981,6 +1046,11 @@
    "path": "pavilion/stadium.html",
    "bytes": 6872,
    "sha256": "ccc1fecce4dcea1455207e4ba0acb3f78823f4007e85d62cb91d326207f664db"
+  },
+  {
+   "path": "pavilion/start.html",
+   "bytes": 2707,
+   "sha256": "7aa35a7690f89a5bf261f1a766f7555337d541bdb414b2508411b5d02c8fa810"
   },
   {
    "path": "pavilion/station-context.js",
@@ -1004,8 +1074,8 @@
   },
   {
    "path": "pavilion/views.js",
-   "bytes": 11571,
-   "sha256": "1d832bb0e3d344987770f3d3c2761aaf8980c27602bbee86d359c14124a24013"
+   "bytes": 11613,
+   "sha256": "585e01318e84567b554c6879e5d20d3617353e7afae8eef92fa93671037da466"
   },
   {
    "path": "pavilion/week-comparison.js",

@@ -12,7 +12,18 @@ export function elevation(kind){
  }else{
    const windows=Array.from({length:7},(_,i)=>'<g transform="translate('+(110+i*31)+' '+(111-i*5.7)+') skewY(-10.3)"><rect width="25" height="47" fill="'+shade+'"/><path d="M3 4h19l-7 26H3z" fill="#8b9a86"/><path d="M13 0v47m-12-30h24" stroke="#c7b58f" stroke-width="1.8"/></g>').join('');
    const canopy=kind==='beauty'?'<path d="M91 116l247-44-13 13-247 45z" fill="#93594e"/>':kind==='retail'?'<path d="M91 116l247-44-13 13-247 45z" fill="#445d4e"/>':'<path d="M91 116l247-44-13 13-247 45z" fill="#a86c42"/>';
-   building=entry+windows+canopy+'<path d="M345 70l158 33m-158-18l158 33m-158-17l158 33" fill="none" stroke="#b99e78" stroke-width="2"/>';
+   let interior='';
+   if(kind==='food'){
+     for(const [x,y] of [[123,181],[171,177],[220,170]])interior+='<g transform="translate('+x+' '+y+')"><ellipse rx="19" ry="6" fill="#5c624e" opacity=".28"/><path d="M0-3v-24m-8 25h16" stroke="#5a5442" stroke-width="2"/><path d="M-19-18l19-13 19 10-16 6z" fill="#d9ab6c"/><ellipse cy="-6" rx="10" ry="3" fill="#966d49"/></g>';
+     interior+='<path d="M384 78V46q0-8 7-8h6v6h-5v36m25 7V53q0-8 7-8h6v6h-5v37" fill="#9c9f92"/>';
+   }else if(kind==='beauty'){
+     for(const [x,y] of [[123,121],[185,110],[249,98]])interior+='<g transform="translate('+x+' '+y+') skewY(-10)"><path d="M0 23V6q0-10 8-10t8 10v17z" fill="#d5b599"/><path d="M3 21V6q0-6 5-6t5 6v15" fill="#83968b"/><path d="M6 31v-9h10v8l-5 2v4" fill="#914f48"/></g>';
+     interior+='<path d="M75 171l13-3 6-28-13 2z" fill="#b9a793"/><path d="M81 141q-12-23-3-33 15 9 7 31 2-25 20-28-1 19-20 31" fill="#63795e"/>';
+   }else{
+     for(const [x,y] of [[124,119],[185,108],[248,96]])interior+='<g transform="translate('+x+' '+y+') skewY(-10)"><path d="M0 15h23m-23 11h23" stroke="#e2c593" stroke-width="2"/><path d="M2 7h6v8H2zm9-4h6v12h-6zm7 18h5v5h-5z" fill="#b07c58"/><path d="M2 20h9v5H2z" fill="#e5caaa"/></g>';
+     interior+='<path d="M370 83l90 20v20l-90-20z" fill="#eee0ba"/><path d="M378 92l72 15m-59-7l45 10" stroke="#77775b" stroke-width="2"/><path d="M121 97l186-34-12-7-181 34z" fill="#7d886a"/>';
+   }
+   building=entry+windows+canopy+interior+'<path d="M345 70l158 33m-158-18l158 33m-158-17l158 33" fill="none" stroke="#b99e78" stroke-width="2"/>';
  }
  return '<svg viewBox="0 0 640 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><rect width="640" height="240" fill="'+sky+'"/><circle cx="500" cy="48" r="26" fill="#f3e7c3"/><path d="M0 114l138-34 70 11 123-23 71 15 126-30 112 30v50H0z" fill="#a6af99"/>'+ground+tree(63,148,.62)+building+tree(550,163,.78)+tree(45,193,.8)+'<path d="M8 221l621-76" fill="none" stroke="'+trim+'" opacity=".26"/></svg>';
 }

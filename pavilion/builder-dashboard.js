@@ -8,14 +8,14 @@ const row=(label,text)=>'<div class="line"><span>'+esc(label)+'</span><strong>'+
 export function stat(title,value,id){return '<div class="stat"><span>'+esc(title)+'</span><strong>'+evidence(id,value)+'</strong></div>';}
 export function wrap(b,page,content,archive=''){
  const active=['hq','district'].includes(page)?'simulation':page;
- return '<div class="workbench"><aside class="side"><div class="side-name">'+esc(b.values.concept)+'</div><div class="mobile-section">'+select('section','Dashboard section',tabs,active)+'</div><nav aria-label="Business dashboard">'+Object.entries(tabs).map(([key,label])=>'<a href="#'+key+'"'+(active===key?' aria-current="page"':'')+'>'+label+'</a>').join('')+'</nav><div class="manage">'+'<details><summary>Manage workspace</summary>'+archive+'</details></div></aside><div class="panel">'+content+'</div></div>';
+ return '<div class="workbench"><aside class="side"><div class="side-name">'+esc(b.values.concept)+'</div><form id="section-jump" class="mobile-section">'+select('section','Dashboard section',tabs,active)+'<button class="quiet" type="submit">Open section</button></form><nav aria-label="Business dashboard">'+Object.entries(tabs).map(([key,label])=>'<a href="#'+key+'"'+(active===key?' aria-current="page"':'')+'>'+label+'</a>').join('')+'</nav><div class="manage">'+'<details><summary>Manage workspace</summary>'+archive+'</details></div></aside><div class="panel">'+content+'</div></div>';
 }
 export function totalStats(result){
  const s=result.total;
  return '<div class="stats">'+stat('Four-week revenue',money(s.gross),'B-RESULT')+stat('Operating income',money(s.income),'B-RESULT')+stat('Closing cash',money(s.cash),'B-RESULT')+'</div>';
 }
 export function weekly(result){
- return '<div class="table-scroll"><table><caption>Four-week operating ledger</caption><thead><tr><th>Week</th><th>Served</th><th>Revenue</th><th>Operating income</th><th>Closing cash</th></tr></thead><tbody>'+result.weeks.map(w=>'<tr><th>'+evidence(w.id,'Week '+w.week)+'</th><td>'+count(w.served)+'</td><td>'+money(w.gross)+'</td><td>'+money(w.income)+'</td><td>'+money(w.cash)+'</td></tr>').join('')+'</tbody></table></div>';
+ return '<div class="table-scroll"><table><caption>Four-week operating ledger</caption><thead><tr><th>Week</th><th>Served</th><th>Revenue</th><th>Operating income</th><th>Closing cash</th></tr></thead><tbody>'+result.weeks.map(w=>'<tr><th>'+evidence(w.id,'Week '+w.week)+'</th><td>'+evidence(w.id,count(w.served))+'</td><td>'+evidence(w.id,money(w.gross))+'</td><td>'+evidence(w.id,money(w.income))+'</td><td>'+evidence(w.id,money(w.cash))+'</td></tr>').join('')+'</tbody></table></div>';
 }
 export function overview(b,res){
  const sector=Object.entries(sectors).find(([,s])=>s.types.includes(b.values.type))[0];
@@ -34,8 +34,12 @@ export function products(b){
 }
 export function operations(b,r){
  const last=r.days.at(-1),v=b.values,venue=v.type==='stadium';
+ const suppliers=venue?b.items.map(item=>{
+   const orders=Object.values(r.records).filter(rec=>rec.kind==='Vendor supply'&&rec.vendor===item.id&&rec.ordered>0);
+   const source=orders.at(-1);return source?row(item.name,evidence(source.id,'Day '+source.day+' · '+source.ordered+' ordered')):'';
+ }).join(''):Object.values(r.records).filter(rec=>rec.kind==='Fictional supplier').map(rec=>row(rec.name,evidence(rec.id,'Supplies '+rec.materialId))).join('');
  return shellHeading('Operations','Behind the counter','Adjust the operating assumptions and inspect the resulting stock close.')+
- '<form id="operations-form" class="editor"><div class="form-grid">'+input('staff',venue?'Lead vendor positions':'Staff positions',v.staff,'type="number" min="1" max="12" required')+input('hours',venue?'Event shift hours':'Opening hours',v.hours,'required maxlength="220"')+input('lead','Supplier delivery lead (extra days)',b.lead,'type="number" min="0" max="7" required')+input('stock',venue?'Forecast stock target (%)':'Opening stock target (%)',b.stock,'type="number" min="25" max="200" required')+'</div><button class="button primary">Save operating plan</button></form><h2>Inventory at close</h2>'+Object.entries(last.inventory).map(([id,n])=>row(id,evidence(last.id,count(n)+' units'))).join('')+'<p><a href="#hq">Open campaign headquarters</a></p>';
+ '<form id="operations-form" class="editor"><div class="form-grid">'+input('staff',venue?'Lead vendor positions':'Staff positions',v.staff,'type="number" min="1" max="12" required')+input('hours',venue?'Event shift hours':'Opening hours',v.hours,'required maxlength="220"')+input('lead','Supplier delivery lead (extra days)',b.lead,'type="number" min="0" max="7" required')+input('stock',venue?'Forecast stock target (%)':'Opening stock target (%)',b.stock,'type="number" min="25" max="200" required')+'</div><button class="button primary">Save operating plan</button></form><h2>Suppliers and deliveries</h2>'+suppliers+'<h2>Inventory at close</h2>'+Object.entries(last.inventory).map(([id,n])=>row(id,evidence(last.id,count(n)+' units'))).join('')+'<p><a href="#hq">Open campaign headquarters</a></p>';
 }
 export function customers(b,r){
  const v=b.values,s=r.total,rec=r.records['B-AUDIENCE'];

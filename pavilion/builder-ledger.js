@@ -1,3 +1,4 @@
+import {readSchedule} from './idea-hours.js';
 import {operatingProfile,hoursLong,tiers} from './idea-profiles.js';
 import {runIdea} from './idea-analysis.js';
 import {booths,recommended,simulateStadium} from './stadium-model.js';
@@ -26,7 +27,7 @@ function retailDays(b,arrivals){
 function venueDays(b,arrivals){
  const v=b.values,ids=v.mix,menu=Object.fromEntries(b.items.map(item=>[item.id,{price:item.price,cost:item.cost}]));
  const staff=Object.fromEntries(ids.map((id,i)=>[id,Math.min(12,Math.max(1,recommended[id]+v.staff-recommended[ids[0]]))]));
- const model=simulateStadium({mix:ids,staff,operations:{menu,stock:b.stock,lead:b.lead,seats:parseInt(v.size),minutes:Math.round(hoursLong(v.hours)*60),capital:v.budget*100,arrivals}});
+ const model=simulateStadium({mix:ids,staff,operations:{menu,stock:b.stock,lead:b.lead,seats:parseInt(v.size),minutes:Math.round(hoursLong(v.hours)*60),weekMinutes:readSchedule(v.hours).week.map(d=>d.minutes),capital:v.budget*100,arrivals}});
  let priorIncome=0;
  const days=model.days.map(d=>{
    const rec=id=>model.records[id],venue=rec(d.close),vendors=d.closes.map(rec),books=[venue,...vendors];

@@ -37,13 +37,15 @@ const valid=(n,a,b)=>Number.isInteger(n)&&n>=a&&n<=b;
 export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.map(b=>b.id),operations=null}={}){
  if(!valid(seed,1,999999)||stress&&!Object.hasOwn(stadiumStress,stress)||!Array.isArray(mix)||!mix.length||new Set(mix).size!==mix.length||mix.some(id=>!booths.some(b=>b.id===id)))throw Error('Invalid venue configuration.');
  const vendors=booths.filter(b=>mix.includes(b.id)).map(b=>operations?{...b,...operations.menu[b.id]}:b);
- const capacity=operations?.seats??stadiumPolicy.capacity, shiftMinutes=operations?.minutes??stadiumPolicy.shiftMinutes;
- if(!valid(capacity,10,30000)||!valid(shiftMinutes,1,1440)||vendors.some(b=>!valid(b.price,1,100000)||!valid(b.cost,1,100000)))throw Error('Invalid venue operating plan.');
+ const capacity=operations?.seats??stadiumPolicy.capacity, averageMinutes=operations?.minutes??stadiumPolicy.shiftMinutes;
+ if(!valid(capacity,10,30000)||!valid(averageMinutes,1,1440)||vendors.some(b=>!valid(b.price,1,100000)||!valid(b.cost,1,100000)))throw Error('Invalid venue operating plan.');
  if(vendors.some(b=>!valid(staff[b.id],1,12)))throw Error('Choose 1–12 positions for each stand.');
  const records={},events=[],days=[],state=new Map(vendors.map(b=>[b.id,{balances:account(1500000),stock:0,served:0,walkaways:0}])),venue=account(operations?.capital??12000000);
  function record(id,kind,data){if(records[id])throw Error('Duplicate stadium source');records[id]={id,kind,...data};return id;}
  function task(day,minute,owner,action,inputs,outputs){if([...inputs,...outputs].some(id=>!records[id]))throw Error('Missing stadium source');events.push({id:'EV-ST-'+day+'-'+String(events.length+1).padStart(4,'0'),day,minute,owner,action,inputs,outputs});}
  for(let day=1;day<=28;day++){
+   const shiftMinutes=operations?.weekMinutes?.[(day-1)%7]??averageMinutes;
+   if(!valid(shiftMinutes,0,1440))throw Error('Invalid event shift hours.');
    const prefix='D'+String(day).padStart(2,'0')+'-',event=calendar(day,seed,stress),operator=begin(venue);
    if(operations){
      event.forecast=Math.min(capacity,Math.round(event.forecast*capacity/stadiumPolicy.capacity));
@@ -61,7 +63,7 @@ export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.
      const added=event.attendance?(operations?.arrivals?.[b.id]?.[day-1]??0):0;
      if(!valid(added,0,100000))throw Error('Invalid vendor campaign demand.');
      const need=Math.round(event.attendance*b.share/1000)+added,par=Math.ceil(event.forecast*b.share/1000*1.32*(operations?.stock??100)/100);
-     const ordered=Math.max(0,par-s.stock),delayed=stress==='delay'&&day===20;
+     const ordered=Math.max(0,par-s.stock-(s.inTransit||[]).reduce((n,order)=>n+order.units,0)),delayed=stress==='delay'&&day===20;
      let delivered=(delayed?0:ordered)+(s.delayed||0);s.delayed=delayed?ordered:0;
      if(operations?.lead){
        s.inTransit??=[];if(delivered)s.inTransit.push({day:day+operations.lead,units:delivered});
