@@ -1,3 +1,4 @@
+import {mountQuestions} from './ask-floor.js';
 import {homeCamera,cameraFrame,stationCamera,cameraControls} from './free-camera.js';
 import {aislePath,home,point,roomView,nameplates} from './iso-geometry.js';
 import {overview,lightAt,placeTokens,recentEvents} from './floor-staging.js';
@@ -5,7 +6,7 @@ import {stampTasks,scheduleDay,visibleHandoffs} from './shift-schedule.js';
 import {floorSurfaces} from './floor-surfaces.js';
 import {shiftControls} from './shift-controls.js';
 import {stationTitle,taskTitle,unusedStation} from './station-context.js';
-import {url,esc} from './views.js';
+import {url,esc,timeline,dayNav} from './views.js';
 import {instrumentReading} from './shift-display.js';
 
 function pathFor(a,b) {
@@ -24,7 +25,7 @@ function pathFor(a,b) {
 }
 export async function mountFloor(model,day,params) {
   const $=s=>document.querySelector(s), svg=$('#floor'),drawing=$('.drawing'),world=$('.camera-world'),list=$('#depth-list');
-  const schedule=scheduleDay(model,day);
+  let schedule=scheduleDay(model,day);
   let events=model.events.filter(e=>e.day===day);
   if(events.some(e=>e.startMinute===undefined)){events=events.map(e=>({...e}));stampTasks(events);}
   const event=events[Number(params.get('event')||0)]||events[0];
@@ -40,8 +41,8 @@ export async function mountFloor(model,day,params) {
     $('#load').textContent='Static floor · use the shift transcript below';
     return;
   }
-  const panel=shiftControls($('#task'),$('#ticker'),model,day);
-  const history=schedule.map(beat=>recentEvents(events,beat.minute));
+  const panel=shiftControls($('#task'),$('#ticker'),model,()=>day);
+  let history=schedule.map(beat=>recentEvents(events,beat.minute));
   const compact=matchMedia('(max-width:480px)');
   const reduced=matchMedia('(prefers-reduced-motion:reduce)'), travels=new Map();
   let play=false,elapsed=0,frame=0,previous=0,visible=true,packets=[],zoom=1,unit=1,clearance=47,follow=null;
@@ -215,7 +216,24 @@ export async function mountFloor(model,day,params) {
   new ResizeObserver(([entry])=>{width=entry.contentRect.width;height=entry.contentRect.height;camera();paint(elapsed/duration());}).observe(drawing);
   document.addEventListener('visibilitychange',visibility);
   reduced.addEventListener('change',()=>{pause();enter();update();});
-  document.addEventListener('floor-visit',e=>{const data=e.detail;if(data.agent&&!people.has(data.agent))return;pause();enter();if(Number.isInteger(data.slot))slot=Math.max(0,Math.min(schedule.length-1,data.slot));elapsed=0;if(data.agent)select(data.agent);else update();});
+  function visit(data){
+    if(data.agent&&!people.has(data.agent))return;
+    pause();enter();
+    if(Number.isInteger(data.day)&&day!==data.day){
+      day=data.day;schedule=scheduleDay(model,day);events=schedule.flatMap(s=>s.starts).filter((e,i,a)=>a.findIndex(n=>n.id===e.id)===i);
+      history=schedule.map(beat=>recentEvents(events,beat.minute));$('#seek').max=schedule.length-1;$('#day').value=day;
+      const list=$('#fallback .timeline');if(list)list.outerHTML=timeline(model,day);
+      const nav=$('nav.tabs'),days=$('nav.days');if(nav&&days){days.remove();nav.outerHTML=dayNav(model,day,'hq');}
+      const u=new URL(location.href),part=u.hash.includes('sim=')?new URLSearchParams(u.hash.slice(1)):u.searchParams;
+      part.set('day',day);if(u.hash.includes('sim='))u.hash=part.toString();window.history.replaceState(null,'',u);
+      const disclosure=document.querySelector('.iso-page > .disclose');if(disclosure)disclosure.textContent=disclosure.textContent.replace(/day \d+/i,'day '+day);
+    }
+    const eventSlot=data.event?schedule.findIndex(s=>s.starts.some(e=>e.id===data.event)):data.slot;
+    slot=Number.isInteger(eventSlot)?Math.max(0,Math.min(schedule.length-1,eventSlot)):0;elapsed=0;
+    if(data.agent)select(data.agent);else update();
+  }
+  document.addEventListener('floor-visit',e=>visit(e.detail));
+  mountQuestions(model,()=>day,visit);
   compact.addEventListener('change',update);
   if(matchMedia('(max-width:720px)').matches)$('.directory').open=true;
   update();playButton.disabled=false;if(!reduced.matches&&!params.has('beat')&&!params.has('event'))start();document.documentElement.classList.add('replay-ready');
