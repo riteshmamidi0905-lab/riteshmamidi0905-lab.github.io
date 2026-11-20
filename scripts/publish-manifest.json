@@ -353,6 +353,11 @@
    "sha256": "25893417f3e8f673817414d11ccbe8fdf8f5ed68dc30e77b081af40c2281aeeb"
   },
   {
+   "path": "nasha-universe/index.html",
+   "bytes": 559,
+   "sha256": "97be005b19fabcc30cf9fb4e3d71883bec629b9d4c099b47ecaf68f1e21ea3b6"
+  },
+  {
    "path": "nasha-universe/living-hq/archive.html",
    "bytes": 3078,
    "sha256": "023243885e47e8a643ecc39acb05417127f974466133f6d26ddf985402da9937"
@@ -864,13 +869,13 @@
   },
   {
    "path": "portfolio.css",
-   "bytes": 10139,
-   "sha256": "8a7801cf717a2f0f8a4be549074ab53f91107ef6861bef8b6013c070891209aa"
+   "bytes": 10213,
+   "sha256": "7c24cf3964e8537d2fc810a376b28c3e0564cfb1fc5f99e6da98148399b3ec98"
   },
   {
    "path": "projects.html",
-   "bytes": 48330,
-   "sha256": "86ccf02dc81cd4cce22f39b6370c56db02734667924caee3eb3833e94f2e8407"
+   "bytes": 48319,
+   "sha256": "61c0935c9c7f1ec4f9ebf1daafa344a5bb26a2e2a8d86a8de4bd17b21ca604d9"
   },
   {
    "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",

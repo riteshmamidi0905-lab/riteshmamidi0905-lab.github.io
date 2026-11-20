@@ -181,7 +181,7 @@
       },
       "projects.html": {
         "old": "f2787f7b6fd24fb8404bf9872fb95dc388165ef9fd93bde7c07a53103e72dc5e",
-        "new": "86ccf02dc81cd4cce22f39b6370c56db02734667924caee3eb3833e94f2e8407"
+        "new": "61c0935c9c7f1ec4f9ebf1daafa344a5bb26a2e2a8d86a8de4bd17b21ca604d9"
       },
       "recruiter.html": {
         "old": "108fa2c0d85e208ace6658ee2f1eec436a3458f2be6abe9880555dfb0a0245cf",
@@ -189,11 +189,11 @@
       },
       "release-files.json": {
         "old": "0e2769316233a5d59391b2ce581297a0001423b55fe41ac938f8c70fb99af298",
-        "new": "d1723dc0c772ed8f3fbd3d00cab5cd8becd3c7359e312dbdc9ef36edb8d866c8"
+        "new": "92c02d986def268996a1dc816650fc743ba49fa015eef67102db992e61d01585"
       },
       "scripts/publish-manifest.json": {
         "old": "a6d6dc517edd4abb2cdc96e8520b5fba4ea83022cbc2465dc67012544092225b",
-        "new": "e5d908fa37f385f2159382b1501ff5c40b37664aa079dff644e20e495abe03e9"
+        "new": "f3f16786ad1313c08160a5ef5af9e597ca2e6dc656cd80fc62923159379b42c5"
       },
       "sitemap.xml": {
         "old": "907b3027a09282fac7cf33b991dfa7d17c504339dd9db16ab0e43dfdf062f6eb",
