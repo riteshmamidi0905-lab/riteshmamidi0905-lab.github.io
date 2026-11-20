@@ -48,6 +48,11 @@ async function exercise(browser,width){
    await p.keyboard.press('ArrowRight');assert.notEqual(await p.locator('.drawing').getAttribute('data-center'),center);
    await p.keyboard.press('+');assert.ok(Number(await p.locator('.drawing').getAttribute('data-zoom'))>.9);await p.keyboard.press('Escape');
    assert.equal(Number(await p.locator('.drawing').getAttribute('data-zoom')),.9);await activate('#mini-jump');
+   if(width===1440){
+     const plaque=p.locator('[data-room="VECTRA"] rect').first();await plaque.dblclick();
+     assert.equal(await p.locator('#camera').inputValue(),'who-VECTRA');assert.equal(await p.locator('#agent-inspect').isVisible(),false);
+     await activate('#fit-floor');
+   }
    if(!await p.locator('.directory').evaluate(n=>n.open))await activate('.directory summary');await activate('.directory [data-agent="VECTRA"]');assert.ok(await p.locator('#agent-inspect').isVisible());await snap('agent-inspector',width===390?'#agent-inspect':'.iso-heading');
    await activate('#follow-inspected');assert.equal(await p.locator('#camera').inputValue(),'who-VECTRA');await activate('#fit-floor');
    await tree('HQ free camera and activity list');

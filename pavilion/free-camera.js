@@ -72,7 +72,7 @@ export function cameraControls(drawing,onMove,reset,fly){
     const box=lens.getBoundingClientRect(),x=frame.x+(e.clientX-box.left-box.width/2)/(frame.zoom*frame.unit),y=frame.y+(e.clientY-box.top-box.height/2)/(frame.zoom*frame.unit);
     let nearest=floorOrder[0],dist=Infinity;
     for(const name of floorOrder){const s=stationCamera(name,box.width,box.height),score=Math.hypot(x-s.x,y-s.y);if(score<dist){nearest=name;dist=score;}}
-    fly(nearest);
+    fly(e.target.closest('[data-room]')?.dataset.room||e.target.closest('[data-person]')?.dataset.person||nearest);
   });
   const full=document.querySelector('#fullscreen');
   full.onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.querySelector('#content').requestFullscreen();}catch{full.textContent='Fullscreen unavailable';}};

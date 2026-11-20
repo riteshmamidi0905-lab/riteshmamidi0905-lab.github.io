@@ -791,8 +791,8 @@
   },
   {
     "path": "pavilion/floor-surfaces.js",
-    "bytes": 9595,
-    "sha256": "21410958a5cd3aebcea7061ba03bbdf367a666232c0b811ad5c50c9a18873105"
+    "bytes": 9598,
+    "sha256": "d3d93a291447d539f95756740016c3ec69cbd7fd911a1a64e790ba5e10e4d35c"
   },
   {
     "path": "pavilion/floor-window.html",
@@ -811,8 +811,8 @@
   },
   {
     "path": "pavilion/free-camera.js",
-    "bytes": 6335,
-    "sha256": "427483fe75e3e3f87fc4ec4d08a259f91389a57c3e9eba1f970717f37c7380e0"
+    "bytes": 6433,
+    "sha256": "e0e13388a1c6741b3e376a8850755000a31610d50972b65623d520130bd8ef32"
   },
   {
     "path": "pavilion/hq.html",
@@ -871,8 +871,8 @@
   },
   {
     "path": "pavilion/iso-player.js",
-    "bytes": 14970,
-    "sha256": "2b1827685138b8a39391b46be86bfdaeb272ac2cbf175cba84b508d8c8e4c9f8"
+    "bytes": 15592,
+    "sha256": "5b89cc9b8ca12df711d52469c3fbe01a7c949101f4953923f82ca544c19979a6"
   },
   {
     "path": "pavilion/iso.css",

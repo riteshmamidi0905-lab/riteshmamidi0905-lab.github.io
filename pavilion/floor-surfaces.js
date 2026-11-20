@@ -150,7 +150,7 @@ export async function floorSurfaces(drawing,people){
     interactions(select,repaint){
       canvas.addEventListener('pointermove',ev=>{hit=at(ev);if(hit!==hover){hover=hit;canvas.style.cursor=hit?'pointer':'';repaint();}});
       canvas.addEventListener('pointerleave',()=>{if(hover){hover=null;repaint();}});
-      canvas.addEventListener('click',ev=>{const n=at(ev);if(n)select(n);});
+      canvas.addEventListener('click',ev=>{const n=at(ev);if(n)select(n,ev);});
       for(const [name,node] of people){
         node.addEventListener('focus',()=>{focus=name;repaint();});
         node.addEventListener('blur',()=>{focus=null;repaint();});

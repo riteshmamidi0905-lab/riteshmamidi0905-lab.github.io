@@ -57,7 +57,17 @@ export async function mountFloor(model,day,params) {
   const smallMap=()=>compact.matches&&!follow;
   function setText(node,value){if(node.textContent!==value){if(node.firstChild?.nodeType===3)node.firstChild.data=value;else node.textContent=value;}}
   let manual=null, inspected=null, returnFocus=null;
-  const controls=cameraControls(drawing,freeMove,fit,select);
+  let pickTimer,lastPick;
+  function pick(name,event){
+    clearTimeout(pickTimer);
+    if(!event||event.detail===0){lastPick=null;inspect(name);return;}
+    lastPick=name;
+    if(event.detail===1)pickTimer=setTimeout(()=>{lastPick=null;inspect(name);},350);
+  }
+  function flyPicked(station){
+    clearTimeout(pickTimer);const name=lastPick||station;lastPick=null;closeInspect();select(name);
+  }
+  const controls=cameraControls(drawing,freeMove,fit,flyPicked);
   function camera(){
     const w=width,h=height;
     if(!w||!h)return;
@@ -93,7 +103,9 @@ export async function mountFloor(model,day,params) {
     if(!inspected)return;
     const beat=schedule[slot],current=beat.active.find(e=>e.owner===inspected);
     const refs=ids=>ids.map(id=>'<a href="'+url('inspector',model,day,{id})+'">'+esc(id)+'</a>').join(' · ');
-    const detail=current?'<h3>'+esc(taskTitle(model,current))+'</h3><p>'+esc(current.id)+' · minute '+current.startMinute+'</p><dl><dt>Trigger rule</dt><dd>Start when the input records are ready and the specialist is available.</dd><dt>Inputs</dt><dd>'+(refs(current.inputs)||'Shift opening')+'</dd><dt>Outputs and source</dt><dd>'+refs(current.outputs)+'</dd></dl>':'<p>Idle at this minute. No active rule, inputs or output.</p>';
+    const output=current&&model.records[current.outputs[0]];
+    const rule=output?.trigger||output?.reason||(current?'When '+(current.inputs.map(id=>model.records[id]?.kind||id).join(' + ')||'the shift opens')+' is available, '+current.owner+' runs '+taskTitle(model,current)+'.':'');
+    const detail=current?'<h3>'+esc(taskTitle(model,current))+'</h3><p>'+esc(current.id)+' · minute '+current.startMinute+'</p><dl><dt>Trigger rule</dt><dd>'+esc(rule)+'</dd><dt>Inputs</dt><dd>'+(refs(current.inputs)||'Shift opening')+'</dd><dt>Outputs and source</dt><dd>'+refs(current.outputs)+'</dd></dl>':'<p>Idle at this minute. No active rule, inputs or output.</p>';
     const key=inspected+'/'+(current?.id||'idle');
     if($('#inspected-record').dataset.key!==key){
       $('#inspected-record').dataset.key=key;
@@ -204,11 +216,11 @@ export async function mountFloor(model,day,params) {
       elapsed=0;select(name);
     };
   }
-  deck.interactions(inspect,()=>paint(elapsed/duration()));
+  deck.interactions(pick,()=>paint(elapsed/duration()));
   for(const [name,node] of people){
-    node.addEventListener('click',()=>inspect(name));
+    node.addEventListener('click',e=>pick(name,e));
     node.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();inspect(name);}});
-    tags.get(name).addEventListener('click',()=>inspect(name));
+    tags.get(name).addEventListener('click',e=>pick(name,e));
   }
   document.querySelectorAll('[data-agent]').forEach(a=>a.onclick=e=>{e.preventDefault();inspect(a.dataset.agent);});
   function visibility(){cancelAnimationFrame(frame);frame=0;previous=0;const running=play&&visible&&!document.hidden;drawing.toggleAttribute('data-playing',running);if(running)frame=requestAnimationFrame(tick);}
