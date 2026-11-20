@@ -11,8 +11,8 @@
   },
   {
     "path": "archive-explorer.html",
-    "bytes": 41941,
-    "sha256": "587a393560a1a99a1b43361031f7484975ba57cd1d56ed31f809855bdc3c6a58"
+    "bytes": 41934,
+    "sha256": "4f61293a2e584d94d53f259f2f71a3522bca25aac29c52be29daeed1d7392e55"
   },
   {
     "path": "archive-lab.html",
@@ -21,8 +21,8 @@
   },
   {
     "path": "archive-records.html",
-    "bytes": 31300,
-    "sha256": "b76a1d9859ee63cbd15af19cb042800ca8a6345e587c559eb1048648efa73929"
+    "bytes": 31293,
+    "sha256": "ce5bf0205e7e61db703bc87597bda30eec0b078dc18e36f243e3502f47dda95a"
   },
   {
     "path": "assets/fonts/Inter-LICENSE.txt",
@@ -181,28 +181,28 @@
   },
   {
     "path": "case-genai-doc-assistant.html",
-    "bytes": 15165,
-    "sha256": "34721b4eb3ad6c78a47d43537ed679a852d231280b8f9b3e149cbf4c0909677e"
+    "bytes": 15158,
+    "sha256": "ab1e4d1c63d977e9c874a5b8cf17d413972d791771840e688f0609dded3d45ec"
   },
   {
     "path": "case-llm-eval-framework.html",
-    "bytes": 15256,
-    "sha256": "3f7752fa1ce32a1ffefdaf410e8fa135f29758f922b3f989da560bf4ad95bb07"
+    "bytes": 15249,
+    "sha256": "338989d9e57af4b1c37739e44961717a8c895175603b68ba7cea1d911ff9f3d3"
   },
   {
     "path": "case-mcp-weir.html",
-    "bytes": 15344,
-    "sha256": "db2927557e58e4a665919c5819a03a838e37b70bd0a91f863119326c674a53a7"
+    "bytes": 15337,
+    "sha256": "85bf35095c75ef682c445b6a336dec4723ee1153dd54ef6ce18864222047d4d4"
   },
   {
     "path": "case-nasha-ai-lab-architecture.html",
-    "bytes": 15413,
-    "sha256": "716651aaa935c4270924655819e9c95be69b99e88f379bd58c58708b502a04d2"
+    "bytes": 15406,
+    "sha256": "1d8035244474ae26f3b5f1994ce1a3cc6fe8c39a4659790af742648a451852da"
   },
   {
     "path": "case-production-ai-agent-platform.html",
-    "bytes": 17123,
-    "sha256": "bacf8c2f8aa8d8c04a721b91e692af7c1eaf1aee4a28779c7b11e2f36093ebf1"
+    "bytes": 17116,
+    "sha256": "37f7136b2693d08b73eedcc74f4efc5b84a9241b9ba20099f860e4f57400ec12"
   },
   {
     "path": "case-studies.html",
@@ -211,8 +211,8 @@
   },
   {
     "path": "case-support-escalation-copilot.html",
-    "bytes": 16220,
-    "sha256": "3823485cb2a7492e2a03dc1e7795396a3e039fbe9bcbad73c68aa76e6a836622"
+    "bytes": 16213,
+    "sha256": "0eb8fc8b4a924b416fe2b776574e1990473d37bed0a93a88c1340502da9cfc65"
   },
   {
     "path": "cinematic.css",
@@ -886,28 +886,23 @@
   },
   {
     "path": "recruiter.html",
-    "bytes": 9560,
-    "sha256": "37347e1b0578dc552d2db19d23d15071370e725eff2a19a032172e73d2307afc"
+    "bytes": 9524,
+    "sha256": "a555cd5df283a77df34089546edb17fd9111cb4c59ae66059429a2213d9e9963"
   },
   {
     "path": "resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf",
-    "bytes": 8428,
-    "sha256": "cd37915c33bec45eab20521cb75180a899a5520fa7a85adf33a90e0c9be08861"
+    "bytes": 8406,
+    "sha256": "205bc15f7941e834fece74117ec9fa7f279db25d06af33e90854a695733c4ca9"
   },
   {
     "path": "resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf",
-    "bytes": 8422,
-    "sha256": "de1bde2f8e6ba92e471554965d1a13cb26c91fbed5d9062b79d19b250ed6ab34"
+    "bytes": 8400,
+    "sha256": "1c23de4f275473ec2ce7f7488aec4dbb46432365bba0d96928238986c525432b"
   },
   {
     "path": "resumes/Ritesh-Mamidi-FDE.pdf",
-    "bytes": 8426,
-    "sha256": "5b75abdfcfed71a98373ab778efb587327ca6a1e4fe201e2bb21e0b0718dfaf9"
-  },
-  {
-    "path": "resumes/ritesh_mamidi_resume.pdf",
-    "bytes": 10502,
-    "sha256": "5a84710f6cb40907474b769425576af7819a9c8bdbc553bc473829331ebda661"
+    "bytes": 8404,
+    "sha256": "ac476a381e046b82b636d9ac28ca31459012dc3bfed24447f2d3d5c9edf11cb5"
   },
   {
     "path": "ritesh_mamidi_resume.pdf",

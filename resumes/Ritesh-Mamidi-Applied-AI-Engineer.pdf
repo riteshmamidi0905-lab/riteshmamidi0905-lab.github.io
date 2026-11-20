@@ -15,7 +15,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 5104 >>
+<< /Length 5082 >>
 stream
 BT /F2 22 Tf 1 0 0 1 48 755 Tm (Ritesh Mamidi) Tj ET
 BT /F1 10.5 Tf 1 0 0 1 48 728 Tm (Applied AI Engineering | Evaluation, Data Quality & Reliable Workflows) Tj ET
@@ -27,7 +27,7 @@ BT /F1 9.5 Tf 1 0 0 1 48 651.5 Tm (reproducible failure analysis. Applies Python
 BT /F1 9.5 Tf 1 0 0 1 48 639 Tm (quality; builds independent Python retrieval and controlled-tool demonstrations with typed APIs) Tj ET
 BT /F1 9.5 Tf 1 0 0 1 48 626.5 Tm (and human review. Independent systems are not employer deployments.) Tj ET
 BT /F2 10.5 Tf 1 0 0 1 48 605 Tm (PROFESSIONAL EXPERIENCE) Tj ET
-BT /F2 10 Tf 1 0 0 1 48 585 Tm (Apple Maps Client Engagement | Product & AI Quality Operations Analyst) Tj ET
+BT /F2 10 Tf 1 0 0 1 48 585 Tm (Apple Maps Client Engagement | Data & AI Analyst) Tj ET
 BT /F1 9 Tf 1 0 0 1 48 572 Tm (Austin, TX | Sep 2025 - Present) Tj ET
 BT /F1 9.5 Tf 1 0 0 1 48 558 Tm (Client assignment; not direct Apple employment.) Tj ET
 BT /F1 9.5 Tf 1 0 0 1 48 543.5 Tm (- Evaluate ML and GenAI pipeline outputs against policy and quality rubrics; troubleshoot edge) Tj ET
@@ -106,10 +106,10 @@ xref
 0000000191 00000 n 
 0000000266 00000 n 
 0000000402 00000 n 
-0000005557 00000 n 
-0000005693 00000 n 
+0000005535 00000 n 
+0000005671 00000 n 
 trailer
 << /Size 9 /Root 1 0 R >>
 startxref
-8178
+8156
 %%EOF

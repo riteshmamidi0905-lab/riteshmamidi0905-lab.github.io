@@ -3,6 +3,7 @@
 const pw = require('playwright'), { AxeBuilder } = require('@axe-core/playwright');
 const base = process.argv[2] || 'http://127.0.0.1:8000/', engine = process.env.BROWSER || 'chromium';
 const launch = engine === 'chromium' && process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {};
+const { createHash } = require('node:crypto');
 const results = [], check = (name, ok, extra) => { results.push({ name, ok: !!ok }); console.log(ok ? 'ok  ' : 'FAIL', name.slice(0, 90), ok || extra === undefined ? '' : JSON.stringify(extra).slice(0, 300)); };
 (async () => {
   const b = await pw[engine].launch(launch), origin = new URL(base).origin;
@@ -25,7 +26,18 @@ const results = [], check = (name, ok, extra) => { results.push({ name, ok: !!ok
     check('universe: every link on the nine journey scenes resolves (external links excluded)', links.size >= 4 && dead.length === 0, dead);
     const ax = await new AxeBuilder({ page: p }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze(); check('axe: no violations on the Universe inside the portfolio', ax.violations.length === 0, ax.violations.map(v => v.id));
     await p.click('a[href="../../index.html"]'); await p.waitForURL('**/index.html'); check('universe: Portfolio home returns to the home page', /Home.*NASHA/.test(await p.textContent('nav#navigation')));
-    await p.goto(base + 'recruiter.html'); check('recruiter page: links to the guided journey and still offers the resume and email', await p.evaluate(() => !!document.querySelector('a[href="pavilion/index.html"]') && !!document.querySelector('a[href$="ritesh_mamidi_resume.pdf"]') && !!document.querySelector('a[href^="mailto:"]')));
+    await p.goto(base + 'recruiter.html');
+    check('recruiter page: guided journey and contact links', await p.evaluate(() => !!document.querySelector('a[href="pavilion/index.html"]') && !!document.querySelector('a[href^="mailto:"]')));
+    const professional = new URL('/ritesh_mamidi_resume.pdf', base).href;
+    for (const name of [/^Download résumé/, 'Professional résumé (PDF)']) {
+      const link = p.getByRole('link', { name, exact: typeof name === 'string' });
+      check('main résumé action resolves to the designed file: ' + name, await link.count() === 1 && await link.evaluate(a => a.href) === professional);
+    }
+    const pdfResponse = await ctx.request.get(professional);
+    const pdfBytes = await pdfResponse.body();
+    check('both professional actions serve the owner-approved designed résumé', pdfResponse.status() === 200 && pdfBytes.length === 97071 && createHash('sha256').update(pdfBytes).digest('hex') === 'eb706d9dfd93e914b506eb52e783ab30505136630818ca2fd80dfa82f3972d92');
+    const roleLinks = await p.locator('#resumes a[href^="resumes/"]').evaluateAll(links => links.map(a => a.pathname).sort());
+    check('all three role-specific downloads remain available from résumé choices', JSON.stringify(roleLinks) === JSON.stringify(['/resumes/Ritesh-Mamidi-AI-Solutions-Engineer.pdf', '/resumes/Ritesh-Mamidi-Applied-AI-Engineer.pdf', '/resumes/Ritesh-Mamidi-FDE.pdf']));
     await ctx.close(); }
   { const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, reducedMotion: 'reduce' }), p = await ctx.newPage();
     for (const u of ['index.html', 'pavilion/hq.html','nasha-universe/living-hq/archive.html','recruiter.html']) { await p.goto(base + u); await p.waitForTimeout(500); check('mobile: no sideways scrolling on ' + u, await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)); }
