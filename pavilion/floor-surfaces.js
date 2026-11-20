@@ -91,7 +91,8 @@ export async function floorSurfaces(drawing,people){
     dpr=Math.min(devicePixelRatio||1,2)*z;
     ox=left-x;oy=top-y;
     Object.assign(canvas.style,{left:x+'px',top:y+'px',width:cw+'px',height:ch+'px'});
-    canvas.width=Math.max(1,Math.round(cw*dpr));canvas.height=Math.max(1,Math.round(ch*dpr));
+    const pixelsW=Math.max(1,Math.round(cw*dpr)),pixelsH=Math.max(1,Math.round(ch*dpr));
+    if(canvas.width!==pixelsW||canvas.height!==pixelsH){canvas.width=pixelsW;canvas.height=pixelsH;}else{ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);}
     lastDirty=[];
   }
   function badge(name,x,y,width,height){
