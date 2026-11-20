@@ -80,7 +80,7 @@ export function cameraControls(drawing,onMove,reset,fly){
   lens.addEventListener('keydown',e=>{
     if(e.altKey||e.ctrlKey||e.metaKey)return;
     const key=e.key.toLowerCase(),delta={arrowleft:[75,0],a:[75,0],arrowright:[-75,0],d:[-75,0],arrowup:[0,75],w:[0,75],arrowdown:[0,-75],s:[0,-75]}[key];
-    if(delta)pan(...delta);else if(key==='+'||key==='=')centerZoom(1.3);else if(key==='-')centerZoom(1/1.3);else if(key==='f')full.click();else if(key==='escape')exit();else return;
+    if(delta)pan(...delta);else if(key==='+'||key==='=')centerZoom(1.3);else if(key==='-')centerZoom(1/1.3);else if(key==='f')full.click();else if(key==='escape'){e.stopPropagation();exit();}else return;
     e.preventDefault();
   });
   document.querySelector('#zoom-in').onclick=()=>centerZoom(1.35);

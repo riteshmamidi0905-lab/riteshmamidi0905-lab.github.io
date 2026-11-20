@@ -22,7 +22,7 @@ function refresh(){
    const recent=venue?stadium.events.filter(e=>e.day===day&&e.minute<=minute&&e.minute+8>minute):[];
    const status=model?activity(model,day,minute):{owners:[...new Set(recent.map(e=>e.owner))],ids:recent.map(e=>e.id),slot:0};
    const a=document.querySelector('[data-lot="'+lot.id+'"]'),door=document.querySelector('[data-door="'+lot.id+'"]');
-   const dest=venue?'stadium.html#day='+day+'&phase='+(minute<58?0:minute<90?1:minute<114?2:3):lot.link?lot.link+'&day='+day+'&beat='+status.slot:'hq.html?district='+lot.id+'&day='+day+'&beat='+status.slot;
+   const dest=venue?'stadium.html#day='+day+'&phase='+(minute<58?0:minute<90?1:minute<114?2:3):(lot.link||'hq.html?district='+lot.id)+'&day='+day+'&beat='+status.slot+'&play=1';
    a.toggleAttribute('data-game',Boolean(atGame));a.setAttribute('href',lot.id==='brewery'?'../brewing/index.html':dest);door.href=dest;a.toggleAttribute('data-working',status.owners.length>0);
    a.querySelector('title').textContent=lot.name+' · '+status.owners.length+' working';
    door.querySelector('small').textContent=venue?stadium.records[stadium.days[day-1].eventId].attendance.toLocaleString()+' fans · '+(status.owners.join(' · ')||'between events'):status.owners.length?status.owners.join(' · '):'Idle at this minute';

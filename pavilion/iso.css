@@ -128,3 +128,9 @@ main.iso-page{max-width:none;padding-top:12px}
 #ask-floor form{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}#ask-floor form label{font:normal 1.6rem Georgia,serif;margin-right:.5rem}#floor-question{width:min(100%,35rem);padding:.65rem;font:inherit}
 #ask-floor button{min-height:44px;cursor:pointer;border:1px solid #a6a693;background:#f9f5ea;color:#223d30;padding:.35rem .75rem}#ask-floor .dismiss{float:right}#ask-floor .question-examples,.flight{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-top:.6rem}#ask-floor .answer{color:#1c392c;font-weight:600}#ask-floor .citations div{max-height:120px;overflow:auto}#ask-floor .citations a{display:inline-block;margin:.25rem}.iso-toolbar kbd{font:inherit;opacity:.75}#ask-floor .flight output{font-size:.84rem}
 @media(max-width:650px){#ask-floor .dismiss{float:none}#ask-floor form label{display:block;width:100%}#ask-floor .question-examples button{flex:1 1 120px}.question-examples{font-size:.8rem}}
+
+/* The transport occupies its own row. It stays at the upper edge while the stage is in use. */
+.shift-rail{position:sticky;top:0;z-index:6;background:#f7f0e1}
+.iso-page:has(#ask-floor:not([hidden])) .shift-rail{position:static}
+.floor-shell,.directory,#task{scroll-margin-top:6rem}
+@media(max-width:720px){.shift-rail{position:relative}.iso-toolbar{gap:4px 8px}.iso-toolbar label{font-size:.76rem}.iso-toolbar select{max-width:150px}.iso-page .scrubber{min-height:35px}}

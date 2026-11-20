@@ -106,7 +106,7 @@ export async function mountFloor(model,day,params) {
   }
   $('#close-inspect').onclick=closeInspect;
   $('#follow-inspected').onclick=()=>{const name=inspected;closeInspect();select(name);};
-  $('#agent-inspect').addEventListener('keydown',e=>{if(e.key==='Escape'){closeInspect();}});
+  $('#agent-inspect').addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeInspect();}});
   const pathCache=new Map();
   function stationPath(from,to){
     const key=from+'/'+to;
@@ -167,7 +167,7 @@ export async function mountFloor(model,day,params) {
         priorReadings.set(name,current);
         const resting=unusedStation(model,name)?'Not used · idle':'Idle · queue';
         const value=current?instrumentReading(model,current)[0]:resting;
-        person.setAttribute('aria-label','Follow '+name+' · '+(current?taskTitle(model,current):resting));
+        person.setAttribute('aria-label','Inspect '+name+' · '+(current?taskTitle(model,current):resting));
         setText(titles.get(name),name+' · '+value);
         setText(display,value.slice(0,22));display.setAttribute('fill',current?'#fff0aa':'#d1d9c9');
         stations.get(name).toggleAttribute('data-working',Boolean(current));
@@ -237,5 +237,5 @@ export async function mountFloor(model,day,params) {
   $('#branch-here').onclick=async()=>{const {branchState,encodeBranch}=await import('./branch-ledger.js');location.assign('branch.html#'+encodeBranch(branchState(model.config,day,schedule[slot].minute)));};
   compact.addEventListener('change',update);
   if(matchMedia('(max-width:720px)').matches)$('.directory').open=true;
-  update();playButton.disabled=false;if(!reduced.matches&&!params.has('beat')&&!params.has('event'))start();document.documentElement.classList.add('replay-ready');
+  update();playButton.disabled=false;if(!reduced.matches&&(params.get('play')==='1'||!params.has('beat')&&!params.has('event')))start();document.documentElement.classList.add('replay-ready');
 }

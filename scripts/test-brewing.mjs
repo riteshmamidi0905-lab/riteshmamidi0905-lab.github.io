@@ -8,7 +8,7 @@ for(const slug of pages)test('Brewing hospitality and disclosure · '+slug,()=>{
  const {document}=parseHTML(read('brewing/'+slug+'.html'));const text=document.body.textContent;
  assert.equal(document.querySelector('.concept-note').textContent,'Concept in development — not yet open');
  assert.deepEqual([...document.querySelectorAll('#navigation a')].map(a=>a.getAttribute('href')),pages.map(p=>p+'.html'));
- for(const [label,href] of [['Original concept site','https://riteshmamidi0905-lab.github.io/INDO-MEX-BREWERY/'],['Run this brewery in NASHA','../pavilion/simulator.html?template=brewery']]){
+ for(const [label,href] of [['Original concept site',parseHTML(read('pavilion/bridge.html')).document.querySelector('a[rel=noreferrer][href^=https]').getAttribute('href')],['Run this brewery in NASHA','../pavilion/simulator.html?template=brewery']]){
   assert.ok([...document.querySelectorAll('a')].some(a=>a.textContent===label&&a.getAttribute('href')===href));
  }
  assert.equal(document.querySelectorAll('form,input,iframe,script').length,0);

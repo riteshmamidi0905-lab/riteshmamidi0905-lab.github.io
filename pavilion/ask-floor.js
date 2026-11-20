@@ -10,8 +10,8 @@ export function mountQuestions(model,currentDay,visit){
  open.onclick=()=>toggle(box.hidden);box.querySelector('.dismiss').onclick=()=>toggle(false);
  document.addEventListener('keydown',e=>{
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!e.target.closest('input,select,textarea,[contenteditable]')){e.preventDefault();toggle(true);}
-  if(e.key==='Escape'&&!box.hidden){e.preventDefault();toggle(false);}
- });
+  if(e.key==='Escape'&&!box.hidden){e.preventDefault();e.stopImmediatePropagation();toggle(false);}
+ },true);
  function step(to){
   index=Math.min(result.flight.length-1,Math.max(0,to));const s=result.flight[index];if(!s)return;
   visit(s);flight.querySelector('output').textContent=(index+1)+' / '+result.flight.length+' · Day '+s.day+' · '+s.agent+' · '+s.event;
