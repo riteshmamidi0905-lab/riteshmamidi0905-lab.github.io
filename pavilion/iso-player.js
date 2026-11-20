@@ -47,7 +47,10 @@ export async function mountFloor(model,day,params) {
   const reduced=matchMedia('(prefers-reduced-motion:reduce)'), travels=new Map();
   let play=false,elapsed=0,frame=0,previous=0,visible=true,packets=[],zoom=1,unit=1,clearance=47,follow=null;
   const speedControl=$('#speed');
-  const duration=()=>Math.max(1350,5300/Number(speedControl.value));
+  // Keep the established normal and readable 4× handoff cadences. The fast scan
+  // advances the underlying ledger four times faster again.
+  const beatMilliseconds={1:5300,4:1350,16:337.5};
+  const duration=()=>beatMilliseconds[speedControl.value];
   const screens=new Map([...svg.querySelectorAll('[data-reading]')].map(n=>[n.dataset.reading,n]));
   const stations=new Map([...svg.querySelectorAll('[data-station]')].map(n=>[n.dataset.station,n]));
   const titles=new Map([...people].map(([name,n])=>[name,n.querySelector('title')]));

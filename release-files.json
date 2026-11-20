@@ -871,8 +871,8 @@
   },
   {
     "path": "pavilion/iso-player.js",
-    "bytes": 15592,
-    "sha256": "5b89cc9b8ca12df711d52469c3fbe01a7c949101f4953923f82ca544c19979a6"
+    "bytes": 15776,
+    "sha256": "69e438293030d9e91f8d0d07536be5a06b3635da5377a7eb3110c2f375219df3"
   },
   {
     "path": "pavilion/iso.css",

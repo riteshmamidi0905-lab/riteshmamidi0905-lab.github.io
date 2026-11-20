@@ -89,6 +89,26 @@ async function exercise(browser,width){
    await activate('footer a[href*="template=brewery"]');await p.waitForSelector('#f-type');
    assert.equal(await p.locator('#f-type').inputValue(),'brewery');assert.equal(await p.locator('#f-city').inputValue(),'Austin');
    await p.emulateMedia({reducedMotion:'reduce'});await go('pavilion/hq.html');await ready();assert.equal(await p.locator('#play').textContent(),'Play shift');
+   if(width===1440){
+     await p.emulateMedia({reducedMotion:'no-preference'});await go('pavilion/hq.html?day=3&beat=4');await ready();
+     await p.locator('.drawing').evaluate(n=>n.scrollIntoView({block:'center',behavior:'instant'}));
+     const speeds=await p.evaluate(async()=>{
+       const drawing=document.querySelector('.drawing'),seek=document.querySelector('#seek'),play=document.querySelector('#play'),speed=document.querySelector('#speed'),result={};
+       for(const rate of ['1','4','16']){
+         seek.value=4;seek.dispatchEvent(new Event('input'));speed.value=rate;speed.dispatchEvent(new Event('change'));
+         const start=performance.now();play.click();
+         await new Promise((resolve,reject)=>{function read(){
+           if(Number(drawing.dataset.beat)>=6)return resolve();
+           if(performance.now()-start>25000)return reject(Error('No ledger progression at '+rate+'×'));
+           requestAnimationFrame(read);
+         }requestAnimationFrame(read);});
+         result[rate]=Math.round(performance.now()-start);play.click();
+       }
+       return result;
+     });
+     assert.ok(speeds['1']>2.5*speeds['4']&&speeds['4']>2.5*speeds['16'],'Three distinct live playback rates: '+JSON.stringify(speeds));
+     report.twoBeatMilliseconds=speeds;console.log('Two ledger beats, milliseconds',speeds);
+   }
    save('ax-'+width+'.json',ax);
  }finally{await ctx.close();}
 }
