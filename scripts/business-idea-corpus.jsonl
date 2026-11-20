@@ -100,3 +100,5 @@
 {"s":"A bakehouse called Flint selling rye loaves, cookies and hand pies. Value-priced.","e":{"type":"bakery","concept":"Flint","products":"rye loaves, cookies, hand pies","tier":"value"}}
 {"s":"Brewpub in Salem, open 11am–9pm; either three or four positions depending on weekends.","e":{"type":"brewery","city":"Salem","hours":"11:00–21:00"},"q":["staff"]}
 {"s":"One mobile kitchen in Phoenix, $21k for equipment and $48k to open, featuring steamed buns.","e":{"type":"truck","city":"Phoenix","budget":48000,"products":"steamed buns"}}
+{"s":"An Austin bakery selling rye loaves, rolls and pies, value-priced.","e":{"type":"bakery","city":"Austin","products":"rye loaves, rolls, pies","tier":"value"}}
+{"s":"A Seattle coffee roaster offering premium roast and pastries. Pricing: value-priced.","e":{"type":"coffee","city":"Seattle","products":"premium roast, pastries","tier":"value"}}

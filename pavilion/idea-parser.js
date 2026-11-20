@@ -65,9 +65,15 @@ export function parseIdea(input){
     if(found)cities.push(found[1]);
   }
   if(cities.length===1&&!/\bin [^,;.]+?\bor (?:in )?[A-Z][a-z]/.test(primary))put('city',title(cities[0]).replaceAll('·','.'));else if(cities.length)ask('city','Which city should this scenario use?');
+  // A stand-alone price after a list is a plan condition. Phrases such as
+  // "premium roast" inside the list remain product names.
+  function priceClause(part){
+    const label=part.trim().replace(/^pricing\s*:\s*/i,'');
+    return Object.keys(prices).find(key=>prices[key].exec(label)?.[0].length===label.length && label.length>0);
+  }
+  const priceClauses=text.split(/[,.;!?]/).slice(1).map(priceClause);
   for(const [field,patterns] of [['tier',prices],['neighborhood',areas]]){
-    const clauses=text.split(/[.;!?]/).slice(1).map(s=>s.trim().replace(/^pricing\\s*:\\s*/i,''));
-    const found=Object.keys(patterns).filter(k=>patterns[k].test(primary)||(field==='tier'&&clauses.some(s=>patterns[k].exec(s)?.[0].length===s.length&&s.length>0)));
+    const found=Object.keys(patterns).filter(k=>patterns[k].test(primary)||(field==='tier'&&priceClauses.includes(k)));
     if(found.length===1)put(field,found[0]);else if(found.length>1)ask(field,'Which '+fields[field].toLowerCase()+' should we use?');
   }
   const sized=[...text.matchAll(/\b([\d,]+)[ -]*(seats?|seaters?|covers?|sq\.?\s*ft\.?|square[- ]f(?:ee|oo)t|ft²|ft2)\b/gi)];
@@ -95,6 +101,8 @@ export function parseIdea(input){
     if(tail.trim()){offer=tail;break;}
   }
   if(offer){
+    const parts=offer.split(',');
+    if(parts.length>1 && priceClause(parts.at(-1)))offer=parts.slice(0,-1).join(',');
     const list=offer.split(/\s*,\s*|\s+and\s+| & /i).map(clean).filter(Boolean);
     if(list.length>=1&&list.length<=3&&!/\bor\b/i.test(offer))put('products',list.join(', '));else ask('products','Which one to three offerings should represent your mix?');
   }else if(audience||/\bor\b[^.;]{1,55}\b(?:signature|main|primary) offering/i.test(text))ask('products','Which offerings should represent your main business?');
