@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'release-files.json').read_text())
-assert len(manifest)==186  # Reviewed release plus shared navigation, social card, skills, four résumés five archives and the parent universe redirect.
+assert len(manifest)==187  # Reviewed release plus shared navigation, social card, skills, four résumés, five archives, the parent redirect and an on-demand Agent Ops entry module.
 expected={x['path'] for x in manifest}
 assert not any(re.search(r'\.(mp4|webm|mov|zip|bundle|pem|key)$',p,re.I) or p.startswith(('review/','assets/nasha/','assets/media/')) for p in expected)
 class Parser(HTMLParser):
@@ -152,4 +152,4 @@ blob=json.dumps(dl); assert not re.search(r'/Users/|/private/|/var/folders',blob
 assert not re.search(r'XMLHttpRequest|WebSocket|sendBeacon|document\.cookie|https?://',dlj),'network or tracking construct in datalab.js'
 assert re.findall(r"fetch\s*\(\s*'([^']*)'",dlj)==['data/datalab/lab-data.json'] and dlj.count('fetch(')==1,'datalab.js may fetch only its own evidence file'
 assert dlj.count('localStorage')==1 and 'nasha-demo-state-v1' in dlj,'datalab.js may only read the demo state key'
-print('PASS: 186 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, four featured exhibits, reduced-motion stylesheet')
+print('PASS: 187 reviewed files, hashes, media/secret signatures, local links/fragments, 28 projects, four featured exhibits, reduced-motion stylesheet')

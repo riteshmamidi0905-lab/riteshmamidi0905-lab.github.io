@@ -778,9 +778,14 @@
    "sha256": "a64cb00d50ed3e80f968a4d8f427cdc6d6229260c83ecc2ffbabe8721d4cc2ed"
   },
   {
+   "path": "pavilion/ops-entry.js",
+   "bytes": 1444,
+   "sha256": "324cf8ad14d4e7f52c5bdcfd646ad1bd73a688da66cda74cfdf172353b3d500a"
+  },
+  {
    "path": "pavilion/ops.html",
-   "bytes": 15960,
-   "sha256": "6ac4a5362ceb66edda4de81528627b8e95283b2d1a3719aba4d2f1628da1cc5f"
+   "bytes": 15966,
+   "sha256": "d0c9b6948baddf95baee8d5a0898e6a34a7de6f77c6f138ab5eb12502beb5a6b"
   },
   {
    "path": "pavilion/ops.js",

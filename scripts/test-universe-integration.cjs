@@ -32,6 +32,29 @@ const results = [], check = (name, ok, extra) => { results.push({ name, ok: !!ok
     await p.goto(base + 'index.html'); const ax = await new AxeBuilder({ page: p }).withTags(['wcag2a', 'wcag2aa']).analyze(); check('axe: no violations on the mobile home page with the flagship section', ax.violations.length === 0, ax.violations.map(v => v.id)); await ctx.close(); }
   { const ctx = await b.newContext({ viewport: { width: 1280, height: 800 }, javaScriptEnabled: false }), p = await ctx.newPage(); await p.goto(base + 'nasha-universe/living-hq/archive.html');
     check('without JavaScript: the Universe says so and offers the recruiter summary, which opens', /JavaScript is required/.test(await p.textContent('noscript, body')) && (await p.click('a[href="../../recruiter.html"]').then(() => true, () => false)) ); await ctx.close(); }
+  {
+    const ctx = await b.newContext();
+    const page = await ctx.newPage();
+    let startEngine;
+    const allowEngine = new Promise(resolve => { startEngine = resolve; });
+    let requests = 0;
+    await page.route('**/pavilion/app.js', async route => {
+      requests++;
+      await allowEngine;
+      await route.continue();
+    });
+    await page.goto(base + 'pavilion/ops.html', {waitUntil: 'networkidle'});
+    check('the initial Agent Ops console can be read before the replay engine starts', requests === 0 && await page.locator('#queue').isVisible());
+    await page.locator('#compare input[name=staffCount]').fill('2');
+    await page.locator('#compare button').press('Enter');
+    startEngine();
+    await page.locator('#delta table').first().waitFor();
+    check('a first keyboard submission during loading runs the staffing comparison once', requests === 1 && await page.locator('#compare input[name=staffCount]').inputValue() === '2');
+    await page.goto(base + 'pavilion/ops.html?day=2');
+    await page.waitForFunction(() => typeof document.querySelector('#compare')?.onsubmit === 'function');
+    check('an Agent Ops replay URL activates its own day immediately', requests === 2);
+    await ctx.close();
+  }
   await b.close(); const failed = results.filter(r => !r.ok);
   console.log(JSON.stringify({ engine, checks: results.length, failed: failed.length, failures: failed.map(f => f.name) })); process.exit(failed.length ? 1 : 0);
 })().catch(e => { console.log(JSON.stringify({ engine, crashed: String(e).slice(0, 400) })); process.exit(1); });

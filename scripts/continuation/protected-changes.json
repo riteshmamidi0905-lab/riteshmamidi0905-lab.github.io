@@ -153,7 +153,7 @@
       },
       "pavilion/ops.html": {
         "old": "bc3e2777bebf7e06d28c3a7f757f0d280f8d79ebc728dce83cff0f1b94f0ee81",
-        "new": "6ac4a5362ceb66edda4de81528627b8e95283b2d1a3719aba4d2f1628da1cc5f"
+        "new": "d0c9b6948baddf95baee8d5a0898e6a34a7de6f77c6f138ab5eb12502beb5a6b"
       },
       "pavilion/overview.html": {
         "old": "8552a1085892a067871e19234908dd57d7f605fb7eba90c0d061cbe0edbe1d1e",
@@ -189,11 +189,11 @@
       },
       "release-files.json": {
         "old": "0e2769316233a5d59391b2ce581297a0001423b55fe41ac938f8c70fb99af298",
-        "new": "ff7d51dd1aa134db17404359dae16e21528e0658099a709402c2ce5505950c7d"
+        "new": "5b7e6fc4d4dffabdbba61dedfa46680fdbf53d103483ac66d86bd84928838584"
       },
       "scripts/publish-manifest.json": {
         "old": "a6d6dc517edd4abb2cdc96e8520b5fba4ea83022cbc2465dc67012544092225b",
-        "new": "b49c060b665b9280bd11317d55b70d3c1c56467de68ba0052eae95523069dbb6"
+        "new": "af8b58fb2345f1388440361324b4084543c80339e02d4643b73adbc26625be4e"
       },
       "sitemap.xml": {
         "old": "907b3027a09282fac7cf33b991dfa7d17c504339dd9db16ab0e43dfdf062f6eb",
