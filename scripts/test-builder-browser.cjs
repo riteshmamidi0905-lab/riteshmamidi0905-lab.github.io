@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {chromium}=require('playwright'),{AxeBuilder}=require('@axe-core/playwright');
 const base=process.argv[2]||'http://127.0.0.1:8000/',dir=process.env.BUILDER_EVIDENCE;
-const summary={views:[],axe:[],keyboard:[],offline:[],errors:[],exports:[]};
+const summary={views:[],axe:[],keyboard:[],offline:[],errors:[],exports:[],weeklyLedgers:[]};
 let watchdog;
 function checkpoint(label){
  clearTimeout(watchdog);
@@ -27,6 +27,27 @@ async function walk(browser,width){
     else await pos.evaluate(el=>el.scrollIntoView({block:el.clientHeight>innerHeight?'start':'center',behavior:'instant'}));
     assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Horizontal overflow: '+name);
     assert.ok(await p.locator('.stat strong .source').evaluateAll(nodes=>nodes.every(node=>{const range=document.createRange();range.selectNodeContents(node);return range.getClientRects().length<=1&&node.getBoundingClientRect().right<=innerWidth+1;})),'Currency or count wraps inside a summary metric: '+name);
+    if (['simulation','finance','report'].includes(name)) {
+     const ledger = p.getByRole('table', {name:'Four-week operating ledger'});
+     assert.deepEqual(await ledger.getByRole('columnheader').allTextContents(),
+      ['Week','Served','Revenue','Operating income','Closing cash']);
+     assert.equal(await ledger.getByRole('row').count(),5);
+     const weeks = await ledger.locator('tbody tr').evaluateAll(rows => rows.map(row => {
+      const links = [...row.querySelectorAll('button[data-record]')];
+      const intact = links.every(link => {
+       const range = document.createRange();
+       range.selectNodeContents(link);
+       const rect = link.getBoundingClientRect();
+       return range.getClientRects().length === 1 && rect.left >= 0 && rect.right <= innerWidth+1;
+      });
+      return {source:links[0].dataset.record, links:links.length, intact,
+       sameRecord:links.every(link => link.dataset.record === links[0].dataset.record)};
+     }));
+     assert.equal(weeks.length,4);
+     assert.ok(weeks.every(w => w.links===5 && w.intact && w.sameRecord),
+      'Every week, count and financial amount must stay whole and link to its recorded week');
+     summary.weeklyLedgers.push({width,name,weeks});
+    }
     if(dir){await p.screenshot({path:path.join(dir,'screenshots',name+'-'+width+'.png')});ax.push({name,tree:await p.locator('#builder').ariaSnapshot()});}
     if(scan){const q=await new AxeBuilder({page:p}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
       const violations=q.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}));summary.axe.push({width,name,violations});assert.deepEqual(violations,[],name+' accessibility');}

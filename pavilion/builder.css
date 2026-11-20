@@ -21,3 +21,46 @@ body:has(.builder)>.skip{position:absolute;z-index:50;top:0;left:1rem;transform:
 /* Reserve the initial viewport while the local model loads. The hero is already in the document. */
 @media (scripting:enabled){#builder:not([data-screen]){min-height:100svh}}
 #builder:not([data-screen]) .entry-lead .actions{visibility:hidden}
+
+.week-field {
+ display: none;
+}
+
+@media screen and (max-width: 520px) {
+ .weekly-ledger, .weekly-ledger caption, .weekly-ledger tbody {
+  display: block;
+ }
+ .weekly-ledger thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+ }
+ .weekly-ledger tbody tr {
+  display: grid;
+  margin-bottom: 1rem;
+ }
+ .weekly-ledger tbody th {
+  display: block;
+  padding: .45rem .65rem;
+  background: #f0eee2;
+  text-align: left;
+ }
+ .weekly-ledger tbody td {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .8rem;
+  padding: .25rem .65rem;
+ }
+ .weekly-ledger .week-field {
+  display: inline;
+  color: var(--muted);
+ }
+ .weekly-ledger .source {
+  white-space: nowrap;
+ }
+}

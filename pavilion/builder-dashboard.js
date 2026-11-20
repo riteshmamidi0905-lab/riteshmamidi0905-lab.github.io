@@ -14,8 +14,26 @@ export function totalStats(result){
  const s=result.total;
  return '<div class="stats">'+stat('Four-week revenue',money(s.gross),'B-RESULT')+stat('Operating income',money(s.income),'B-RESULT')+stat('Closing cash',money(s.cash),'B-RESULT')+'</div>';
 }
-export function weekly(result){
- return '<div class="table-scroll"><table><caption>Four-week operating ledger</caption><thead><tr><th>Week</th><th>Served</th><th>Revenue</th><th>Operating income</th><th>Closing cash</th></tr></thead><tbody>'+result.weeks.map(w=>'<tr><th>'+evidence(w.id,'Week '+w.week)+'</th><td>'+evidence(w.id,count(w.served))+'</td><td>'+evidence(w.id,money(w.gross))+'</td><td>'+evidence(w.id,money(w.income))+'</td><td>'+evidence(w.id,money(w.cash))+'</td></tr>').join('')+'</tbody></table></div>';
+const weekColumns = [
+ {name: 'Served', key: 'served', format: count},
+ {name: 'Revenue', key: 'gross', format: money},
+ {name: 'Operating income', key: 'income', format: money},
+ {name: 'Closing cash', key: 'cash', format: money}
+];
+export function weekly(result) {
+ const headings = ['Week', ...weekColumns.map(column => column.name)];
+ const header = headings.map(name => '<th scope="col" role="columnheader">'+name+'</th>').join('');
+ const weeks = result.weeks.map(week => {
+  const headerCell = '<th scope="row" role="rowheader">'+evidence(week.id, 'Week '+week.week)+'</th>';
+  const cells = weekColumns.map(({name, key, format}) =>
+   '<td role="cell"><span class="week-field" aria-hidden="true">'+name+'</span>'+
+   evidence(week.id, format(week[key]))+'</td>'
+  ).join('');
+  return '<tr role="row">'+headerCell+cells+'</tr>';
+ });
+ return '<div class="table-scroll"><table class="weekly-ledger" role="table">'+
+  '<caption>Four-week operating ledger</caption><thead role="rowgroup"><tr role="row">'+header+
+  '</tr></thead><tbody role="rowgroup">'+weeks.join('')+'</tbody></table></div>';
 }
 export function overview(b,res){
  const sector=Object.entries(sectors).find(([,s])=>s.types.includes(b.values.type))[0];

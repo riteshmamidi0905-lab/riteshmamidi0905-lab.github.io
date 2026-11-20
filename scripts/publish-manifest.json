@@ -749,8 +749,8 @@
   },
   {
    "path": "pavilion/builder-dashboard.js",
-   "bytes": 10280,
-   "sha256": "db4543612488d0c84e77a9ba5842bf637bd153689807ffc6787e2df155be92dd"
+   "bytes": 10859,
+   "sha256": "2eae9bdccbcd576c21f43861336e3b177ed7edad75ce5fe2d082d023d18a23a1"
   },
   {
    "path": "pavilion/builder-district-map.js",
@@ -794,8 +794,8 @@
   },
   {
    "path": "pavilion/builder.css",
-   "bytes": 13572,
-   "sha256": "bd977659f1d8c4da06b944b71e052c3eeab1d600f295c2bffc9e4ce16f77a8b6"
+   "bytes": 14354,
+   "sha256": "40ac5d0bec363ac1301716ac10d49d99182d91b3c3a89fa1478e95af91e67908"
   },
   {
    "path": "pavilion/builder.js",
