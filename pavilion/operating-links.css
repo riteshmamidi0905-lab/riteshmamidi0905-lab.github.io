@@ -7,7 +7,7 @@
     text-underline-offset: 4px;
   }
 
-  body:has(.district-page, .venue, .report-sheet) .portfolio-foot a:any-link {
+  body:has(.district-page, .venue, .report-sheet) :is(.workspace-links, .portfolio-foot) a:any-link {
     color: #d9ae83;
   }
 

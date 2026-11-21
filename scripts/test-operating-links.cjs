@@ -3,9 +3,10 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const {chromium} = require('playwright');
+const {AxeBuilder} = require('@axe-core/playwright');
 
 const base = process.argv[2] || 'http://127.0.0.1:8000/';
-const colors = {paper: 'rgb(121, 81, 47)', footer: 'rgb(217, 174, 131)'};
+const colors = {paper: 'rgb(121, 81, 47)', forest: 'rgb(217, 174, 131)'};
 const observations = [];
 const failures = [];
 
@@ -17,7 +18,7 @@ async function inspectLinks(page, width, view, targets = 'a[href]') {
       const style = getComputedStyle(link);
       const key = [style.color, style.textDecorationLine, style.textUnderlineOffset].join(' / ');
       styles[key] = (styles[key] || 0) + 1;
-      const expected = link.closest('.portfolio-foot') ? palette.footer : palette.paper;
+      const expected = link.closest('.workspace-links, .portfolio-foot') ? palette.forest : palette.paper;
       // Graphic map doors have an explicitly painted underline on their text plate.
       const svg = link instanceof SVGElement;
       const htmlUnderline = style.textDecorationLine.includes('underline') && style.textUnderlineOffset === '4px';
@@ -30,6 +31,22 @@ async function inspectLinks(page, width, view, targets = 'a[href]') {
   assert.ok(sample.links > 0, view+' must exercise real links');
   observations.push({width, view, ...sample});
   if (sample.mismatchCount) failures.push(width+' '+view+': '+sample.mismatchCount+' incorrect computed styles');
+}
+
+async function inspectContrast(page, width, view) {
+  const audit = await new AxeBuilder({page}).include('a[href]').withRules(['color-contrast']).analyze();
+  const samples = audit.passes.flatMap(rule => rule.nodes.flatMap(node => node.any
+    .map(check => check.data).filter(data => data && Number.isFinite(data.contrastRatio))));
+  const palette = [...new Map(samples.map(sample =>
+    [sample.fgColor+'/'+sample.bgColor, {ink:sample.fgColor, ground:sample.bgColor, ratio:sample.contrastRatio}]
+  )).values()];
+  // Both NASHA surfaces must actually be measured in the rendered page.
+  assert.ok(palette.some(s => s.ink==='#79512f' && s.ratio>=4.5), view+' paper links');
+  assert.ok(palette.some(s => s.ink==='#d9ae83' && s.ground==='#172c26' && s.ratio>=4.5), view+' forest links');
+  const violations = audit.violations.flatMap(rule => rule.nodes.map(node =>
+    ({target:node.target, contrast:node.any.map(check => check.data)})));
+  observations.push({width, view:view+' rendered contrast', palette, measured:samples.length, violations});
+  if (violations.length) failures.push(width+' '+view+': '+violations.length+' link contrast violations');
 }
 
 async function inspectFocus(page, width, selector, view) {
@@ -78,6 +95,7 @@ async function runViewport(browser, width) {
     observations.push({width, view: 'District breadcrumb after a real same-tab visit and return', sameAfterVisit});
     if (!sameAfterVisit) failures.push(width+' breadcrumb changed its painted style after visiting');
     await inspectFocus(page, width, '.crumb a', 'District breadcrumb');
+    await inspectContrast(page, width, 'District');
 
     await page.goto(new URL('pavilion/stadium.html?day=3', base).href);
     await page.locator('#vendor-results tbody tr').first().waitFor();
@@ -99,6 +117,7 @@ async function runViewport(browser, width) {
     assert.equal(await page.locator('#venue-report .print-section').count(), 7);
     await inspectLinks(page, width, 'Six vendor reports and operator report', '#venue-report a[href]');
     await inspectFocus(page, width, '#venue-report a', 'Vendor report');
+    await inspectContrast(page, width, 'Stadium and settlement reports');
 
     await page.goto(new URL('pavilion/simulator.html?template=brewery', base).href);
     await page.locator('#confirm button:not([type=button])').click();
@@ -107,6 +126,8 @@ async function runViewport(browser, width) {
     assert.equal(await page.locator('.report-sheet').count(), 7);
     await inspectLinks(page, width, 'Launch readiness report');
     await inspectFocus(page, width, '.report-sheet a', 'Readiness report');
+    await inspectFocus(page, width, '.workspace-links a', 'Report workspace navigation');
+    await inspectContrast(page, width, 'Launch readiness report');
   } finally {
     await context.close();
   }
