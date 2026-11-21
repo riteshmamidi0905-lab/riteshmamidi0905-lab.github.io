@@ -784,8 +784,8 @@
   },
   {
    "path": "pavilion/builder-plan.js",
-   "bytes": 4606,
-   "sha256": "4db96c2a7c49b7f9c4ffafad48671738af35ba120b957792b3cba65c2baad7ae"
+   "bytes": 4724,
+   "sha256": "b085e41634ae9d352b98c2a35567999c7a4d3380e7cee75a324ed3fbe94b4dfd"
   },
   {
    "path": "pavilion/builder-promotions.js",
@@ -934,8 +934,8 @@
   },
   {
    "path": "pavilion/idea-parser.js",
-   "bytes": 11509,
-   "sha256": "a945e9759f21183dda51e6cdf13f3b5766d10ef86981fc3bb4071b661e9a57df"
+   "bytes": 11547,
+   "sha256": "aa0f2616681f55a80ad9a421f7f83b52aaddbdbc22ef1581921d855c74ddb029"
   },
   {
    "path": "pavilion/idea-profiles.js",

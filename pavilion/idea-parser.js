@@ -28,10 +28,10 @@ export const examples=[
   'A mid-range gift shop in Boise, 900 square feet, open 10:00–18:00 with two employees.'
 ];
 export function normalizeHours(text){return hoursInPitch(text).value||null;}
-export function parseIdea(input){
+export function parseIdea(input, {detectVenue=true}={}){
   const text=input.trim().normalize('NFKC');
   if(!text||text.length>1000)throw Error('Describe your idea in 1–1,000 characters.');
-  const venue=parseStadiumIdea(text);if(venue)return venue;
+  const venue=detectVenue && parseStadiumIdea(text);if(venue)return venue;
   let primary=text.split(/\b(?:serving|selling|offering|featuring|(?:plan|want) to sell|speciali[sz]ing in)\b/i)[0];
   // A product-first pitch can still explicitly place its format after the offerings.
   const place=/\bfrom (?:a|an|my|our) (.+)/i.exec(text);

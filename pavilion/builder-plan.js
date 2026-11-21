@@ -32,7 +32,8 @@ export function newPlan(type='coffee'){
 }
 export function inferPlan(text){
   if(!text.trim())throw Error('Describe the business in one sentence.');
-  const venue=parseStadiumIdea(text),parsed=parseIdea(text);
+  // Read city, budget and hours even when the venue parser supplies the industry and vendor mix.
+  const venue=parseStadiumIdea(text),parsed=parseIdea(text,{detectVenue:false});
   const plan=newPlan(venue?'stadium':parsed.values.type||'coffee');
   for(const [k,v] of Object.entries(parsed.values)){
     if(parsed.status[k]==='parsed'&&!(venue&&k==='type')){plan.values[k]=v;plan.status[k]='parsed';}
