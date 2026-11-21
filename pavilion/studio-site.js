@@ -16,13 +16,13 @@ export function publicSite(b){
  const d=siteDesign(b);
  return {version:1,name:b.values.concept,headline:b.site.title,city:optionalText(b.values.city),hours:b.values.hours,story:storyText(b),
    ...d,meta:b.studio?.seo??{title:b.site.title,description:storyText(b),image:'Gallery'},
-   items:b.items.map(i=>({id:i.id,name:i.name,price:i.price}))};
+   items:b.items.map(i=>({id:i.id,name:i.name,price:i.price,description:b.studio?.descriptions?.[i.id]||''}))};
 }
 function validate(s){
  if(!s||s.version!==1||!clean(s.name,72)||!clean(s.headline,96)||!clean(s.city,56)||!clean(s.hours,220)||!clean(s.story,240)||
  !Object.hasOwn(themes,s.theme)||!Object.hasOwn(fonts,s.font)||!/^#[0-9a-f]{6}$/i.test(s.accent)||
  !Array.isArray(s.pages)||s.pages.length<1||s.pages.length>8||s.pages.some(p=>!p||!clean(p.name,48)||!p.name.trim()||!Array.isArray(p.sections)||p.sections.length>12||p.sections.some(k=>!Object.hasOwn(sections,k)))||
- !Array.isArray(s.items)||s.items.length<1||s.items.length>24||s.items.some(i=>!i||!clean(i.id,48)||!clean(i.name,72)||!Number.isSafeInteger(i.price)||i.price<1||i.price>100000)||
+ !Array.isArray(s.items)||s.items.length<1||s.items.length>24||s.items.some(i=>!i||!clean(i.id,48)||!clean(i.name,72)||!clean(i.description??'',240)||!Number.isSafeInteger(i.price)||i.price<1||i.price>100000)||
  !s.meta||!clean(s.meta.title,96)||!clean(s.meta.description,240)||!['Gallery','Storefront','Products'].includes(s.meta.image))throw Error('This simulated storefront link is invalid.');
  return s;
 }
@@ -49,7 +49,7 @@ export const siteCSS=`
 .shop .map-tile{padding:1rem;border:1px dashed currentColor}.shop a:focus-visible,.shop button:focus-visible{outline:3px solid currentColor;outline-offset:2px}`;
 export const art='<div class="display-art" role="img" aria-label="Original illustrated still life of three display objects"><i></i><i></i><i></i></div>';
 export function pageBody(site,index){
- const parts={hero:'<h2>'+esc(site.headline)+'</h2>',gallery:art,products:'<h3>Our offerings</h3><div class="goods">'+site.items.map(i=>'<article>'+esc(i.name)+'<br>'+money(i.price)+'</article>').join('')+'</div>',
+ const parts={hero:'<h2>'+esc(site.headline)+'</h2>',gallery:art,products:'<h3>Our offerings</h3><div class="goods">'+site.items.map(i=>'<article>'+esc(i.name)+'<br>'+money(i.price)+(i.description?'<p>'+esc(i.description)+'</p>':'')+'</article>').join('')+'</div>',
  booking:'<h3>Appointments</h3><p>Explore a simulated appointment during '+esc(site.hours)+'.</p>',about:'<h3>Our story</h3><p>'+esc(site.story||site.name)+'</p>',
  faq:'<h3>Frequently asked questions</h3><details><summary>When can I visit?</summary><p>'+esc(site.hours)+'</p></details>',
  contact:'<h3>Visit us</h3><p>'+esc([site.city,site.hours].filter(Boolean).join(' · '))+'</p>',
