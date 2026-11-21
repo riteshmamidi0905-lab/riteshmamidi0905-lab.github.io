@@ -104,7 +104,7 @@ main.iso-page{max-width:none;padding-top:12px}
 /* The stage reserves space for its own controls and camera. Native page scrolling is the default. */
 .floor-shell{display:grid;grid-template-columns:minmax(0,1fr);background:#ecdfc5}
 .floor-shell:has(.station-drawer:not([hidden])){grid-template-columns:minmax(0,1fr) minmax(240px,26%)}
-.floor-shell .drawing{width:100%;height:clamp(350px,58vh,700px);aspect-ratio:auto}
+.floor-shell .drawing{width:100%;height:var(--stage-height);aspect-ratio:auto}
 .drawing .camera-world svg{width:100%;height:100%;max-height:none}
 .drawing[data-playing]:not([data-follow]) .map-lens{animation:none}
 .map-lens{cursor:grab;touch-action:pan-y}.map-lens.engaged{touch-action:none}.map-lens:active{cursor:grabbing}
@@ -120,8 +120,8 @@ main.iso-page{max-width:none;padding-top:12px}
 .floor-tools details p{max-width:48ch;margin:.65rem 0}.floor-tools #mini-jump{padding:0;background:#243d32;line-height:0}
 #minimap{height:44px;width:82px}#minimap circle{fill:#ced3bd}#minimap circle.working{fill:#ffd282}.floor-tools [aria-pressed="true"]{background:#293f34;color:#fff}
 .iso-page .scrubber{margin:0;width:100%;max-width:none;padding:5px 0}.iso-page .scrubber input{flex:1;min-width:60px}
-.iso-page:fullscreen{overflow-y:auto;background:#f7f0e1}.iso-page:fullscreen .drawing{height:64vh}
-@media(max-width:720px){.floor-shell:has(.station-drawer:not([hidden])){grid-template-columns:1fr}.floor-shell .drawing{height:clamp(235px,38svh,410px)}.floor-tools{align-items:flex-start}.floor-tools>div{gap:2px}.floor-tools button,.floor-tools summary{padding:.3rem .48rem}.station-drawer{border-top:3px solid #bd955d}.iso-heading h1{font-size:clamp(2rem,9vw,3rem)}}
+.iso-page:fullscreen{overflow-y:auto;background:#f7f0e1}.iso-page:fullscreen .floor-console{--stage-height:64vh}
+@media(max-width:720px){.floor-shell:has(.station-drawer:not([hidden])){grid-template-columns:1fr}.floor-tools{align-items:flex-start}.floor-tools>div{gap:2px}.floor-tools button,.floor-tools summary{padding:.3rem .48rem}.station-drawer{border-top:3px solid #bd955d}.iso-heading h1{font-size:clamp(2rem,9vw,3rem)}}
 @media(pointer:fine){#touch-roam{display:none}}
 @media(prefers-reduced-motion:reduce){.camera-world{transition:none!important}}
 #ask-floor{border-block:1px solid #abac95;background:#eee9db;padding:clamp(12px,2vw,25px);margin-bottom:10px}#ask-floor [hidden],#ask-floor[hidden]{display:none}
@@ -130,15 +130,43 @@ main.iso-page{max-width:none;padding-top:12px}
 @media(max-width:650px){#ask-floor .dismiss{float:none}#ask-floor form label{display:block;width:100%}#ask-floor .question-examples button{flex:1 1 120px}.question-examples{font-size:.8rem}}
 
 /* A dedicated rail keeps the transport in reach without painting over the rooms. */
-.floor-console{display:grid;grid-template-columns:clamp(154px,14vw,194px) minmax(0,1fr);align-items:start;width:100vw;margin-inline:calc(50% - 50vw);background:#e7dfcc}
+.floor-console{--stage-height:clamp(350px,58vh,700px);display:grid;grid-template-columns:clamp(154px,14vw,194px) minmax(0,1fr);align-items:start;width:100vw;margin-inline:calc(50% - 50vw);background:#e7dfcc}
 .floor-console .iso-grid{width:100%;min-width:0;margin:0}
 .shift-rail{position:sticky;top:0;align-self:start;background:#233e32;color:#fcf5e5;min-width:0}
 .shift-rail .iso-toolbar{width:100%;margin:0;padding:12px;display:grid;grid-template-columns:1fr;gap:6px}
 .shift-rail .iso-toolbar label{display:grid;gap:2px}.shift-rail .iso-toolbar button,.shift-rail .iso-toolbar select{width:100%;min-width:0;max-width:100%}
 .shift-rail .scrubber{display:grid;gap:4px;padding:10px 12px;border-top:1px solid #657567}
 .shift-rail .scrubber input{width:100%;margin:0}.shift-rail .scrubber output{text-align:left}
+/* Keep the playback rail beside the drawing. The camera, ticker and handoffs
+   use the full row below it, including the space under the controls. */
+@media (min-width:721px) {
+ body:not(.embedded-floor) .floor-console .iso-grid {
+  display: contents;
+ }
+ body:not(.embedded-floor) .floor-console .floor-shell {
+  grid-area: 1 / 2;
+ }
+ .floor-console .rail-slot {
+  grid-area: 1 / 1;
+  align-self: stretch;
+  background: #233e32;
+ }
+ .floor-console .shift-rail {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: var(--stage-height);
+ }
+ .shift-rail .iso-toolbar {
+  align-content: space-between;
+ }
+ .floor-console .floor-tools,
+ .floor-console .event-ticker,
+ .floor-console .signal-panel {
+  grid-column: 1 / -1;
+ }
+}
 @media(max-width:720px){
- .floor-console{display:block}.shift-rail{position:static}.shift-rail .iso-toolbar{display:flex;flex-wrap:wrap;gap:4px 8px;padding:8px 12px 0}
+ .floor-console{--stage-height:clamp(235px,38svh,410px);display:block}.shift-rail{position:static}.shift-rail .iso-toolbar{display:flex;flex-wrap:wrap;gap:4px 8px;padding:8px 12px 0}
  .shift-rail .iso-toolbar label{display:flex;align-items:center;gap:4px}.shift-rail .iso-toolbar button,.shift-rail .iso-toolbar select{width:auto;max-width:150px}
  .shift-rail .scrubber{display:flex;gap:8px;border:0;padding:5px 12px;min-height:36px}.shift-rail .scrubber input{width:40%}
 }

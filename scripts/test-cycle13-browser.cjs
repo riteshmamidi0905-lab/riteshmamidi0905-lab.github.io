@@ -5,6 +5,29 @@ const {chromium}=require('playwright'),{AxeBuilder}=require('@axe-core/playwrigh
 const base=process.argv[2]||'http://127.0.0.1:8000/',out=process.env.CYCLE13_EVIDENCE;
 const report={views:[],accessibility:[],keyboard:[],errors:[]};
 const save=(file,data)=>{if(out)fs.writeFileSync(path.join(out,'checks',file),JSON.stringify(data,null,2)+'\n');};
+async function checkTransportLayout(page) {
+ const layout = await page.evaluate(() => {
+   const rect = selector => document.querySelector(selector).getBoundingClientRect();
+   const rail = rect('.shift-rail'), stage = rect('.floor-shell');
+   const fullWidthRows = ['.floor-tools','.event-ticker','.signal-panel'].every(selector => {
+     const box = rect(selector);
+     return Math.abs(box.left) < 1 && Math.abs(box.right - innerWidth) < 1;
+   });
+   const offset = scrollY;
+   window.scrollTo({top: scrollY + stage.top + 160, behavior: 'instant'});
+   const zoom = document.querySelector('#zoom-out'), control = zoom.getBoundingClientRect();
+   const hit = document.elementFromPoint(control.left + control.width / 2, control.top + control.height / 2);
+   const cameraControlReachable = !!hit && zoom.contains(hit);
+   const noControlOverlap = rect('.shift-rail').bottom <= rect('.floor-tools').top + 1;
+   window.scrollTo({top:offset, behavior:'instant'});
+   return {stageHeight:stage.height, railHeight:rail.height, bottomGap:stage.bottom-rail.bottom,
+     fullWidthRows, cameraControlReachable, noControlOverlap};
+ });
+ assert.ok(Math.abs(layout.bottomGap) < 1, 'The rail must end at the bottom of the floor drawing');
+ assert.ok(layout.fullWidthRows, 'Camera, events and handoffs must use the space beneath the rail');
+ assert.ok(layout.cameraControlReachable && layout.noControlOverlap, 'Scrolling cannot obscure a camera control');
+ return layout;
+}
 async function exercise(browser,width){
  const height=width===390?844:900,ctx=await browser.newContext({viewport:{width,height},hasTouch:width===390,reducedMotion:'no-preference'});
  const p=await ctx.newPage();p.setDefaultTimeout(12000);
@@ -35,6 +58,7 @@ async function exercise(browser,width){
    assert.equal(await p.locator('#play').textContent(),'Pause shift');assert.equal(await p.locator('#speed').inputValue(),'1');assert.equal(await p.evaluate(()=>window.scrollY),0);
    assert.equal(Number(await p.locator('.drawing').getAttribute('data-zoom')),.9);
    await snap('hq-overview','.iso-heading');
+   if(width===1440)report.desktopTransport=await checkTransportLayout(p);
    const lens=p.locator('.map-lens'),box=await lens.boundingBox();await p.mouse.move(box.x+box.width*.55,Math.min(height-30,box.y+box.height*.5));
    const y=await p.evaluate(()=>scrollY);await p.mouse.wheel(0,120);await p.waitForTimeout(240);assert.ok(await p.evaluate(()=>scrollY)>y,'native scrolling over floor');
    if(width===390){
@@ -60,7 +84,9 @@ async function exercise(browser,width){
    await activate('#follow-inspected');assert.equal(await p.locator('#camera').inputValue(),'who-VECTRA');await activate('#fit-floor');
    await tree('HQ free camera and activity list');
    await p.keyboard.press('/');assert.equal(await p.evaluate(()=>document.activeElement.id),'floor-question');
-   await p.locator('#floor-question').fill('why did cash drop on day 9?');await p.keyboard.press('Enter');assert.match(await p.locator('.answer').textContent(),/rose|increase/i);
+   await p.locator('#floor-question').fill('why did cash drop on day 9?');await p.keyboard.press('Enter');assert.match(await p.locator('.answer').textContent(),/cash didn['’]t drop on day 9\s*—\s*it rose by \$1,431\.16/i);
+   assert.ok(await p.locator('#ask-floor .citations a').count() > 1,'Cash correction cites ledger records');
+   assert.ok(!(await p.locator('.question-examples button').allTextContents()).some(q=>/cash drop on day 9\?/i.test(q)),'The default ledger does not suggest a day-9 drop');
    await activate('.flight .next');assert.match(await p.locator('.flight output').textContent(),/Day 9/);await snap('ask-floor','#ask-floor');await tree('Ask the floor and source flight');
    await p.keyboard.press('Escape');await activate('#branch-here');await p.waitForURL('**/branch.html#**');
    await p.waitForFunction(()=>document.querySelectorAll('iframe').length===2&&[...document.querySelectorAll('iframe')].every(f=>f.contentDocument?.documentElement.classList.contains('replay-ready')));

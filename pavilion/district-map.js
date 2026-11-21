@@ -60,6 +60,55 @@ function vehicle(l){
  for(const dx of [.45,2.5]){const [x,y]=p(l.u+dx,l.v+l.d,.24);out+='<circle cx="'+x+'" cy="'+y+'" r="5" fill="#41483c"/>';}
  return out+poly([[l.u+.3,l.v+l.d,1.02],[l.u+1.9,l.v+l.d,1.02],[l.u+1.9,l.v+l.d+.5,.86],[l.u+.3,l.v+l.d+.5,.86]],'#e6cba0');
 }
+function lotDestination(lot) {
+ return lot.id === 'brewery' ? '../brewing/index.html' : lot.link || 'hq.html?district=' + encodeURIComponent(lot.id);
+}
+
+function labelLayers(buildings, left, right, top, bottom, compact) {
+ const font = compact ? 33 : 16, height = compact ? 49 : 28;
+ const inset = compact ? 8 : 18, gap = compact ? 8 : 6;
+ const middle = (left + right) / 2;
+ const labels = buildings.map(lot => {
+  const [x,y] = p(lot.u + lot.w / 2, lot.v + lot.d / 2, lot.h);
+  const limit = compact ? 15 : 22, chars = Array.from(lot.name);
+  const text = chars.length <= limit ? lot.name : chars.slice(0,limit-1).join('')+'…';
+  const textWidth = Array.from(text).reduce((n,c) => n + (/[ilI'., ]/.test(c) ? .31 : /[MWmw@]/.test(c) ? .84 : /[A-Z]/.test(c) ? .68 : .56),0)*font;
+  const width = Math.ceil(textWidth + font*.9);
+  const side = x < middle ? 'left' : 'right';
+  const desiredY = y - (compact ? 38 : 25);
+  const boxX = side === 'left' ? left+inset : right-inset-width;
+  return {lot,x,y,side,boxX,boxY:desiredY,width,text,textWidth};
+ });
+
+ // Vertical sweeps allocate disjoint rows in each margin. The two margins never
+ // meet; all leaders are painted before all label plates, after the scenery.
+ for (const side of ['left','right']) {
+  const ordered = labels.filter(l => l.side === side).sort((a,b) => a.y-b.y);
+  let next = top + gap;
+  for (const l of ordered) {
+   l.boxY = Math.max(next,l.boxY);
+   next = l.boxY + height + gap;
+  }
+  let end = bottom - gap;
+  for (const l of ordered.reverse()) {
+   l.boxY = Math.min(l.boxY,end-height);
+   end = l.boxY-gap;
+  }
+ }
+ const leaders = labels.map(({x,y,boxX,boxY,width,side}) => {
+  const endX = side === 'left' ? boxX+width : boxX, endY = boxY+height/2;
+  const elbow = x + (endX-x)*.42;
+  return '<path d="M'+x+','+y+' L'+elbow+','+endY+' H'+endX+'"/><circle cx="'+x+'" cy="'+y+'" r="'+(compact?4.1:2.8)+'"/>';
+ }).join('');
+ const plates = labels.map(({lot,boxX,boxY,width,text,textWidth}) =>
+  '<a data-label-lot="'+esc(lot.id)+'" href="'+esc(lotDestination(lot))+'" aria-label="Enter '+esc(lot.name)+'">'+
+  '<title>'+esc(lot.name)+'</title><rect x="'+boxX+'" y="'+boxY+'" width="'+width+'" height="'+height+'" rx="3"/>'+
+  '<text class="lot-name" x="'+(boxX+font*.45)+'" y="'+(boxY+height/2+font*.34)+'" textLength="'+textWidth.toFixed(1)+'" lengthAdjust="spacingAndGlyphs">'+esc(text)+'</text>'+
+  '<line class="lot-link-underline" aria-hidden="true" x1="'+(boxX+font*.45)+'" x2="'+(boxX+font*.45+textWidth)+'" y1="'+(boxY+height/2+font*.56)+'" y2="'+(boxY+height/2+font*.56)+'"/></a>'
+ ).join('');
+ return '<g class="district-labels '+(compact?'compact-labels':'wide-labels')+'"><g class="lot-leaders" aria-hidden="true">'+leaders+'</g>'+plates+'</g>';
+}
+
 export function mapDrawing(buildings=lots){
  const end=Math.max(17,...buildings.map(l=>l.v+l.d+1.4)),bottom=Math.ceil(p(18,end)[1]+43),left=Math.min(-10,p(0,end)[0]-25);
  let ground=poly([[-1,-1],[18,-1],[18,end],[-1,end]],'#d4ccb1','#aba78c');
@@ -67,8 +116,8 @@ export function mapDrawing(buildings=lots){
  for(const u of [8.45,15.8])ground+=poly([[u,-1],[u+1,-1],[u+1,end],[u,end]],'#aaa99a');
  const details=[];for(let u=1;u<17;u+=1.45)for(const v of [.0,5.08,10.2,15.28])if(Math.abs(u-8.9)>.8)details.push({z:u+v,svg:tree(u,v,.63+(u%1)*.18)});
  for(const l of buildings){const [x,y]=p(l.u+l.w*.55,l.v+l.d+.38);
-   const dest=l.id==='brewery'?'../brewing/index.html':l.link||'hq.html?district='+encodeURIComponent(l.id);
+   const dest=lotDestination(l);
    const building=l.id==='stadium'?stadium(l):l.id==='truck'?vehicle(l):facade(l);
-   details.push({z:l.u+l.v+l.w*.4+l.d*.4,svg:'<a href="'+esc(dest)+'" data-lot="'+esc(l.id)+'" aria-label="Enter '+esc(l.name)+'"><title>'+esc(l.name)+'</title>'+building+'<g class="lot-light" transform="translate('+x+' '+y+')"><circle r="5"/></g><text class="lot-name" x="'+x+'" y="'+(y+15)+'" text-anchor="middle">'+esc(l.name)+'</text></a>'});}
- return '<svg class="district-map" viewBox="'+left+' -43 '+(935-left)+' '+(bottom+43)+'" role="group" aria-label="Interactive isometric district. A text list follows."><g>'+ground+details.sort((a,b)=>a.z-b.z).map(v=>v.svg).join('')+'</g></svg>';
+   details.push({z:l.u+l.v+l.w*.4+l.d*.4,svg:'<a href="'+esc(dest)+'" data-lot="'+esc(l.id)+'" tabindex="-1" aria-hidden="true" aria-label="Enter '+esc(l.name)+'"><title>'+esc(l.name)+'</title>'+building+'<g class="lot-light" transform="translate('+x+' '+y+')"><circle r="5"/></g></a>'});}
+ return '<svg class="district-map" viewBox="'+left+' -43 '+(935-left)+' '+(bottom+43)+'" role="group" aria-label="Interactive isometric district. A text list follows."><g>'+ground+details.sort((a,b)=>a.z-b.z).map(v=>v.svg).join('')+'</g>'+labelLayers(buildings,left,935,-43,bottom,false)+labelLayers(buildings,left,935,-43,bottom,true)+'</svg>';
 }

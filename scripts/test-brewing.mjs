@@ -12,6 +12,14 @@ for(const slug of pages)test('Brewing hospitality and disclosure · '+slug,()=>{
   assert.ok([...document.querySelectorAll('a')].some(a=>a.textContent===label&&a.getAttribute('href')===href));
  }
  assert.equal(document.querySelectorAll('form,input,iframe,script').length,0);
+ for(const link of document.querySelectorAll('.brewing-link')) {
+  assert.doesNotMatch(link.textContent,/[↗�]/u, 'Menu and editorial links must not depend on a missing font glyph');
+ }
+ if(slug==='index'){
+  const menu=document.querySelector('.hero-copy .brewing-link');
+  assert.equal(menu.textContent,'Explore the menu');
+  assert.equal(menu.getAttribute('href'),'menu.html');
+ }
  assert.doesNotMatch(text,/\$\s*\d|book a table|reservations open|five.star|reviews? from|open since/i);
  if(slug==='visit')assert.ok(text.includes('Austin, TX — opening date to be announced.'));
  if(slug==='menu'||slug==='brewhouse')assert.equal(document.querySelectorAll('article .pair').length,5);
