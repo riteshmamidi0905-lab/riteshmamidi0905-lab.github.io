@@ -731,18 +731,23 @@
   },
   {
     "path": "pavilion/builder-campaign-view.js",
-    "bytes": 10282,
-    "sha256": "f5798a99ec1690da82a5a8a0af1a62d916006b57b53b2378a2dc558fcdcee67e"
+    "bytes": 10605,
+    "sha256": "3930a28790b8cd600eb376987f8fc1587272617aa62ff427db3dbe2c3ed4db1a"
   },
   {
     "path": "pavilion/builder-common.js",
-    "bytes": 3126,
-    "sha256": "77a82e8b97f341559c4fb856eabb74dbdf20a01ca97f9a714c2ad06a7db2f682"
+    "bytes": 3413,
+    "sha256": "03043be526a50b69a6d5f032f06b845607682016a73409ded2876b9b3c454733"
+  },
+  {
+    "path": "pavilion/builder-copy.js",
+    "bytes": 930,
+    "sha256": "2885c9d3df57d502eace2eac0b9d24d714b71dc25d3f599cf9626021fa23c33a"
   },
   {
     "path": "pavilion/builder-dashboard.js",
-    "bytes": 10859,
-    "sha256": "2eae9bdccbcd576c21f43861336e3b177ed7edad75ce5fe2d082d023d18a23a1"
+    "bytes": 11873,
+    "sha256": "6fb425ed15697e9838aadc0c738c72ff905d6ebfd13d8d7e6a38eb4f8d4bd893"
   },
   {
     "path": "pavilion/builder-district-map.js",
@@ -756,23 +761,23 @@
   },
   {
     "path": "pavilion/builder-launch.js",
-    "bytes": 1128,
-    "sha256": "84626e9aab58f64bd1ef9bb697aea6ebcb49eb99ff5bc796391c82ec2a25d4bc"
+    "bytes": 1186,
+    "sha256": "8783562af1f8eb4392c942a250708f793a9cfb723b5025b4d43422e152a2ace2"
   },
   {
     "path": "pavilion/builder-ledger.js",
-    "bytes": 4429,
-    "sha256": "8ee91859cf4cdf07708cb6becf1efae4bdd0bf2d566e6309d1c7b3f9947d5d83"
+    "bytes": 4407,
+    "sha256": "6de88b58f1a1d7d457a805a3166c90fa639de7580529d3b85e5c468362ef23be"
   },
   {
     "path": "pavilion/builder-library.js",
-    "bytes": 2618,
-    "sha256": "f5387c1651c058a0faec36085d55d290002e4391499337f9865e3811e9b78d04"
+    "bytes": 2836,
+    "sha256": "57a071aeb6e03af6f5adb9335106e2dcb10b172df804ce0f6686bf43fdcdb43a"
   },
   {
     "path": "pavilion/builder-market.js",
-    "bytes": 7405,
-    "sha256": "f5098a0cbf0415d9fa9afbdd7d57fb204f30dbe75a66e3e3159a154103a93012"
+    "bytes": 7438,
+    "sha256": "9330bc2e7228fc30c936a351e33b1f4f99992a35c6a7578e438d9a4b37379aba"
   },
   {
     "path": "pavilion/builder-plan.js",
@@ -781,8 +786,8 @@
   },
   {
     "path": "pavilion/builder-promotions.js",
-    "bytes": 2523,
-    "sha256": "3ac1d37f74f700a2b08f6ffb72f2ba4ab20a5204a360bf701d0525bca09425c1"
+    "bytes": 2567,
+    "sha256": "b7a174c7cdb692df47dcf42d9ec7849e7a8439f465fefd6872d3b367fd298906"
   },
   {
     "path": "pavilion/builder-replay.js",
@@ -791,13 +796,13 @@
   },
   {
     "path": "pavilion/builder-results.js",
-    "bytes": 4168,
-    "sha256": "81681b372abd0375df3c53267afa594be641748f444658c086a54e1de67b5b3b"
+    "bytes": 4989,
+    "sha256": "5aae2304c0ba33fd323cc1b6ffd77acd71dcb5f2333b5756c55948e03984c87d"
   },
   {
     "path": "pavilion/builder-site.js",
-    "bytes": 4906,
-    "sha256": "51ea0381c7d1c6375986dde9b621fb1e02f0ec4c79d1c4cc7c17f0195dd695a9"
+    "bytes": 5054,
+    "sha256": "b6f142f16c02767f4dab0b3a26a913899f27a89e5852b5fe39c5b2f4cb20a1af"
   },
   {
     "path": "pavilion/builder.css",
@@ -806,8 +811,8 @@
   },
   {
     "path": "pavilion/builder.js",
-    "bytes": 13426,
-    "sha256": "254b5f5739b78e016f23142ad4474ef3920921576247b71a958beedbee14612f"
+    "bytes": 13459,
+    "sha256": "2343b3f3d940386f43bcddee051da05a2b96e209e8ac48cea047bd7f36c94178"
   },
   {
     "path": "pavilion/business-settings.js",
@@ -851,8 +856,8 @@
   },
   {
     "path": "pavilion/district.js",
-    "bytes": 6594,
-    "sha256": "45df55ae5a76eede419f25a13bd59f77a39832b9af7adb8a2d5bf24cb018fb6e"
+    "bytes": 7139,
+    "sha256": "df7bb720352fed5cc7a64929f417bb6784faf3512b74a4b978e7f86bbe31f50b"
   },
   {
     "path": "pavilion/engine.js",
@@ -866,8 +871,8 @@
   },
   {
     "path": "pavilion/experience.css",
-    "bytes": 7321,
-    "sha256": "80b2a5c2c6b849749a436c127acde0f2dd6e9a366eb657c70b8c280002848d5f"
+    "bytes": 7448,
+    "sha256": "c2b321a33d4d9c36625a748aa1fe5538b1e0bd99db332b77efd187d1c2d823ac"
   },
   {
     "path": "pavilion/finance.js",
@@ -1050,29 +1055,39 @@
     "sha256": "92ff972165650439a8e08eb6b90bc564eb81bf944baf0530bce6f3aa0ec09119"
   },
   {
+    "path": "pavilion/stadium-economics.js",
+    "bytes": 3635,
+    "sha256": "ec75645f2b20c5bc1a9c74c195d42e22927599839c03f01fecb13b8c04883301"
+  },
+  {
     "path": "pavilion/stadium-idea.js",
     "bytes": 806,
     "sha256": "cf351ca6000746f7854a8fb3b0f00b75916f655483148a5921d04cd316d46950"
   },
   {
     "path": "pavilion/stadium-model.js",
-    "bytes": 12248,
-    "sha256": "24f153eeda51c703c06a325c57d204845e4c2541e1105a604a231106ffae1909"
+    "bytes": 12268,
+    "sha256": "0e3864b5f96792e5cfc1c2d950b091b6c5926c5946ebc0561a8824834fdcd888"
+  },
+  {
+    "path": "pavilion/stadium-statement-view.js",
+    "bytes": 3477,
+    "sha256": "a2ad7819e55b8db696bd2d617307f24056af871343551eea05c20777e5d81a90"
   },
   {
     "path": "pavilion/stadium-view.js",
-    "bytes": 9738,
-    "sha256": "315ee0ac557eeaf00073b14b0816be5f44e53649af931ae5eccdb04cbb6f45ff"
+    "bytes": 10594,
+    "sha256": "50b0bccc77076b25baa6fe6daef6afc6ed2469c18710fc41349ef1a8f3f1cbb2"
   },
   {
     "path": "pavilion/stadium.html",
-    "bytes": 6872,
-    "sha256": "ccc1fecce4dcea1455207e4ba0acb3f78823f4007e85d62cb91d326207f664db"
+    "bytes": 6848,
+    "sha256": "05990d9cfb7dc72adffba92329e1aceaf6bdd59401d4ca4c0051dd64166ffdbf"
   },
   {
     "path": "pavilion/start.html",
-    "bytes": 3618,
-    "sha256": "d417f85044290448615017d88e18c1779360ad987ed146f35537e894a2c0eb79"
+    "bytes": 3699,
+    "sha256": "59d63b0506555c785d4496b4a9142cfc54c110c61d486684e466db207271c35d"
   },
   {
     "path": "pavilion/station-context.js",
@@ -1093,6 +1108,11 @@
     "path": "pavilion/timeline.html",
     "bytes": 8902,
     "sha256": "0fa6554a0ffa753f2c4a03d08d1648273c40d175d6740c8ce077c881e35bb62d"
+  },
+  {
+    "path": "pavilion/venue-statement.css",
+    "bytes": 1145,
+    "sha256": "f65c46d8e583e19e9be79e99a8f086979a5a43048021ff6a83ba93fe5e041696"
   },
   {
     "path": "pavilion/views.js",

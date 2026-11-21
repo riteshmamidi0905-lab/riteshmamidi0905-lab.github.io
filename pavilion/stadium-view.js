@@ -1,3 +1,5 @@
+import {venueStatements} from './stadium-economics.js';
+import {venueAssumptions,venueStatement} from './stadium-statement-view.js';
 import {questionBox,mountQuestions} from './ask-floor.js';
 import {booths,calendar,phases,simulateStadium,stadiumPolicy,stadiumStress,staffingSweep} from './stadium-model.js';
 import {concourseMap} from './concourse.js';
@@ -22,8 +24,11 @@ const link=(id,label=id)=>'<a href="#'+esc(params({r:id}))+'" data-record="'+esc
 const row=(...cells)=>'<tr>'+cells.map(x=>'<td>'+x+'</td>').join('')+'</tr>';
 function table(caption,cols,rows){return '<div class="table-wrap"><table><caption>'+esc(caption)+'</caption><thead><tr>'+cols.map(c=>'<th scope="col">'+esc(c)+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';}
 function status(msg){$('#venue-status').textContent=msg;}
-let questionEvent=null;
-function build(){questionEvent=null;model=workspace?.model??simulateStadium({mix,stress,staff:best});refreshQuestions();}
+let questionEvent=null,entities;
+function build(){questionEvent=null;model=workspace?.model??simulateStadium({mix,stress,staff:best});entities=workspace?.result.entities??venueStatements(model,[],booths);
+ const statements=[['PL-OPERATOR',entities.operator],['PL-COMBINED',entities.combined],...entities.vendors.map(v=>['PL-'+v.vendor,v])];
+ model={...model,records:{...model.records,...workspace?.result.records,...Object.fromEntries(statements.map(([id,v])=>[id,{id,kind:'Four-week entity P&L (USD cents)',...v}]))}};
+ refreshQuestions();}
 function save(){q=new URLSearchParams(params());history.replaceState(null,'','#'+q);}
 function inspect(id,focus=true){
  const record=model?.records[id];if(!record){$('#venue-record').hidden=true;return;}
@@ -33,11 +38,13 @@ function inspect(id,focus=true){
 function ledgerReport(){
  const last=model.days[27],venue=model.records[last.close];
  const page=(title,html)=>'<section class="print-section"><h2>'+esc(title)+'</h2>'+html+'</section>';
- return model.mix.map(id=>{const b=booths.find(x=>x.id===id),rec=model.records[last.closes.find(k=>model.records[k].vendor===id)];
+ const vendorBook=id=>entities.vendors.find(v=>v.vendor===id);
+ const marketing=workspace?Object.values(workspace.result.records).filter(r=>r.kind==='Simulated cash journal'):[];
+ return venueStatement(entities,link)+model.mix.map(id=>{
    const totals=[1,2,3,4].map(week=>{const days=model.days.slice((week-1)*7,week*7),r=model.records[days.at(-1).closes.find(k=>model.records[k].vendor===id)],prev=week===1?0:model.records[model.days[(week-1)*7-1].closes.find(k=>model.records[k].vendor===id)].incomeCents;
-     return row(week,number(days.reduce((n,d)=>n+model.records[d.closes.find(k=>model.records[k].vendor===id)].served,0)),dollars(r.incomeCents-prev),link(r.id));});
-   return page(b.name,'<p>'+best[id]+' staffing positions · Four-week income '+dollars(rec.incomeCents)+'</p>'+table('Weekly stand ledger',['Week','Served','Operating income','Close'],totals));}).join('')+
-   page('Venue settlement','<p>Four-week venue operating income '+dollars(venue.incomeCents)+'. All concession shares and fixed booth fees have matching vendor and venue postings.</p>'+table('Weekly operator receipts',['Week','Revenue share','Booth fees','Reconciliation'],[1,2,3,4].map(w=>{const ds=model.days.slice((w-1)*7,w*7);return row(w,dollars(ds.reduce((n,d)=>n+model.records[d.close].sharesCents,0)),dollars(ds.reduce((n,d)=>n+model.records[d.close].feesCents,0)),link(ds.at(-1).audit));})));
+     return row(week,number(days.reduce((n,d)=>n+model.records[d.closes.find(k=>model.records[k].vendor===id)].served,0)),dollars(r.incomeCents-prev-marketing.filter(j=>j.entity===id&&days.some(d=>j.id.startsWith('B-D'+String(d.day).padStart(2,'0')+'-'))).reduce((n,j)=>n+j.credits.cash,0)),link(r.id));});
+   return page(vendorBook(id).entity,'<p>'+model.staff[id]+' vendor positions · Four-week vendor operating income '+dollars(vendorBook(id).income)+'</p>'+table('Weekly stand ledger',['Week','Served','Operating income','Close'],totals));}).join('')+
+   page('Venue settlement','<p>Four-week venue operator income '+dollars(venue.incomeCents)+'. All concession shares and fixed booth fees have matching vendor and venue postings.</p>'+table('Weekly operator receipts',['Week','Revenue share','Booth fees','Reconciliation'],[1,2,3,4].map(w=>{const ds=model.days.slice((w-1)*7,w*7);return row(w,dollars(ds.reduce((n,d)=>n+model.records[d.close].sharesCents,0)),dollars(ds.reduce((n,d)=>n+model.records[d.close].feesCents,0)),link(ds.at(-1).audit));})));
 }
 function render(){
  if(!model)return;const date=model.days[day-1],event=model.records[date.eventId],operator=model.records[date.close],phase=phases[slot];
@@ -52,7 +59,7 @@ function render(){
  $('#venue-close').innerHTML='<strong>'+dollars(operator.sharesCents)+'</strong> vendor revenue share · <strong>'+dollars(operator.feesCents)+'</strong> booth fees · '+link(date.audit,'Inspect daily tie-out');
  $('#venue-report').innerHTML=ledgerReport();
  const venuePeriod=model.records[model.days[27].close],base=stress?simulateStadium({mix,staff:best}):model,original=base.records[base.days[27].close];
- $('#stress-effect').textContent=(stress?stadiumStress[stress]:'Baseline')+' · 28-day venue income '+dollars(venuePeriod.incomeCents)+' · change '+dollars(venuePeriod.incomeCents-original.incomeCents)+'.';
+ $('#stress-effect').textContent=(stress?stadiumStress[stress]:'Baseline')+' · 28-day venue operator income '+dollars(venuePeriod.incomeCents)+' · change '+dollars(venuePeriod.incomeCents-original.incomeCents)+'.';
  inspect(q.get('r'),false);
 }
 const controls=$('#venue-operation .controls');
@@ -73,7 +80,7 @@ $('#venue-stress').onchange=e=>{stop();stress=e.target.value;if(stress)day=stres
 document.addEventListener('click',e=>{const a=e.target.closest('[data-record]');if(a&&!e.ctrlKey&&!e.metaKey){e.preventDefault();q.set('r',a.dataset.record);save();inspect(a.dataset.record);}});
 $('#mix-fields').innerHTML=booths.map(b=>'<label><input type="checkbox" name="booth" value="'+b.id+'" '+(mix.includes(b.id)?'checked':'')+'> '+esc(b.name)+'</label>').join('');
 $('#venue-mix').onsubmit=e=>{e.preventDefault();const chosen=new FormData(e.target).getAll('booth');if(!chosen.length){status('Select at least one vendor.');return;}mix=chosen;choosing=false;q.delete('confirm');q.delete('r');$('#mix-question').hidden=true;build();save();$('#venue-operation').hidden=false;render();$('#venue-mix details').open=false;$('#venue-day').focus();status('Vendor mix confirmed.');};
-$('#assumption-table').innerHTML=table('Synthetic concession assumptions',['Vendor','Sales price','Unit cost','Orders / 1,000 fans','Units / worker-hour','Hourly wage','Booth fee / event','Best staff','28-day income'],booths.map(b=>row(esc(b.name),dollars(b.price),dollars(b.cost),b.share,b.rate,dollars(b.wage),dollars(b.fee),best[b.id],dollars(scans.find(s=>s.id===b.id).best.income))));
+$('#assumption-table').innerHTML=venueAssumptions()+table('Synthetic reference concession assumptions',['Vendor','Sales price','Unit cost','Orders / 1,000 fans','Units / worker-hour','Hourly wage','Booth fee / event','Best staff','28-day income'],booths.map(b=>row(esc(b.name),dollars(b.price),dollars(b.cost),b.share,b.rate,dollars(b.wage),dollars(b.fee),best[b.id],dollars(scans.find(s=>s.id===b.id).best.income))));
 $('#assumption-table').insertAdjacentHTML('beforeend',scans.map(s=>'<details><summary>'+esc(s.name)+' staffing sweep</summary>'+table('Four-week staffing sensitivity',['Positions','Served','Walkaways','Income'],s.rows.map(r=>row(r.positions,number(r.served),number(r.walkaways),dollars(r.income))))+'</details>').join(''));
 $('#venue-print').onclick=()=>window.print();
 $('#venue-mix details').open=choosing;$('#mix-question').hidden=!choosing;$('#venue-operation').hidden=choosing;

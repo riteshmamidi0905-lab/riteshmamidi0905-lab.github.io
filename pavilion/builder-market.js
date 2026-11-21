@@ -64,7 +64,7 @@ export function campaignRun(b,baseline,mode='normal'){
      const discount=Math.round((added+existing)*item.price*row.discount/100);
      Object.assign(row,{newServed:added,existing,rebate:discount,id});
      records[id]={id,kind:'Campaign funnel and fulfilled redemptions',...row,offer:b.campaigns.find(c=>c.id===row.campaign).offer,baselineSources:original.ids.map(x=>'BASE/'+x),sources:d.ids};
-     records[id+'-POST']={id:id+'-POST',kind:'Simulated cash journal',debits:{adExpense:row.spend,promotionalDiscount:discount},credits:{cash:row.spend+discount},source:id};
+     records[id+'-POST']={id:id+'-POST',kind:'Simulated cash journal',entity:venue?row.item:'business',debits:{adExpense:row.spend,promotionalDiscount:discount},credits:{cash:row.spend+discount},source:id};
      records[id+'-AUDIENCE']={id:id+'-AUDIENCE',kind:'Customer offer response',newFulfilled:added,existingRedeemed:existing,unfulfilledNew:row.newRequests-added,source:id};
      events.push({day:d.day,owner:'NOVARA',action:'Plan channel delivery and attribute visits',record:id},{day:d.day,owner:'ECHON',action:'Classify new and existing offer redemptions',record:id+'-AUDIENCE'},
        {day:d.day,owner:'QUANTIX',action:'Post simulated campaign spend and rebates',record:id+'-POST'});

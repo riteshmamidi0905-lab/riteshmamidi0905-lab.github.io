@@ -1,3 +1,4 @@
+import {venueStatements} from './stadium-economics.js';
 import {simulateStadium} from './stadium-model.js';
 import {lots,mapDrawing} from './district-map.js';
 import {districtBusiness,activity,customLot} from './district-state.js';
@@ -26,7 +27,14 @@ for(const entry of browserLibrary().entries.values()){
 const stadium=simulateStadium();
 models.set('stadium',stadium);
 $('#district-atlas').innerHTML=mapDrawing(items);
-$('#district-list').innerHTML=items.map(l=>'<a '+(l.workspace?'id="lot-'+esc(l.workspace)+'" ':'')+'data-door="'+esc(l.id)+'" href="'+esc(l.link||'hq.html?district='+l.id)+'"><span>'+esc(l.use)+'</span><b>'+esc(l.name)+'</b><small class="district-work"></small>'+(l.workspace?'<small class="district-offer"></small>':'')+'</a>').join('');
+const currency=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+const stadiumTotals=venueStatements(stadium);
+function venueCard(lot){
+ const pl=lot.id==='stadium'?stadiumTotals:workspaces.get(lot.id)?.result.entities;
+ if(!pl)return '';
+ return '<span class="district-finance">Four-week operating income<br>Venue operator · '+currency.format(pl.operator.income/100)+'<br>All businesses in the venue · '+currency.format(pl.combined.income/100)+'</span>';
+}
+$('#district-list').innerHTML=items.map(l=>'<a '+(l.workspace?'id="lot-'+esc(l.workspace)+'" ':'')+'data-door="'+esc(l.id)+'" href="'+esc(l.link||'hq.html?district='+l.id)+'"><span>'+esc(l.use)+'</span><b>'+esc(l.name)+'</b><small class="district-work"></small>'+(l.workspace?'<small class="district-offer"></small>':'')+venueCard(l)+'</a>').join('');
 const clockQuery=new URLSearchParams(location.search);
 for(const [key,value] of new URLSearchParams(location.hash.slice(1)))clockQuery.set(key,value);
 function requestedNumber(name,min,max,fallback){

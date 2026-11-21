@@ -24,3 +24,5 @@ body{margin:0;background:#f6f1e5;color:#23382e;font-family:Inter,system-ui,sans-
 .venue #ask-floor .citations a { display: inline-block; margin: .25rem; }
 
 .district-offer:not(:empty){display:block;margin-top:.5rem;color:#704520;font-weight:650}
+
+.district-list a>.district-finance{font-size:.78rem;line-height:1.45;letter-spacing:normal;text-transform:none;color:#364a3a}

@@ -1,3 +1,5 @@
+import {optionalText,storyText} from './builder-copy.js';
+import {venueStatement,operatorMargin} from './stadium-statement-view.js';
 import {btn,esc,input,select,options,money,count,shellHeading,note} from './builder-common.js';
 import {themes,domainIdeas} from './builder-site.js';
 import {sectors,types} from './builder-plan.js';
@@ -11,6 +13,12 @@ export function wrap(b,page,content,archive=''){
  return '<div class="workbench"><aside class="side"><div class="side-name">'+esc(b.values.concept)+'</div><form id="section-jump" class="mobile-section">'+select('section','Dashboard section',tabs,active)+'<button class="quiet" type="submit">Open section</button></form><nav aria-label="Business dashboard">'+Object.entries(tabs).map(([key,label])=>'<a href="#'+key+'"'+(active===key?' aria-current="page"':'')+'>'+label+'</a>').join('')+'</nav><div class="manage">'+'<details><summary>Manage workspace</summary>'+archive+'</details></div></aside><div class="panel">'+content+'</div></div>';
 }
 export function totalStats(result){
+ if(result.entities){
+   const op=result.entities.operator;
+   return '<div class="stats">'+stat('Venue operator · four-week revenue',money(op.revenue),'PL-OPERATOR')+
+    stat('Venue operator · operating income',money(op.income),'PL-OPERATOR')+stat('Venue operator · operating margin',operatorMargin(op),'PL-OPERATOR')+'</div>'+
+    venueStatement(result.entities,evidence);
+ }
  const s=result.total;
  return '<div class="stats">'+stat('Four-week revenue',money(s.gross),'B-RESULT')+stat('Operating income',money(s.income),'B-RESULT')+stat('Closing cash',money(s.cash),'B-RESULT')+'</div>';
 }
@@ -32,19 +40,19 @@ export function weekly(result) {
   return '<tr role="row">'+headerCell+cells+'</tr>';
  });
  return '<div class="table-scroll"><table class="weekly-ledger" role="table">'+
-  '<caption>Four-week operating ledger</caption><thead role="rowgroup"><tr role="row">'+header+
+  '<caption>Four-week operating ledger'+(result.entities?' · all businesses in the venue':'')+'</caption><thead role="rowgroup"><tr role="row">'+header+
   '</tr></thead><tbody role="rowgroup">'+weeks.join('')+'</tbody></table></div>';
 }
 export function overview(b,res){
  const sector=Object.entries(sectors).find(([,s])=>s.types.includes(b.values.type))[0];
- return shellHeading('Business overview',b.values.concept,b.values.city+' · '+types[b.values.type]+' · '+b.values.goals)+
+ return shellHeading('Business overview',b.values.concept,[optionalText(b.values.city),types[b.values.type],optionalText(b.values.goals)].filter(Boolean).join(' · '))+
  '<div class="overview-hero"><div><p class="kicker">Four-week simulation</p><h2>Your opening month</h2><p>See how the operating plan holds up, then compare a campaign to the same business without it.</p><a class="button primary" href="#simulation">Explore the projection</a></div><div class="art">'+elevation(sector)+'</div></div>'+totalStats(res)+
  '<h2>Next steps</h2><div class="cards">'+[['website','Shape your website','Preview the site and its opening story.'],['products','Set your margins','Review the mix, prices and unit costs.'],['marketing','Plan an offer','Compare extra sales with acquisition costs.']].map(([id,title,detail])=>'<a class="task-card" href="#'+id+'"><h3>'+title+'</h3><p>'+detail+'</p></a>').join('')+'</div>';
 }
 export function website(b,device,day){
  const s=b.site;
  return shellHeading('Website','Your storefront','Edit the text and appearance, then download a self-contained HTML preview.')+
- '<form id="website-form" class="editor"><div class="form-grid">'+input('title','Hero headline',s.title,'required maxlength="72"')+select('theme','Visual theme',themes,s.theme)+input('accent','Accent color',s.accent,'type="color"')+input('story','Story',s.story,'required maxlength="220"')+'</div><fieldset><legend>Visible sections</legend>'+['offers','hours','story'].map(k=>'<label class="check inline"><input type="checkbox" name="sections" value="'+k+'"'+(s.sections.includes(k)?' checked':'')+'> '+({offers:'Offerings',hours:'Hours and location',story:'Story'})[k]+'</label>').join('')+'</fieldset><button class="button primary">Save website edits</button></form><div class="section-line"><h2>Website preview</h2><div class="toolbar">'+btn('device',device==='mobile'?'Desktop preview':'Mobile preview','quiet')+btn('export','Download static HTML')+'</div></div><p class="tip">Offers shown for simulation day '+day+'.</p><div class="site-preview '+device+'"><div class="storefront-window" role="region" aria-label="Business website preview" tabindex="0"></div></div><h2>Domain ideas</h2>'+note('Suggestions — not registered. Availability is unknown.')+'<ul class="pills">'+domainIdeas(b.values.concept).map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul>';
+ '<form id="website-form" class="editor"><div class="form-grid">'+input('title','Hero headline',s.title,'required maxlength="72"')+select('theme','Visual theme',themes,s.theme)+input('accent','Accent color',s.accent,'type="color"')+input('story','Story',storyText(b),'maxlength="220"')+'</div><fieldset><legend>Visible sections</legend>'+['offers','hours','story'].map(k=>'<label class="check inline"><input type="checkbox" name="sections" value="'+k+'"'+(s.sections.includes(k)?' checked':'')+'> '+({offers:'Offerings',hours:'Hours and location',story:'Story'})[k]+'</label>').join('')+'</fieldset><button class="button primary">Save website edits</button></form><div class="section-line"><h2>Website preview</h2><div class="toolbar">'+btn('device',device==='mobile'?'Desktop preview':'Mobile preview','quiet')+btn('export','Download static HTML')+'</div></div><p class="tip">Offers shown for simulation day '+day+'.</p><div class="site-preview '+device+'"><div class="storefront-window" role="region" aria-label="Business website preview" tabindex="0"></div></div><h2>Domain ideas</h2>'+note('Suggestions — not registered. Availability is unknown.')+'<ul class="pills">'+domainIdeas(b.values.concept).map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul>';
 }
 export function products(b){
  return shellHeading('Products/Menu','Price the offer','Each item keeps a fixed record ID. Prices and costs feed the four-week ledger.')+
@@ -69,7 +77,7 @@ export function customers(b,r){
 }
 export function finance(b,r){
  const s=r.total;return shellHeading('Finance','Follow the money','Open any figure to see its calculation and source closes.')+totalStats(r)+
- row('Cost of goods',evidence('B-RESULT',money(s.cost)))+row('Other operating costs',evidence('B-RESULT',money(s.fixed)))+
+ (r.entities?'<h2>All businesses in the venue</h2>':'')+row('Cost of goods',evidence('B-RESULT',money(s.cost)))+row('Other operating costs',evidence('B-RESULT',money(s.fixed)))+
  row('Four-week break-even revenue',evidence('B-RESULT',s.breakEven===null?'No positive contribution':money(s.breakEven)))+
  row('Cash runway at the last week’s burn',evidence('B-RESULT',s.runway===null?'No net burn observed':s.runway.toFixed(1)+' weeks'))+
  note('Break-even holds the four-week contribution margin and operating costs constant. Runway uses cash available after operating and tax obligations.')+weekly(r);
@@ -79,11 +87,13 @@ export function simulation(b,r){
 }
 export function report(b,r){
  return shellHeading('Launch-readiness report',b.values.concept,'Synthetic simulation — not financial, legal or tax advice.')+'<div class="actions">'+btn('print','Print / Save as PDF')+'</div>'+
- '<h2>Opening assumptions</h2><p>'+esc(types[b.values.type]+' in '+b.values.city+' · '+b.values.size+' · '+b.values.hours+' · '+b.values.staff+' positions')+'</p>'+totalStats(r)+weekly(r)+
+ '<h2>Opening assumptions</h2><p>'+esc(types[b.values.type]+(optionalText(b.values.city)?' in '+optionalText(b.values.city):'')+' · '+b.values.size+' · '+b.values.hours+' · '+b.values.staff+(r.entities?' lead-vendor positions':' positions'))+'</p>'+totalStats(r)+weekly(r)+
  '<h2>Before committing money</h2><p>Check actual demand, supplier terms and staffing costs. Test the offer with real customers before using these projections to make a decision.</p>';
 }
 export function recordHTML(record,lookup){
- const link=v=>typeof v==='string'&&lookup(v)?evidence(v):esc(String(v??'—'));
+ const present=v=>v!=null && (typeof v==='object'||optionalText(v)!=='');
+ const clean=v=>Array.isArray(v)?v.filter(present).map(clean):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).filter(([,x])=>present(x)).map(([k,x])=>[k,clean(x)])):v;
+ const link=v=>typeof v==='string'&&lookup(v)?evidence(v):esc(optionalText(v));
  const value=v=>Array.isArray(v)?v.map(x=>typeof x==='object'?esc(JSON.stringify(x)):link(x)).join(' · '):v&&typeof v==='object'?'<code>'+esc(JSON.stringify(v))+'</code>':link(v);
- return '<h2 id="source-title">'+esc(record.kind||'Source record')+'</h2><p class="kicker">'+esc(record.id)+'</p><dl>'+Object.entries(record).filter(([k])=>!['scenario','id','kind'].includes(k)).map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+value(v)+'</dd>').join('')+'</dl>';
+ return '<h2 id="source-title">'+esc(record.kind||'Source record')+'</h2><p class="kicker">'+esc(record.id)+'</p><dl>'+Object.entries(clean(record)).filter(([k])=>!['scenario','id','kind'].includes(k)).map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+value(v)+'</dd>').join('')+'</dl>';
 }

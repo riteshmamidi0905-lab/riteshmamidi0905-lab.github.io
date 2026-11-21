@@ -1,3 +1,4 @@
+import {optionalText} from './builder-copy.js';
 import {esc} from './views.js';
 import {labels,types,goalOptions} from './builder-plan.js';
 import {booths} from './stadium-model.js';
@@ -16,9 +17,10 @@ export function select(key,label,entries,value){
 }
 const choices={type:types,neighborhood:pairs(['neighborhood','downtown','suburban','campus','industrial']),tier:pairs(['value','standard','premium']),goals:pairs(goalOptions)};
 export function planField(plan,key,review=false){
- const v=plan.values[key],question=plan.questions[key],state=question?'asked':plan.status[key];
+ const v=key==='city'?optionalText(plan.values[key]):plan.values[key],question=plan.questions[key],state=question?'asked':plan.status[key];
  let field;
  if(key==='mix')field='<fieldset><legend>Independent vendors</legend>'+booths.map(b=>'<label class="check"><input type="checkbox" name="mix" value="'+b.id+'"'+(v?.includes(b.id)?' checked':'')+'> '+esc(b.name)+'</label>').join('')+'</fieldset>';
+ else if(key==='city')field=input(key,labels[key],v,'maxlength="56" placeholder="Location not set"');
  else if(choices[key])field=select(key,labels[key],choices[key],v);
  else field=input(key,labels[key],v,key==='budget'?'type="number" min="500" max="1000000" required':key==='staff'?'type="number" min="1" max="12" required':'maxlength="'+(key==='products'?146:key==='hours'?220:56)+'" required');
  return '<div class="field-group">'+field+(review?'<small class="assumption">'+esc(state)+'</small>':'')+(question?'<p class="clarify">'+esc(question)+'</p><label class="check"><input type="checkbox" name="confirm-'+key+'" required> I have reviewed this assumption</label>':'')+'</div>';
@@ -29,8 +31,8 @@ export function takeFields(form,plan,keys){
    if(!data.has(key)&&key!=='mix')continue;
    const raw=key==='mix'?data.getAll('mix'):data.get(key);
    const value=['staff','budget'].includes(key)?Number(raw):typeof raw==='string'?raw.trim():raw;
-   if(JSON.stringify(value)!==JSON.stringify(plan.values[key])||data.has('confirm-'+key)){
-     plan.values[key]=value;plan.status[key]='user-set';delete plan.questions[key];
+   if(JSON.stringify(value)!==JSON.stringify(key==='city'?optionalText(plan.values.city):plan.values[key])||data.has('confirm-'+key)){
+     plan.values[key]=key==='city'&&!optionalText(value)?'Unspecified':value;plan.status[key]='user-set';delete plan.questions[key];
    }
  }
  return plan;

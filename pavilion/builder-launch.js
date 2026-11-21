@@ -5,6 +5,7 @@ let loading;
 function start() {
   if (!loading) {
     document.querySelector('#board-style').media = 'all';
+    document.querySelector('#venue-style').media = 'all';
     loading = import('./builder.js').catch(() => {
       loading = null;
       document.querySelector('#notice').textContent = 'The workspace could not load. Select Guide me through it to retry.';

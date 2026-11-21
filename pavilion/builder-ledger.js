@@ -1,3 +1,4 @@
+import {openingStory} from './builder-copy.js';
 import {readSchedule} from './idea-hours.js';
 import {operatingProfile,hoursLong,tiers} from './idea-profiles.js';
 import {runIdea} from './idea-analysis.js';
@@ -10,7 +11,7 @@ export function createBusiness(plan){
  const items=venue?booths.filter(b=>v.mix.includes(b.id)).map(b=>({id:b.id,name:b.name,price:Math.round(b.price*tiers[v.tier]),cost:b.cost})):
    p.names.map((name,i)=>({id:'SKU-'+(i+1),name,price:p.prices[i],cost:p.costs[i]}));
  return {values:v,status:{...plan.status},items,lead:0,stock:100,campaigns:[],
-   site:{theme:'garden',accent:'#315842',title:v.concept,story:'An independent '+(venue?'venue':v.type==='salon'?'studio':'business')+' taking shape in '+v.city+'.',sections:['offers','hours','story']}};
+   site:{theme:'garden',accent:'#315842',title:v.concept,story:openingStory(v),sections:['offers','hours','story']}};
 }
 function retailDays(b,arrivals){
  const v=b.values, idea={...v,builderOps:{items:b.items,lead:b.lead,stock:b.stock,...(arrivals?{arrivals}: {})}};
@@ -27,7 +28,7 @@ function retailDays(b,arrivals){
 function venueDays(b,arrivals){
  const v=b.values,ids=v.mix,menu=Object.fromEntries(b.items.map(item=>[item.id,{price:item.price,cost:item.cost}]));
  const staff=Object.fromEntries(ids.map((id,i)=>[id,Math.min(12,Math.max(1,recommended[id]+v.staff-recommended[ids[0]]))]));
- const model=simulateStadium({mix:ids,staff,operations:{menu,stock:b.stock,lead:b.lead,seats:parseInt(v.size),minutes:Math.round(hoursLong(v.hours)*60),weekMinutes:readSchedule(v.hours).week.map(d=>d.minutes),capital:v.budget*100,arrivals}});
+ const model=simulateStadium({seed:b.seed??27,mix:ids,staff,operations:{menu,stock:b.stock,lead:b.lead,seats:parseInt(v.size),minutes:Math.round(hoursLong(v.hours)*60),weekMinutes:readSchedule(v.hours).week.map(d=>d.minutes),capital:v.budget*100,arrivals}});
  let priorIncome=0;
  const days=model.days.map(d=>{
    const rec=id=>model.records[id],venue=rec(d.close),vendors=d.closes.map(rec),books=[venue,...vendors];

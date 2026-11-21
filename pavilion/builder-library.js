@@ -1,3 +1,4 @@
+import {optionalText} from './builder-copy.js';
 const prefix='nasha.builder.v1.business.',currentKey='nasha.builder.v1.current';
 export class BusinessLibrary{
  constructor(storage){
@@ -5,7 +6,12 @@ export class BusinessLibrary{
    try{
      for(let i=0;i<(storage?.length||0);i++){
        const key=storage.key(i);if(!key?.startsWith(prefix))continue;
-       try{const entry=JSON.parse(storage.getItem(key));if(entry?.id===key.slice(prefix.length)&&entry.business?.values&&entry.original?.values)this.entries.set(entry.id,entry);}catch{/* Other saved workspaces remain usable. */}
+       try{const entry=JSON.parse(storage.getItem(key));if(entry?.id===key.slice(prefix.length)&&entry.business?.values&&entry.original?.values){
+         for(const plan of [entry.business,entry.original]){
+           if(!optionalText(plan.values.city))plan.values.city='Unspecified';
+         }
+         this.entries.set(entry.id,entry);
+       }}catch{/* Other saved workspaces remain usable. */}
      }
      const last=storage?.getItem(currentKey);this.current=this.entries.has(last)?last:null;
    }catch{this.persistent=false;}

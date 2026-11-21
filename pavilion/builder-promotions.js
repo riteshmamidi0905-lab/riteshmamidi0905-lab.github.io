@@ -20,7 +20,7 @@ export function campaignAnswer(book, text) {
   const summary=records.length===1 ? leaders+(top<0?' reduced':top>0?' increased':' did not change')+' four-week operating income'+(top?' by '+dollars(Math.abs(top)):'')+'.' :
     top<=0?'No promotion increased four-week operating income. The highest result was '+leaders+' at '+dollars(top)+'.':
     'The highest four-week gain was '+leaders+' at '+dollars(top)+'.';
-  return reply(summary+' Each result compares the full simulated plan with the same plan excluding only that offer. Spend and discounts are included.',records.map(r=>r.id));
+  return reply(summary+(book.entity?' Scope: '+book.entity+'.':'')+' Each result compares the full simulated plan with the same plan excluding only that offer. Spend and discounts are included.',records.map(r=>r.id));
 }
 export function activePromotions(business, result, day) {
   return business.campaigns.filter(c => result.records['B-D'+String(day).padStart(2,'0')+'-'+c.id]);

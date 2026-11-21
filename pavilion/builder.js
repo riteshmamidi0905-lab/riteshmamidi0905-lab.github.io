@@ -5,7 +5,6 @@ import {takeFields,btn,esc,shellHeading,money} from './builder-common.js';
 import {createBusiness} from './builder-ledger.js';
 import * as market from './builder-campaign-view.js';
 import {browserLibrary} from './builder-library.js';
-import {dayOf} from './builder-market.js';
 import {calculate,sourceFor} from './builder-results.js';
 import * as view from './builder-dashboard.js';
 import {mountWebsitePreview,downloadWebsite} from './builder-site.js';
@@ -45,7 +44,7 @@ function manage(){
 }
 function compare(){
  if(library.entries.size<2)return '';
- return '<section><h2>Compare saved versions</h2><div class="table-scroll"><table><caption>Four-week operating income under each saved plan</caption><tbody>'+[...library.entries.values()].map(v=>'<tr><th>'+esc(v.label)+'</th><td>'+money((v.id===library.current?result:calculate(v.business)).total.income)+'</td></tr>').join('')+'</tbody></table></div></section>';
+ return '<section><h2>Compare saved versions</h2><div class="table-scroll"><table><caption>Four-week operating income under each saved plan</caption><tbody>'+[...library.entries.values()].map(v=>'<tr><th>'+esc(v.label)+(v.business.values.type==='stadium'?' · all businesses in the venue':'')+'</th><td>'+money((v.id===library.current?result:calculate(v.business)).total.income)+'</td></tr>').join('')+'</tbody></table></div></section>';
 }
 
 let playback=null;
@@ -136,7 +135,7 @@ root.addEventListener('submit',e=>{
    }
    if(form.id==='campaign-form'){
      const f=new FormData(form),copy=structuredClone(business);
-     const c={id:'C-'+(1+Math.max(0,...copy.campaigns.map(c=>Number(c.id.slice(2))||0))),channel:f.get('channel'),audience:f.get('audience'),item:f.get('item'),offer:f.get('offer').trim(),discount:Number(f.get('discount')),budget:Math.round(Number(f.get('budget'))*100),start:dayOf(f.get('start')),end:dayOf(f.get('end'))};
+     const c={id:'C-'+(1+Math.max(0,...copy.campaigns.map(c=>Number(c.id.slice(2))||0))),channel:f.get('channel'),audience:f.get('audience'),item:f.get('item'),offer:f.get('offer').trim(),discount:Number(f.get('discount')),budget:Math.round(Number(f.get('budget'))*100),start:Number(f.get('start')),end:Number(f.get('end'))};
      if(copy.values.type==='stadium')c.vendor=c.item;copy.campaigns.push(c);apply(copy);day=result.events.find(e=>e.day>=c.start)?.day||c.start;beat=0;
      go('marketing',false);notice.textContent='Campaign added to the simulation.';root.querySelector('[data-act=run]').focus();
    }

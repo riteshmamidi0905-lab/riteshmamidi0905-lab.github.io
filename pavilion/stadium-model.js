@@ -1,3 +1,4 @@
+import {facilityCosts} from './stadium-economics.js';
 // Fictional USD cents, whole guests and units. One seed controls attendance and demand across every comparison.
 export const booths=[
  {id:'FOOD-A',name:'East Grill',category:'Food',share:58,price:1250,cost:395,rate:64,wage:2000,fee:6500},
@@ -9,7 +10,7 @@ export const booths=[
 ];
 export const phases=[{id:'GATES',label:'Gates open',minutes:38,share:18},{id:'PRE',label:'Pre-start peak',minutes:32,share:32},{id:'HALF',label:'Halftime surge',minutes:24,share:37},{id:'CLOSE',label:'Close',minutes:30,share:13}];
 export const stadiumStress={rain:'Rain-out',sellout:'Sold-out game (+30% demand)',halftime:'Halftime staffing shortage',delay:'Supplier delay before game day',cap:'Venue price cap'};
-export const stadiumPolicy={capacity:8200,home:5850,concert:7580,shareBps:1200,shiftMinutes:330,vendorOverhead:1500,venueDaily:57500,homeCost:604000,concertCost:1150000,homeAdmission:225,concertAdmission:340,queuePatience:20};
+export const stadiumPolicy={capacity:8200,home:5850,concert:7580,shareBps:1200,shiftMinutes:330,vendorOverhead:1500,homeAdmission:225,concertAdmission:340,queuePatience:20};
 export const recommended={ 'FOOD-A':5,'FOOD-B':4,BEER:3,MERCH:3,SNACK:3,COFFEE:2 };
 const games=new Set([3,6,10,13,17,20,24,27]),moneyRound=Math.round;
 export function calendar(day,seed=27,stress=''){
@@ -55,7 +56,9 @@ export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.
    task(day,0,'SYNAPSE',event.attendance?'Open the event concourse':'Record the venue calendar',[ ],[eventId]);
    const admissions=event.attendance*(event.type==='Concert'?stadiumPolicy.concertAdmission:stadiumPolicy.homeAdmission);
    posting(operator,'cash','admissions',admissions,eventId);
-   posting(operator,'operations','cash',stadiumPolicy.venueDaily+(event.forecast?(event.attendance?(event.type==='Concert'?stadiumPolicy.concertCost:stadiumPolicy.homeCost):Math.round(stadiumPolicy.homeCost*.25)):0),eventId);
+   const costs=facilityCosts(event,capacity);
+   const costId=record(prefix+'FACILITY','Venue operator costs',{day,eventId,capacity,costs});
+   for(const amount of Object.values(costs))posting(operator,'operations','cash',amount,costId);
    const closes=[],settlements=[];let shares=0,fees=0;
    for(const b of vendors){
      const s=state.get(b.id),book=begin(s.balances),id=prefix+b.id+'-',crew=staff[b.id],cost=b.cost;
@@ -104,7 +107,7 @@ export function simulateStadium({seed=27,stress='',staff=recommended,mix=booths.
    const received=operator.postings.filter(p=>p.credit==='share').reduce((n,p)=>n+p.cents,0);
    const receivedFees=operator.postings.filter(p=>p.credit==='fees').reduce((n,p)=>n+p.cents,0);
    if(received!==shares||receivedFees!==fees)throw Error('Venue transfers do not tie');
-   const close=record(prefix+'VENUE-CLOSE','Venue close',{day,attendance:event.attendance,admissionsCents:admissions,sharesCents:shares,feesCents:fees,settlementIds:settlements,vendorCloseIds:closes,...closeBook(operator)});
+   const close=record(prefix+'VENUE-CLOSE','Venue close',{day,attendance:event.attendance,costId,admissionsCents:admissions,sharesCents:shares,feesCents:fees,settlementIds:settlements,vendorCloseIds:closes,...closeBook(operator)});
    task(day,158,'QUANTIX','Close the venue settlement',settlements,[close]);
    const audit=record(prefix+'AUDIT','Venue reconciliation',{day,venueCloseId:close,vendorCloseIds:closes,shareVarianceCents:received-shares,feeVarianceCents:receivedFees-fees});
    task(day,162,'VERITAS','Check daily trial balances and transfers',[close,...closes],[audit]);days.push({day,eventId,close,audit,closes});

@@ -1,3 +1,4 @@
+import {optionalText,storyText,dayRange} from './builder-copy.js';
 import {esc,money} from './builder-common.js';
 export const themes={garden:'Courtyard',broadsheet:'Editorial',night:'Evening'};
 export const accents={garden:'#315842',broadsheet:'#885136',night:'#c7ad74'};
@@ -30,21 +31,21 @@ const pageTags={name:'header',content:'main',footer:'footer',title:'h1',heading:
 const previewTags={name:'div',content:'div',footer:'div',title:'h3',heading:'h4'};
 
 function storefrontContent(b,day,tags){
-  const v=b.values,s=b.site;
+  const v=b.values,s=b.site,city=optionalText(v.city);
   const heading=text=>`<${tags.heading} class="site-heading">${esc(text)}</${tags.heading}>`;
   const active=b.campaigns.filter(c=>c.start<=day&&c.end>=day);
   const offers=active.map(c=>{
     const vendor=c.vendor?b.items.find(i=>i.id===c.vendor)?.name||c.vendor:'';
-    return '<p>'+esc(c.offer)+(vendor?' · '+esc(vendor):'')+' · '+esc(c.discount)+'% off</p>';
+    return '<p>'+esc(c.offer)+(vendor?' · '+esc(vendor):'')+' · '+esc(c.discount)+'% off · '+dayRange(c.start,c.end)+'</p>';
   }).join('');
   const menu=b.items.map(i=>'<article><strong>'+esc(i.name)+'</strong><br>'+money(i.price)+'</article>').join('');
   return `<${tags.name} class="site-name">${esc(v.concept)}</${tags.name}>
     <${tags.content} class="site-content">
-    <section class="hero"><div><small>${esc(v.city)} · ${esc(v.type==='stadium'?'Independent venue':v.type)}</small><${tags.title} class="site-title">${esc(s.title)}</${tags.title}></div><div class="facade" aria-hidden="true"></div></section>
+    <section class="hero"><div><small>${city?esc(city)+' · ':''}${esc(v.type==='stadium'?'Independent venue':v.type)}</small><${tags.title} class="site-title">${esc(s.title)}</${tags.title}></div><div class="facade" aria-hidden="true"></div></section>
     ${active.length?'<section class="promo">'+heading('Current offers')+offers+'</section>':''}
     ${s.sections.includes('offers')?'<section>'+heading('Our offerings')+'<div class="menu">'+menu+'</div></section>':''}
-    ${s.sections.includes('hours')?'<section>'+heading('Visit')+'<p>'+esc(v.hours)+' · '+esc(v.city)+'</p><p>Street location to be confirmed.</p></section>':''}
-    ${s.sections.includes('story')?'<section>'+heading('Our story')+'<p>'+esc(s.story)+'</p></section>':''}
+    ${s.sections.includes('hours')?'<section>'+heading('Visit')+'<p>'+[optionalText(v.hours),city].filter(Boolean).map(esc).join(' · ')+'</p></section>':''}
+    ${s.sections.includes('story')&&storyText(b)?'<section>'+heading('Our story')+'<p>'+esc(storyText(b))+'</p></section>':''}
     </${tags.content}>
     <${tags.footer} class="site-footer">Simulation — synthetic data · nothing is published, charged or sent.</${tags.footer}>`;
 }
