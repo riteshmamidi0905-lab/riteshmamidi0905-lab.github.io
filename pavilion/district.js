@@ -26,7 +26,7 @@ for(const entry of browserLibrary().entries.values()){
 const stadium=simulateStadium();
 models.set('stadium',stadium);
 $('#district-atlas').innerHTML=mapDrawing(items);
-$('#district-list').innerHTML=items.map(l=>'<a '+(l.workspace?'id="lot-'+esc(l.workspace)+'" ':'')+'data-door="'+esc(l.id)+'" href="'+esc(l.link||'hq.html?district='+l.id)+'"><span>'+esc(l.use)+'</span><b>'+esc(l.name)+'</b><small class="district-work"></small><small class="district-offer"></small></a>').join('');
+$('#district-list').innerHTML=items.map(l=>'<a '+(l.workspace?'id="lot-'+esc(l.workspace)+'" ':'')+'data-door="'+esc(l.id)+'" href="'+esc(l.link||'hq.html?district='+l.id)+'"><span>'+esc(l.use)+'</span><b>'+esc(l.name)+'</b><small class="district-work"></small>'+(l.workspace?'<small class="district-offer"></small>':'')+'</a>').join('');
 const clockQuery=new URLSearchParams(location.search);
 for(const [key,value] of new URLSearchParams(location.hash.slice(1)))clockQuery.set(key,value);
 function requestedNumber(name,min,max,fallback){

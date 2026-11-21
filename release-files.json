@@ -851,8 +851,8 @@
   },
   {
     "path": "pavilion/district.js",
-    "bytes": 6571,
-    "sha256": "5f4079a8dfa72ab75838c460a37a1694441bd2a5fac55ea10872094de9ca713c"
+    "bytes": 6594,
+    "sha256": "45df55ae5a76eede419f25a13bd59f77a39832b9af7adb8a2d5bf24cb018fb6e"
   },
   {
     "path": "pavilion/engine.js",
