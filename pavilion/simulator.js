@@ -22,10 +22,10 @@ function entry(focus=true){
  stage(0,`<div class="spread"><section><p class="kicker">Business simulator</p><h1 class="entry-title">Describe your business idea.</h1><p class="lead">See what four weeks of trading could look like. Start with a sentence, then adjust the assumptions before you run it.</p>
  <form class="idea-entry" id="idea-form"><label class="sr-only" for="pitch">Describe your business idea.</label><textarea id="pitch" maxlength="1000" required placeholder="A neighborhood café in Austin, with 36 seats and three baristas…">${esc(prompt)}</textarea>
  <div class="examples"><label for="example">Try an example<select id="example"><option value="">Choose one of ten ideas</option>${examples.map((v,i)=>`<option value="${i}">${esc(['Neighborhood salon','Austin brewpub','Downtown coffee roaster','Bread bakery','Taco truck','Retail boutique','Suburban barbershop','Café or bakery?','Microbrewery','Gift shop'][i])}</option>`).join('')}</select></label></div>
- <p role="alert" tabindex="-1" class="error"></p><button>Review my idea →</button></form></section>
+ <p role="alert" tabindex="-1" class="error"></p><button>Review my idea →</button></form><p><a href="stadium.html#confirm=1">Plan a stadium and its vendors</a></p></section>
  <aside class="night-card"><p class="kicker">Example forecast · Synthetic</p><h2>Neighborhood café</h2><p>Four opening weeks with 36 seats and three baristas.</p>${chart(example.weeks,'visits',true)}<div class="mini-row"><span>28-day net sales</span><b>${dollars(example.numbers.revenue)}</b></div><div class="mini-row"><span>Opening cash</span><b>${dollars(sample.budget*100)}</b></div><p class="micro">Edit your own assumptions to see a different projection.</p></aside></div>`,focus);
  document.querySelector('#example').onchange=e=>{if(e.target.value!==''){document.querySelector('#pitch').value=examples[Number(e.target.value)];const pitch=document.querySelector('#pitch');pitch.focus();pitch.setSelectionRange(0,0);pitch.scrollTop=0;}};
- document.querySelector('#idea-form').onsubmit=e=>{e.preventDefault();try{prompt=document.querySelector('#pitch').value;draft=parseIdea(prompt);confirmIdea();}catch(error){fail(error);}};
+ document.querySelector('#idea-form').onsubmit=e=>{e.preventDefault();try{prompt=document.querySelector('#pitch').value;draft=parseIdea(prompt);if(draft.values.type==='stadium'){const mix=draft.values.mix;const venue=new URLSearchParams({confirm:'1'});if(mix.length)venue.set('mix',mix.join(','));location.assign('stadium.html#'+venue);return;}confirmIdea();}catch(error){fail(error);}};
 }
 const options={type:Object.fromEntries(Object.entries(profiles).map(([k,p])=>[k,p.label])),tier:Object.fromEntries(Object.keys(tiers).map(k=>[k,k])),neighborhood:Object.fromEntries(Object.keys(districts).map(k=>[k,k]))};
 function field(k){
@@ -71,7 +71,7 @@ function projection(){
  const idea=draft.values,b=assessment.baseline,unit=profiles[idea.type].unit;
  stage(2,`<p class="kicker">Four-week projection · Synthetic</p><h1>${esc(idea.concept)}</h1><p class="lead">${esc(profiles[idea.type].label)} · ${esc(idea.city)} · ${esc(idea.size)} · ${idea.staff} staff</p>
  <div class="metrics">${metric('Net sales',dollars(b.numbers.revenue))}${metric('Operating income',dollars(b.numbers.income))}${metric('Closing cash',dollars(b.numbers.cash))}</div>
- <div class="actions">${buttons('Run a stress test','stress')}${buttons('Launch readiness report','report',true)}<a class="btn quiet" href="${esc(replayLink('hq',id,[],7,{beat:4}))}">Replay this business in HQ</a></div>
+ <div class="actions">${buttons('Run a stress test','stress')}${buttons('Launch readiness report','report',true)}<a class="btn quiet" href="${esc(replayLink('hq',id,[],7,{beat:4}))}">Replay this business in HQ</a><a class="btn quiet" href="district.html#add=${encodeURIComponent(id)}">Add to NASHA District</a></div>
  <div class="spread"><section class="sheet"><p class="kicker">Source ledger</p><h2>Four weekly closes</h2>${ledgerRows(b,id,[],unit)}<p class="source-line">Open a week to inspect its posted daily closes.</p></section><section class="sheet"><h2>${esc(unit[0].toUpperCase()+unit.slice(1))} served</h2>${chart(b.weeks,unit)}</section></div>
  <details class="sheet"><summary>Model assumptions · synthetic</summary>${assumptionDetails(idea)}${calibrationTables()}</details><div class="secondary-actions">${buttons('Edit assumptions','edit',true)}${buttons('Describe another idea','restart',true)}</div>`);
  action('stress',()=>stress(selected.length?selected:['slow']));action('report',report);action('edit',()=>confirmIdea());action('restart',()=>{prompt='';entry();});
@@ -97,5 +97,8 @@ try{
  const nav=performance.getEntriesByType('navigation')[0]?.type;
  const key=new URLSearchParams(location.hash.slice(1)).get('sim')||(['back_forward','reload'].includes(nav)?sessionStorage.getItem('pavilion-last-idea'):null);
  if(key){id=key;draft={values:recallIdea(id),status:JSON.parse(sessionStorage.getItem('pavilion-origins-'+id)||'{}'),questions:{}};assessment=assess(draft.values);projection();}
- else entry(false);
+ else if(new URLSearchParams(location.search).get('template')==='brewery'){
+   draft={values:{...defaults('brewery'),concept:'NASHA Brewing',city:'Austin'},status:Object.fromEntries(Object.keys(fields).map(k=>[k,'defaulted'])),questions:{}};
+   confirmIdea(false);
+ }else entry(false);
 }catch(error){entry(false);fail(error);}

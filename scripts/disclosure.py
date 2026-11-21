@@ -183,13 +183,17 @@ def _runs(token):
 
 def published_concept_link(text, match, rel):
     """The owner-approved, publicly served hospitality link, static and replay views only."""
-    if rel not in ("pavilion/bridge.html", "pavilion/site.js"):
+    if rel in ("pavilion/bridge.html", "pavilion/site.js"):
+        expected = "4ec218320035f1df8beacfa7a8ee030744e8eaa51772f01e2780242952a17dd7"
+    elif rel in {"brewing/" + page + ".html" for page in ("index", "menu", "brewhouse", "space", "story", "visit")}:
+        expected = "791b140f59b2939af3f4e1342cac699bd5551983c485021fa132e97b9a9e1ea9"
+    else:
         return False
     start = text.rfind('href="', max(0, match.start() - 80), match.start())
     end = text.find('</a>', match.end(), match.end() + 64)
     if start < 0 or end < 0:
         return False
-    return hashlib.sha256(text[start:end + 4].encode()).hexdigest() == "4ec218320035f1df8beacfa7a8ee030744e8eaa51772f01e2780242952a17dd7"
+    return hashlib.sha256(text[start:end + 4].encode()).hexdigest() == expected
 
 def scan(rules, text, rel=""):
     """Return a list of {'rule': id, 'line': n} findings for one text. Never returns the matched text."""

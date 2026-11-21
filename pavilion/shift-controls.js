@@ -20,7 +20,7 @@ export function shiftControls(task,ticker,model,day) {
   const count=field(group,'p','kicker'),list=make(group,'ul','signals'),empty=field(group,'p'),waiting=field(group,'p');
   const transfers=Array.from({length:5},()=>{const li=make(list,'li');return {li,label:field(li,'span'),link:field(li,'a')};});
   const history=Array.from({length:5},()=>{const li=make(ticker,'li'),link=make(li,'a');return {li,link,name:field(link,'b'),action:field(link,'span')};});
-  const href=id=>url('inspector',model,day,{id}).replaceAll('&amp;','&');
+  const href=id=>url('inspector',model,typeof day==='function'?day():day,{id}).replaceAll('&amp;','&');
   return (beat,follow,recent)=>{
     const e=follow?beat.active.find(x=>x.owner===follow):beat.starts[0];
     title.set(follow?stationTitle(model,follow):'Shift desk');action.set(e?taskTitle(model,e):'Idle');

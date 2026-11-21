@@ -1,10 +1,12 @@
+import {mountQuestions} from './ask-floor.js';
+import {homeCamera,cameraFrame,stationCamera,cameraControls} from './free-camera.js';
 import {aislePath,home,point,roomView,nameplates} from './iso-geometry.js';
 import {overview,lightAt,placeTokens,recentEvents} from './floor-staging.js';
 import {stampTasks,scheduleDay,visibleHandoffs} from './shift-schedule.js';
 import {floorSurfaces} from './floor-surfaces.js';
 import {shiftControls} from './shift-controls.js';
 import {stationTitle,taskTitle,unusedStation} from './station-context.js';
-import {url} from './views.js';
+import {url,esc,timeline,dayNav} from './views.js';
 import {instrumentReading} from './shift-display.js';
 
 function pathFor(a,b) {
@@ -23,7 +25,7 @@ function pathFor(a,b) {
 }
 export async function mountFloor(model,day,params) {
   const $=s=>document.querySelector(s), svg=$('#floor'),drawing=$('.drawing'),world=$('.camera-world'),list=$('#depth-list');
-  const schedule=scheduleDay(model,day);
+  let schedule=scheduleDay(model,day);
   let events=model.events.filter(e=>e.day===day);
   if(events.some(e=>e.startMinute===undefined)){events=events.map(e=>({...e}));stampTasks(events);}
   const event=events[Number(params.get('event')||0)]||events[0];
@@ -39,13 +41,16 @@ export async function mountFloor(model,day,params) {
     $('#load').textContent='Static floor · use the shift transcript below';
     return;
   }
-  const panel=shiftControls($('#task'),$('#ticker'),model,day);
-  const history=schedule.map(beat=>recentEvents(events,beat.minute));
+  const panel=shiftControls($('#task'),$('#ticker'),model,()=>day);
+  let history=schedule.map(beat=>recentEvents(events,beat.minute));
   const compact=matchMedia('(max-width:480px)');
   const reduced=matchMedia('(prefers-reduced-motion:reduce)'), travels=new Map();
   let play=false,elapsed=0,frame=0,previous=0,visible=true,packets=[],zoom=1,unit=1,clearance=47,follow=null;
   const speedControl=$('#speed');
-  const duration=()=>Math.max(1350,5300/Number(speedControl.value));
+  // Keep the established normal and readable 4× handoff cadences. The fast scan
+  // advances the underlying ledger four times faster again.
+  const beatMilliseconds={1:5300,4:1350,16:337.5};
+  const duration=()=>beatMilliseconds[speedControl.value];
   const screens=new Map([...svg.querySelectorAll('[data-reading]')].map(n=>[n.dataset.reading,n]));
   const stations=new Map([...svg.querySelectorAll('[data-station]')].map(n=>[n.dataset.station,n]));
   const titles=new Map([...people].map(([name,n])=>[name,n.querySelector('title')]));
@@ -54,20 +59,27 @@ export async function mountFloor(model,day,params) {
   let stillPeople=[],visibleLabels=nameplates,busy=new Set(),featured=new Set();
   const smallMap=()=>compact.matches&&!follow;
   function setText(node,value){if(node.textContent!==value){if(node.firstChild?.nodeType===3)node.firstChild.data=value;else node.textContent=value;}}
+  let manual=null, inspected=null, returnFocus=null;
+  let pickTimer,lastPick;
+  function pick(name,event){
+    clearTimeout(pickTimer);
+    if(!event||event.detail===0){lastPick=null;inspect(name);return;}
+    lastPick=name;
+    if(event.detail===1)pickTimer=setTimeout(()=>{lastPick=null;inspect(name);},350);
+  }
+  function flyPicked(station){
+    clearTimeout(pickTimer);const name=lastPick||station;lastPick=null;closeInspect();select(name);
+  }
+  const controls=cameraControls(drawing,freeMove,fit,flyPicked);
   function camera(){
-    const w=width,h=height,[left,top,bw,bh]=overview;
-    const key=[w,h,follow,compact.matches].join('|');
-    if(!w||!h||key===cameraKey)return;
+    const w=width,h=height;
+    if(!w||!h)return;
+    const state=manual||(follow?stationCamera(follow,w,h):homeCamera());
+    const key=[w,h,follow,state.x,state.y,state.zoom,compact.matches].join('|');
+    if(key===cameraKey)return;
     cameraKey=key;
-    unit=Math.min(w/bw,h/bh);
-    const ox=(w-bw*unit)/2-left*unit,oy=(h-bh*unit)/2-top*unit;
-    let dx=0,dy=0;zoom=1;
-    if(follow){
-      const [x,y,rw,rh]=roomView(follow).split(' ').map(Number);
-      zoom=Math.min(w/(rw*unit),h/(rh*unit))*.96;
-      const cx=(w-bw*unit)/2+(x+rw/2-left)*unit,cy=(h-bh*unit)/2+(y+rh/2-top)*unit;
-      dx=w/2-cx*zoom;dy=h/2-cy*zoom;
-    }
+    const f=cameraFrame(w,h,state),{dx,dy,ox,oy}=f;
+    unit=f.unit;zoom=f.zoom;controls.frame(f);
     world.style.transform='translate('+dx+'px,'+dy+'px) scale('+zoom+')';
     visibleLabels=w<=720?[]:follow?nameplates.filter(p=>p.name===follow):nameplates;
     const smallMap=compact.matches&&!follow;
@@ -77,6 +89,39 @@ export async function mountFloor(model,day,params) {
     clearance=(diameter*1.12+2)/(unit*zoom);
     deck.resize(w,h,unit,ox,oy,zoom,diameter,smallMap,dx,dy);
   }
+  function freeMove(state){
+    manual=state;world.classList.add('manual');
+    if(follow){$('#camera').value='overview';update();}
+    camera();paint(elapsed/duration());
+  }
+  function fit(){
+    manual=null;$('#camera').value='overview';world.classList.remove('manual');closeInspect();update();
+  }
+  function closeInspect(){
+    inspected=null;$('#agent-inspect').hidden=true;
+    if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});
+    returnFocus=null;
+  }
+  function details(){
+    if(!inspected)return;
+    const beat=schedule[slot],current=beat.active.find(e=>e.owner===inspected);
+    const refs=ids=>ids.map(id=>'<a href="'+url('inspector',model,day,{id})+'">'+esc(id)+'</a>').join(' · ');
+    const output=current&&model.records[current.outputs[0]];
+    const rule=output?.trigger||output?.reason||(current?'When '+(current.inputs.map(id=>model.records[id]?.kind||id).join(' + ')||'the shift opens')+' is available, '+current.owner+' runs '+taskTitle(model,current)+'.':'');
+    const detail=current?'<h3>'+esc(taskTitle(model,current))+'</h3><p>'+esc(current.id)+' · minute '+current.startMinute+'</p><dl><dt>Trigger rule</dt><dd>'+esc(rule)+'</dd><dt>Inputs</dt><dd>'+(refs(current.inputs)||'Shift opening')+'</dd><dt>Outputs and source</dt><dd>'+refs(current.outputs)+'</dd></dl>':'<p>Idle at this minute. No active rule, inputs or output.</p>';
+    const key=inspected+'/'+(current?.id||'idle');
+    if($('#inspected-record').dataset.key!==key){
+      $('#inspected-record').dataset.key=key;
+      $('#inspected-record').innerHTML='<p class="kicker">'+esc(stationTitle(model,inspected))+'</p><h2>'+esc(inspected)+'</h2>'+detail;
+    }
+  }
+  function inspect(name){
+    enter();inspected=name;returnFocus=document.activeElement;
+    $('#agent-inspect').hidden=false;details();$('#close-inspect').focus({preventScroll:true});
+  }
+  $('#close-inspect').onclick=closeInspect;
+  $('#follow-inspected').onclick=()=>{const name=inspected;closeInspect();select(name);};
+  $('#agent-inspect').addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeInspect();}});
   const pathCache=new Map();
   function stationPath(from,to){
     const key=from+'/'+to;
@@ -121,7 +166,7 @@ export async function mountFloor(model,day,params) {
     const mode=$('#camera').value;
     follow=mode==='station'?beat.starts[0].owner:mode.startsWith('who-')?mode.slice(4):null;
     drawing.toggleAttribute('data-follow',Boolean(follow));camera();
-    panel(beat,follow,history[slot]);
+    panel(beat,follow,history[slot]);controls.active(busy);details();
     const light=lightAt(slot,schedule.length);if(drawing.dataset.light!==light){setText($('#sun'),light);drawing.dataset.light=light;deck.light(light);}
     const edges=visibleHandoffs(beat,follow).batch;
     const activity=follow?(active.has(follow)?'Working':'Idle'):active.size+' working';
@@ -137,7 +182,7 @@ export async function mountFloor(model,day,params) {
         priorReadings.set(name,current);
         const resting=unusedStation(model,name)?'Not used · idle':'Idle · queue';
         const value=current?instrumentReading(model,current)[0]:resting;
-        person.setAttribute('aria-label','Follow '+name+' · '+(current?taskTitle(model,current):resting));
+        person.setAttribute('aria-label','Inspect '+name+' · '+(current?taskTitle(model,current):resting));
         setText(titles.get(name),name+' · '+value);
         setText(display,value.slice(0,22));display.setAttribute('fill',current?'#fff0aa':'#d1d9c9');
         stations.get(name).toggleAttribute('data-working',Boolean(current));
@@ -159,12 +204,12 @@ export async function mountFloor(model,day,params) {
   function start(){if(slot===schedule.length-1){slot=0;elapsed=0;update();}play=true;previous=0;$('#play').textContent='Pause shift';visibility();}
   const intro=$('#establish');let introTimer;
   function enter(){clearTimeout(introTimer);if(intro)intro.hidden=true;}
-  if(intro&&!params.has('event')&&!params.has('beat')&&!reduced.matches){intro.hidden=false;introTimer=setTimeout(enter,4000);$('#enter-floor').onclick=enter;}
+  if(intro&&!params.has('event')&&!params.has('beat')&&!reduced.matches){intro.hidden=false;introTimer=setTimeout(enter,2400);$('#enter-floor').onclick=enter;}
   $('#play').onclick=()=>{enter();if(play)pause();else start();};
   $('#seek').oninput=e=>{enter();pause();slot=Number(e.target.value);elapsed=0;update();};
-  $('#camera').onchange=()=>{enter();update();};
+  $('#camera').onchange=()=>{enter();manual=null;world.classList.remove('manual');update();};
   $('#day').onchange=e=>location.assign(url('hq',model,Number(e.target.value)).replaceAll('&amp;','&'));
-  function select(name){$('#camera').value='who-'+name;enter();update();}
+  function select(name){manual=null;world.classList.remove('manual');$('#camera').value='who-'+name;enter();update();}
   for(const button of document.querySelectorAll('[data-sector-station]')){
     button.onclick=()=>{
       const name=button.dataset.sectorStation;
@@ -174,20 +219,38 @@ export async function mountFloor(model,day,params) {
       elapsed=0;select(name);
     };
   }
-  deck.interactions(select,()=>paint(elapsed/duration()));
+  deck.interactions(pick,()=>paint(elapsed/duration()));
   for(const [name,node] of people){
-    node.addEventListener('click',()=>select(name));
-    node.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(name);}});
-    tags.get(name).addEventListener('click',()=>select(name));
+    node.addEventListener('click',e=>pick(name,e));
+    node.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();inspect(name);}});
+    tags.get(name).addEventListener('click',e=>pick(name,e));
   }
-  document.querySelectorAll('[data-agent]').forEach(a=>a.onclick=e=>{e.preventDefault();select(a.dataset.agent);svg.scrollIntoView({block:'nearest'});});
+  document.querySelectorAll('[data-agent]').forEach(a=>a.onclick=e=>{e.preventDefault();inspect(a.dataset.agent);});
   function visibility(){cancelAnimationFrame(frame);frame=0;previous=0;const running=play&&visible&&!document.hidden;drawing.toggleAttribute('data-playing',running);if(running)frame=requestAnimationFrame(tick);}
   new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;visibility();}).observe(drawing);
   new ResizeObserver(([entry])=>{width=entry.contentRect.width;height=entry.contentRect.height;camera();paint(elapsed/duration());}).observe(drawing);
   document.addEventListener('visibilitychange',visibility);
   reduced.addEventListener('change',()=>{pause();enter();update();});
-  if(compact.matches)$('#camera').value='station';
+  function visit(data){
+    if(data.agent&&!people.has(data.agent))return;
+    pause();enter();
+    if(Number.isInteger(data.day)&&day!==data.day){
+      day=data.day;schedule=scheduleDay(model,day);events=schedule.flatMap(s=>s.starts).filter((e,i,a)=>a.findIndex(n=>n.id===e.id)===i);
+      history=schedule.map(beat=>recentEvents(events,beat.minute));$('#seek').max=schedule.length-1;$('#day').value=day;
+      const list=$('#fallback .timeline');if(list)list.outerHTML=timeline(model,day);
+      const nav=$('nav.tabs'),days=$('nav.days');if(nav&&days){days.remove();nav.outerHTML=dayNav(model,day,'hq');}
+      const u=new URL(location.href),part=u.hash.includes('sim=')?new URLSearchParams(u.hash.slice(1)):u.searchParams;
+      part.set('day',day);if(u.hash.includes('sim='))u.hash=part.toString();window.history.replaceState(null,'',u);
+      const disclosure=document.querySelector('.iso-page > .disclose');if(disclosure)disclosure.textContent=disclosure.textContent.replace(/day \d+/i,'day '+day);
+    }
+    const eventSlot=data.event?schedule.findIndex(s=>s.starts.some(e=>e.id===data.event)):data.slot;
+    slot=Number.isInteger(eventSlot)?Math.max(0,Math.min(schedule.length-1,eventSlot)):0;elapsed=0;
+    if(data.agent)select(data.agent);else update();
+  }
+  document.addEventListener('floor-visit',e=>visit(e.detail));
+  mountQuestions(model,()=>day,visit);
+  $('#branch-here').onclick=async()=>{const {branchState,encodeBranch}=await import('./branch-ledger.js');location.assign('branch.html#'+encodeBranch(branchState(model.config,day,schedule[slot].minute)));};
   compact.addEventListener('change',update);
   if(matchMedia('(max-width:720px)').matches)$('.directory').open=true;
-  update();playButton.disabled=false;document.documentElement.classList.add('replay-ready');
+  update();playButton.disabled=false;if(!reduced.matches&&(params.get('play')==='1'||!params.has('beat')&&!params.has('event')))start();document.documentElement.classList.add('replay-ready');
 }

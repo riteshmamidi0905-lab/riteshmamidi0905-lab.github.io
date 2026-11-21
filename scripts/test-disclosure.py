@@ -116,6 +116,10 @@ import re
 approved = re.search(r'href="https://[^"]+">The brewery concept</a>', bridge).group()
 slug = approved.split('github.io/')[1].split('/')[0]
 ok(not D.scan(R, approved, "pavilion/bridge.html"), "official bridge destination is allowed")
+hospitality = approved.replace("The brewery concept", "Original concept site")
+ok(not D.scan(R, hospitality, "brewing/menu.html"), "exact original concept anchor is permitted on the hospitality menu")
+for changed, where in [(hospitality, "index.html"), (hospitality.replace("github.io", "example.org"), "brewing/menu.html"), (approved, "brewing/menu.html")]:
+    ok(any(x["rule"] == "D03" for x in D.scan(R, changed, where)), "other hospitality paths, labels and destinations are refused")
 for sample, page in [(approved, "index.html"), (approved.replace("github.io", "example.org"), "pavilion/bridge.html"), (approved + slug, "pavilion/bridge.html")]:
     ok(any(x["rule"] == "D03" for x in D.scan(R, sample, page)), "other project-name disclosures still fail")
 blob = Path(D.RULES_PATH).read_text(encoding="utf-8").lower()

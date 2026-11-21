@@ -82,16 +82,18 @@ export async function floorSurfaces(drawing,people){
   }
   drawing.classList.add('bitmap-floor');
   let unit=1,ox=0,oy=0,dpr=1,diameter=44,zoom=1,small=false,hover=null,focus=null;
-  let hit=null,lastDirty=[];
+  let hit=null,lastDirty=[],thumbnail=false;
   function resize(w,h,u,left,top,z,diam,mini,dx,dy){
     unit=u;zoom=z;diameter=diam;small=mini;
+    thumbnail=w<=260&&document.body.classList.contains('embedded-floor');
     // In follow view allocate only the visible crop at native device resolution.
     const margin=z>1?32:0;
     const x=-dx/z-margin,y=-dy/z-margin,cw=w/z+2*margin,ch=h/z+2*margin;
     dpr=Math.min(devicePixelRatio||1,2)*z;
     ox=left-x;oy=top-y;
     Object.assign(canvas.style,{left:x+'px',top:y+'px',width:cw+'px',height:ch+'px'});
-    canvas.width=Math.max(1,Math.round(cw*dpr));canvas.height=Math.max(1,Math.round(ch*dpr));
+    const pixelsW=Math.max(1,Math.round(cw*dpr)),pixelsH=Math.max(1,Math.round(ch*dpr));
+    if(canvas.width!==pixelsW||canvas.height!==pixelsH){canvas.width=pixelsW;canvas.height=pixelsH;}else{ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);}
     lastDirty=[];
   }
   function badge(name,x,y,width,height){
@@ -114,6 +116,11 @@ export async function floorSurfaces(drawing,people){
     positions.set(name,{x,y,mini:small,r:small?22*m:22*k,cy:small?y-8*m:y-22*k});
     damage(x-44*Math.max(k,m),y-64*Math.max(k,m),88*Math.max(k,m),82*Math.max(k,m));
     ctx.save();ctx.translate(x,y);
+    if(thumbnail){
+      // The adjacent task captions identify activity on these narrow, paired views.
+      ctx.scale(m,m);ctx.fillStyle=busy?'#f6c46c':'#516b58';ctx.strokeStyle='#283e31';ctx.lineWidth=.75;
+      ctx.beginPath();ctx.arc(0,0,busy?3.3:1.8,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();return;
+    }
     if(small){
       ctx.save();ctx.scale(m,m);ctx.font='700 12px Inter,Arial,sans-serif';
       badge('',-18,-5,36,15);ctx.fillStyle=busy?'#9aefb6':'#c5c5a9';ctx.beginPath();ctx.arc(-12,2.5,3.2,0,Math.PI*2);ctx.fill();
@@ -143,7 +150,7 @@ export async function floorSurfaces(drawing,people){
     interactions(select,repaint){
       canvas.addEventListener('pointermove',ev=>{hit=at(ev);if(hit!==hover){hover=hit;canvas.style.cursor=hit?'pointer':'';repaint();}});
       canvas.addEventListener('pointerleave',()=>{if(hover){hover=null;repaint();}});
-      canvas.addEventListener('click',ev=>{const n=at(ev);if(n)select(n);});
+      canvas.addEventListener('click',ev=>{const n=at(ev);if(n)select(n,ev);});
       for(const [name,node] of people){
         node.addEventListener('focus',()=>{focus=name;repaint();});
         node.addEventListener('blur',()=>{focus=null;repaint();});

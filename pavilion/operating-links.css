@@ -1,0 +1,30 @@
+/* The simulator shares these colors only while its readiness report is open. */
+@media screen {
+  body:has(.district-page, .venue, .report-sheet) a:any-link {
+    color: var(--bronze);
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 4px;
+  }
+
+  body:has(.district-page, .venue, .report-sheet) :is(.workspace-links, .portfolio-foot) a:any-link {
+    color: #d9ae83;
+  }
+
+  /* SVG has no interoperable text-underline-offset. The plate carries a line
+     at 0.22 em below its type baseline in both map layouts. */
+  body:has(.district-page) .district-map a:any-link {
+    text-decoration: none;
+  }
+
+  .district-labels a:any-link .lot-name {
+    fill: currentColor;
+  }
+
+  .lot-link-underline {
+    stroke: currentColor;
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+  }
+}
