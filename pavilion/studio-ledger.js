@@ -27,11 +27,20 @@ export function eventDay(b,requested){
 }
 export function addEntry(b,event){
  eventDay(b,event.day);const id='SHOP-'+String(events(b).length+1).padStart(4,'0');
- b.studio??={};b.studio.events=[...events(b),{...event,id}];return id;
+ b.studio??={};
+ if(!b.studio.openingCatalog)b.studio.openingCatalog=catalog(b).map(({id,cost,stock})=>({id,cost,stock}));
+ b.studio.events=[...events(b),{...event,id}];return id;
+}
+function takeStock(lots,units){
+ let due=units,cost=0;
+ for(const lot of lots){const used=Math.min(lot.units,due);cost+=used*lot.cost;lot.units-=used;due-=used;if(!due)break;}
+ if(due)throw Error('Insufficient valued inventory.');
+ return cost;
 }
 export function placeOrder(b,lines,day,method,code){
- eventDay(b,day);const q=cartQuote(b,lines,method,code),inventory=paymentBook(b).days[day-1].inventory;
+ eventDay(b,day);const q=cartQuote(b,lines,method,code),close=paymentBook(b).days[day-1],inventory=close.inventory;
  for(const item of q.items)if(item.units>inventory[item.id])throw Error('Insufficient stock for '+item.name+' · '+item.variant+'.');
+ q.cogs=q.items.reduce((sum,line)=>sum+takeStock(structuredClone(close.lots[line.id]),line.units),0);
  return addEntry(b,{day,type:'order',quote:q});
 }
 export function adjustOrder(b,id,type,cents,day){
@@ -42,7 +51,8 @@ export function adjustOrder(b,id,type,cents,day){
 }
 const accounts=['cash','clearing','stockValue','equity','sales','shippingRevenue','tax','goods','delivery','processing','returns','disputes','labor','deposits','bookingRevenue'];
 export function paymentBook(b){
- const list=catalog(b),stock=Object.fromEntries(list.map(i=>[i.id,i.stock])),stockCost=list.reduce((n,i)=>n+i.stock*i.cost,0);
+ const list=b.studio?.openingCatalog??catalog(b),stock=Object.fromEntries(list.map(i=>[i.id,i.stock])),stockCost=list.reduce((n,i)=>n+i.stock*i.cost,0);
+ const lots=Object.fromEntries(list.map(i=>[i.id,[{units:i.stock,cost:i.cost}]]));
  const balances=Object.fromEntries(accounts.map(k=>[k,0])),records={},orders=[],days=[],stockMoves=[],payouts=[];
  balances.stockValue=stockCost;balances.equity=-stockCost;
  records['SHOP-OPEN']={id:'SHOP-OPEN',kind:'Opening inventory funded by owner equity',stock:{...stock},stockCost};
@@ -56,12 +66,14 @@ export function paymentBook(b){
      records[id]={id,day,kind,postings:lines,...detail};ids.push(id);
    }
    for(const order of events(b).filter(e=>e.type==='purchase'&&e.arrives===day)){
-     const id=order.id+'-RECEIPT';stock[order.variant]+=order.units;
+     const id=order.id+'-RECEIPT';stock[order.variant]+=order.units;lots[order.variant].push({units:order.units,cost:order.cents/order.units});
      post(id,'Supplier receipt',{stockValue:order.cents,cash:-order.cents},{variant:order.variant,units:order.units,sources:[order.id]});stockMoves.push(id);
    }
    for(const e of events(b).filter(e=>e.day===day)){
      if(e.type==='order'){
-       const q=e.quote;post(e.id,'Simulated checkout',{clearing:q.total-q.fee,sales:-q.sale,shippingRevenue:-q.shipping,tax:-q.tax,processing:q.fee,goods:q.cogs,stockValue:-q.cogs,delivery:q.shipping,cash:-q.shipping},{quote:q});
+       const q=e.quote;const issued=q.items.reduce((n,line)=>n+takeStock(lots[line.id],line.units),0);
+       if(issued!==q.cogs)throw Error('Inventory cost and checkout journal disagree.');
+       post(e.id,'Simulated checkout',{clearing:q.total-q.fee,sales:-q.sale,shippingRevenue:-q.shipping,tax:-q.tax,processing:q.fee,goods:q.cogs,stockValue:-q.cogs,delivery:q.shipping,cash:-q.shipping},{quote:q});
        collected+=q.tax;
        for(const line of q.items){stock[line.id]-=line.units;if(stock[line.id]<0)throw Error('Negative variant stock');const id=e.id+'-'+line.id;
          records[id]={id,day,kind:'Fulfilled inventory movement',variant:line.id,change:-line.units,remaining:stock[line.id],sources:[e.id]};stockMoves.push(id);ids.push(id);}
@@ -92,8 +104,10 @@ export function paymentBook(b){
      const amount=balances.clearing;const id='PAYOUT-'+day;post(id,'Weekly processor payout',{cash:amount,clearing:-amount},{amount});payouts.push(id);
    }
    const variance=Object.values(balances).reduce((n,v)=>n+v,0),id='SHOP-D'+String(day).padStart(2,'0');
+   const value=Object.values(lots).flat().reduce((n,lot)=>n+lot.units*lot.cost,0);
+   if(value!==balances.stockValue)throw Error('Stock valuation and daily balance disagree.');
    if(variance!==0)throw Error('Daily ledger failed to balance.');
-   const current=income();records[id]={id,day,kind:'Store channel close',income:current-lastIncome,cumulativeIncome:current,variance,balances:{...balances},inventory:{...stock},sources:ids.length?ids:[day===1?'SHOP-OPEN':'SHOP-D'+String(day-1).padStart(2,'0')]};
+   const current=income();records[id]={id,day,kind:'Store channel close',income:current-lastIncome,cumulativeIncome:current,variance,balances:{...balances},inventory:{...stock},lots:structuredClone(lots),sources:ids.length?ids:[day===1?'SHOP-OPEN':'SHOP-D'+String(day-1).padStart(2,'0')]};
    lastIncome=current;days.push(records[id]);
  }
  return {balances,records,orders,days,stock,stockMoves,payouts,income:income(),collected,remitted,variance:days.at(-1).variance};

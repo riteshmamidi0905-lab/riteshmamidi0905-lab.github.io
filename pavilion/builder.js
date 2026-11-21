@@ -74,7 +74,7 @@ function go(next,focus=true){
  else if(next==='review')root.innerHTML=reviewView(plan);
  else if(business){
    result??=calculate(business,stress);
-   const pages={studio:studioView,overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day)+market.dayPicker(day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day)+market.replayLinks(library.active,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat)+market.replayLinks(library.active,day),district:()=>market.districtView(business,[...library.entries.values()],day,result)+market.replayLinks(library.active,day)};
+   const pages={studio:()=>studioView(business,result,library.current),overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day)+market.dayPicker(day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day)+market.replayLinks(library.active,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat)+market.replayLinks(library.active,day),district:()=>market.districtView(business,[...library.entries.values()],day,result)+market.replayLinks(library.active,day)};
    const page=pages[next]||(()=>shellHeading('Business dashboard',view.tabs[next]||'Workspace'));
    root.innerHTML=view.wrap(business,next,page(business,result),manage())+ '<dialog id="record" aria-labelledby="source-title"><button type="button" class="quiet" data-act="close-record">Close record</button><div id="source-body"></div></dialog>';
    if(next==='website')mountWebsitePreview(root.querySelector('.storefront-window'),business,day);
@@ -84,7 +84,7 @@ function go(next,focus=true){
 }
 for(const type of ['click','submit','change'])root.addEventListener(type,e=>{
  if(root.dataset.screen!=='studio'||!e.target.closest('.studio, [data-studio]'))return;
- try{if(studioEvent(e,{business,result,apply,render:()=>go('studio',false),notice}))e.stopImmediatePropagation();}
+ try{if(studioEvent(e,{business,result,apply,render:()=>{go('studio',false);root.querySelector('.studio section h2')?.setAttribute('tabindex','-1');root.querySelector('.studio section h2')?.focus({preventScroll:true});},notice}))e.stopImmediatePropagation();}
  catch(error){e.preventDefault();e.stopImmediatePropagation();notice.textContent=error.message;}
 });
 root.addEventListener('click',e=>{
@@ -161,7 +161,12 @@ root.addEventListener('submit',e=>{
    }
  }catch(error){notice.textContent=error.message;notice.scrollIntoView({block:'nearest'});}
 });
-function apply(copy){const checked=calculate(copy,stress);business=library.edit(copy);result=checked;}
+function apply(copy){
+ if((screen==='studio'||root.dataset.screen==='published')&&library.persistent){
+   const stored=browserLibrary().entries.get(library.current);
+   if(stored&&JSON.stringify(stored.business)!==JSON.stringify(business))throw Error('This workspace changed in another tab. Reload before saving.');
+ }
+ const checked=calculate(copy,stress);business=library.edit(copy);result=checked;}
 function navigate(next){
  // Reuse the loaded document URL. Native fragment navigations can re-request the favicon even offline.
  if(history.state?.builderSection!==next)history.pushState({builderSection:next},'',location.href);

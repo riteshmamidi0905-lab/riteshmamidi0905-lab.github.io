@@ -1,6 +1,6 @@
 import {esc,input,select,money} from './builder-common.js';
 import {catalog,cartQuote,placeOrder,adjustOrder,paymentBook,events,discounts} from './studio-ledger.js';
-import {art} from './studio-site.js';
+
 export const storeTabs={store:'Store & checkout',payments:'Payments ledger'};
 export const recordButton=(id,label=id)=>'<button class="source" type="button" data-studio="source" data-id="'+esc(id)+'">'+esc(label)+'</button>';
 export const rows=(head,body)=>'<div class="scroll"><table><thead><tr>'+head.map(t=>'<th scope="col">'+esc(t)+'</th>').join('')+'</tr></thead><tbody>'+body.map(row=>'<tr>'+row.map((v,i)=>i?'<td>'+v+'</td>':'<th scope="row">'+v+'</th>').join('')+'</tr>').join('')+'</tbody></table></div>';
@@ -9,11 +9,14 @@ export const metric=(title,val,id)=>'<div class="metric">'+esc(title)+'<b>'+(id?
 export function storeBody(b,ui){
  const variants=catalog(b),book=paymentBook(b),collection=ui.collection||'All';
  const cart=ui.cart||[], quote=cart.length?cartQuote(b,cart,ui.method||'pickup',ui.code||''):null;
- const cards=variants.filter(x=>collection==='All'||x.collection===collection).map((i,n)=>'<article class="tile">'+art+'<h3>'+esc(i.name)+'</h3><p>'+esc(i.variant)+' · '+money(i.price)+' · '+book.stock[i.id]+' in stock</p><button type="button" data-studio="add-item" data-id="'+esc(i.id)+'">Add '+esc(i.variant)+' to cart</button></article>').join('');
+ const day=events(b).at(-1)?.day||1,available=book.days[day-1].inventory;
+ const styles={coffee:'cup',brewery:'cup',salon:'bottle',bakery:'loaf',truck:'loaf',retail:'parcel',stadium:'parcel'};
+ const cards=variants.filter(x=>collection==='All'||x.collection===collection).map((i,n)=>'<article class="tile"><div class="product-art '+(styles[b.values.type]||'parcel')+(i.variant==='Plus'?' plus':'')+'" role="img" aria-label="Illustrative product silhouette"><i></i></div><h3>'+esc(i.name)+'</h3><p>'+esc(i.variant)+' · '+money(i.price)+' · '+available[i.id]+' in stock</p><button type="button" data-studio="add-item" data-id="'+esc(i.id)+'">Add '+esc(i.variant)+' to cart</button></article>').join('');
  return '<h2>Store and checkout</h2>'+select('studio-collection','Collection',{All:'All',Everyday:'Everyday',Select:'Select'},collection)+'<div class="tiles">'+cards+'</div><h2>Cart</h2>'+
  (quote?rows(['Variant','Units','Line total'],quote.items.map(i=>[esc(i.name+' · '+i.variant),i.units,money(i.units*i.price)]))+'<div class="studio-actions"><button type="button" data-studio="clear-cart">Empty cart</button></div>'+
  '<form data-sform="checkout">'+fieldDay(b)+select('method','Fulfillment',{pickup:'Pickup',shipping:'Shipping'},ui.method||'pickup')+select('code','Discount code',{'':'None',WELCOME10:'WELCOME10 · 10%',LOCAL5:'LOCAL5 · 5%'},ui.code||'')+
  '<p>Items '+money(quote.subtotal)+' · discount '+money(quote.rebate)+' · shipping '+money(quote.shipping)+' · tax '+money(quote.tax)+' · total <strong>'+money(quote.total)+'</strong></p><button class="primary">Place simulated order</button></form>':'<p>Your cart is empty.</p>')+
+ '<details><summary>Catalog and variant settings</summary><form data-sform="variant">'+select('variant','Variant to edit',Object.fromEntries(variants.map(v=>[v.id,v.name+' · '+v.variant])),variants[0].id)+select('collection','Collection',{Everyday:'Everyday',Select:'Select'},'Everyday')+input('price','New unit price ($)','','type="number" step=".01" min=".01" max="1000" required')+(!events(b).length?input('stock','Opening units',24,'type="number" min="0" max="999" required'):'')+'<button>Save variant</button></form></details>'+
  '<p>Illustrative objects represent variants. Shipping is passed through at cost. Tax is 8.25% of discounted merchandise.</p>';
 }
 export function paymentsBody(b,r){
@@ -28,8 +31,15 @@ export function storeEvent(kind,el,f,b,ui){
  if(kind==='studio-collection'){ui.collection=el.value;return 'view';}
  if(kind==='add-item'){
    ui.cart??=[];const id=el.dataset.id,line=ui.cart.find(x=>x.id===id),units=1+(line?.units||0);
-   if(units>paymentBook(b).stock[id])throw Error('Cart quantity exceeds available stock.');
+   if(units>paymentBook(b).days[(events(b).at(-1)?.day||1)-1].inventory[id])throw Error('Cart quantity exceeds available stock.');
    if(line)line.units=units;else ui.cart.push({id,units});return 'view';
+ }
+ if(kind==='variant'){
+   const v=catalog(b).find(i=>i.id===f.variant),price=Math.round(Number(f.price)*100);
+   if(!v||!['Everyday','Select'].includes(f.collection)||!Number.isSafeInteger(price)||price<1||price>100000)throw Error('Check the variant price and collection.');
+   const edit={price,collection:f.collection};
+   if(!events(b).length){edit.stock=Number(f.stock);if(!Number.isSafeInteger(edit.stock)||edit.stock<0||edit.stock>999)throw Error('Choose 0–999 opening units.');}
+   b.studio.catalog={...b.studio.catalog,[v.id]:{...b.studio.catalog?.[v.id],...edit}};return 'save';
  }
  if(kind==='clear-cart'){ui.cart=[];return 'view';}
  if(kind==='method'||kind==='code'){ui[kind]=el.value;return 'view';}
