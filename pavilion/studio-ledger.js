@@ -30,7 +30,7 @@ export function addEntry(b,event){
  b.studio??={};b.studio.events=[...events(b),{...event,id}];return id;
 }
 export function placeOrder(b,lines,day,method,code){
- eventDay(b,day);const q=cartQuote(b,lines,method,code),inventory=paymentBook(b).stock;
+ eventDay(b,day);const q=cartQuote(b,lines,method,code),inventory=paymentBook(b).days[day-1].inventory;
  for(const item of q.items)if(item.units>inventory[item.id])throw Error('Insufficient stock for '+item.name+' · '+item.variant+'.');
  return addEntry(b,{day,type:'order',quote:q});
 }
@@ -55,6 +55,10 @@ export function paymentBook(b){
      for(const [k,n] of Object.entries(lines)){if(!Object.hasOwn(balances,k))throw Error('Unknown journal field');balances[k]+=n;}
      records[id]={id,day,kind,postings:lines,...detail};ids.push(id);
    }
+   for(const order of events(b).filter(e=>e.type==='purchase'&&e.arrives===day)){
+     const id=order.id+'-RECEIPT';stock[order.variant]+=order.units;
+     post(id,'Supplier receipt',{stockValue:order.cents,cash:-order.cents},{variant:order.variant,units:order.units,sources:[order.id]});stockMoves.push(id);
+   }
    for(const e of events(b).filter(e=>e.day===day)){
      if(e.type==='order'){
        const q=e.quote;post(e.id,'Simulated checkout',{clearing:q.total-q.fee,sales:-q.sale,shippingRevenue:-q.shipping,tax:-q.tax,processing:q.fee,goods:q.cogs,stockValue:-q.cogs,delivery:q.shipping,cash:-q.shipping},{quote:q});
@@ -70,11 +74,14 @@ export function paymentBook(b){
        const tax=taxToDate-order.returnedTax;order.returnedTax=taxToDate;
        const fee=e.type==='dispute'?paymentTerms.disputeFee:0;
        post(e.id,e.type==='refund'?'Simulated refund':'Simulated chargeback',{returns:e.cents-tax,tax,disputes:fee,clearing:-e.cents-fee},{sources:[e.order],amount:e.cents,tax,fee});collected-=tax;
-     }else if(e.type==='receipt'){
-       stock[e.variant]+=e.units;post(e.id,'Supplier receipt',{stockValue:e.cents,cash:-e.cents},{variant:e.variant,units:e.units});
-       stockMoves.push(e.id);
+     }else if(e.type==='purchase'){
+       post(e.id,'Supplier purchase commitment',{}, {variant:e.variant,units:e.units,arrives:e.arrives,plannedCost:e.cents});
+     }else if(e.type==='lost'){
+       post(e.id,'Unfilled online order · stockout',{}, {variant:e.variant,units:e.units,available:stock[e.variant],lostContribution:e.loss,sources:['SHOP-OPEN',...stockMoves.filter(id=>records[id].variant===e.variant)]});
+     }else if(e.type==='shift'){
+       post(e.id,'Incremental online shift',{labor:e.wages,cash:-e.wages},{positions:e.positions,hours:e.hours,forecast:e.forecast,capacity:e.capacity,modeledWalkouts:Math.max(0,e.forecast-e.capacity),sources:[e.source]});
      }else if(e.type==='booking'){
-       post(e.id,'Simulated appointment deposit',{clearing:e.deposit,deposits:-e.deposit},{appointment:e.slot,price:e.price});
+       post(e.id,'Simulated appointment deposit',{clearing:e.deposit,deposits:-e.deposit},{appointment:e.slot,staff:e.staff,appointmentDay:e.when,price:e.price,reminder:'Simulated reminder one day before, or on booking day for same-day service.'});
      }else if(e.type==='service'){
        const due=e.noShow?0:e.price-e.deposit,earned=e.noShow?e.deposit:e.price;
        post(e.id,e.noShow?'No-show with retained deposit':'Completed simulated service',{clearing:due,deposits:e.deposit,bookingRevenue:-earned},{sources:[e.booking],noShow:e.noShow});
@@ -86,7 +93,7 @@ export function paymentBook(b){
    }
    const variance=Object.values(balances).reduce((n,v)=>n+v,0),id='SHOP-D'+String(day).padStart(2,'0');
    if(variance!==0)throw Error('Daily ledger failed to balance.');
-   const current=income();records[id]={id,day,kind:'Store channel close',income:current-lastIncome,cumulativeIncome:current,variance,balances:{...balances},sources:ids.length?ids:[day===1?'SHOP-OPEN':'SHOP-D'+String(day-1).padStart(2,'0')]};
+   const current=income();records[id]={id,day,kind:'Store channel close',income:current-lastIncome,cumulativeIncome:current,variance,balances:{...balances},inventory:{...stock},sources:ids.length?ids:[day===1?'SHOP-OPEN':'SHOP-D'+String(day-1).padStart(2,'0')]};
    lastIncome=current;days.push(records[id]);
  }
  return {balances,records,orders,days,stock,stockMoves,payouts,income:income(),collected,remitted,variance:days.at(-1).variance};
