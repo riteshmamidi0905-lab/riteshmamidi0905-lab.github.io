@@ -4,7 +4,7 @@ import {btn,esc,input,select,options,money,count,shellHeading,note} from './buil
 import {themes,domainIdeas} from './builder-site.js';
 import {sectors,types} from './builder-plan.js';
 import {elevation} from './builder-art.js';
-export const tabs={overview:'Overview',website:'Website',products:'Products/Menu',operations:'Operations',marketing:'Marketing & Ads',customers:'Customers',finance:'Finance',simulation:'Simulation',report:'Report'};
+export const tabs={overview:'Overview',website:'Website',products:'Products/Menu',operations:'Operations',marketing:'Marketing & Ads',customers:'Customers',finance:'Finance',simulation:'Simulation',report:'Report',studio:'Commerce studio'};
 export const evidence=(id,label=id)=>'<button class="source" type="button" data-record="'+esc(id)+'">'+esc(label)+'</button>';
 const row=(label,text)=>'<div class="line"><span>'+esc(label)+'</span><strong>'+text+'</strong></div>';
 export function stat(title,value,id){return '<div class="stat"><span>'+esc(title)+'</span><strong>'+evidence(id,value)+'</strong></div>';}

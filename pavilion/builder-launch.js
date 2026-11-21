@@ -5,6 +5,7 @@ let loading;
 function start() {
   if (!loading) {
     document.querySelector('#board-style').media = 'all';
+    document.querySelector('#studio-style').media = 'all';
     document.querySelector('#venue-style').media = 'all';
     loading = import('./builder.js').catch(() => {
       loading = null;
