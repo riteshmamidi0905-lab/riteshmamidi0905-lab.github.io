@@ -14,7 +14,28 @@ const root=document.querySelector('#builder'), notice=document.querySelector('#n
 const galleryLead=root.querySelector('.entry-lead');
 const galleryShelf=root.querySelector('#sectors');
 const library=browserLibrary();
-let plan=newPlan(),step=0,screen='gallery',business=library.active?.business||null;
+const query=new URLSearchParams(location.search);
+const requested=query.get('workspace');
+const missing=requested&&!library.entries.has(requested);
+if(requested&&!missing)library.select(requested);
+if(query.has('mode')&&['normal','fatigue','overload'].includes(query.get('mode')))stress=query.get('mode');
+let plan=newPlan(),step=0,screen='gallery',business=missing?null:library.active?.business||null;
+function inspectRecord(id){
+ if(!result)return false;
+ const record=sourceFor(result,id),dialog=root.querySelector('#record');
+ if(!record||!dialog)return false;
+ stopHandoffs();
+ dialog.querySelector('#source-body').innerHTML=view.recordHTML(record,key=>Boolean(sourceFor(result,key)));
+ if(!dialog.open)dialog.showModal();
+ dialog.querySelector('button').focus();
+ return true;
+}
+function syncVersion(){
+ if(!location.search)return;
+ const u=new URL(location.href);
+ u.searchParams.set('workspace',library.current);u.searchParams.delete('record');u.searchParams.delete('mode');
+ history.replaceState(history.state,'',u);
+}
 function manage(){
  const h=library.stack();
  return '<span class="save-state">'+(library.persistent?'Saved on this device':'Session only · storage unavailable')+'</span>'+
@@ -52,7 +73,7 @@ function go(next,focus=true){
  else if(next==='review')root.innerHTML=reviewView(plan);
  else if(business){
    result??=calculate(business,stress);
-   const pages={overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day)+market.dayPicker(day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat),district:()=>market.districtView(business,[...library.entries.values()],day)};
+   const pages={overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day)+market.dayPicker(day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day)+market.replayLinks(library.active,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat)+market.replayLinks(library.active,day),district:()=>market.districtView(business,[...library.entries.values()],day,result)+market.replayLinks(library.active,day)};
    const page=pages[next]||(()=>shellHeading('Business dashboard',view.tabs[next]||'Workspace'));
    root.innerHTML=view.wrap(business,next,page(business,result),manage())+ '<dialog id="record" aria-labelledby="source-title"><button type="button" class="quiet" data-act="close-record">Close record</button><div id="source-body"></div></dialog>';
    if(next==='website')mountWebsitePreview(root.querySelector('.storefront-window'),business,day);
@@ -62,13 +83,9 @@ function go(next,focus=true){
 }
 root.addEventListener('click',e=>{
  const record=e.target.closest('[data-record]')?.dataset.record;
- const opened=record&&result&&sourceFor(result,record);
- if(opened){
-   stopHandoffs();
-   const dialog=root.querySelector('#record');dialog.querySelector('#source-body').innerHTML=view.recordHTML(opened,id=>Boolean(sourceFor(result,id)));
-   if(!dialog.open)dialog.showModal();dialog.querySelector('button').focus();return;
- }
- const lot=e.target.closest('[data-builder-lot]')?.dataset.builderLot;
+ if(record&&inspectRecord(record))return;
+ const marker=e.target.closest('[data-builder-lot],[data-board-label]');
+ const lot=marker?.dataset.builderLot || marker?.dataset.boardLabel;
  if(lot){e.preventDefault();const target=root.querySelector('#lot-'+lot);target.focus();return;}
  const link=e.target.closest('a[href^="#"]');
  if(link){
@@ -84,7 +101,7 @@ root.addEventListener('click',e=>{
    const control=root.querySelector('[data-act="play-handoffs"]');control.textContent='Pause campaign handoffs';control.setAttribute('aria-pressed','true');
    playback=setInterval(()=>{beat++;drawHandoff(tasks);if(beat>=tasks.length-1)stopHandoffs();},2100);return;
  }
- if(op==='duplicate'){business=library.duplicate();result=null;navigate('overview');notice.textContent='Version created for comparison.';return;}
+ if(op==='duplicate'){business=library.duplicate();syncVersion();result=null;navigate('overview');notice.textContent='Version created for comparison.';return;}
  if(op==='undo'||op==='redo'){business=library.travel(op);result=null;go(screen);notice.textContent=op==='undo'?'Edit undone.':'Edit restored.';return;}
  if(op==='reset'){
    const dialog=root.querySelector('#record');dialog.querySelector('#source-body').innerHTML='<h2 id="source-title">Reset this business?</h2><p>Restore its confirmed opening assumptions and remove subsequent edits and campaigns. Other versions stay available.</p>'+btn('confirm-reset','Restore opening plan','button primary');dialog.showModal();dialog.querySelector('button').focus();return;
@@ -100,7 +117,7 @@ root.addEventListener('click',e=>{
  else if(op==='back'){if(screen==='review'){go('guide');}else if(step>0){step--;go('guide');}else go('gallery');}
 });
 root.addEventListener('change',e=>{
- if(e.target.name==='workspace'){business=library.select(e.target.value);result=null;day=1;beat=0;stress='normal';go(screen);return;}
+ if(e.target.name==='workspace'){business=library.select(e.target.value);syncVersion();result=null;day=1;beat=0;stress='normal';go(screen);return;}
  if(['display-day','beat','stress'].includes(e.target.name)){
    const key=e.target.name;if(key==='display-day'){day=Number(e.target.value);beat=0;}if(key==='beat')beat=Number(e.target.value);
    if(key==='stress'){stress=e.target.value;result=null;}
@@ -125,7 +142,7 @@ root.addEventListener('submit',e=>{
    }
    if(form.id==='review-form'){
      takeFields(form,plan,Object.keys(labels).filter(k=>k!=='mix'||plan.values.type==='stadium'));
-     checkPlan(plan.values);business=library.add(createBusiness(plan));result=null;day=1;beat=0;stress='normal';navigate('overview');
+     checkPlan(plan.values);business=library.add(createBusiness(plan));syncVersion();result=null;day=1;beat=0;stress='normal';navigate('overview');
    }
    if(['website-form','operations-form','products-form'].includes(form.id)){
      const copy=structuredClone(business),data=new FormData(form);
@@ -146,6 +163,10 @@ function navigate(next){
 }
 addEventListener('popstate',()=>go(history.state?.builderSection||location.hash.slice(1)||'gallery'));
 addEventListener('hashchange',()=>{const target=decodeURIComponent(location.hash.slice(1));if(target==='sectors')return;go(target||'gallery');});
-try{go(business?(history.state?.builderSection||location.hash.slice(1)||'overview'):'gallery',false);}
+try{
+ go(business?(history.state?.builderSection||location.hash.slice(1)||'overview'):'gallery',false);
+ if(missing)notice.textContent='This saved workspace is unavailable in this browser.';
+ else if(query.has('record')&&!inspectRecord(query.get('record')))notice.textContent='This record is unavailable in the current saved plan.';
+}
 catch{business=null;go('gallery',false);notice.textContent='The saved plan could not be opened. Start a new plan in this browser.';}
 

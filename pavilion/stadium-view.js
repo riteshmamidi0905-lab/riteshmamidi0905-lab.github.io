@@ -7,6 +7,15 @@ const $=s=>document.querySelector(s),dollars=n=>new Intl.NumberFormat('en-US',{s
 let q=new URLSearchParams(location.hash.slice(1)),mix=booths.filter(b=>!q.has('mix')||q.get('mix').split(',').includes(b.id)).map(b=>b.id);
 let day=Math.min(28,Math.max(1,Number(q.get('day'))||Number(new URLSearchParams(location.search).get('day'))||3)),slot=Math.max(0,Math.min(3,Number(q.get('phase'))||0));
 let stress=Object.hasOwn(stadiumStress,q.get('stress'))?q.get('stress'):'',model,choosing=q.has('confirm'),replay=null;
+const workspaceId=new URLSearchParams(location.search).get('workspace');
+let workspace=null,workspaceError='';
+if(workspaceId){
+ try{
+   const {savedReplay}=await import('./builder-replay.js');workspace=savedReplay(workspaceId);
+   if(!workspace.model.mix)throw Error('Choose a venue workspace.');
+   mix=workspace.model.mix;stress='';choosing=false;
+ }catch(error){workspace=null;workspaceError=error.message;}
+}
 const scans=staffingSweep(),best=Object.fromEntries(scans.map(v=>[v.id,v.best.positions]));
 const number=n=>n.toLocaleString('en-US'),params=extra=>new URLSearchParams({...Object.fromEntries(q),day,phase:slot,mix:mix.join(','),stress,...extra}).toString();
 const link=(id,label=id)=>'<a href="#'+esc(params({r:id}))+'" data-record="'+esc(id)+'">'+esc(label)+'</a>';
@@ -14,7 +23,7 @@ const row=(...cells)=>'<tr>'+cells.map(x=>'<td>'+x+'</td>').join('')+'</tr>';
 function table(caption,cols,rows){return '<div class="table-wrap"><table><caption>'+esc(caption)+'</caption><thead><tr>'+cols.map(c=>'<th scope="col">'+esc(c)+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';}
 function status(msg){$('#venue-status').textContent=msg;}
 let questionEvent=null;
-function build(){questionEvent=null;model=simulateStadium({mix,stress,staff:best});refreshQuestions();}
+function build(){questionEvent=null;model=workspace?.model??simulateStadium({mix,stress,staff:best});refreshQuestions();}
 function save(){q=new URLSearchParams(params());history.replaceState(null,'','#'+q);}
 function inspect(id,focus=true){
  const record=model?.records[id];if(!record){$('#venue-record').hidden=true;return;}
@@ -68,4 +77,9 @@ $('#assumption-table').innerHTML=table('Synthetic concession assumptions',['Vend
 $('#assumption-table').insertAdjacentHTML('beforeend',scans.map(s=>'<details><summary>'+esc(s.name)+' staffing sweep</summary>'+table('Four-week staffing sensitivity',['Positions','Served','Walkaways','Income'],s.rows.map(r=>row(r.positions,number(r.served),number(r.walkaways),dollars(r.income))))+'</details>').join(''));
 $('#venue-print').onclick=()=>window.print();
 $('#venue-mix details').open=choosing;$('#mix-question').hidden=!choosing;$('#venue-operation').hidden=choosing;
-if(!choosing&&mix.length){build();render();}else if(!mix.length){$('#mix-question').hidden=false;$('#venue-operation').hidden=true;}
+if(workspaceId){
+ $('#venue-mix').hidden=true;$('#venue-stress').disabled=true;
+ status(workspaceError||workspace.entry.label+' · saved Builder plan. Edit its operating assumptions in the Builder.');
+}
+if(workspaceError){$('#venue-operation').hidden=true;}
+else if(!choosing&&mix.length){build();render();}else if(!mix.length){$('#mix-question').hidden=false;$('#venue-operation').hidden=true;}

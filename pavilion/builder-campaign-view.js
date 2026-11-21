@@ -1,7 +1,10 @@
 import {channels,audiences,dateOf,stressModes} from './builder-market.js';
 import {btn,esc,money,count,select,input,shellHeading,note,options} from './builder-common.js';
 import {evidence,stat} from './builder-dashboard.js';
-import {mapDrawing,lots} from './builder-district-map.js';
+import {calculate} from './builder-results.js';
+import {lots} from './district-map.js';
+import {boardMap} from './builder-district-map.js';
+import {activePromotions,builderUrl} from './builder-promotions.js';
 import {floorSvg,floorOrder,point,home,overviewBox} from './iso-geometry.js';
 export function campaignForm(b){
  const optionsById=Object.fromEntries(Object.entries(channels).filter(([id])=>id!=='venue'||b.values.type==='stadium').map(([id,c])=>[id,c.name]));
@@ -16,9 +19,10 @@ export function assumptions(){
  Object.values(channels).map(c=>'<tr><th>'+c.name+'</th><td>'+c.reach+'</td><td>'+c.click/100+'%</td><td>'+c.convert/100+'%</td><td>'+c.newShare+'%</td></tr>').join('')+
  '</tbody></table></div><p>Daily reach = dollars × reach per dollar ÷ (1 + dollars / 450). Reach counts daily exposures, including repeats. A new-customer audience adds 15 percentage points to new share; a returning audience subtracts 25. Fractions round to whole people each day. The venue channel allocates spend to event days only.</p><p>Only fulfilled new requests count as incremental redemptions. Returning offer users lower margin through discounts. Each unit can redeem once, in plan order. Rebates are funded from campaign cash after the sale; original venue settlements retain their recorded sale value. Spend and rebates settle in a separate campaign cash journal. A projected cash shortfall calls for financing; the campaign journal does not automatically stop base procurement. Ad fatigue reduces the visit rate by 20% each successive week; promo overload adds 15 discount points, capped at 85%.</p></details>';
 }
-export function offers(b,day,manage=false){
+export function offers(b,day,manage=false,result=null,entryId=null){
+ const delivered=result?new Set(activePromotions(b,result,day).map(c=>c.id)):null;
  if(!b.campaigns.length)return note('No offers yet. Plan a campaign to add a dated promotion.');
- return '<ul class="offers">'+b.campaigns.map(c=>'<li><div><strong>'+esc(c.offer)+'</strong><p>'+esc(b.items.find(i=>i.id===c.item)?.name||c.item)+' · '+c.discount+'% off · days '+c.start+'–'+c.end+' · '+(day>=c.start&&day<=c.end?'Active':day<c.start?'Upcoming':'Ended')+'</p></div>'+(manage?btn('remove:'+c.id,'Remove '+c.offer,'quiet'):'')+'</li>').join('')+'</ul>';
+ return '<ul class="offers">'+b.campaigns.map(c=>'<li><div><strong>'+esc(c.offer)+'</strong><p>'+esc(b.items.find(i=>i.id===c.item)?.name||c.item)+' · '+c.discount+'% off · days '+c.start+'–'+c.end+' · '+(day<c.start?'Upcoming':day>c.end?'Ended':delivered&&!delivered.has(c.id)?'No delivery today':'Active')+'</p>'+(delivered?.has(c.id)?(entryId?'<a href="'+esc(builderUrl(entryId,'simulation',{record:'B-EFFECT-'+c.id}))+'">Inspect offer result</a>':evidence('B-EFFECT-'+c.id,'Inspect offer result')):'')+'</div>'+(manage?btn('remove:'+c.id,'Remove '+c.offer,'quiet'):'')+'</li>').join('')+'</ul>';
 }
 export function creative(b,c){
  return '<div class="creative-pair"><figure class="creative '+esc(b.site.theme)+'" style="--creative-accent:'+(/^#[0-9a-f]{6}$/i.test(b.site.accent)?b.site.accent:'#315842')+'"><figcaption>Ad card · mock-up</figcaption><p>'+esc(b.values.concept)+'</p><h3>'+esc(c.offer)+'</h3><strong>'+c.discount+'% off · '+esc(b.items.find(i=>i.id===c.item)?.name||c.item)+'</strong><small>'+esc(channels[c.channel].name)+' · '+esc(audiences[c.audience])+' · '+esc(b.values.city)+'</small></figure><figure class="social-post"><figcaption>Social post · mock-up</figcaption><p class="social-byline">'+esc(b.values.concept)+'</p><div class="social-tile"><b>'+esc(c.offer)+'</b><span>'+c.discount+'% off</span></div><p>'+esc(b.items.find(i=>i.id===c.item)?.name||c.item)+' in '+esc(b.values.city)+'. Offer applies on simulation days '+c.start+'–'+c.end+'.</p></figure></div>';
@@ -30,16 +34,20 @@ export function roi(r){
 }
 export function marketing(b,r,day){
  return shellHeading('Marketing & Ads','Plan a campaign','Set an offer, audience and budget. Compare the result against the same business without the campaign.')+campaignForm(b)+
- '<h2>Promotions board</h2>'+offers(b,day,true)+(b.campaigns.length?'<div class="actions">'+btn('run','Run four weeks','button primary')+'</div>'+creative(b,b.campaigns.at(-1)):'')+assumptions();
+ '<h2>Promotions board</h2>'+offers(b,day,true,r)+(b.campaigns.length?'<div class="actions">'+btn('run','Run four weeks','button primary')+'</div>'+creative(b,b.campaigns.at(-1)):'')+assumptions();
 }
-export function districtView(b,library,day){
- const versions=library?.length?library:[b],live=versions.map(x=>x.business||x);
- const map=mapDrawing(lots).replace(/href="[^"]*" data-lot="([^"]+)"/g,(_,id)=>'href="#district" data-builder-lot="'+esc(id)+'"');
- return shellHeading('District promotions','NASHA District','Local businesses and their offers on day '+day+'. Select a building to find its active promotions.')+
- '<div class="district-figure">'+map+'</div>'+dayPicker(day)+'<div class="district-rows">'+lots.map(l=>{
-   const at=live.filter(x=>x.values.type===l.id),offers=at.flatMap(x=>x.campaigns.filter(c=>c.start<=day&&c.end>=day).map(c=>esc(x.values.concept)+' · '+esc(c.offer)+' · '+c.discount+'% off · '+esc(x.items.find(i=>i.id===c.item)?.name||c.item)));
-   return '<article id="lot-'+l.id+'" tabindex="-1"><h3>'+esc(l.use)+'</h3>'+(offers.length?'<ul>'+offers.map(o=>'<li>'+o+'</li>').join('')+'</ul>':note('No active local offers on this day.'))+'</article>';
- }).join('')+'</div>';
+export function districtView(b,library,day,current){
+ const entries=library||[];
+ const runs=new Map(entries.map(e=>[e.id,e.business===b?current:calculate(e.business)]));
+ return shellHeading('District promotions','NASHA District','Select a building to inspect the offers for this day.')+
+ '<div class="district-figure">'+boardMap(entries,runs,day)+'</div>'+dayPicker(day)+'<div class="district-rows">'+lots.map(l=>{
+   const occupants=entries.filter(e=>e.business.values.type===l.id);
+   return '<article id="lot-'+l.id+'" tabindex="-1"><h3>'+esc(l.use)+'</h3>'+occupants.map(e=>esc(e.label)+' · '+offers(e.business,day,false,runs.get(e.id),e.id)).join('')+(occupants.length?'':note('No saved offers for this business type.'))+'</article>';
+ }).join('')+entries.map(e=>'<article id="lot-workspace-'+esc(e.id)+'" tabindex="-1"><h3>'+esc(e.label)+'</h3>'+offers(e.business,day,false,runs.get(e.id),e.id)+'<a href="'+esc(builderUrl(e.id,'marketing'))+'">Promotions board</a></article>').join('')+'</div>';
+}
+export function replayLinks(entry,day){
+ const url=(entry.business.values.type==='stadium'?'stadium.html':'hq.html')+'?'+new URLSearchParams({workspace:entry.id,day});
+ return '<nav class="actions" aria-label="Explore this workspace"><a class="text-button" href="'+esc(url)+'">Ask the floor about '+esc(entry.label)+'</a><a class="text-button" href="district.html?day='+day+'#lot-'+esc(entry.id)+'">Open the district map</a></nav>';
 }
 export const dayPicker=day=>select('display-day','Simulation day',Object.fromEntries(Array.from({length:28},(_,i)=>[i+1,'Day '+(i+1)+' · '+dateOf(i+1)])),day);
 export const stressPicker=mode=>select('stress','Campaign stress test',stressModes,mode);

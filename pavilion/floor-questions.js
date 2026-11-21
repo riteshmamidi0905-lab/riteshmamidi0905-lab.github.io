@@ -1,3 +1,4 @@
+import {campaignAnswer} from './builder-promotions.js';
 import {floorOrder} from './iso-geometry.js';
 
 const currency = new Intl.NumberFormat('en-US', {style:'currency', currency:'USD'});
@@ -90,6 +91,7 @@ export function suggestQuestions(model,currentDay=1) {
   if (event) suggestions.push('What did '+event.owner+' do on day '+event.day+'?');
   if (walkouts.some(row=>row.count>0)) suggestions.push('Which day had the most walkouts?');
   if (shortages.length) suggestions.push('Follow a stock shortage on day '+shortages[0].day);
+  if (model.promotionBook?.offers.length) suggestions.push('Compare recorded promotions');
   return suggestions;
 }
 
@@ -113,11 +115,14 @@ function cashAnswer(index,question) {
 }
 
 export function askFloor(model,text,currentDay=1){
+ const promotion=campaignAnswer(model.promotionBook,text);
+ if(promotion)return promotion;
  const p=parseQuestion(text,currentDay),{events,records}=model,index=ledgerIndex(model),{byOutput}=index;
  let message='',ids=[];
  if(p.day!=null&&!index.cash.has(p.day))return {intent:p.intent,message:'That day is outside this replay.',ids:[],flight:[]};
  if(p.intent==='cash'){
    ({message,ids}=cashAnswer(index,p));
+   if(model.promotionBook?.offers.length)message+=' This operating ledger precedes the separate campaign expense and rebate journal.';
  }else if(p.intent==='purchases'){
    const all=index.purchases.filter(row=>p.day===null||row.day===p.day).map(row=>row.record);
    const matches=all.filter(r=>r.cents>p.threshold);

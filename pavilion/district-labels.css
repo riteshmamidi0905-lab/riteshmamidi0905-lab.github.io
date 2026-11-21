@@ -1,0 +1,8 @@
+.district-labels .lot-name{font:600 16px Inter,system-ui,sans-serif;fill:#704520}
+.district-labels a rect{fill:#fff8e8;stroke:#958267;stroke-width:1;vector-effect:non-scaling-stroke}
+.district-labels a:hover rect,.district-labels a:focus-visible rect{fill:#fff;stroke:#81542d;stroke-width:2}
+.lot-leaders{pointer-events:none;stroke:#674b34;stroke-width:1.2;fill:none}
+.lot-leaders circle{fill:#674b34;stroke:#fff6df;stroke-width:1}
+.district-labels.compact-labels{display:none}
+@media(max-width:650px){.district-labels.wide-labels{display:none}.district-labels.compact-labels{display:inline}.compact-labels .lot-name{font-size:33px}.compact-labels .lot-leaders{stroke-width:2.25}.compact-labels .lot-leaders circle{stroke-width:1.8}}
+.district-figure .lot-link-underline{stroke:#704520;stroke-width:1px;vector-effect:non-scaling-stroke}

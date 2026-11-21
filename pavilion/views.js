@@ -4,6 +4,7 @@ export const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 const money=c=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(c/100);
 const pageNames={overview:'Overview',ops:'Agent Ops',timeline:'Operations timeline',agents:'Agent activity',ledger:'Ledger',inspector:'Source inspector'};
 export function url(page,model,day=1,extra={}){
+ if(model.workspace)return esc(page+'.html?'+new URLSearchParams({workspace:model.workspace,day,...extra}));
  if(typeof location!=='undefined'&&new URLSearchParams(location.search).has('district')){
    const q=new URLSearchParams({district:new URLSearchParams(location.search).get('district'),day,...extra});return esc(page+'.html?'+q);
  }
