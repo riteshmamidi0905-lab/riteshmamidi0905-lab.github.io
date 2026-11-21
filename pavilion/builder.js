@@ -83,7 +83,7 @@ function go(next,focus=true){
  if(focus){root.querySelector('h1')?.focus({preventScroll:true});root.scrollIntoView({block:'start',behavior:'instant'});}
 }
 for(const type of ['click','submit','change'])root.addEventListener(type,e=>{
- if(root.dataset.screen!=='studio'||!e.target.closest('.studio'))return;
+ if(root.dataset.screen!=='studio'||!e.target.closest('.studio, [data-studio]'))return;
  try{if(studioEvent(e,{business,result,apply,render:()=>go('studio',false),notice}))e.stopImmediatePropagation();}
  catch(error){e.preventDefault();e.stopImmediatePropagation();notice.textContent=error.message;}
 });

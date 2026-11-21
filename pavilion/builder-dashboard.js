@@ -1,3 +1,4 @@
+import {paymentBook} from './studio-ledger.js';
 import {optionalText,storyText} from './builder-copy.js';
 import {venueStatement,operatorMargin} from './stadium-statement-view.js';
 import {btn,esc,input,select,options,money,count,shellHeading,note} from './builder-common.js';
@@ -75,12 +76,17 @@ export function customers(b,r){
  (v.type==='stadium'?note('The venue records walkaways during events. Its calendar does not propagate lost visits to the next game.'):note('Half of unserved covers enter the lost-return pool over the following three days.'))+
  (r.attribution?row('Existing offer redemptions',evidence('B-ROI',count(r.attribution.existing))):'');
 }
+function channelBridge(b,r){
+ if(!b.studio?.events?.length)return '';
+ const book=paymentBook(b);
+ return '<h2>Online store and services</h2><p>Operating projection '+money(r.total.income)+' + incremental channel income '+money(book.income)+' = '+money(r.total.income+book.income)+'.</p><a href="#studio">Inspect commerce studio</a>';
+}
 export function finance(b,r){
  const s=r.total;return shellHeading('Finance','Follow the money','Open any figure to see its calculation and source closes.')+totalStats(r)+
  (r.entities?'<h2>All businesses in the venue</h2>':'')+row('Cost of goods',evidence('B-RESULT',money(s.cost)))+row('Other operating costs',evidence('B-RESULT',money(s.fixed)))+
  row('Four-week break-even revenue',evidence('B-RESULT',s.breakEven===null?'No positive contribution':money(s.breakEven)))+
  row('Cash runway at the last week’s burn',evidence('B-RESULT',s.runway===null?'No net burn observed':s.runway.toFixed(1)+' weeks'))+
- note('Break-even holds the four-week contribution margin and operating costs constant. Runway uses cash available after operating and tax obligations.')+weekly(r);
+ channelBridge(b,r)+note('Break-even holds the four-week contribution margin and operating costs constant. Runway uses cash available after operating and tax obligations.')+weekly(r);
 }
 export function simulation(b,r){
  return shellHeading('Simulation','Run four weeks','Compare daily operating records with the same opening plan.')+'<div class="actions">'+btn('run','Run four weeks','button primary')+'<a class="button" href="#hq">View headquarters</a><a class="text-button" href="#district">NASHA District offers</a></div>'+totalStats(r)+weekly(r);
@@ -88,7 +94,7 @@ export function simulation(b,r){
 export function report(b,r){
  return shellHeading('Launch-readiness report',b.values.concept,'Synthetic simulation — not financial, legal or tax advice.')+'<div class="actions">'+btn('print','Print / Save as PDF')+'</div>'+
  '<h2>Opening assumptions</h2><p>'+esc(types[b.values.type]+(optionalText(b.values.city)?' in '+optionalText(b.values.city):'')+' · '+b.values.size+' · '+b.values.hours+' · '+b.values.staff+(r.entities?' lead-vendor positions':' positions'))+'</p>'+totalStats(r)+weekly(r)+
- '<h2>Before committing money</h2><p>Check actual demand, supplier terms and staffing costs. Test the offer with real customers before using these projections to make a decision.</p>';
+ channelBridge(b,r)+'<h2>Before committing money</h2><p>Check actual demand, supplier terms and staffing costs. Test the offer with real customers before using these projections to make a decision.</p>';
 }
 export function recordHTML(record,lookup){
  const present=v=>v!=null && (typeof v==='object'||optionalText(v)!=='');

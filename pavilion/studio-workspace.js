@@ -1,6 +1,9 @@
 import {esc,input,select,money,options,disclosure} from './builder-common.js';
 import {siteDesign,publicSite,encodeSite,decodeSite,staticFile,storefront,domainSearch,sections,themes,fonts,siteCSS,defaultAccent} from './studio-site.js';
-export const tools={site:'Site editor'};
+import {storeTabs,storeBody,paymentsBody,storeEvent} from './studio-store.js';
+import {paymentBook} from './studio-ledger.js';
+import {recordHTML} from './builder-dashboard.js';
+export const tools={site:'Site editor',...storeTabs};
 const ui={area:'site',page:0,device:'desktop',query:'',preview:null};
 const button=(action,label,extra='')=>'<button type="button" data-studio="'+action+'" '+extra+'>'+esc(label)+'</button>';
 const choose=(name,label,values,chosen)=>select(name,label,values,chosen);
@@ -19,17 +22,27 @@ export function studioView(b,r){
  const tabs=Object.entries(tools).map(([key,label])=>button('area',label,'data-area="'+key+'" '+(ui.area===key?'aria-current="page"':''))).join('');
  return '<div class="studio"><style>'+siteCSS+'</style><header class="screen-head"><p class="kicker">'+esc(b.values.concept)+'</p><h1 tabindex="-1">Commerce studio</h1></header><nav class="studio-tabs" aria-label="Studio areas">'+tabs+'</nav><section aria-label="'+esc(tools[ui.area])+'">'+areaBody(b,r)+'</section></div>';
 }
-function areaBody(b,r){return siteEditor(b);}
+function areaBody(b,r){if(ui.area==='store')return storeBody(b,ui);if(ui.area==='payments')return paymentsBody(b,r);return siteEditor(b);}
 export function studioEvent(e,{business:b,apply,render,notice,result}){
  const target=e.target,control=target.closest('[data-studio]'),form=target.closest('form[data-sform]');
  const previewPage=target.closest('[data-shop-page]');
  if(e.type==='click'&&previewPage){ui.page=Number(previewPage.dataset.shopPage);render();return true;}
- const kind=e.type==='click'?control?.dataset.studio:e.type==='submit'?form?.dataset.sform:e.type==='change'&&target.name?.startsWith('studio-')?target.name:null;
+ const kind=e.type==='click'?control?.dataset.studio:e.type==='submit'?form?.dataset.sform:e.type==='change'&&(target.name?.startsWith('studio-')||['method','code'].includes(target.name))?target.name:null;
  if(!kind)return false;
  e.preventDefault();
  const copy=structuredClone(b);copy.studio??={};
  const d=structuredClone(siteDesign(b));const p=d.pages[ui.page];const i=Number(control?.dataset.i);
  const fields=form?Object.fromEntries(new FormData(form)):{};let changed=true;
+ if(kind==='source'){
+   const id=control.dataset.id,records=studioRecords(b,result),row=records[id]||result.records[id];
+   if(!row)return false;
+   const dialog=document.querySelector('#record'),body=dialog.querySelector('#source-body');
+   body.innerHTML=recordHTML(row,id=>Boolean(records[id]||result.records[id]));
+   for(const anchor of body.querySelectorAll('[data-record]')){anchor.dataset.studio='source';anchor.dataset.id=anchor.dataset.record;delete anchor.dataset.record;}
+   if(!dialog.open)dialog.showModal();dialog.querySelector('button').focus();return true;
+ }
+ const handled=storeEvent(kind,control||target,fields,copy,ui);
+ if(handled){if(handled==='save')apply(copy);render();return true;}
  if(kind==='area'){ui.area=control.dataset.area;changed=false;}
  else if(kind==='studio-page'){ui.page=Number(target.value);changed=false;}
  else if(kind==='studio-device'){ui.device=target.value;changed=false;}
@@ -58,3 +71,5 @@ export function openPreview(token){
  draw(0);
  }catch{root.innerHTML='<h1>Preview unavailable</h1><p>Open a valid simulated publication link.</p><a href="start.html">Return to Builder</a>';}
 }
+
+export function studioRecords(b,r){return paymentBook(b).records;}
