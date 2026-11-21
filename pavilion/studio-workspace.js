@@ -8,7 +8,8 @@ import {growthBody,growthEvent,growRecords} from './studio-growth.js';
 import {analytics,analyticsBody} from './studio-insights.js';
 import {operationsBody,operationsEvent,operationsRecords} from './studio-operations.js';
 import {copyBody,copyEvent} from './studio-copy.js';
-export const tools={site:'Site editor',...storeTabs,growth:'Marketing',analytics:'Analytics',ops:'Operations',copy:'Copy assistant'};
+import {launchCase,launchBody} from './studio-launch.js';
+export const tools={site:'Site editor',...storeTabs,growth:'Marketing',analytics:'Analytics',ops:'Operations',copy:'Copy assistant',launch:'Launch day'};
 const ui={area:'site',page:0,device:'desktop',query:'',preview:null};
 const button=(action,label,extra='')=>'<button type="button" data-studio="'+action+'" '+extra+'>'+esc(label)+'</button>';
 const choose=(name,label,values,chosen)=>select(name,label,values,chosen);
@@ -27,7 +28,7 @@ export function studioView(b,r){
  const tabs=Object.entries(tools).map(([key,label])=>button('area',label,'data-area="'+key+'" '+(ui.area===key?'aria-current="page"':''))).join('');
  return '<div class="studio"><style>'+siteCSS+'</style><header class="screen-head"><p class="kicker">'+esc(b.values.concept)+'</p><h1 tabindex="-1">Commerce studio</h1></header><nav class="studio-tabs" aria-label="Studio areas">'+tabs+'</nav><section aria-label="'+esc(tools[ui.area])+'">'+areaBody(b,r)+'</section></div>';
 }
-function areaBody(b,r){if(ui.area==='copy')return copyBody(b,ui);if(ui.area==='ops')return operationsBody(b,r);if(ui.area==='analytics')return analyticsBody(b,r);if(ui.area==='growth')return growthBody(b,r);if(ui.area==='store')return storeBody(b,ui);if(ui.area==='payments')return paymentsBody(b,r);return siteEditor(b);}
+function areaBody(b,r){if(ui.area==='launch')return launchBody(b,r);if(ui.area==='copy')return copyBody(b,ui);if(ui.area==='ops')return operationsBody(b,r);if(ui.area==='analytics')return analyticsBody(b,r);if(ui.area==='growth')return growthBody(b,r);if(ui.area==='store')return storeBody(b,ui);if(ui.area==='payments')return paymentsBody(b,r);return siteEditor(b);}
 export function studioEvent(e,{business:b,apply,render,notice,result}){
  const target=e.target,control=target.closest('[data-studio]'),form=target.closest('form[data-sform]');
  const previewPage=target.closest('[data-shop-page]');
@@ -77,4 +78,4 @@ export function openPreview(token){
  }catch{root.innerHTML='<h1>Preview unavailable</h1><p>Open a valid simulated publication link.</p><a href="start.html">Return to Builder</a>';}
 }
 
-export function studioRecords(b,r){const book=paymentBook(b),a=analytics(b,r);return {...book.records,...growRecords(b,r),...a.records,...operationsRecords(b,a,book).records};}
+export function studioRecords(b,r){const book=paymentBook(b),a=analytics(b,r);return {...book.records,...growRecords(b,r),...a.records,...operationsRecords(b,a,book).records,...launchCase(b,r,true,a,book).records,...launchCase(b,r,false,a,book).records};}
