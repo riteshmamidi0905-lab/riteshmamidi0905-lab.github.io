@@ -1,3 +1,4 @@
+import {studioView,studioEvent,openPreview} from './studio-workspace.js';
 import {newPlan,inferPlan,groups,labels,sectors,changeType,checkPlan} from './builder-plan.js';
 import {gallerySections,guideView,reviewView} from './builder-entry.js';
 import {takeFields,btn,esc,shellHeading,money} from './builder-common.js';
@@ -63,6 +64,7 @@ function drawHandoff(tasks){
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopHandoffs();});
 function go(next,focus=true){
  stopHandoffs();
+ if(next.startsWith('preview=')){openPreview(next.slice(8));return;}
  screen=next;root.dataset.screen=next;notice.textContent='';
  if(next==='gallery'){
    if(!root.contains(galleryLead))root.replaceChildren(galleryLead,galleryShelf);
@@ -72,7 +74,7 @@ function go(next,focus=true){
  else if(next==='review')root.innerHTML=reviewView(plan);
  else if(business){
    result??=calculate(business,stress);
-   const pages={overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day)+market.dayPicker(day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day)+market.replayLinks(library.active,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat)+market.replayLinks(library.active,day),district:()=>market.districtView(business,[...library.entries.values()],day,result)+market.replayLinks(library.active,day)};
+   const pages={studio:()=>studioView(business,result,library.current),overview:()=>view.overview(business,result)+compare(),website:()=>view.website(business,device,day)+market.dayPicker(day),products:view.products,operations:view.operations,customers:view.customers,finance:view.finance,marketing:()=>market.marketing(business,result,day)+market.replayLinks(library.active,day),simulation:()=>view.simulation(business,result)+market.stressPicker(stress)+market.roi(result),report:()=>view.report(business,result)+market.roi(result),hq:()=>market.hqView(business,result,day,beat)+market.replayLinks(library.active,day),district:()=>market.districtView(business,[...library.entries.values()],day,result)+market.replayLinks(library.active,day)};
    const page=pages[next]||(()=>shellHeading('Business dashboard',view.tabs[next]||'Workspace'));
    root.innerHTML=view.wrap(business,next,page(business,result),manage())+ '<dialog id="record" aria-labelledby="source-title"><button type="button" class="quiet" data-act="close-record">Close record</button><div id="source-body"></div></dialog>';
    if(next==='website')mountWebsitePreview(root.querySelector('.storefront-window'),business,day);
@@ -80,6 +82,16 @@ function go(next,focus=true){
  else{go('gallery',focus);return;}
  if(focus){root.querySelector('h1')?.focus({preventScroll:true});root.scrollIntoView({block:'start',behavior:'instant'});}
 }
+// Renders replace the active control. Preserve the input modality when moving focus.
+let pointerNavigation=false;
+root.addEventListener('pointerdown',()=>{pointerNavigation=true;},true);
+document.addEventListener('keydown',()=>{pointerNavigation=false;},true);
+for(const type of ['click','submit','change'])root.addEventListener(type,e=>{
+ if(root.dataset.screen!=='studio'||!e.target.closest('.studio, [data-studio]'))return;
+ try{if(studioEvent(e,{business,result,apply,render:()=>{go('studio',false);const heading=root.querySelector('.studio section h2');
+ if(heading){heading.tabIndex=-1;if(pointerNavigation)heading.dataset.pointerFocus='';heading.focus({preventScroll:true});}},notice}))e.stopImmediatePropagation();}
+ catch(error){e.preventDefault();e.stopImmediatePropagation();notice.textContent=error.message;}
+});
 root.addEventListener('click',e=>{
  const record=e.target.closest('[data-record]')?.dataset.record;
  if(record&&inspectRecord(record))return;
@@ -154,7 +166,12 @@ root.addEventListener('submit',e=>{
    }
  }catch(error){notice.textContent=error.message;notice.scrollIntoView({block:'nearest'});}
 });
-function apply(copy){const checked=calculate(copy,stress);business=library.edit(copy);result=checked;}
+function apply(copy){
+ if((screen==='studio'||root.dataset.screen==='published')&&library.persistent){
+   const stored=browserLibrary().entries.get(library.current);
+   if(stored&&JSON.stringify(stored.business)!==JSON.stringify(business))throw Error('This workspace changed in another tab. Reload before saving.');
+ }
+ const checked=calculate(copy,stress);business=library.edit(copy);result=checked;}
 function navigate(next){
  // Reuse the loaded document URL. Native fragment navigations can re-request the favicon even offline.
  if(history.state?.builderSection!==next)history.pushState({builderSection:next},'',location.href);
@@ -163,7 +180,7 @@ function navigate(next){
 addEventListener('popstate',()=>go(history.state?.builderSection||location.hash.slice(1)||'gallery'));
 addEventListener('hashchange',()=>{const target=decodeURIComponent(location.hash.slice(1));if(target==='sectors')return;go(target||'gallery');});
 try{
- go(business?(history.state?.builderSection||location.hash.slice(1)||'overview'):'gallery',false);
+ go(location.hash.startsWith('#preview=')?location.hash.slice(1):business?(history.state?.builderSection||location.hash.slice(1)||'overview'):'gallery',false);
  if(missing)notice.textContent='This saved workspace is unavailable in this browser.';
  else if(query.has('record')&&!inspectRecord(query.get('record')))notice.textContent='This record is unavailable in the current saved plan.';
 }

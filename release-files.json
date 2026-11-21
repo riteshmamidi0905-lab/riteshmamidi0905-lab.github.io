@@ -741,13 +741,13 @@
   },
   {
     "path": "pavilion/builder-copy.js",
-    "bytes": 930,
-    "sha256": "2885c9d3df57d502eace2eac0b9d24d714b71dc25d3f599cf9626021fa23c33a"
+    "bytes": 1239,
+    "sha256": "1bb33a5931d361464d425c79dd494bea79609bd11f90db7ecf7e3b3455c1fef5"
   },
   {
     "path": "pavilion/builder-dashboard.js",
-    "bytes": 11873,
-    "sha256": "6fb425ed15697e9838aadc0c738c72ff905d6ebfd13d8d7e6a38eb4f8d4bd893"
+    "bytes": 12282,
+    "sha256": "a227dab8079c01a3431da89d6079f22de9643800ddd6248018d0c800330a83bc"
   },
   {
     "path": "pavilion/builder-district-map.js",
@@ -761,8 +761,8 @@
   },
   {
     "path": "pavilion/builder-launch.js",
-    "bytes": 1186,
-    "sha256": "8783562af1f8eb4392c942a250708f793a9cfb723b5025b4d43422e152a2ace2"
+    "bytes": 1701,
+    "sha256": "08d6d8db7fd337ac3eea0745708271ee87d81bc049e61d323d579b3360225026"
   },
   {
     "path": "pavilion/builder-ledger.js",
@@ -801,8 +801,8 @@
   },
   {
     "path": "pavilion/builder-site.js",
-    "bytes": 5054,
-    "sha256": "b6f142f16c02767f4dab0b3a26a913899f27a89e5852b5fe39c5b2f4cb20a1af"
+    "bytes": 5832,
+    "sha256": "ff00bce381154d060846b85491ed463392671a389d4ddcb77101cf96da07be2f"
   },
   {
     "path": "pavilion/builder.css",
@@ -811,8 +811,8 @@
   },
   {
     "path": "pavilion/builder.js",
-    "bytes": 13459,
-    "sha256": "2343b3f3d940386f43bcddee051da05a2b96e209e8ac48cea047bd7f36c94178"
+    "bytes": 14843,
+    "sha256": "de981612375c57348f9142bdbe562128ea5df37a74d93a63e420639ddfeb38a4"
   },
   {
     "path": "pavilion/business-settings.js",
@@ -1086,13 +1086,73 @@
   },
   {
     "path": "pavilion/start.html",
-    "bytes": 3699,
-    "sha256": "59d63b0506555c785d4496b4a9142cfc54c110c61d486684e466db207271c35d"
+    "bytes": 3772,
+    "sha256": "c8ecd9d95f6f11898c2c6e68f435ace0340d3ae968482795698767ee1c978bcf"
   },
   {
     "path": "pavilion/station-context.js",
     "bytes": 2503,
     "sha256": "fd8bf946611a9e62ec2e9cb5630d830b4ab67036b8d6661fd61f05dd8ed22d59"
+  },
+  {
+    "path": "pavilion/studio-art.js",
+    "bytes": 4818,
+    "sha256": "26c07aa9d9a9e62588fe69f23b8acefdaf37853caa107e5df90d696c21109e6f"
+  },
+  {
+    "path": "pavilion/studio-copy.js",
+    "bytes": 3134,
+    "sha256": "9bc5a7b3793cbab58c0fdb3c8a54a08915ac817024fdf6423a6066abf1dc24f8"
+  },
+  {
+    "path": "pavilion/studio-growth.js",
+    "bytes": 7018,
+    "sha256": "1ad58667f064670f74f8a9595f5ef204aba657292fc5ea89bf1600c961312ac6"
+  },
+  {
+    "path": "pavilion/studio-insights.js",
+    "bytes": 4049,
+    "sha256": "1b149093af865d1aedddfbcf276acb9ac294fcc79778237d7f98688552d9d9ba"
+  },
+  {
+    "path": "pavilion/studio-launch.js",
+    "bytes": 4701,
+    "sha256": "7262bd82561bb9a516ad2c1369cd4cd12dcfc28925e98eea78e9e259c3607047"
+  },
+  {
+    "path": "pavilion/studio-ledger.js",
+    "bytes": 11804,
+    "sha256": "425427d5b822a382d0a17260c939f6de120c6e6a2756ca92a03b144f1088fdbe"
+  },
+  {
+    "path": "pavilion/studio-operations.js",
+    "bytes": 7241,
+    "sha256": "ef4be5f77096e86501752e7dd9881d21a093dcffbedd67136bcdd04e6facb7b1"
+  },
+  {
+    "path": "pavilion/studio-sessions.js",
+    "bytes": 2007,
+    "sha256": "15ce6cfd1e70a0c04da7a5800a69cde502f9266e8fb26e997fc1543d432b594b"
+  },
+  {
+    "path": "pavilion/studio-site.js",
+    "bytes": 11624,
+    "sha256": "1b989ba8b6fc0abfe1bf5c666159be4700527ebc3597885e135725aa9b3c2007"
+  },
+  {
+    "path": "pavilion/studio-store.js",
+    "bytes": 7857,
+    "sha256": "a8fa094ad50ad67bfe5961aa4227a6ace0f385801456e8e24f44a8783744a74d"
+  },
+  {
+    "path": "pavilion/studio-workspace.js",
+    "bytes": 13611,
+    "sha256": "4c33341a18e25ec0d9189b36ab3506f27579ebe6c48fe835adff4e173881ec61"
+  },
+  {
+    "path": "pavilion/studio.css",
+    "bytes": 3636,
+    "sha256": "5951f42771af54a7696628c02ac76e86bebb4c1a39410fe42b0ae550c2196dd2"
   },
   {
     "path": "pavilion/studios.js",

@@ -4,7 +4,7 @@
   "version": "3.0.0",
   "scripts": {
     "build": "python3 scripts/validate-release.py",
-    "test": "python3 scripts/validate-release.py && python3 scripts/test-concept-art.py && python3 scripts/test-canonical-portraits.py && node --test scripts/test-cycle5.mjs scripts/test-cycle6.mjs scripts/test-cycle7.mjs scripts/test-cycle8.mjs scripts/test-simulator.mjs scripts/test-business-builder.mjs scripts/test-builder-district.mjs scripts/test-free-camera.mjs scripts/test-floor-questions.mjs scripts/test-time-branch.mjs scripts/test-district.mjs scripts/test-stadium.mjs scripts/test-venue-entities.mjs scripts/test-brewing.mjs && python3 scripts/test-disclosure.py && python3 scripts/test-scan-coverage.py && python3 scripts/test-pages-artifact.py && python3 scripts/test-workflows.py && python3 scripts/test-release-evidence.py && python3 scripts/test-rollback-guard.py && node --test scripts/test-model.cjs scripts/test-demo-engine.cjs",
+    "test": "python3 scripts/validate-release.py && python3 scripts/test-concept-art.py && python3 scripts/test-canonical-portraits.py && node --test scripts/test-cycle5.mjs scripts/test-cycle6.mjs scripts/test-cycle7.mjs scripts/test-cycle8.mjs scripts/test-simulator.mjs scripts/test-business-builder.mjs scripts/test-builder-district.mjs scripts/test-free-camera.mjs scripts/test-floor-questions.mjs scripts/test-time-branch.mjs scripts/test-district.mjs scripts/test-stadium.mjs scripts/test-venue-entities.mjs scripts/test-commerce-studio.mjs scripts/test-brewing.mjs && python3 scripts/test-disclosure.py && python3 scripts/test-scan-coverage.py && python3 scripts/test-pages-artifact.py && python3 scripts/test-workflows.py && python3 scripts/test-release-evidence.py && python3 scripts/test-rollback-guard.py && node --test scripts/test-model.cjs scripts/test-demo-engine.cjs",
     "test:browser": "node scripts/test-browser.cjs",
     "test:a11y": "node scripts/test-browser.cjs",
     "test:demo": "node scripts/test-demo-browser.cjs",
@@ -13,7 +13,7 @@
     "test:fonts": "node scripts/test-demo-fallback-fonts.cjs",
     "build:pages": "python3 scripts/build-pages-artifact.py --out dist && python3 scripts/verify-pages-artifact.py dist",
     "verify:pages": "python3 scripts/verify-pages-artifact.py dist",
-    "test:universe": "node scripts/test-universe-integration.cjs && node scripts/test-simulator-browser.cjs && node scripts/test-cycle13-browser.cjs && node scripts/test-district-browser.cjs && node scripts/test-operating-links.cjs && node scripts/test-builder-browser.cjs && node scripts/test-builder-district.cjs && node scripts/test-builder-visible.cjs"
+    "test:universe": "node scripts/test-universe-integration.cjs && node scripts/test-simulator-browser.cjs && node scripts/test-cycle13-browser.cjs && node scripts/test-district-browser.cjs && node scripts/test-operating-links.cjs && node scripts/test-builder-browser.cjs && node scripts/test-builder-district.cjs && node scripts/test-builder-visible.cjs && node scripts/test-commerce-browser.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

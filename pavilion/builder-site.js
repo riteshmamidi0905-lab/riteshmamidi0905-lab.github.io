@@ -1,4 +1,6 @@
-import {optionalText,storyText,dayRange} from './builder-copy.js';
+import {itemArt,artCategory} from './studio-art.js';
+import {compose} from './studio-copy.js';
+import {optionalText,storyText,storefrontStory,dayRange} from './builder-copy.js';
 import {esc,money} from './builder-common.js';
 export const themes={garden:'Courtyard',broadsheet:'Editorial',night:'Evening'};
 export const accents={garden:'#315842',broadsheet:'#885136',night:'#c7ad74'};
@@ -23,6 +25,7 @@ function storefrontStyle(site){
     .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:.7rem}
     .menu article{padding:1rem 0;border-top:1px solid currentColor}
     .promo{border-left:4px solid ${accent};padding-left:1rem}
+    .item-print{display:block;width:100%;max-height:150px;background:#e8dfca;color:#314c3b;--art-paper:#e8dfca;--art-fill:#b89d72}.site-content a{color:inherit;text-underline-offset:.2em}
     .site-footer{font-size:.8rem;border-top:1px solid currentColor}
     @container (max-width:480px){.hero{grid-template-columns:1fr}.facade{height:78px}.site-name,.site-content,.site-footer{padding:1rem}}
   `;
@@ -38,16 +41,16 @@ function storefrontContent(b,day,tags){
     const vendor=c.vendor?b.items.find(i=>i.id===c.vendor)?.name||c.vendor:'';
     return '<p>'+esc(c.offer)+(vendor?' · '+esc(vendor):'')+' · '+esc(c.discount)+'% off · '+dayRange(c.start,c.end)+'</p>';
   }).join('');
-  const menu=b.items.map(i=>'<article><strong>'+esc(i.name)+'</strong><br>'+money(i.price)+'</article>').join('');
+  const menu=b.items.map(i=>'<article>'+itemArt(artCategory(v.type,i))+'<strong>'+esc(i.name)+'</strong><br>'+money(i.price)+'</article>').join('');
   return `<${tags.name} class="site-name">${esc(v.concept)}</${tags.name}>
     <${tags.content} class="site-content">
-    <section class="hero"><div><small>${city?esc(city)+' · ':''}${esc(v.type==='stadium'?'Independent venue':v.type)}</small><${tags.title} class="site-title">${esc(s.title)}</${tags.title}></div><div class="facade" aria-hidden="true"></div></section>
+    <section class="hero"><div><small>${city?esc(city)+' · ':''}${esc(v.type==='stadium'?'Independent venue':v.type)}</small><${tags.title} class="site-title">${esc(s.title)}</${tags.title}><p>${esc(compose(b,'site','editorial',b.items[0].id).line)}</p><details><summary>${s.sections.includes('offers')?'Explore offerings':'Plan your visit'}</summary><p>${s.sections.includes('offers')?b.items.map(i=>esc(i.name)+' · '+money(i.price)).join(' / '):[city,v.hours].filter(Boolean).map(esc).join(' · ')}</p></details></div><div>${itemArt(artCategory(v.type,b.items.at(-1)))}</div></section>
     ${active.length?'<section class="promo">'+heading('Current offers')+offers+'</section>':''}
-    ${s.sections.includes('offers')?'<section>'+heading('Our offerings')+'<div class="menu">'+menu+'</div></section>':''}
+    ${s.sections.includes('offers')?'<section id="store-visit">'+heading('Our offerings')+'<div class="menu">'+menu+'</div></section>':''}
     ${s.sections.includes('hours')?'<section>'+heading('Visit')+'<p>'+[optionalText(v.hours),city].filter(Boolean).map(esc).join(' · ')+'</p></section>':''}
-    ${s.sections.includes('story')&&storyText(b)?'<section>'+heading('Our story')+'<p>'+esc(storyText(b))+'</p></section>':''}
+    ${s.sections.includes('story')&&storyText(b)?'<section>'+heading('Our story')+'<p>'+esc(storefrontStory(storyText(b),v.concept,b.items))+'</p></section>':''}
     </${tags.content}>
-    <${tags.footer} class="site-footer">Simulation — synthetic data · nothing is published, charged or sent.</${tags.footer}>`;
+    <${tags.footer} class="site-footer" ${s.sections.includes('offers')?'':'id="store-visit"'}>Simulation — synthetic data · nothing is published, charged or sent.</${tags.footer}>`;
 }
 
 export function websiteHTML(b,day=1){
@@ -58,6 +61,7 @@ export function mountWebsitePreview(host,b,day){
   // The preview only renders our template. Visitor input is text, and the accent is a validated color.
   const shadow=host.shadowRoot||host.attachShadow({mode:'open'});
   shadow.innerHTML='<style>'+storefrontStyle(b.site)+'</style><div class="storefront">'+storefrontContent(b,day,previewTags)+'</div>';
+
 }
 
 export function downloadWebsite(b,day){
