@@ -2,15 +2,21 @@ import {input,select,esc} from './builder-common.js';
 import {optionalText} from './builder-copy.js';
 import {recordButton} from './studio-store.js';
 export const tones={warm:'Warm',direct:'Direct',editorial:'Editorial'};
+const siteLines={
+ salon:'Personal care, from the first consultation to the finishing touch.',
+ coffee:'From the roaster to your daily cup.',bakery:'From the oven to your table.',
+ brewery:'Food and beer, made for the same table.',truck:'Fresh from the window, ready for the street.',
+ retail:'Everyday objects, thoughtfully chosen.',stadium:'Meet the vendors that make game day.'
+};
 export function compose(b,surface,tone,itemId){
  const item=b.items.find(x=>x.id===itemId);if(!item||!['site','product','campaign'].includes(surface)||!Object.hasOwn(tones,tone))throw Error('Choose a listed copy rule and item.');
  const city=optionalText(b.values.city),name=b.values.concept;
  const lines={
- site:{warm:'Welcome to '+name+(city?' in '+city:'')+'.',direct:'Explore '+name+'.',editorial:name+' · '+item.name+' and more.'},
+ site:{warm:'Welcome to '+name+(city?' in '+city:'')+'.',direct:'Explore '+name+'.',editorial:siteLines[b.values.type]||('Discover '+item.name+'.')},
  product:{warm:'Discover '+item.name+' at '+name+'.',direct:item.name+' from '+name+'.',editorial:item.name+' — a selection from '+name+'.'},
  campaign:{warm:'A closer look at '+item.name+'.',direct:'Explore '+item.name+'.',editorial:'In focus — '+item.name+'.'}};
  return {id:'COPY-'+surface+'-'+tone+'-'+item.id,kind:'Template-generated copy',line:lines[surface][tone],surface,tone,item:item.id,
- fields:{business:name,offering:item.name,...(surface==='site'&&tone==='warm'&&city?{location:city}:{})},
+ fields:{business:name,offering:item.name,...(surface==='site'&&tone==='editorial'?{businessType:b.values.type}:{}),...(surface==='site'&&tone==='warm'&&city?{location:city}:{})},
  rule:surface+' / '+tone+' substitutes the listed business fields into a fixed sentence. No model or external service runs.'};
 }
 export function copyBody(b,ui){

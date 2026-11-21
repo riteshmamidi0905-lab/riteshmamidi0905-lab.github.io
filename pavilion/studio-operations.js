@@ -20,7 +20,7 @@ export function operationsRecords(b,a,book){
  return {records,appointments,occupied,available,attended,shifts,day};
 }
 export function operationsBody(b,r){
- const a=analytics(b,r),book=paymentBook(b),o=operationsRecords(b,a,book),v=catalog(b),names=Object.fromEntries(v.map(x=>[x.id,x.name+' · '+x.variant]));
+ const book=paymentBook(b,r),a=analytics(b,r,book),o=operationsRecords(b,a,book),v=catalog(b),names=Object.fromEntries(v.map(x=>[x.id,x.name+' · '+x.variant]));
  const open=o.appointments.filter(e=>!e.settled),service=b.values.type==='salon'||b.studio?.bookingEnabled;
  const field=(k,label,n,min,max)=>input(k,label,n,'type="number" min="'+min+'" max="'+max+'" required');
  return '<h2>Service and supply</h2><div class="metrics">'+metric('Booked slots',o.occupied+' / '+o.available,'SERVICE-CAPACITY')+metric('Channel labor',money(book.balances.labor),'SHOP-D28')+metric('Deposit liability',money(-book.balances.deposits),'SHOP-D28')+'</div>'+

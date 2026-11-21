@@ -82,9 +82,14 @@ function go(next,focus=true){
  else{go('gallery',focus);return;}
  if(focus){root.querySelector('h1')?.focus({preventScroll:true});root.scrollIntoView({block:'start',behavior:'instant'});}
 }
+// Renders replace the active control. Preserve the input modality when moving focus.
+let pointerNavigation=false;
+root.addEventListener('pointerdown',()=>{pointerNavigation=true;},true);
+document.addEventListener('keydown',()=>{pointerNavigation=false;},true);
 for(const type of ['click','submit','change'])root.addEventListener(type,e=>{
  if(root.dataset.screen!=='studio'||!e.target.closest('.studio, [data-studio]'))return;
- try{if(studioEvent(e,{business,result,apply,render:()=>{go('studio',false);root.querySelector('.studio section h2')?.setAttribute('tabindex','-1');root.querySelector('.studio section h2')?.focus({preventScroll:true});},notice}))e.stopImmediatePropagation();}
+ try{if(studioEvent(e,{business,result,apply,render:()=>{go('studio',false);const heading=root.querySelector('.studio section h2');
+ if(heading){heading.tabIndex=-1;if(pointerNavigation)heading.dataset.pointerFocus='';heading.focus({preventScroll:true});}},notice}))e.stopImmediatePropagation();}
  catch(error){e.preventDefault();e.stopImmediatePropagation();notice.textContent=error.message;}
 });
 root.addEventListener('click',e=>{

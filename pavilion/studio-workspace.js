@@ -1,6 +1,6 @@
 import {domainIdeas} from './builder-site.js';
 import {esc,input,select,money,options} from './builder-common.js';
-import {siteDesign,publicSite,encodeSite,decodeSite,staticFile,storefront,domainSearch,sections,themes,fonts,siteCSS,defaultAccent} from './studio-site.js';
+import {siteDesign,publicSite,encodeSite,decodeSite,staticFile,storefront,domainSearch,sections,themes,fonts,storefrontCSS as siteCSS,focusOffering,defaultAccent} from './studio-site.js';
 import {storeTabs,storeBody,paymentsBody,storeEvent} from './studio-store.js';
 import {paymentBook,catalog,cartQuote,placeOrder,events} from './studio-ledger.js';
 import {sourceFor} from './builder-results.js';
@@ -35,6 +35,8 @@ export function studioView(b,r,key){
 function areaBody(b,r){if(ui.area==='launch')return launchBody(b,r);if(ui.area==='copy')return copyBody(b,ui);if(ui.area==='ops')return operationsBody(b,r);if(ui.area==='analytics')return analyticsBody(b,r);if(ui.area==='growth')return growthBody(b,r);if(ui.area==='store')return storeBody(b,ui);if(ui.area==='payments')return paymentsBody(b,r);return siteEditor(b);}
 export function studioEvent(e,{business:b,apply,render,notice,result}){
  const target=e.target,control=target.closest('[data-studio]'),form=target.closest('form[data-sform]');
+ const cta=target.closest('[data-shop-cta]');
+ if(e.type==='click'&&cta){const page=Number(cta.dataset.shopCta);if(page>=0)ui.page=page;render();focusOffering(document.querySelector('.studio-frame'),page);return true;}
  const previewPage=target.closest('[data-shop-page]');
  if(e.type==='click'&&previewPage){ui.page=Number(previewPage.dataset.shopPage);render();return true;}
  if(e.type==='change'&&target.name==='position'&&form?.dataset.sform==='section-copy'){
@@ -94,12 +96,13 @@ export function openPreview(token,owner){
    const draw=()=>{
      const variants=catalog(b),q=cart.length?cartQuote(b,cart,method,code):null;
      root.innerHTML='<div class="studio"><style>'+siteCSS+'</style><header class="screen-head"><p class="kicker">Simulated publication</p><h1 tabindex="-1">'+esc(site.name)+'</h1></header>'+
-      '<label>Shareable preview URL <input readonly value="'+esc(location.href)+'"></label>'+storefront(site,page)+
+      storefront(site,page)+'<details><summary>Share this simulated storefront</summary><label>Shareable preview URL <input readonly value="'+esc(location.href)+'"></label></details>'+
       '<section><h2>Customer checkout</h2><p>'+ (owner?'Orders post to this local business.':'This shared preview uses an isolated session cart and its own synthetic stock.')+'</p>'+
       '<form id="preview-cart">'+select('variant','Variant',Object.fromEntries(variants.map(v=>[v.id,v.name+' · '+v.variant+' · '+money(v.price)])),variants[0].id)+'<button>Add to cart</button></form>'+
       (q?'<form id="preview-order">'+select('method','Fulfillment',{pickup:'Pickup',shipping:'Shipping'},method)+select('code','Discount code',{'':'None',WELCOME10:'WELCOME10',LOCAL5:'LOCAL5'},code)+
       '<p>'+q.items.reduce((n,i)=>n+i.units,0)+' units · discounts '+money(q.rebate)+' · shipping '+money(q.shipping)+' · tax '+money(q.tax)+' · total '+money(q.total)+'</p><button class="primary">Place simulated order</button></form>':'')+
       '<p role="status">'+esc(message)+'</p><button id="return-studio">'+(owner?'Open payments ledger':'Return to Builder')+'</button></section></div>';
+     for(const cta of root.querySelectorAll('[data-shop-cta]'))cta.onclick=e=>{e.stopPropagation();const n=Number(cta.dataset.shopCta);if(n>=0)page=n;draw();focusOffering(root,n);};
      root.querySelector('#return-studio').onclick=()=>{if(owner)owner.back();else{history.pushState({builderSection:'studio'},'',location.pathname+'#studio');dispatchEvent(new PopStateEvent('popstate'));}};
      root.querySelectorAll('[data-shop-page]').forEach(el=>el.onclick=e=>{e.stopPropagation();page=Number(el.dataset.shopPage);draw();});
      root.querySelector('#preview-cart').onsubmit=e=>{
@@ -119,4 +122,4 @@ export function openPreview(token,owner){
    };draw();
  }catch{root.innerHTML='<h1>Preview unavailable</h1><p>Open a valid simulated publication link.</p><a href="start.html">Return to Builder</a>';}
 }
-export function studioRecords(b,r){const book=paymentBook(b),a=analytics(b,r);return {...book.records,...growRecords(b,r),...a.records,...operationsRecords(b,a,book).records,...launchCase(b,r,true,a,book).records,...launchCase(b,r,false,a,book).records};}
+export function studioRecords(b,r){const book=paymentBook(b,r),a=analytics(b,r,book);return {...book.records,...growRecords(b,r),...a.records,...operationsRecords(b,a,book).records,...launchCase(b,r,true,a,book).records,...launchCase(b,r,false,a,book).records,...launchCase(b,r,'recovered',a,book).records};}

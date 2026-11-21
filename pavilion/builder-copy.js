@@ -17,3 +17,9 @@ export function storyText(b) {
 export function dayRange(start,end) {
   return start===end?'Day '+start:'Day '+start+'–'+end;
 }
+
+export function storefrontStory(story,name,items){
+  const first=(story||('Welcome to '+name+'.')).trim();
+  if((first.match(/[.!?]+(?:\s|$)/g)||[]).length>=2)return first;
+  return first+(/[.!?]$/.test(first)?'':'.')+' Our offerings include '+items.slice(0,3).map(i=>i.name.toLowerCase()).join(', ')+'.';
+}

@@ -77,8 +77,7 @@ export function customers(b,r){
  (r.attribution?row('Existing offer redemptions',evidence('B-ROI',count(r.attribution.existing))):'');
 }
 function channelBridge(b,r){
- if(!b.studio?.events?.length)return '';
- const book=paymentBook(b);
+ const book=paymentBook(b,r);
  return '<h2>Online store and services</h2><p>Operating projection '+money(r.total.income)+' + incremental channel income '+money(book.income)+' = '+money(r.total.income+book.income)+'.</p><a href="#studio">Inspect commerce studio</a>';
 }
 export function finance(b,r){

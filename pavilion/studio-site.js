@@ -1,8 +1,10 @@
+import {artCategory,itemArt} from './studio-art.js';
+import {compose} from './studio-copy.js';
 import {catalog} from './studio-ledger.js';
 // The share fragment contains storefront content only. Orders and operating assumptions stay local.
 import {esc,disclosure,money} from './builder-common.js';
 import {domainIdeas} from './builder-site.js';
-import {optionalText,storyText} from './builder-copy.js';
+import {optionalText,storyText,storefrontStory} from './builder-copy.js';
 
 export const sections={hero:'Hero',gallery:'Gallery',products:'Products and menu',booking:'Booking',about:'About',faq:'FAQ',contact:'Contact',map:'Map placeholder'};
 export const fonts={editorial:'Georgia,serif',modern:'system-ui,sans-serif',technical:'ui-monospace,monospace'};
@@ -11,17 +13,18 @@ const accents={garden:'#315842',night:'#cfb47b',broadsheet:'#8a5238'};
 const clean=(v,max)=>typeof v==='string'&&v.length<=max&&!/[<>\u0000-\u001f]/u.test(v);
 export function siteDesign(b){
  return b.studio?.design??{theme:b.site.theme,font:'editorial',accent:b.site.accent,pages:[
-   {name:'Home',sections:['hero','gallery','about']},{name:'Visit',sections:['products',b.values.type==='salon'?'booking':'contact','map']} ]};
+   {name:'Home',sections:['hero','products','about','contact']},{name:'Visit',sections:['products',b.values.type==='salon'?'booking':'contact','map']} ]};
 }
 export function publicSite(b){
  const d=siteDesign(b);
- return {version:1,name:b.values.concept,headline:b.site.title,city:optionalText(b.values.city),hours:b.values.hours,story:storyText(b),
+ const tagline=b.site.title===b.values.concept?compose(b,'site','editorial',b.items[0].id).line:b.site.title;
+ return {version:1,tagline,name:b.values.concept,headline:b.site.title,city:optionalText(b.values.city),hours:b.values.hours,story:storyText(b),
    ...d,meta:b.studio?.seo??{title:b.site.title,description:storyText(b),image:'Gallery'},
    catalog:catalog(b).map(({id,item,name,variant,collection,price})=>({id,item,name,variant,collection,price})),
-   items:b.items.map(i=>({id:i.id,name:i.name,price:i.price,description:b.studio?.descriptions?.[i.id]||''}))};
+   items:b.items.map(i=>({id:i.id,name:i.name,art:artCategory(b.values.type,i),price:catalog(b).find(v=>v.item===i.id).price,description:b.studio?.descriptions?.[i.id]||''}))};
 }
 function validate(s){
- if(!s||s.version!==1||!clean(s.name,72)||!clean(s.headline,96)||!clean(s.city,56)||!clean(s.hours,220)||!clean(s.story,240)||
+ if(!s||s.version!==1||!clean(s.tagline??'',96)||!clean(s.name,72)||!clean(s.headline,96)||!clean(s.city,56)||!clean(s.hours,220)||!clean(s.story,240)||
  !Object.hasOwn(themes,s.theme)||!Object.hasOwn(fonts,s.font)||!/^#[0-9a-f]{6}$/i.test(s.accent)||
  !Array.isArray(s.pages)||s.pages.length<1||s.pages.length>8||s.pages.some(p=>!p||!clean(p.name,48)||!p.name.trim()||!Array.isArray(p.sections)||p.sections.length>12||p.sections.some(k=>!Object.hasOwn(sections,k))||p.notes&&(!Array.isArray(p.notes)||p.notes.length!==p.sections.length||p.notes.some(n=>n!==null&&(!n||!clean(n.title,72)||!clean(n.body,200)))))||
  !Array.isArray(s.items)||s.items.length<1||s.items.length>24||s.items.some(i=>!i||!clean(i.id,48)||!clean(i.name,72)||!clean(i.description??'',240)||!Number.isSafeInteger(i.price)||i.price<1||i.price>100000)||
@@ -50,20 +53,45 @@ export const siteCSS=`
 .shop .display-art i{display:block;background:currentColor;width:17%;height:74%;border-radius:44% 44% 10% 10%;border-bottom:8px solid #977450}
 .shop .display-art i:nth-child(2){height:49%;border-radius:20% 20% 45% 45%}.shop .display-art i:nth-child(3){height:89%;width:12%}.shop article{padding:.5rem 1rem;border-left:3px solid var(--tone)}
 .shop .map-tile{padding:1rem;border:1px dashed currentColor}.shop a:focus-visible,.shop button:focus-visible{outline:3px solid currentColor;outline-offset:2px}`;
-export const art='<div class="display-art" role="img" aria-label="Original illustrated still life of three display objects"><i></i><i></i><i></i></div>';
-export function pageBody(site,index){
- const parts={hero:'<h2>'+esc(site.headline)+'</h2>',gallery:art,products:'<h3>Our offerings</h3><div class="goods">'+site.items.map(i=>'<article>'+esc(i.name)+'<br>'+money(i.price)+(i.description?'<p>'+esc(i.description)+'</p>':'')+'</article>').join('')+'</div>',
- booking:'<h3>Appointments</h3><p>Explore a simulated appointment during '+esc(site.hours)+'.</p>',about:'<h3>Our story</h3><p>'+esc(site.story||site.name)+'</p>',
+const shopStyles=`
+.shop{container-type:inline-size;--art-paper:#eee4cb;--art-fill:#b8a078}.shop .shop-hero{background:var(--ink);color:var(--paper);display:grid;grid-template-columns:1.35fr 1fr;align-items:center;gap:1.3rem;padding:clamp(1.2rem,5cqw,3.5rem)}
+.shop .shop-hero h2{font:500 clamp(2.1rem,7cqw,5.7rem)/.99 var(--face);letter-spacing:-.035em;color:inherit;margin:0}
+.shop .shop-hero p{color:inherit;font-size:clamp(1rem,2cqw,1.35rem);margin:.9rem 0 1.3rem}
+.shop .shop-cta{display:inline-block;border:1px solid currentColor;color:inherit;background:transparent;padding:.55rem 1rem;font-weight:650;text-decoration:underline;text-underline-offset:.2em}
+.shop .hero-print{background:#e8dec6;color:#334c3c;aspect-ratio:4/3;display:grid;place-items:center;border-radius:44% 44% 0 0}
+.shop .hero-print svg{width:89%}.shop .goods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.55rem,2cqw,1.5rem)}
+.shop .goods article{min-width:0;border:0;padding:0}.shop .item-picture,.studio .item-picture{--art-paper:#eee4cb;--art-fill:#bda680;background:var(--art-paper);color:#365040;display:grid;place-items:center}
+.shop .item-print,.studio .item-print{display:block;width:100%;max-height:170px}.shop .goods h4{margin:.55rem 0 .15rem;font:500 clamp(1rem,2.5cqw,1.65rem)/1.18 var(--face);color:var(--ink)}
+.shop .price{color:var(--ink);font-variant-numeric:tabular-nums}.shop .goods p{margin:.4rem 0}.shop footer{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.6rem}.shop footer small{font:inherit;font-size:.82em}
+@container(max-width:490px){.shop .shop-hero{grid-template-columns:1.3fr .7fr;gap:.65rem}.shop .shop-hero p{font-size:.95rem}.shop .goods{grid-template-columns:repeat(2,minmax(0,1fr))}.shop .shop-cta{padding:.5rem .65rem}}
+`;
+export const storefrontCSS=siteCSS+shopStyles;
+export function pageBody(site,index,exported=false){
+ const page=site.pages[index],items=site.items,category=i=>i.art||artCategory('',i);
+ const target=site.pages.findIndex(p=>p.sections.includes('products'));
+ const href=target>=0?'offerings-'+(target+1):'shop-footer';
+ const label=target>=0?'Explore offerings':'Visit '+site.name;
+ const cta=exported?'<a class="shop-cta" href="#'+href+'">'+esc(label)+'</a>':'<button type="button" class="shop-cta" data-shop-cta="'+target+'">'+esc(label)+'</button>';
+ const hero='<div class="shop-hero"><div><h2>'+esc(site.name)+'</h2><p>'+esc(site.tagline||site.headline)+'</p>'+cta+'</div><div class="hero-print">'+itemArt(category(items.at(-1)))+'</div></div>';
+ const about=storefrontStory(site.story,site.name,items);
+ const parts={hero,gallery:'<div class="goods">'+items.map(i=>'<div class="item-picture">'+itemArt(category(i))+'</div>').join('')+'</div>',
+ products:'<h3>Our offerings</h3><div class="goods">'+items.map(i=>'<article><div class="item-picture">'+itemArt(category(i))+'</div><h4>'+esc(i.name)+'</h4><span class="price">'+money(i.price)+'</span>'+(i.description?'<p>'+esc(i.description)+'</p>':'')+'</article>').join('')+'</div>',
+ booking:'<h3>Appointments</h3><p>Explore a simulated appointment during '+esc(site.hours)+'.</p>',about:'<h3>Our story</h3><p>'+esc(about)+'</p>',
  faq:'<h3>Frequently asked questions</h3><details><summary>When can I visit?</summary><p>'+esc(site.hours)+'</p></details>',
- contact:'<h3>Visit us</h3><p>'+esc([site.city,site.hours].filter(Boolean).join(' · '))+'</p>',
+ contact:'<h3>Plan your visit</h3>'+(site.city?'<p>'+esc(site.city)+'</p>':'')+'<p>Hours · '+esc(site.hours)+'</p>',
  map:'<h3>Find us</h3><div class="map-tile">Illustrative map placeholder'+(site.city?' · '+esc(site.city):'')+'</div>'};
- return site.pages[index].sections.map((k,i)=>{const note=site.pages[index].notes?.[i];return '<section>'+(note?.title?'<h3>'+esc(note.title)+'</h3>':'')+parts[k]+(note?.body?'<p>'+esc(note.body)+'</p>':'')+'</section>';}).join('');
+ return page.sections.map((k,i)=>{const note=page.notes?.[i],anchor=k==='products'&&page.sections.indexOf(k)===i?' id="offerings-'+(index+1)+'" tabindex="-1"':'';
+ return '<section'+anchor+'>'+(note?.title?'<h3>'+esc(note.title)+'</h3>':'')+parts[k]+(note?.body?'<p>'+esc(note.body)+'</p>':'')+'</section>';}).join('');
 }
 export function storefront(site,page=0,exported=false){
  validate(site);
  const nav=site.pages.map((p,i)=>exported?'<a href="#page-'+(i+1)+'">'+esc(p.name)+'</a>':'<button type="button" data-shop-page="'+i+'"'+(i===page?' aria-current="page"':'')+'>'+esc(p.name)+'</button>').join('');
  return '<div class="shop '+site.theme+'" style="--tone:'+site.accent+';--face:'+fonts[site.font]+'"><header><strong>'+esc(site.name)+'</strong><nav aria-label="Storefront pages">'+nav+'</nav></header>'+
- (exported?site.pages.map((p,i)=>'<section class="export-page" id="page-'+(i+1)+'"><h2>'+esc(p.name)+'</h2>'+pageBody(site,i)+'</section>').join(''):pageBody(site,page))+'<footer>'+esc(disclosure)+'</footer></div>';
+ (exported?site.pages.map((p,i)=>'<section class="export-page" id="page-'+(i+1)+'">'+pageBody(site,i,true)+'</section>').join(''):pageBody(site,page))+'<footer id="shop-footer" tabindex="-1"><strong>'+esc(site.name)+'</strong><small>'+esc(disclosure)+'</small></footer></div>';
+}
+export function focusOffering(root,page){
+ const target=root.querySelector(page<0?'#shop-footer':'#offerings-'+(page+1));
+ if(target){target.focus({preventScroll:true});target.scrollIntoView({block:'start'});}
 }
 export function shareCard(s){
  const colors={Gallery:['#decfae','#365341'],Storefront:['#c1cdbc','#8e613e'],Products:['#efd5ac','#68472f']};
@@ -73,6 +101,6 @@ export function shareCard(s){
  return 'data:image/svg+xml,'+encodeURIComponent(svg);
 }
 export function staticFile(s){
- return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(s.meta.title)+'</title><meta name="description" content="'+esc(s.meta.description)+'"><meta property="og:image" content="'+esc(shareCard(s))+'"><style>body{margin:0}.export-page{display:none}.export-page:target,.shop:not(:has(.export-page:target)) .export-page:first-of-type{display:block}@media print{.shop .export-page{display:block;break-before:page}}'+siteCSS+'</style></head><body><main>'+storefront(s,0,true)+'</main></body></html>';
+ return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(s.meta.title)+'</title><meta name="description" content="'+esc(s.meta.description)+'"><meta property="og:image" content="'+esc(shareCard(s))+'"><style>body{margin:0}.export-page{display:none}.export-page:target,.export-page:has(:target),.shop:not(:has(.export-page:target,.export-page :target)) .export-page:first-of-type{display:block}@media print{.shop .export-page{display:block;break-before:page}}'+storefrontCSS+'</style></head><body><main>'+storefront(s,0,true)+'</main></body></html>';
 }
 export function defaultAccent(theme){return accents[theme];}
