@@ -77,7 +77,7 @@ async function run(browser,type,width){
     await inspect(page,'District');if(type==='stadium'){
       assert.match(await card.innerText(),/Venue operator/);
       await card.click();await page.locator('#venue-report [data-entity-statement]').waitFor({state:'attached'});
-      await page.locator('#print-report summary').first().click();await inspect(page,'venue readiness report');
+      await page.locator('#print-report > summary').click();await inspect(page,'venue readiness report');
     }
     assert.deepEqual(errors,[]);
   }finally{await context.close();}

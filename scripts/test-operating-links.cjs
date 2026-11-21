@@ -112,7 +112,7 @@ async function runViewport(browser, width) {
     await inspectLinks(page, width, 'Venue settlement');
     await inspectFocus(page, width, '#venue-close a', 'Daily settlement');
     await page.locator('#hide-record').click();
-    await page.locator('#print-report summary').click();
+    await page.locator('#print-report > summary').click();
     await page.locator('#venue-report .print-section').last().waitFor();
     assert.equal(await page.locator('#venue-report .print-section').count(), 7);
     await inspectLinks(page, width, 'Six vendor reports and operator report', '#venue-report a[href]');
