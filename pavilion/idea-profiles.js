@@ -77,10 +77,25 @@ export function operatingProfile(idea, selected=[], positions=idea.staff){
   const byDay=Array.from({length:28},(_,i)=>(selected.includes('slow')?.75:1)*(selected.includes('war')?.91:1)*(selected.includes('viral')&&i>=7&&i<14?1.6:1));
   const supplied=idea.products.split(',').map(x=>x.trim());
   const names=[...new Set([...supplied,...p.products])].slice(0,3);
-  return {unit:p.unit,positions:Math.max(0,positions-(selected.includes('shortage')?1:0)),hours,
+  const result={unit:p.unit,positions:Math.max(0,positions-(selected.includes('shortage')?1:0)),hours,
     names:[names[1],names[2],names[0]],prices:p.prices.map(x=>Math.round(x*tiers[idea.tier])),costs:p.costs,
     mix:p.mix,weekday:p.visits.map((x,i)=>serviceDays[i].minutes?Math.max(1,Math.round(x*(locationScale*Math.sqrt(serviceDays[i].minutes/(60*usualHours))))):0),
     byDay,capacity:Math.max(1,Math.round(p.capacity*hours/usualHours)),...(plan.complex?{serviceDays}:{}),
     dailyRent:Math.round(p.rent*Math.max(.25,footprint)*(selected.includes('rent')?1.2:1)),wage:p.wage,
     materials:p.materials,utilities:(p.baseUtility?Math.round(p.baseUtility*(.7+.3*Math.sqrt(footprint))):Math.round(2100+900*Math.sqrt(footprint))),leadDays:selected.includes('delay')?3:0};
+  const b=idea.builderOps;
+  if(b){
+    if(!Array.isArray(b.items)||b.items.length!==3||!Number.isInteger(b.lead)||b.lead<0||b.lead>7||!Number.isInteger(b.stock)||b.stock<25||b.stock>200)throw Error('Invalid operating settings.');
+    for(const [i,item] of b.items.entries()){
+      if(item.id!=='SKU-'+(i+1)||typeof item.name!=='string'||!item.name.trim()||item.name.length>48||
+         ![item.price,item.cost].every(n=>Number.isInteger(n)&&n>0&&n<=100000))throw Error('Invalid product record.');
+      result.names[i]=item.name;result.prices[i]=item.price;
+    }
+    result.costs=b.items.map(item=>item.cost);result.leadDays+=b.lead;result.openingStockPercent=b.stock;
+    if(b.arrivals){
+      if(!Array.isArray(b.arrivals)||b.arrivals.length!==28||!b.arrivals.every(n=>Number.isSafeInteger(n)&&n>=0&&n<=100000))throw Error('Invalid campaign arrivals.');
+      result.campaignArrivals=b.arrivals;
+    }
+  }
+  return result;
 }

@@ -1,3 +1,4 @@
+import {builderUrl} from './builder-promotions.js';
 import {askFloor,suggestQuestions} from './floor-questions.js';
 import {esc,url} from './views.js';
 
@@ -26,6 +27,7 @@ export function mountQuestions(source,currentDay,visit,sourceLink=inspectorLink)
   const model=getModel();stop();input.value=text;result=askFloor(model,text,currentDay());answer.textContent=result.message;
   refs.hidden=!result.ids.length;refs.querySelector('summary').textContent='Source records ('+result.ids.length+')';
   refs.querySelector('div').innerHTML=result.ids.map(id=>{
+   if(result.intent==='campaign'&&model.workspace)return '<a href="'+esc(builderUrl(model.workspace,'simulation',{record:id}))+'">'+esc(id)+'</a>';
    const day=Number(/^D(\d+)-/.exec(id)?.[1]??currentDay());return sourceLink(model,id,day);
   }).join(' ');
   flight.hidden=!result.flight.length;if(!flight.hidden)step(0);

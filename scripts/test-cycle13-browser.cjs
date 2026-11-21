@@ -104,7 +104,7 @@ async function exercise(browser,width){
    await snap('stadium-game','#venue-event');await activate('#venue-close a');assert.ok(await p.locator('#venue-record').isVisible());
    await snap('stadium-settlement','#venue-record');await activate('#hide-record');
    await p.locator('#venue-stress').selectOption('rain');assert.match(await p.locator('#venue-event').textContent(),/0 attending/);
-   await activate('#print-report summary');assert.equal(await p.locator('#venue-report .print-section').count(),7);await tree('Stadium settlement and per-vendor report');
+   await activate('#print-report > summary');assert.equal(await p.locator('#venue-report .print-section').count(),7);await tree('Stadium settlement and per-vendor report');
    await go('pavilion/simulator.html');await p.locator('#pitch').fill('A local stadium');await p.locator('#pitch').press('Tab');await activate('#idea-form button');
    await p.waitForURL('**/stadium.html#**');assert.ok(await p.locator('#mix-question').isVisible());await activate('#venue-mix button');assert.ok(await p.locator('#venue-operation').isVisible());
    await go('pavilion/district.html');await activate('[data-lot=brewery]');await p.waitForURL('**/brewing/index.html');

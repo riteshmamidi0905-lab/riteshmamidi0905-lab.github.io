@@ -117,7 +117,9 @@ export function mapDrawing(buildings=lots){
  const details=[];for(let u=1;u<17;u+=1.45)for(const v of [.0,5.08,10.2,15.28])if(Math.abs(u-8.9)>.8)details.push({z:u+v,svg:tree(u,v,.63+(u%1)*.18)});
  for(const l of buildings){const [x,y]=p(l.u+l.w*.55,l.v+l.d+.38);
    const dest=lotDestination(l);
-   const building=l.id==='stadium'?stadium(l):l.id==='truck'?vehicle(l):facade(l);
-   details.push({z:l.u+l.v+l.w*.4+l.d*.4,svg:'<a href="'+esc(dest)+'" data-lot="'+esc(l.id)+'" tabindex="-1" aria-hidden="true" aria-label="Enter '+esc(l.name)+'"><title>'+esc(l.name)+'</title>'+building+'<g class="lot-light" transform="translate('+x+' '+y+')"><circle r="5"/></g></a>'});}
+   const type=l.type??l.id;
+   const building=type==='stadium'?stadium(l):type==='truck'?vehicle(l):facade(l);
+   const badge=l.workspace?'<g class="promotion-marker" visibility="'+(l.badge?'visible':'hidden')+'" transform="translate('+x+' '+(y-15)+')"><rect x="-22" y="-12" width="44" height="22" rx="4" fill="#704520"/><text text-anchor="middle" y="4" fill="white" font-size="14">'+esc(l.badge||'')+'</text></g>':'';
+   details.push({z:l.u+l.v+l.w*.4+l.d*.4,svg:'<a href="'+esc(dest)+'" data-lot="'+esc(l.id)+'" tabindex="-1" aria-hidden="true" aria-label="Enter '+esc(l.name)+'"><title>'+esc(l.name)+'</title>'+building+'<g class="lot-light" transform="translate('+x+' '+y+')"><circle r="5"/></g>'+badge+'</a>'});}
  return '<svg class="district-map" viewBox="'+left+' -43 '+(935-left)+' '+(bottom+43)+'" role="group" aria-label="Interactive isometric district. A text list follows."><g>'+ground+details.sort((a,b)=>a.z-b.z).map(v=>v.svg).join('')+'</g>'+labelLayers(buildings,left,935,-43,bottom,false)+labelLayers(buildings,left,935,-43,bottom,true)+'</svg>';
 }

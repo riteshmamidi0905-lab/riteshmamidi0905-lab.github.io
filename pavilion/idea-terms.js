@@ -12,7 +12,7 @@ export function ideaTerms(input, record) {
     ...(p.serviceDays?{scheduledMinutesByDay:p.serviceDays.map(d=>d.minutes)}:{scheduledMinutes:Math.round(60*p.hours)}),
     basis:'Position coverage per open day; relief coverage is aggregated.'}));
   return record('TERMS','Synthetic operating terms',{
-    unit:p.unit,staffIds,handlingCentsPerMinute:4,salesTaxBasisPoints:idea.type==='salon'?0:800,
+    unit:p.unit,staffIds,...(p.campaignArrivals?{campaignArrivals:p.campaignArrivals}:{}),handlingCentsPerMinute:4,salesTaxBasisPoints:idea.type==='salon'?0:800,
     dailyRentCents:p.dailyRent,dailyUtilityBaseCents:p.utilities,utilitiesPerCompletedUnitCents:12,
     fullWeekCovers:p.weekday,weeklyRampPercent:[70,80,90,100],unitsPerHundredCovers:p.mix,
     coversPerPosition:p.capacity,demandFactors:p.byDay,priceElasticity:.45,
@@ -24,7 +24,7 @@ export function ideaTerms(input, record) {
     settlement:'Weekly tax and operating payables are settled from available cash after reserving stock commitments.'});
 }
 export function openingStock(profile,budget){
-  const initial=profile.mix.map(q=>Math.ceil(q*profile.weekday[0]/100));
+  const initial=profile.mix.map(q=>Math.ceil(q*profile.weekday[0]/100*(profile.openingStockPercent??100)/100));
   const total=initial.reduce((sum,n,i)=>sum+n*profile.costs[i],0);
   return initial.map(n=>Math.floor(n*Math.min(1,budget*.25/Math.max(total,1))));
 }

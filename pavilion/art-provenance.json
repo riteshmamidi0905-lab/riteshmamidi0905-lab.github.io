@@ -113,6 +113,28 @@
       "originalSha256": "1adebdfa0d5e196f6c3c52c40a33eff0ae9094534c0daad2024e8174380074af",
       "licenseNote": "Artlist does not claim ownership of your generated Output, and, subject to your compliance with this License and the Terms of Use, we assign to you all our right, title, and interest, if any, in and to Output, and do not restrict your commercial use of such Output.",
       "licenseUrl": "https://artlist.io/help-center/privacy-terms/artlist-license/"
+    },
+    {
+      "file": "assets/img/pavilion/builder-terrace-mobile.webp",
+      "kind": "ai-generated-concept-art",
+      "label": "AI-generated concept art",
+      "generation": "01a1f102-7742-786b-a9d8-7cf4bdd156d4",
+      "model": "Nano Banana Pro",
+      "prompt": "Editorial architecture photography of an original Indo-Mexican brewery courtyard terrace in Austin Texas in the blue hour, working copper brewing tanks behind clear glass on one side, shaded limestone arcade and long cedar dining tables, a few diners in scale, warm natural light, unbranded food and glassware, landscape composition, no lettering, no logos, no dramatic neon.",
+      "date": "2026-11-18",
+      "credits": 0,
+      "sha256": "29bfd4d82b03fc983db4b693c6980aa68829884977684fd8a293287981ddf529",
+      "bytes": 41578,
+      "dimensions": [
+        680,
+        462
+      ],
+      "originalSha256": "1adebdfa0d5e196f6c3c52c40a33eff0ae9094534c0daad2024e8174380074af",
+      "licenseNote": "Artlist does not claim ownership of your generated Output, and, subject to your compliance with this License and the Terms of Use, we assign to you all our right, title, and interest, if any, in and to Output, and do not restrict your commercial use of such Output.",
+      "licenseUrl": "https://artlist.io/help-center/privacy-terms/artlist-license/",
+      "parentFile": "assets/img/pavilion/brewery-small.webp",
+      "parentSha256": "08e7d6bece79809e387091a7ba8d52bb121ec3902777bf206b2cb0e387c07650",
+      "derivation": "Mobile web rendition of the cleared terrace. Center crop (0, 232, 780, 762), resampled to 680 by 462 px, WebP quality 65. No new generation or credits."
     }
   ]
 }
