@@ -801,8 +801,8 @@
   },
   {
     "path": "pavilion/builder-site.js",
-    "bytes": 5960,
-    "sha256": "60df7a9571a54d51a7e32b3b6a54d2523f225743ad011c7f263f3e178bf62f69"
+    "bytes": 5832,
+    "sha256": "ff00bce381154d060846b85491ed463392671a389d4ddcb77101cf96da07be2f"
   },
   {
     "path": "pavilion/builder.css",

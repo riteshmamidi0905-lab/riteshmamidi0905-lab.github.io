@@ -44,7 +44,7 @@ function storefrontContent(b,day,tags){
   const menu=b.items.map(i=>'<article>'+itemArt(artCategory(v.type,i))+'<strong>'+esc(i.name)+'</strong><br>'+money(i.price)+'</article>').join('');
   return `<${tags.name} class="site-name">${esc(v.concept)}</${tags.name}>
     <${tags.content} class="site-content">
-    <section class="hero"><div><small>${city?esc(city)+' · ':''}${esc(v.type==='stadium'?'Independent venue':v.type)}</small><${tags.title} class="site-title">${esc(v.concept)}</${tags.title}><p>${esc(s.title===v.concept?compose(b,'site','editorial',b.items[0].id).line:s.title)}</p><a href="#store-visit">${s.sections.includes('offers')?'Explore offerings':'Visit '+esc(v.concept)}</a></div><div>${itemArt(artCategory(v.type,b.items.at(-1)))}</div></section>
+    <section class="hero"><div><small>${city?esc(city)+' · ':''}${esc(v.type==='stadium'?'Independent venue':v.type)}</small><${tags.title} class="site-title">${esc(s.title)}</${tags.title}><p>${esc(compose(b,'site','editorial',b.items[0].id).line)}</p><details><summary>${s.sections.includes('offers')?'Explore offerings':'Plan your visit'}</summary><p>${s.sections.includes('offers')?b.items.map(i=>esc(i.name)+' · '+money(i.price)).join(' / '):[city,v.hours].filter(Boolean).map(esc).join(' · ')}</p></details></div><div>${itemArt(artCategory(v.type,b.items.at(-1)))}</div></section>
     ${active.length?'<section class="promo">'+heading('Current offers')+offers+'</section>':''}
     ${s.sections.includes('offers')?'<section id="store-visit">'+heading('Our offerings')+'<div class="menu">'+menu+'</div></section>':''}
     ${s.sections.includes('hours')?'<section>'+heading('Visit')+'<p>'+[optionalText(v.hours),city].filter(Boolean).map(esc).join(' · ')+'</p></section>':''}
@@ -61,11 +61,7 @@ export function mountWebsitePreview(host,b,day){
   // The preview only renders our template. Visitor input is text, and the accent is a validated color.
   const shadow=host.shadowRoot||host.attachShadow({mode:'open'});
   shadow.innerHTML='<style>'+storefrontStyle(b.site)+'</style><div class="storefront">'+storefrontContent(b,day,previewTags)+'</div>';
-  shadow.querySelector('a[href="#store-visit"]').onclick=event=>{
-    event.preventDefault();event.stopPropagation();
-    const target=shadow.getElementById('store-visit');target.tabIndex=-1;target.focus();
-    target.scrollIntoView({block:'nearest'});
-  };
+
 }
 
 export function downloadWebsite(b,day){
