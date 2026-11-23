@@ -57,7 +57,7 @@ for name,page in pages.items():
   if u.fragment and not u.fragment.startswith('/') and target in pages:assert unquote(u.fragment) in pages[target].ids,(name,ref)
 assert pages['projects.html'].projects==28
 assert (root/'index.html').read_text().count('class="entry-paths"') == 1
-assert (root/'projects.html').read_text().count('class="proof-card"') == 4
+assert (root/'projects.html').read_text().count('class="proof-card"') == 5
 assert len(pages['skills.html'].ids & {'skill-'+str(i) for i in range(1,11)}) == 10
 for page in pages:
  text=(root/page).read_text()
