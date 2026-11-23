@@ -364,8 +364,8 @@
   },
   {
    "path": "index.html",
-   "bytes": 4757,
-   "sha256": "1de4868bcaa1f803ce156a5722bf71e3b35486860ad939679227a4c894f75901"
+   "bytes": 4996,
+   "sha256": "55c897e1e36606895c01a87c382753b72c8030a1a333bf088314d8f8ff896ba3"
   },
   {
    "path": "lab-explorer.html",
@@ -1204,8 +1204,8 @@
   },
   {
    "path": "projects.html",
-   "bytes": 48319,
-   "sha256": "61c0935c9c7f1ec4f9ebf1daafa344a5bb26a2e2a8d86a8de4bd17b21ca604d9"
+   "bytes": 49272,
+   "sha256": "b0c6f19a366ce4f8513c14362ccd98a8b60b3e3d60e55aad2ae62be0ca1c0937"
   },
   {
    "path": "recovered/nasha-b666563/content/nasha-integration-evidence.json",

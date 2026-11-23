@@ -221,8 +221,8 @@ def main():
             errs.append("%s: needs exactly one h1 and a title" % c)
     if "projects.html" in pages and pages["projects.html"].projects != 28:
         errs.append("projects.html: expected 28 projects, found %d" % pages["projects.html"].projects)
-    if "projects.html" in pages and pages["projects.html"].flags != 4:
-        errs.append("projects.html: expected four featured exhibits, found %d" % pages["projects.html"].flags)
+    if "projects.html" in pages and pages["projects.html"].flags != 5:
+        errs.append("projects.html: expected five featured exhibits, found %d" % pages["projects.html"].flags)
     must = {"index.html": ["AI-generated concept art", "Simulate your idea", "For recruiters"], "archive-explorer.html": ["not an operating business", "has not met its acceptance criteria (failed)"],
             "data-lab.html": ["PASS WITH SKIPS", "none of this is production-deployed", "SYNTHETIC", "has not met its acceptance criteria (failed)"], "demo/archive.html": ["SYNTHETIC"],
             "archive-records.html": ["not an operating business"]}
